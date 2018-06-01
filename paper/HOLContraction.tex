@@ -1,0 +1,651 @@
+\newcommand{\HOLContractionDate}{01 Giugno 2018}
+\newcommand{\HOLContractionTime}{19:29}
+\begin{SaveVerbatim}{HOLContractionDefinitionsCXXcontracts}
+\HOLTokenTurnstile{} \HOLConst{C_contracts} \HOLSymConst{=} \HOLConst{CC} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionDefinitionsCXXcontracts}{\UseVerbatim{HOLContractionDefinitionsCXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionDefinitionsCONTRACTION}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                     \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionDefinitionsCONTRACTION}{\UseVerbatim{HOLContractionDefinitionsCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionDefinitionscontractsXXdef}
+\HOLTokenTurnstile{} (\HOLConst{contracts}) \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
+        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{contracts\sp{\prime}}.
+            \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
+                \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                          \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                          \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                              \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                         \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                         \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                     \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionDefinitionscontractsXXdef}{\UseVerbatim{HOLContractionDefinitionscontractsXXdef}}
+\begin{SaveVerbatim}{HOLContractionDefinitionsOBSXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionDefinitionsOBSXXcontracts}{\UseVerbatim{HOLContractionDefinitionsOBSXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionDefinitionsSUMXXcontracts}
+\HOLTokenTurnstile{} \HOLConst{SUM_contracts} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionDefinitionsSUMXXcontracts}{\UseVerbatim{HOLContractionDefinitionsSUMXXcontracts}}
+\newcommand{\HOLContractionDefinitions}{
+\HOLDfnTag{Contraction}{C_contracts}\HOLContractionDefinitionsCXXcontracts
+\HOLDfnTag{Contraction}{CONTRACTION}\HOLContractionDefinitionsCONTRACTION
+\HOLDfnTag{Contraction}{contracts_def}\HOLContractionDefinitionscontractsXXdef
+\HOLDfnTag{Contraction}{OBS_contracts}\HOLContractionDefinitionsOBSXXcontracts
+\HOLDfnTag{Contraction}{SUM_contracts}\HOLContractionDefinitionsSUMXXcontracts
+}
+\begin{SaveVerbatim}{HOLContractionTheoremsCXXcontractsXXIMPXXSUMXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{C_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SUM_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCXXcontractsXXIMPXXSUMXXcontracts}{\UseVerbatim{HOLContractionTheoremsCXXcontractsXXIMPXXSUMXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCXXcontractsXXprecongruence}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{C_contracts}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCXXcontractsXXprecongruence}{\UseVerbatim{HOLContractionTheoremsCXXcontractsXXprecongruence}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCXXcontractsXXthm}
+\HOLTokenTurnstile{} \HOLConst{C_contracts} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{c} \HOLBoundVar{g} \HOLConst{contracts} \HOLBoundVar{c} \HOLBoundVar{h})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCXXcontractsXXthm}{\UseVerbatim{HOLContractionTheoremsCXXcontractsXXthm}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITE}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITE}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITEYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{SUM_contracts} \HOLBoundVar{p} \HOLBoundVar{q})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITEYY}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITEYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXLEMMA}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{k}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{q\sp{\prime}} \HOLBoundVar{k}) \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXLEMMA}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXLEMMA}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXLR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXLR}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXLR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{SUM_contracts} \HOLBoundVar{p} \HOLBoundVar{q})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXTHMYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHMYY}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXTHMYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOMPXXCONTRACTION}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con\sb{\mathrm{1}}} \HOLBoundVar{Con\sb{\mathrm{2}}}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{CONTRACTION} (\HOLBoundVar{Con\sb{\mathrm{2}}} \HOLConst{O} \HOLBoundVar{Con\sb{\mathrm{1}}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOMPXXCONTRACTION}{\UseVerbatim{HOLContractionTheoremsCOMPXXCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCONTRACTIONXXEPS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCONTRACTIONXXEPS}{\UseVerbatim{HOLContractionTheoremsCONTRACTIONXXEPS}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCONTRACTIONXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCONTRACTIONXXEPSYY}{\UseVerbatim{HOLContractionTheoremsCONTRACTIONXXEPSYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCONTRACTIONXXSUBSETXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{Con} \HOLConst{RSUBSET} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCONTRACTIONXXSUBSETXXcontracts}{\UseVerbatim{HOLContractionTheoremsCONTRACTIONXXSUBSETXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCONTRACTIONXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCONTRACTIONXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLContractionTheoremsCONTRACTIONXXWEAKXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEOne}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEOne}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACETwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACETwo}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACETwo}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXlabel}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXlabel}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXtau}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXtau}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
+       \HOLBoundVar{a\sb{\mathrm{0}}} \HOLConst{contracts} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+            \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXcases}{\UseVerbatim{HOLContractionTheoremscontractsXXcases}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXcoind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{contracts\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
+            \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                 (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                      \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                      \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                     \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{contracts\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLConst{contracts} \HOLBoundVar{a\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXcoind}{\UseVerbatim{HOLContractionTheoremscontractsXXcoind}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXEPS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXEPS}{\UseVerbatim{HOLContractionTheoremscontractsXXEPS}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXEPSYY}{\UseVerbatim{HOLContractionTheoremscontractsXXEPSYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXIMPXXWEAKXXEQUIV}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXIMPXXWEAKXXEQUIV}{\UseVerbatim{HOLContractionTheoremscontractsXXIMPXXWEAKXXEQUIV}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXisXXCONTRACTION}
+\HOLTokenTurnstile{} \HOLConst{CONTRACTION} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXisXXCONTRACTION}{\UseVerbatim{HOLContractionTheoremscontractsXXisXXCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXprecongruence}
+\HOLTokenTurnstile{} \HOLConst{precongruence1} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXprecongruence}{\UseVerbatim{HOLContractionTheoremscontractsXXprecongruence}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXPreOrder}
+\HOLTokenTurnstile{} \HOLConst{PreOrder} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXPreOrder}{\UseVerbatim{HOLContractionTheoremscontractsXXPreOrder}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXPRESDXXBYXXGUARDEDXXSUM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+       \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{E\sb{\mathrm{2}}} \HOLConst{contracts} \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXPRESDXXBYXXGUARDEDXXSUM}{\UseVerbatim{HOLContractionTheoremscontractsXXPRESDXXBYXXGUARDEDXXSUM}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXPRESDXXBYXXPAR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}}.
+       \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXPRESDXXBYXXPAR}{\UseVerbatim{HOLContractionTheoremscontractsXXPRESDXXBYXXPAR}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXPROPSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}. \HOLConst{OBS_contracts} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXPROPSix}{\UseVerbatim{HOLContractionTheoremscontractsXXPROPSix}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXREFL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{x} \HOLConst{contracts} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXREFL}{\UseVerbatim{HOLContractionTheoremscontractsXXREFL}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXreflexive}
+\HOLTokenTurnstile{} \HOLConst{reflexive} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXreflexive}{\UseVerbatim{HOLContractionTheoremscontractsXXreflexive}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXrules}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+            \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXrules}{\UseVerbatim{HOLContractionTheoremscontractsXXrules}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXGCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{GCONTEXT} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{E} \HOLBoundVar{Q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXGCONTEXT}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXGCONTEXT}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXPARXXL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXPARXXL}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXPARXXL}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXPARXXR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXPARXXR}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXPARXXR}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXPREFIX}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}. \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXPREFIX}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXPREFIX}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXRELAB}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLConst{contracts} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXRELAB}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXRELAB}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXSUBSTXXRESTR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLConst{contracts} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXSUBSTXXRESTR}{\UseVerbatim{HOLContractionTheoremscontractsXXSUBSTXXRESTR}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXthm}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXthm}{\UseVerbatim{HOLContractionTheoremscontractsXXthm}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. \HOLBoundVar{x} \HOLConst{contracts} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{y} \HOLConst{contracts} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{x} \HOLConst{contracts} \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXTRANS}{\UseVerbatim{HOLContractionTheoremscontractsXXTRANS}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXTRANSXXlabel}{\UseVerbatim{HOLContractionTheoremscontractsXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+           \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXTRANSXXlabelYY}{\UseVerbatim{HOLContractionTheoremscontractsXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXTRANSXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXTRANSXXtau}{\UseVerbatim{HOLContractionTheoremscontractsXXTRANSXXtau}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXTRANSXXtauYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXTRANSXXtauYY}{\UseVerbatim{HOLContractionTheoremscontractsXXTRANSXXtauYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXtransitive}
+\HOLTokenTurnstile{} \HOLConst{transitive} (\HOLConst{contracts})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXtransitive}{\UseVerbatim{HOLContractionTheoremscontractsXXtransitive}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabel}{\UseVerbatim{HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+           \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXWEAKXXTRANSXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXWEAKXXTRANSXXtau}{\UseVerbatim{HOLContractionTheoremscontractsXXWEAKXXTRANSXXtau}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXWEAKXXTRANSXXtauYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXWEAKXXTRANSXXtauYY}{\UseVerbatim{HOLContractionTheoremscontractsXXWEAKXXTRANSXXtauYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsexpandsXXIMPXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{expands} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsexpandsXXIMPXXcontracts}{\UseVerbatim{HOLContractionTheoremsexpandsXXIMPXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsEXPANSIONXXIMPXXCONTRACTION}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{EXPANSION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsEXPANSIONXXIMPXXCONTRACTION}{\UseVerbatim{HOLContractionTheoremsEXPANSIONXXIMPXXCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionTheoremsIDENTITYXXCONTRACTION}
+\HOLTokenTurnstile{} \HOLConst{CONTRACTION} (\HOLSymConst{=})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsIDENTITYXXCONTRACTION}{\UseVerbatim{HOLContractionTheoremsIDENTITYXXCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXlabel}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXlabel}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{TRACE} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXtau}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXtau}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXBYXXCONTRACTION}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}.
+       \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+           \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXBYXXCONTRACTION}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXBYXXCONTRACTION}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXEPSYY}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXEPSYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXCXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{C_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXCXXcontracts}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXCXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXcontracts}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXOBSXXCONGR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_CONGR} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXOBSXXCONGR}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXOBSXXCONGR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXSUMXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SUM_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXSUMXXcontracts}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXSUMXXcontracts}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIV}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIV}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIV}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIVYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIVYY}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIVYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXprecongruence}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXprecongruence}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXprecongruence}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXPreOrder}
+\HOLTokenTurnstile{} \HOLConst{PreOrder} \HOLConst{OBS_contracts}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXPreOrder}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXPreOrder}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXPAR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) (\HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXPAR}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXPAR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXSUM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{+} \HOLBoundVar{E\sb{\mathrm{2}}}) (\HOLBoundVar{E\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sb{\mathrm{2}}\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXSUM}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXSUM}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXREFL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXREFL}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXREFL}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{CONTEXT} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_contracts} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXCONTEXT}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXCONTEXT}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_contracts} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E}) (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXL}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXL}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_contracts} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXR}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPREFIX}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}. \HOLConst{OBS_contracts} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPREFIX}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPREFIX}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRELAB}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{OBS_contracts} (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) (\HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRELAB}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRELAB}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRESTR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLConst{OBS_contracts} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRESTR}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRESTR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_contracts} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{+} \HOLBoundVar{E}) (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXL}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXL}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_contracts} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXR}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXTRANS}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXTRANS}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXTRANSXXLEFT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLConst{contracts} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXTRANSXXLEFT}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXTRANSXXLEFT}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXTRANSXXRIGHT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXTRANSXXRIGHT}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXTRANSXXRIGHT}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSYY}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{OBS_contracts} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+           \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLContractionTheoremsSUMXXcontractsXXIMPXXOBSXXcontracts}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{SUM_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsSUMXXcontractsXXIMPXXOBSXXcontracts}{\UseVerbatim{HOLContractionTheoremsSUMXXcontractsXXIMPXXOBSXXcontracts}}
+\newcommand{\HOLContractionTheorems}{
+\HOLThmTag{Contraction}{C_contracts_IMP_SUM_contracts}\HOLContractionTheoremsCXXcontractsXXIMPXXSUMXXcontracts
+\HOLThmTag{Contraction}{C_contracts_precongruence}\HOLContractionTheoremsCXXcontractsXXprecongruence
+\HOLThmTag{Contraction}{C_contracts_thm}\HOLContractionTheoremsCXXcontractsXXthm
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_FINITE}\HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITE
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_FINITE'}\HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITEYY
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_LEMMA}\HOLContractionTheoremsCOARSESTXXPRECONGRXXLEMMA
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_LR}\HOLContractionTheoremsCOARSESTXXPRECONGRXXLR
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_THM}\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_THM'}\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHMYY
+\HOLThmTag{Contraction}{COMP_CONTRACTION}\HOLContractionTheoremsCOMPXXCONTRACTION
+\HOLThmTag{Contraction}{CONTRACTION_EPS}\HOLContractionTheoremsCONTRACTIONXXEPS
+\HOLThmTag{Contraction}{CONTRACTION_EPS'}\HOLContractionTheoremsCONTRACTIONXXEPSYY
+\HOLThmTag{Contraction}{CONTRACTION_SUBSET_contracts}\HOLContractionTheoremsCONTRACTIONXXSUBSETXXcontracts
+\HOLThmTag{Contraction}{CONTRACTION_WEAK_TRANS_label'}\HOLContractionTheoremsCONTRACTIONXXWEAKXXTRANSXXlabelYY
+\HOLThmTag{Contraction}{contracts_AND_TRACE1}\HOLContractionTheoremscontractsXXANDXXTRACEOne
+\HOLThmTag{Contraction}{contracts_AND_TRACE2}\HOLContractionTheoremscontractsXXANDXXTRACETwo
+\HOLThmTag{Contraction}{contracts_AND_TRACE_label}\HOLContractionTheoremscontractsXXANDXXTRACEXXlabel
+\HOLThmTag{Contraction}{contracts_AND_TRACE_tau}\HOLContractionTheoremscontractsXXANDXXTRACEXXtau
+\HOLThmTag{Contraction}{contracts_cases}\HOLContractionTheoremscontractsXXcases
+\HOLThmTag{Contraction}{contracts_coind}\HOLContractionTheoremscontractsXXcoind
+\HOLThmTag{Contraction}{contracts_EPS}\HOLContractionTheoremscontractsXXEPS
+\HOLThmTag{Contraction}{contracts_EPS'}\HOLContractionTheoremscontractsXXEPSYY
+\HOLThmTag{Contraction}{contracts_IMP_WEAK_EQUIV}\HOLContractionTheoremscontractsXXIMPXXWEAKXXEQUIV
+\HOLThmTag{Contraction}{contracts_is_CONTRACTION}\HOLContractionTheoremscontractsXXisXXCONTRACTION
+\HOLThmTag{Contraction}{contracts_precongruence}\HOLContractionTheoremscontractsXXprecongruence
+\HOLThmTag{Contraction}{contracts_PreOrder}\HOLContractionTheoremscontractsXXPreOrder
+\HOLThmTag{Contraction}{contracts_PRESD_BY_GUARDED_SUM}\HOLContractionTheoremscontractsXXPRESDXXBYXXGUARDEDXXSUM
+\HOLThmTag{Contraction}{contracts_PRESD_BY_PAR}\HOLContractionTheoremscontractsXXPRESDXXBYXXPAR
+\HOLThmTag{Contraction}{contracts_PROP6}\HOLContractionTheoremscontractsXXPROPSix
+\HOLThmTag{Contraction}{contracts_REFL}\HOLContractionTheoremscontractsXXREFL
+\HOLThmTag{Contraction}{contracts_reflexive}\HOLContractionTheoremscontractsXXreflexive
+\HOLThmTag{Contraction}{contracts_rules}\HOLContractionTheoremscontractsXXrules
+\HOLThmTag{Contraction}{contracts_SUBST_GCONTEXT}\HOLContractionTheoremscontractsXXSUBSTXXGCONTEXT
+\HOLThmTag{Contraction}{contracts_SUBST_PAR_L}\HOLContractionTheoremscontractsXXSUBSTXXPARXXL
+\HOLThmTag{Contraction}{contracts_SUBST_PAR_R}\HOLContractionTheoremscontractsXXSUBSTXXPARXXR
+\HOLThmTag{Contraction}{contracts_SUBST_PREFIX}\HOLContractionTheoremscontractsXXSUBSTXXPREFIX
+\HOLThmTag{Contraction}{contracts_SUBST_RELAB}\HOLContractionTheoremscontractsXXSUBSTXXRELAB
+\HOLThmTag{Contraction}{contracts_SUBST_RESTR}\HOLContractionTheoremscontractsXXSUBSTXXRESTR
+\HOLThmTag{Contraction}{contracts_thm}\HOLContractionTheoremscontractsXXthm
+\HOLThmTag{Contraction}{contracts_TRANS}\HOLContractionTheoremscontractsXXTRANS
+\HOLThmTag{Contraction}{contracts_TRANS_label}\HOLContractionTheoremscontractsXXTRANSXXlabel
+\HOLThmTag{Contraction}{contracts_TRANS_label'}\HOLContractionTheoremscontractsXXTRANSXXlabelYY
+\HOLThmTag{Contraction}{contracts_TRANS_tau}\HOLContractionTheoremscontractsXXTRANSXXtau
+\HOLThmTag{Contraction}{contracts_TRANS_tau'}\HOLContractionTheoremscontractsXXTRANSXXtauYY
+\HOLThmTag{Contraction}{contracts_transitive}\HOLContractionTheoremscontractsXXtransitive
+\HOLThmTag{Contraction}{contracts_WEAK_TRANS_label}\HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabel
+\HOLThmTag{Contraction}{contracts_WEAK_TRANS_label'}\HOLContractionTheoremscontractsXXWEAKXXTRANSXXlabelYY
+\HOLThmTag{Contraction}{contracts_WEAK_TRANS_tau}\HOLContractionTheoremscontractsXXWEAKXXTRANSXXtau
+\HOLThmTag{Contraction}{contracts_WEAK_TRANS_tau'}\HOLContractionTheoremscontractsXXWEAKXXTRANSXXtauYY
+\HOLThmTag{Contraction}{expands_IMP_contracts}\HOLContractionTheoremsexpandsXXIMPXXcontracts
+\HOLThmTag{Contraction}{EXPANSION_IMP_CONTRACTION}\HOLContractionTheoremsEXPANSIONXXIMPXXCONTRACTION
+\HOLThmTag{Contraction}{IDENTITY_CONTRACTION}\HOLContractionTheoremsIDENTITYXXCONTRACTION
+\HOLThmTag{Contraction}{OBS_contracts_AND_TRACE_label}\HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXlabel
+\HOLThmTag{Contraction}{OBS_contracts_AND_TRACE_tau}\HOLContractionTheoremsOBSXXcontractsXXANDXXTRACEXXtau
+\HOLThmTag{Contraction}{OBS_contracts_BY_CONTRACTION}\HOLContractionTheoremsOBSXXcontractsXXBYXXCONTRACTION
+\HOLThmTag{Contraction}{OBS_contracts_EPS'}\HOLContractionTheoremsOBSXXcontractsXXEPSYY
+\HOLThmTag{Contraction}{OBS_contracts_IMP_C_contracts}\HOLContractionTheoremsOBSXXcontractsXXIMPXXCXXcontracts
+\HOLThmTag{Contraction}{OBS_contracts_IMP_contracts}\HOLContractionTheoremsOBSXXcontractsXXIMPXXcontracts
+\HOLThmTag{Contraction}{OBS_contracts_IMP_OBS_CONGR}\HOLContractionTheoremsOBSXXcontractsXXIMPXXOBSXXCONGR
+\HOLThmTag{Contraction}{OBS_contracts_IMP_SUM_contracts}\HOLContractionTheoremsOBSXXcontractsXXIMPXXSUMXXcontracts
+\HOLThmTag{Contraction}{OBS_contracts_IMP_WEAK_EQUIV}\HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIV
+\HOLThmTag{Contraction}{OBS_contracts_IMP_WEAK_EQUIV'}\HOLContractionTheoremsOBSXXcontractsXXIMPXXWEAKXXEQUIVYY
+\HOLThmTag{Contraction}{OBS_contracts_precongruence}\HOLContractionTheoremsOBSXXcontractsXXprecongruence
+\HOLThmTag{Contraction}{OBS_contracts_PreOrder}\HOLContractionTheoremsOBSXXcontractsXXPreOrder
+\HOLThmTag{Contraction}{OBS_contracts_PRESD_BY_PAR}\HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXPAR
+\HOLThmTag{Contraction}{OBS_contracts_PRESD_BY_SUM}\HOLContractionTheoremsOBSXXcontractsXXPRESDXXBYXXSUM
+\HOLThmTag{Contraction}{OBS_contracts_REFL}\HOLContractionTheoremsOBSXXcontractsXXREFL
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_CONTEXT}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXCONTEXT
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_PAR_L}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXL
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_PAR_R}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPARXXR
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_PREFIX}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXPREFIX
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_RELAB}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRELAB
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_RESTR}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXRESTR
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_SUM_L}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXL
+\HOLThmTag{Contraction}{OBS_contracts_SUBST_SUM_R}\HOLContractionTheoremsOBSXXcontractsXXSUBSTXXSUMXXR
+\HOLThmTag{Contraction}{OBS_contracts_TRANS}\HOLContractionTheoremsOBSXXcontractsXXTRANS
+\HOLThmTag{Contraction}{OBS_contracts_TRANS_LEFT}\HOLContractionTheoremsOBSXXcontractsXXTRANSXXLEFT
+\HOLThmTag{Contraction}{OBS_contracts_TRANS_RIGHT}\HOLContractionTheoremsOBSXXcontractsXXTRANSXXRIGHT
+\HOLThmTag{Contraction}{OBS_contracts_WEAK_TRANS'}\HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSYY
+\HOLThmTag{Contraction}{OBS_contracts_WEAK_TRANS_label'}\HOLContractionTheoremsOBSXXcontractsXXWEAKXXTRANSXXlabelYY
+\HOLThmTag{Contraction}{SUM_contracts_IMP_OBS_contracts}\HOLContractionTheoremsSUMXXcontractsXXIMPXXOBSXXcontracts
+}

@@ -1,0 +1,428 @@
+\newcommand{\HOLTraceDate}{01 Giugno 2018}
+\newcommand{\HOLTraceTime}{19:28}
+\begin{SaveVerbatim}{HOLTraceDefinitionsfiniteXXstateXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{FINITE} (\HOLConst{NODES} \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsfiniteXXstateXXdef}{\UseVerbatim{HOLTraceDefinitionsfiniteXXstateXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsLRTCXXDEF}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{a} \HOLBoundVar{l} \HOLBoundVar{b}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{a} \HOLBoundVar{l} \HOLBoundVar{b} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+           \HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{l} \HOLBoundVar{b}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsLRTCXXDEF}{\UseVerbatim{HOLTraceDefinitionsLRTCXXDEF}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsNOXXLABELXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLConst{NO_LABEL} \HOLBoundVar{L} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsNOXXLABELXXdef}{\UseVerbatim{HOLTraceDefinitionsNOXXLABELXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsNODESXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{NODES} \HOLBoundVar{p} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLBoundVar{q} \HOLTokenBar{} \HOLConst{Reach} \HOLBoundVar{p} \HOLBoundVar{q}\HOLTokenRightbrace{}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsNODESXXdef}{\UseVerbatim{HOLTraceDefinitionsNODESXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsReachXXdef}
+\HOLTokenTurnstile{} \HOLConst{Reach} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}})\HOLSymConst{\HOLTokenSupStar{}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsReachXXdef}{\UseVerbatim{HOLTraceDefinitionsReachXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsSTEPXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{n} \HOLBoundVar{Q}. \HOLConst{STEP} \HOLBoundVar{P} \HOLBoundVar{n} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{NRC} (\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{n} \HOLBoundVar{P} \HOLBoundVar{Q}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsSTEPXXdef}{\UseVerbatim{HOLTraceDefinitionsSTEPXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsTRACEXXdef}
+\HOLTokenTurnstile{} \HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsTRACEXXdef}{\UseVerbatim{HOLTraceDefinitionsTRACEXXdef}}
+\begin{SaveVerbatim}{HOLTraceDefinitionsUNIQUEXXLABELXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}.
+       \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}.
+           (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{++} [\HOLBoundVar{u}] \HOLSymConst{++} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceDefinitionsUNIQUEXXLABELXXdef}{\UseVerbatim{HOLTraceDefinitionsUNIQUEXXLABELXXdef}}
+\newcommand{\HOLTraceDefinitions}{
+\HOLDfnTag{Trace}{finite_state_def}\HOLTraceDefinitionsfiniteXXstateXXdef
+\HOLDfnTag{Trace}{LRTC_DEF}\HOLTraceDefinitionsLRTCXXDEF
+\HOLDfnTag{Trace}{NO_LABEL_def}\HOLTraceDefinitionsNOXXLABELXXdef
+\HOLDfnTag{Trace}{NODES_def}\HOLTraceDefinitionsNODESXXdef
+\HOLDfnTag{Trace}{Reach_def}\HOLTraceDefinitionsReachXXdef
+\HOLDfnTag{Trace}{STEP_def}\HOLTraceDefinitionsSTEPXXdef
+\HOLDfnTag{Trace}{TRACE_def}\HOLTraceDefinitionsTRACEXXdef
+\HOLDfnTag{Trace}{UNIQUE_LABEL_def}\HOLTraceDefinitionsUNIQUEXXLABELXXdef
+}
+\begin{SaveVerbatim}{HOLTraceTheoremsEPSXXANDXXSTEP}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{n}. \HOLConst{STEP} \HOLBoundVar{E} \HOLBoundVar{n} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsEPSXXANDXXSTEP}{\UseVerbatim{HOLTraceTheoremsEPSXXANDXXSTEP}}
+\begin{SaveVerbatim}{HOLTraceTheoremsEPSXXANDXXTRACE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs}. \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsEPSXXANDXXTRACE}{\UseVerbatim{HOLTraceTheoremsEPSXXANDXXTRACE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsEPSXXINXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{EPS} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsEPSXXINXXNODES}{\UseVerbatim{HOLTraceTheoremsEPSXXINXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsEPSXXReach}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{EPS} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Reach} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsEPSXXReach}{\UseVerbatim{HOLTraceTheoremsEPSXXReach}}
+\begin{SaveVerbatim}{HOLTraceTheoremsEPSXXTRACE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs}. \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsEPSXXTRACE}{\UseVerbatim{HOLTraceTheoremsEPSXXTRACE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXAPPENDXXCASES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{x} \HOLBoundVar{y}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLBoundVar{l\sb{\mathrm{1}}} \HOLSymConst{++} \HOLBoundVar{l\sb{\mathrm{2}}}) \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXAPPENDXXCASES}{\UseVerbatim{HOLTraceTheoremsLRTCXXAPPENDXXCASES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXCASESOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{R} \HOLBoundVar{x} (\HOLConst{HD} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{u} (\HOLConst{TL} \HOLBoundVar{l}) \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXCASESOne}{\UseVerbatim{HOLTraceTheoremsLRTCXXCASESOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXCASESTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLConst{FRONT} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{u} (\HOLConst{LAST} \HOLBoundVar{l}) \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXCASESTwo}{\UseVerbatim{HOLTraceTheoremsLRTCXXCASESTwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXCASESXXLRTCXXTWICE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{l\sb{\mathrm{2}}}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{l} \HOLSymConst{=} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLSymConst{++} \HOLBoundVar{l\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXCASESXXLRTCXXTWICE}{\UseVerbatim{HOLTraceTheoremsLRTCXXCASESXXLRTCXXTWICE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXINDUCT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXINDUCT}{\UseVerbatim{HOLTraceTheoremsLRTCXXINDUCT}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXLRTC}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{z}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{++} \HOLBoundVar{n}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXLRTC}{\UseVerbatim{HOLTraceTheoremsLRTCXXLRTC}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} [] \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXNIL}{\UseVerbatim{HOLTraceTheoremsLRTCXXNIL}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXONE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} [\HOLBoundVar{t}] \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXONE}{\UseVerbatim{HOLTraceTheoremsLRTCXXONE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXREFL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLFreeVar{x} [] \HOLFreeVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXREFL}{\UseVerbatim{HOLTraceTheoremsLRTCXXREFL}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXRULES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXRULES}{\UseVerbatim{HOLTraceTheoremsLRTCXXRULES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXSINGLE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y}. \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} [\HOLBoundVar{t}] \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXSINGLE}{\UseVerbatim{HOLTraceTheoremsLRTCXXSINGLE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXSTRONGXXINDUCT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}.
+            \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXSTRONGXXINDUCT}{\UseVerbatim{HOLTraceTheoremsLRTCXXSTRONGXXINDUCT}}
+\begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z}.
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{++} \HOLBoundVar{n}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsLRTCXXTRANS}{\UseVerbatim{HOLTraceTheoremsLRTCXXTRANS}}
+\begin{SaveVerbatim}{HOLTraceTheoremsMOREXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{Reach} \HOLBoundVar{q} \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q\sp{\prime}} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsMOREXXNODES}{\UseVerbatim{HOLTraceTheoremsMOREXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsNOXXLABELXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{xs}. \HOLConst{NO_LABEL} (\HOLBoundVar{x}\HOLSymConst{::}\HOLBoundVar{xs}) \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsNOXXLABELXXcases}{\UseVerbatim{HOLTraceTheoremsNOXXLABELXXcases}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXcasesOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u\sp{\prime}}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{Reach} \HOLBoundVar{u} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXcasesOne}{\UseVerbatim{HOLTraceTheoremsReachXXcasesOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXcasesTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u\sp{\prime}}. \HOLBoundVar{u} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXcasesTwo}{\UseVerbatim{HOLTraceTheoremsReachXXcasesTwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXind}{\UseVerbatim{HOLTraceTheoremsReachXXind}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXindXXright}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{y} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXindXXright}{\UseVerbatim{HOLTraceTheoremsReachXXindXXright}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{Reach} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXNODES}{\UseVerbatim{HOLTraceTheoremsReachXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXone}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{Reach} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXone}{\UseVerbatim{HOLTraceTheoremsReachXXone}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXself}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{Reach} \HOLBoundVar{E} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXself}{\UseVerbatim{HOLTraceTheoremsReachXXself}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{Reach} \HOLBoundVar{y} \HOLBoundVar{z} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXstrongind}{\UseVerbatim{HOLTraceTheoremsReachXXstrongind}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXstrongindXXright}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{y} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXstrongindXXright}{\UseVerbatim{HOLTraceTheoremsReachXXstrongindXXright}}
+\begin{SaveVerbatim}{HOLTraceTheoremsReachXXtrans}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{Reach} \HOLBoundVar{y} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Reach} \HOLBoundVar{x} \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsReachXXtrans}{\UseVerbatim{HOLTraceTheoremsReachXXtrans}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSELFXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{p} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSELFXXNODES}{\UseVerbatim{HOLTraceTheoremsSELFXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPZero}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{STEP} \HOLBoundVar{x} \HOLNumLit{0} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPZero}{\UseVerbatim{HOLTraceTheoremsSTEPZero}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPOne}
+\HOLTokenTurnstile{} \HOLConst{STEP} \HOLFreeVar{x} \HOLNumLit{1} \HOLFreeVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLFreeVar{x} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLFreeVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPOne}{\UseVerbatim{HOLTraceTheoremsSTEPOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPXXADDXXE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{m} \HOLBoundVar{n} \HOLBoundVar{x} \HOLBoundVar{z}. \HOLConst{STEP} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{+} \HOLBoundVar{n}) \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{y}. \HOLConst{STEP} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STEP} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPXXADDXXE}{\UseVerbatim{HOLTraceTheoremsSTEPXXADDXXE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPXXADDXXEQN}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{m} \HOLBoundVar{n} \HOLBoundVar{x} \HOLBoundVar{z}. \HOLConst{STEP} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{+} \HOLBoundVar{n}) \HOLBoundVar{z} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{y}. \HOLConst{STEP} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STEP} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPXXADDXXEQN}{\UseVerbatim{HOLTraceTheoremsSTEPXXADDXXEQN}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPXXADDXXI}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{m} \HOLBoundVar{n} \HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{z}. \HOLConst{STEP} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STEP} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{STEP} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{+} \HOLBoundVar{n}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPXXADDXXI}{\UseVerbatim{HOLTraceTheoremsSTEPXXADDXXI}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPXXSUC}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{STEP} \HOLBoundVar{x} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{z}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{z}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{STEP} \HOLBoundVar{z} \HOLBoundVar{n} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPXXSUC}{\UseVerbatim{HOLTraceTheoremsSTEPXXSUC}}
+\begin{SaveVerbatim}{HOLTraceTheoremsSTEPXXSUCXXLEFT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{STEP} \HOLBoundVar{x} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{z}. \HOLConst{STEP} \HOLBoundVar{x} \HOLBoundVar{n} \HOLBoundVar{z} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{z} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsSTEPXXSUCXXLEFT}{\UseVerbatim{HOLTraceTheoremsSTEPXXSUCXXLEFT}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{t}\HOLTokenTransEnd \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{x} [\HOLBoundVar{t}] \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEOne}{\UseVerbatim{HOLTraceTheoremsTRACEOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACETwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{x} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{xs} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{x}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{xs} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{E} (\HOLBoundVar{x}\HOLSymConst{::}\HOLBoundVar{xs}) \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACETwo}{\UseVerbatim{HOLTraceTheoremsTRACETwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXAPPENDXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{x} \HOLBoundVar{y}.
+       \HOLConst{TRACE} \HOLBoundVar{x} (\HOLBoundVar{l\sb{\mathrm{1}}} \HOLSymConst{++} \HOLBoundVar{l\sb{\mathrm{2}}}) \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXAPPENDXXcases}{\UseVerbatim{HOLTraceTheoremsTRACEXXAPPENDXXcases}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXcasesOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLConst{HD} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{u} (\HOLConst{TL} \HOLBoundVar{l}) \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXcasesOne}{\UseVerbatim{HOLTraceTheoremsTRACEXXcasesOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXcasesTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{TRACE} \HOLBoundVar{x} (\HOLConst{FRONT} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{u} \HOLTokenTransBegin\HOLConst{LAST} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXcasesTwo}{\UseVerbatim{HOLTraceTheoremsTRACEXXcasesTwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXcasesXXtwice}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
+       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{l\sb{\mathrm{2}}}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{u} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{l} \HOLSymConst{=} \HOLBoundVar{l\sb{\mathrm{1}}} \HOLSymConst{++} \HOLBoundVar{l\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXcasesXXtwice}{\UseVerbatim{HOLTraceTheoremsTRACEXXcasesXXtwice}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{h}\HOLTokenTransEnd \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXind}{\UseVerbatim{HOLTraceTheoremsTRACEXXind}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXNIL}{\UseVerbatim{HOLTraceTheoremsTRACEXXNIL}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXONE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{t} \HOLBoundVar{y}. \HOLConst{TRACE} \HOLBoundVar{x} [\HOLBoundVar{t}] \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{t}\HOLTokenTransEnd \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXONE}{\UseVerbatim{HOLTraceTheoremsTRACEXXONE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXREFL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{TRACE} \HOLBoundVar{E} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXREFL}{\UseVerbatim{HOLTraceTheoremsTRACEXXREFL}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXruleZero}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXruleZero}{\UseVerbatim{HOLTraceTheoremsTRACEXXruleZero}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXruleOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{h}\HOLTokenTransEnd \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXruleOne}{\UseVerbatim{HOLTraceTheoremsTRACEXXruleOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXrules}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{h}\HOLTokenTransEnd \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXrules}{\UseVerbatim{HOLTraceTheoremsTRACEXXrules}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} \HOLConst{\ensuremath{\epsilon}} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}.
+            \HOLBoundVar{x} \HOLTokenTransBegin\HOLBoundVar{h}\HOLTokenTransEnd \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXstrongind}{\UseVerbatim{HOLTraceTheoremsTRACEXXstrongind}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXtrans}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y}. \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{m} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{z}. \HOLConst{TRACE} \HOLBoundVar{y} \HOLBoundVar{n} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{x} (\HOLBoundVar{m} \HOLSymConst{++} \HOLBoundVar{n}) \HOLBoundVar{z}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXtrans}{\UseVerbatim{HOLTraceTheoremsTRACEXXtrans}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXtransXXapplied}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{ys} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{ys} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{TRACE} \HOLBoundVar{E} (\HOLBoundVar{xs} \HOLSymConst{++} \HOLBoundVar{ys}) \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRACEXXtransXXapplied}{\UseVerbatim{HOLTraceTheoremsTRACEXXtransXXapplied}}
+\begin{SaveVerbatim}{HOLTraceTheoremsTRANSXXINXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsTRANSXXINXXNODES}{\UseVerbatim{HOLTraceTheoremsTRANSXXINXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXcasesOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{xs}.
+       \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{::}\HOLBoundVar{xs}) \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXcasesOne}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXcasesOne}}
+\begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{l\sp{\prime}} \HOLBoundVar{xs}.
+       \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) (\HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{::}\HOLBoundVar{xs}) \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{l} \HOLSymConst{=} \HOLBoundVar{l\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}. \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}} \HOLConst{MEM} \HOLBoundVar{u} \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM}}
+\begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}. \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{n}. \HOLConst{STEP} \HOLBoundVar{E} \HOLBoundVar{n} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{us}.
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{us} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{us} \HOLSymConst{\HOLTokenConj{}} \HOLKeyword{if} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{us}
+           \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{us}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXINXXNODES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXINXXNODES}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXINXXNODES}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXReach}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Reach} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXReach}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXReach}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXTRACE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs}. \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{xs} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXTRACE}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXTRACE}}
+\newcommand{\HOLTraceTheorems}{
+\HOLThmTag{Trace}{EPS_AND_STEP}\HOLTraceTheoremsEPSXXANDXXSTEP
+\HOLThmTag{Trace}{EPS_AND_TRACE}\HOLTraceTheoremsEPSXXANDXXTRACE
+\HOLThmTag{Trace}{EPS_IN_NODES}\HOLTraceTheoremsEPSXXINXXNODES
+\HOLThmTag{Trace}{EPS_Reach}\HOLTraceTheoremsEPSXXReach
+\HOLThmTag{Trace}{EPS_TRACE}\HOLTraceTheoremsEPSXXTRACE
+\HOLThmTag{Trace}{LRTC_APPEND_CASES}\HOLTraceTheoremsLRTCXXAPPENDXXCASES
+\HOLThmTag{Trace}{LRTC_CASES1}\HOLTraceTheoremsLRTCXXCASESOne
+\HOLThmTag{Trace}{LRTC_CASES2}\HOLTraceTheoremsLRTCXXCASESTwo
+\HOLThmTag{Trace}{LRTC_CASES_LRTC_TWICE}\HOLTraceTheoremsLRTCXXCASESXXLRTCXXTWICE
+\HOLThmTag{Trace}{LRTC_INDUCT}\HOLTraceTheoremsLRTCXXINDUCT
+\HOLThmTag{Trace}{LRTC_LRTC}\HOLTraceTheoremsLRTCXXLRTC
+\HOLThmTag{Trace}{LRTC_NIL}\HOLTraceTheoremsLRTCXXNIL
+\HOLThmTag{Trace}{LRTC_ONE}\HOLTraceTheoremsLRTCXXONE
+\HOLThmTag{Trace}{LRTC_REFL}\HOLTraceTheoremsLRTCXXREFL
+\HOLThmTag{Trace}{LRTC_RULES}\HOLTraceTheoremsLRTCXXRULES
+\HOLThmTag{Trace}{LRTC_SINGLE}\HOLTraceTheoremsLRTCXXSINGLE
+\HOLThmTag{Trace}{LRTC_STRONG_INDUCT}\HOLTraceTheoremsLRTCXXSTRONGXXINDUCT
+\HOLThmTag{Trace}{LRTC_TRANS}\HOLTraceTheoremsLRTCXXTRANS
+\HOLThmTag{Trace}{MORE_NODES}\HOLTraceTheoremsMOREXXNODES
+\HOLThmTag{Trace}{NO_LABEL_cases}\HOLTraceTheoremsNOXXLABELXXcases
+\HOLThmTag{Trace}{Reach_cases1}\HOLTraceTheoremsReachXXcasesOne
+\HOLThmTag{Trace}{Reach_cases2}\HOLTraceTheoremsReachXXcasesTwo
+\HOLThmTag{Trace}{Reach_ind}\HOLTraceTheoremsReachXXind
+\HOLThmTag{Trace}{Reach_ind_right}\HOLTraceTheoremsReachXXindXXright
+\HOLThmTag{Trace}{Reach_NODES}\HOLTraceTheoremsReachXXNODES
+\HOLThmTag{Trace}{Reach_one}\HOLTraceTheoremsReachXXone
+\HOLThmTag{Trace}{Reach_self}\HOLTraceTheoremsReachXXself
+\HOLThmTag{Trace}{Reach_strongind}\HOLTraceTheoremsReachXXstrongind
+\HOLThmTag{Trace}{Reach_strongind_right}\HOLTraceTheoremsReachXXstrongindXXright
+\HOLThmTag{Trace}{Reach_trans}\HOLTraceTheoremsReachXXtrans
+\HOLThmTag{Trace}{SELF_NODES}\HOLTraceTheoremsSELFXXNODES
+\HOLThmTag{Trace}{STEP0}\HOLTraceTheoremsSTEPZero
+\HOLThmTag{Trace}{STEP1}\HOLTraceTheoremsSTEPOne
+\HOLThmTag{Trace}{STEP_ADD_E}\HOLTraceTheoremsSTEPXXADDXXE
+\HOLThmTag{Trace}{STEP_ADD_EQN}\HOLTraceTheoremsSTEPXXADDXXEQN
+\HOLThmTag{Trace}{STEP_ADD_I}\HOLTraceTheoremsSTEPXXADDXXI
+\HOLThmTag{Trace}{STEP_SUC}\HOLTraceTheoremsSTEPXXSUC
+\HOLThmTag{Trace}{STEP_SUC_LEFT}\HOLTraceTheoremsSTEPXXSUCXXLEFT
+\HOLThmTag{Trace}{TRACE1}\HOLTraceTheoremsTRACEOne
+\HOLThmTag{Trace}{TRACE2}\HOLTraceTheoremsTRACETwo
+\HOLThmTag{Trace}{TRACE_APPEND_cases}\HOLTraceTheoremsTRACEXXAPPENDXXcases
+\HOLThmTag{Trace}{TRACE_cases1}\HOLTraceTheoremsTRACEXXcasesOne
+\HOLThmTag{Trace}{TRACE_cases2}\HOLTraceTheoremsTRACEXXcasesTwo
+\HOLThmTag{Trace}{TRACE_cases_twice}\HOLTraceTheoremsTRACEXXcasesXXtwice
+\HOLThmTag{Trace}{TRACE_ind}\HOLTraceTheoremsTRACEXXind
+\HOLThmTag{Trace}{TRACE_NIL}\HOLTraceTheoremsTRACEXXNIL
+\HOLThmTag{Trace}{TRACE_ONE}\HOLTraceTheoremsTRACEXXONE
+\HOLThmTag{Trace}{TRACE_REFL}\HOLTraceTheoremsTRACEXXREFL
+\HOLThmTag{Trace}{TRACE_rule0}\HOLTraceTheoremsTRACEXXruleZero
+\HOLThmTag{Trace}{TRACE_rule1}\HOLTraceTheoremsTRACEXXruleOne
+\HOLThmTag{Trace}{TRACE_rules}\HOLTraceTheoremsTRACEXXrules
+\HOLThmTag{Trace}{TRACE_strongind}\HOLTraceTheoremsTRACEXXstrongind
+\HOLThmTag{Trace}{TRACE_trans}\HOLTraceTheoremsTRACEXXtrans
+\HOLThmTag{Trace}{TRACE_trans_applied}\HOLTraceTheoremsTRACEXXtransXXapplied
+\HOLThmTag{Trace}{TRANS_IN_NODES}\HOLTraceTheoremsTRANSXXINXXNODES
+\HOLThmTag{Trace}{UNIQUE_LABEL_cases1}\HOLTraceTheoremsUNIQUEXXLABELXXcasesOne
+\HOLThmTag{Trace}{UNIQUE_LABEL_cases2}\HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo
+\HOLThmTag{Trace}{UNIQUE_LABEL_IMP_MEM}\HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM
+\HOLThmTag{Trace}{UNIQUE_LABEL_NOT_NULL}\HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL
+\HOLThmTag{Trace}{WEAK_TRANS_AND_STEP}\HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP
+\HOLThmTag{Trace}{WEAK_TRANS_AND_TRACE}\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE
+\HOLThmTag{Trace}{WEAK_TRANS_IN_NODES}\HOLTraceTheoremsWEAKXXTRANSXXINXXNODES
+\HOLThmTag{Trace}{WEAK_TRANS_Reach}\HOLTraceTheoremsWEAKXXTRANSXXReach
+\HOLThmTag{Trace}{WEAK_TRANS_TRACE}\HOLTraceTheoremsWEAKXXTRANSXXTRACE
+}

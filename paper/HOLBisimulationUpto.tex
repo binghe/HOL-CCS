@@ -1,0 +1,465 @@
+\newcommand{\HOLBisimulationUptoDate}{01 Giugno 2018}
+\newcommand{\HOLBisimulationUptoTime}{19:28}
+\begin{SaveVerbatim}{HOLBisimulationUptoDefinitionsOBSXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+               (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                    \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                        \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                        (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+               \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                       \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                       (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoDefinitionsOBSXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoDefinitionsOBSXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoDefinitionsSTRONGXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Bsm}.
+       \HOLConst{STRONG_BISIM_UPTO} \HOLBoundVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Bsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+               (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                    \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                        \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                        (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Bsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}}
+                          \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+               \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                       \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                       (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Bsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoDefinitionsSTRONGXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoDefinitionsSTRONGXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                     \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                         \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                         (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}}
+                           \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                        \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                        (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTOXXALT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                     \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                         \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                         (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                        \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                        (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                    \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTOXXALT}{\UseVerbatim{HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTOXXALT}}
+\newcommand{\HOLBisimulationUptoDefinitions}{
+\HOLDfnTag{BisimulationUpto}{OBS_BISIM_UPTO}\HOLBisimulationUptoDefinitionsOBSXXBISIMXXUPTO
+\HOLDfnTag{BisimulationUpto}{STRONG_BISIM_UPTO}\HOLBisimulationUptoDefinitionsSTRONGXXBISIMXXUPTO
+\HOLDfnTag{BisimulationUpto}{WEAK_BISIM_UPTO}\HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTO
+\HOLDfnTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT}\HOLBisimulationUptoDefinitionsWEAKXXBISIMXXUPTOXXALT
+}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsCONVERSEXXOBSXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}. \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_BISIM_UPTO} (\HOLConst{relinv} \HOLBoundVar{Obsm})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsCONVERSEXXOBSXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsCONVERSEXXOBSXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsCONVERSEXXSTRONGXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{STRONG_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}} \HOLConst{STRONG_BISIM_UPTO} (\HOLConst{relinv} \HOLBoundVar{Wbsm})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsCONVERSEXXSTRONGXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsCONVERSEXXSTRONGXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}. \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM_UPTO} (\HOLConst{relinv} \HOLBoundVar{Wbsm})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemma}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLConst{relinv} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemma}{\UseVerbatim{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemma}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemmaYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLConst{relinv} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemmaYY}{\UseVerbatim{HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemmaYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXOBSXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLConst{OBS_BISIM_UPTO} (\HOLSymConst{=})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXOBSXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXOBSXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLConst{STRONG_BISIM_UPTO} (\HOLSymConst{=})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTOXXlemma}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. (\HOLConst{STRONG_EQUIV} \HOLConst{O} (\HOLSymConst{=}) \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTOXXlemma}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTOXXlemma}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTO}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO} (\HOLSymConst{=})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTO}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTO}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemma}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLSymConst{=}) \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemma}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemma}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemmaYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. (\HOLConst{STRONG_EQUIV} \HOLConst{O} (\HOLSymConst{=}) \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemmaYY}{\UseVerbatim{HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemmaYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPS}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPS}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPSYY}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPSYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}. \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{Obsm} \HOLConst{RSUBSET} \HOLConst{OBS_CONGR}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTHM}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTHM}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANS}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANS}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANSYY}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANSYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Obsm}.
+       \HOLConst{OBS_BISIM_UPTO} \HOLBoundVar{Obsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Obsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXLEMMA}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Bsm}.
+       \HOLConst{STRONG_BISIM_UPTO} \HOLBoundVar{Bsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{STRONG_BISIM} (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Bsm} \HOLConst{O} \HOLConst{STRONG_EQUIV})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXLEMMA}{\UseVerbatim{HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXLEMMA}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Bsm}. \HOLConst{STRONG_BISIM_UPTO} \HOLBoundVar{Bsm} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{Bsm} \HOLConst{RSUBSET} \HOLConst{STRONG_EQUIV}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXTHM}{\UseVerbatim{HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXTHM}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPS}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPS}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPSYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPSYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXLEMMA}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{WEAK_BISIM} (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXLEMMA}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXLEMMA}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}. \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{Wbsm} \HOLConst{RSUBSET} \HOLConst{WEAK_EQUIV}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXTHM}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXTHM}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabel}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtau}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtau}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtauYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtauYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtauYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPS}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPS}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPSYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPSYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPSYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXLEMMA}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{WEAK_BISIM} (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV})
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXLEMMA}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXLEMMA}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}. \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{Wbsm} \HOLConst{RSUBSET} \HOLConst{WEAK_EQUIV}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTHM}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTHM}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabel}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabelYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabelYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtau}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtau}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtauYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLConst{EPS} \HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtauYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtauYY}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                   \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabel}}
+\begin{SaveVerbatim}{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Wbsm}.
+       \HOLConst{WEAK_BISIM_UPTO} \HOLBoundVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+           \HOLBoundVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{2}}}.
+               \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                   \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                   (\HOLConst{STRONG_EQUIV} \HOLConst{O} \HOLBoundVar{Wbsm} \HOLConst{O} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}{\UseVerbatim{HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY}}
+\newcommand{\HOLBisimulationUptoTheorems}{
+\HOLThmTag{BisimulationUpto}{CONVERSE_OBS_BISIM_UPTO}\HOLBisimulationUptoTheoremsCONVERSEXXOBSXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{CONVERSE_STRONG_BISIM_UPTO}\HOLBisimulationUptoTheoremsCONVERSEXXSTRONGXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{CONVERSE_WEAK_BISIM_UPTO}\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{CONVERSE_WEAK_BISIM_UPTO_lemma}\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemma
+\HOLThmTag{BisimulationUpto}{CONVERSE_WEAK_BISIM_UPTO_lemma'}\HOLBisimulationUptoTheoremsCONVERSEXXWEAKXXBISIMXXUPTOXXlemmaYY
+\HOLThmTag{BisimulationUpto}{IDENTITY_OBS_BISIM_UPTO}\HOLBisimulationUptoTheoremsIDENTITYXXOBSXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{IDENTITY_STRONG_BISIM_UPTO}\HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{IDENTITY_STRONG_BISIM_UPTO_lemma}\HOLBisimulationUptoTheoremsIDENTITYXXSTRONGXXBISIMXXUPTOXXlemma
+\HOLThmTag{BisimulationUpto}{IDENTITY_WEAK_BISIM_UPTO}\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTO
+\HOLThmTag{BisimulationUpto}{IDENTITY_WEAK_BISIM_UPTO_lemma}\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemma
+\HOLThmTag{BisimulationUpto}{IDENTITY_WEAK_BISIM_UPTO_lemma'}\HOLBisimulationUptoTheoremsIDENTITYXXWEAKXXBISIMXXUPTOXXlemmaYY
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_EPS}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPS
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_EPS'}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXEPSYY
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_THM}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTHM
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_TRANS}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANS
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_TRANS'}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXTRANSYY
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_WEAK_TRANS_label}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabel
+\HOLThmTag{BisimulationUpto}{OBS_BISIM_UPTO_WEAK_TRANS_label'}\HOLBisimulationUptoTheoremsOBSXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY
+\HOLThmTag{BisimulationUpto}{STRONG_BISIM_UPTO_LEMMA}\HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXLEMMA
+\HOLThmTag{BisimulationUpto}{STRONG_BISIM_UPTO_THM}\HOLBisimulationUptoTheoremsSTRONGXXBISIMXXUPTOXXTHM
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_EPS}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPS
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_EPS'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXEPSYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_LEMMA}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXLEMMA
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_THM}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXTHM
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_WEAK_TRANS_label}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabel
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_WEAK_TRANS_label'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXlabelYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_WEAK_TRANS_tau}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtau
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_ALT_WEAK_TRANS_tau'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXALTXXWEAKXXTRANSXXtauYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_EPS}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPS
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_EPS'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXEPSYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_LEMMA}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXLEMMA
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_THM}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTHM
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_TRANS_label}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabel
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_TRANS_label'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXlabelYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_TRANS_tau}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtau
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_TRANS_tau'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXTRANSXXtauYY
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_WEAK_TRANS_label}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabel
+\HOLThmTag{BisimulationUpto}{WEAK_BISIM_UPTO_WEAK_TRANS_label'}\HOLBisimulationUptoTheoremsWEAKXXBISIMXXUPTOXXWEAKXXTRANSXXlabelYY
+}

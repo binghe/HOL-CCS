@@ -1,0 +1,919 @@
+\newcommand{\HOLCCSDate}{01 Giugno 2018}
+\newcommand{\HOLCCSTime}{19:28}
+\begin{SaveVerbatim}{HOLCCSDatatypesCCS}
+\HOLFreeVar{CCS} =
+    \HOLConst{nil}
+  \HOLTokenBar{} \HOLConst{var} 'a
+  \HOLTokenBar{} \HOLConst{prefix} ('b \HOLTyOp{Action}) (('a, 'b) \HOLTyOp{CCS})
+  \HOLTokenBar{} (\HOLSymConst{+}) (('a, 'b) \HOLTyOp{CCS}) (('a, 'b) \HOLTyOp{CCS})
+  \HOLTokenBar{} \HOLConst{par} (('a, 'b) \HOLTyOp{CCS}) (('a, 'b) \HOLTyOp{CCS})
+  \HOLTokenBar{} \HOLConst{\ensuremath{\nu}} ('b \HOLTyOp{Label} \HOLTokenTransEnd \HOLTyOp{bool}) (('a, 'b) \HOLTyOp{CCS})
+  \HOLTokenBar{} \HOLConst{relab} (('a, 'b) \HOLTyOp{CCS}) ('b \HOLTyOp{Relabeling})
+  \HOLTokenBar{} \HOLConst{rec} 'a (('a, 'b) \HOLTyOp{CCS})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDatatypesCCS}{\UseVerbatim{HOLCCSDatatypesCCS}}
+\begin{SaveVerbatim}{HOLCCSDatatypesLabel}
+\HOLFreeVar{Label} = \HOLConst{name} 'b \HOLTokenBar{} \HOLConst{coname} 'b
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDatatypesLabel}{\UseVerbatim{HOLCCSDatatypesLabel}}
+\newcommand{\HOLCCSDatatypes}{
+\HOLCCSDatatypesCCS\HOLCCSDatatypesLabel}
+\begin{SaveVerbatim}{HOLCCSDefinitionsALLXXIDENTICALXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{t}. \HOLConst{ALL_IDENTICAL} \HOLBoundVar{t} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{y}. \HOLConst{MEM} \HOLBoundVar{y} \HOLBoundVar{t} \HOLSymConst{\HOLTokenImp{}} (\HOLBoundVar{y} \HOLSymConst{=} \HOLBoundVar{x})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsALLXXIDENTICALXXdef}{\UseVerbatim{HOLCCSDefinitionsALLXXIDENTICALXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsALLXXPROCXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Es}. \HOLConst{ALL_PROC} \HOLBoundVar{Es} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{EVERY} \HOLConst{IS_PROC} \HOLBoundVar{Es}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsALLXXPROCXXdef}{\UseVerbatim{HOLCCSDefinitionsALLXXPROCXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsApplyXXRelabXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}. \HOLConst{Apply_Relab} [] \HOLBoundVar{l} \HOLSymConst{=} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{newold} \HOLBoundVar{ls} \HOLBoundVar{l}.
+       \HOLConst{Apply_Relab} (\HOLBoundVar{newold}\HOLSymConst{::}\HOLBoundVar{ls}) \HOLBoundVar{l} \HOLSymConst{=}
+       \HOLKeyword{if} \HOLConst{SND} \HOLBoundVar{newold} \HOLSymConst{=} \HOLBoundVar{l} \HOLKeyword{then} \HOLConst{FST} \HOLBoundVar{newold}
+       \HOLKeyword{else} \HOLKeyword{if} \HOLConst{COMPL} (\HOLConst{SND} \HOLBoundVar{newold}) \HOLSymConst{=} \HOLBoundVar{l} \HOLKeyword{then} \HOLConst{COMPL} (\HOLConst{FST} \HOLBoundVar{newold})
+       \HOLKeyword{else} \HOLConst{Apply_Relab} \HOLBoundVar{ls} \HOLBoundVar{l}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsApplyXXRelabXXdef}{\UseVerbatim{HOLCCSDefinitionsApplyXXRelabXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsBNXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{J}. \HOLConst{BN} \HOLConst{nil} \HOLBoundVar{J} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLConst{BN} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{J}. \HOLConst{BN} (\HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{q}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{\HOLTokenUnion{}} \HOLConst{BN} \HOLBoundVar{q} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{J}. \HOLConst{BN} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{q}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{\HOLTokenUnion{}} \HOLConst{BN} \HOLBoundVar{q} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLConst{BN} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{\HOLTokenUnion{}} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{rf} \HOLBoundVar{J}. \HOLConst{BN} (\HOLConst{relab} \HOLBoundVar{p} \HOLBoundVar{rf}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{J}. \HOLConst{BN} (\HOLConst{var} \HOLBoundVar{X}) \HOLBoundVar{J} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{p} \HOLBoundVar{J}.
+       \HOLConst{BN} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=}
+       \HOLKeyword{if} \HOLConst{MEM} \HOLBoundVar{X} \HOLBoundVar{J} \HOLKeyword{then}
+         \HOLConst{FN} (\HOLConst{CCS_Subst} \HOLBoundVar{p} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{X}) (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{X} \HOLBoundVar{J})
+       \HOLKeyword{else} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsBNXXdef}{\UseVerbatim{HOLCCSDefinitionsBNXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsboundXXnamesXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{bound_names} \HOLBoundVar{p} \HOLSymConst{=} \HOLConst{BN} \HOLBoundVar{p} (\HOLConst{SET_TO_LIST} (\HOLConst{BV} \HOLBoundVar{p}))
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsboundXXnamesXXdef}{\UseVerbatim{HOLCCSDefinitionsboundXXnamesXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsBVXXdef}
+\HOLTokenTurnstile{} (\HOLConst{BV} \HOLConst{nil} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p}. \HOLConst{BV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{p}) \HOLSymConst{=} \HOLConst{BV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{BV} (\HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{q}) \HOLSymConst{=} \HOLConst{BV} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{BV} \HOLBoundVar{q}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{BV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{q}) \HOLSymConst{=} \HOLConst{BV} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{BV} \HOLBoundVar{q}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{p}. \HOLConst{BV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{p}) \HOLSymConst{=} \HOLConst{BV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{rf}. \HOLConst{BV} (\HOLConst{relab} \HOLBoundVar{p} \HOLBoundVar{rf}) \HOLSymConst{=} \HOLConst{BV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLConst{BV} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{p}. \HOLConst{BV} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLSymConst{=} \HOLBoundVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsBVXXdef}{\UseVerbatim{HOLCCSDefinitionsBVXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsCCSXXSubstOneXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{fm}. \HOLConst{CCS_Subst1} \HOLConst{nil} \HOLBoundVar{fm} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{fm}. \HOLConst{CCS_Subst1} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLBoundVar{u}\HOLSymConst{..}\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{fm}.
+        \HOLConst{CCS_Subst1} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{+} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLBoundVar{fm} \HOLSymConst{=}
+        \HOLConst{CCS_Subst1} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{fm} \HOLSymConst{+} \HOLConst{CCS_Subst1} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{fm}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{fm}.
+        \HOLConst{CCS_Subst1} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLBoundVar{fm} \HOLSymConst{=}
+        \HOLConst{CCS_Subst1} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{fm} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{CCS_Subst1} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{fm}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{E} \HOLBoundVar{fm}. \HOLConst{CCS_Subst1} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{fm}.
+        \HOLConst{CCS_Subst1} (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLConst{relab} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm}) \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{fm}.
+        \HOLConst{CCS_Subst1} (\HOLConst{var} \HOLBoundVar{Y}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLBoundVar{fm} \HOLConst{'} \HOLBoundVar{Y}
+        \HOLKeyword{else} \HOLConst{var} \HOLBoundVar{Y}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E} \HOLBoundVar{fm}.
+       \HOLConst{CCS_Subst1} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}
+       \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsCCSXXSubstOneXXdef}{\UseVerbatim{HOLCCSDefinitionsCCSXXSubstOneXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsCCSXXSubstTwoXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Es} \HOLBoundVar{fm}. \HOLConst{CCS_Subst2} \HOLBoundVar{Es} \HOLBoundVar{fm} \HOLSymConst{=} \HOLConst{MAP} (\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{CCS_Subst1} \HOLBoundVar{e} \HOLBoundVar{fm}) \HOLBoundVar{Es}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsCCSXXSubstTwoXXdef}{\UseVerbatim{HOLCCSDefinitionsCCSXXSubstTwoXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsCCSXXSubstXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}. \HOLConst{CCS_Subst} \HOLConst{nil} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}. \HOLConst{CCS_Subst} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLBoundVar{u}\HOLSymConst{..}\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
+        \HOLConst{CCS_Subst} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{+} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=}
+        \HOLConst{CCS_Subst} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{+} \HOLConst{CCS_Subst} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
+        \HOLConst{CCS_Subst} (\HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=}
+        \HOLConst{CCS_Subst} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{CCS_Subst} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}. \HOLConst{CCS_Subst} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{f} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
+        \HOLConst{CCS_Subst} (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{f}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLConst{relab} (\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}) \HOLBoundVar{f}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
+        \HOLConst{CCS_Subst} (\HOLConst{var} \HOLBoundVar{Y}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLSymConst{=} \HOLBoundVar{X} \HOLKeyword{then} \HOLBoundVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLBoundVar{Y}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
+       \HOLConst{CCS_Subst} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLSymConst{=} \HOLBoundVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}
+       \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsCCSXXSubstXXdef}{\UseVerbatim{HOLCCSDefinitionsCCSXXSubstXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsCOMPLXXACTXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}. \HOLConst{COMPL} (\HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLSymConst{\HOLTokenConj{}} (\HOLConst{COMPL} \HOLConst{\ensuremath{\tau}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsCOMPLXXACTXXdef}{\UseVerbatim{HOLCCSDefinitionsCOMPLXXACTXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsCOMPLXXLABXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s}. \HOLConst{COMPL} (\HOLConst{name} \HOLBoundVar{s}) \HOLSymConst{=} \HOLConst{coname} \HOLBoundVar{s}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s}. \HOLConst{COMPL} (\HOLConst{coname} \HOLBoundVar{s}) \HOLSymConst{=} \HOLConst{name} \HOLBoundVar{s}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsCOMPLXXLABXXdef}{\UseVerbatim{HOLCCSDefinitionsCOMPLXXLABXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsDELETEXXELEMENTXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} [] \HOLSymConst{=} []) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{x} \HOLBoundVar{l}.
+       \HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} (\HOLBoundVar{x}\HOLSymConst{::}\HOLBoundVar{l}) \HOLSymConst{=}
+       \HOLKeyword{if} \HOLBoundVar{e} \HOLSymConst{=} \HOLBoundVar{x} \HOLKeyword{then} \HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{l}
+       \HOLKeyword{else} \HOLBoundVar{x}\HOLSymConst{::}\HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{l}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsDELETEXXELEMENTXXdef}{\UseVerbatim{HOLCCSDefinitionsDELETEXXELEMENTXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsfreeXXnamesXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{free_names} \HOLBoundVar{p} \HOLSymConst{=} \HOLConst{FN} \HOLBoundVar{p} (\HOLConst{SET_TO_LIST} (\HOLConst{BV} \HOLBoundVar{p}))
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsfreeXXnamesXXdef}{\UseVerbatim{HOLCCSDefinitionsfreeXXnamesXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsFVXXdef}
+\HOLTokenTurnstile{} (\HOLConst{FV} \HOLConst{nil} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p}. \HOLConst{FV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{p}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{FV} (\HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{q}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{FV} \HOLBoundVar{q}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{FV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{q}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{FV} \HOLBoundVar{q}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{p}. \HOLConst{FV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{p}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{rf}. \HOLConst{FV} (\HOLConst{relab} \HOLBoundVar{p} \HOLBoundVar{rf}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLConst{FV} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLBoundVar{X}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{p}. \HOLConst{FV} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLSymConst{=} \HOLConst{FV} \HOLBoundVar{p} \HOLConst{DIFF} \HOLTokenLeftbrace{}\HOLBoundVar{X}\HOLTokenRightbrace{}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsFVXXdef}{\UseVerbatim{HOLCCSDefinitionsFVXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsISXXPROCXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{IS_PROC} \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} (\HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsISXXPROCXXdef}{\UseVerbatim{HOLCCSDefinitionsISXXPROCXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsIsXXRelabelingXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{Is_Relabeling} \HOLBoundVar{f} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s}. \HOLBoundVar{f} (\HOLConst{coname} \HOLBoundVar{s}) \HOLSymConst{=} \HOLConst{COMPL} (\HOLBoundVar{f} (\HOLConst{name} \HOLBoundVar{s}))
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsIsXXRelabelingXXdef}{\UseVerbatim{HOLCCSDefinitionsIsXXRelabelingXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsRELABXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{labl}. \HOLConst{RELAB} \HOLBoundVar{labl} \HOLSymConst{=} \HOLConst{ABS_Relabeling} (\HOLConst{Apply_Relab} \HOLBoundVar{labl})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsRELABXXdef}{\UseVerbatim{HOLCCSDefinitionsRELABXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsrelabelXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{relabel} \HOLBoundVar{rf} \HOLConst{\ensuremath{\tau}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{l}. \HOLConst{relabel} \HOLBoundVar{rf} (\HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{REP_Relabeling} \HOLBoundVar{rf} \HOLBoundVar{l})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsrelabelXXdef}{\UseVerbatim{HOLCCSDefinitionsrelabelXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsRelabelingXXISOXXDEF}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{ABS_Relabeling} (\HOLConst{REP_Relabeling} \HOLBoundVar{a}) \HOLSymConst{=} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}.
+       \HOLConst{Is_Relabeling} \HOLBoundVar{r} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLConst{REP_Relabeling} (\HOLConst{ABS_Relabeling} \HOLBoundVar{r}) \HOLSymConst{=} \HOLBoundVar{r})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsRelabelingXXISOXXDEF}{\UseVerbatim{HOLCCSDefinitionsRelabelingXXISOXXDEF}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsRelabelingXXTYXXDEF}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rep}. \HOLConst{TYPE_DEFINITION} \HOLConst{Is_Relabeling} \HOLBoundVar{rep}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsRelabelingXXTYXXDEF}{\UseVerbatim{HOLCCSDefinitionsRelabelingXXTYXXDEF}}
+\begin{SaveVerbatim}{HOLCCSDefinitionssizeXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{size} \HOLBoundVar{p} \HOLSymConst{=} \HOLConst{CCS_size} (\HOLTokenLambda{}\HOLBoundVar{x}. \HOLNumLit{0}) (\HOLTokenLambda{}\HOLBoundVar{x}. \HOLNumLit{0}) \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionssizeXXdef}{\UseVerbatim{HOLCCSDefinitionssizeXXdef}}
+\begin{SaveVerbatim}{HOLCCSDefinitionsTRANSXXdef}
+\HOLTokenTurnstile{} \HOLConst{TRANS} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{TRANS\sp{\prime}}.
+            \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+                \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+                     (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+                     \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+                     (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+                     \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+                     (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                     \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                     \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E\sp{\prime}} (\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
+                     (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+                     \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+                     ((\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}}
+                      (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L})) \HOLSymConst{\HOLTokenDisj{}}
+                (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
+                     (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}}
+                     (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}.
+                    (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}}
+                    \HOLBoundVar{TRANS\sp{\prime}} (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X}) \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSDefinitionsTRANSXXdef}{\UseVerbatim{HOLCCSDefinitionsTRANSXXdef}}
+\newcommand{\HOLCCSDefinitions}{
+\HOLDfnTag{CCS}{ALL_IDENTICAL_def}\HOLCCSDefinitionsALLXXIDENTICALXXdef
+\HOLDfnTag{CCS}{ALL_PROC_def}\HOLCCSDefinitionsALLXXPROCXXdef
+\HOLDfnTag{CCS}{Apply_Relab_def}\HOLCCSDefinitionsApplyXXRelabXXdef
+\HOLDfnTag{CCS}{BN_def}\HOLCCSDefinitionsBNXXdef
+\HOLDfnTag{CCS}{bound_names_def}\HOLCCSDefinitionsboundXXnamesXXdef
+\HOLDfnTag{CCS}{BV_def}\HOLCCSDefinitionsBVXXdef
+\HOLDfnTag{CCS}{CCS_Subst1_def}\HOLCCSDefinitionsCCSXXSubstOneXXdef
+\HOLDfnTag{CCS}{CCS_Subst2_def}\HOLCCSDefinitionsCCSXXSubstTwoXXdef
+\HOLDfnTag{CCS}{CCS_Subst_def}\HOLCCSDefinitionsCCSXXSubstXXdef
+\HOLDfnTag{CCS}{COMPL_ACT_def}\HOLCCSDefinitionsCOMPLXXACTXXdef
+\HOLDfnTag{CCS}{COMPL_LAB_def}\HOLCCSDefinitionsCOMPLXXLABXXdef
+\HOLDfnTag{CCS}{DELETE_ELEMENT_def}\HOLCCSDefinitionsDELETEXXELEMENTXXdef
+\HOLDfnTag{CCS}{free_names_def}\HOLCCSDefinitionsfreeXXnamesXXdef
+\HOLDfnTag{CCS}{FV_def}\HOLCCSDefinitionsFVXXdef
+\HOLDfnTag{CCS}{IS_PROC_def}\HOLCCSDefinitionsISXXPROCXXdef
+\HOLDfnTag{CCS}{Is_Relabeling_def}\HOLCCSDefinitionsIsXXRelabelingXXdef
+\HOLDfnTag{CCS}{RELAB_def}\HOLCCSDefinitionsRELABXXdef
+\HOLDfnTag{CCS}{relabel_def}\HOLCCSDefinitionsrelabelXXdef
+\HOLDfnTag{CCS}{Relabeling_ISO_DEF}\HOLCCSDefinitionsRelabelingXXISOXXDEF
+\HOLDfnTag{CCS}{Relabeling_TY_DEF}\HOLCCSDefinitionsRelabelingXXTYXXDEF
+\HOLDfnTag{CCS}{size_def}\HOLCCSDefinitionssizeXXdef
+\HOLDfnTag{CCS}{TRANS_def}\HOLCCSDefinitionsTRANSXXdef
+}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXOneOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. (\HOLConst{label} \HOLBoundVar{x} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXOneOne}{\UseVerbatim{HOLCCSTheoremsActionXXOneOne}}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXdistinct}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{label} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXdistinct}{\UseVerbatim{HOLCCSTheoremsActionXXdistinct}}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXdistinctXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{label} \HOLBoundVar{x} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\tau}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXdistinctXXlabel}{\UseVerbatim{HOLCCSTheoremsActionXXdistinctXXlabel}}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXinduction}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}. \HOLBoundVar{P} \HOLConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLBoundVar{P} (\HOLConst{label} \HOLBoundVar{a})) \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXinduction}{\UseVerbatim{HOLCCSTheoremsActionXXinduction}}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXnchotomy}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{opt}. (\HOLBoundVar{opt} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x}. \HOLBoundVar{opt} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXnchotomy}{\UseVerbatim{HOLCCSTheoremsActionXXnchotomy}}
+\begin{SaveVerbatim}{HOLCCSTheoremsActionXXnoXXtauXXisXXLabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{A}. \HOLBoundVar{A} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x}. \HOLBoundVar{A} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsActionXXnoXXtauXXisXXLabel}{\UseVerbatim{HOLCCSTheoremsActionXXnoXXtauXXisXXLabel}}
+\begin{SaveVerbatim}{HOLCCSTheoremsApplyXXRelabXXCOMPLXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{labl} \HOLBoundVar{s}.
+       \HOLConst{Apply_Relab} \HOLBoundVar{labl} (\HOLConst{coname} \HOLBoundVar{s}) \HOLSymConst{=}
+       \HOLConst{COMPL} (\HOLConst{Apply_Relab} \HOLBoundVar{labl} (\HOLConst{name} \HOLBoundVar{s}))
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsApplyXXRelabXXCOMPLXXTHM}{\UseVerbatim{HOLCCSTheoremsApplyXXRelabXXCOMPLXXTHM}}
+\begin{SaveVerbatim}{HOLCCSTheoremsAPPLYXXRELABXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{labl\sp{\prime}} \HOLBoundVar{labl}.
+       (\HOLConst{RELAB} \HOLBoundVar{labl\sp{\prime}} \HOLSymConst{=} \HOLConst{RELAB} \HOLBoundVar{labl}) \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLConst{Apply_Relab} \HOLBoundVar{labl\sp{\prime}} \HOLSymConst{=} \HOLConst{Apply_Relab} \HOLBoundVar{labl})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsAPPLYXXRELABXXTHM}{\UseVerbatim{HOLCCSTheoremsAPPLYXXRELABXXTHM}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXcaseXXeq}
+\HOLTokenTurnstile{} (\HOLConst{CCS_CASE} \HOLFreeVar{x} \HOLFreeVar{v} \HOLFreeVar{f} \HOLFreeVar{f\sb{\mathrm{1}}} \HOLFreeVar{f\sb{\mathrm{2}}} \HOLFreeVar{f\sb{\mathrm{3}}} \HOLFreeVar{f\sb{\mathrm{4}}} \HOLFreeVar{f\sb{\mathrm{5}}} \HOLFreeVar{f\sb{\mathrm{6}}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}}) \HOLSymConst{\HOLTokenEquiv{}}
+   (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{v} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f} \HOLBoundVar{a} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{o\sp{\prime}} \HOLBoundVar{C\sp{\prime}}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLBoundVar{o\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{C\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{1}}} \HOLBoundVar{o\sp{\prime}} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{C\sb{\mathrm{0}}}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{C\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{2}}} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{C\sb{\mathrm{0}}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{C\sb{\mathrm{0}}}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{C\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{3}}} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{C\sb{\mathrm{0}}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{C\sp{\prime}}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{C\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{4}}} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{R}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{R}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{5}}} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{R} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})) \HOLSymConst{\HOLTokenDisj{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{C\sp{\prime}}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{a} \HOLBoundVar{C\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{6}}} \HOLBoundVar{a} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{=} \HOLFreeVar{v\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXcaseXXeq}{\UseVerbatim{HOLCCSTheoremsCCSXXcaseXXeq}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXCONDXXCLAUSES}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{t\sb{\mathrm{1}}} \HOLBoundVar{t\sb{\mathrm{2}}}.
+       ((\HOLKeyword{if} \HOLConst{T} \HOLKeyword{then} \HOLBoundVar{t\sb{\mathrm{1}}} \HOLKeyword{else} \HOLBoundVar{t\sb{\mathrm{2}}}) \HOLSymConst{=} \HOLBoundVar{t\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+       ((\HOLKeyword{if} \HOLConst{F} \HOLKeyword{then} \HOLBoundVar{t\sb{\mathrm{1}}} \HOLKeyword{else} \HOLBoundVar{t\sb{\mathrm{2}}}) \HOLSymConst{=} \HOLBoundVar{t\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXCONDXXCLAUSES}{\UseVerbatim{HOLCCSTheoremsCCSXXCONDXXCLAUSES}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXdistinctYY}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{nil} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{var} \HOLBoundVar{a} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{var} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{rec} \HOLBoundVar{a\sb{\mathrm{0}}\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{1}}\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{relab} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXdistinctYY}{\UseVerbatim{HOLCCSTheoremsCCSXXdistinctYY}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXrec}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{CCS_Subst} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXSubstXXrec}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXrec}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXvar}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{CCS_Subst} (\HOLConst{var} \HOLBoundVar{X}) \HOLBoundVar{E} \HOLBoundVar{X} \HOLSymConst{=} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXSubstXXvar}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXvar}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCOMPLXXCOMPLXXACT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{COMPL} (\HOLConst{COMPL} \HOLBoundVar{a}) \HOLSymConst{=} \HOLBoundVar{a}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCOMPLXXCOMPLXXACT}{\UseVerbatim{HOLCCSTheoremsCOMPLXXCOMPLXXACT}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCOMPLXXCOMPLXXLAB}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}. \HOLConst{COMPL} (\HOLConst{COMPL} \HOLBoundVar{l}) \HOLSymConst{=} \HOLBoundVar{l}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCOMPLXXCOMPLXXLAB}{\UseVerbatim{HOLCCSTheoremsCOMPLXXCOMPLXXLAB}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCOMPLXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{s}.
+       (\HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{name} \HOLBoundVar{s} \HOLSymConst{\HOLTokenImp{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{coname} \HOLBoundVar{s}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{coname} \HOLBoundVar{s} \HOLSymConst{\HOLTokenImp{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{name} \HOLBoundVar{s})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCOMPLXXTHM}{\UseVerbatim{HOLCCSTheoremsCOMPLXXTHM}}
+\begin{SaveVerbatim}{HOLCCSTheoremsconameXXCOMPL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s}. \HOLConst{coname} \HOLBoundVar{s} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{name} \HOLBoundVar{s})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsconameXXCOMPL}{\UseVerbatim{HOLCCSTheoremsconameXXCOMPL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsDELETEXXELEMENTXXAPPEND}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{L} \HOLBoundVar{L\sp{\prime}}.
+       \HOLConst{DELETE_ELEMENT} \HOLBoundVar{a} (\HOLBoundVar{L} \HOLSymConst{++} \HOLBoundVar{L\sp{\prime}}) \HOLSymConst{=}
+       \HOLConst{DELETE_ELEMENT} \HOLBoundVar{a} \HOLBoundVar{L} \HOLSymConst{++} \HOLConst{DELETE_ELEMENT} \HOLBoundVar{a} \HOLBoundVar{L\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsDELETEXXELEMENTXXAPPEND}{\UseVerbatim{HOLCCSTheoremsDELETEXXELEMENTXXAPPEND}}
+\begin{SaveVerbatim}{HOLCCSTheoremsDELETEXXELEMENTXXFILTER}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{L}. \HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{L} \HOLSymConst{=} \HOLConst{FILTER} (\HOLTokenLambda{}\HOLBoundVar{y}. \HOLBoundVar{e} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{y}) \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsDELETEXXELEMENTXXFILTER}{\UseVerbatim{HOLCCSTheoremsDELETEXXELEMENTXXFILTER}}
+\begin{SaveVerbatim}{HOLCCSTheoremsEVERYXXDELETEXXELEMENT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{L} \HOLBoundVar{P}. \HOLBoundVar{P} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \HOLBoundVar{P} (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{EVERY} \HOLBoundVar{P} \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsEVERYXXDELETEXXELEMENT}{\UseVerbatim{HOLCCSTheoremsEVERYXXDELETEXXELEMENT}}
+\begin{SaveVerbatim}{HOLCCSTheoremsEXISTSXXRelabeling}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{f}. \HOLConst{Is_Relabeling} \HOLBoundVar{f}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsEXISTSXXRelabeling}{\UseVerbatim{HOLCCSTheoremsEXISTSXXRelabeling}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFNXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{J}. \HOLConst{FN} \HOLConst{nil} \HOLBoundVar{J} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{l} \HOLBoundVar{J}. \HOLConst{FN} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=} \HOLBoundVar{l} \HOLConst{INSERT} \HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{J}. \HOLConst{FN} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLConst{FN} (\HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{q}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{\HOLTokenUnion{}} \HOLConst{FN} \HOLBoundVar{q} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLConst{FN} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{q}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{\HOLTokenUnion{}} \HOLConst{FN} \HOLBoundVar{q} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{L} \HOLBoundVar{J}. \HOLConst{FN} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J} \HOLConst{DIFF} (\HOLBoundVar{L} \HOLConst{\HOLTokenUnion{}} \HOLConst{IMAGE} \HOLConst{COMPL} \HOLBoundVar{L})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{p} \HOLBoundVar{J}.
+        \HOLConst{FN} (\HOLConst{relab} \HOLBoundVar{p} \HOLBoundVar{rf}) \HOLBoundVar{J} \HOLSymConst{=} \HOLConst{IMAGE} (\HOLConst{REP_Relabeling} \HOLBoundVar{rf}) (\HOLConst{FN} \HOLBoundVar{p} \HOLBoundVar{J})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{J}. \HOLConst{FN} (\HOLConst{var} \HOLBoundVar{X}) \HOLBoundVar{J} \HOLSymConst{=} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{X} \HOLBoundVar{J}.
+       \HOLConst{FN} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{J} \HOLSymConst{=}
+       \HOLKeyword{if} \HOLConst{MEM} \HOLBoundVar{X} \HOLBoundVar{J} \HOLKeyword{then}
+         \HOLConst{FN} (\HOLConst{CCS_Subst} \HOLBoundVar{p} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{X}) (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{X} \HOLBoundVar{J})
+       \HOLKeyword{else} \HOLTokenLeftbrace{}\HOLTokenRightbrace{}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFNXXdef}{\UseVerbatim{HOLCCSTheoremsFNXXdef}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFNXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{J}. \HOLBoundVar{P} \HOLConst{nil} \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{q} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{q}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{q} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{q}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{p} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{p}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{rf} \HOLBoundVar{J}. \HOLBoundVar{P} \HOLBoundVar{p} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} (\HOLConst{relab} \HOLBoundVar{p} \HOLBoundVar{rf}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{J}. \HOLBoundVar{P} (\HOLConst{var} \HOLBoundVar{X}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{p} \HOLBoundVar{J}.
+            (\HOLConst{MEM} \HOLBoundVar{X} \HOLBoundVar{J} \HOLSymConst{\HOLTokenImp{}}
+             \HOLBoundVar{P} (\HOLConst{CCS_Subst} \HOLBoundVar{p} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{X}) (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{X} \HOLBoundVar{J})) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{P} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{p}) \HOLBoundVar{J}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{v} \HOLBoundVar{v\sb{\mathrm{1}}}. \HOLBoundVar{P} \HOLBoundVar{v} \HOLBoundVar{v\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFNXXind}{\UseVerbatim{HOLCCSTheoremsFNXXind}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFNXXUNIVOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{free_names} \HOLBoundVar{p} \HOLSymConst{\HOLTokenNotEqual{}} \ensuremath{\cal{U}}(:'b \HOLTyOp{Label}) \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLBoundVar{a} \HOLConst{\HOLTokenNotIn{}} \HOLConst{free_names} \HOLBoundVar{p}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFNXXUNIVOne}{\UseVerbatim{HOLCCSTheoremsFNXXUNIVOne}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFNXXUNIVTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{free_names} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{free_names} \HOLBoundVar{q} \HOLSymConst{\HOLTokenNotEqual{}} \ensuremath{\cal{U}}(:'b \HOLTyOp{Label}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLBoundVar{a} \HOLConst{\HOLTokenNotIn{}} \HOLConst{free_names} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{a} \HOLConst{\HOLTokenNotIn{}} \HOLConst{free_names} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFNXXUNIVTwo}{\UseVerbatim{HOLCCSTheoremsFNXXUNIVTwo}}
+\begin{SaveVerbatim}{HOLCCSTheoremsISXXLABELXXdef}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{IS_SOME} (\HOLConst{label} \HOLBoundVar{x}) \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{T}) \HOLSymConst{\HOLTokenConj{}} (\HOLConst{IS_SOME} \HOLConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{F})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsISXXLABELXXdef}{\UseVerbatim{HOLCCSTheoremsISXXLABELXXdef}}
+\begin{SaveVerbatim}{HOLCCSTheoremsISXXRELABELING}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{labl}. \HOLConst{Is_Relabeling} (\HOLConst{Apply_Relab} \HOLBoundVar{labl})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsISXXRELABELING}{\UseVerbatim{HOLCCSTheoremsISXXRELABELING}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLabelXXcaseXXeq}
+\HOLTokenTurnstile{} (\HOLConst{Label_CASE} \HOLFreeVar{x} \HOLFreeVar{f} \HOLFreeVar{f\sb{\mathrm{1}}} \HOLSymConst{=} \HOLFreeVar{v}) \HOLSymConst{\HOLTokenEquiv{}}
+   (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{b}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{name} \HOLBoundVar{b}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f} \HOLBoundVar{b} \HOLSymConst{=} \HOLFreeVar{v})) \HOLSymConst{\HOLTokenDisj{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{b}. (\HOLFreeVar{x} \HOLSymConst{=} \HOLConst{coname} \HOLBoundVar{b}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{f\sb{\mathrm{1}}} \HOLBoundVar{b} \HOLSymConst{=} \HOLFreeVar{v})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLabelXXcaseXXeq}{\UseVerbatim{HOLCCSTheoremsLabelXXcaseXXeq}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLABELXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLConst{LABEL} (\HOLConst{label} \HOLBoundVar{x}) \HOLSymConst{=} \HOLBoundVar{x}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLABELXXdef}{\UseVerbatim{HOLCCSTheoremsLABELXXdef}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLabelXXdistinctYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sp{\prime}} \HOLBoundVar{a}. \HOLConst{coname} \HOLBoundVar{a\sp{\prime}} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{name} \HOLBoundVar{a}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLabelXXdistinctYY}{\UseVerbatim{HOLCCSTheoremsLabelXXdistinctYY}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLabelXXnotXXeq}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sp{\prime}} \HOLBoundVar{a}. (\HOLConst{name} \HOLBoundVar{a} \HOLSymConst{=} \HOLConst{coname} \HOLBoundVar{a\sp{\prime}}) \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{F}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLabelXXnotXXeq}{\UseVerbatim{HOLCCSTheoremsLabelXXnotXXeq}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLabelXXnotXXeqYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sp{\prime}} \HOLBoundVar{a}. (\HOLConst{coname} \HOLBoundVar{a\sp{\prime}} \HOLSymConst{=} \HOLConst{name} \HOLBoundVar{a}) \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{F}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLabelXXnotXXeqYY}{\UseVerbatim{HOLCCSTheoremsLabelXXnotXXeqYY}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLE}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{L}. \HOLConst{MEM} \HOLBoundVar{e} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}} \HOLConst{LENGTH} (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenLt{}} \HOLConst{LENGTH} \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLE}{\UseVerbatim{HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLE}}
+\begin{SaveVerbatim}{HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{L}. \HOLConst{LENGTH} (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{L}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLEQ}{\UseVerbatim{HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsNILXXNOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsNILXXNOXXTRANS}{\UseVerbatim{HOLCCSTheoremsNILXXNOXXTRANS}}
+\begin{SaveVerbatim}{HOLCCSTheoremsNILXXNOXXTRANSXXEQF}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{F}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsNILXXNOXXTRANSXXEQF}{\UseVerbatim{HOLCCSTheoremsNILXXNOXXTRANSXXEQF}}
+\begin{SaveVerbatim}{HOLCCSTheoremsNOTXXINXXDELETEXXELEMENT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{L}. \HOLSymConst{\HOLTokenNeg{}}\HOLConst{MEM} \HOLBoundVar{e} (\HOLConst{DELETE_ELEMENT} \HOLBoundVar{e} \HOLBoundVar{L})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsNOTXXINXXDELETEXXELEMENT}{\UseVerbatim{HOLCCSTheoremsNOTXXINXXDELETEXXELEMENT}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPAROne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPAROne}{\UseVerbatim{HOLCCSTheoremsPAROne}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPARTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPARTwo}{\UseVerbatim{HOLCCSTheoremsPARTwo}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPARThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+       \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPARThree}{\UseVerbatim{HOLCCSTheoremsPARThree}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPARXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D} \HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{D\sp{\prime\prime}}.
+       \HOLBoundVar{D} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{D\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+            ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+            ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+           ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPARXXcases}{\UseVerbatim{HOLCCSTheoremsPARXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPARXXcasesXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D} \HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{D\sp{\prime\prime}}.
+       \HOLBoundVar{D} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{D\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+            ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+            ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+           ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPARXXcasesXXEQ}{\UseVerbatim{HOLCCSTheoremsPARXXcasesXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsPREFIX}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u}. \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsPREFIX}{\UseVerbatim{HOLCCSTheoremsPREFIX}}
+\begin{SaveVerbatim}{HOLCCSTheoremsREC}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{X} \HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsREC}{\UseVerbatim{HOLCCSTheoremsREC}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRECXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}.
+       \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X\sp{\prime}}.
+           ((\HOLBoundVar{X} \HOLSymConst{=} \HOLBoundVar{X\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}}
+           \HOLConst{CCS_Subst} \HOLBoundVar{E\sp{\prime}} (\HOLConst{rec} \HOLBoundVar{X\sp{\prime}} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{X\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRECXXcases}{\UseVerbatim{HOLCCSTheoremsRECXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRECXXcasesXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}.
+       \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X\sp{\prime}}.
+           ((\HOLBoundVar{X} \HOLSymConst{=} \HOLBoundVar{X\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}}
+           \HOLConst{CCS_Subst} \HOLBoundVar{E\sp{\prime}} (\HOLConst{rec} \HOLBoundVar{X\sp{\prime}} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{X\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRECXXcasesXXEQ}{\UseVerbatim{HOLCCSTheoremsRECXXcasesXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRELABXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+       \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf\sp{\prime}}.
+           ((\HOLBoundVar{E} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{rf} \HOLSymConst{=} \HOLBoundVar{rf\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf\sp{\prime}} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRELABXXcases}{\UseVerbatim{HOLCCSTheoremsRELABXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRELABXXcasesXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+       \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf\sp{\prime}}.
+           ((\HOLBoundVar{E} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{rf} \HOLSymConst{=} \HOLBoundVar{rf\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf\sp{\prime}} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRELABXXcasesXXEQ}{\UseVerbatim{HOLCCSTheoremsRELABXXcasesXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRelabXXlabel}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{u} \HOLBoundVar{l}. (\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l\sp{\prime}}. \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRelabXXlabel}{\UseVerbatim{HOLCCSTheoremsRelabXXlabel}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRELABXXNILXXNOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{relab} \HOLConst{nil} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRELABXXNILXXNOXXTRANS}{\UseVerbatim{HOLCCSTheoremsRELABXXNILXXNOXXTRANS}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRelabXXtau}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{u}. (\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenImp{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRelabXXtau}{\UseVerbatim{HOLCCSTheoremsRelabXXtau}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRELABELING}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRELABELING}{\UseVerbatim{HOLCCSTheoremsRELABELING}}
+\begin{SaveVerbatim}{HOLCCSTheoremsREPXXRelabelingXXTHM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{Is_Relabeling} (\HOLConst{REP_Relabeling} \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsREPXXRelabelingXXTHM}{\UseVerbatim{HOLCCSTheoremsREPXXRelabelingXXTHM}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRESTR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
+       \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+       ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRESTR}{\UseVerbatim{HOLCCSTheoremsRESTR}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRESTRXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{L} \HOLBoundVar{D}.
+       \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{D} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L\sp{\prime}}.
+           ((\HOLBoundVar{L} \HOLSymConst{=} \HOLBoundVar{L\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L\sp{\prime}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+           ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRESTRXXcases}{\UseVerbatim{HOLCCSTheoremsRESTRXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRESTRXXcasesXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{L} \HOLBoundVar{D}.
+       \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{D} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L\sp{\prime}}.
+           ((\HOLBoundVar{L} \HOLSymConst{=} \HOLBoundVar{L\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L\sp{\prime}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+           ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRESTRXXcasesXXEQ}{\UseVerbatim{HOLCCSTheoremsRESTRXXcasesXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRESTRXXLABELXXNOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{L}.
+       \HOLBoundVar{l} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E}) \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRESTRXXLABELXXNOXXTRANS}{\UseVerbatim{HOLCCSTheoremsRESTRXXLABELXXNOXXTRANS}}
+\begin{SaveVerbatim}{HOLCCSTheoremsRESTRXXNILXXNOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsRESTRXXNILXXNOXXTRANS}{\UseVerbatim{HOLCCSTheoremsRESTRXXNILXXNOXXTRANS}}
+\begin{SaveVerbatim}{HOLCCSTheoremsSUMOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsSUMOne}{\UseVerbatim{HOLCCSTheoremsSUMOne}}
+\begin{SaveVerbatim}{HOLCCSTheoremsSUMTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsSUMTwo}{\UseVerbatim{HOLCCSTheoremsSUMTwo}}
+\begin{SaveVerbatim}{HOLCCSTheoremsSUMXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D} \HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{D\sp{\prime\prime}}.
+       \HOLBoundVar{D} \HOLSymConst{+} \HOLBoundVar{D\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsSUMXXcases}{\UseVerbatim{HOLCCSTheoremsSUMXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsSUMXXcasesXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{D} \HOLBoundVar{D\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{D\sp{\prime\prime}}.
+       \HOLBoundVar{D} \HOLSymConst{+} \HOLBoundVar{D\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. ((\HOLBoundVar{D} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{D\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{D\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsSUMXXcasesXXEQ}{\UseVerbatim{HOLCCSTheoremsSUMXXcasesXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXASSOCXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{u}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}) \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXASSOCXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXASSOCXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXASSOCXXRL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{u}. \HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}) \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXASSOCXXRL}{\UseVerbatim{HOLCCSTheoremsTRANSXXASSOCXXRL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+       \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+            ((\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}}
+            (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXcases}{\UseVerbatim{HOLCCSTheoremsTRANSXXcases}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXcoind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{TRANS\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}.
+            \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+                 \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                 \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E\sp{\prime}} (\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+                 ((\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}}
+                  (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L})) \HOLSymConst{\HOLTokenDisj{}}
+            (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}}
+                 (\HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}}
+            \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}.
+                (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLBoundVar{TRANS\sp{\prime}} (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X}) \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}}. \HOLBoundVar{TRANS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{a\sb{\mathrm{1}}}\HOLTokenTransEnd \HOLBoundVar{a\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXcoind}{\UseVerbatim{HOLCCSTheoremsTRANSXXcoind}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXCOMMXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{u}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXCOMMXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXCOMMXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXIMPXXNOXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXIMPXXNOXXNIL}{\UseVerbatim{HOLCCSTheoremsTRANSXXIMPXXNOXXNIL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXIMPXXNOXXRESTRXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLConst{nil}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXIMPXXNOXXRESTRXXNIL}{\UseVerbatim{HOLCCSTheoremsTRANSXXIMPXXNOXXRESTRXXNIL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPXXRESTR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPXXRESTR}{\UseVerbatim{HOLCCSTheoremsTRANSXXPXXRESTR}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPXXSUMXXP}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPXXSUMXXP}{\UseVerbatim{HOLCCSTheoremsTRANSXXPXXSUMXXP}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPXXSUMXXPXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPXXSUMXXPXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXPXXSUMXXPXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPAR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}.
+       \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{l}.
+           (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPAR}{\UseVerbatim{HOLCCSTheoremsTRANSXXPAR}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPARXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}.
+       \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{l}.
+           (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{=} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPARXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXPARXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPARXXNOXXSYNCR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{l\sp{\prime}}.
+       \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPARXXNOXXSYNCR}{\UseVerbatim{HOLCCSTheoremsTRANSXXPARXXNOXXSYNCR}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPARXXPXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPARXXPXXNIL}{\UseVerbatim{HOLCCSTheoremsTRANSXXPARXXPXXNIL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPREFIX}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{u\sp{\prime}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} (\HOLBoundVar{u\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPREFIX}{\UseVerbatim{HOLCCSTheoremsTRANSXXPREFIX}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXPREFIXXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{u\sp{\prime}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} (\HOLBoundVar{u\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{u}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXPREFIXXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXPREFIXXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXREC}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXREC}{\UseVerbatim{HOLCCSTheoremsTRANSXXREC}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRECXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRECXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXRECXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRELAB}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}.
+           (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRELAB}{\UseVerbatim{HOLCCSTheoremsTRANSXXRELAB}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRELABXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}.
+           (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRELABXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXRELABXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRELABXXlabl}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{labl} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{relab} \HOLBoundVar{E} (\HOLConst{RELAB} \HOLBoundVar{labl}) \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}.
+           (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{relabel} (\HOLConst{RELAB} \HOLBoundVar{labl}) \HOLBoundVar{u\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+           (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLConst{relab} \HOLBoundVar{E\sp{\prime\prime}} (\HOLConst{RELAB} \HOLBoundVar{labl})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u\sp{\prime}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRELABXXlabl}{\UseVerbatim{HOLCCSTheoremsTRANSXXRELABXXlabl}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRESTR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{L} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{l}.
+           (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenConj{}}
+           ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRESTR}{\UseVerbatim{HOLCCSTheoremsTRANSXXRESTR}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRESTRXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{L} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime\prime}} \HOLBoundVar{l}.
+           (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{=} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenConj{}}
+           ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRESTRXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXRESTRXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXRESTRXXNOXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{L} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{nil}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXRESTRXXNOXXNIL}{\UseVerbatim{HOLCCSTheoremsTRANSXXRESTRXXNOXXNIL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXrules}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u}. \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{1}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{l} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{2}}}.
+        \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+        \HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
+        \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+        ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenImp{}}
+        \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{X} \HOLBoundVar{E\sb{\mathrm{1}}}. \HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXrules}{\UseVerbatim{HOLCCSTheoremsTRANSXXrules}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXSUM}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXSUM}{\UseVerbatim{HOLCCSTheoremsTRANSXXSUM}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXSUMXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXSUMXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXSUMXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXSUMXXEQYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{+} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXSUMXXEQYY}{\UseVerbatim{HOLCCSTheoremsTRANSXXSUMXXEQYY}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXSUMXXNIL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXSUMXXNIL}{\UseVerbatim{HOLCCSTheoremsTRANSXXSUMXXNIL}}
+\begin{SaveVerbatim}{HOLCCSTheoremsTRANSXXSUMXXNILXXEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{+} \HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsTRANSXXSUMXXNILXXEQ}{\UseVerbatim{HOLCCSTheoremsTRANSXXSUMXXNILXXEQ}}
+\begin{SaveVerbatim}{HOLCCSTheoremsVARXXNOXXTRANS}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{var} \HOLBoundVar{X} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsVARXXNOXXTRANS}{\UseVerbatim{HOLCCSTheoremsVARXXNOXXTRANS}}
+\newcommand{\HOLCCSTheorems}{
+\HOLThmTag{CCS}{Action_11}\HOLCCSTheoremsActionXXOneOne
+\HOLThmTag{CCS}{Action_distinct}\HOLCCSTheoremsActionXXdistinct
+\HOLThmTag{CCS}{Action_distinct_label}\HOLCCSTheoremsActionXXdistinctXXlabel
+\HOLThmTag{CCS}{Action_induction}\HOLCCSTheoremsActionXXinduction
+\HOLThmTag{CCS}{Action_nchotomy}\HOLCCSTheoremsActionXXnchotomy
+\HOLThmTag{CCS}{Action_no_tau_is_Label}\HOLCCSTheoremsActionXXnoXXtauXXisXXLabel
+\HOLThmTag{CCS}{Apply_Relab_COMPL_THM}\HOLCCSTheoremsApplyXXRelabXXCOMPLXXTHM
+\HOLThmTag{CCS}{APPLY_RELAB_THM}\HOLCCSTheoremsAPPLYXXRELABXXTHM
+\HOLThmTag{CCS}{CCS_case_eq}\HOLCCSTheoremsCCSXXcaseXXeq
+\HOLThmTag{CCS}{CCS_COND_CLAUSES}\HOLCCSTheoremsCCSXXCONDXXCLAUSES
+\HOLThmTag{CCS}{CCS_distinct'}\HOLCCSTheoremsCCSXXdistinctYY
+\HOLThmTag{CCS}{CCS_Subst_rec}\HOLCCSTheoremsCCSXXSubstXXrec
+\HOLThmTag{CCS}{CCS_Subst_var}\HOLCCSTheoremsCCSXXSubstXXvar
+\HOLThmTag{CCS}{COMPL_COMPL_ACT}\HOLCCSTheoremsCOMPLXXCOMPLXXACT
+\HOLThmTag{CCS}{COMPL_COMPL_LAB}\HOLCCSTheoremsCOMPLXXCOMPLXXLAB
+\HOLThmTag{CCS}{COMPL_THM}\HOLCCSTheoremsCOMPLXXTHM
+\HOLThmTag{CCS}{coname_COMPL}\HOLCCSTheoremsconameXXCOMPL
+\HOLThmTag{CCS}{DELETE_ELEMENT_APPEND}\HOLCCSTheoremsDELETEXXELEMENTXXAPPEND
+\HOLThmTag{CCS}{DELETE_ELEMENT_FILTER}\HOLCCSTheoremsDELETEXXELEMENTXXFILTER
+\HOLThmTag{CCS}{EVERY_DELETE_ELEMENT}\HOLCCSTheoremsEVERYXXDELETEXXELEMENT
+\HOLThmTag{CCS}{EXISTS_Relabeling}\HOLCCSTheoremsEXISTSXXRelabeling
+\HOLThmTag{CCS}{FN_def}\HOLCCSTheoremsFNXXdef
+\HOLThmTag{CCS}{FN_ind}\HOLCCSTheoremsFNXXind
+\HOLThmTag{CCS}{FN_UNIV1}\HOLCCSTheoremsFNXXUNIVOne
+\HOLThmTag{CCS}{FN_UNIV2}\HOLCCSTheoremsFNXXUNIVTwo
+\HOLThmTag{CCS}{IS_LABEL_def}\HOLCCSTheoremsISXXLABELXXdef
+\HOLThmTag{CCS}{IS_RELABELING}\HOLCCSTheoremsISXXRELABELING
+\HOLThmTag{CCS}{Label_case_eq}\HOLCCSTheoremsLabelXXcaseXXeq
+\HOLThmTag{CCS}{LABEL_def}\HOLCCSTheoremsLABELXXdef
+\HOLThmTag{CCS}{Label_distinct'}\HOLCCSTheoremsLabelXXdistinctYY
+\HOLThmTag{CCS}{Label_not_eq}\HOLCCSTheoremsLabelXXnotXXeq
+\HOLThmTag{CCS}{Label_not_eq'}\HOLCCSTheoremsLabelXXnotXXeqYY
+\HOLThmTag{CCS}{LENGTH_DELETE_ELEMENT_LE}\HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLE
+\HOLThmTag{CCS}{LENGTH_DELETE_ELEMENT_LEQ}\HOLCCSTheoremsLENGTHXXDELETEXXELEMENTXXLEQ
+\HOLThmTag{CCS}{NIL_NO_TRANS}\HOLCCSTheoremsNILXXNOXXTRANS
+\HOLThmTag{CCS}{NIL_NO_TRANS_EQF}\HOLCCSTheoremsNILXXNOXXTRANSXXEQF
+\HOLThmTag{CCS}{NOT_IN_DELETE_ELEMENT}\HOLCCSTheoremsNOTXXINXXDELETEXXELEMENT
+\HOLThmTag{CCS}{PAR1}\HOLCCSTheoremsPAROne
+\HOLThmTag{CCS}{PAR2}\HOLCCSTheoremsPARTwo
+\HOLThmTag{CCS}{PAR3}\HOLCCSTheoremsPARThree
+\HOLThmTag{CCS}{PAR_cases}\HOLCCSTheoremsPARXXcases
+\HOLThmTag{CCS}{PAR_cases_EQ}\HOLCCSTheoremsPARXXcasesXXEQ
+\HOLThmTag{CCS}{PREFIX}\HOLCCSTheoremsPREFIX
+\HOLThmTag{CCS}{REC}\HOLCCSTheoremsREC
+\HOLThmTag{CCS}{REC_cases}\HOLCCSTheoremsRECXXcases
+\HOLThmTag{CCS}{REC_cases_EQ}\HOLCCSTheoremsRECXXcasesXXEQ
+\HOLThmTag{CCS}{RELAB_cases}\HOLCCSTheoremsRELABXXcases
+\HOLThmTag{CCS}{RELAB_cases_EQ}\HOLCCSTheoremsRELABXXcasesXXEQ
+\HOLThmTag{CCS}{Relab_label}\HOLCCSTheoremsRelabXXlabel
+\HOLThmTag{CCS}{RELAB_NIL_NO_TRANS}\HOLCCSTheoremsRELABXXNILXXNOXXTRANS
+\HOLThmTag{CCS}{Relab_tau}\HOLCCSTheoremsRelabXXtau
+\HOLThmTag{CCS}{RELABELING}\HOLCCSTheoremsRELABELING
+\HOLThmTag{CCS}{REP_Relabeling_THM}\HOLCCSTheoremsREPXXRelabelingXXTHM
+\HOLThmTag{CCS}{RESTR}\HOLCCSTheoremsRESTR
+\HOLThmTag{CCS}{RESTR_cases}\HOLCCSTheoremsRESTRXXcases
+\HOLThmTag{CCS}{RESTR_cases_EQ}\HOLCCSTheoremsRESTRXXcasesXXEQ
+\HOLThmTag{CCS}{RESTR_LABEL_NO_TRANS}\HOLCCSTheoremsRESTRXXLABELXXNOXXTRANS
+\HOLThmTag{CCS}{RESTR_NIL_NO_TRANS}\HOLCCSTheoremsRESTRXXNILXXNOXXTRANS
+\HOLThmTag{CCS}{SUM1}\HOLCCSTheoremsSUMOne
+\HOLThmTag{CCS}{SUM2}\HOLCCSTheoremsSUMTwo
+\HOLThmTag{CCS}{SUM_cases}\HOLCCSTheoremsSUMXXcases
+\HOLThmTag{CCS}{SUM_cases_EQ}\HOLCCSTheoremsSUMXXcasesXXEQ
+\HOLThmTag{CCS}{TRANS_ASSOC_EQ}\HOLCCSTheoremsTRANSXXASSOCXXEQ
+\HOLThmTag{CCS}{TRANS_ASSOC_RL}\HOLCCSTheoremsTRANSXXASSOCXXRL
+\HOLThmTag{CCS}{TRANS_cases}\HOLCCSTheoremsTRANSXXcases
+\HOLThmTag{CCS}{TRANS_coind}\HOLCCSTheoremsTRANSXXcoind
+\HOLThmTag{CCS}{TRANS_COMM_EQ}\HOLCCSTheoremsTRANSXXCOMMXXEQ
+\HOLThmTag{CCS}{TRANS_IMP_NO_NIL}\HOLCCSTheoremsTRANSXXIMPXXNOXXNIL
+\HOLThmTag{CCS}{TRANS_IMP_NO_RESTR_NIL}\HOLCCSTheoremsTRANSXXIMPXXNOXXRESTRXXNIL
+\HOLThmTag{CCS}{TRANS_P_RESTR}\HOLCCSTheoremsTRANSXXPXXRESTR
+\HOLThmTag{CCS}{TRANS_P_SUM_P}\HOLCCSTheoremsTRANSXXPXXSUMXXP
+\HOLThmTag{CCS}{TRANS_P_SUM_P_EQ}\HOLCCSTheoremsTRANSXXPXXSUMXXPXXEQ
+\HOLThmTag{CCS}{TRANS_PAR}\HOLCCSTheoremsTRANSXXPAR
+\HOLThmTag{CCS}{TRANS_PAR_EQ}\HOLCCSTheoremsTRANSXXPARXXEQ
+\HOLThmTag{CCS}{TRANS_PAR_NO_SYNCR}\HOLCCSTheoremsTRANSXXPARXXNOXXSYNCR
+\HOLThmTag{CCS}{TRANS_PAR_P_NIL}\HOLCCSTheoremsTRANSXXPARXXPXXNIL
+\HOLThmTag{CCS}{TRANS_PREFIX}\HOLCCSTheoremsTRANSXXPREFIX
+\HOLThmTag{CCS}{TRANS_PREFIX_EQ}\HOLCCSTheoremsTRANSXXPREFIXXXEQ
+\HOLThmTag{CCS}{TRANS_REC}\HOLCCSTheoremsTRANSXXREC
+\HOLThmTag{CCS}{TRANS_REC_EQ}\HOLCCSTheoremsTRANSXXRECXXEQ
+\HOLThmTag{CCS}{TRANS_RELAB}\HOLCCSTheoremsTRANSXXRELAB
+\HOLThmTag{CCS}{TRANS_RELAB_EQ}\HOLCCSTheoremsTRANSXXRELABXXEQ
+\HOLThmTag{CCS}{TRANS_RELAB_labl}\HOLCCSTheoremsTRANSXXRELABXXlabl
+\HOLThmTag{CCS}{TRANS_RESTR}\HOLCCSTheoremsTRANSXXRESTR
+\HOLThmTag{CCS}{TRANS_RESTR_EQ}\HOLCCSTheoremsTRANSXXRESTRXXEQ
+\HOLThmTag{CCS}{TRANS_RESTR_NO_NIL}\HOLCCSTheoremsTRANSXXRESTRXXNOXXNIL
+\HOLThmTag{CCS}{TRANS_rules}\HOLCCSTheoremsTRANSXXrules
+\HOLThmTag{CCS}{TRANS_SUM}\HOLCCSTheoremsTRANSXXSUM
+\HOLThmTag{CCS}{TRANS_SUM_EQ}\HOLCCSTheoremsTRANSXXSUMXXEQ
+\HOLThmTag{CCS}{TRANS_SUM_EQ'}\HOLCCSTheoremsTRANSXXSUMXXEQYY
+\HOLThmTag{CCS}{TRANS_SUM_NIL}\HOLCCSTheoremsTRANSXXSUMXXNIL
+\HOLThmTag{CCS}{TRANS_SUM_NIL_EQ}\HOLCCSTheoremsTRANSXXSUMXXNILXXEQ
+\HOLThmTag{CCS}{VAR_NO_TRANS}\HOLCCSTheoremsVARXXNOXXTRANS
+}

@@ -1,0 +1,1120 @@
+\newcommand{\HOLCongruenceDate}{01 Giugno 2018}
+\newcommand{\HOLCongruenceTime}{19:28}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsCCXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsCCXXdef}{\UseVerbatim{HOLCongruenceDefinitionsCCXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceOneXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{congruence1} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{precongruence1} \HOLBoundVar{R}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionscongruenceOneXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceOneXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{congruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{precongruence} \HOLBoundVar{R}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionscongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsCONTEXTXXdef}
+\HOLTokenTurnstile{} \HOLConst{CONTEXT} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{CONTEXT\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsCONTEXTXXdef}{\UseVerbatim{HOLCongruenceDefinitionsCONTEXTXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsGCCXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{GCC} \HOLBoundVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{GCONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsGCCXXdef}{\UseVerbatim{HOLCongruenceDefinitionsGCCXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsGCONTEXTXXdef}
+\HOLTokenTurnstile{} \HOLConst{GCONTEXT} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GCONTEXT\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsGCONTEXTXXdef}{\UseVerbatim{HOLCongruenceDefinitionsGCONTEXTXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsGSEQXXdef}
+\HOLTokenTurnstile{} \HOLConst{GSEQ} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GSEQ\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsGSEQXXdef}{\UseVerbatim{HOLCongruenceDefinitionsGSEQXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsOHXXCONTEXTXXdef}
+\HOLTokenTurnstile{} \HOLConst{OH_CONTEXT} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{c}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsOHXXCONTEXTXXdef}{\UseVerbatim{HOLCongruenceDefinitionsOHXXCONTEXTXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceOneXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       \HOLConst{precongruence1} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsprecongruenceOneXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceOneXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       \HOLConst{precongruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsprecongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsSEQXXdef}
+\HOLTokenTurnstile{} \HOLConst{SEQ} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SEQ\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsSEQXXdef}{\UseVerbatim{HOLCongruenceDefinitionsSEQXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsSGXXdef}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SG\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsSGXXdef}{\UseVerbatim{HOLCongruenceDefinitionsSGXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsweaklyXXguardedOneXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
+       \HOLConst{weakly_guarded1} \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLBoundVar{X} \HOLConst{\HOLTokenIn{}} \HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{e} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsweaklyXXguardedOneXXdef}{\UseVerbatim{HOLCongruenceDefinitionsweaklyXXguardedOneXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsweaklyXXguardedXXdef}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Es}. \HOLConst{weakly_guarded} \HOLBoundVar{Es} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{EVERY} \HOLConst{weakly_guarded1} \HOLBoundVar{Es}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsweaklyXXguardedXXdef}{\UseVerbatim{HOLCongruenceDefinitionsweaklyXXguardedXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsWGXXdef}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WG\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsWGXXdef}{\UseVerbatim{HOLCongruenceDefinitionsWGXXdef}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsWGSXXdef}
+\HOLTokenTurnstile{} \HOLConst{WGS} \HOLSymConst{=}
+   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WGS\sp{\prime}}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+                      \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+                      (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                      \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+                 (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenImp{}}
+                 \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}) \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsWGSXXdef}{\UseVerbatim{HOLCongruenceDefinitionsWGSXXdef}}
+\newcommand{\HOLCongruenceDefinitions}{
+\HOLDfnTag{Congruence}{CC_def}\HOLCongruenceDefinitionsCCXXdef
+\HOLDfnTag{Congruence}{congruence1_def}\HOLCongruenceDefinitionscongruenceOneXXdef
+\HOLDfnTag{Congruence}{congruence_def}\HOLCongruenceDefinitionscongruenceXXdef
+\HOLDfnTag{Congruence}{CONTEXT_def}\HOLCongruenceDefinitionsCONTEXTXXdef
+\HOLDfnTag{Congruence}{GCC_def}\HOLCongruenceDefinitionsGCCXXdef
+\HOLDfnTag{Congruence}{GCONTEXT_def}\HOLCongruenceDefinitionsGCONTEXTXXdef
+\HOLDfnTag{Congruence}{GSEQ_def}\HOLCongruenceDefinitionsGSEQXXdef
+\HOLDfnTag{Congruence}{OH_CONTEXT_def}\HOLCongruenceDefinitionsOHXXCONTEXTXXdef
+\HOLDfnTag{Congruence}{precongruence1_def}\HOLCongruenceDefinitionsprecongruenceOneXXdef
+\HOLDfnTag{Congruence}{precongruence_def}\HOLCongruenceDefinitionsprecongruenceXXdef
+\HOLDfnTag{Congruence}{SEQ_def}\HOLCongruenceDefinitionsSEQXXdef
+\HOLDfnTag{Congruence}{SG_def}\HOLCongruenceDefinitionsSGXXdef
+\HOLDfnTag{Congruence}{weakly_guarded1_def}\HOLCongruenceDefinitionsweaklyXXguardedOneXXdef
+\HOLDfnTag{Congruence}{weakly_guarded_def}\HOLCongruenceDefinitionsweaklyXXguardedXXdef
+\HOLDfnTag{Congruence}{WG_def}\HOLCongruenceDefinitionsWGXXdef
+\HOLDfnTag{Congruence}{WGS_def}\HOLCongruenceDefinitionsWGSXXdef
+}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCCXXcongruence}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLConst{congruence} (\HOLConst{CC} \HOLBoundVar{R})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCCXXcongruence}{\UseVerbatim{HOLCongruenceTheoremsCCXXcongruence}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCCXXisXXcoarsest}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{congruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLConst{RSUBSET} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLConst{RSUBSET} \HOLConst{CC} \HOLBoundVar{R}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCCXXisXXcoarsest}{\UseVerbatim{HOLCongruenceTheoremsCCXXisXXcoarsest}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCCXXisXXcoarsestYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{precongruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLConst{RSUBSET} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLConst{RSUBSET} \HOLConst{CC} \HOLBoundVar{R}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCCXXisXXcoarsestYY}{\UseVerbatim{HOLCongruenceTheoremsCCXXisXXcoarsestYY}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCCXXisXXfiner}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLConst{RSUBSET} \HOLBoundVar{R}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCCXXisXXfiner}{\UseVerbatim{HOLCongruenceTheoremsCCXXisXXfiner}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCCXXprecongruence}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{precongruence} (\HOLConst{CC} \HOLBoundVar{R})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCCXXprecongruence}{\UseVerbatim{HOLCongruenceTheoremsCCXXprecongruence}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTOne}
+\HOLTokenTurnstile{} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTOne}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTTwo}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTThree}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTThreea}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTThreea}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTThreea}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTFour}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTFive}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTSix}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTSeven}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXcases}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c\sb{\mathrm{1}}} \HOLBoundVar{c\sb{\mathrm{2}}}. \HOLConst{CONTEXT} \HOLBoundVar{c\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{c\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLBoundVar{c\sb{\mathrm{1}}} \HOLConst{\HOLTokenCompose} \HOLBoundVar{c\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXcombin}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{CONTEXT\sp{\prime}}.
+       \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXind}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXrules}
+\HOLTokenTurnstile{} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXrules}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{CONTEXT\sp{\prime}}.
+       \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}.
+            \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXWGXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLBoundVar{c} \HOLConst{\HOLTokenCompose} \HOLBoundVar{e})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsCONTEXTXXWGXXcombin}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTXXWGXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTOne}
+\HOLTokenTurnstile{} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTOne}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTTwo}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTThree}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTThreea}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTThreea}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTThreea}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTFour}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTFive}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTSix}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTSeven}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXcases}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c\sb{\mathrm{1}}} \HOLBoundVar{c\sb{\mathrm{2}}}. \HOLConst{GCONTEXT} \HOLBoundVar{c\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{c\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLBoundVar{c\sb{\mathrm{1}}} \HOLConst{\HOLTokenCompose} \HOLBoundVar{c\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXcombin}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GCONTEXT\sp{\prime}}.
+       \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{GCONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXind}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{GCONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{c}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXrules}
+\HOLTokenTurnstile{} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+        \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+        \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+        \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXrules}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GCONTEXT\sp{\prime}}.
+       \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GCONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{GCONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GCONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGCONTEXTXXWGSXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLBoundVar{c} \HOLConst{\HOLTokenCompose} \HOLBoundVar{e})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGCONTEXTXXWGSXXcombin}{\UseVerbatim{HOLCongruenceTheoremsGCONTEXTXXWGSXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQOne}
+\HOLTokenTurnstile{} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQOne}{\UseVerbatim{HOLCongruenceTheoremsGSEQOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQTwo}{\UseVerbatim{HOLCongruenceTheoremsGSEQTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQThree}{\UseVerbatim{HOLCongruenceTheoremsGSEQThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQThreea}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQThreea}{\UseVerbatim{HOLCongruenceTheoremsGSEQThreea}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+       \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQFour}{\UseVerbatim{HOLCongruenceTheoremsGSEQFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{GSEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+           (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXcases}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}}. \HOLConst{GSEQ} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLBoundVar{E} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXcombin}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GSEQ\sp{\prime}}.
+       \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{GSEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXind}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXrules}
+\HOLTokenTurnstile{} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+       \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXrules}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsGSEQXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{GSEQ\sp{\prime}}.
+       \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{GSEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{GSEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{GSEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsGSEQXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsGSEQXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOBSXXCONGRXXcongruence}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOBSXXCONGRXXcongruence}{\UseVerbatim{HOLCongruenceTheoremsOBSXXCONGRXXcongruence}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{CONTEXT} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXSEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{SEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXSEQ}{\UseVerbatim{HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXSEQ}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTOne}
+\HOLTokenTurnstile{} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTOne}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTTwo}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTThree}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTFour}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTFive}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTSix}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTSeven}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTEight}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTEight}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTEight}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{OH_CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{x} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{c}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXcases}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c\sb{\mathrm{1}}} \HOLBoundVar{c\sb{\mathrm{2}}}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OH_CONTEXT} \HOLBoundVar{c\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLBoundVar{c\sb{\mathrm{1}}} \HOLConst{\HOLTokenCompose} \HOLBoundVar{c\sb{\mathrm{2}}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXcombin}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}}.
+       \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{c}. \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{OH_CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXind}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{c}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXrules}
+\HOLTokenTurnstile{} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{c}. \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{OH_CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXrules}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsOHXXCONTEXTXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}}.
+       \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{+} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{c} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{x})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{x} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{c} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{c} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{c}.
+            \HOLConst{OH_CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{c} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{OH_CONTEXT} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsOHXXCONTEXTXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsOHXXCONTEXTXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQOne}
+\HOLTokenTurnstile{} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQOne}{\UseVerbatim{HOLCongruenceTheoremsSEQOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQTwo}{\UseVerbatim{HOLCongruenceTheoremsSEQTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQThree}{\UseVerbatim{HOLCongruenceTheoremsSEQThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQThreea}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQThreea}{\UseVerbatim{HOLCongruenceTheoremsSEQThreea}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQFour}{\UseVerbatim{HOLCongruenceTheoremsSEQFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{SEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXcases}{\UseVerbatim{HOLCongruenceTheoremsSEQXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{SEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}}. \HOLConst{SEQ} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLBoundVar{E} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E\sp{\prime}})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXcombin}{\UseVerbatim{HOLCongruenceTheoremsSEQXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SEQ\sp{\prime}}.
+       \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{SEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXind}{\UseVerbatim{HOLCongruenceTheoremsSEQXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsSEQXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXrules}
+\HOLTokenTurnstile{} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXrules}{\UseVerbatim{HOLCongruenceTheoremsSEQXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSEQXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SEQ\sp{\prime}}.
+       \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{SEQ\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{SEQ} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SEQ\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSEQXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsSEQXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGOne}{\UseVerbatim{HOLCongruenceTheoremsSGOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGOneZero}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{e\sp{\prime}}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sp{\prime}} \HOLBoundVar{t}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGOneZero}{\UseVerbatim{HOLCongruenceTheoremsSGOneZero}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGOneOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{e\sp{\prime}} \HOLBoundVar{L}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{label} \HOLBoundVar{L}\HOLSymConst{..}\HOLBoundVar{e\sp{\prime}} \HOLBoundVar{t}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGOneOne}{\UseVerbatim{HOLCongruenceTheoremsSGOneOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGOneOneYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{e\sp{\prime}} \HOLBoundVar{L}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{L}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sp{\prime}} \HOLBoundVar{t}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{e\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGOneOneYY}{\UseVerbatim{HOLCongruenceTheoremsSGOneOneYY}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGTwo}{\UseVerbatim{HOLCongruenceTheoremsSGTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGThree}{\UseVerbatim{HOLCongruenceTheoremsSGThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGFour}{\UseVerbatim{HOLCongruenceTheoremsSGFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGFive}{\UseVerbatim{HOLCongruenceTheoremsSGFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGSix}{\UseVerbatim{HOLCongruenceTheoremsSGSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGSeven}{\UseVerbatim{HOLCongruenceTheoremsSGSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGEight}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGEight}{\UseVerbatim{HOLCongruenceTheoremsSGEight}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGNine}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{e\sp{\prime}}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sp{\prime}} \HOLBoundVar{t}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGNine}{\UseVerbatim{HOLCongruenceTheoremsSGNine}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{SG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXcases}{\UseVerbatim{HOLCongruenceTheoremsSGXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXGSEQXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLBoundVar{H} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} (\HOLBoundVar{H} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXGSEQXXcombin}{\UseVerbatim{HOLCongruenceTheoremsSGXXGSEQXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXGSEQXXstrongXXinduction}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{label} \HOLBoundVar{l\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l\sb{\mathrm{1}}} \HOLBoundVar{l\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLConst{label} \HOLBoundVar{l\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXGSEQXXstrongXXinduction}{\UseVerbatim{HOLCongruenceTheoremsSGXXGSEQXXstrongXXinduction}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXIMPXXWG}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXIMPXXWG}{\UseVerbatim{HOLCongruenceTheoremsSGXXIMPXXWG}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SG\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{SG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXind}{\UseVerbatim{HOLCongruenceTheoremsSGXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsSGXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXrules}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXrules}{\UseVerbatim{HOLCongruenceTheoremsSGXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXSEQXXcombin}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{H}. \HOLConst{SEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLBoundVar{H} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} (\HOLBoundVar{H} \HOLConst{\HOLTokenCompose} \HOLBoundVar{E})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXSEQXXcombin}{\UseVerbatim{HOLCongruenceTheoremsSGXXSEQXXcombin}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXSEQXXstrongXXinduction}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{R} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXSEQXXstrongXXinduction}{\UseVerbatim{HOLCongruenceTheoremsSGXXSEQXXstrongXXinduction}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSGXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{SG\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{SG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{SG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSGXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsSGXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSTRONGXXEQUIVXXcongruence}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSTRONGXXEQUIVXXcongruence}{\UseVerbatim{HOLCongruenceTheoremsSTRONGXXEQUIVXXcongruence}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsSTRONGXXEQUIVXXSUBSTXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{STRONG_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{CONTEXT} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsSTRONGXXEQUIVXXSUBSTXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsSTRONGXXEQUIVXXSUBSTXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWEAKXXEQUIVXXcongruence}
+\HOLTokenTurnstile{} \HOLConst{congruence1} \HOLConst{WEAK_EQUIV}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWEAKXXEQUIVXXcongruence}{\UseVerbatim{HOLCongruenceTheoremsWEAKXXEQUIVXXcongruence}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{GCONTEXT} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGSEQ}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLBoundVar{P}) (\HOLBoundVar{E} \HOLBoundVar{Q})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGSEQ}{\UseVerbatim{HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGSEQ}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGOne}{\UseVerbatim{HOLCongruenceTheoremsWGOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGTwo}{\UseVerbatim{HOLCongruenceTheoremsWGTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGThree}{\UseVerbatim{HOLCongruenceTheoremsWGThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGFour}{\UseVerbatim{HOLCongruenceTheoremsWGFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGFive}{\UseVerbatim{HOLCongruenceTheoremsWGFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSix}{\UseVerbatim{HOLCongruenceTheoremsWGSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSeven}{\UseVerbatim{HOLCongruenceTheoremsWGSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{WG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGXXcases}{\UseVerbatim{HOLCongruenceTheoremsWGXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WG\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{WG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGXXind}{\UseVerbatim{HOLCongruenceTheoremsWGXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsWGXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXrules}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGXXrules}{\UseVerbatim{HOLCongruenceTheoremsWGXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WG\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{WG} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WG\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsWGXXstrongind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSOne}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSOne}{\UseVerbatim{HOLCongruenceTheoremsWGSOne}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSTwo}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSTwo}{\UseVerbatim{HOLCongruenceTheoremsWGSTwo}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSThree}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSThree}{\UseVerbatim{HOLCongruenceTheoremsWGSThree}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSFour}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSFour}{\UseVerbatim{HOLCongruenceTheoremsWGSFour}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSFive}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSFive}{\UseVerbatim{HOLCongruenceTheoremsWGSFive}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSSix}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSSix}{\UseVerbatim{HOLCongruenceTheoremsWGSSix}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSSeven}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSSeven}{\UseVerbatim{HOLCongruenceTheoremsWGSSeven}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXcases}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}.
+       \HOLConst{WGS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEquiv{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e}) \HOLSymConst{\HOLTokenDisj{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{rf} \HOLBoundVar{e}. (\HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXcases}{\UseVerbatim{HOLCongruenceTheoremsWGSXXcases}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WGS\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{WGS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXind}{\UseVerbatim{HOLCongruenceTheoremsWGSXXind}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXISXXCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXISXXCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsWGSXXISXXCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXISXXGCONTEXT}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} \HOLBoundVar{e}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXISXXGCONTEXT}{\UseVerbatim{HOLCongruenceTheoremsWGSXXISXXGCONTEXT}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXrules}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+        \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+        \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXrules}{\UseVerbatim{HOLCongruenceTheoremsWGSXXrules}}
+\begin{SaveVerbatim}{HOLCongruenceTheoremsWGSXXstrongind}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WGS\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{1}}} \HOLBoundVar{a\sb{\mathrm{2}}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}.
+            \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}}. \HOLConst{WGS} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{WGS\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}}
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceTheoremsWGSXXstrongind}{\UseVerbatim{HOLCongruenceTheoremsWGSXXstrongind}}
+\newcommand{\HOLCongruenceTheorems}{
+\HOLThmTag{Congruence}{CC_congruence}\HOLCongruenceTheoremsCCXXcongruence
+\HOLThmTag{Congruence}{CC_is_coarsest}\HOLCongruenceTheoremsCCXXisXXcoarsest
+\HOLThmTag{Congruence}{CC_is_coarsest'}\HOLCongruenceTheoremsCCXXisXXcoarsestYY
+\HOLThmTag{Congruence}{CC_is_finer}\HOLCongruenceTheoremsCCXXisXXfiner
+\HOLThmTag{Congruence}{CC_precongruence}\HOLCongruenceTheoremsCCXXprecongruence
+\HOLThmTag{Congruence}{CONTEXT1}\HOLCongruenceTheoremsCONTEXTOne
+\HOLThmTag{Congruence}{CONTEXT2}\HOLCongruenceTheoremsCONTEXTTwo
+\HOLThmTag{Congruence}{CONTEXT3}\HOLCongruenceTheoremsCONTEXTThree
+\HOLThmTag{Congruence}{CONTEXT3a}\HOLCongruenceTheoremsCONTEXTThreea
+\HOLThmTag{Congruence}{CONTEXT4}\HOLCongruenceTheoremsCONTEXTFour
+\HOLThmTag{Congruence}{CONTEXT5}\HOLCongruenceTheoremsCONTEXTFive
+\HOLThmTag{Congruence}{CONTEXT6}\HOLCongruenceTheoremsCONTEXTSix
+\HOLThmTag{Congruence}{CONTEXT7}\HOLCongruenceTheoremsCONTEXTSeven
+\HOLThmTag{Congruence}{CONTEXT_cases}\HOLCongruenceTheoremsCONTEXTXXcases
+\HOLThmTag{Congruence}{CONTEXT_combin}\HOLCongruenceTheoremsCONTEXTXXcombin
+\HOLThmTag{Congruence}{CONTEXT_ind}\HOLCongruenceTheoremsCONTEXTXXind
+\HOLThmTag{Congruence}{CONTEXT_rules}\HOLCongruenceTheoremsCONTEXTXXrules
+\HOLThmTag{Congruence}{CONTEXT_strongind}\HOLCongruenceTheoremsCONTEXTXXstrongind
+\HOLThmTag{Congruence}{CONTEXT_WG_combin}\HOLCongruenceTheoremsCONTEXTXXWGXXcombin
+\HOLThmTag{Congruence}{GCONTEXT1}\HOLCongruenceTheoremsGCONTEXTOne
+\HOLThmTag{Congruence}{GCONTEXT2}\HOLCongruenceTheoremsGCONTEXTTwo
+\HOLThmTag{Congruence}{GCONTEXT3}\HOLCongruenceTheoremsGCONTEXTThree
+\HOLThmTag{Congruence}{GCONTEXT3a}\HOLCongruenceTheoremsGCONTEXTThreea
+\HOLThmTag{Congruence}{GCONTEXT4}\HOLCongruenceTheoremsGCONTEXTFour
+\HOLThmTag{Congruence}{GCONTEXT5}\HOLCongruenceTheoremsGCONTEXTFive
+\HOLThmTag{Congruence}{GCONTEXT6}\HOLCongruenceTheoremsGCONTEXTSix
+\HOLThmTag{Congruence}{GCONTEXT7}\HOLCongruenceTheoremsGCONTEXTSeven
+\HOLThmTag{Congruence}{GCONTEXT_cases}\HOLCongruenceTheoremsGCONTEXTXXcases
+\HOLThmTag{Congruence}{GCONTEXT_combin}\HOLCongruenceTheoremsGCONTEXTXXcombin
+\HOLThmTag{Congruence}{GCONTEXT_ind}\HOLCongruenceTheoremsGCONTEXTXXind
+\HOLThmTag{Congruence}{GCONTEXT_IS_CONTEXT}\HOLCongruenceTheoremsGCONTEXTXXISXXCONTEXT
+\HOLThmTag{Congruence}{GCONTEXT_rules}\HOLCongruenceTheoremsGCONTEXTXXrules
+\HOLThmTag{Congruence}{GCONTEXT_strongind}\HOLCongruenceTheoremsGCONTEXTXXstrongind
+\HOLThmTag{Congruence}{GCONTEXT_WGS_combin}\HOLCongruenceTheoremsGCONTEXTXXWGSXXcombin
+\HOLThmTag{Congruence}{GSEQ1}\HOLCongruenceTheoremsGSEQOne
+\HOLThmTag{Congruence}{GSEQ2}\HOLCongruenceTheoremsGSEQTwo
+\HOLThmTag{Congruence}{GSEQ3}\HOLCongruenceTheoremsGSEQThree
+\HOLThmTag{Congruence}{GSEQ3a}\HOLCongruenceTheoremsGSEQThreea
+\HOLThmTag{Congruence}{GSEQ4}\HOLCongruenceTheoremsGSEQFour
+\HOLThmTag{Congruence}{GSEQ_cases}\HOLCongruenceTheoremsGSEQXXcases
+\HOLThmTag{Congruence}{GSEQ_combin}\HOLCongruenceTheoremsGSEQXXcombin
+\HOLThmTag{Congruence}{GSEQ_ind}\HOLCongruenceTheoremsGSEQXXind
+\HOLThmTag{Congruence}{GSEQ_IS_CONTEXT}\HOLCongruenceTheoremsGSEQXXISXXCONTEXT
+\HOLThmTag{Congruence}{GSEQ_rules}\HOLCongruenceTheoremsGSEQXXrules
+\HOLThmTag{Congruence}{GSEQ_strongind}\HOLCongruenceTheoremsGSEQXXstrongind
+\HOLThmTag{Congruence}{OBS_CONGR_congruence}\HOLCongruenceTheoremsOBSXXCONGRXXcongruence
+\HOLThmTag{Congruence}{OBS_CONGR_SUBST_CONTEXT}\HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXCONTEXT
+\HOLThmTag{Congruence}{OBS_CONGR_SUBST_SEQ}\HOLCongruenceTheoremsOBSXXCONGRXXSUBSTXXSEQ
+\HOLThmTag{Congruence}{OH_CONTEXT1}\HOLCongruenceTheoremsOHXXCONTEXTOne
+\HOLThmTag{Congruence}{OH_CONTEXT2}\HOLCongruenceTheoremsOHXXCONTEXTTwo
+\HOLThmTag{Congruence}{OH_CONTEXT3}\HOLCongruenceTheoremsOHXXCONTEXTThree
+\HOLThmTag{Congruence}{OH_CONTEXT4}\HOLCongruenceTheoremsOHXXCONTEXTFour
+\HOLThmTag{Congruence}{OH_CONTEXT5}\HOLCongruenceTheoremsOHXXCONTEXTFive
+\HOLThmTag{Congruence}{OH_CONTEXT6}\HOLCongruenceTheoremsOHXXCONTEXTSix
+\HOLThmTag{Congruence}{OH_CONTEXT7}\HOLCongruenceTheoremsOHXXCONTEXTSeven
+\HOLThmTag{Congruence}{OH_CONTEXT8}\HOLCongruenceTheoremsOHXXCONTEXTEight
+\HOLThmTag{Congruence}{OH_CONTEXT_cases}\HOLCongruenceTheoremsOHXXCONTEXTXXcases
+\HOLThmTag{Congruence}{OH_CONTEXT_combin}\HOLCongruenceTheoremsOHXXCONTEXTXXcombin
+\HOLThmTag{Congruence}{OH_CONTEXT_ind}\HOLCongruenceTheoremsOHXXCONTEXTXXind
+\HOLThmTag{Congruence}{OH_CONTEXT_IS_CONTEXT}\HOLCongruenceTheoremsOHXXCONTEXTXXISXXCONTEXT
+\HOLThmTag{Congruence}{OH_CONTEXT_rules}\HOLCongruenceTheoremsOHXXCONTEXTXXrules
+\HOLThmTag{Congruence}{OH_CONTEXT_strongind}\HOLCongruenceTheoremsOHXXCONTEXTXXstrongind
+\HOLThmTag{Congruence}{SEQ1}\HOLCongruenceTheoremsSEQOne
+\HOLThmTag{Congruence}{SEQ2}\HOLCongruenceTheoremsSEQTwo
+\HOLThmTag{Congruence}{SEQ3}\HOLCongruenceTheoremsSEQThree
+\HOLThmTag{Congruence}{SEQ3a}\HOLCongruenceTheoremsSEQThreea
+\HOLThmTag{Congruence}{SEQ4}\HOLCongruenceTheoremsSEQFour
+\HOLThmTag{Congruence}{SEQ_cases}\HOLCongruenceTheoremsSEQXXcases
+\HOLThmTag{Congruence}{SEQ_combin}\HOLCongruenceTheoremsSEQXXcombin
+\HOLThmTag{Congruence}{SEQ_ind}\HOLCongruenceTheoremsSEQXXind
+\HOLThmTag{Congruence}{SEQ_IS_CONTEXT}\HOLCongruenceTheoremsSEQXXISXXCONTEXT
+\HOLThmTag{Congruence}{SEQ_rules}\HOLCongruenceTheoremsSEQXXrules
+\HOLThmTag{Congruence}{SEQ_strongind}\HOLCongruenceTheoremsSEQXXstrongind
+\HOLThmTag{Congruence}{SG1}\HOLCongruenceTheoremsSGOne
+\HOLThmTag{Congruence}{SG10}\HOLCongruenceTheoremsSGOneZero
+\HOLThmTag{Congruence}{SG11}\HOLCongruenceTheoremsSGOneOne
+\HOLThmTag{Congruence}{SG11'}\HOLCongruenceTheoremsSGOneOneYY
+\HOLThmTag{Congruence}{SG2}\HOLCongruenceTheoremsSGTwo
+\HOLThmTag{Congruence}{SG3}\HOLCongruenceTheoremsSGThree
+\HOLThmTag{Congruence}{SG4}\HOLCongruenceTheoremsSGFour
+\HOLThmTag{Congruence}{SG5}\HOLCongruenceTheoremsSGFive
+\HOLThmTag{Congruence}{SG6}\HOLCongruenceTheoremsSGSix
+\HOLThmTag{Congruence}{SG7}\HOLCongruenceTheoremsSGSeven
+\HOLThmTag{Congruence}{SG8}\HOLCongruenceTheoremsSGEight
+\HOLThmTag{Congruence}{SG9}\HOLCongruenceTheoremsSGNine
+\HOLThmTag{Congruence}{SG_cases}\HOLCongruenceTheoremsSGXXcases
+\HOLThmTag{Congruence}{SG_GSEQ_combin}\HOLCongruenceTheoremsSGXXGSEQXXcombin
+\HOLThmTag{Congruence}{SG_GSEQ_strong_induction}\HOLCongruenceTheoremsSGXXGSEQXXstrongXXinduction
+\HOLThmTag{Congruence}{SG_IMP_WG}\HOLCongruenceTheoremsSGXXIMPXXWG
+\HOLThmTag{Congruence}{SG_ind}\HOLCongruenceTheoremsSGXXind
+\HOLThmTag{Congruence}{SG_IS_CONTEXT}\HOLCongruenceTheoremsSGXXISXXCONTEXT
+\HOLThmTag{Congruence}{SG_rules}\HOLCongruenceTheoremsSGXXrules
+\HOLThmTag{Congruence}{SG_SEQ_combin}\HOLCongruenceTheoremsSGXXSEQXXcombin
+\HOLThmTag{Congruence}{SG_SEQ_strong_induction}\HOLCongruenceTheoremsSGXXSEQXXstrongXXinduction
+\HOLThmTag{Congruence}{SG_strongind}\HOLCongruenceTheoremsSGXXstrongind
+\HOLThmTag{Congruence}{STRONG_EQUIV_congruence}\HOLCongruenceTheoremsSTRONGXXEQUIVXXcongruence
+\HOLThmTag{Congruence}{STRONG_EQUIV_SUBST_CONTEXT}\HOLCongruenceTheoremsSTRONGXXEQUIVXXSUBSTXXCONTEXT
+\HOLThmTag{Congruence}{WEAK_EQUIV_congruence}\HOLCongruenceTheoremsWEAKXXEQUIVXXcongruence
+\HOLThmTag{Congruence}{WEAK_EQUIV_SUBST_GCONTEXT}\HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGCONTEXT
+\HOLThmTag{Congruence}{WEAK_EQUIV_SUBST_GSEQ}\HOLCongruenceTheoremsWEAKXXEQUIVXXSUBSTXXGSEQ
+\HOLThmTag{Congruence}{WG1}\HOLCongruenceTheoremsWGOne
+\HOLThmTag{Congruence}{WG2}\HOLCongruenceTheoremsWGTwo
+\HOLThmTag{Congruence}{WG3}\HOLCongruenceTheoremsWGThree
+\HOLThmTag{Congruence}{WG4}\HOLCongruenceTheoremsWGFour
+\HOLThmTag{Congruence}{WG5}\HOLCongruenceTheoremsWGFive
+\HOLThmTag{Congruence}{WG6}\HOLCongruenceTheoremsWGSix
+\HOLThmTag{Congruence}{WG7}\HOLCongruenceTheoremsWGSeven
+\HOLThmTag{Congruence}{WG_cases}\HOLCongruenceTheoremsWGXXcases
+\HOLThmTag{Congruence}{WG_ind}\HOLCongruenceTheoremsWGXXind
+\HOLThmTag{Congruence}{WG_IS_CONTEXT}\HOLCongruenceTheoremsWGXXISXXCONTEXT
+\HOLThmTag{Congruence}{WG_rules}\HOLCongruenceTheoremsWGXXrules
+\HOLThmTag{Congruence}{WG_strongind}\HOLCongruenceTheoremsWGXXstrongind
+\HOLThmTag{Congruence}{WGS1}\HOLCongruenceTheoremsWGSOne
+\HOLThmTag{Congruence}{WGS2}\HOLCongruenceTheoremsWGSTwo
+\HOLThmTag{Congruence}{WGS3}\HOLCongruenceTheoremsWGSThree
+\HOLThmTag{Congruence}{WGS4}\HOLCongruenceTheoremsWGSFour
+\HOLThmTag{Congruence}{WGS5}\HOLCongruenceTheoremsWGSFive
+\HOLThmTag{Congruence}{WGS6}\HOLCongruenceTheoremsWGSSix
+\HOLThmTag{Congruence}{WGS7}\HOLCongruenceTheoremsWGSSeven
+\HOLThmTag{Congruence}{WGS_cases}\HOLCongruenceTheoremsWGSXXcases
+\HOLThmTag{Congruence}{WGS_ind}\HOLCongruenceTheoremsWGSXXind
+\HOLThmTag{Congruence}{WGS_IS_CONTEXT}\HOLCongruenceTheoremsWGSXXISXXCONTEXT
+\HOLThmTag{Congruence}{WGS_IS_GCONTEXT}\HOLCongruenceTheoremsWGSXXISXXGCONTEXT
+\HOLThmTag{Congruence}{WGS_rules}\HOLCongruenceTheoremsWGSXXrules
+\HOLThmTag{Congruence}{WGS_strongind}\HOLCongruenceTheoremsWGSXXstrongind
+}
