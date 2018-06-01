@@ -1,0 +1,606 @@
+%%%% -*- Mode: LaTeX -*-
+%%
+%% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
+%% Prof. Davide Sangiorgi and Chun Tian.
+
+\documentclass{eptcs} % required template (EPTCS) by EXPRESS/SOS 2018
+
+%% Math symbol packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% \cupdot (the best one)
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{proposition}
+\newtheorem{proposition}{Proposition}[section]
+
+% HOL theorem embedding support
+\usepackage{holindex}
+\usepackage{alltt}
+\include{tokens}
+
+\usepackage[all,cmtip]{xy}
+
+\begin{document}
+
+\section{Formalization}
+
+In the second half of this paper, we present a formalization of all new concepts and
+theorems developed in the first part of this paper. The main purpose
+is to convince the readers that, there's no flaw\footnote{Perheps this is the first
+  time a frontier development in Concurrency Theory ships with its
+  formalization in the same paper.} in those informal proofs. This work is based on a rather
+complete formalization of CCS in HOL theorem prover
+(HOL4), described in a MSc thesis \cite{Chun:2017} and now lives in
+the official examples folder of HOL4 source
+code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
+The work is essentially a porting and extension of the early CCS
+formalization by Monica Nesi \cite{Nesi} in HOL88.
+
+We will not repeat all concepts and major theorems of CCS again in its
+formalized ways, nor talk about the changes and improvements comparing
+with previous CCS work including Nesi's. Instead, we just focus on our
+targeting theorems. However, as the unique solution of (rooted)
+contraction theorem stood at the end of a chain of results, it's
+impossible to describe only their statements and formal proofs without
+describing many dependent things first.  On the other side, it's very
+hard to convince audience the novelty in a proof
+engineering work, especially when there exists multiple formalizations
+ in the same area. After all, the whole interactive theorem proving (ITP)
+technique is just a translation of definitions and hand-made
+proofs from their informal representations to their formal versions.
+
+Unlike complicated large programs (e.g. operating systems) which
+usually contain countless of bugs even after years of updates and
+bugfixes, a huge prove engineering work can easily claim its
+\emph{correctness} without concerning other aspects (performance,
+quality of definitions, easiness of reading by human, etc.)
+Yet still different formalizations (of the same theory) done by
+different persons could be huge different, due to the great
+flexibilities on choices making at the design of types, terms and
+definitions. It's also quite common to break long original proofs into
+small lemmas and reuse them in the proof of other relevant
+theorems. For the same theorem, good and bad-killed proof engineers
+(suppose they both finished the proof)
+may result into very different proof steps of huge size
+differences.\footnote{But it's not true that a shorter proof is always
+better, and a shorted proof may not be executed faster if it heavily
+depends on automatic proof searching tools such as Meson and Metis. On
+the other side, longer proof without automatic proof searching can be
+easier understood by students who are learning the theory being
+formalized. Indeed, we have tried to follow the informal proof steps literally, and only used
+automatic proof searching techniques on obvious small proof goals.}
+Roughly speaking, there're relative ``good'' and ``bad'' designs and
+considerations, but if they all \emph{correctly} formalized the same theory, few people
+care about their differences, unless they want to extend existing work
+to verify their new developments.
+
+In the rest of this section, we're not going to repeat any proof steps
+as they're essentially the same with the informal proofs. Instead, we
+mostly focus on the key definitions, i.e. the formal
+representation of various concepts, plus brief descriptions on
+important stage theorem expressed in these definitions.
+
+\subsection{Simplifications and Limitations}
+
+We have only formally verified simplified forms of the unique
+solution theorems introduced in the first part. This is to not only
+save the formalization efforts, but also to make us focusing on the most
+important part of the proof. The most important simplification is
+that, we have only proved all unique solution theorems with only single-variable equations
+(contractions).
+
+But such a simplification doesn't hurt the rigorousness of our entire
+work, as once the single-equation version of the theorem is
+proven, the general case is just a routine
+adaptation for paper proofs. \footnote{However, it's impossible to directly derive the
+  multi-variable versions of unique solution theorems from their
+  single-variable versions.} \footnote{Also, I don't know if there
+  exists a higher-level general
+  duality theorem such that some kind of results on single-variable CCS
+  equations must also hold for multi-variable equation groups. --Chun.}
+It's not easy to formalize multi-variable CCS equations with
+introducing a large number of definitions and intermediate
+results. It's easy, however, to directly use the semantics context to
+represent single-variable equations without the need of formalizing
+the concept of ``equation'' at all.
+
+\subsubsection{Limitations}
+
+There're two major limitations in this work. One is the class of CCS
+processes, i.e. we're limited with Finitary CCS which has no infinite
+sums or parallel compositions. The only important theorem in which
+arbitrary infinite sums of CCS processes must be used, is the following
+``coarsest congruence contained in weak bisimilarity'' theorem without
+any limitations on the involved processes:
+\begin{equation}
+\forall p\; q.\; p \approx^c\! q \Longleftrightarrow \forall r.\; p+r \approx
+q+r
+\end{equation}
+Milner's classical proof of above result needs to assume that $p$ and $q$ didn't
+use up all available labels. The newer proof by van Glabbek requires a
+special choice of $r$ which is not weak bisimilar with any process
+transited from $p$ and $q$, and the actual chosen process may contain
+arbitrary large sums of CCS processes. This goes beyond the
+expressiveness of HOL, as result we followed the same proof ideas but
+limited with finite state CCS only.
+
+The other limitation is, even for single-variable equation, the
+variable doesn't appear inside any constant.  For example, an equation like
+$P \approx E\{P/X\}$ in which $E = A$ and $A \overset{\mathrm{def}}{=}
+\tau.A + b.X$ is not supported, because the equation variable $X$
+appears inside the definition of constant $A$. On the other side, if
+$E = A + X$ with whatever definition of constant $A$ in which there's
+no appearence of $X$, such equations are supported. This is not
+exactly the same as \emph{pure} equations (no constants anywhere), but
+essentially works in the same way. This limitation comes from the fact
+that, our congruence definition doesn't consider constants at all.
+And to fix the issue, we must prove the Proposition 4.12 in Milner's
+book first:
+\begin{proposition}
+Let $\tilde{E}$ and $\tilde{F}$ contain variables $\tilde{X}$ at
+most. Let
+$\tilde{A}\overset{\mathrm{def}}{=}\tilde{E}\{\tilde{A}/\tilde{X}\},
+\tilde{B}\overset{\mathrm{def}}{=}\tilde{E}\{\tilde{B}/\tilde{X}\}$
+and $\tilde{E}\sim\tilde{F}$. Then $\tilde{A}\sim\tilde{B}$.
+\end{proposition}
+which has one of the longest proof in that book, depends on bisimulation upto
+$\sim$ and lemmas on free variables appeared in CCS
+processes. This complicated part is planed as the future work.
+
+\subsection{CCS, Transitions and Bisimilarities}
+
+In our formalization of CCS, the set of transition actions are not
+defined by the union of all visiable actions (names and conames) and the invisible
+action $\tau$. Instead, we define only visible names as a simple
+algebraic datatype ``\HOLty{:'b Label}`` in which the type parameter
+$\beta$ can be any other type (thus we don't know anything about the
+cardinality of the set of all visiable actions), and then use HOL's
+\texttt{optionTheory} to further extend the type by one more
+element, $\tau$. Having a dedicated type for all visiable actions is quite
+convenient and make some statements shorter. (e.g. the restriction
+operator can only take a set of visible actions)
+
+The type of CCS process is defined by an algebraic datatype in HOL,
+i.e. an inductive defined finite structure constructed by unary and
+binary operators.\footnote{It seems possible to switch to co-algebraic
+datatypes for the support of potential infinite sums. Indeed, we never
+need to induct on CCS processes in any proof so far.} 
+It's not easy to directly extend this datatype with new operators,
+without hurting the existing proved results.\footnote{This is usually
+  called \emph{deep embedding} when implementing a new logic in theorem
+  provers. In case of CCS, \emph{shallow embedding} seems impossible.}
+Relabeling operator is not necessary from the theoretical view, as
+it's possible to use \emph{syntactic
+  substitution} instead\footnote{c.f. Section 4.1.2. (page 168) of Robert Gorrieri's CCS book.}
+However, it's quite hard to formalize syntactic substitution for CCS,
+as it requires to prove many results on the free and bound names
+first.
+
+Without constants (or recursion operator), a CCS process cannot
+represent infinite-state LTS and many deep results in CCS cease to
+exist then. Therefore any serious CCS formalization
+must contain the support of constants (or recursion operator. Nowadays
+most CCS textbooks and papers use constants, but from the formal view
+it's better (or only possible) to use the original form: the recursion
+operator, because any CCS process must be presented as single, finite term in
+theorem prover. In Milner's book, this CCS operator is called \texttt{fix},
+as it essentially returns the fixpoint of a CCS equation. We use the
+symbol \texttt{rec} instead and limit ourself to single-variable case,
+as we want to extend to multi-variable recursion operator in the
+future with the original name. So instead of saying a CCS process $A$
+with constant definitions
+$A \overset{\mathrm{def}}{=} \tau.A + b.B$ and $B
+\overset{\mathrm{def}}{=} b.B$, we use $\mathbf{rec}\;A.\, (\tau.A +
+b.(\mathbf{rec}\;B.\,(b.B)))$ instead.
+
+The extra beauty of above recursion opeator is, if we imagine the
+\texttt{rec} symbol as $\lambda$ in $\lambda$-expressions, i.e. $\lambda A.\, (\tau.A +
+b.(\lambda B.\,(b.B)))$, then we can see both $A$ and $B$ are bound
+variables in this expression. On the other side, it's easy to write
+an extra constant $C$ inside previous process without a surrounding $\lambda C$, and it must
+be a \emph{free variable} of that $\lambda$-expressions. If we go back to the constant-based CCS
+syntax, this would mean a malformed CCS process because not all the
+constants used in it are defined. Our point here is:
+\begin{enumerate}
+\item Under the recursion-based CCS syntax, all possible CCS terms
+  constructed from the algebraic datatype are well-formed, and those
+  free variables can be seen and used\footnote{However, in our
+    formalization of unique solution of equations theorems, we focus
+    on single-variable case and directly used $\lambda$-expression
+    (typed: $CCS\rightarrow CCS$) as equation. The current discussion
+    is mainly for the support of multi-variable equations in the future.} as equation variables.
+\item All proved theorems about CCS naturally take CCS process with
+  extra free variables, as they by themselves have no transition, just
+  like $\mathrm{0}$. (this is a natural consequence derived from SOS rules)
+\end{enumerate}
+
+The transition of CCS processes is defined by an inductive
+relation, literally the same as SOS rules appearing in CCS
+textbooks.\footnote{There's an interesting finding here: we never need to use the induction
+theorem for transition relation at all, after having proved almost all
+notable results for CCS. In another word, the whole CCS formal theory
+builds normally, even if the transition relation
+is defined co-inductively (by the same set of SOS rules). A potential
+need is the prove the set of ending process of transitions from any
+process doesn't use any new labels, but so far this result is not
+formalized yet. The question
+is: do the largest fixpoint and smallest fixpoint \emph{coincide} for
+a relation defined by SOS rules? (if not, what else do we have in the
+co-inductive relation?)} The only notable SOS rule which is different
+with their usual version in textbooks, is the recursion rule:
+\begin{alltt}
+\HOLthm{CCS.REC}
+\end{alltt}
+which says, if we substitute all appearences of constant $X$ in $E$ to
+$(\mathbf{rec}\; X E)$ and the resulting process has a transition to $E_1$
+with action $u$, then $(\mathbf{rec}\; X E)$ has the same
+transition.
+
+\subsection{Semantic context, guardness and (pre)congruence}
+
+The congruence (or substitutivity) of bisimilarity relations are
+usually defined by a series of substitutivity theorems in most CCS
+textbooks (c.f. Milners' and Gorrieri's). The concept of semantic context wasn't explicitly given in
+Milner's book.\footnote{Milner says (p.\,84): ``.. congruence
+  relation; that is, it is preserved by all algebraic contexts'', but
+  he didn't further give a clear definition of algerbaic contexts.}
+Later books made it explicitly, for exmaple, in Sangior's book\footnote{Introduction to Bisimulation and
+  Coinduction},  a \emph{(semantic) context} is a process expression with a single occurrence of a hold
+$[\cdot]$ in it, as a subexpression (c.f. p.99 of Sangiorgi's book).
+
+In van Glabbek's paper\footnote{A characterisation of weak
+  bisimulation congruence}), maybe for the first time the concept of
+congruence is clearly defined in association with equivalence
+relation:
+\begin{definition}
+An equivalence relation $\approx$ is a congruence for a set of
+operators $L$ iff for every $n$-ary operator $f$ in $L$ one has
+$g_1\approx h_1 \wedge \cdots \wedge g_n \approx h_n \Rightarrow
+f(g_1,\ldots,g_n) \approx f(h_1,\ldots,h_n)$. This is the case iff for
+every semantic context $C[\cdot]$ one has $g\approx h \Rightarrow
+C[g]\approx C[h]$.
+\end{definition}
+
+van Glabbek further gave a way to construct congruence relations from
+any existing equivalence relations:
+\begin{definition}
+\label{def:precc}
+Given an equivalence relation $\sim$, its (pre)congruence closure,
+notated as $[\sim]$ is defined by
+\begin{equation}
+g\,[\sim]\, h \mbox{ iff } C[g] \sim C[h] \mbox{ for every semantic
+  context } C[\cdot].
+\end{equation}
+\end{definition}
+And it's simple to prove that, for any equivation relation $\sim$,
+$[\sim]$ is the coarsest congruence finer than $\sim$.
+
+Here we have basically followed van Glabbek's approach. But the
+restriction of single occurrence of the hole seems unnecessary: all
+congruence relations in CCS hold also under semantic context with
+multiple holes. Further more, a multi-hole semantic context $C$ can be
+naturally used for representing an equation (or contraction), e.g. $P
+\sim C[P]$.
+
+It remains to find a suitable formal definition of semantic
+context. There're multiple ways.\footnote{A literal approach is to
+define another algebraic datatype which copies everything from the
+existing CCS datatype, plus a dedicated symbol for that ``hole'', then
+an inductively defined \texttt{replace} operator can be used for
+replacing that hole with any CCS process, returning a normal CCS
+datatype.} Here we have chosen to use $\lambda$-expressions (typed
+$CCS\rightarrow CCS$) to represent a (multi-hole) semantic
+context. The definition is inductive:\footnote{Due to symbol conflicts
+  with $\lambda$-calculus, the prefix operator in CCS is represented
+  as double-dot in HOL.}
+\begin{alltt}
+\HOLthm[def]{Congruence.CONTEXT_rules}
+\end{alltt}
+
+Under above definition, we can formally define the concept of
+``precongruence'' and ``congruence'' in the following ways:
+\begin{alltt}
+\HOLthm[def]{Congruence.precongruence_def}
+\HOLthm[def]{Congruence.congruence_def}
+\end{alltt}
+
+A \emph{weak guarded} context is a context in which all holes appears
+in the sub-expression of prefixed processes. We can easily define it
+following the same idea:
+\begin{alltt}
+\HOLthm[def]{Congruence.WG_rules}
+\end{alltt}
+(Notice the differences between a weak guarded context and a normal
+one: $\lambda t. t$ is not weakly guarded as the variable is directly
+exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
+guarded as long as $e[\cdot]$ is a semantic context, no necessary weakly guaded.)
+
+By induction on the structure of $\lambda$-expressions, we can easily
+prove that, a weakly guarded context is also a (normal) context, and the
+composition of a (normal) context and a weakly guarded context is
+still weakly guarded:
+\begin{alltt}
+WG_IS_CONTEXT:
+\HOLthm{Congruence.WG_IS_CONTEXT}
+CONTEXT_WG_combin:
+\HOLthm{Congruence.CONTEXT_WG_combin}
+\end{alltt}
+It's a similar process to define strongly guarded context
+(\texttt{SG}), sequential context (\texttt{SEQ}) and their
+variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
+\texttt{GSEQ}). Some lemmas about their relationships have very long
+(but trivial) formal proofs due to the combinatorial explosion of
+inductions on their structures. For example, one such 
+lemma says, for any semantic context $E$ which is both strongly guarded
+and sequential (no direct sums) and another sequential context $H$ (no
+direct sums), the composition $H \circ E$ is still both strongly
+guarded and sequential (no direct sums):
+\begin{alltt}
+SG_GSEQ_combin:
+\HOLthm{Congruence.SG_GSEQ_combin}
+\end{alltt}
+
+\subsection{Milner's unique solution of equations theorems}
+
+Once the representation issue of CCS equations is resolved, the actual
+proofs of Milner's unique solution of equations theorems is not very
+interesting from the view of theorem proving, although it's a 
+precise proof engineering work producing quite long proofs.
+Since we have chosen to use semantic context to represent
+single-variable equations, an equation like $P \sim E\{P/X\}$ now
+becomes $P \sim E[P]$, in which $E$ is a (multi-hole) semantic
+context, and there's no need to say it ``contains at most the variable
+$X$'' any more, as equation variable doesn't appear in $E$ at
+all. Under these simplifications, the formal proof of Milner's unique
+solution of equations theorem for $\sim$ is a literal mapping for informal
+proofs based on bisimulation upto $\sim$, induction and case analysis
+of weakly guarded contexts. Below is the formal version of Lemma 4.13
+and Proposition 4.14 in Milner's book:
+\begin{alltt}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION_LEMMA}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
+\end{alltt}
+
+Milner's book only gives the unique solution of equations theorem of
+observational congruence ($\approx^c$, Proposition 7.13):
+\begin{alltt}
+OBS_UNIQUE_SOLUTION:
+\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
+\end{alltt}
+But its original proof is wrong and cannot be fixed even using the
+alternative version of bisimulation upto $\approx$ (c.f. The problem
+of ``Weak Bisimulation up to''). For this proof, we've made a direct
+proof without using any bisimulation upto technique, which essentially
+depends on the following relationship between observational congruence
+and weak bisimulation (not bisimilarity):
+\begin{alltt}
+OBS_CONGR_BY_WEAK_BISIM:
+\HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}
+\end{alltt}
+
+There's actual a third version for weak
+bisimilarity not explicitly mentioned in Milner's book, mostly because
+it's even more restrictive: beside being strongly guarded and sequential, the
+equation variable $X$ must not appear in any direct
+sum:\footnote{Here, \texttt{GSEQ} means a sequential context without
+  direct sums.}
+\begin{alltt}
+WEAK_UNIQUE_SOLUTION:
+\HOLthm{UniqueSolutions.WEAK_UNIQUE_SOLUTION}
+\end{alltt}
+
+\subsection{Unique solution of contractions}
+
+The major difficultis in formalizing Sangiorgi's unique solution of
+contractions theorem is to prove its main lemma (c.f. Lemma 3.9 of
+main paper), in which the length of weak transitions are used for
+induction. Introducing a special vesion of weak transition relation
+with length would be an easier choice, but we have chosen to use trace
+instead, so that in the future it's possible to extend the work with
+trace equivalence included.
+
+A trace is represented by the beginning and ending CCS processes, plus
+a list of action it passes. Insteading of defining it directly, we
+have first defined a new concept called Reflexive Transitive Closure with a
+List (LRTC):
+\begin{alltt}
+\HOLthm{Trace.LRTC_DEF}
+\end{alltt}
+For any labelled translation relation $R$, \HOLtm{LRTC R} builds a new
+relation accumulating all labels in the middle. Then the trace of CCS processes can be
+defined by simply combining LRTC with the (strong) CCS transition
+relation:
+\begin{alltt}
+\HOLthm[def]{Trace.TRACE_def}
+\end{alltt}
+
+If there's at most one visible action (label) in the list of actions of a trace,
+then the trace is also a weak transition. We divided this observation
+into two cases: no label and unique label. The definition of ``no
+label'' in an action list is easy and clear:
+\begin{alltt}
+\HOLthm{Trace.NO_LABEL_def}
+\end{alltt}
+while the definition of ``unique label'' can be done in many ways, in
+which we have chosen to use the version learnt from Robert Beers in
+a private discussion which prevented counting or filtering in the list:
+\begin{alltt}
+\HOLthm{Trace.UNIQUE_LABEL_def}
+\end{alltt}
+It says, a label is unique in an action list iff it there's no other
+labels in the rest part of the list.
+
+The final relationship between traces and weak transitions is stated
+and proved in the following lemma:
+\begin{alltt}
+WEAK_TRANS_AND_TRACE:
+\HOLthm{Trace.WEAK_TRANS_AND_TRACE}
+\end{alltt}
+(A weak transition $E\overset{u}{\rightarrow}E'$ is a trace with non
+empty action list: 1) without any visible label, if $u = \tau$, or 2)
+$u$ is the unique label in the list, if $u \neq \tau$.)
+
+To finish the proof of Lemma 3.9 in Sangiorgi's paper, we used above
+lemma to convert weak transitions to traces, which either keep its
+length or become shorter after passing weak bisimilations, then we
+used above lemma again to convert the traces back to weak transitions.
+
+The proof of the final unique solution of contractions theorem is just
+a literal transition of its informal proofs: (noticed that the weakly
+guarded context is the version without direct sums)
+\begin{alltt}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}
+\end{alltt}
+
+\subsection{Unique solution of rooted contractions}
+
+The proof of Unique solution of rooted contractions theorem is the
+same proof steps of Unique solution of contractions theorem plus the
+application of \texttt{OBS_CONGR_BY_WEAK_BISIM} at the
+beginning.\footnote{In the thesis work, the conclusion of this theorem
+is weak bisimilarity, and the proof is exactly the same as Unique
+solution of contractions theorem. Now we got a stronger conclusion
+using observational congruence, and the previous version becomes a
+trivial collorary of the current version.} The
+two proofs are quite similar, mostly because the only property we need
+from (rooted) contraction is its precongruence. Once we have proved
+the precongruence of rooted contracion, we can naturally use the
+normal version of weakly guarded expressions with direct sums included.
+
+\begin{alltt}
+UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
+\end{alltt}
+
+\subsection{Coarsest (pre)congruence contained in $\approx$ (or $\succeq_{\mathrm{bis}}$)}
+
+The ``coarsest congruence contained in weak bisimilarity ($\approx$)''
+theorem in CCS is somehow special, as its current known proofs either
+rely on quite restricted conditions, or have an extremely complicated proof
+(c.f. van Glabbek's paper) in
+which ordinal theory is required.  Actually even the relationship
+between its name and statement is not well explained in many CCS
+textbooks. But van Glabbek's paper has given the so far clearest
+explainion, here we briefly repeat his arguments:
+
+As we know weak bisimilarity ($\approx$) is not (real) congruence, as
+it doesn't satisfy subsitutivity on direct sums (but if the CCS syntax
+is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
+congruence). The purpose is to find a coarsest congruence contained in
+weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
+There're two ways to build a congruence from weak bisimilarity, one
+way is the standard definition for observational congruence (rooted
+weak bisimilarity) $\approx^c$ in CCS textbooks, but even it's proven to be a
+congruence we don't know if it's coarsest one.  The other way is to
+build a (pre)congruence closure (Def.\,\ref{def:precc}) directly upon
+the original weak bisimilarity relation, we call the resulting
+relation ``Weak bisimilarity congruence'' ($[\approx]$):
+\begin{alltt}
+\HOLthm[def]{CoarsestCongr.WEAK_CONGR}
+\HOLthm[def]{Congruence.CC_def}
+\end{alltt}
+It can be shown that any such (pre)congruence closure is automatically coarset.
+
+Now it remains to prove that, the congrunce relation built by above
+two quite different approaches actually coincide. To achive this goal,
+we first noticed that, all other operators beside sums used in
+semantic context doesn't matter, because they're already substituible
+for weak bisimilarity. The only important operator is the sum
+operator. To focus on this important operator, we can temporily
+introduce another concept called \emph{sum equivalence}:
+\begin{alltt}
+\HOLthm[def]{CoarsestCongr.SUM_EQUIV}
+\end{alltt}
+It can be shown that, weak bisimilarity congruence implies this sum
+equivalence. Thus if we can further prove that the sum
+equivalence imples observational congrence, all the three relations
+must coincide together, as shown in the following diagram:
+\begin{displaymath}
+\xymatrix{
+{\textrm{Weak bisimilarity } (\approx)} & {\textrm{Sum
+    equivalence } (\approx^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Weak bisim. congruence } ([\approx])}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+In another words, observational congruence is the coarsest congruence
+contained in weak bisimilary if and only if
+\begin{equation}
+\forall p\; q.\; p \approx^c\! q \Longleftrightarrow \forall r.\; p+r \approx
+q+r
+\end{equation}
+
+The classical assumption for proving above theorem requires that $p$
+and $q$ do not use up all available visible actions,
+i.e. $\mathrm{fn}(p) \cup \mathrm{fn}(q) \neq \mathscr{L}$. But it's
+not easy to formalize and use such an assumption without a detailed
+treatment on free and bound names (visible actions) of CCS
+processes.\footnote{There're totally four such concepts: 1) free names
+are all visible actions appearing in a CCS term without surrounding
+$\nu$ (restriction) operator on the same action; 2) bound names are
+the set of all actions ever used by $\nu$ (restriction) operator; 3)
+free variables (or equation variables) are those variables without a
+definition given by recursion
+operator; 4) bound variables (process constants) are variables with
+definitions given by recursion operator. All CCS results using these
+concepts are not touched so far, although these four concepts are
+successfully defined using HOL's set and list theories.} However, by
+analyzing the proof steps, we found that, what's really required is to
+not use up all available labels in those weak transitions directly
+lead from $p$ and $q$. In another words, even they have used all
+available labels, as long as their first weak transitions didn't, the
+whole proof can still be finished.\footnote{Further more, $p$ and $q$
+  can be considered separately: the proof can be finished as long as
+  \emph{each} of them didn't use up all labels on first weak
+  transition, while the union of these labels are all labels.}
+We have formalized this property of
+CCS process and call it ``free action'' property:
+\begin{alltt}
+\HOLthm{CoarsestCongr.free_action_def}
+\end{alltt}
+With this property, the classical form of this theorem that we have
+formally proved is:
+\begin{alltt}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_THM}
+\end{alltt}
+
+If we drop this classical assumption, then the proof becomes much
+harder, as given a van Glabbek's paper. Beside, it requires that CCS
+syntax must support infinite sums of processes, and this ``infinity''
+will go to arbitrary ordinals. Unfortunately, this is beyond the
+ability of HOL (or simple type theory). What we can prove by following
+the same idea is the following version for finite state CCS, i.e. the
+set of all reachable processes is finite:
+\begin{alltt}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_FINITE}
+\end{alltt}
+
+For contraction and rooted contraction, the situation (and proof
+steps) is exactly the same:
+\begin{displaymath}
+\xymatrix{
+{\textrm{Contraction } (\succeq_{\mathrm{bis}})} & {\textrm{Sum
+    contraction } (\succeq_{\mathrm{bis}}^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Contraction precongruence } ([\succeq_{\mathrm{bis}}])}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted contraction } (\succeq_{\mathrm{bis}}^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+
+And we got two versions of theorem saying rooted contraction is the
+coarsest precongruence of (bisimilarity) contraction:
+\begin{alltt}
+\HOLthm{Contraction.COARSEST_PRECONGR_THM'}
+\HOLthm{Contraction.COARSEST_PRECONGR_FINITE}
+\end{alltt}
+
+\end{document}
