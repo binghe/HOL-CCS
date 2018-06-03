@@ -32,25 +32,25 @@
 
 \section{Formalization}
 
-In the second half of this paper, we present a formalization of all new concepts and
-theorems developed in the first part of this paper. The main purpose
-is to convince the readers that, there's no flaw\footnote{Perheps this is the first
+In the second half of this paper, we present a formalization of CCS
+including the new concepts and theorems proposed in the first half of
+this paper. The main purpose is to convince the readers that, there's no flaw\footnote{Perheps this is the first
   time a frontier development in Concurrency Theory ships with its
-  formalization in the same paper.} in those informal proofs. This work is based on a rather
-complete formalization of CCS in HOL theorem prover
-(HOL4), described in a MSc thesis \cite{Chun:2017} and now lives in
+  formalization in the same paper.} in the informal proofs. The formalization work is based on a formalization of CCS in HOL theorem prover
+(HOL4), described in second author's MSc thesis \cite{Chun:2017} and now lives in
 the official examples folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
 The work is essentially a porting and extension of the early CCS
 formalization by Monica Nesi \cite{Nesi} in HOL88.
 
-We will not repeat all concepts and major theorems of CCS again in its
-formalized ways, nor talk about the changes and improvements comparing
-with previous CCS work including Nesi's. Instead, we just focus on our
-targeting theorems. However, as the unique solution of (rooted)
-contraction theorem stood at the end of a chain of results, it's
-impossible to describe only their statements and formal proofs without
-describing many dependent things first.  On the other side, it's very
+We will not repeat all definitions and theorems of CCS again by their
+formalized versions, nor we talk about the changes and improvements
+comparing with previous CCS work by Nesi. Instead, we just focus on our
+targeting theorems. However, the unique solution of (rooted)
+contraction theorem stood at the end of a chain of and
+concepts and results, it's
+impossible to describe only the final statements and it formal proofs without
+describing all dependent concepts first.  On the other side, it's very
 hard to convince audience the novelty in a proof
 engineering work, especially when there exists multiple formalizations
  in the same area. After all, the whole interactive theorem proving (ITP)
@@ -58,19 +58,17 @@ technique is just a translation of definitions and hand-made
 proofs from their informal representations to their formal versions.
 
 Unlike complicated large programs (e.g. operating systems) which
-usually contain countless of bugs even after years of updates and
-bugfixes, a huge prove engineering work can easily claim its
+usually contain countless of bugs even after years of updates, a huge
+proof engineering work can easily claim its
 \emph{correctness} without concerning other aspects (performance,
 quality of definitions, easiness of reading by human, etc.)
 Yet still different formalizations (of the same theory) done by
-different persons could be huge different, due to the great
-flexibilities on choices making at the design of types, terms and
-definitions. It's also quite common to break long original proofs into
-small lemmas and reuse them in the proof of other relevant
-theorems. For the same theorem, good and bad-killed proof engineers
-(suppose they both finished the proof)
-may result into very different proof steps of huge size
-differences.\footnote{But it's not true that a shorter proof is always
+different persons could be very different, due to the great
+flexibilities on choices made during the design of types, terms and
+definitions. It's also quite common to break the original long proofs to
+small pieces. For the same theorem, good and bad-killed proof engineers
+may result into very different proof steps with quite different
+lenths.\footnote{But it's not true that a shorter proof is always
 better, and a shorted proof may not be executed faster if it heavily
 depends on automatic proof searching tools such as Meson and Metis. On
 the other side, longer proof without automatic proof searching can be
