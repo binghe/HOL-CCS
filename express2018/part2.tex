@@ -36,55 +36,27 @@ In the second half of this paper, we present a formalization of CCS
 including the new concepts and theorems proposed in the first half of
 this paper. The main purpose is to convince the readers that, there's no flaw\footnote{Perheps this is the first
   time a frontier development in Concurrency Theory ships with its
-  formalization in the same paper.} in the informal proofs. The formalization work is based on a formalization of CCS in HOL theorem prover
-(HOL4), described in second author's MSc thesis \cite{Chun:2017} and now lives in
-the official examples folder of HOL4 source
+  formalization in the same paper.} in the informal proofs. The
+formalization work is based on a formalization of CCS in HOL theorem
+prover (HOL4), described in second author's MSc thesis
+\cite{Chun:2017} and now lives in the official examples folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
 The work is essentially a porting and extension of the early CCS
 formalization by Monica Nesi \cite{Nesi} in HOL88.
 
 We will not repeat all definitions and theorems of CCS again by their
-formalized versions, nor we talk about the changes and improvements
-comparing with previous CCS work by Nesi. Instead, we just focus on our
-targeting theorems. However, the unique solution of (rooted)
-contraction theorem stood at the end of a chain of and
-concepts and results, it's
-impossible to describe only the final statements and it formal proofs without
-describing all dependent concepts first.  On the other side, it's very
-hard to convince audience the novelty in a proof
-engineering work, especially when there exists multiple formalizations
- in the same area. After all, the whole interactive theorem proving (ITP)
-technique is just a translation of definitions and hand-made
-proofs from their informal representations to their formal versions.
-
-Unlike complicated large programs (e.g. operating systems) which
-usually contain countless of bugs even after years of updates, a huge
-proof engineering work can easily claim its
-\emph{correctness} without concerning other aspects (performance,
-quality of definitions, easiness of reading by human, etc.)
-Yet still different formalizations (of the same theory) done by
-different persons could be very different, due to the great
-flexibilities on choices made during the design of types, terms and
-definitions. It's also quite common to break the original long proofs to
-small pieces. For the same theorem, good and bad-killed proof engineers
-may result into very different proof steps with quite different
-lenths.\footnote{But it's not true that a shorter proof is always
-better, and a shorted proof may not be executed faster if it heavily
-depends on automatic proof searching tools such as Meson and Metis. On
-the other side, longer proof without automatic proof searching can be
-easier understood by students who are learning the theory being
-formalized. Indeed, we have tried to follow the informal proof steps literally, and only used
-automatic proof searching techniques on obvious small proof goals.}
-Roughly speaking, there're relative ``good'' and ``bad'' designs and
-considerations, but if they all \emph{correctly} formalized the same theory, few people
-care about their differences, unless they want to extend existing work
-to verify their new developments.
-
-In the rest of this section, we're not going to repeat any proof steps
-as they're essentially the same with the informal proofs. Instead, we
-mostly focus on the key definitions, i.e. the formal
-representation of various concepts, plus brief descriptions on
-important stage theorem expressed in these definitions.
+formalized versions. Instead, we just focus on several highlights in
+this work, i.e.
+\begin{enumerate}
+\item The use of recursion operators in formalizing process constants
+  and variables;
+\item The formalization of semantics context in $\lambda$-expressions and the theory of
+  (pre)congruence for CCS;
+\item The definition and uses of trace in the proof of unique solution of
+  contractions theorem;
+\item The proof of hard version of ``coarsest congruence
+  contained in $\approx$'' theorem.
+\end{enumerate}
 
 \subsection{Simplifications and Limitations}
 
@@ -603,12 +575,67 @@ formally proved is:
 \end{alltt}
 
 If we drop this classical assumption, then the proof becomes much
-harder, as given a van Glabbek's paper. Beside, it requires that CCS
-syntax must support infinite sums of processes, and this ``infinity''
-will go to arbitrary ordinals. Unfortunately, this is beyond the
-ability of HOL (or simple type theory). What we can prove by following
-the same idea is the following version for finite state CCS, i.e. the
-set of all reachable processes is finite:
+harder, as given a van Glabbek's paper. The most important
+intermediate result we have proved here, is the following lemma:
+\begin{alltt}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+        \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenImp{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
+\end{alltt}
+It roughly says, for any two processes $p$ and $q$, if we can find
+another stable (no $\tau$-transitions) process $k$ which is not weak bisimilar to any transition of
+$p$ and $q$, then the hard part of our main theorem is proved. In
+practice, once two processes were given, it's not hard to find
+such a process, but the arbitrariness of $p$ and $q$ made this result
+extremely hard to prove. The method given by van Glabbek requires a
+construction of arbitrarily non-bisimilar processes called ``Klop
+processes'':
+\begin{definition}{(Klop processes)}
+For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
+define a CCS process $k_\lambda$ as follows:
+\begin{enumerate}
+\item $k_0 = 0$,
+\item $k_{\lambda+1} = k_\lambda + a.k_\lambda$ and
+\item for $\lambda$ a limit ordinal, $k_\lambda = \sum_{\mu < \lambda}
+  k_\mu$, meaning that $k_\lambda$ is constructed from all graphs
+  $k_\mu$ for $\mu < \lambda$ by identifying their root.
+\end{enumerate}
+\end{definition}
+It's not hard to prove that, all $k_i$ are non-bisimilar (not only
+weakly but also strongly). The idea is, for any two processes, the union of sets of their all
+transitions cannot be arbitrarily large: it has to be limited by an
+ordinal number. But above contruction can be arbitrarily large, so
+there always exists a Klop process which can be used to satisfy above
+lemma (and finish the proof).
+
+However, this goes beyond HOL's expressivity to define above process, mostly
+because there's no way to express infinite ``sums'' in CCS
+datatype.\footnote{There're actually several ways to modify the
+  datatype to support infinite sums, but none of these infinity can be
+arbitrary. The full version of ordinal theory cannot be expressed in HOL.}
+What we can do is to eliminate the last branch with limiting
+ordinals, and define Klop processes only on finite cases:
+\begin{alltt}
+\HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}
+\HOLConst{KLOP} \HOLFreeVar{a} (\HOLConst{SUC} \HOLFreeVar{n}) \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{+} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill[KLOP_def]
+\end{alltt}
+But this means we much assume the two processes $p$ and $q$ are
+finite-state, i.e. their corresponding LTS graphs have only finite
+states. Choosing an element from a countable infinite set of processes
+to make sure it's not bisimiar with a given set of processes, this is
+essentially a pure set-theoretic problem, as formalized and proved in
+the following lemma:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenImp{}}
+   \HOLConst{FINITE} \HOLFreeVar{A} \HOLSymConst{\HOLTokenConj{}} \HOLConst{INFINITE} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{x} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}. \HOLBoundVar{k} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n}. \HOLBoundVar{n} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{A} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLFreeVar{R} \HOLBoundVar{n} \HOLBoundVar{k}
+\end{alltt}
+
+With all these results, finally we can prove the ``coarsest congruence
+contained in $\approx$'' theorem for finite-state CCS:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{finite_state} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
    (\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r})
