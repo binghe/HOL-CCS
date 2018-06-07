@@ -1,0 +1,84 @@
+
+
+
+\subsection{Equivalences: bisimilarity and rooted bisimilarity}
+\label{ss:BiEx}
+
+The equivalences here are 
+ \emph{weak}, in that they
+abstract from the number of internal steps performed
+\begin{definition}[bisimilarity]
+\label{d:wb}
+A process relation ${\R}$ 
+ is a \emph{bisimulation} if, whenever
+ $P\RR Q$, %for all $\mu$ 
+we have:
+\begin{enumerate}
+\item 
+    $P \arr\mu P'$   implies that there is $Q'$ such that $Q \Arcap
+\mu Q'$ and $P' 
+\RR Q'$;
+
+\item the converse of (1)
+ on the actions from $Q$.
+%\item if $Q  \Ar\mu   Q'$, then there is $P'$ s.t.\ $P
+%\Arcap\mu  P'$ and $P' 
+%\RR Q'$.
+\end{enumerate}  
+ $P$ and $Q$ are \emph{bisimilar},
+written $P \wb
+ Q$, if $P \RR Q$ for some  bisimulation $\R$.  
+\qed\end{definition} 
+\finish{the definition of rooted bisimilarity } 
+
+We sometimes call bisimilarity \emph{weak} bisimilarity, to
+distinguish it from \emph{strong bisimilarity}, $\sim$,
+obtained by replacing in the above definition   the weak answer $
+Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
+
+The bisimulation proof method can be enhanced by means of \emph{up-to
+  techniques}. One of the most useful auxiliary relations in up-to
+techniques  is the \emph{expansion} relation  $\contr$ \cite{SaMi92}. This is an asymmetric version
+of $\wb$ where $P \contr Q$  means that 
+ $P \wb Q$,
+but also that $Q$  achieves  the same as  $P$ 
+with  no more work, i.e. with no more $\tau$ actions.
+Intuitively, if $ P \contr Q$, we can think of $Q$ as being 
+at least as fast as $P$
+or, more generally, we can think that $P$  uses at least as many resources as $Q$. 
+
+
+
+\subsection{Preorders: expansion and contraction}
+
+
+ 
+\begin{definition}[expansion]
+\label{d:expa}
+A process relation ${\R}$ 
+ is an {\em  expansion} if, whenever
+we have $P\RR Q$, %for all $\mu$ 
+
+
+\begin{enumerate}
+
+\item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu
+  Q'$
+ and $P' \RR Q'$;
+
+\item 
+    $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+ P'$ and $P' 
+\RR Q'$.
+
+
+\end{enumerate}
+ $P$  {\em expands } $Q$, written
+$P  \contr Q$, 
+if $P \RR Q$,  for some expansion $\R$. 
+\qed\end{definition}
+
+\finish{here the definition of contraction}  
+
+As bisimilarity, so expansion is preserved by all operators but sum. 
+
