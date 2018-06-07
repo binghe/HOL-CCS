@@ -1,0 +1,62 @@
+
+
+
+\section{Introduction}
+
+A prominent proof method for bisimulation, put forward by Milner and widely used in his
+ landmark  CCS book \cite{Mil89}
+is
+\emph{unique solution of equations}, whereby two tuples of processes are
+componentwise bisimilar if they are solutions 
+of the same system of equations.
+This method  is important in verification techniques and tools
+  based on 
+algebraic      reasoning \cite{theoryAndPractice,RosUnder10,BaeBOOK}. 
+
+In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
+which practically is the most relevant case), however, 
+Milner's proof method has severe syntactical limitations. 
+To overcome such limitations, Sangiorgi proposes to replace
+equations with  special inequations called
+\emph{contractions} \cite{...}. Contraction is a preorder that, roughly, places some efficiency
+constraints on processes.  
+Uniqueness of the solutions 
+ of a system of contractions
+ is defined as with systems of
+equations:  
+any two solutions must be bisimilar.
+The difference with equations is in the meaning of solution:
+in the case of contractions
+the solution is evaluated with respect to
+the contraction preorder, rather than bisimilarity. 
+With contractions, most syntactic limitations of the unique-solution theorem can be
+removed.  One constraint that still remains in \cite{San...} is on occurrences of the sum operator, due to
+the failure of substitutivity of contraction wrt such operator.  
+
+The purpose of this paper is twofold. 
+On the one hand, we refine the contraction proof technique by moving to the 
+\emph{rooted contraction}, that is, the largest congruence included in the contraction
+preoder.  Using rooted contraction one obtains a unique-solution theorem that is valid for
+\emph{rooted bisimilarity} (hence also for bisimilarity itself).  
+On the other hand, we provide a  
+ comprehensive formalization  of the core of the theory of CCS 
+ in the HOL
+theorem prover (HOL4). The formalisation  includes the theory of unique solution of equations and
+contractions discussed in the present paper, but is not limited to it (partly because such
+theorems rely on a number of more fundamental results):
+indeed the formalisation encompasses the basic properties of strong and weak
+bisimilarity (e.g. the fixed-point and substitutivity properties), 
+their algebraic theory, 
+ various
+versions of ``bisimulation up to'' techniques (e.g., bisimulation up-to expansion),
+the basic properties  of rooted bisimilarity. Considering the relationship between bisimilarity and rooted
+bisimilarity, the formalisation includes the proof that the latter is the coarsest
+congruence included in the former, for which two proofs are formalised: one as in Milner's
+book,  requiring the hypothesis that  no processes can use all labels; the other without
+such hypothesis, essentially formalising van Glabbek's paper ...
+Similar theorems are proved for rooted contractions wrt the contraction preorder. 
+
+
+
+\finish{for Express, insist more on structured operational semantics,
+  to fit the scope of the conference} 

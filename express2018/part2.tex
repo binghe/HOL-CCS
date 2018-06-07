@@ -16,10 +16,20 @@
 \newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
 
 \usepackage{amsthm}
-\theoremstyle{definition}
+
 \newtheorem{definition}{Definition}[section]
-\theoremstyle{proposition}
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition} 
+\newtheorem{remark}[definition]{Remark}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+% \theoremstyle{proposition}
+% \newtheorem{proposition}{Proposition}[section]
+
 
 % HOL theorem embedding support
 \usepackage{holindex}
@@ -28,7 +38,17 @@
 
 \usepackage[all,cmtip]{xy}
 
+\input{commonmacros.sty}
+\input{davidemacro.sty}
+ \usepackage{DSarrow} % this is something to use extensible arrows in transitions
+
+% \usepackage{pgf,tikz}
+% \usetikzlibrary{arrows}
+
+
 \begin{document}
+
+\input{part1}
 
 \section{Formalization}
 

@@ -1,0 +1,137 @@
+% \section{Background}
+% \label{s:back}
+
+\section{CCS}
+\label{ss:ccs}
+
+\finish{maybe use recursion in place of constants, so to be
+  more faithful wrt the HOL formalisation
+}    
+
+We assume  an infinite set  of \emph{names} $  a, b, \ldots $
+ and   a  set  of
+\emph{constant identifiers} (or simply \emph{constants}) 
+ for writing recursive processes. 
+The special symbol $\tau$ does not occur in the names and in the 
+constants. 
+The class   of the  CCS processes  is
+built from the operators
+of  parallel
+composition,  sum,
+ restriction, input and output prefix ???,  
+and  constants:
+$$ \begin{array}{ccl}
+P  & := &    \outC a . P \midd \; a . P \midd \;  P_1 |  P_2 \; \midd  \;
+P_1 + P_2 \; \midd % \; \mu . P\; \midd  \; 
+  \res a P  \;  \midd \;   K  \;  \midd \; \nil  \\[\tkpS]
+   \end{array}
+ $$
+Each constant $K$ has  a definition 
+ $K \Defi P$.
+We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
+The operational semantics is given by means of an LTS, and is
+reported in Figure~\ref{f:LTSCCS} (the symmetric version  of the two rules for
+parallel composition and the rule for sum  has been omitted).
+
+ The \emph{immediate derivatives} of a
+process $P$ are the elements of  the set $\{P' \st P \arr\mu P' \mbox{ for some $\mu$ }
+\}$.   
+We use $\ell$ to range over
+ visible actions (i.e.,  inputs or outputs, excluding  $\tau$).
+\begin{figure*}
+\begin{center}
+ $\displaystyle{   P \arr\mu   P' \over   P + Q   \arr\mu
+P'  } $  $ \hb$   
+%{{\sf par1}}:
+ $\displaystyle{   P \arr\mu   P' \over   P | Q   \arr\mu
+P' | Q } $  $ \hb$   
+  $\; \;$  $\displaystyle{ P \arr{ a}P' \hk \hk  Q
+\arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
+|  Q'  }$ 
+\\
+\hskip .6cm  
+ $\displaystyle{  \over  \mu.  P    \arr\mu
+P } $  $ \hb$   
+\hskip .6cm  
+$\displaystyle{ P \arr{\mu}P' \over
+ \res a     P   \arr{\mu} \res a P'} $ $ \mu \neq a, \outC a$
+$ \hb$ %  &
+\hskip .5cm 
+$\displaystyle{ P \arr{\mu}P' \over
+ K   \arr{ \mu} P'  } $  if  $  K \Defi P$
+\end{center}
+%  \begin{center}
+% \begin{tabular}{rlcrlcrl}
+% %{{\sf sum}}:
+% & $  \Sigma_{i\in I} \mu_i.   P_i 
+% \arr{ \mu_i  }P_i$ & $ \hb$ &
+% %{{\sf par1}}:
+% & $\displaystyle{   P \arr\mu   P' \over   P | Q   \arr\mu
+% P' | Q } $ & $ \hb$ &  
+% % \multicolumn{5}{c}{
+% %  {{\sf com1}}: 
+% &  $\; \;$  $\displaystyle{ P \arr{ a}P' \hk \hk  Q
+% \arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
+% |  Q'  }$ 
+%  \\[\mysp]
+% \multicolumn{8}{c}{ 
+% %{{\sf res}}:  %&
+% \hskip .4cm  
+%  $\displaystyle{ P \arr{\mu}P' \over
+%  \res a     P   \arr{\mu} \res a P'} $ $ \mu \neq a, \outC a$
+% % & 
+% $ \hb$ %  &
+% \hskip .4cm 
+% %{{\sf const}}: %& 
+% \hskip .3cm 
+% $\displaystyle{ P \arr{\mu}P' \over
+%  K   \arr{ \mu} P'  } $  if  $  K \Defi P$
+% }\end{tabular}
+%  \end{center} 
+\caption{The LTS for CCS}
+\label{f:LTSCCS}
+\end{figure*}
+
+
+Some standard notations for transitions:  $\Longrightarrow $ is the 
+reflexive and  transitive closure of $\arr\tau $, and 
+$\Arr \mu $ is $\Longrightarrow \arr\mu \Longrightarrow $ (the
+composition of the three relations).
+Moreover,   
+$ 
+P \arcap \mu P'$ holds if $P \arr\mu P'$ or ($\mu =\tau$ and
+$P=P'$); similarly 
+$ 
+P \Arcap \mu P'$ holds if $P \Arr\mu P'$ or ($\mu =\tau$ and
+$P=P'$).
+We write $P (\arr\mu)^n P'$ if $P$ can become $P'$ after performing
+$n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
+with $P \arr\mu P'$, and similarly for other forms of transitions.
+
+
+
+
+\paragraph{Further notations}
+Letters  $\R,\S$ range over relations.
+We use infix notation for relations, e.g., 
+$P \RR Q$ means that $(P,Q) \in \R$.
+We use a tilde to denote a tuple, with countably many elements; thus
+the tuple may also be infinite.
+ All
+notations  are  extended to tuples componentwise;
+e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for  each  
+component $i$  of the tuples $\til P$ and $\til Q$.
+And $\ct{\til P}$ is the process obtained by replacing each hole
+$\holei i$ of the  context $\qct$ with $P_i$.  
+We write $
+\ctx \R$ for the closure of a relation under contexts. Thus $P\: \ctx \R\: Q$
+means that there are a context $\qct$ and tuples $\til P,\til Q$ with
+$P =  \ct{\til P}, Q =  \ct{\til Q}$ and    $\til P \RR \til Q$.
+We use  symbol 
+$\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
+$G$ is some expression, means that  $P$ stands
+for the  expression
+$G$ (in contrast,  symbol $\Defi$ is used for the definition of
+constants, whereas   $=$ is used for syntactic equality and for equations).
+If $\leq$ is a preorder, then  $\geq$  is its inverse (and
+conversely).    
