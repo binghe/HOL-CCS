@@ -3,33 +3,6 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\documentclass{eptcs} % required template (EPTCS) by EXPRESS/SOS 2018
-
-%% Math symbol packages
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathrsfs}
-
-\usepackage{stmaryrd}
-\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
-% \cupdot (the best one)
-\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
-
-\usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\theoremstyle{proposition}
-\newtheorem{proposition}{Proposition}[section]
-
-% HOL theorem embedding support
-\usepackage{holindex}
-\usepackage{alltt}
-\include{tokens}
-
-\usepackage[all,cmtip]{xy}
-
-\begin{document}
-
 \section{Formalization}
 
 In the second half of this paper, we present a formalization of CCS

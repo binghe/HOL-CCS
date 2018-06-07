@@ -4,3 +4,6 @@
 *.idx
 *.toc
 *.hix
+*.out
+*.pag
+*.pdf

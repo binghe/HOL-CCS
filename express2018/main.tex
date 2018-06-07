@@ -1,0 +1,77 @@
+%%%% -*- Mode: LaTeX -*-
+%%
+%% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
+%% Prof. Davide Sangiorgi and Chun Tian.
+
+\documentclass{eptcs} % required template (EPTCS) by EXPRESS/SOS 2018
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin Modern fonts (better than CM-Super)
+\usepackage[utf8]{inputenc} % no need for XeTeX, which always uses UTF-8
+
+%% Math symbol packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% \cupdot (the best one)
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+\usepackage{amsthm}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition} 
+\newtheorem{remark}[definition]{Remark}
+
+% HOL theorem embedding support
+\usepackage{holindex}
+\usepackage{alltt}
+\include{tokens}
+
+\usepackage[all,cmtip]{xy}
+
+\input{commonmacros.sty}
+\input{davidemacro.sty}
+\usepackage{DSarrow} % this is something to use extensible arrows in transitions
+
+% \usepackage{pgf,tikz}
+% \usetikzlibrary{arrows}
+
+\title{An Example of a Paper\\ with a Rather Large Title-to-Content Ratio}
+\author{Rob van Glabbeek
+\institute{NICTA\\ Sydney, Australia}
+\institute{School of Computer Science and Engineering\\
+University of New South Wales\thanks{A fine university.}\\
+Sydney, Australia}
+\email{rvg@cs.stanford.edu}
+\and
+Co Author \qquad\qquad Yet S. Else
+\institute{Stanford Univeristy\\
+California, USA}
+\email{\quad is@gmail.com \quad\qquad somebody@else.org}
+}
+\def\titlerunning{A Longtitled Paper}
+\def\authorrunning{R.J. van Glabbeek, C. Author \& Y.S. Else}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is a sentence in the abstract.
+This is another sentence in the abstract.
+This is yet another sentence in the abstract.
+This is the final sentence in the abstract.
+\end{abstract}
+
+\input{part1}
+\input{part2}
+
+\bibliographystyle{eptcs}
+\bibliography{generic}
+\end{document}

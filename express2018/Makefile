@@ -1,6 +1,7 @@
 MUNGE = ../src/munge.exe
+TEXFILES = main.tex part1.tex part2.tex intro.tex ccs.tex expansion.tex contraction.tex unique.tex
 
-all: part2.tex
+all: main.pdf
 
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
@@ -13,5 +14,12 @@ clean:
 
 dist-clean: clean
 	@rm -f *.pdf
+
+main.pdf: $(TEXFILES) generic.bib
+	pdflatex main
+	pdflatex main
+	bibtex main
+	pdflatex main
+	pdflatex main
 
 .PHONY: all
