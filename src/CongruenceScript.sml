@@ -4,8 +4,9 @@
 (*                                                                            *)
 (* THESIS        : A Formalization of Unique Solutions of Equations in        *)
 (*                 Process Algebra                                            *)
-(* AUTHOR        : (c) Chun Tian, University of Bologna                       *)
-(* DATE          : 2017                                                       *)
+(* AUTHOR        : (c) 2017 Chun Tian, University of Bologna, Italy           *)
+(*                 (c) 2018 Chun Tian, Fondazione Bruno Kessler (FBK)         *)
+(* DATE          : 2017-2018                                                  *)
 (* ========================================================================== *)
 
 open HolKernel Parse boolLib bossLib;
@@ -14,9 +15,23 @@ open pred_setTheory relationTheory combinTheory arithmeticTheory;
 open CCSLib CCSTheory;
 open StrongEQTheory StrongLawsTheory WeakEQTheory WeakLawsTheory;
 open ObsCongrTheory ObsCongrLib ObsCongrLawsTheory ObsCongrConv;
+open BisimulationUptoTheory;
 
 val _ = new_theory "Congruence";
 val _ = temp_loose_equality ();
+
+(******************************************************************************)
+(*                                                                            *)
+(*                STRONG_EQ is preserved by recursive definition              *)
+(*                                                                            *)
+(******************************************************************************)
+
+val STRONG_EQUIV_SUBST_REC = store_thm (
+   "STRONG_EQUIV_SUBST_REC",
+  ``!E E' X A B. ({X} = FV E) /\ ({X} = FV E') /\ STRONG_EQUIV E E' ==>
+    STRONG_EQUIV (rec A (CCS_Subst E  (var A) X))
+		 (rec B (CCS_Subst E' (var B) X))``,
+    cheat);
 
 (******************************************************************************)
 (*                                                                            *)

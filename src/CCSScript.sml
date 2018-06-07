@@ -840,7 +840,7 @@ val IS_PROC_def = Define `
     IS_PROC E = (FV E = EMPTY)`;
 
 val ALL_PROC_def = Define `
-    ALL_PROC Es = EVERY IS_PROC Es`;
+    ALL_PROC ES = EVERY IS_PROC ES`;
 
 (* The use of finite_mapTheory (to get rid of substitution orders) is
    suggested by Konrad Slind. *)
@@ -860,7 +860,7 @@ val CCS_Subst1_def = Define `
 
 (* :('a, 'b) CCS list -> ('a |-> ('a, 'b) CCS) -> ('a, 'b) CCS list *)
 val CCS_Subst2_def = Define `
-    CCS_Subst2 Es fm = MAP (\e. CCS_Subst1 e fm) Es`;
+    CCS_Subst2 ES fm = MAP (\e. CCS_Subst1 e fm) ES`;
 
 val DELETE_ELEMENT_def = Define `
    (DELETE_ELEMENT e [] = []) /\
@@ -974,9 +974,10 @@ val BN_definition = `
  *)
 local
     val tactic = (* the use of `($< LEX $<)` is learnt from Ramana Kumar *)
-	WF_REL_TAC `inv_image ($< LEX $<) (\x. (LENGTH (SND x), size (FST x)))` \\
-	rpt STRIP_TAC >- ( IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [] ) \\
-	REWRITE_TAC [size_def, CCS_size_def] >> simp [];
+	WF_REL_TAC `inv_image ($< LEX $<) (\x. (LENGTH (SND x), size (FST x)))`
+     >> rpt STRIP_TAC >- ( IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [] )
+     >> REWRITE_TAC [size_def, CCS_size_def]
+     >> simp [];
 in
     val FN_def = TotalDefn.tDefine "FN" FN_definition tactic;
     val BN_def = TotalDefn.tDefine "BN" BN_definition tactic;
