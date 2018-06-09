@@ -3,7 +3,8 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\documentclass{eptcs} % required template (EPTCS) by EXPRESS/SOS 2018
+\documentclass[submission]{eptcs} % required template (EPTCS)
+\providecommand{\event}{EXPRESS/SOS 2018} % Name of the event you are submitting to
 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Latin Modern fonts (better than CM-Super)
@@ -43,30 +44,40 @@
 % \usepackage{pgf,tikz}
 % \usetikzlibrary{arrows}
 
-\title{An Example of a Paper\\ with a Rather Large Title-to-Content Ratio}
-\author{Rob van Glabbeek
-\institute{NICTA\\ Sydney, Australia}
-\institute{School of Computer Science and Engineering\\
-University of New South Wales\thanks{A fine university.}\\
-Sydney, Australia}
-\email{rvg@cs.stanford.edu}
-\and
-Co Author \qquad\qquad Yet S. Else
-\institute{Stanford Univeristy\\
-California, USA}
-\email{\quad is@gmail.com \quad\qquad somebody@else.org}
+\title{The coarsest precongruence contained in bisimilarity contraction and its unique
+  solution theorem}
+\author{Davide Sangiorgi
+\institute{University of Bologna\\Bologna, Italy}
+%\institute{INRIA\\France}
+\email{davide.sangiorgi@unibo.it}
+\and Chun Tian
+\institute{Fondazione Bruno Kessler\thanks{Part of this work was
+    carried out when the author was studying in University of
+    Bologna.}\\Trento, Italy}
+\email{ctian@fbk.eu}
 }
-\def\titlerunning{A Longtitled Paper}
-\def\authorrunning{R.J. van Glabbeek, C. Author \& Y.S. Else}
+\def\titlerunning{Coarsest precongruence contained in bisimilarity contraction}
+\def\authorrunning{D. Sangiorgi \& C. Tian}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-This is a sentence in the abstract.
-This is another sentence in the abstract.
-This is yet another sentence in the abstract.
-This is the final sentence in the abstract.
+Milner's ``unique solution of equations'' theorem for (rooted) weak
+bisimilarities requires severe syntactical limitations, i.e. the
+equations to be both strongly guarded and sequential. By replacing
+equations with special inequations called ``contraction'', Sangiorgi
+proved the ``unique solution of contractions'' theorem for weak
+bisimialarity, in which only weakly guardness is needed. However,
+contraction is not a (pre)congruence under direct sums which are part
+of standard CCS definitions. To futher overcome this difficulty, a new
+concept called ``rooted contraction'' can be defined following the
+idea of rooted weak bisimilarity (i.e. observational congruence). We
+proved this new relation is the coarsest precongruence contained in
+contraction bisimilarity, while its corresponding ``unique solution''
+theorem requires only weakly guardness with direct sums and leads to
+rooted weak bisimilaries for its solutions. All these results have been
+formally verified under HOL theorem prover (HOL4).
 \end{abstract}
 
 \input{part1}

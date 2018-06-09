@@ -215,7 +215,6 @@ C[g]\approx C[h]$.
 van Glabbek further gave a way to construct congruence relations from
 any existing equivalence relations:
 \begin{definition}
-\label{def:precc}
 Given an equivalence relation $\sim$, its (pre)congruence closure,
 notated as $[\sim]$ is defined by
 \begin{equation}
@@ -443,7 +442,7 @@ There're two ways to build a congruence from weak bisimilarity, one
 way is the standard definition for observational congruence (rooted
 weak bisimilarity) $\approx^c$ in CCS textbooks, but even it's proven to be a
 congruence we don't know if it's coarsest one.  The other way is to
-build a (pre)congruence closure (Def.\,\ref{def:precc}) directly upon
+build a (pre)congruence closure (Def ??) directly upon
 the original weak bisimilarity relation, we call the resulting
 relation ``Weak bisimilarity congruence'' ($[\approx]$):
 \begin{alltt}
@@ -592,5 +591,3 @@ coarsest precongruence of (bisimilarity) contraction:
 \HOLthm{Contraction.COARSEST_PRECONGR_THM'}
 \HOLthm{Contraction.COARSEST_PRECONGR_FINITE}
 \end{alltt}
-
-\end{document}
