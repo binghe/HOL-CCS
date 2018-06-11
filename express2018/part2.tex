@@ -3,146 +3,65 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\section{Formalization}
-
-In the second half of this paper, we present a formalization of CCS
-including the new concepts and theorems proposed in the first half of
-this paper. The main purpose is to convince the readers that, there's no flaw in the informal proofs. The
-formalization work is based on a formalization of CCS in HOL theorem
-prover (HOL4), described in second author's MSc thesis
-\cite{Tian:2017wrba} and now lives in the official examples folder of HOL4 source
-code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
-The work is essentially a porting and extension of the early CCS
-formalization by Monica Nesi \cite{Nesi} in HOL88.
-
-We will not repeat all definitions and theorems of CCS again by their
-formalized versions. Instead, we just focus on several highlights in
-this work, i.e.
-\begin{enumerate}
-\item The formalization of semantics context in $\lambda$-expressions and the theory of
-  (pre)congruence for CCS;
-\item The definition and uses of trace in the proof of unique solution of
-  contractions theorem;
-\item The proof of the hard version of ``coarsest congruence
-  contained in $\approx$'' theorem.
-\end{enumerate}
-
-\subsection{Simplifications and Limitations}
-
-We have only formally verified simplified forms of the unique
-solution theorems introduced in the first part. This is to not only
-save the formalization efforts, but also to make us focusing on the most
-important part of the proof. The most important simplification is
-that, we have only proved all unique solution theorems with only single-variable equations
-(contractions).
-
-But such a simplification doesn't hurt the rigorousness of our entire
-work, as once the single-equation version of the theorem is
-proven, the general case is just a routine
-adaptation for paper proofs. \footnote{However, it's impossible to directly derive the
-  multi-variable versions of unique solution theorems from their
-  single-variable versions.} \footnote{Also, I don't know if there
-  exists a higher-level general
-  duality theorem such that some kind of results on single-variable CCS
-  equations must also hold for multi-variable equation groups. --Chun.}
-It's not easy to formalize multi-variable CCS equations with
-introducing a large number of definitions and intermediate
-results. It's easy, however, to directly use the semantics context to
-represent single-variable equations without the need of formalizing
-the concept of ``equation'' at all.
-
-There're two major limitations in this work. One is the class of CCS
-processes, i.e. we're limited with Finitary CCS which has no infinite
-sums or parallel compositions. The other limitation is, even for single-variable equation, the
-variable doesn't appear inside any constant.
-
 \subsection{CCS, Transitions and Bisimilarities}
 
-In our formalization of CCS, the set of transition actions are not
-defined by the union of all visiable actions (names and conames) and the invisible
-action $\tau$. Instead, we define only visible names as a simple
-algebraic datatype ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}`` in which the type parameter
-$\beta$ can be any other type (thus we don't know anything about the
-cardinality of the set of all visiable actions), and then use HOL's
-\texttt{optionTheory} to further extend the type by one more
-element, $\tau$. Having a dedicated type for all visiable actions is quite
-convenient and make some statements shorter. (e.g. the restriction
-operator can only take a set of visible actions)
+In the formalization of CCS, it's better to have two distinct
+types for actions: the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Label}} ($\beta$ is a type variable.) for visible actions, divided by input
+and output actions:
+\begin{lstlisting}
+val _ = Datatype `Label = name 'b | coname 'b`;
+\end{lstlisting}
+and the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Action}} as the
+union of all visible and invisible actions. The cardinality of all
+available types depends on the choice of type variable $\beta$.
 
-The type of CCS process is defined by an algebraic datatype in HOL,
-i.e. an inductive defined finite structure constructed by unary and
-binary operators.\footnote{It seems possible to switch to co-algebraic
-datatypes for the support of potential infinite sums. Indeed, we never
-need to induct on CCS processes in any proof so far.} 
-It's not easy to directly extend this datatype with new operators,
-without hurting the existing proved results.\footnote{This is usually
-  called \emph{deep embedding} when implementing a new logic in theorem
-  provers. In case of CCS, \emph{shallow embedding} seems impossible.}
-Relabeling operator is not necessary from the theoretical view, as
-it's possible to use \emph{syntactic
-  substitution} instead\footnote{c.f. Section 4.1.2. (page 168) of Robert Gorrieri's CCS book.}
-However, it's quite hard to formalize syntactic substitution for CCS,
-as it requires to prove many results on the free and bound names
-first.
+The core datatype ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'' is then defined as an inductive
+datatype in HOL, based on its Datatype package:
+\begin{lstlisting}
+val _ = Datatype `CCS = nil
+		      | var 'a
+		      | prefix ('b Action) CCS
+		      | sum CCS CCS
+		      | par CCS CCS
+		      | restr (('b Label) set) CCS
+		      | relab CCS ('b Relabeling)
+		      | rec 'a CCS`;
+\end{lstlisting}
 
-Without constants (or recursion operator), a CCS process cannot
-represent infinite-state LTS and many deep results in CCS cease to
-exist then. Therefore any serious CCS formalization
-must contain the support of constants (or recursion operator. Nowadays
-most CCS textbooks and papers use constants, but from the formal view
-it's better (or only possible) to use the original form: the recursion
-operator, because any CCS process must be presented as single, finite term in
-theorem prover. In Milner's book, this CCS operator is called \texttt{fix},
-as it essentially returns the fixpoint of a CCS equation. We use the
-symbol \texttt{rec} instead and limit ourself to single-variable case,
-as we want to extend to multi-variable recursion operator in the
-future with the original name. So instead of saying a CCS process $A$
-with constant definitions
-$A \overset{\mathrm{def}}{=} \tau.A + b.B$ and $B
-\overset{\mathrm{def}}{=} b.B$, we use $\mathbf{rec}\;A.\, (\tau.A +
-b.(\mathbf{rec}\;B.\,(b.B)))$ instead.
+We have added some minimal grammar support using HOL's powerful pretty printer, to represent CCS
+processes in more readable forms. Table \ref{tab:ccsoperator} has listed the notation of typical CCS processes and
+major operators supported by above definition. (Notice the use of
+recursition operator for representing process constants)
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Operator} & \textbf{Notation} & \textbf{HOL} & \textbf{HOL
+  (alternative)}\\
+\hline
+nil & $\textbf{0}$ &  \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
+Rrefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{b}\HOLSymConst{..}\HOLConst{nil}} \\
+Sum & $p + q$ & \texttt{sum p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{+} \HOLFreeVar{q}} \\
+Parallel & $p \,\mid\, q$ & \texttt{par p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{q}} \\
+Restriction & $(\nu\;L)\;p$ & \texttt{restr L p} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{p}} \\
+Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} (\HOLFreeVar{a}\HOLSymConst{..}\HOLConst{var} \HOLFreeVar{A})} \\
+\hline
+\end{tabular}
+\end{center}
+   \caption{Syntax of CCS operators}
+   \label{tab:ccsoperator}
+\end{table}
 
-The extra beauty of above recursion opeator is, if we imagine the
-\texttt{rec} symbol as $\lambda$ in $\lambda$-expressions, i.e. $\lambda A.\, (\tau.A +
-b.(\lambda B.\,(b.B)))$, then we can see both $A$ and $B$ are bound
-variables in this expression. On the other side, it's easy to write
-an extra constant $C$ inside previous process without a surrounding $\lambda C$, and it must
-be a \emph{free variable} of that $\lambda$-expressions. If we go back to the constant-based CCS
-syntax, this would mean a malformed CCS process because not all the
-constants used in it are defined. Our point here is:
-\begin{enumerate}
-\item Under the recursion-based CCS syntax, all possible CCS terms
-  constructed from the algebraic datatype are well-formed, and those
-  free variables can be seen and used\footnote{However, in our
-    formalization of unique solution of equations theorems, we focus
-    on single-variable case and directly used $\lambda$-expression
-    (typed: $CCS\rightarrow CCS$) as equation. The current discussion
-    is mainly for the support of multi-variable equations in the future.} as equation variables.
-\item All proved theorems about CCS naturally take CCS process with
-  extra free variables, as they by themselves have no transition, just
-  like $\mathrm{0}$. (this is a natural consequence derived from SOS rules)
-\end{enumerate}
-
-The transition of CCS processes is defined by an inductive
-relation, literally the same as SOS rules appearing in CCS
-textbooks.\footnote{There's an interesting finding here: we never need to use the induction
-theorem for transition relation at all, after having proved almost all
-notable results for CCS. In another word, the whole CCS formal theory
-builds normally, even if the transition relation
-is defined co-inductively (by the same set of SOS rules). A potential
-need is the prove the set of ending process of transitions from any
-process doesn't use any new labels, but so far this result is not
-formalized yet. The question
-is: do the largest fixpoint and smallest fixpoint \emph{coincide} for
-a relation defined by SOS rules? (if not, what else do we have in the
-co-inductive relation?)} The only notable SOS rule which is different
-with their usual version in textbooks, is the recursion rule:
+The transition semantics of CCS processes were defined by the following
+Structural Operational Semantics (SOS for short) rules in
+Fig.\;\ref{f:LTSCCS}, except that the transition rule for constants
+has been changed to recursion operator:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{E} (\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}) \HOLFreeVar{X} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}
 \end{alltt}
 which says, if we substitute all appearences of constant $X$ in $E$ to
-$(\mathbf{rec}\; X E)$ and the resulting process has a transition to $E_1$
-with action $u$, then $(\mathbf{rec}\; X E)$ has the same
+$(\mathbf{rec}\; X\; E)$ and the resulting process has a transition to $E_1$
+with action $u$, then $(\mathbf{rec}\; X\; E)$ has the same
 transition.
 
 \subsection{Coarsest (pre)congruence contained in $\approx$ (or $\succeq_{\mathrm{bis}}$)}
@@ -416,7 +335,7 @@ OBS_UNIQUE_SOLUTION:
 
 \subsection{Unique solution of contractions}
 
-The major difficultis in formalizing Sangiorgi's unique solution of
+The major difficulties in formalizing Sangiorgi's unique solution of
 contractions theorem is to prove its main lemma (c.f. Lemma 3.9 of
 main paper), in which the length of weak transitions are used for
 induction. Introducing a special vesion of weak transition relation

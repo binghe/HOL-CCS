@@ -1,0 +1,57 @@
+\section{Formalization}
+
+In the second half of this paper, we present a formalization of CCS
+including the new concepts and theorems proposed in the first half of
+this paper. The main purpose is to convince the readers that, there's no flaw in the informal proofs. The
+formalization work is based on a formalization of CCS in HOL theorem
+prover (HOL4) \cite{slind2008brief}, described in second author's MSc thesis
+\cite{Tian:2017wrba} and now lives in the official examples folder of HOL4 source
+code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
+The work is essentially a porting and extension of the early CCS
+formalization by Monica Nesi \cite{Nesi} in HOL88.
+
+Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
+choice operator, axiom of infinity, and rank-1 polymorphim (type
+variables). HOL4 implemented this logic without any extension, while
+some other theorem provers in HOL family (e.g. Isabelle/HOL) has
+various extensions. The HOL Logic is considerability simpler than logic
+foundations in most other theorem provers, e.g. Coq. As a result,
+formal theories in HOL can be easily migrated (sometimes even
+automatically) into other theorem provers.
+
+We will not repeat all definitions and theorems of CCS again by their
+formalized versions. Instead, we just focus on several highlights in
+this work, i.e.
+\begin{enumerate}
+\item The formalization of semantics context in $\lambda$-expressions and the theory of
+  (pre)congruence for CCS;
+\item The definition and uses of trace in the proof of unique solution of
+  contractions theorem;
+\item The proof of the hard version of ``coarsest congruence
+  contained in $\approx$'' theorem.
+\end{enumerate}
+
+\subsection{Simplifications and Limitations}
+
+We have only formally verified simplified forms of the unique
+solution theorems introduced in the first part. This is to not only
+save the formalization efforts, but also to make us focusing on the most
+important part of the proof. The most important simplification is
+that, we have only proved all unique solution theorems with only single-variable equations
+(contractions).
+
+But such a simplification doesn't hurt the rigorousness of our entire
+work, as once the single-equation version of the theorem is
+proven, the general case is just a routine
+adaptation for paper proofs.
+It's not easy to formalize multi-variable CCS equations with
+introducing a large number of definitions and intermediate
+results. It's easy, however, to directly use the semantics context to
+represent single-variable equations without the need of formalizing
+the concept of ``equation'' at all.
+
+There're two major limitations in this work. One is due to HOL, we only support Finitary CCS, i.e.
+no infinite sum nor infinite parallel composition.
+The other limitation is, equation variables (or holes in semantics contexts)
+cannot appear inside recursion operator closure. However, these limitations do not
+cause any difference in the proof of main results represented in this paper.
