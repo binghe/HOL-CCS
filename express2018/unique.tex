@@ -68,40 +68,25 @@ a unique solution
  for $\wb$.
 \end{theorem} 
 
-\finish{sopra: sum-free} 
-\section{Rooted contraction and unique solution for rooted bisimilarity}
+\finish{sopra: sum-free}
+
+\section{Rooted contraction and unique solution theorem for rooted bisimilarity}
 \label{ss:new}
-             
-
-
 
 \begin{definition}[rooted contraction]
 \label{d:rcontra}
 Two processes $P$ and $Q$ are in the rooted contraction, written 
- $P\rcontr Q$, 
-if 
-
+ $P\rcontr Q$, if
 \begin{enumerate}
-
-\item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu
-  Q'$
+\item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
  and $P'\mcontrBIS Q'$;
-
-\item 
-    $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
- P'$ and $P' 
-\mcontrBIS Q'$.
-
-
+\item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+ P'$ and $P' \wb Q'$.
 \end{enumerate}
-\qed\end{definition}
-
-
-\finish{the only difference: the hat missing in the first clause} 
-
+\end{definition}
 
 \begin{theorem}
-\label{t:}
+\label{t:rcontr-precongruence}
 Relation $\rcontr$ is a precongruence in CCS. 
 \end{theorem}  
 
@@ -121,8 +106,6 @@ there is a  context $\qctp$
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
-\finish{sopra: si potrebbe togliere il hat, secondo me, e allora avremmo il risultato per
-  rooted bisimilarity} 
 
 \begin{theorem}[unique solution of contractions for $\wb$]
 \label{t:contra_bisimulation_u}
