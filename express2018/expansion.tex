@@ -7,7 +7,7 @@ abstract from the number of internal steps performed
 \begin{definition}[bisimilarity]
 \label{d:wb}
 A process relation ${\R}$ 
- is a \emph{bisimulation} if, whenever
+ is a (weak) \emph{bisimulation} if, whenever
  $P\RR Q$, %for all $\mu$ 
 we have:
 \begin{enumerate}
@@ -24,35 +24,49 @@ written $P \wb
  Q$, if $P \RR Q$ for some  bisimulation $\R$.  
 \end{definition} 
 
-\begin{definition}{(rooted bisimilarity)}
-Two processes $P$ and $Q$ are rooted bisimilar, denoted $P
-\approx^c Q$, if for all $\mu$ (including $\tau$):
-\begin{enumerate}
- \item  $P \arr\mu P'$   implies that there is $Q'$ such that $Q
-   \Arr\mu Q'$ and $P' \approx Q'$;
-\item the converse of (1) on the actions from $Q$.
-\end{enumerate}
-\end{definition}
-
 We sometimes call bisimilarity as ``\emph{weak} bisimilarity'', to
 distinguish it from \emph{strong bisimilarity}, $\sim$,
 obtained by replacing in the above definition   the weak answer $
 Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
 
+Bisimilarity is not congruence w.r.t direct sums, one obvious way to
+fix the definition is to define another relation on top of it:
+\begin{definition}{(rooted bisimilarity)}
+Two processes $P$ and $Q$ are rooted bisimilar, denoted $P
+\approx^c Q$, if and only if for all $\mu$ (including $\tau$):
+\begin{enumerate}
+ \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+   \Arr\mu Q'$ and $P' \wb Q'$;
+\item the converse of (1) on the actions from $Q$.
+\end{enumerate}
+\end{definition}
+Besides reducing the rooted bisimiarity of two processes to
+the bisimilarities of their first-step transition ends, this definition also brings a proof technique for proving the
+rooted bisimiarity by constructing a bisimulation:
+\begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
+\label{l:obs_congr_by_weak_bisim}
+Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
+satisfies the following properties:
+\begin{enumerate}
+ \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+   \Arr\mu Q'$ and $P' \RR Q'$;
+\item the converse of (1) on the actions from $Q$.
+\end{enumerate}
+then $P$ and $Q$ are rooted bisimilar, i.e., $P \approx^c Q$.
+\end{lemma}
+
+\subsection{Preorders: expansion and contraction (??)}
+
 The bisimulation proof method can be enhanced by means of \emph{up-to
   techniques}. One of the most useful auxiliary relations in up-to
-techniques  is the \emph{expansion} relation  $\contr$ \cite{SaMi92}. This is an asymmetric version
-of $\wb$ where $P \contr Q$  means that 
+techniques  is the \emph{expansion} relation  $\expa$ \cite{SaMi92}. This is an asymmetric version
+of $\wb$ where $P \expa Q$  means that 
  $P \wb Q$,
 but also that $Q$  achieves  the same as  $P$ 
 with  no more work, i.e. with no more $\tau$ actions.
-Intuitively, if $ P \contr Q$, we can think of $Q$ as being 
+Intuitively, if $ P \expa Q$, we can think of $Q$ as being 
 at least as fast as $P$
-or, more generally, we can think that $P$  uses at least as many resources as $Q$. 
-
-
-
-\subsection{Preorders: expansion and contraction}
+or, more generally, we can think that $P$  uses at least as many resources as $Q$.
 
 \begin{definition}[expansion]
 \label{d:expa}
@@ -73,20 +87,4 @@ $P  \expa Q$,
 if $P \RR Q$,  for some expansion $\R$. 
 \end{definition}
 
-\begin{definition}[contraction]
-\label{d:expa}
-A process relation ${\R}$ is an {\em contraction} if, whenever
-we have $P\RR Q$, %for all $\mu$ 
-\begin{enumerate}
-\item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu Q'$
- and $P' \RR Q'$;
-\item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arcap \mu
- P'$ and $P' \wb Q'$.
-\end{enumerate}
- $P$  {\em contracts} $Q$, written
-$P  \contr Q$, 
-if $P \RR Q$,  for some contraction $\R$. 
-\end{definition}
-
-As bisimilarity, expansion and contraction are preserved by all operators but sum.
-
+As bisimilarity, expansion is preserved by all operators but sum.

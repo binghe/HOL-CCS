@@ -7,3 +7,5 @@
 *.out
 *.pag
 *.pdf
+*.bbl
+*.synctex.gz
