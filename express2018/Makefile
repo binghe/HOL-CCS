@@ -1,5 +1,5 @@
 MUNGE = ../src/munge.exe
-TEXFILES = main.tex part1.tex part2.tex intro.tex ccs.tex expansion.tex contraction.tex unique.tex
+TEXFILES = main.tex part2.tex intro.tex ccs.tex expansion.tex contraction.tex unique.tex
 
 all: main.pdf
 

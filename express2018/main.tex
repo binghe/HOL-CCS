@@ -35,6 +35,21 @@
 \usepackage{alltt}
 \include{tokens}
 
+%
+% LaTeX math formula spacing:
+%
+% \enskip	leave a horizontal space of respectively half an em
+% \quad		space equal to the current font size (= 18 mu), one em
+% \qquad	twice of \quad (= 36 mu), i.e. two ems
+% \enspace	it's inherited from Plain TeX and is almost the same
+%                      as \enskip, but technically it is a kern, rather than a skip.
+% \,	3/18 of \quad (= 3 mu)
+% \:	4/18 of \quad (= 4 mu)
+% \;	5/18 of \quad (= 5 mu)
+% \!	-3/18 of \quad (= -3 mu)
+% \ (space after backslash!) equivalent of space in normal text
+
+\usepackage{graphicx}
 \usepackage[all,cmtip]{xy}
 
 \input{commonmacros.sty}
@@ -44,11 +59,10 @@
 % \usepackage{pgf,tikz}
 % \usetikzlibrary{arrows}
 
-\title{The coarsest precongruence contained in bisimilarity contraction and its unique
-  solution theorem}
+\title{The coarsest precongruence contained in bisimilarity 
+contraction and its unique solution theorem}
 \author{Davide Sangiorgi
-\institute{University of Bologna\\Bologna, Italy}
-%\institute{INRIA\\France}
+\institute{Universit\`a di Bologna and INRIA\\Bologna, Italy}
 \email{davide.sangiorgi@unibo.it}
 \and Chun Tian
 \institute{Fondazione Bruno Kessler\thanks{Part of this work was
@@ -64,24 +78,34 @@
 
 \begin{abstract}
 Milner's ``unique solution of equations'' theorem for (rooted) weak
-bisimilarities requires severe syntactical limitations, i.e. the
-equations to be both strongly guarded and sequential. By replacing
+bisimilarity have severe syntactical limitations, i.e.\;the
+equations must be both strongly guarded and sequential. By replacing
 equations with special inequations called ``contraction'', Sangiorgi
-proved the ``unique solution of contractions'' theorem for weak
-bisimialarity, in which only weakly guardness is needed. However,
-contraction is not a (pre)congruence under direct sums which are part
-of standard CCS definitions. To futher overcome this difficulty, a new
-concept called ``rooted contraction'' can be defined following the
-idea of rooted weak bisimilarity (i.e. observational congruence). We
-proved this new relation is the coarsest precongruence contained in
-contraction bisimilarity, while its corresponding ``unique solution''
-theorem requires only weakly guardness with direct sums and leads to
-rooted weak bisimilaries for its solutions. All these results have been
-formally verified under HOL theorem prover (HOL4).
+has proven the ``unique solution of contractions'' theorem for weak
+bisimialarity, which requires only weakly guarded equations. However,
+contraction is not (pre)congruence under direct sums of processes.
+To overcome this difficulty, we further moved to ``rooted
+contraction'', which is the coarsest precongruence contained in
+contraction bisimilarity. Using rooted contraction one obtains an
+unique-solution theorem that is valid for 
+\emph{rooted bisimilarity} (hence also for bisimilarity itself) while
+requires true weak guardness (with direct sums). All results were
+formalized in HOL theorem prover (HOL4), as part of a rather complete
+formalization of process algebra CCS. We show some highlights of this
+formalization work.
 \end{abstract}
 
-\input{part1}
+\input{intro}
+\input{ccs}
+\input{expansion}
+%\input{equa} % Systems of  equations
+\input{contraction}
+\input{unique}
 \input{part2}
+
+\section{Conclusions}
+
+
 
 \bibliographystyle{eptcs}
 \bibliography{generic}

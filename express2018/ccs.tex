@@ -5,27 +5,24 @@
 \label{ss:ccs}
 
 \finish{maybe use recursion in place of constants, so to be
-  more faithful wrt the HOL formalisation
-}    
+  more faithful wrt the HOL formalization}    
 
-We assume  an infinite set  of \emph{names} $  a, b, \ldots $
- and   a  set  of
-\emph{constant identifiers} (or simply \emph{constants}) 
- for writing recursive processes. 
+We assume  a possibly infinite set of \emph{input names} $a, b,
+\ldots$ and \emph{output names} $\outC a, \outC b, \ldots$,
+ and a set of \emph{constant identifiers} (or simply \emph{constants})
+ $A, B, \ldots$ for writing recursive processes. 
 The special symbol $\tau$ does not occur in the names and in the 
 constants. 
-The class   of the  CCS processes  is
-built from the operators
-of  parallel
-composition,  sum,
- restriction, input and output prefix ???,  
-and  constants:
-$$ \begin{array}{ccl}
-P  & := &    \outC a . P \midd \; a . P \midd \;  P_1 |  P_2 \; \midd  \;
+The class  of the CCS processes is inductively built from $\nil$ by the operators
+of parallel composition,  sum,
+ restriction, prefix, and constants:
+\begin{equation*}
+\begin{array}{ccl}
+P  & := &  \nil \; \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd % \; \mu . P\; \midd  \; 
-  \res a P  \;  \midd \;   K  \;  \midd \; \nil  \\[\tkpS]
-   \end{array}
- $$
+  (\res a\!)\, P  \;  \midd \;   K   %\\[\tkpS]
+\end{array}
+\end{equation*}
 Each constant $K$ has  a definition 
  $K \Defi P$.
 We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
@@ -49,12 +46,13 @@ P' | Q } $  $ \hb$
 \arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
 |  Q'  }$ 
 \\
+\vskip .1cm
 \hskip .6cm  
  $\displaystyle{  \over  \mu.  P    \arr\mu
 P } $  $ \hb$   
 \hskip .6cm  
 $\displaystyle{ P \arr{\mu}P' \over
- \res a     P   \arr{\mu} \res a P'} $ $ \mu \neq a, \outC a$
+ (\res a\!)\, P   \arr{\mu} (\res a\!)\, P'} $ $ \mu \neq a, \outC a$
 $ \hb$ %  &
 \hskip .5cm 
 $\displaystyle{ P \arr{\mu}P' \over
@@ -88,10 +86,9 @@ $\displaystyle{ P \arr{\mu}P' \over
 %  K   \arr{ \mu} P'  } $  if  $  K \Defi P$
 % }\end{tabular}
 %  \end{center} 
-\caption{The LTS for CCS}
+\caption{The LTS of CCS}
 \label{f:LTSCCS}
 \end{figure*}
-
 
 Some standard notations for transitions:  $\Longrightarrow $ is the 
 reflexive and  transitive closure of $\arr\tau $, and 
