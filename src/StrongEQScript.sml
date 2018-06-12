@@ -19,10 +19,12 @@ val _ = temp_loose_equality ();
 
 (* Type abbreviations *)
 val _ = type_abbrev ("simulation", ``:('a, 'b) CCS -> ('a, 'b) CCS -> bool``);
+val _ = disable_tyabbrev_printing "simulation";
 
 (* Use LIST_REL to build list_simulation from simulation, e.g. `LIST_REL STRONG_EQUIV` *)
 val _ = type_abbrev ("list_simulation",
 		    ``:('a, 'b) CCS list -> ('a, 'b) CCS list -> bool``);
+val _ = disable_tyabbrev_printing "list_simulation";
 
 val STRONG_SIM_def = Define
    `STRONG_SIM (R :('a, 'b) simulation) =
