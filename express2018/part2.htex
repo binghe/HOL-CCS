@@ -1,106 +1,46 @@
-%%%% -*- Mode: LaTeX -*-
-%%
-%% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
-%% Prof. Davide Sangiorgi and Chun Tian.
-
-\subsection{Semantic context, guardness and (pre)congruence}
-
-We need to find a suitable formal definition of semantic
-context. There're multiple ways. Here we have chosen to use $\lambda$-expressions (typed
-$CCS\rightarrow CCS$) to represent a (multi-hole) semantic
-context. The definition is inductive:
-\begin{alltt}
-\HOLthm[def]{Congruence.CONTEXT_rules}
-\end{alltt}
-
-Under above definition, we can formally define the concept of
-``precongruence'' and ``congruence'' in the following ways:
-\begin{alltt}
-\HOLthm[def]{Congruence.precongruence_def}
-\HOLthm[def]{Congruence.congruence_def}
-\end{alltt}
-
-A \emph{weak guarded} context is a context in which all holes appears
-in the sub-expression of prefixed processes. We can easily define it
-following the same idea:
-\begin{alltt}
-\HOLthm[def]{Congruence.WG_rules}
-\end{alltt}
-(Notice the differences between a weak guarded context and a normal
-one: $\lambda t. t$ is not weakly guarded as the variable is directly
-exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
-guarded as long as $e[\cdot]$ is a semantic context, no necessary weakly guaded.)
-
-It's a similar process to define strongly guarded context
-(\texttt{SG}), sequential context (\texttt{SEQ}) and their
-variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
-\texttt{GSEQ}). Some lemmas about their relationships have very long
-(but trivial) formal proofs due to the combinatorial explosion of
-inductions on their structures. For example, one such 
-lemma says, for any semantic context $E$ which is both strongly guarded
-and sequential (no direct sums) and another sequential context $H$ (no
-direct sums), the composition $H \circ E$ is still both strongly
-guarded and sequential (no direct sums):
-\begin{alltt}
-SG_GSEQ_combin:
-\HOLthm{Congruence.SG_GSEQ_combin}
-\end{alltt}
-
-% \subsection{Milner's ``unique solution of equations'' theorems}
-
-% Once the representation issue of CCS equations is resolved, the actual
-% proofs of Milner's unique solution of equations theorems is not very
-% interesting from the view of theorem proving, although it's a 
-% precise proof engineering work producing quite long proofs.
-% Since we have chosen to use semantic context to represent
-% single-variable equations, an equation like $P \sim E\{P/X\}$ now
-% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) semantic
-% context, and there's no need to say it ``contains at most the variable
-% $X$'' any more, as equation variable doesn't appear in $E$ at
-% all. Under these simplifications, the formal proof of Milner's unique
-% solution of equations theorem for $\sim$ is a literal mapping for informal
-% proofs based on bisimulation upto $\sim$, induction and case analysis
-% of weakly guarded contexts. Below is the formal version of Lemma 4.13
-% and Proposition 4.14 in Milner's book:
-
-% \begin{alltt}
-% STRONG_UNIQUE_SOLUTION:
-% \HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
-% \end{alltt}
-
-% \begin{alltt}
-% WEAK_UNIQUE_SOLUTION:
-% \HOLthm{UniqueSolutions.WEAK_UNIQUE_SOLUTION}
-% \end{alltt}
-
-% \begin{alltt}
-% OBS_UNIQUE_SOLUTION:
-% \HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
-% \end{alltt}
-
 \subsection{Unique solution of contractions}
 
-The major difficulties in formalizing Sangiorgi's unique solution of
-contractions theorem is to prove its main lemma (c.f. Lemma 3.9 of
-main paper), in which the length of weak transitions are used for
-induction. Introducing a special vesion of weak transition relation
-with length would be an easier choice, but we have chosen to use trace
-instead, so that in the future it's possible to extend the work with
-trace equivalence included.
+The major difficulties in the formalisation of the results about unique solution of
+contractions are in the proof of  Lemma \ref{...}; in particular, it
+uses an induction on the length of weak transitions. 
+For this, one could introduced a refined form of weak transition relation
+enriched with its length; we have however preferred to use 
+traces (one reason is to be able to extend the formalisation in the
+future so to handle also unique solution results for forms of  trace
+equivalence).
+% Introducing a special vesion of weak transition relation
+% with length would be an easier choice, but we have chosen to use trace
+% instead, so that in the future it's possible to extend the work with
+% trace equivalence included.
+
+
+\finish{since we do not do trace equivalence, the argument above seems
+weak. Are there other reasons?} 
+
+We represent a trace by the initial process, the final derivative, and
+the
+list of actions performed. 
+To formalise this, 
+we first introduce 
+the Reflexive Transitive Closure with a
+List (LRTC);
 
 A trace is represented by the beginning and ending CCS processes, plus
 a list of action it passes. Insteading of defining it directly, we
 have first defined a new concept called Reflexive Transitive Closure with a
 List (LRTC):
+given a  labelled transition relation $R$, \HOLinline{\HOLConst{LRTC}
+  \HOLFreeVar{R}} builds 
+the possible traces derived from $R$.
 \begin{alltt}
-\HOLthm{Trace.LRTC_DEF}
+\HOLthm{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
-For any labelled translation relation $R$, \HOLtm{LRTC R} builds a new
-relation accumulating all labels in the middle. Then the trace of CCS processes can be
-defined by simply combining LRTC with the (strong) CCS transition
+ Then the traces for the  CCS processes
+are obtained
+ by combining LRTC with the (strong) CCS transition
 relation:
 \begin{alltt}
-\HOLthm[def]{Trace.TRACE_def}
+\HOLthm[def]{Trace.TRACE_def}\hfill{[TRACE_def]}
 \end{alltt}
 
 If there's at most one visible action (label) in the list of actions of a trace,
@@ -108,36 +48,45 @@ then the trace is also a weak transition. We divided this observation
 into two cases: no label and unique label. The definition of ``no
 label'' in an action list is easy and clear:
 \begin{alltt}
-\HOLthm{Trace.NO_LABEL_def}
+\HOLthm{Trace.NO_LABEL_def}\hfill{[NO_LABEL_def]}
 \end{alltt}
+\finish{above: what is MEM? has it been explained before?} 
 while the definition of ``unique label'' can be done in many ways, in
 which we have chosen to use the version learnt from Robert Beers in
 a private discussion which prevented counting or filtering in the list:
 \begin{alltt}
-\HOLthm{Trace.UNIQUE_LABEL_def}
+\HOLthm{Trace.UNIQUE_LABEL_def}\hfill{UNIQUE_LABEL_def}
 \end{alltt}
+\finish{above: cannot you just use the \HOLConst{NO_LABEL} predicate
+  previously defined?} 
+
 It says, a label is unique in an action list iff it there's no other
 labels in the rest part of the list.
 
 The final relationship between traces and weak transitions is stated
 and proved in the following lemma:
+
+\finish{below: explain in $us$ what is $s$ } 
 \begin{alltt}
-WEAK_TRANS_AND_TRACE:
-\HOLthm{Trace.WEAK_TRANS_AND_TRACE}
+\HOLthm{Trace.WEAK_TRANS_AND_TRACE}\hfill{[WEAK_TRANS_AND_TRACE]}
 \end{alltt}
-(A weak transition $E\overset{u}{\rightarrow}E'$ is a trace with non
+(A weak transition $E\overset{u}{\rightarrow}E'$ 
+\finish{above: you mean $E\overset{u}{\Rightarrow}E'$?}  
+is a trace with non
 empty action list: 1) without any visible label, if $u = \tau$, or 2)
 $u$ is the unique label in the list, if $u \neq \tau$.)
 
-To finish the proof of Lemma 3.9 in Sangiorgi's paper, we used above
-lemma to convert weak transitions to traces, which either keep its
-length or become shorter after passing weak bisimilations, then we
-used above lemma again to convert the traces back to weak transitions.
+To finish the proof of Lemma~\ref{l:}, we use the  above
+result to freely switch between weak transitions and traces
+during the induction argument.
+% , which either keep its
+% length or become shorter after passing weak bisimilations, then we
+% used above lemma again to convert the traces back to weak transitions.
 
-The proof of the final unique solution of contractions theorem is just
-a literal transition of its informal proofs: (noticed that the weakly
-guarded context is the version without direct sums)
+The statement of the  final unique solution of contractions theorem is
+the following (\texttt{WGS} is a weakly guarded context without direct sums)
 \begin{alltt}
+UNIQUE_SOLUTION_OF_CONTRACTIONS:
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}
 \end{alltt}
 
