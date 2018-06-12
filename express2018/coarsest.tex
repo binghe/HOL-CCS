@@ -1,0 +1,182 @@
+
+\subsection{Coarsest (pre)congruence contained in $\approx$ (or $\succeq_{\mathrm{bis}}$)}
+
+The ``coarsest congruence contained in weak bisimilarity ($\approx$)''
+theorem in CCS is somehow special, as its current known proofs either
+rely on quite restricted conditions, or have an extremely complicated proof
+(c.f. van Glabbek's paper) in
+which ordinal theory is required.  Actually even the relationship
+between its name and statement is not well explained in many CCS
+textbooks. But van Glabbek's paper has given the so far clearest
+explainion, here we briefly repeat his arguments:
+
+As we know weak bisimilarity ($\approx$) is not (real) congruence, as
+it doesn't satisfy subsitutivity on direct sums (but if the CCS syntax
+is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
+congruence). The purpose is to find a coarsest congruence contained in
+weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
+There're two ways to build a congruence from weak bisimilarity, one
+way is the standard definition for observational congruence (rooted
+weak bisimilarity) $\approx^c$ in CCS textbooks, but even it's proven to be a
+congruence we don't know if it's coarsest one.  The other way is to
+build a (pre)congruence closure (Def ??) directly upon
+the original weak bisimilarity relation, we call the resulting
+relation ``Weak bisimilarity congruence'' ($[\approx]$):
+\begin{alltt}
+\HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
+\HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
+\end{alltt}
+It can be shown that any such (pre)congruence closure is automatically coarset.
+
+Now it remains to prove that, the congrunce relation built by above
+two quite different approaches actually coincide. To achive this goal,
+we first noticed that, all other operators beside sums used in
+semantic context doesn't matter, because they're already substituible
+for weak bisimilarity. The only important operator is the sum
+operator. To focus on this important operator, we can temporily
+introduce another concept called \emph{sum equivalence}:
+\begin{alltt}
+\HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{alltt}
+It can be shown that, weak bisimilarity congruence implies this sum
+equivalence. Thus if we can further prove that the sum
+equivalence imples observational congrence, all the three relations
+must coincide together, as shown in the following diagram:
+\begin{displaymath}
+\xymatrix{
+{\textrm{Weak bisimilarity } (\approx)} & {\textrm{Sum
+    equivalence } (\approx^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Weak bisim. congruence } ([\approx])}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+In another words, observational congruence is the coarsest congruence
+contained in weak bisimilary if and only if
+\begin{equation}
+\forall p\; q.\; p \approx^c\! q \Longleftrightarrow \forall r.\; p+r \approx
+q+r
+\end{equation}
+
+The classical assumption for proving above theorem requires that $p$
+and $q$ do not use up all available visible actions,
+i.e. $\mathrm{fn}(p) \cup \mathrm{fn}(q) \neq \mathscr{L}$. But it's
+not easy to formalize and use such an assumption without a detailed
+treatment on free and bound names (visible actions) of CCS
+processes.\footnote{There're totally four such concepts: 1) free names
+are all visible actions appearing in a CCS term without surrounding
+$\nu$ (restriction) operator on the same action; 2) bound names are
+the set of all actions ever used by $\nu$ (restriction) operator; 3)
+free variables (or equation variables) are those variables without a
+definition given by recursion
+operator; 4) bound variables (process constants) are variables with
+definitions given by recursion operator. All CCS results using these
+concepts are not touched so far, although these four concepts are
+successfully defined using HOL's set and list theories.} However, by
+analyzing the proof steps, we found that, what's really required is to
+not use up all available labels in those weak transitions directly
+lead from $p$ and $q$. In another words, even they have used all
+available labels, as long as their first weak transitions didn't, the
+whole proof can still be finished.\footnote{Further more, $p$ and $q$
+  can be considered separately: the proof can be finished as long as
+  \emph{each} of them didn't use up all labels on first weak
+  transition, while the union of these labels are all labels.}
+We have formalized this property of
+CCS process and call it ``free action'' property:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}})
+\end{alltt}
+With this property, the classical form of this theorem that we have
+formally proved is:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
+   (\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{alltt}
+
+If we drop this classical assumption, then the proof becomes much
+harder, as given a van Glabbek's paper. The most important
+intermediate result we have proved here, is the following lemma:
+\begin{alltt}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+        \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenImp{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
+\end{alltt}
+It roughly says, for any two processes $p$ and $q$, if we can find
+another stable (no $\tau$-transitions) process $k$ which is not weak bisimilar to any transition of
+$p$ and $q$, then the hard part of our main theorem is proved. In
+practice, once two processes were given, it's not hard to find
+such a process, but the arbitrariness of $p$ and $q$ made this result
+extremely hard to prove. The method given by van Glabbek requires a
+construction of arbitrarily non-bisimilar processes called ``Klop
+processes'':
+\begin{definition}{(Klop processes)}
+For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
+define a CCS process $k_\lambda$ as follows:
+\begin{enumerate}
+\item $k_0 = 0$,
+\item $k_{\lambda+1} = k_\lambda + a.k_\lambda$ and
+\item for $\lambda$ a limit ordinal, $k_\lambda = \sum_{\mu < \lambda}
+  k_\mu$, meaning that $k_\lambda$ is constructed from all graphs
+  $k_\mu$ for $\mu < \lambda$ by identifying their root.
+\end{enumerate}
+\end{definition}
+It's not hard to prove that, all $k_i$ are non-bisimilar (not only
+weakly but also strongly). The idea is, for any two processes, the union of sets of their all
+transitions cannot be arbitrarily large: it has to be limited by an
+ordinal number. But above contruction can be arbitrarily large, so
+there always exists a Klop process which can be used to satisfy above
+lemma (and finish the proof).
+
+However, this goes beyond HOL's expressivity to define above process, mostly
+because there's no way to express infinite ``sums'' in CCS
+datatype.\footnote{There're actually several ways to modify the
+  datatype to support infinite sums, but none of these infinity can be
+arbitrary. The full version of ordinal theory cannot be expressed in HOL.}
+What we can do is to eliminate the last branch with limiting
+ordinals, and define Klop processes only on finite cases:
+\begin{alltt}
+\HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}
+\HOLConst{KLOP} \HOLFreeVar{a} (\HOLConst{SUC} \HOLFreeVar{n}) \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{+} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill[KLOP_def]
+\end{alltt}
+But this means we much assume the two processes $p$ and $q$ are
+finite-state, i.e. their corresponding LTS graphs have only finite
+states. Choosing an element from a countable infinite set of processes
+to make sure it's not bisimiar with a given set of processes, this is
+essentially a pure set-theoretic problem, as formalized and proved in
+the following lemma:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenImp{}}
+   \HOLConst{FINITE} \HOLFreeVar{A} \HOLSymConst{\HOLTokenConj{}} \HOLConst{INFINITE} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{x} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}. \HOLBoundVar{k} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n}. \HOLBoundVar{n} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{A} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLFreeVar{R} \HOLBoundVar{n} \HOLBoundVar{k}
+\end{alltt}
+
+With all these results, finally we can prove the ``coarsest congruence
+contained in $\approx$'' theorem for finite-state CCS:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{finite_state} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
+   (\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{alltt}
+
+For contraction and rooted contraction, the situation (and proof
+steps) is exactly the same:
+\begin{displaymath}
+\xymatrix{
+{\textrm{Contraction } (\succeq_{\mathrm{bis}})} & {\textrm{Sum
+    contraction } (\succeq_{\mathrm{bis}}^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Contraction precongruence } ([\succeq_{\mathrm{bis}}])}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted contraction } (\succeq_{\mathrm{bis}}^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+
+And we got two versions of theorem saying rooted contraction is the
+coarsest precongruence of (bisimilarity) contraction:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
+   (\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\HOLTokenTurnstile{} \HOLConst{finite_state} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
+   (\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\end{alltt}
