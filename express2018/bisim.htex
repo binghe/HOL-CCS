@@ -58,7 +58,7 @@ In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command ac
 \HOLthm{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
 \end{small}
-\item The coinductive principle for $\wb$: (it reads as \begin{small}``for any relation $\mathrm{WEAK\_EQUIV'}, \ldots$''\end{small})
+\item The coinduction principle for $\wb$: (it reads as \begin{small}``for any relation $\mathrm{WEAK\_EQUIV'}, \ldots$''\end{small})
 \begin{small}
 \begin{alltt}
 \HOLthm{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
@@ -72,6 +72,14 @@ In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command ac
 \end{small}
 \end{enumerate}
 
-The coinductive principle \texttt{[WEAK_EQUIV_coind]} never appears in any CCS textbook, the fixpoint theorem \texttt{[WEAK_EQUIV_cases]} ``property star (*)'' by Robin Milner. It's very useful in proving
-many results regarding bisimilarity, while it's quite hard\footnote{In the original CCS formalization in HOL88, Monica Nesi has to follow this hard way, the original proof (for strong bisimilarity) appears at p. 91 of \cite{Mil89}, the formal proof by Monica Nesi now lives in \texttt{ExampleScript.sml} for historical references.} to directly prove this theorem from Def.\;\ref{d:wb1}.
+Above coinduction principle \texttt{[WEAK_EQUIV_coind]} never appears in
+any CCS textbook, while the fixpoint theorem
+\texttt{[WEAK_EQUIV_cases]} was called ``property star (*)'' by Robin
+Milner. It's very useful in proving
+many results regarding bisimilarity, while it's quite hard\footnote{In
+  the original CCS formalization in HOL88, Monica Nesi has to follow
+  this hard way, the original proof (for strong bisimilarity) appears
+  at p. 91 of \cite{Mil89}, the formal proof by Monica Nesi now lives
+  in \texttt{ExampleScript.sml} for historical references.} to
+directly prove this theorem from Def.\;\ref{d:wb1}.
 
