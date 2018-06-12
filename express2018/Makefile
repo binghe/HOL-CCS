@@ -1,5 +1,5 @@
 MUNGE = ../src/munge.exe
-TEXFILES = main.tex part2.tex intro.tex ccs.tex expansion.tex contraction.tex unique.tex equa.tex formal.tex
+TEXFILES = main.tex part2.tex intro.tex sos.tex ccs.tex expansion.tex contraction.tex unique.tex equa.tex formal.tex
 
 all: main.pdf
 
@@ -8,6 +8,9 @@ tokens.tex: ../src/tokens.tex
 
 part2.tex: part2.htex
 	$(MUNGE) < part2.htex > part2.tex
+
+sos.tex: sos.htex
+	$(MUNGE) < sos.htex > sos.tex
 
 clean:
 	@rm -f *.aux *.blg *.log [0-9]*.tex *.bbl *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
