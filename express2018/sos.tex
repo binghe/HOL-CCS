@@ -5,18 +5,28 @@
 
 \subsection{CCS and transitions based on SOS rules}
 
-In the formalization of CCS, it's better to have two distinct
-types for actions: the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Label}} ($\beta$ is a type variable.) for visible actions, divided by input
+In the formalization of CCS, 
+the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Label}} ($\beta$ is a
+type variable) accounts for visible actions, divided into input
 and output actions:
 \begin{lstlisting}
 val _ = Datatype `Label = name 'b | coname 'b`;
 \end{lstlisting}
-and the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Action}} as the
-union of all visible and invisible actions. The cardinality of all
-available types depends on the choice of type variable $\beta$.
+Then
+the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Action}} is the
+union of all visible and invisible actions. The cardinality of
+\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}} (and therefore of all
+CCS types built on top of it) 
+ depends on the choice of initial  type $\beta$.
+\finish{i have reformulated the sentence above; check it} 
 
-The core datatype ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'' is then defined as an inductive
+
+
+The core datatype ``\HOLinline{(\ensuremath{\alpha},
+  \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS syntax,  is then defined as an inductive
 datatype in HOL, based on its Datatype package:
+\finish{above: check the change i made. Also, explain what is $\alpha
+  $ (i suppose the set of  variables for recursion)} 
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -28,15 +38,25 @@ val _ = Datatype `CCS = nil
 		      | rec 'a CCS`;
 \end{lstlisting}
 
-We have added some minimal grammar support using HOL's powerful pretty printer, to represent CCS
+We have added some  grammar support using HOL's powerful pretty printer, to represent CCS
 processes in more readable forms. Table \ref{tab:ccsoperator} has listed the notation of typical CCS processes and
-major operators supported by above definition. (Notice the use of
-recursition operator for representing process constants)
+major operators supported by above definition.
+
+\finish{explain what is ``HOL   (alternative)''. 
+Also: the table gives the impression that all recursion are guarded,
+ie, the body of the recursion begins with a prefix. I would instead
+put in the table the plain recursion rec A.P. Also, in the row for
+prefix, i would write plain prefix u.P}
+\finish{explain why restriction takes a set of names, rather than a
+  single name as in the  CCS syntax} 
+
+%  (Notice the use of
+% recursition operator for representing process constants)
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Operator} & \textbf{Notation} & \textbf{HOL term} & \textbf{HOL
+\textbf{Operator} & \textbf{CCS Notation} & \textbf{HOL term} & \textbf{HOL
   (alternative)}\\
 \hline
 nil & $\textbf{0}$ &  \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
@@ -44,7 +64,7 @@ Prefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\
 Sum & $p + q$ & \texttt{sum p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{+} \HOLFreeVar{q}} \\
 Parallel & $p \,\mid\, q$ & \texttt{par p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{q}} \\
 Restriction & $(\nu\;L)\;p$ & \texttt{restr L p} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{p}} \\
-Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} (\HOLFreeVar{a}\HOLSymConst{..}\HOLConst{var} \HOLFreeVar{A})} \\
+Recursion & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} (\HOLFreeVar{a}\HOLSymConst{..}\HOLConst{var} \HOLFreeVar{A})} \\
 \hline
 \end{tabular}
 \end{center}
@@ -53,17 +73,9 @@ Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{re
    \label{tab:ccsoperator}
 \end{table}
 
-The transition semantics of CCS processes were defined by the following
-Structural Operational Semantics (SOS for short) rules in
-Fig.\;\ref{f:LTSCCS}, except that the transition rule for constants
-has been changed to recursion operator:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{E} (\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}) \HOLFreeVar{X} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}
-\end{alltt}
-which says, if we substitute all appearences of constant $X$ in $E$ to
-$(\mathbf{rec}\; X\; E)$ and the resulting process has a transition to $E_1$
-with action $u$, then $(\mathbf{rec}\; X\; E)$ has the same
-transition. Other SOS rules have the following forms:
+The transition semantics of CCS processes  follows
+the Structural Operational Semantics (SOS) rules in
+Figure~\ref{f:LTSCCS}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{+} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
@@ -75,17 +87,39 @@ transition. Other SOS rules have the following forms:
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} ((\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{label} \HOLFreeVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[RESTR]}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{rf}\hfill\texttt{[RELABELING]}
+\HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{E} (\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{E}) \HOLFreeVar{A} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}
+\texttt{[RECURSION]}
 \end{alltt}
-Above rules work as \emph{axioms} in the theory of CCS, as they cannot be
-proved by more primitive theorems or axioms. From the view of theorem prover, these
-SOS rules are nothing but an \emph{inductive 
-  definition} on 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL4's function
-\texttt{Hol_reln}.\footnote{On the other side, above literal SOS rules are not
-the \emph{only} thing we got from \texttt{Hol_reln}, which also
-returns the fix-point theorem and induction principle for the
-relation, otherwise things like ``$\textbf{0}$ has no transition''
-cannot be proved at all.} The ultimate result here (before
-bisimilution gets involved), is an ML function taking a CCS process
+The rule 
+\texttt{[RECURSION]
+ says that if we substitute all appearences of variable $A$ in $E$ to
+$(\mathbf{rec}\; A\; E)$ and the resulting process has a transition to $E_1$
+with action $u$, then $(\mathbf{rec}\; A\; E)$ has the same
+transition. 
+
+
+% Above rules work as \emph{axioms} in the theory of CCS, as they cannot be
+% proved by more primitive theorems or axioms. 
+
+From the HOL  viewpoint, these
+SOS rules are \emph{inductive 
+  definitions} on the 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL4's function
+\texttt{Hol_reln}.\footnote{\texttt{Hol_reln} also
+gives us a fix-point theorem and induction principle for the
+relation, otherwise statements like ``$\textbf{0}$ has no transition''
+could not be proved.} 
+
+
+\finish{the text below is important but there are various things that
+  are not clear: where does ML come from (we have not talked about ML
+  before and for a non-expert in HOL this is a mystery)? did you have
+  to define it? was it difficult or is there some HOL facility that helps? } 
+
+The ultimate result here (before
+bisimilution gets involved), is an ML function
+\finish{is this the function \texttt{CCS\_TRANS\_CONV}}  mentioned
+later below? }
+  taking a CCS process
 and returning a theorem indicating all its direct transitions.
 
 For instance, we know that the process $(a.0 | \bar{a}.0)$ have three
