@@ -18,12 +18,12 @@
 
 Bisimilarity ($\approx$) is not  congruence, since not preserved by 
 the sum operator. For this reason rooted bisimilarity has been
-introduced (Definition~\ref{d:...}). 
+introduced (Definition~\ref{d:rootedBisimilarity}). 
 We discuss in this subsection two proofs of the result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity: Milner's proof \cite{Milner_CCS_book}, that requires
+bisimilarity: Milner's proof \cite{Mil89}, that requires
 that no process can use all available names; and van Glabbek's proof
-\cite{...}, that does not require additional assumptions. 
+\cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
 The `coarsest congruence contained in bisimilarity' is 
 the context closure, below called 
@@ -55,7 +55,6 @@ below called \emph{sum equivalence} and written $\approx^+$:
 % relation ``Weak bisimilarity congruence'' ($[\approx]$):
 % \begin{alltt}
 % \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
-% \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
 % \end{alltt}
 % It can be shown that any such (pre)congruence closure is automatically coarset.
 %
@@ -67,10 +66,7 @@ below called \emph{sum equivalence} and written $\approx^+$:
 % operator. To focus on this important operator, we can temporily
 % introduce another concept called \emph{sum equivalence}:
 % \begin{alltt}
-% \HOLConst{SUM_EQUIV} \HOLSymConst{=}
-% (\HOLTokenLambda{}\HOLBoundVar{p}
-% \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} 
-%\HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+% \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
 % \end{alltt}
 Rooted bisimilarity, being a congruence contained in bisimilarity,  
 is contained in   weak bisimilarity congruence that, in turn,
@@ -148,7 +144,7 @@ intermediate result is  the following (we recall that a process is
         \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}
         \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenImp{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
-   \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
+   \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[PROP3_COMMON]}
 \end{alltt}
 The result  says that, for any two processes $p$ and $q$,
 (\ref{equa:pq}) holds 

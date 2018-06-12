@@ -1,19 +1,19 @@
-\section{Formalization}
+\section{Formalisation}
 
-We highlight here a formalization of CCS
+We highlight here a formalisation of CCS
 in the HOL theorem
 prover (HOL4) \cite{slind2008brief},
 including the new concepts and theorems proposed in the first half of
 this paper.
 %  The main purpose is to convince the readers that, there's no flaw
 %  in the informal proofs. 
-The whole formalization can be found 
+The whole formalisation can be found 
 in \cite{Tian:2017wrba}  or in 
  in the official example folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
 work consists of about 20,000 lines of proof scripts in Standard ML.
 %  This
-%  work is based on a formalization of CCS in HOL theorem
+%  work is based on a formalisation of CCS in HOL theorem
 % prover (HOL4) \cite{slind2008brief}, described in second author's MSc thesis
 % \cite{Tian:2017wrba} and now lives in the official examples folder of HOL4 source
 % code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
@@ -34,7 +34,7 @@ We will not repeat all definitions and theorems of CCS again by their
 formalized versions. Instead, we just focus on several highlights in
 this work, i.e.
 \begin{enumerate}
-\item The formalization of semantics context in $\lambda$-expressions and the theory of
+\item The formalisation of semantics context in $\lambda$-expressions and the theory of
   (pre)congruence for CCS;
 \item The definition and uses of trace in the proof of unique solution of
   contractions theorem;
@@ -44,7 +44,7 @@ this work, i.e.
 
 
 In contrast with the theorems in the first part of the paper, in the
-formalization we consider only single equations/contractions. 
+formalisation we consider only single equations/contractions. 
 This considerably simplifies the  reading of the HOL scripts. 
 The extension of the work to multiple equations/contractions is
 discussed in Section~\ref{s:}. \finish{to be finished}
@@ -53,7 +53,7 @@ discussed in Section~\ref{s:}. \finish{to be finished}
 
 % We have only formally verified simplified forms of the unique
 % solution theorems introduced in the first part. This is to not only
-% save the formalization efforts, but also to make us focusing on the most
+% save the formalisation efforts, but also to make us focusing on the most
 % important part of the proof. The most important simplification is
 % that, we have only proved all unique solution theorems with only single-variable equations
 % (contractions).
