@@ -50,7 +50,7 @@ then $P \wb Q$.
 \end{definition}
 Notice how $\wb$ appeared at both sides of above if-then rule, and the fact that Def.\;\ref{d:wb2} doesn't use the definition of bisimulation at all.  The two definitions are proven (in our project) to be equivalent, but only one of them can be used as the very definition of bisimilarity, while the other must be proved as a theorem.  In particular, if we use Def.\;\ref{d:wb2} as the very definition, the (later proven) equivalent Def.\;\ref{d:wb1} will serve as a connection between bisimilarity and bisimulation. It turns out that, using Def.\;\ref{d:wb2} as definition we could have great benefits and the proof of Def.\;\ref{d:wb1} is quite simple, while in the other direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those ``benefits'', will show shortly) from a simple definition like Def.\;\ref{d:wb1}.
 
-In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command accepts a conjuction of relation rules and build a coinduction relation, whose property is fully captured by three theorems as outputs. Here is what we got from HOL using above single rule in Def.\;{d:wb2}:
+In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command accepts a conjuction of relation rules and build a coinduction relation, whose property is fully captured by three theorems as outputs. Here is what we got from HOL using above single rule in Def.\;\ref{d:wb2}:
 \begin{enumerate}
 \item The original relation rules (now become a theorem):
 \begin{small}
