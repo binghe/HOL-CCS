@@ -31,29 +31,29 @@ Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
 
 Bisimilarity is not congruence w.r.t direct sums, one obvious way to
 fix the definition is to define another relation on top of it:
-\begin{definition}{(rooted bisimilarity)}
-Two processes $P$ and $Q$ are rooted bisimilar, denoted $P
-\approx^c Q$, if and only if for all $\mu$ (including $\tau$):
+\begin{definition}[rooted bisimilarity]
+Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written $P
+\approx^c Q$, if we have:
 \begin{enumerate}
  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \wb Q'$;
 \item the converse of (1) on the actions from $Q$.
 \end{enumerate}
 \end{definition}
-Besides reducing the rooted bisimiarity of two processes to
-the bisimilarities of their first-step transition ends, this definition also brings a proof technique for proving the
-rooted bisimiarity by constructing a bisimulation:
-\begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
-\label{l:obsCongrByWeakBisim}
-Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
-satisfies the following properties:
-\begin{enumerate}
- \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
-   \Arr\mu Q'$ and $P' \RR Q'$;
-\item the converse of (1) on the actions from $Q$.
-\end{enumerate}
-then $P$ and $Q$ are rooted bisimilar, i.e., $P \approx^c Q$.
-\end{lemma}
+% Besides reducing the rooted bisimiarity of two processes to
+% the bisimilarities of their first-step transition ends, this definition also brings a proof technique for proving the
+% rooted bisimiarity by constructing a bisimulation:
+% \begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
+% \label{l:obsCongrByWeakBisim}
+% Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
+% satisfies the following properties:
+% \begin{enumerate}
+%  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+%    \Arr\mu Q'$ and $P' \RR Q'$;
+% \item the converse of (1) on the actions from $Q$.
+% \end{enumerate}
+% then $P$ and $Q$ are rooted bisimilar, i.e., $P \approx^c Q$.
+% \end{lemma}
 
 \subsection{Preorders: expansion and contraction (??)}
 

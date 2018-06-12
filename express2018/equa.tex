@@ -32,13 +32,12 @@ is
 We write $E[\til P]$ for the expression resulting from $E$ by
 replacing each variable $X_i$   with the process $P_i$, assuming
 $\til P$ and $\til X$ have the same length. (This is syntactic
-replacement, akin to the substitution of the holes of a context with 
- processes.) 
-The components of $\til P$ need not be
- different from each other, as it must be for the variables $\til X$.
-If the system has infinitely many equations,
-the  tuples $\til P$ and $\til X$
- are infinite too.
+replacement.) 
+% The components of $\til P$ need not be
+%  different from each other, as it must be for the variables $\til X$.
+% If the system has infinitely many equations,
+% the  tuples $\til P$ and $\til X$
+%  are infinite too.
 \begin{definition}
 Suppose  $\{  X_i = E_i\}_{i\in I}$ is a system of equations: 
 \begin{itemize}
@@ -57,32 +56,43 @@ that $P_i \wb E_i [\til P]$.
  \end{definition} 
 
 
-Examples of systems with a  unique solution for $\wb$ are: 
-\begin{enumerate}
-\item
+
+
+% Examples of systems with a  unique solution for $\wb$ are: 
+% \begin{enumerate}
+% \item
+% $ X = a. X$ 
+
+% \item 
+% $ X_1 = a.  X_2$, $ X_2 = b.  X_1$  
+
+% \end{enumerate}
+
+For instance, the solution of the equation 
 $ X = a. X$ 
+is  the process
+$R \defi \recu A . a A$, and   for any other solution $P$ we have $P \wb R$.
+In contrast, the equation 
+ $X = a|  X$ has solutions that may be quite different, namely any process capable of
+continuosly  performing $a$ action (but that could behave arbitrarily  on other actions). 
 
-\item 
-$ X_1 = a.  X_2$, $ X_2 = b.  X_1$  
-
-\end{enumerate}
  
-The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
-. K$:  for any other solution $P$ we have $P \wb K$.
-The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
-with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
-pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
-Examples of systems that do not have a unique solution are: 
-\begin{enumerate}
-\item $X = X $ 
+% The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
+% . K$:  for any other solution $P$ we have $P \wb K$.
+% The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
+% with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
+% pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
+% Examples of systems that do not have a unique solution are: 
+% \begin{enumerate}
+% \item $X = X $ 
 
-\item $X = \tau . X$
-\item $X = a | X$
+% \item $X = \tau . X$
+% \item $X = a | X$
 
-\end{enumerate} 
-All processes are solutions of (1) and (2); examples of solutions for
-(3) are $K$ and $K | b$, for $K \Defi a
-. K$.
+% \end{enumerate} 
+% All processes are solutions of (1) and (2); examples of solutions for
+% (3) are $K$ and $K | b$, for $K \Defi a
+% . K$.
 
 \begin{definition}
 A system of equations 
@@ -101,24 +111,24 @@ an \behav\  variable only appears  underneath prefixes and sums.
 \qed\end{itemize}
  \end{definition}
 
-In other words,  
-if the system is sequential, then 
- for
-every expression $E_i$, any subexpression of $E_i$ in which $X_j $ 
-appears, apart from $X_j$ itself,  is a sum (of prefixed terms). 
-For instance, 
-\begin{itemize}
-\item $X = \tau. X + \mu . \nil$ is sequential but not 
- guarded, because the guarding prefix for the variable
-is not visible.
+% In other words,  
+% if the system is sequential, then 
+%  for
+% every expression $E_i$, any subexpression of $E_i$ in which $X_j $ 
+% appears, apart from $X_j$ itself,  is a sum (of prefixed terms). 
+% For instance, 
+% \begin{itemize}
+% \item $X = \tau. X + \mu . \nil$ is sequential but not 
+%  guarded, because the guarding prefix for the variable
+% is not visible.
 
-\item $X =  \ell . X | P$ is  guarded but not sequential.
+% \item $X =  \ell . X | P$ is  guarded but not sequential.
 
-\item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as 
-$X = \tau . (a. X + \tau . b .X + \tau  )$
-are both 
- guarded and sequential.
-\end{itemize} 
+% \item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as 
+% $X = \tau . (a. X + \tau . b .X + \tau  )$
+% are both 
+%  guarded and sequential.
+% \end{itemize} 
 
 
 \begin{theorem}[unique solution of equations, \cite{Mil89}]
@@ -130,10 +140,10 @@ a unique solution
  for $\wb$. \qed
 \end{theorem} 
 
-The proof exploits an invariance property on immediate transitions for
-guarded and sequential expressions, and then extracts a bisimulation
-(up-to bisimilarity) out
-of the solutions of the system.  
+% The proof exploits an invariance property on immediate transitions for
+% guarded and sequential expressions, and then extracts a bisimulation
+% (up-to bisimilarity) out
+% of the solutions of the system.  
 To see the  need of the
  sequentiality  condition, 
   consider
