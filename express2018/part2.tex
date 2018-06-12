@@ -1,105 +1,37 @@
-
-\subsection{Semantic context, guardness and (pre)congruence}
-
-We need to find a suitable formal definition of semantic
-context. There're multiple ways. Here we have chosen to use $\lambda$-expressions (typed
-$CCS\rightarrow CCS$) to represent a (multi-hole) semantic
-context. The definition is inductive:
-\begin{alltt}
-\HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
-\HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
-\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
-\HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
-\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
-\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})
-\end{alltt}
-
-Under above definition, we can formally define the concept of
-``precongruence'' and ``congruence'' in the following ways:
-\begin{alltt}
-\HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
-\HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{precongruence} \HOLFreeVar{R}
-\end{alltt}
-
-A \emph{weak guarded} context is a context in which all holes appears
-in the sub-expression of prefixed processes. We can easily define it
-following the same idea:
-\begin{alltt}
-\HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
-\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
-\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
-\HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
-\HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})
-\end{alltt}
-(Notice the differences between a weak guarded context and a normal
-one: $\lambda t. t$ is not weakly guarded as the variable is directly
-exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
-guarded as long as $e[\cdot]$ is a semantic context, no necessary weakly guaded.)
-
-It's a similar process to define strongly guarded context
-(\texttt{SG}), sequential context (\texttt{SEQ}) and their
-variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
-\texttt{GSEQ}). Some lemmas about their relationships have very long
-(but trivial) formal proofs due to the combinatorial explosion of
-inductions on their structures. For example, one such 
-lemma says, for any semantic context $E$ which is both strongly guarded
-and sequential (no direct sums) and another sequential context $H$ (no
-direct sums), the composition $H \circ E$ is still both strongly
-guarded and sequential (no direct sums):
-\begin{alltt}
-SG_GSEQ_combin:
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLFreeVar{E})
-\end{alltt}
-
-% \subsection{Milner's ``unique solution of equations'' theorems}
-
-% Once the representation issue of CCS equations is resolved, the actual
-% proofs of Milner's unique solution of equations theorems is not very
-% interesting from the view of theorem proving, although it's a 
-% precise proof engineering work producing quite long proofs.
-% Since we have chosen to use semantic context to represent
-% single-variable equations, an equation like $P \sim E\{P/X\}$ now
-% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) semantic
-% context, and there's no need to say it ``contains at most the variable
-% $X$'' any more, as equation variable doesn't appear in $E$ at
-% all. Under these simplifications, the formal proof of Milner's unique
-% solution of equations theorem for $\sim$ is a literal mapping for informal
-% proofs based on bisimulation upto $\sim$, induction and case analysis
-% of weakly guarded contexts. Below is the formal version of Lemma 4.13
-% and Proposition 4.14 in Milner's book:
-
-% \begin{alltt}
-% STRONG_UNIQUE_SOLUTION:
-% \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}
-% \end{alltt}
-
-% \begin{alltt}
-% WEAK_UNIQUE_SOLUTION:
-% \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
-% \end{alltt}
-
-% \begin{alltt}
-% OBS_UNIQUE_SOLUTION:
-% \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
-% \end{alltt}
-
 \subsection{Unique solution of contractions}
 
-The major difficulties in formalizing Sangiorgi's unique solution of
-contractions theorem is to prove its main lemma (c.f. Lemma 3.9 of
-main paper), in which the length of weak transitions are used for
-induction. Introducing a special vesion of weak transition relation
-with length would be an easier choice, but we have chosen to use trace
-instead, so that in the future it's possible to extend the work with
-trace equivalence included.
+The major difficulties in the formalisation of the results about unique solution of
+contractions are in the proof of  Lemma \ref{...}; in particular, it
+uses an induction on the length of weak transitions. 
+For this, one could introduced a refined form of weak transition relation
+enriched with its length; we have however preferred to use 
+traces (one reason is to be able to extend the formalisation in the
+future so to handle also unique solution results for forms of  trace
+equivalence).
+% Introducing a special vesion of weak transition relation
+% with length would be an easier choice, but we have chosen to use trace
+% instead, so that in the future it's possible to extend the work with
+% trace equivalence included.
+
+
+\finish{since we do not do trace equivalence, the argument above seems
+weak. Are there other reasons?} 
+
+We represent a trace by the initial process, the final derivative, and
+the
+list of actions performed. 
+To formalise this, 
+we first introduce 
+the Reflexive Transitive Closure with a
+List (LRTC);
 
 A trace is represented by the beginning and ending CCS processes, plus
 a list of action it passes. Insteading of defining it directly, we
 have first defined a new concept called Reflexive Transitive Closure with a
 List (LRTC):
+given a  labelled transition relation $R$, \HOLinline{\HOLConst{LRTC}
+  \HOLFreeVar{R}} builds 
+the possible traces derived from $R$.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
@@ -107,9 +39,9 @@ List (LRTC):
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
        \HOLBoundVar{P} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b}
 \end{alltt}
-For any labelled translation relation $R$, \HOLinline{\HOLConst{LRTC} \HOLFreeVar{R}} builds a new
-relation accumulating all labels in the middle. Then the trace of CCS processes can be
-defined by simply combining LRTC with the (strong) CCS transition
+ Then the traces for the  CCS processes
+are obtained
+ by combining LRTC with the (strong) CCS transition
 relation:
 \begin{alltt}
 \HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}
@@ -122,6 +54,7 @@ label'' in an action list is easy and clear:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLFreeVar{L}
 \end{alltt}
+\finish{above: what is MEM? has it been explained before?} 
 while the definition of ``unique label'' can be done in many ways, in
 which we have chosen to use the version learnt from Robert Beers in
 a private discussion which prevented counting or filtering in the list:
@@ -131,11 +64,16 @@ a private discussion which prevented counting or filtering in the list:
        (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDoublePlus} [\HOLFreeVar{u}] \HOLSymConst{\HOLTokenDoublePlus} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenConj{}}
        \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{2}}}
 \end{alltt}
+\finish{above: cannot you just use the \HOLConst{NO_LABEL} predicate
+  previously defined?} 
+
 It says, a label is unique in an action list iff it there's no other
 labels in the rest part of the list.
 
 The final relationship between traces and weak transitions is stated
 and proved in the following lemma:
+
+\finish{below: explain in $us$ what is $s$ } 
 \begin{alltt}
 WEAK_TRANS_AND_TRACE:
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
@@ -143,18 +81,23 @@ WEAK_TRANS_AND_TRACE:
        \HOLConst{TRACE} \HOLFreeVar{E} \HOLBoundVar{us} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{us} \HOLSymConst{\HOLTokenConj{}} \HOLKeyword{if} \HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{us}
        \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLBoundVar{us}
 \end{alltt}
-(A weak transition $E\overset{u}{\rightarrow}E'$ is a trace with non
+(A weak transition $E\overset{u}{\rightarrow}E'$ 
+\finish{above: you mean $E\overset{u}{\Rightarrow}E'$?}  
+is a trace with non
 empty action list: 1) without any visible label, if $u = \tau$, or 2)
 $u$ is the unique label in the list, if $u \neq \tau$.)
 
-To finish the proof of Lemma 3.9 in Sangiorgi's paper, we used above
-lemma to convert weak transitions to traces, which either keep its
-length or become shorter after passing weak bisimilations, then we
-used above lemma again to convert the traces back to weak transitions.
+To finish the proof of Lemma~\ref{l:}, we use the  above
+result to freely switch between weak transitions and traces
+during the induction argument.
+% , which either keep its
+% length or become shorter after passing weak bisimilations, then we
+% used above lemma again to convert the traces back to weak transitions.
 
-The proof of the final unique solution of contractions theorem is just
-a literal transition of its informal proofs: (noticed that the weakly
+The statement of the  final unique solution of contractions theorem is
+the following (a  weakly
 guarded context is the version without direct sums)
+\finish{version of what?} 
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
 \end{alltt}
