@@ -48,6 +48,23 @@ Bisimilarity relation $\wb$ is the coinductive relation built from a single rule
 \end{enumerate}
 then $P \wb Q$.
 \end{definition}
+
+\finish{this is not really a definition. First, one does not know what
+  ``rule'' is; second one does not know what `` coinductive relation
+  built from a rule'' means; third, even if one knew, there would be
+  constraints on when this is possible (ie, not all rules give rise to
+proper coinductive defintions.  The best one can have is the following
+} 
+\begin{definition}
+Bisimilarity, $\approx$, is the greatest fixed point of the functional
+$F$ on relations defined thus: $(P,Q) \in F(R)$ if 
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap
+  \mu Q'$ and $(P',Q')\in R$,
+\item (and) the converse of (1) on the actions from $Q$
+\end{enumerate}
+\end{definition} 
+
 Notice how $\wb$ appeared at both sides of above if-then rule, and the fact that Def.\;\ref{d:wb2} doesn't use the definition of bisimulation at all.  The two definitions are proven (in our project) to be equivalent, but only one of them can be used as the very definition of bisimilarity, while the other must be proved as a theorem.  In particular, if we use Def.\;\ref{d:wb2} as the very definition, the (later proven) equivalent Def.\;\ref{d:wb1} will serve as a connection between bisimilarity and bisimulation. It turns out that, using Def.\;\ref{d:wb2} as definition we could have great benefits and the proof of Def.\;\ref{d:wb1} is quite simple, while in the other direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those ``benefits'', will show shortly) from a simple definition like Def.\;\ref{d:wb1}.
 
 In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command accepts a conjuction of relation rules and build a coinduction relation, whose property is fully captured by three theorems as outputs. Here is what we got from HOL using above single rule in Def.\;\ref{d:wb2}:
@@ -104,3 +121,9 @@ many results regarding bisimilarity, while it's quite hard\footnote{In
   in \texttt{ExampleScript.sml} for historical references.} to
 directly prove this theorem from Def.\;\ref{d:wb1}.
 
+
+\finish{Well, actually  \texttt{[WEAK_EQUIV_coind]} just says that any
+bisimulation is contained in bisimilarity (which is standard in
+concurrency textbooks). I do not understand the difference between the
+point (1), that is, [WEAK_EQUIV_rules], and the implication from right
+to left in  [WEAK_EQUIV_cases]} 
