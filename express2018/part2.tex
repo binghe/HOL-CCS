@@ -3,7 +3,7 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\subsection{CCS, Transitions and Bisimilarities}
+\subsection{CCS and transitions based on SOS rules}
 
 In the formalization of CCS, it's better to have two distinct
 types for actions: the type \HOLinline{\ensuremath{\beta} \HOLTyOp{Label}} ($\beta$ is a type variable.) for visible actions, divided by input
@@ -36,11 +36,11 @@ recursition operator for representing process constants)
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Operator} & \textbf{Notation} & \textbf{HOL} & \textbf{HOL
+\textbf{Operator} & \textbf{Notation} & \textbf{HOL term} & \textbf{HOL
   (alternative)}\\
 \hline
 nil & $\textbf{0}$ &  \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
-Rrefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{b}\HOLSymConst{..}\HOLConst{nil}} \\
+Prefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{b}\HOLSymConst{..}\HOLConst{nil}} \\
 Sum & $p + q$ & \texttt{sum p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{+} \HOLFreeVar{q}} \\
 Parallel & $p \,\mid\, q$ & \texttt{par p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{q}} \\
 Restriction & $(\nu\;L)\;p$ & \texttt{restr L p} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{p}} \\
@@ -48,6 +48,7 @@ Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{re
 \hline
 \end{tabular}
 \end{center}
+\vspace{-1em}
    \caption{Syntax of CCS operators}
    \label{tab:ccsoperator}
 \end{table}
@@ -62,7 +63,147 @@ has been changed to recursion operator:
 which says, if we substitute all appearences of constant $X$ in $E$ to
 $(\mathbf{rec}\; X\; E)$ and the resulting process has a transition to $E_1$
 with action $u$, then $(\mathbf{rec}\; X\; E)$ has the same
-transition.
+transition. Other SOS rules have the following forms:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{+} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{+} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM2]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[PAR1]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[PAR2]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{l}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLFreeVar{l})\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sb{\mathrm{2}}}\hfill\texttt{[PAR3]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} ((\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{label} \HOLFreeVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[RESTR]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{rf}\hfill\texttt{[RELABELING]}
+\end{alltt}
+Above rules work as \emph{axioms} in the theory of CCS, as they cannot be
+proved by more primitive theorems or axioms. From the view of theorem prover, these
+SOS rules are nothing but an \emph{inductive 
+  definition} on 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL4's function
+\texttt{Hol_reln}.\footnote{On the other side, above literal SOS rules are not
+the \emph{only} thing we got from \texttt{Hol_reln}, which also
+returns the fix-point theorem and induction principle for the
+relation, otherwise things like ``$\textbf{0}$ has no transition''
+cannot be proved at all.} The ultimate result here (before
+bisimilution gets involved), is an ML function taking a CCS process
+and returning a theorem indicating all its direct transitions.
+
+For instance, we know that the process $(a.0 | \bar{a}.0)$ have three
+possible transitions:
+\begin{enumerate}
+\item $(a.0 | \bar{a}.0) \overset{a}{\longrightarrow} (0 | \bar{a}.0)$;
+\item $(a.0 | \bar{a}.0) \overset{\bar{a}}{\longrightarrow} (a.0 | 0)$;
+\item $(a.0 | \bar{a}.0) \overset{\tau}{\longrightarrow} (0 | 0)$.
+\end{enumerate}
+To completely decide all possible transitions, if done manually, the
+following results must be proved:
+\begin{enumerate}
+\item there exists transitions from $(a.0 | \bar{a}.0)$ (optionally);
+\item each of above three transitions using SOS inference rules;
+\item there's no other transition beside the three existing ones.
+\end{enumerate}
+For large complex processes it's surprising hard to prove the
+non-existence of transitions. Instead, if we call the function \texttt{CCS\_TRANS\_CONV} with the
+root process:
+\begin{lstlisting}
+> CCS_TRANS_CONV
+	 ``par (prefix (label (name "a")) nil)
+	       (prefix (label (coname "a")) nil)``
+\end{lstlisting}
+we get the following theorem, which completely answers the question:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
+   ((\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil}) \HOLSymConst{\HOLTokenDisj{}}
+    (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{Out} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})) \HOLSymConst{\HOLTokenDisj{}}
+   (\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})
+\end{alltt}
+
+\subsection{Bisimulation and Bisimilarity}
+
+It's well known that, bisimilarity is a coinductive
+relation. Historically, it can be defined in HOL without any special
+support, but now using HOL's
+coinductive relation module (\texttt{Hol_coreln}), it's much easier to
+get the equivalent definition with minimal efforts.
+
+First of all, we define the zero or more $\tau$-transition chains of
+CCS processes as a new relation called \texttt{EPS} ($\epsilon$),
+which is the RTC (reflexive transitive closure) of single-step $\tau$-transition:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{EPS} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}})\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
+\end{alltt}
+Then we can define weak transition as a normal transition wrapped by
+two $\epsilon$-transitions:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
+\end{alltt}
+Now we're ready to present the formalized version of (weak)
+bisimulation relation as a predicate \texttt{WEAK_BISIM}:
+\begin{definition}{(Weak bisimulation)}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[WEAK_BISIM]}
+\end{alltt}
+\end{definition}
+
+There're two ways to define weak bisimulation equivalence in HOL4, one
+is to define it as the union of all weak bisimulations:
+\begin{definition}{(Alternative definition of weak equivalence)}
+For any two CCS processes $E$ and $E'$, they're \emph{weak
+  bisimulation equivalent} (or weak bisimilar) if and only if there's
+a weak bisimulation relation between $E$ and $E'$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Wbsm}. \HOLBoundVar{Wbsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Wbsm}\hfill{[WEAK_EQUIV]}
+\end{alltt}
+\end{definition}
+This was the definition used by Monica Nesi in Hol88 in which there was no
+direct support for defining co-inductive relations.  The new method we
+have used in this project, is to use HOL4's new co-inductive relation
+defining facility \texttt{Hol_coreln} to define weak bisimulation
+equivalence:
+\begin{lstlisting}
+val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases)
+  = Hol_coreln `
+    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+       (!l.
+	 (!E1. TRANS E  (label l) E1 ==>
+	       (?E2. WEAK_TRANS E' (label l) E2 /\
+                 WEAK_EQUIV E1 E2)) /\
+	 (!E2. TRANS E' (label l) E2 ==>
+	       (?E1. WEAK_TRANS E  (label l) E1 /\
+                 WEAK_EQUIV E1 E2))) /\
+       (!E1. TRANS E  tau E1 ==>
+                 (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
+       (!E2. TRANS E' tau E2 ==>
+                 (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
+      ==> WEAK_EQUIV E E')`;
+\end{lstlisting}
+The fixpoint theorem (\texttt{WEAK_EQUIV_cases}) returned by above
+\texttt{Hol_coreln} call, also named ``the property (*)'' \cite{Mil89}:
+\begin{proposition}{(The property (*) for weak bisimulation
+    equivalence)}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[WEAK_PROPERTY_STAR]}
+\end{alltt}
+\end{proposition}
+It is widely used in proving many results regarding bisimilarities. The
+old way for proving this fundamental theorem is quite hard but now
+it's a natural consequence of co-inductive relation definitions.
 
 \subsection{Coarsest (pre)congruence contained in $\approx$ (or $\succeq_{\mathrm{bis}}$)}
 
@@ -301,37 +442,37 @@ SG_GSEQ_combin:
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLFreeVar{E})
 \end{alltt}
 
-\subsection{Milner's ``unique solution of equations'' theorems}
+% \subsection{Milner's ``unique solution of equations'' theorems}
 
-Once the representation issue of CCS equations is resolved, the actual
-proofs of Milner's unique solution of equations theorems is not very
-interesting from the view of theorem proving, although it's a 
-precise proof engineering work producing quite long proofs.
-Since we have chosen to use semantic context to represent
-single-variable equations, an equation like $P \sim E\{P/X\}$ now
-becomes $P \sim E[P]$, in which $E$ is a (multi-hole) semantic
-context, and there's no need to say it ``contains at most the variable
-$X$'' any more, as equation variable doesn't appear in $E$ at
-all. Under these simplifications, the formal proof of Milner's unique
-solution of equations theorem for $\sim$ is a literal mapping for informal
-proofs based on bisimulation upto $\sim$, induction and case analysis
-of weakly guarded contexts. Below is the formal version of Lemma 4.13
-and Proposition 4.14 in Milner's book:
+% Once the representation issue of CCS equations is resolved, the actual
+% proofs of Milner's unique solution of equations theorems is not very
+% interesting from the view of theorem proving, although it's a 
+% precise proof engineering work producing quite long proofs.
+% Since we have chosen to use semantic context to represent
+% single-variable equations, an equation like $P \sim E\{P/X\}$ now
+% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) semantic
+% context, and there's no need to say it ``contains at most the variable
+% $X$'' any more, as equation variable doesn't appear in $E$ at
+% all. Under these simplifications, the formal proof of Milner's unique
+% solution of equations theorem for $\sim$ is a literal mapping for informal
+% proofs based on bisimulation upto $\sim$, induction and case analysis
+% of weakly guarded contexts. Below is the formal version of Lemma 4.13
+% and Proposition 4.14 in Milner's book:
 
-\begin{alltt}
-STRONG_UNIQUE_SOLUTION:
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}
-\end{alltt}
+% \begin{alltt}
+% STRONG_UNIQUE_SOLUTION:
+% \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}
+% \end{alltt}
 
-\begin{alltt}
-WEAK_UNIQUE_SOLUTION:
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
-\end{alltt}
+% \begin{alltt}
+% WEAK_UNIQUE_SOLUTION:
+% \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
+% \end{alltt}
 
-\begin{alltt}
-OBS_UNIQUE_SOLUTION:
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
-\end{alltt}
+% \begin{alltt}
+% OBS_UNIQUE_SOLUTION:
+% \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+% \end{alltt}
 
 \subsection{Unique solution of contractions}
 
