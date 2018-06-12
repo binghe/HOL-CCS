@@ -1,19 +1,20 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
-It's well known that, bisimilarity is a coinductive
-relation. Historically, it can be defined in HOL without any special
-support, but now using HOL's
-coinductive relation module (\texttt{Hol_coreln}), it's much easier to
-get the equivalent definition with minimal efforts.
 
-First of all, we define the zero or more $\tau$-transition chains of
-CCS processes as a new relation called \texttt{EPS} ($\epsilon$),
-which is the RTC (reflexive transitive closure) of single-step $\tau$-transition:
+As a coinductive relation, the definition of bisimilarity can take
+advantage of 
+ HOL's
+coinductive relation module (\texttt{Hol_coreln}).
+\finish{is this very recent? is there a reference to put for it? } 
+First, we define 
+a (possibly empty) sequence of $\tau$-transitions
+ as a new relation called \texttt{EPS} ($\epsilon$),
+which is the RTC (reflexive transitive closure) of the single-step $\tau$-transition:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{EPS} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}})\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
 \end{alltt}
-Then we can define weak transition as a normal transition wrapped by
+Then we can define a weak transition as an ordinary transition wrapped by
 two $\epsilon$-transitions:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
@@ -52,6 +53,17 @@ direct support for defining co-inductive relations.  The new method we
 have used in this project, is to use HOL4's new co-inductive relation
 defining facility \texttt{Hol_coreln} to define weak bisimulation
 equivalence:
+
+\finish{things I do not understand below: 
+is this  a definition of weak bisimilarity essentially stating  it is
+greatest fixed point of the functional described by the clauses? 
+The definition never mentions weak bisimulation
+(\HOLConst{WEAK_BISIM}): is that ok? does this mean that we can do
+without  \HOLConst{WEAK_BISIM}? but then, why do we have to introduce
+it?  otherwise, where is weak bisimilarity
+related to weak bisimulation ? 
+} 
+
 \begin{lstlisting}
 val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases)
   = Hol_coreln `
