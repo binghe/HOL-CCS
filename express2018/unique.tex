@@ -22,11 +22,11 @@ $\{  X_i \mcontr E_i\}_{i\in I}$,
 \item 
 the system  
 has  \emph{a unique 
-solution for $\asymp$}
+solution for $\approx$}
 if 
 whenever 
  $\til P$ and $\til Q$ are both solutions  for  $\mcontrBIS$
- then $\til P \asymp \til Q$.
+ then $\til P \approx \til Q$.
 \qed\end{itemize}
 \end{definition}
   
@@ -44,7 +44,6 @@ The system use \emph{weakly-guarded sums} if
 each $E_i$ only makes use of guarded sums.
 \qed\end{definition}
 
-\finish{introduce guarded sums, and contrast it with arbitrary sums} 
 
 
  
@@ -53,15 +52,49 @@ each $E_i$ only makes use of guarded sums.
 Suppose $\til P$ and $\til Q$ are solutions  for $\wb$
  of a system of weakly-guarded
 contractions that uses  weakly-guarded sums.
-For any context $\qct$, 
+For any context $\qct$ that uses  weakly-guarded sums, 
 if  $\ct{\til P}\Arr{\mu}  R$,
  then 
-there is a  context $\qctp$
+there is a  context $\qctp$ that uses  weakly-guarded sums
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
-   
-\finish{here a sketch of the proof (notably with the induction argument)} 
+
+\begin{proof}{[Sketch]}
+Let $n$ be the length of the transition $\ct{\til P}\Arr\mu R$  (the
+number of `strong steps' of which it is composed), and  
+let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
+from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
+of the contractions $n$ times. Thus in $\qctpp$ each hole is
+underneath at least $n$ prefixes, and cannot contribute to an action
+in the first $n$ transitions; moreover all the contexts use
+weakly-guarded sums. 
+
+
+We have $\ct{\til P} \mcontrBIS \ctpp{\til P}$, and 
+$\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
+ by the substitutivity  properties of $\mcontrBIS$ (we exploit here
+ the syntactic constraints on sums). Moreover,
+ since each hole of the  context $\qctpp$ is underneath at least $n$
+ prefixes, applying  
+the definition
+ of $ \mcontrBIS$ on the transition 
+ $\ct{\til P}\Arr{\mu}  R$, we infer the existence
+ of $\qctp$ such that 
+$
+\ctpp{\til P}\Arcap{\mu} \ctp{\til P} \mexpaBIS R
+$
+and 
+$
+\ctpp{\til Q}\Arcap{\mu}  \ctp{\til Q} 
+. $
+Finally, again applying the definition of $\mcontrBIS$ on 
+$\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
+we derive 
+$
+\ct{\til Q}\Arcap{\mu}  \wb \ctp{\til Q} 
+.$
+\end{proof}
 
 \begin{theorem}[unique solution of contractions for $\wb$]
 \label{t:contraBisimulationU}
@@ -71,12 +104,31 @@ a unique solution
  for $\wb$.
 \end{theorem} 
 
-\section{Rooted contraction and unique solution theorem for rooted bisimilarity}
+\begin{proof}{[Sketch]}
+One shows that if $\til P$ and $\til Q$ are solutions for $\wb$ of a system of weakly-guarded
+contractions that uses weakly-guarded sums,  then the
+ relation 
+\[\R \DSdefi \{ 
+(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
+$\qct$} \} \, . 
+\]
+ is a bisimulation, exploiting 
+ Lemma~\ref{l:uptocon}.
+\end{proof} 
+
+
+\section{Rooted contraction}
 \label{ss:new}
+
+The unique solution theorem of Section~\ref{ss:SysContr} require a
+constrained syntax for sums, due to the congruence and precongruence
+problems of bisimilarity and contraction with such operator. 
+We show here that the constraints can be
+removed by moving to the induced congruence and precongruence.
 
 \begin{definition}[rooted contraction]
 \label{d:rcontra}
-Two processes $P$ and $Q$ are in the rooted contraction, written 
+Two processes $P$ and $Q$ are in the \emph{rooted contraction}, written 
  $P\rcontr Q$, if
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
@@ -88,15 +140,34 @@ Two processes $P$ and $Q$ are in the rooted contraction, written
 
 \begin{theorem}
 \label{t:rcontrPrecongruence}
-Relation $\rcontr$ is a precongruence in CCS. 
+Relation $\rcontr$ is a precongruence in CCS.  Indeed it is the
+largest precongruence contained in $\contr$.
 \end{theorem}  
 
-\finish{two proofs} 
+The proof of this result is along the lines of the analogous result
+for rooted bisimilarity with respect to bisimilarity. 
 
-For the unique solution result a key lemma is the following one. 
+For a system of contraction, the meaning of 
+`solution  for $\rcontr$' and of 
+ \emph{a unique 
+solution for $\rapprox$}
+is the expected one~--- just replace in Definition~\ref{d:uniContra}  the preorder 
+$\contr$ with $\rcontr$, and the equivalence 
+$\approx$ with $\rapprox$.
+
+For the rooted relations, the analogous of Lemma~\ref{l:uptocon} and of
+Theorem~\ref{t:contraBisimulationU} can now be stated without constraints on the sum
+operator.  
+The schema of the proofs is also the same; the substitutivity
+properties of 
+$\rcontr$ and $\rapprox$ allow us to avoid issues with the sum
+operator. Some care is needed in Theorem~\ref{t:rcontraBisimulationU}
+to make sure that the final result is about  
+$\rapprox$, rather than (the weaker) $\approx$.
+
 
 \begin{lemma}
-\label{l:uptocon}
+\label{l:ruptocon}
 Suppose $\til P$ and $\til Q$ are solutions  for $\rcontr$ 
  of a system of weakly-guarded
 contractions.
@@ -108,13 +179,11 @@ such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
 
-\begin{theorem}[unique solution of contractions for $\wb$]
-\label{t:contraBisimulationU}
+\begin{theorem}[unique solution of contractions for $\rapprox$]
+\label{t:rcontraBisimulationU}
 A system of weakly-guarded contractions
     has 
 a unique solution 
- for $\wb$.
+ for $\rapprox$.
 \end{theorem} 
 
-
-\finish{sopra: e' la stessa assertion dell'altro theorem, occorre differenziare} 

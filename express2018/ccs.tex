@@ -4,31 +4,28 @@
 \section{CCS}
 \label{ss:ccs}
 
-\finish{maybe use recursion in place of constants, so to be
-  more faithful wrt the HOL formalization}    
 
-We assume  a possibly infinite set of \emph{input names} $a, b,
-\ldots$ and \emph{output names} $\outC a, \outC b, \ldots$,
- and a set of \emph{constant identifiers} (or simply \emph{constants})
- $A, B, \ldots$ for writing recursive processes. 
-The special symbol $\tau$ does not occur in the names and in the 
-constants. 
+We assume  a possibly infinite set of \emph{names} $a, b,
+\ldots$, that does not contain the special symbol $\tau$, and
+variables $A,B, \ldots$ used for writing recursive behaviours. 
 The class  of the CCS processes is inductively built from $\nil$ by the operators
-of parallel composition,  sum,
- restriction, prefix, and constants:
+of  prefixing, parallel composition,  sum,
+ restriction,  and recursion:
 \begin{equation*}
 \begin{array}{ccl}
+\mu  & := &  a \; \midd \;  \outC a  \; \midd \;  \tau \\
 P  & := &  \nil \; \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd % \; \mu . P\; \midd  \; 
-  (\res a\!)\, P  \;  \midd \;   K   %\\[\tkpS]
+  (\res a\!)\, P  \;  \midd \;   \recu A  P   %\\[\tkpS]
 \end{array}
 \end{equation*}
-Each constant $K$ has  a definition 
- $K \Defi P$.
-We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
+%We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
 The operational semantics is given by means of an LTS, and is
 reported in Figure~\ref{f:LTSCCS} (the symmetric version  of the two rules for
 parallel composition and the rule for sum  has been omitted).
+A CCS expression \emph{uses weakly-guarded sums} if all occurrences of
+the sum  operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
+\mu_n.P_n$, for some $n \geq 2$.
 
  The \emph{immediate derivatives} of a
 process $P$ are the elements of  the set $\{P' \st P \arr\mu P' \mbox{ for some $\mu$ }
@@ -55,37 +52,9 @@ $\displaystyle{ P \arr{\mu}P' \over
  (\res a\!)\, P   \arr{\mu} (\res a\!)\, P'} $ $ \mu \neq a, \outC a$
 $ \hb$ %  &
 \hskip .5cm 
-$\displaystyle{ P \arr{\mu}P' \over
- K   \arr{ \mu} P'  } $  if  $  K \Defi P$
+$\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
+ \recu A P   \arr{ \mu} P'  } $
 \end{center}
-%  \begin{center}
-% \begin{tabular}{rlcrlcrl}
-% %{{\sf sum}}:
-% & $  \Sigma_{i\in I} \mu_i.   P_i 
-% \arr{ \mu_i  }P_i$ & $ \hb$ &
-% %{{\sf par1}}:
-% & $\displaystyle{   P \arr\mu   P' \over   P | Q   \arr\mu
-% P' | Q } $ & $ \hb$ &  
-% % \multicolumn{5}{c}{
-% %  {{\sf com1}}: 
-% &  $\; \;$  $\displaystyle{ P \arr{ a}P' \hk \hk  Q
-% \arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
-% |  Q'  }$ 
-%  \\[\mysp]
-% \multicolumn{8}{c}{ 
-% %{{\sf res}}:  %&
-% \hskip .4cm  
-%  $\displaystyle{ P \arr{\mu}P' \over
-%  \res a     P   \arr{\mu} \res a P'} $ $ \mu \neq a, \outC a$
-% % & 
-% $ \hb$ %  &
-% \hskip .4cm 
-% %{{\sf const}}: %& 
-% \hskip .3cm 
-% $\displaystyle{ P \arr{\mu}P' \over
-%  K   \arr{ \mu} P'  } $  if  $  K \Defi P$
-% }\end{tabular}
-%  \end{center} 
 \caption{The LTS of CCS}
 \label{f:LTSCCS}
 \end{figure*}
@@ -128,7 +97,6 @@ We use  symbol
 $\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
 $G$ is some expression, means that  $P$ stands
 for the  expression
-$G$ (in contrast,  symbol $\Defi$ is used for the definition of
-constants, whereas   $=$ is used for syntactic equality and for equations).
+$G$.
 If $\leq$ is a preorder, then  $\geq$  is its inverse (and
 conversely).    
