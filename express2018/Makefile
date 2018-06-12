@@ -1,5 +1,5 @@
 MUNGE = ../src/munge.exe
-TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex contraction.tex unique.tex equa.tex formal.tex
+TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex contraction.tex unique.tex equa.tex formal.tex coarsest.tex
 
 all: main.pdf
 
@@ -14,6 +14,9 @@ sos.tex: sos.htex
 
 bisim.tex: bisim.htex
 	$(MUNGE) < bisim.htex > bisim.tex
+
+coarsest.tex: coarsest.htex
+	$(MUNGE) < coarsest.htex > coarsest.tex
 
 clean:
 	@rm -f *.aux *.blg *.log [0-9]*.tex *.bbl *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
