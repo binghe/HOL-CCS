@@ -90,8 +90,10 @@ Figure~\ref{f:LTSCCS}:
 \HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{E} (\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{E}) \HOLFreeVar{A} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}
 \texttt{[RECURSION]}
 \end{alltt}
+\finish{adjust last line above} 
+
 The rule 
-\texttt{[RECURSION]
+\texttt{[RECURSION]}
  says that if we substitute all appearences of variable $A$ in $E$ to
 $(\mathbf{rec}\; A\; E)$ and the resulting process has a transition to $E_1$
 with action $u$, then $(\mathbf{rec}\; A\; E)$ has the same
@@ -117,7 +119,7 @@ could not be proved.}
 
 The ultimate result here (before
 bisimilution gets involved), is an ML function
-\finish{is this the function \texttt{CCS\_TRANS\_CONV}}  mentioned
+\finish{is this the function \texttt{CCS\_TRANS\_CONV}  mentioned
 later below? }
   taking a CCS process
 and returning a theorem indicating all its direct transitions.
