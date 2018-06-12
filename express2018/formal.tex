@@ -7,12 +7,11 @@ including the new concepts and theorems proposed in the first half of
 this paper.
 %  The main purpose is to convince the readers that, there's no flaw
 %  in the informal proofs. 
-The whole formalisation can be found 
+The whole formalization can be found 
 in \cite{Tian:2017wrba}  or in 
  in the official example folder of HOL4 source
-code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
-\finish{i would say here how big is the formalisation, ie how many
-  lines of code} 
+code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
+work consists of about 20,000 lines of proof scripts in Standard ML.
 %  This
 %  work is based on a formalization of CCS in HOL theorem
 % prover (HOL4) \cite{slind2008brief}, described in second author's MSc thesis
@@ -21,18 +20,14 @@ code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
 
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphim (type
-variables). HOL4 implemented this logic without any extension, in
-contrast
-with
-some other theorem provers of the  HOL family (e.g. Isabelle/HOL). 
-\finish{not having extensions above: sounds like a defect; what is the
-advantage? the portability explained in the next sentence?} 
+variables). HOL4 implemented the original HOL Logic, while
+some other theorem provers of the HOL family (e.g. Isabelle/HOL) added
+further extensions (they made the formal language more powerful,
+but they also bring the possibilities that the entire logic becomes inconsistent).
 The HOL Logic has considerability simpler logic
 foundations than most other theorem provers, e.g. Coq. As a result,
 formal theories in HOL can be easily migrated (sometimes even
 automatically) into other theorem provers.
-
-
 
 \finish{below: to be reformulated (by Davide) later} 
 We will not repeat all definitions and theorems of CCS again by their
@@ -49,10 +44,10 @@ this work, i.e.
 
 
 In contrast with the theorems in the first part of the paper, in the
-formalisation we consider only single equations/contractions. 
+formalization we consider only single equations/contractions. 
 This considerably simplifies the  reading of the HOL scripts. 
 The extension of the work to multiple equations/contractions is
-discussed in Section~\ref{s:}.
+discussed in Section~\ref{s:}. \finish{to be finished}
 
 % \subsection{Simplifications and Limitations}
 
