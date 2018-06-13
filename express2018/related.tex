@@ -1,4 +1,27 @@
-\section{Related work}
+\section{Related formalisation work}
 
-\finish{comments on Monica Nesi and others} 
-             
+Monica Nesi formalized both pure CCS \cite{Nesi:1992ve} and value-passing CCS
+\cite{Nesi:2017wo} in old versions of HOL theorem prover.
+She was mainly focusing on writing decision procedures (ML functions) which
+automatically prove theorems showning bisimilarity of CCS processes,
+thus HOL interactive shell could be used in
+place of model checking tools like CWB
+\cite{cleaveland1993concurrency}. The author ported her work from
+HOL88 to latest HOL4, with small improvement, then added more concepts
+and theorems, with the total lines of proof scripts at least doubled.
+
+Beside Nesi, there're two other CCS formalisations. One
+is done in Isabelle/HOL (based on Nominal datatypes) in 2010, by Jesper Bengtson as part of his PhD
+thesis project \cite{bengtson2010formalising}, available in Isabelle's Archive of Formal
+Proofs (AFP)\footnote{\url{https://www.isa-afp.org/entries/CCS.html}}. He has formalized
+classic properties for strong/weak equivalence and observational
+congruence, however the CCS grammar doesn't include process constants
+(or recursion operators). And the proved theorems also look quite
+different with their forms in textbooks.
+The other formalisation is based on Coq, done by Solange
+Coupet-Grimal in 1995, which is part of the
+``coq-contribs'' archive (Coq's official user contributed code)
+\footnote{\url{https://github.com/coq-contribs/ccs}}. This is actually
+a formalisation of transition systems without any algebraic operator,
+and covers the very basic properties of strong/weak equivalence and observational
+congruence.

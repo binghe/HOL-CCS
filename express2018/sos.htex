@@ -3,7 +3,7 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\subsection{CCS and transitions based on SOS rules}
+\subsection{CCS and its transitions by SOS rules}
 
 In the formalisation of CCS, 
 the type ``\HOLty{:'b Label}'' ($\beta$ is a
