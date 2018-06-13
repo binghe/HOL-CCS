@@ -1,25 +1,21 @@
+%%%% -*- Mode: LaTeX -*-
+%%
+%% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
+%% Prof. Davide Sangiorgi and Chun Tian.
+
 \subsection{Unique solution of contractions}
 
 The major difficulties in the formalisation of the results about unique solution of
-contractions are in the proof of  Lemma \ref{...}; in particular, it
+contractions are in the proof of lemma~\ref{l:ruptocon}; in particular, it
 uses an induction on the length of weak transitions. 
 For this, one could introduced a refined form of weak transition relation
-enriched with its length; we have however preferred to use 
-traces (one reason is to be able to extend the formalisation in the
-future so to handle also unique solution results for forms of  trace
-equivalence).
-% Introducing a special vesion of weak transition relation
-% with length would be an easier choice, but we have chosen to use trace
-% instead, so that in the future it's possible to extend the work with
-% trace equivalence included.
-
-
-\finish{since we do not do trace equivalence, the argument above seems
-weak. Are there other reasons?} 
+enriched with its length, but such a non-standard relation finds no
+other uses beside proving our target theorem. Another way is to use 
+traces instead, as it shows more clearly all passing actions inside a
+trace, making formal reasoning easier.
 
 We represent a trace by the initial process, the final derivative, and
-the
-list of actions performed. 
+the list of actions performed. 
 To formalise this, 
 we first introduce 
 the Reflexive Transitive Closure with a
@@ -46,37 +42,33 @@ relation:
 If there's at most one visible action (label) in the list of actions of a trace,
 then the trace is also a weak transition. We divided this observation
 into two cases: no label and unique label. The definition of ``no
-label'' in an action list is easy and clear:
+label'' in an action list is easy and clear (\texttt{MEM} is for
+testing if an element is \emph{member} of a list):
 \begin{alltt}
 \HOLthm{Trace.NO_LABEL_def}\hfill{[NO_LABEL_def]}
 \end{alltt}
-\finish{above: what is MEM? has it been explained before?} 
 while the definition of ``unique label'' can be done in many ways, in
 which we have chosen to use the version learnt from Robert Beers in
 a private discussion which prevented counting or filtering in the list:
 \begin{alltt}
 \HOLthm{Trace.UNIQUE_LABEL_def}\hfill{UNIQUE_LABEL_def}
 \end{alltt}
-\finish{above: cannot you just use the \HOLConst{NO_LABEL} predicate
-  previously defined?} 
-
 It says, a label is unique in an action list iff it there's no other
 labels in the rest part of the list.
 
 The final relationship between traces and weak transitions is stated
-and proved in the following lemma:
-
-\finish{below: explain in $us$ what is $s$ } 
+and proved in the following lemma: (here $us$ as single variable means
+a list of actions)
+\begin{lemma}
+A weak transition $E\overset{u}{\Rightarrow}E'$ is a just trace with non
+empty action list: 1) without any visible label, if $u = \tau$, or 2)
+$u$ is the unique label in the list, if $u \neq \tau$.
 \begin{alltt}
 \HOLthm{Trace.WEAK_TRANS_AND_TRACE}\hfill{[WEAK_TRANS_AND_TRACE]}
 \end{alltt}
-(A weak transition $E\overset{u}{\rightarrow}E'$ 
-\finish{above: you mean $E\overset{u}{\Rightarrow}E'$?}  
-is a trace with non
-empty action list: 1) without any visible label, if $u = \tau$, or 2)
-$u$ is the unique label in the list, if $u \neq \tau$.)
+\end{lemma}
 
-To finish the proof of Lemma~\ref{l:}, we use the  above
+To finish the proof of Lemma~\ref{l:ruptocon}, we use the  above
 result to freely switch between weak transitions and traces
 during the induction argument.
 % , which either keep its
@@ -84,7 +76,8 @@ during the induction argument.
 % used above lemma again to convert the traces back to weak transitions.
 
 The statement of the  final unique solution of contractions theorem is
-the following (\texttt{WGS} is a weakly guarded context without direct sums)
+the following (\texttt{WGS} is a weakly guarded context without direct
+sums)
 \begin{alltt}
 UNIQUE_SOLUTION_OF_CONTRACTIONS:
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}

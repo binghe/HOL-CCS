@@ -28,8 +28,8 @@ The `coarsest congruence contained in bisimilarity' is
 the context closure, below called 
 ``weak bisimilarity congruence'' and written $[\approx]$, formalised thus:
 \begin{alltt}
-\HOLthm[def]{CoarsestCongr.WEAK_CONGR}
-\HOLthm[def]{Congruence.CC_def}
+\HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
+\HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
 \end{alltt}
 
 Given the central role of the  
@@ -37,7 +37,7 @@ Given the central role of the
  operator, 
 below called \emph{sum equivalence} and written $\approx^+$:
 \begin{alltt}
-\HOLthm[def]{CoarsestCongr.SUM_EQUIV}
+\HOLthm[def]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
 \end{alltt}
 
 

@@ -28,8 +28,8 @@ The `coarsest congruence contained in bisimilarity' is
 the context closure, below called 
 ``weak bisimilarity congruence'' and written $[\approx]$, formalised thus:
 \begin{alltt}
-\HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
-\HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
+\HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
+\HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))\hfill{[CC_def]}
 \end{alltt}
 
 Given the central role of the  
@@ -37,7 +37,7 @@ Given the central role of the
  operator, 
 below called \emph{sum equivalence} and written $\approx^+$:
 \begin{alltt}
-\HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
+\HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})\hfill{[SUM_EQUIV]}
 \end{alltt}
 
 
@@ -136,6 +136,6 @@ For contraction and rooted contraction, the situation and proof
 steps are the same:
 \begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \begin{alltt}
-
+\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{q}
 \end{alltt}
 \end{theorem}
