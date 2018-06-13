@@ -1,7 +1,7 @@
-\subsection{Equivalences: bisimilarity and rooted bisimilarity}
+\subsection{Bisimilarity, rooted bisimilarity,  and up-to techniques}
 \label{ss:BiEx}
 
-The equivalences here are 
+The equivalences we consider are  mainly
  \emph{weak}, in that they
 abstract from the number of internal steps performed
 \begin{definition}[bisimilarity]
@@ -24,13 +24,14 @@ written $P \wb
  Q$, if $P \RR Q$ for some  bisimulation $\R$.  
 \end{definition} 
 
-We sometimes call bisimilarity as ``\emph{weak} bisimilarity'', to
+We sometimes call bisimilarity as ``\emph{weak}'', to
 distinguish it from \emph{strong bisimilarity}, $\sim$,
 obtained by replacing in the above definition   the weak answer $
 Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
 
-Bisimilarity is not congruence w.r.t direct sums, one obvious way to
-fix the definition is to define another relation on top of it:
+Bisimilarity is not preserved by the sum operator. 
+For this, Milner introduces \emph{observational congruence}, also called \emph{rooted
+  bisimilarity}.
 \begin{definition}[rooted bisimilarity]
 \label{d:rootedBisimilarity}
 Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written $P
@@ -56,7 +57,13 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written $P
 % then $P$ and $Q$ are rooted bisimilar, i.e., $P \approx^c Q$.
 % \end{lemma}
 
-\subsection{Preorders: expansion and contraction (??)}
+
+\begin{theorem}
+\label{t:rapproxCongruence}
+Relation $\rapprox$ is a congruence in CCS.  Indeed it is the
+largest congruence contained in $\approx$.
+\end{theorem}  
+
 
 The bisimulation proof method can be enhanced by means of \emph{up-to
   techniques}. One of the most useful auxiliary relations in up-to
@@ -89,3 +96,4 @@ if $P \RR Q$,  for some expansion $\R$.
 \end{definition}
 
 As bisimilarity, expansion is preserved by all operators but sum.
+%An example of up-to technique involving expansion is 

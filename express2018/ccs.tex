@@ -7,7 +7,7 @@
 
 We assume  a possibly infinite set of \emph{names} $a, b,
 \ldots$, that does not contain the special symbol $\tau$, and
-variables $A,B, \ldots$ used for writing recursive behaviours. 
+a set of variables $A,B, \ldots$ for writing recursive behaviours. 
 The class  of the CCS processes is inductively built from $\nil$ by the operators
 of  prefixing, parallel composition,  sum,
  restriction,  and recursion:
@@ -16,7 +16,7 @@ of  prefixing, parallel composition,  sum,
 \mu  & := &  a \; \midd \;  \outC a  \; \midd \;  \tau \\
 P  & := &  \nil \; \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd % \; \mu . P\; \midd  \; 
-  (\res a\!)\, P  \;  \midd \;   \recu A  P   %\\[\tkpS]
+  (\res a\!)\, P  \;  \midd \;   \recu A  P\;  \midd \; A   %\\[\tkpS]
 \end{array}
 \end{equation*}
 %We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
@@ -25,7 +25,7 @@ reported in Figure~\ref{f:LTSCCS} (the symmetric version  of the two rules for
 parallel composition and the rule for sum  has been omitted).
 A CCS expression \emph{uses weakly-guarded sums} if all occurrences of
 the sum  operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
-\mu_n.P_n$, for some $n \geq 2$. 
++ \mu_n.P_n$, for some $n \geq 2$. 
 
  The \emph{immediate derivatives} of a
 process $P$ are the elements of  the set $\{P' \st P \arr\mu P' \mbox{ for some $\mu$ }
