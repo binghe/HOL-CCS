@@ -1,0 +1,76 @@
+%%%% -*- Mode: LaTeX -*-
+%%
+%% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
+%% Prof. Davide Sangiorgi and Chun Tian.
+
+\subsection{Context, guardness and (pre)congruence}
+
+We need to find a suitable formal definition of 
+context. There're multiple ways. Here we have chosen to use $\lambda$-expressions (typed
+$CCS\rightarrow CCS$) to represent a (multi-hole) 
+context. The definition is inductive:
+\begin{alltt}
+\HOLthm{Congruence.CONTEXT_rules}
+\end{alltt}
+
+Under above definition, we can formally define the concept of
+``precongruence'' and ``congruence'' in the following ways:
+\begin{alltt}
+\HOLthm[def]{Congruence.precongruence_def}
+\HOLthm[def]{Congruence.congruence_def}
+\end{alltt}
+
+A \emph{weak guarded} context is a context in which all holes appears
+in the sub-expression of prefixed processes. We can easily define it
+following the same idea:
+\begin{alltt}
+\HOLthm{Congruence.WG_rules}
+\end{alltt}
+(Notice the differences between a weak guarded context and a normal
+one: $\lambda t. t$ is not weakly guarded as the variable is directly
+exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
+guarded as long as $e[\cdot]$ is a  context, no necessary weakly guaded.)
+
+It's a similar process to define strongly guarded context
+(\texttt{SG}), sequential context (\texttt{SEQ}) and their
+variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
+\texttt{GSEQ}). Some lemmas about their relationships have very long
+(but trivial) formal proofs due to the combinatorial explosion of
+inductions on their structures. For example, one such 
+lemma says, for any  context $E$ which is both strongly guarded
+and sequential (no direct sums) and another sequential context $H$ (no
+direct sums), the composition $H \circ E$ is still both strongly
+guarded and sequential (no direct sums):
+\begin{alltt}
+\HOLthm{Congruence.SG_GSEQ_combin}\hfill{[SG_GSEQ_combin]}
+\end{alltt}
+
+% \subsection{Milner's ``unique solution of equations'' theorems}
+
+% Once the representation issue of CCS equations is resolved, the actual
+% proofs of Milner's unique solution of equations theorems is not very
+% interesting from the view of theorem proving, although it's a 
+% precise proof engineering work producing quite long proofs.
+% Since we have chosen to use  context to represent
+% single-variable equations, an equation like $P \sim E\{P/X\}$ now
+% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) 
+% context, and there's no need to say it ``contains at most the variable
+% $X$'' any more, as equation variable doesn't appear in $E$ at
+% all. Under these simplifications, the formal proof of Milner's unique
+% solution of equations theorem for $\sim$ is a literal mapping for informal
+% proofs based on bisimulation upto $\sim$, induction and case analysis
+% of weakly guarded contexts. Below is the formal version of Lemma 4.13
+% and Proposition 4.14 in Milner's book:
+
+% \begin{alltt}
+% STRONG_UNIQUE_SOLUTION:
+% \end{alltt}
+
+% \begin{alltt}
+% WEAK_UNIQUE_SOLUTION:
+% \end{alltt}
+
+% \begin{alltt}
+% OBS_UNIQUE_SOLUTION:
+% \end{alltt}
+

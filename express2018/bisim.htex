@@ -39,49 +39,60 @@ P \wb Q \quad\Leftrightarrow\quad\exists \RR.\, P \RR Q \ \wedge\ \RR \mbox{is (
 \end{definition}
 
 But there's another way: since we know \emph{a priori} that bisimilarity is a co-inductive relation, we can try to recursively define it by providing some rules (in this case, just one rule):
-\begin{definition}{(Bisimilariy, the coinductive definition)}
+\begin{definition}{(Bisimilariy, the co-induction definition)}
 \label{d:wb2}
-Bisimilarity relation $\wb$ is the coinductive relation built from a single rule: for any $P$ and $Q$, if
-\begin{enumerate}
-\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \wb Q'$,
-\item (and) the converse of (1) on the actions from $Q$,
-\end{enumerate}
-then $P \wb Q$.
-\end{definition}
-
-\finish{this is not really a definition. First, one does not know what
-  ``rule'' is; second one does not know what `` coinductive relation
-  built from a rule'' means; third, even if one knew, there would be
-  constraints on when this is possible (ie, not all rules give rise to
-proper coinductive defintions.  The best one can have is the following
-} 
-\begin{definition}
 Bisimilarity, $\approx$, is the greatest fixed point of the functional
-$F$ on relations defined thus: $(P,Q) \in F(R)$ if 
+$F$ on relations defined thus: $(P, Q) \in F(R)$ if 
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap
   \mu Q'$ and $(P',Q')\in R$,
 \item (and) the converse of (1) on the actions from $Q$
 \end{enumerate}
-\end{definition} 
+\end{definition}
+Notice how $\wb$ appeared at both sides of above if-then rule, and the
+fact that Def.\;\ref{d:wb2} doesn't use the definition of bisimulation
+at all.  The two definitions are proven (in our project) to be
+equivalent, but only one of them can be used as the very definition of
+bisimilarity, while the other must be proved as a theorem.  In
+particular, if we use Def.\;\ref{d:wb2} as the very definition, the
+(later proven) equivalent Def.\;\ref{d:wb1} will serve as a connection
+between bisimilarity and bisimulation. It turns out that, using
+Def.\;\ref{d:wb2} as definition we could have great benefits and the
+proof of Def.\;\ref{d:wb1} is quite simple, while in the other
+direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those
+``benefits'', will show shortly) from a simple definition like
+Def.\;\ref{d:wb1}. 
 
-Notice how $\wb$ appeared at both sides of above if-then rule, and the fact that Def.\;\ref{d:wb2} doesn't use the definition of bisimulation at all.  The two definitions are proven (in our project) to be equivalent, but only one of them can be used as the very definition of bisimilarity, while the other must be proved as a theorem.  In particular, if we use Def.\;\ref{d:wb2} as the very definition, the (later proven) equivalent Def.\;\ref{d:wb1} will serve as a connection between bisimilarity and bisimulation. It turns out that, using Def.\;\ref{d:wb2} as definition we could have great benefits and the proof of Def.\;\ref{d:wb1} is quite simple, while in the other direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those ``benefits'', will show shortly) from a simple definition like Def.\;\ref{d:wb1}.
-
-In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command accepts a conjuction of relation rules and build a coinduction relation, whose property is fully captured by three theorems as outputs. Here is what we got from HOL using above single rule in Def.\;\ref{d:wb2}:
+In HOL4 Kananaskis-11 and later, the following \texttt{Hol_coreln}
+command builds the bisimilarity relation:
+\begin{lstlisting}
+val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
+    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+       (!l.
+	 (!E1. TRANS E  (label l) E1 ==>
+	       (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
+	 (!E2. TRANS E' (label l) E2 ==>
+	       (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
+       (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
+       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
+     ==> WEAK_EQUIV E E')`;
+\end{lstlisting}
+which returns the following 3 theorems:
 \begin{enumerate}
-\item The original relation rules (now become a theorem):
+\item The input relation rules (now become a theorem):
 \begin{small}
 \begin{alltt}
 \HOLthm{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
 \end{small}
-\item The coinduction principle for $\wb$: (it reads as \begin{small}``for any relation $\mathrm{WEAK\_EQUIV'}, \ldots$''\end{small})
+\item The coinduction principle for $\wb$: (it reads
+  as \begin{small}``for any relation $\mathrm{WEAK\_EQUIV'}, \ldots$''\end{small})
 \begin{small}
 \begin{alltt}
 \HOLthm{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
 \end{alltt}
 \end{small}
-\item The fixpoint (or cases) theorem for $\wb$:
+\item The fixed point (or cases) theorem for $\wb$:
 \begin{small}
 \begin{alltt}
 \HOLthm{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
@@ -89,19 +100,26 @@ In HOL4 Kananaskis-11 and later releases, the new \texttt{Hol_coreln} command ac
 \end{small}
 \end{enumerate}
 
-Above coinduction principle \texttt{[WEAK_EQUIV_coind]} never appears in
-any CCS textbook, while the fixpoint theorem
-\texttt{[WEAK_EQUIV_cases]} was called ``property star (*)'' by Robin
+In this case, \texttt{WEAK_EQUIV_rules} is
+just the right-to-left part of \texttt{WEAK_EQUIV_cases};
+The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
+bisimulation is contained in bisimilarity (i.e. largest); the
+purpose of the fixed point theorem \texttt{WEAK_EQUIV_cases} is to
+assert that the bisimilarity relation is indeed a
+fixed point. \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
+together make sure that bisimilarity is a greatest
+fixed point.\footnote{There were discussions on why
+  \texttt{WEAK_EQUIV_cases} cannot be used for defining
+  bisimilairty, because there're many different relations satisfying
+  this ``definition''.
+Now the reason is quite clear, as \texttt{WEAK_EQUIV_cases} only
+asserts a set of fixed points, while \texttt{WEAK_EQUIV_coind}
+  asserts the greatest one in them. (c.f. p.\;49 of \cite{Gorrieri:2015jt} and p.\;88 of \cite{Mil89})}
+\texttt{WEAK_EQUIV_cases} was called ``property star (*)'' by Robin
 Milner. It's very useful in proving
 many results regarding bisimilarity, while it's quite hard\footnote{In
   the original CCS formalisation in HOL88, Monica Nesi has to follow
   this hard way, the original proof (for strong bisimilarity) appears
   at p. 91 of \cite{Mil89}, the formal proof by Monica Nesi now lives
   in \texttt{ExampleScript.sml} for historical references.} to
-directly prove this theorem from Def.\;\ref{d:wb1}.
-
-\finish{Well, actually  \texttt{[WEAK_EQUIV_coind]} just says that any
-bisimulation is contained in bisimilarity (which is standard in
-concurrency textbooks). I do not understand the difference between the
-point (1), that is, [WEAK_EQUIV_rules], and the implication from right
-to left in  [WEAK_EQUIV_cases]} 
+directly prove it from Def.\;\ref{d:wb1}.

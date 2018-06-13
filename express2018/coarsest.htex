@@ -3,9 +3,8 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\subsection{Coarsest (pre)congruence contained in $\approx$ (or $\succeq_{\mathrm{bis}}$)}
-
-
+\subsection{Coarsest (pre)congruence contained in $\approx$ ($\succeq_{\mathrm{bis}}$)}
+\label{s:coarsest}
 
 % The ``coarsest congruence contained in weak bisimilarity ($\approx$)''
 % theorem in CCS is somehow special, as its current known proofs either
@@ -76,8 +75,7 @@ rooted bisimilarity:
 \begin{equation}
 \label{equa:pq}
 \forall p\; q.\; ( \forall r.\; p+r \approx
-q+r \Longrightarrow 
- p \approx^c\! q  
+q+r ) \Longrightarrow p \approx^c\! q  
 \end{equation}
 % \begin{displaymath}
 % \xymatrix{
@@ -88,9 +86,9 @@ q+r \Longrightarrow
 % {\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
 % }
 % \end{displaymath}
-The standard argument, following Milner \cite{Milner_ccs_book}, requires that $p$
-and $q$ do not make use of all possible. 
-Formalising such argument requires however 
+The standard argument \cite{Mil89} requires that $p$
+and $q$ do not make use of all possible labels.
+Formalising such an argument requires however 
 a detailed
 treatment on free and bound names  of CCS
 processes (with the restriction operator being a binder).
@@ -121,113 +119,23 @@ initial weak transitions (those directly emanating from
 %   transition, while the union of these labels are all labels.}
 We
 have formalized this property and
- called it the `free action' property:
+ called it the \emph{free action} property:
 \begin{alltt}
-\HOLthm{CoarsestCongr.free_action_def}
+\HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]]}
 \end{alltt}
-With this property, the formalisation of (\ref{equa''pq}) that we have
-obtained is:
-\begin{alltt}
-\HOLthm{CoarsestCongr.COARSEST_CONGR_THM}
-\end{alltt}
-\finish{above: make an implication, rather than an ``iff'', as
-  (\ref{equa:pq}) says} 
 
-Now we move to van Glabbek's proof, without the 
-`free action' property. For this, 
- The most important
-intermediate result is  the following (we recall that a process is 
-\emph{stable} if it cannot perform $\tau$-transitions):
+With this property, the formalisation of (\ref{equa:pq}) that we have
+obtained is:
+\begin{theorem}{(Coarsest congruence contained in $\wb$)}
 \begin{alltt}
-\HOLthm{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_RL}
 \end{alltt}
-The result  says that, for any two processes $p$ and $q$,
-(\ref{equa:pq}) holds 
- if there is
-a stable process $k$ that is not bisimilar to any derivative of
-$p$ and $q$. 
- The method given by van Glabbek to obtain such a process $k$  requires a
-construction of arbitrarily non-bisimilar processes called ``Klop
-processes'':
-\begin{definition}{(Klop processes)}
-For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
-define a CCS process $k_\lambda$ as follows:
-\begin{enumerate}
-\item $k_0 = 0$,
-\item $k_{\lambda+1} = k_\lambda + a.k_\lambda$ and
-\item for $\lambda$ a limit ordinal, $k_\lambda = \sum_{\mu < \lambda}
-  k_\mu$, meaning that $k_\lambda$ is constructed from all graphs
-  $k_\mu$ for $\mu < \lambda$ by identifying their root.
-\end{enumerate}
-\end{definition}
-All Klop processes are, pairwise,   non-bisimilar (even 
- strongly so).
-However, the theory of 
- ordinal numbers cannot be expressed in HOL, 
-hence we have not been able to formalise the above construction.
-%  The idea is, for any two processes, the union of sets of their all
-% transitions cannot be arbitrarily large: it has to be limited by an
-% ordinal number. But above contruction can be arbitrarily large, so
-% there always exists a Klop process which can be used to satisfy above
-% lemma (and finish the proof).
-%
-% However, this goes beyond HOL's expressivity to define above process, mostly
-% because there's no way to express infinite ``sums'' in CCS
-% datatype.\footnote{There're actually several ways to modify the
-%   datatype to support infinite sums, but none of these infinity can be
-% arbitrary. The full version of ordinal theory cannot be expressed in HOL.}
-We have instead formalised a limited form of the construction, without
-the case (3) of limit ordinals, and therefore limiting our analysis to
-finite-state processes.
- Klop processes are then defined thus:
-\begin{alltt}
-\HOLthm[def]{CoarsestCongr.KLOP_def}\hfill[KLOP_def]
-\end{alltt}
-We also make use of the following result, saying that, given an
-equivalence $R$, a finite set $A$ and a countably infinite set $B$
-whose elements, pairwise, are not related by $R$, then 
-there is  an element of $B$ that is not related to any of the elements
-of $A$. 
-% But this means we much assume the two processes $p$ and $q$ are
-% finite-state, i.e. their corresponding LTS graphs have only finite
-% states. Choosing an element from a countable infinite set of processes
-% to make sure it's not bisimiar with a given set of processes, this is
-% essentially a pure set-theoretic problem, as formalized and proved in
-% the following lemma:
-\begin{alltt}
-\HOLthm{CoarsestCongr.INFINITE_EXISTS_LEMMA}
-\end{alltt}
-We then derive van Glabbek's result
-% ``coarsest congruence contained in $\approx$'' theorem 
-for finite-state CCS:
-\begin{alltt}
-\HOLthm{CoarsestCongr.COARSEST_CONGR_FINITE}
-\end{alltt}
+\end{theorem}
 
 For contraction and rooted contraction, the situation and proof
-steps are the same.
-% \begin{displaymath}
-% \xymatrix{
-% {\textrm{Contraction } (\succeq_{\mathrm{bis}})} & {\textrm{Sum
-%     contraction } (\succeq_{\mathrm{bis}}^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
-% {\textrm{Contraction precongruence } ([\succeq_{\mathrm{bis}}])}
-% \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
-% {\textrm{Rooted contraction } (\succeq_{\mathrm{bis}}^c)} \ar[u]^{\subseteq}
-% }
-% \end{displaymath}
-Thus  we have two versions of the theorem stating that  rooted contraction is the
-coarsest precongruence of the (bisimilarity) contraction, the second
-result on finite-state processes:
+steps are the same:
+\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \begin{alltt}
-\HOLthm{Contraction.COARSEST_PRECONGR_THM'}
-\HOLthm{Contraction.COARSEST_PRECONGR_FINITE}
+\HOLthm{Contraction.COARSEST_PRECONGR_RL}
 \end{alltt}
-
-
-\finish{note: in a result in concurrency, a constraint on finite-state
-  processes is considered a very big constraint. Hence i am afraid
-  people might not impressed by the version of van Glabbek's proof
-  with such constraint. Is the proof hard? there is nothing above that
-makes one thing that the proof is difficult. In other words: why is
-the formalisation above  interesting? } 
-
+\end{theorem}
