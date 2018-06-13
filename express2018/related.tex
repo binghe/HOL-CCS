@@ -1,16 +1,20 @@
 \section{Related formalisation work}
 
-Monica Nesi formalized both pure CCS \cite{Nesi:1992ve} and value-passing CCS
-\cite{Nesi:2017wo} in old versions of HOL theorem prover.
+Monica Nesi formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
+\cite{Nesi:2017wo} in old versions of HOL theorem prover, but the
+related proof scripts were not publically available.\footnote{Part of
+ the formalization of pure CCS can be found at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}
 She was mainly focusing on writing decision procedures (ML functions) which
-automatically prove theorems showning bisimilarity of CCS processes,
-thus HOL interactive shell could be used in
-place of model checking tools like CWB
-\cite{cleaveland1993concurrency}. The author ported her work from
-HOL88 to latest HOL4, with small improvement, then added more concepts
-and theorems, with the total lines of proof scripts at least doubled.
+automatically prove theorems showning bisimilarity of CCS
+processes.\footnote{The work is ported (by the 2nd author) from
+HOL88 to latest HOL4, with small improvements on existing work, then
+added the theory of context and (pre)congruence, coarsest
+(pre)congruence contained in bisimilarity, bisimulation up to,
+expansion, contraction, and unique solution of
+equations/expansions/contractions et al, these additions have doubled
+the size of original work.}
 
-Beside Nesi, there're two other CCS formalisations. One
+Beside Nesi, there're three other CCS formalisations. One
 is done in Isabelle/HOL (based on Nominal datatypes) in 2010, by Jesper Bengtson as part of his PhD
 thesis project \cite{bengtson2010formalising}, available in Isabelle's Archive of Formal
 Proofs (AFP)\footnote{\url{https://www.isa-afp.org/entries/CCS.html}}. He has formalized
@@ -24,4 +28,7 @@ Coupet-Grimal in 1995, which is part of the
 \footnote{\url{https://github.com/coq-contribs/ccs}}. This is actually
 a formalisation of transition systems without any algebraic operator,
 and covers the very basic properties of strong/weak equivalence and observational
-congruence.
+congruence. The last one was done by Chaudhuri et
+al.\cite{chaudhuri2014formalization} using Abella, this work
+particularily focus on bisimulation up to techniques while the CCS
+type doesn't have restriction, recursion and relabelling operators.

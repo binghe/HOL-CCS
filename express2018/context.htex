@@ -10,7 +10,7 @@ context. There're multiple ways. Here we have chosen to use $\lambda$-expression
 $CCS\rightarrow CCS$) to represent a (multi-hole) 
 context. The definition is inductive:
 \begin{alltt}
-\HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
 
 Under above definition, we can formally define the concept of
@@ -24,7 +24,7 @@ A \emph{weak guarded} context is a context in which all holes appears
 in the sub-expression of prefixed processes. We can easily define it
 following the same idea:
 \begin{alltt}
-\HOLthm[def]{Congruence.WG_rules}\hfill{[WG_rules]}
+\HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
 (Notice the differences between a weak guarded context and a normal
 one: $\lambda t. t$ is not weakly guarded as the variable is directly
@@ -36,14 +36,14 @@ It's a similar process to define strongly guarded context
 variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
 \texttt{GSEQ}). Some lemmas about their relationships have very long
 (but trivial) formal proofs due to multiple levels of
-inductions on context structures. For example, one such 
-lemma says, for any  context $E$ which is both strongly guarded
-and sequential (no direct sums) and another sequential context $H$ (no
-direct sums), the composition $H \circ E$ is still both strongly
-guarded and sequential (no direct sums):
-\begin{alltt}
-\HOLthm[nosp]{Congruence.SG_GSEQ_combin}
-\end{alltt}
+inductions on context structures.%  For example, one such 
+% lemma says, for any  context $E$ which is both strongly guarded
+% and sequential (no direct sums) and another sequential context $H$ (no
+% direct sums), the composition $H \circ E$ is still both strongly
+% guarded and sequential (no direct sums):
+% \begin{alltt}
+% \HOLthm[nosp]{Congruence.SG_GSEQ_combin}
+% \end{alltt}
 
 % \subsection{Milner's ``unique solution of equations'' theorems}
 
@@ -73,4 +73,3 @@ guarded and sequential (no direct sums):
 % \begin{alltt}
 % OBS_UNIQUE_SOLUTION:
 % \end{alltt}
-

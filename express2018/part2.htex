@@ -86,8 +86,8 @@ UNIQUE_SOLUTION_OF_CONTRACTIONS:
 \subsection{Unique solution of rooted contractions}
 
 The formal proof of ``unique solution of rooted contractions theorem''
-(Thm.\; \ref{t:rcontraBisimulationU}) has the
-same initial proof steps as Thm.\; ref{{t:contraBisimulationU}} plus a
+(Theorem~\;\ref{t:rcontraBisimulationU}) has the
+same initial proof steps as Theorem~\;\ref{t:contraBisimulationU} plus a
 little more steps to handle the rooted bisimilarity at conclusion. (In the thesis work, the conclusion of this theorem
 is weak bisimilarity, and the proof is exactly the same as Unique
 solution of contractions theorem. Now we got a stronger conclusion

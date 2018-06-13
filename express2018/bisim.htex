@@ -6,7 +6,7 @@
 \subsection{Bisimulation and Bisimilarity}
 
 As a coinductive relation, the definition of bisimilarity can take
-advantage of HOL's coinductive relation package (\texttt{Hol_coreln}),
+advantage of HOL's coinductive relation package (\texttt{Hol_coreln}\cite{Anonymous:Iu-sOoz1}),
 a new tools since its latest Kananaskis-11 release (March 3,
 2017).\footnote{\url{https://hol-theorem-prover.org/kananaskis-11.release.html\#new-tools}}
 First, we define a (possibly empty) sequence of $\tau$-transitions as
