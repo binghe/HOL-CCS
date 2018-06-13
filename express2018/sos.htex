@@ -115,9 +115,8 @@ For large complex processes it's surprisingly hard to manually prove the
 non-existence of transitions. Instead, if we call the ML function \texttt{CCS\_TRANS\_CONV} on the
 root process $(a.0 | \bar{a}.0)$:
 \begin{lstlisting}
-> CCS_TRANS_CONV
-	 ``par (prefix (label (name "a")) nil)
-	       (prefix (label (coname "a")) nil)``
+> CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
+                       (prefix (label (coname "a")) nil)``
 \end{lstlisting}
 We immediately get the following theorem, which completely answers the question:
 \begin{alltt}
