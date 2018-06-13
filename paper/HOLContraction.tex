@@ -1,5 +1,5 @@
-\newcommand{\HOLContractionDate}{12 Giugno 2018}
-\newcommand{\HOLContractionTime}{01:12}
+\newcommand{\HOLContractionDate}{13 Giugno 2018}
+\newcommand{\HOLContractionTime}{11:43}
 \begin{SaveVerbatim}{HOLContractionDefinitionsCXXcontracts}
 \HOLTokenTurnstile{} \HOLConst{C_contracts} \HOLSymConst{=} \HOLConst{CC} (\HOLConst{contracts})
 \end{SaveVerbatim}
@@ -102,6 +102,13 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r}
 \end{SaveVerbatim}
 \newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXLR}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXLR}}
+\begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXRL}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLConst{contracts} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_contracts} \HOLBoundVar{p} \HOLBoundVar{q}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremsCOARSESTXXPRECONGRXXRL}{\UseVerbatim{HOLContractionTheoremsCOARSESTXXPRECONGRXXRL}}
 \begin{SaveVerbatim}{HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
@@ -574,6 +581,7 @@
 \HOLThmTag{Contraction}{COARSEST_PRECONGR_FINITE'}\HOLContractionTheoremsCOARSESTXXPRECONGRXXFINITEYY
 \HOLThmTag{Contraction}{COARSEST_PRECONGR_LEMMA}\HOLContractionTheoremsCOARSESTXXPRECONGRXXLEMMA
 \HOLThmTag{Contraction}{COARSEST_PRECONGR_LR}\HOLContractionTheoremsCOARSESTXXPRECONGRXXLR
+\HOLThmTag{Contraction}{COARSEST_PRECONGR_RL}\HOLContractionTheoremsCOARSESTXXPRECONGRXXRL
 \HOLThmTag{Contraction}{COARSEST_PRECONGR_THM}\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHM
 \HOLThmTag{Contraction}{COARSEST_PRECONGR_THM'}\HOLContractionTheoremsCOARSESTXXPRECONGRXXTHMYY
 \HOLThmTag{Contraction}{COMP_CONTRACTION}\HOLContractionTheoremsCOMPXXCONTRACTION

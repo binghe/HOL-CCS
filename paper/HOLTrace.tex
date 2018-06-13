@@ -1,5 +1,5 @@
-\newcommand{\HOLTraceDate}{12 Giugno 2018}
-\newcommand{\HOLTraceTime}{01:12}
+\newcommand{\HOLTraceDate}{13 Giugno 2018}
+\newcommand{\HOLTraceTime}{11:43}
 \begin{SaveVerbatim}{HOLTraceDefinitionsfiniteXXstateXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{FINITE} (\HOLConst{NODES} \HOLBoundVar{p})
 \end{SaveVerbatim}
@@ -36,9 +36,7 @@
 \begin{SaveVerbatim}{HOLTraceDefinitionsUNIQUEXXLABELXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}.
        \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}.
-           (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{++} [\HOLBoundVar{u}] \HOLSymConst{++} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{2}}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}. (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{++} [\HOLBoundVar{u}] \HOLSymConst{++} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{2}}}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceDefinitionsUNIQUEXXLABELXXdef}{\UseVerbatim{HOLTraceDefinitionsUNIQUEXXLABELXXdef}}
 \newcommand{\HOLTraceDefinitions}{
@@ -328,6 +326,14 @@
        (\HOLBoundVar{l} \HOLSymConst{=} \HOLBoundVar{l\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo}}
+\begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXDEF}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}.
+       \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}.
+           (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{++} [\HOLBoundVar{u}] \HOLSymConst{++} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLBoundVar{L}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{L\sb{\mathrm{2}}}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsUNIQUEXXLABELXXDEF}{\UseVerbatim{HOLTraceTheoremsUNIQUEXXLABELXXDEF}}
 \begin{SaveVerbatim}{HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{L}. \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}} \HOLConst{MEM} \HOLBoundVar{u} \HOLBoundVar{L}
 \end{SaveVerbatim}
@@ -418,6 +424,7 @@
 \HOLThmTag{Trace}{TRANS_IN_NODES}\HOLTraceTheoremsTRANSXXINXXNODES
 \HOLThmTag{Trace}{UNIQUE_LABEL_cases1}\HOLTraceTheoremsUNIQUEXXLABELXXcasesOne
 \HOLThmTag{Trace}{UNIQUE_LABEL_cases2}\HOLTraceTheoremsUNIQUEXXLABELXXcasesTwo
+\HOLThmTag{Trace}{UNIQUE_LABEL_DEF}\HOLTraceTheoremsUNIQUEXXLABELXXDEF
 \HOLThmTag{Trace}{UNIQUE_LABEL_IMP_MEM}\HOLTraceTheoremsUNIQUEXXLABELXXIMPXXMEM
 \HOLThmTag{Trace}{UNIQUE_LABEL_NOT_NULL}\HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL
 \HOLThmTag{Trace}{WEAK_TRANS_AND_STEP}\HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP
