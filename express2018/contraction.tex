@@ -57,13 +57,15 @@ to be related  by $\wb$, rather than by $\R$.
 
 Bisimilarity  contraction is coarser than 
  the expansion  relation 
-$\expa$ of Definition~\ref{d:expa}. Clause (1) is the same in the two
+$\expa$ \cite{sangiorgi2017equations, arun1992efficiency}
+%of Definition~\ref{d:expa}.
+Clause (1) is the same in the two
 definitions. But in clause (2) expansion uses 
 $P \Arr \mu P'$, rather than $P \Arcap \mu P'$; 
  moreover with
 contraction the final derivatives are simply required to be bisimilar.
 An expansion 
-$P \contr Q$
+$P \expa Q$
 tells us  that $Q$ is always at least as efficient as $P$, whereas  the
  contraction $P \mcontrBIS Q$  just says that $Q$ has the  possibility of
 being at least as efficient as $P$. 
@@ -77,7 +79,6 @@ being at least as efficient as $P$.
 % challenges proposed by $Q$,   which are handled using ordinary
 % bisimilarity.
 % \fi
-
 
 \begin{example}
 \label{exa:contr}
@@ -97,9 +98,7 @@ $\expa$, which explains the strictness of the inclusion
 %  $ a \not  \mcontrBIS \tau. a$
 \end{example} 
 
-
 % The substitutivity proofs for for expansion and bisimilarity carry
 % over to contraction,   
 
-As  bisimilarity  and expansion, so 
-contraction is preserved by all operators but sum.
+As  bisimilarity  and expansion, contraction is preserved by all operators but sum.

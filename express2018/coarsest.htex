@@ -74,8 +74,7 @@ equivalence. Thus the crux is proving that sum equivalence implies
 rooted bisimilarity:
 \begin{equation}
 \label{equa:pq}
-\forall p\; q.\; ( \forall r.\; p+r \approx
-q+r ) \Longrightarrow p \approx^c\! q  
+\forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Longrightarrow p \approx^c\! q  
 \end{equation}
 % \begin{displaymath}
 % \xymatrix{

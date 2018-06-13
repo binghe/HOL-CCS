@@ -1,9 +1,11 @@
 MUNGE = ../src/munge.exe
 TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex \
 	contraction.tex unique.tex equa.tex formal.tex coarsest.tex context.tex \
-	related.tex
+	related.tex conclusions.tex
 
-all: main.pdf
+all: htex main.pdf
+
+htex: part2.tex sos.tex bisim.tex coarsest.tex context.tex
 
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
