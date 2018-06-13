@@ -8,7 +8,7 @@ of the same system of equations.
 This method  is important in verification techniques and tools
 based on algebraic reasoning \cite{theoryAndPractice,RosUnder10,BaeBOOK}. 
 
-In the \emph{weak} case (when  behavioural equivalences abstract from internal moves,
+In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
 which practically is the most relevant case), however, 
 Milner's proof method has severe syntactical limitations. 
 To overcome such limitations, Sangiorgi proposes to replace
@@ -27,30 +27,92 @@ removed.  One constraint that still remains in
 \cite{sangiorgi2015equations} is on occurrences of the sum operator,
 due to the failure of substitutivity of contraction w.r.t. such operator.
 
-The purpose of this paper is twofold. 
-On the one hand, we refine the contraction proof technique by moving to the 
-\emph{rooted contraction} \cite{Tian:2017wrba}, that is, the coarsest (pre)congruence contained in the contraction
-preorder.  Using rooted contraction one obtains an unique-solution theorem that is valid for
-\emph{rooted bisimilarity} (hence also for bisimilarity itself).  
-On the other hand, we provide a  
+
+The main goal  of the work described in this paper is 
+a rather  
  comprehensive formalisation  of the core of the theory of CCS 
  in the HOL
-theorem prover (HOL4). The formalisation  includes the proofs of
-``unique solution of (rooted) contractions'' theorems and
-(pre)congruence properties discussed in the present paper, but is not limited to it (partly because such
-theorems rely on a number of more fundamental results):
+theorem prover (HOL4),  with a focus on the theory of unique solutions of contractions.
+The formalisation however is not confined to the theory of  unique solutions, but embraces 
+most of the 
+core of the theory of CCS \cite{Milner}
+(partly because the theory of unique solutions
+ relies on a number of more fundamental results):
 indeed the formalisation encompasses the basic properties of strong and weak
 bisimilarity (e.g. the fixed-point and substitutivity properties), 
 their algebraic theory, various versions of ``bisimulation up to''
-techniques (e.g., bisimulation up-to expansion),
-some basic properties of rooted bisimilarity (including Hennessy Lemma
-and Deng Lemma).
-Considering the relationship between bisimilarity and rooted
-bisimilarity, the formalisation includes the proof that the latter is the coarsest
-congruence included in the former, for which two proofs are formalized: one as in Milner's
+techniques (e.g., bisimulation up-to bisimilarity),
+the main properties  of the rooted bisimilarity (the congruence induced by weak
+bisimilarity, also called observation congruence). Concerning rooed bisimilarity, the formalisation
+includes Hennessy and Deng lemmas, and two proofs that rooted bisimilarity is the largest
+congruence included in bisimilarity:
+one as in Milner's
 book,  requiring the hypothesis that  no processes can use all labels; the other without
-such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}.
-Similar theorems are proved for rooted contractions wrt the contraction preorder.
+such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}
+(such proof however follows the structure of the ordinal numbers, which cannot be handled
+in HOL, and therefore it is restricted to finite-state processes ).
+Similar theorems are proved for the rooted contraction preorder.
 
-\finish{for Express, insist more on Structural Operational Semantics,
-  to fit the scope of the conference} 
+  
+In this respect,  the work is an extensive experiment with the use of the HOL theorem prover and its
+most recent developments, including a package  for expressing coinductive definitions.
+
+
+From the CCS theory viewpoint, the formalisation has offered us the possibility of 
+further refining the theory of unique solutions. 
+In particular, the existing theory  placed limitations on the body of the contractions due to the
+substitutivity problems of weak bisimilarity and other behavioural relations with respect
+to the sum operator.  
+We have thus refined the proof  technique based on contractions by moving to the 
+\emph{rooted contraction}, that is, the coarsest (pre)congruence contained in the contraction
+preorder.  Using rooted contraction one obtains a unique-solution theorem that is valid for
+\emph{rooted bisimilarity} (hence also for bisimilarity itself), and without syntactic
+constraints on the occurrences of sums.   
+
+\finish{ I had to remove the reference \cite{Tian:2017wrba} here since it would further
+  weaken this paper. } 
+
+Another advantage of the formalisation is 
+that we can take advantage of results about different 
+equivalences or preorders that share a similar  proof structure. 
+Examples are: the results that rooted bisimilarity and rooted contraction are,
+respectively, the coarsest congruence contained in weak bisimilarity 
+and the coarsest precongruence contained in the contraction  preorder; 
+the result about unique solution of equations for weak bisimilarity that uses the
+contraction preorder as an auxiliary relation, and other unique solution results (e.g., 
+the one for rooted in which
+the auxiliary relation is rooted contraction); various forms of enhancement of the bisimulation
+proof method (the `up-to' techniques).  
+In these cases, there are only a few places in which the HOL scripts have to be modified.
+Then the succesful termination of the scripts  gives us a guarantee that the proof is
+completed,  removing the risk 
+of overlooking or missing details as in hand-written proofs. 
+
+
+% to describe
+% The purpose of this paper is twofold. 
+% On the one hand, 
+% On the other hand, we provide a  
+%  comprehensive formalisation  of the core of the theory of CCS 
+%  in the HOL
+% theorem prover (HOL4). The formalisation  includes the proofs of
+% Milner's 3 ``unique solution of equations'' theorems and
+% contractions discussed in the present paper, but is not limited to it (partly because such
+% theorems rely on a number of more fundamental results):
+% indeed the formalisation encompasses the basic properties of strong and weak
+% bisimilarity (e.g. the fixed-point and substitutivity properties), 
+% their algebraic theory, various versions of ``bisimulation up to''
+% techniques (e.g., bisimulation up-to expansion),
+% the basic properties  of rooted bisimilarity. 
+% Thus the work is an extensive experiment with the use of the HOL theorem provers and its
+% most recent developments, including a facility  for expressing coinductive definitions.
+
+% % Considering the relationship between bisimilarity and rooted
+% % bisimilarity, the formalisation includes the proof that the latter is the coarsest
+% % congruence included in the former, for which two proofs are formalized: one as in Milner's
+% % book,  requiring the hypothesis that  no processes can use all labels; the other without
+% % such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}.
+% % Similar theorems are proved for rooted contractions wrt the contraction preorder. 
+
+
+\paragraph{Structure of the paper}....

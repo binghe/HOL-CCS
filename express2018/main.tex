@@ -79,25 +79,39 @@
 
 \begin{document}
 \maketitle
-
 \begin{abstract}
-Milner's ``unique solution of equations'' theorem for (rooted) weak
-bisimilarity have severe syntactical limitations, i.e.\;the
-equations must be both strongly guarded and sequential. By replacing
-equations with special inequations called ``contraction'', Sangiorgi
-has proven the ``unique solution of contractions'' theorem for weak
-bisimialarity, in which only weak guardness is needed. However,
-contraction is not (pre)congruence under direct sums of processes.
-To overcome this difficulty, we further moved to ``rooted
-contraction'', which is the coarsest precongruence contained in
-contraction bisimilarity. Using rooted contraction one obtains an
-unique-solution theorem that is valid for 
-\emph{rooted bisimilarity} (hence also for bisimilarity itself) in which
-true weakly guarded contractions (with direct sums) can be used. All
-theoretical results were
-formalized in HOL theorem prover (HOL4), as part of a rather complete
-formalisation of process algebra CCS. We show some highlights of this
-formalisation work.
+The unique solution of contractions is a proof technique for bisimilarity 
+that overcomes  certain syntactic constraints of 
+Milner's ``unique solution of equations'' technique.
+The paper presents an overview of the
+a rather  
+ comprehensive formalisation  of the core of the theory of CCS 
+ in the HOL
+theorem prover (HOL4),  with a focus towards the theory of unique solutions of contractions.
+Some refinements of the theory itself are obtained.
+In particular we remove the constraints on the occurrences of the sum operator by 
+moving to 
+rooted contraction, that is, the coarsest precongruence contained in the contraction
+preorder.
+
+
+
+% theorem for (rooted) weak
+% bisimilarity have severe syntactical limitations, i.e.\;the
+% equations must be both strongly guarded and sequential. By replacing
+% equations with special inequations called ``contraction'', Sangiorgi
+% has proven the ``unique solution of contractions'' theorem for weak
+% bisimialarity, which requires only weakly guarded equations. However,
+% contraction is not (pre)congruence under direct sums of processes.
+% To overcome this difficulty, we further moved to ``rooted
+% contraction'', which is the coarsest precongruence contained in
+% contraction bisimilarity. Using rooted contraction one obtains an
+% unique-solution theorem that is valid for 
+% \emph{rooted bisimilarity} (hence also for bisimilarity itself) while
+% requires true weak guardness (with direct sums). All results were
+% formalized in HOL theorem prover (HOL4), as part of a rather complete
+% formalisation of process algebra CCS. We show some highlights of this
+% formalisation work.
 \end{abstract}
 
 % part 1 (Sangiorgi)
