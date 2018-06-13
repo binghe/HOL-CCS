@@ -562,13 +562,37 @@ val EPS_AND_TRACE = store_thm (
 (* u is the unique Label in L, learnt from Robert Beers *)
 val UNIQUE_LABEL_def = Define `
     UNIQUE_LABEL u (L :'b Action list) =
-	?L1 L2. (L1 ++ [u] ++ L2 = L) /\ ~?l. MEM (label l) L1 \/ MEM (label l) L2`;
+	?L1 L2. (L1 ++ [u] ++ L2 = L) /\ NO_LABEL L1 /\ NO_LABEL L2`;
+
+(* old equivalent definition without using NO_LABEL *)
+val UNIQUE_LABEL_DEF = store_thm (
+   "UNIQUE_LABEL_DEF",
+  ``!u (L :'b Action list).
+      UNIQUE_LABEL u (L :'b Action list) =
+	?L1 L2. (L1 ++ [u] ++ L2 = L) /\ ~?l. MEM (label l) L1 \/ MEM (label l) L2``,
+    Know `!L1 L2. (?l. MEM (label l) L1 \/ MEM (label l) L2) =
+		  (?l. MEM (label l) L1) \/ (?l. MEM (label l) L2)`
+ >- ( NTAC 2 GEN_TAC \\
+      Q.ABBREV_TAC `P = \x. MEM (label x) L1` \\
+      Q.ABBREV_TAC `Q = \x. MEM (label x) L2` >> fs [] \\
+      REWRITE_TAC [EXISTS_OR_THM] \\
+      Q.UNABBREV_TAC `P` \\
+      Q.UNABBREV_TAC `Q` \\
+      BETA_TAC >> PROVE_TAC [] )
+ >> STRIP_TAC
+ >> REWRITE_TAC [UNIQUE_LABEL_def, NO_LABEL_def]
+ >> NTAC 2 GEN_TAC
+ >> EQ_TAC (* 2 goals here, same tactic *)
+ >> STRIP_TAC
+ >> Q.EXISTS_TAC `L1`
+ >> Q.EXISTS_TAC `L2`
+ >> fs []);
 
 val UNIQUE_LABEL_IMP_MEM = store_thm (
    "UNIQUE_LABEL_IMP_MEM",
   ``!u (L :'b Action list). UNIQUE_LABEL u L ==> MEM u L``,
     rpt GEN_TAC
- >> REWRITE_TAC [UNIQUE_LABEL_def]
+ >> REWRITE_TAC [UNIQUE_LABEL_DEF]
  >> rpt STRIP_TAC
  >> POP_ASSUM K_TAC
  >> POP_ASSUM (REWRITE_TAC o wrap o SYM)
@@ -587,7 +611,7 @@ val UNIQUE_LABEL_cases1 = store_thm (
    "UNIQUE_LABEL_cases1",
   ``!(l :'b Label) xs. UNIQUE_LABEL (label l) (tau :: xs) = UNIQUE_LABEL (label l) xs``,
     rpt GEN_TAC
- >> REWRITE_TAC [UNIQUE_LABEL_def]
+ >> REWRITE_TAC [UNIQUE_LABEL_DEF]
  >> EQ_TAC >> rpt STRIP_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
       Cases_on `L1` >- FULL_SIMP_TAC list_ss [Action_distinct_label] \\
@@ -601,7 +625,7 @@ val UNIQUE_LABEL_cases2 = store_thm (
    "UNIQUE_LABEL_cases2",
   ``!(l :'b Label) l' xs. UNIQUE_LABEL (label l) (label l' :: xs) = (l = l') /\ NO_LABEL xs``,
     rpt GEN_TAC
- >> REWRITE_TAC [UNIQUE_LABEL_def]
+ >> REWRITE_TAC [UNIQUE_LABEL_DEF]
  >> EQ_TAC >> rpt STRIP_TAC (* 3 sub-goals here *)
  >| [ (* goal 1 (of 3) *)
       Cases_on `L1` >- FULL_SIMP_TAC list_ss [Action_11] \\
@@ -631,7 +655,7 @@ val WEAK_TRANS_TRACE2 = Q.prove (
       (* goal 2 (of 2) *)
       FULL_SIMP_TAC list_ss [NO_LABEL_def, NULL_EQ, Action_distinct_label] \\
       Cases_on `u` >> RW_TAC std_ss [] \\
-      REWRITE_TAC [UNIQUE_LABEL_def] \\
+      REWRITE_TAC [UNIQUE_LABEL_DEF] \\
       take [`xs'`, `xs`] >> FULL_SIMP_TAC list_ss [] ]);
 
 val WEAK_TRANS_AND_TRACE = store_thm (
@@ -665,7 +689,7 @@ val WEAK_TRANS_AND_TRACE = store_thm (
       FULL_SIMP_TAC list_ss [],
       (* goal 2 (of 2) *)
       REWRITE_TAC [WEAK_TRANS] \\
-      IMP_RES_TAC UNIQUE_LABEL_def \\
+      IMP_RES_TAC UNIQUE_LABEL_DEF \\
       qpat_x_assum `L1 ++ [label L] ++ L2 = us` ((FULL_SIMP_TAC std_ss) o wrap o SYM) \\
       qpat_x_assum `TRACE E (L1 ++ [label L] ++ L2) E'`
 	(STRIP_ASSUME_TAC o (REWRITE_RULE [TRACE_APPEND_cases])) \\

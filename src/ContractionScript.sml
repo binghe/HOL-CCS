@@ -1858,6 +1858,10 @@ val SUM_contracts_IMP_OBS_contracts = store_thm (
 	  POP_ASSUM (ASSUME_TAC o (MATCH_MP TRANS_IMP_WEAK_TRANS)) \\
 	  RES_TAC ] ] ]);			(* initial assumption of `p` is used here *)
 
+val COARSEST_PRECONGR_RL = save_thm (
+   "COARSEST_PRECONGR_RL",
+    BETA_RULE (REWRITE_RULE [SUM_contracts] SUM_contracts_IMP_OBS_contracts));
+
 (* Assuming p & q have free actions, OBS_contracts is the coarsest precongruence
    contained in `contracts`! *)
 val COARSEST_PRECONGR_THM = store_thm (
