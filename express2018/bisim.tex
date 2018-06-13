@@ -63,23 +63,9 @@ direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those
 ``benefits'', will show shortly) from a simple definition like
 Def.\;\ref{d:wb1}. 
 
-In HOL4 Kananaskis-11 and later, the following \texttt{Hol_coreln}
-command builds the bisimilarity relation:\footnote{Here ``\texttt{!}'' stands for
-$\forall$, ``\texttt{?}'' stands for $\exists$, they're HOL's ASCII
-representation of basic logic operators.}
-\begin{lstlisting}
-val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-       (!l.
-	 (!E1. TRANS E  (label l) E1 ==>
-	       (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
-	 (!E2. TRANS E' (label l) E2 ==>
-	       (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
-       (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
-       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
-     ==> WEAK_EQUIV E E')`;
-\end{lstlisting}
-It returns the following 3 theorems:
+In HOL4 Kananaskis-11 and later, if we call \texttt{Hol_coreln}
+command with the if-then rule similiar with Def.\;\ref{d:wb2} (see
+proof scripts for detials), it will automatically prove the following 3 theorems:
 \begin{enumerate}
 \item The original input statement (now become a theorem):
 \begin{small}

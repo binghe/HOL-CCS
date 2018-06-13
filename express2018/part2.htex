@@ -51,7 +51,7 @@ while the definition of ``unique label'' can be done in many ways, in
 which we have chosen to use the version learnt from Robert Beers in
 a private discussion which prevented counting or filtering in the list:
 \begin{alltt}
-\HOLthm{Trace.UNIQUE_LABEL_def}\hfill{UNIQUE_LABEL_def}
+\HOLthm{Trace.UNIQUE_LABEL_def}\hfill{[UNIQUE_LABEL_def]}
 \end{alltt}
 It says, a label is unique in an action list iff it there's no other
 labels in the rest part of the list.
@@ -75,7 +75,7 @@ during the induction argument.
 % length or become shorter after passing weak bisimilations, then we
 % used above lemma again to convert the traces back to weak transitions.
 
-The statement of the  final unique solution of contractions theorem is
+The statement of the final unique solution of contractions theorem is
 the following (\texttt{WGS} is a weakly guarded context without direct
 sums)
 \begin{alltt}
@@ -85,14 +85,14 @@ UNIQUE_SOLUTION_OF_CONTRACTIONS:
 
 \subsection{Unique solution of rooted contractions}
 
-The proof of Unique solution of rooted contractions theorem is the
-same proof steps of Unique solution of contractions theorem plus the
-application of \texttt{OBS_CONGR_BY_WEAK_BISIM} at the
-beginning.\footnote{In the thesis work, the conclusion of this theorem
+The formal proof of ``unique solution of rooted contractions theorem''
+(Thm.\; \ref{t:rcontraBisimulationU}) has the
+same initial proof steps as Thm.\; ref{{t:contraBisimulationU}} plus a
+little more steps to handle the rooted bisimilarity at conclusion. (In the thesis work, the conclusion of this theorem
 is weak bisimilarity, and the proof is exactly the same as Unique
 solution of contractions theorem. Now we got a stronger conclusion
 using observational congruence, and the previous version becomes a
-trivial collorary of the current version.} The
+trivial collorary of the current version.) The
 two proofs are quite similar, mostly because the only property we need
 from (rooted) contraction is its precongruence. Once we have proved
 the precongruence of rooted contracion, we can naturally use the
@@ -102,4 +102,3 @@ normal version of weakly guarded expressions with direct sums included.
 UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
 \end{alltt}
-

@@ -40,7 +40,7 @@ A process relation ${\R}$
 \end{enumerate}
 \emph{Bisimilarity  contraction}, written $\mcontrBIS$, is the union
 of all bisimulation contractions. 
-\qed\end{definition}
+\end{definition}
 % We say that $P$  {\emph{bisimilarly  contracts} $Q$, written
 % $Q \mcontrBIS Q$.
 % We write $\mexpaBIS$ for the inverse of $\mcontrBIS$.
@@ -57,7 +57,7 @@ to be related  by $\wb$, rather than by $\R$.
 
 Bisimilarity  contraction is coarser than 
  the expansion  relation 
-$\contr$ of   Definition~\ref{d:expa}. Clause (1) is the same in the two
+$\expa$ of Definition~\ref{d:expa}. Clause (1) is the same in the two
 definitions. But in clause (2) expansion uses 
 $P \Arr \mu P'$, rather than $P \Arcap \mu P'$; 
  moreover with
@@ -81,21 +81,21 @@ being at least as efficient as $P$.
 
 \begin{example}
 \label{exa:contr}
-{ We have %\mcontrBIS a + \tau^n . a $
+We have %\mcontrBIS a + \tau^n . a $
  $ a \not  \mcontrBIS \tau. a$. However,
 $a+ \tau . a \mcontrBIS a$, as well as its converse, 
 $  a \mcontrBIS a +
 \tau . a $. Indeed, if $P \wb Q$ then 
 $  P  \mcontrBIS P +Q$. The last two relations do not hold with 
-$\contr$, which explains the strictness of the inclusion
- ${\contr} \subseteq {\mcontrBIS}$. 
+$\expa$, which explains the strictness of the inclusion
+ ${\expa} \subseteq {\mcontrBIS}$. 
 % The inclusion is strict: for instance
 % $a+ \tau . a \mcontrBIS a$, where $\mcontrBIS$ cannot be replaced by
 %  $\contr$. Also the converse of  $a+ \tau . a \mcontrBIS a$ holds, namely
 % $  a \mcontrBIS a +
 % \tau . a $. However, we have %\mcontrBIS a + \tau^n . a $
 %  $ a \not  \mcontrBIS \tau. a$
-\qed} \end{example} 
+\end{example} 
 
 
 % The substitutivity proofs for for expansion and bisimilarity carry

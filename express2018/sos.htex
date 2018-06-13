@@ -97,14 +97,7 @@ gives us a fix-point theorem and induction principle for the
 relation, otherwise statements like ``$\textbf{0}$ has no transition''
 could not be proved.}
 
-HOL4 is written in Standard ML (or ML for abbreviation). This single language plays three roles here:
-\begin{enumerate}
-\item It serves as the underlying implementation language for the core HOL engine;
-\item It's used to implement tactics (and tacticals) for automatic theorem proving;
-\item It's used as the command language of the interactive HOL system.
-\end{enumerate}
-Besides, HOL4 users can write arbitrary applications which leverages
-the theorem proving facility. The ultimate result (initially done by Nesi)
+The ultimate result (initially done by Nesi)
 at this point, is a complex Standard ML function
   taking a CCS process and returning a theorem indicating all its direct transitions.
 

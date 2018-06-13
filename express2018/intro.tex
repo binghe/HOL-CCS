@@ -8,7 +8,7 @@ of the same system of equations.
 This method  is important in verification techniques and tools
 based on algebraic reasoning \cite{theoryAndPractice,RosUnder10,BaeBOOK}. 
 
-In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
+In the \emph{weak} case (when  behavioural equivalences abstract from internal moves,
 which practically is the most relevant case), however, 
 Milner's proof method has severe syntactical limitations. 
 To overcome such limitations, Sangiorgi proposes to replace
@@ -36,19 +36,21 @@ On the other hand, we provide a
  comprehensive formalisation  of the core of the theory of CCS 
  in the HOL
 theorem prover (HOL4). The formalisation  includes the proofs of
-Milner's 3 ``unique solution of equations'' theorems and
-contractions discussed in the present paper, but is not limited to it (partly because such
+``unique solution of (rooted) contractions'' theorems and
+(pre)congruence properties discussed in the present paper, but is not limited to it (partly because such
 theorems rely on a number of more fundamental results):
 indeed the formalisation encompasses the basic properties of strong and weak
 bisimilarity (e.g. the fixed-point and substitutivity properties), 
 their algebraic theory, various versions of ``bisimulation up to''
 techniques (e.g., bisimulation up-to expansion),
-the basic properties  of rooted bisimilarity. Considering the relationship between bisimilarity and rooted
+some basic properties of rooted bisimilarity (including Hennessy Lemma
+and Deng Lemma).
+Considering the relationship between bisimilarity and rooted
 bisimilarity, the formalisation includes the proof that the latter is the coarsest
 congruence included in the former, for which two proofs are formalized: one as in Milner's
 book,  requiring the hypothesis that  no processes can use all labels; the other without
 such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}.
-Similar theorems are proved for rooted contractions wrt the contraction preorder. 
+Similar theorems are proved for rooted contractions wrt the contraction preorder.
 
 \finish{for Express, insist more on Structural Operational Semantics,
   to fit the scope of the conference} 

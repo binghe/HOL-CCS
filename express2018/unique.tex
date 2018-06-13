@@ -27,7 +27,7 @@ if
 whenever 
  $\til P$ and $\til Q$ are both solutions  for  $\mcontrBIS$
  then $\til P \approx \til Q$.
-\qed\end{itemize}
+\end{itemize}
 \end{definition}
   
 
@@ -42,7 +42,7 @@ a \behavC\ variable is underneath a prefix.
 
 The system use \emph{weakly-guarded sums} if 
 each $E_i$ only makes use of guarded sums.
-\qed\end{definition}
+\end{definition}
 
 
 
@@ -124,8 +124,8 @@ The unique solution theorem of Section~\ref{ss:SysContr} require a
 constrained syntax for sums, due to the congruence and precongruence
 problems of bisimilarity and contraction with such operator. 
 We show here that the constraints can be
-removed by moving to the induced congruence and precongruence.
-
+removed by moving to the induced congruence and precongruence, so
+called ``rooted contraction'':
 \begin{definition}[rooted contraction]
 \label{d:rcontra}
 Two processes $P$ and $Q$ are in the \emph{rooted contraction}, written 
@@ -138,16 +138,21 @@ Two processes $P$ and $Q$ are in the \emph{rooted contraction}, written
 \end{enumerate}
 \end{definition}
 
+The quick finding of rooted contraction was by help of
+theorem provers, and was based on two principles: 1) Its definition must NOT be recursive
+(or coinductive), instead it should mimic the definition of rooted bisimilarity
+($\approx^c$); 2) It must be built on top of the existing \emph{contracts}
+relation $\mcontrBIS$, which we believe it's the \emph{right} one (as
+it's complete). Multiple candicates were tested, and finally the above
+definition was proven to be a precongruence:
 \begin{theorem}
 \label{t:rcontrPrecongruence}
 Relation $\rcontr$ is a precongruence in CCS.  Indeed it is the
 largest precongruence contained in $\contr$.
 \end{theorem}  
-
 The proof of this result is along the lines of the analogous result
 for rooted bisimilarity with respect to bisimilarity. 
 Similarly one can define and handle the rooted variant of the expansion preorder. 
-
 
 For a system of contraction, the meaning of 
 `solution  for $\rcontr$' and of 
@@ -181,7 +186,7 @@ such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
 
-\begin{theorem}[unique solution of contractions for $\rapprox$]
+\begin{theorem}[Unique solution of contractions for $\rapprox$]
 \label{t:rcontraBisimulationU}
 A system of weakly-guarded contractions
     has 

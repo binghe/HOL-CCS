@@ -11,12 +11,17 @@ The whole formalisation can be found
 in \cite{Tian:2017wrba}  or in 
  in the official example folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
-work consists of about 20,000 lines of proof scripts in Standard ML.
-%  This
-%  work is based on a formalisation of CCS in HOL theorem
-% prover (HOL4) \cite{slind2008brief}, described in second author's MSc thesis
-% \cite{Tian:2017wrba} and now lives in the official examples folder of HOL4 source
-% code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}.
+work consists of about 20,000 lines of proof scripts in Standard ML,
+derived from an early work \cite{Nesi:1992ve} by Monica Nesi in 1992-1995.
+
+HOL4 is written in Standard ML (or ML for abbreviation). This single language plays three roles here:
+\begin{enumerate}
+\item It serves as the underlying implementation language for the core HOL engine;
+\item It's used to implement tactics (and tacticals) for automatic theorem proving;
+\item It's used as the command language of the interactive HOL system.
+\end{enumerate}
+Besides, HOL4 users can write arbitrary applications which leverages
+the theorem proving facility. 
 
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphim (type
