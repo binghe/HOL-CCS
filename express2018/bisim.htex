@@ -6,8 +6,8 @@
 \subsection{Bisimulation and Bisimilarity}
 
 As a coinductive relation, the definition of bisimilarity can take
-advantage of HOL's coinductive relation package (\texttt{Hol_coreln}\cite{Anonymous:Iu-sOoz1}),
-a new tools since its latest Kananaskis-11 release (March 3,
+advantage of HOL's coinductive relation package (\texttt{Hol_coreln} \cite{Anonymous:Iu-sOoz1}),
+a new tools since its Kananaskis-11 release (March 3,
 2017).\footnote{\url{https://hol-theorem-prover.org/kananaskis-11.release.html\#new-tools}}
 First, we define a (possibly empty) sequence of $\tau$-transitions as
 a new relation called \texttt{EPS} ($\overset{\epsilon}{\Rightarrow}$), which is the RTC
@@ -68,16 +68,15 @@ name for $\approx$ is \texttt{WEAK_EQUIV}) following Definition~\ref{d:wb2}:
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
        (!l.
-	 (!P'. TRANS P  (label l) P' ==>
+	 (!P'. TRANS P (label l) P' ==>
 	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
 	 (!Q'. TRANS Q (label l) Q' ==>
 	       (?P'. WEAK_TRANS P  (label l) P' /\ WB P' Q'))) /\
        (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
-      ==> WB P Q)`;
+     ==> WB P Q)`;
 \end{lstlisting}
-the command returns 3 theorems in which the 2nd and 3rd will
-completely capture the characters of bisimilarity:
+It will return 3 theorems in which the 2nd and 3rd ones completely capture the characters of bisimilarity:
 \begin{enumerate}
 \item The coinduction principle for $\wb$:
 \begin{small}
@@ -95,22 +94,24 @@ completely capture the characters of bisimilarity:
 
 The coinduction principle \texttt{WB_coind} says that any
 bisimulation is contained in the resulting relation (i.e. it's
-largest), but it didn't limit the resulting relation into any kind of
-fixed point, because even the universal relation (set of all pairs)
+largest), but it didn't limit the resulting relation into any set of
+fixed points, because even the universal relation (the set of all pairs)
 could fit with this theorem; the
 purpose of the fixed point theorem \texttt{WB_cases} is to
 further assert that the resulting relation is indeed a
 fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
 together make sure that bisimilarity is the greatest
-fixed point.\footnote{There were discussions on why
-  \texttt{WB_cases} cannot be used for defining
+fixed point, as
+the former contributes to ``greatest'' while the latter
+contributes to ``fixed point''.
+
+The theorem \texttt{WB_cases} was called ``property star (*)'' \footnote{There were discussions on why
+  the ``property star (*)'' cannot be used for defining
   bisimilairty, because there're many different relations satisfying
   this ``definition''.
 Now the reason is quite clear, as \texttt{WB_cases} only
 asserts a set of fixed points, while \texttt{WB_coind}
-  asserts the greatest one in them. (c.f. p.\;88 of \cite{Mil89})}
-
-The theorem \texttt{WB_cases} was called ``property star (*)'' by Robin
+  asserts the greatest one in them. (c.f. p.\;88 of \cite{Mil89})} by Robin
 Milner. It's very useful in proving
 many results regarding bisimilarity, but it's hard to
 directly prove it from Definition~\ref{d:wb1}. (It was a must for the

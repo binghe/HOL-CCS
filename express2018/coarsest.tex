@@ -9,10 +9,10 @@
 % The ``coarsest congruence contained in weak bisimilarity ($\approx$)''
 % theorem in CCS is somehow special, as its current known proofs either
 % rely on quite restricted conditions, or have an extremely complicated proof
-% (c.f. van Glabbek's paper) in
+% (c.f. van Glabbeek's paper) in
 % which ordinal theory is required.  Actually even the relationship
 % between its name and statement is not well explained in many CCS
-% textbooks. But van Glabbek's paper has given the so far clearest
+% textbooks. But van Glabbeek's paper has given the so far clearest
 % explainion, here we briefly repeat his arguments:
 
 Bisimilarity ($\approx$) is not  congruence, since not preserved by 
@@ -22,7 +22,7 @@ In this subsection we discuss  two proofs of the result stating that
 rooted bisimilarity is the coarsest congruence contained in
 bisimilarity.
 % : Milner's proof \cite{Mil89}, that requires
-% that no process can use all available names; and van Glabbek's proof
+% that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
 The `coarsest congruence contained in bisimilarity' is 
@@ -106,7 +106,7 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % definitions given by recursion operator. All CCS results using these
 % concepts are not touched so far, although these four concepts are
 % successfully defined using HOL's set and list theories.} However, by
-just assuming that the 
+just assuming that the
 initial weak transitions (those directly emanating from 
  $p$ and $q$) do not use all possible visible labels.
 % analyzing the proof steps, we found that, what's really required is to
@@ -144,20 +144,18 @@ Milner \cite{Mil89}, and requires
  that no process uses all available names. 
 We have also formalised a different proof, 
 by
- van Glabbek
+ van Glabbeek
  \cite{vanGlabbeek:2005ur}, that does not require additional
  assumptions. 
-The proof by van Glabbek uses transfinite induction to obtain 
-a sequence of processes (originally introduced by Klop \cite{...})
- that are all pairwise  non-bisimilar. 
-We have formalised van Glabbek proof; however, as transfinite
-induction is not available in HOL4, 
+The proof by van Glabbeek uses transfinite induction to obtain 
+a sequence of processes (originally introduced by Jan Willem Klop, in
+personal communication with van Glabbeek)
+ that are all pairwise non-bisimilar. 
+We have formalised van Glabbeek's proof; however, as the typed logic
+implemented in various HOL systems (including Isabelle/HOL) is not
+strong enough to define a type for all possible oridnal values \cite{norrish2013ordinals}, we
+cannot precisely duplicate this proof. Instead,
 we have replaced it with plain induction; as a consequence, the final
 result is about a restricted class of processes (which we have taken
 to be the finite-state processes). We omit the details for lack of
-space, see \cite{..}. 
-
-
-\finish{check above} 
-
-
+space, see \cite{Tian:2017wrba} for details. 
