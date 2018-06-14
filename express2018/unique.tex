@@ -124,8 +124,9 @@ The unique solution theorem of Section~\ref{ss:SysContr} require a
 constrained syntax for sums, due to the congruence and precongruence
 problems of bisimilarity and contraction with such operator. 
 We show here that the constraints can be
-removed by moving to the induced congruence and precongruence, so
-called ``rooted contraction'':
+removed by moving to the induced congruence and precongruence, the
+latter 
+called \emph{rooted contraction}.
 \begin{definition}[rooted contraction]
 \label{d:rcontra}
 Two processes $P$ and $Q$ are in the \emph{rooted contraction}, written 
@@ -138,13 +139,20 @@ Two processes $P$ and $Q$ are in the \emph{rooted contraction}, written
 \end{enumerate}
 \end{definition}
 
-The quick finding of rooted contraction was by help of
-theorem provers, and was based on two principles: 1) Its definition must NOT be recursive
-(or coinductive), instead it should mimic the definition of rooted bisimilarity
-($\approx^c$); 2) It must be built on top of the existing \emph{contracts}
-relation $\mcontrBIS$, which we believe it's the \emph{right} one (as
-it's complete). Multiple candicates were tested, and finally the above
-definition was proven to be a precongruence:
+The definition of rooted contraction adapts the definition of rooted
+bisimilarity on top of that of the  contraction preorder
+$\mcontrBIS$.
+
+
+% The quick finding of rooted contraction was by help of
+% theorem provers, and was based on two principles: 1) Its definition must NOT be recursive
+% (or coinductive), instead it should mimic the definition of rooted bisimilarity
+% ($\approx^c$); 2) It must be built on top of the existing \emph{contracts}
+% relation $\mcontrBIS$, which we believe it's the \emph{right} one (as
+% it's complete). Multiple candicates were tested, and finally the above
+% definition was proven to be a precongruence:
+
+
 \begin{theorem}
 \label{t:rcontrPrecongruence}
 Relation $\rcontr$ is a precongruence in CCS.  Indeed it is the
