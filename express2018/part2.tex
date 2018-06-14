@@ -62,21 +62,21 @@ It says, a label is unique in an action list iff it there's no other
 labels in the rest part of the list.
 
 The final relationship between traces and weak transitions is stated
-and proved in the following lemma: (here $us$ as single variable means
+and proved in the following lemma: (here $acts$ as a single variable means
 a list of actions)
 \begin{lemma}
-A weak transition $E\overset{u}{\Rightarrow}E'$ is a just trace with non
+A weak transition $P\overset{u}{\Rightarrow}P'$ is a just trace with non
 empty action list: 1) without any visible label, if $u = \tau$, or 2)
 $u$ is the unique label in the list, if $u \neq \tau$.
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
-   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{us}.
-       \HOLConst{TRACE} \HOLFreeVar{E} \HOLBoundVar{us} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{us} \HOLSymConst{\HOLTokenConj{}} \HOLKeyword{if} \HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{us}
-       \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLBoundVar{us}\hfill{[WEAK_TRANS_AND_TRACE]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{acts}.
+       \HOLConst{TRACE} \HOLFreeVar{P} \HOLBoundVar{acts} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{acts} \HOLSymConst{\HOLTokenConj{}}
+       \HOLKeyword{if} \HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{acts} \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLBoundVar{acts}\hfill{[WEAK_TRANS_AND_TRACE]}
 \end{alltt}
 \end{lemma}
 
-To finish the proof of Lemma~\ref{l:ruptocon}, we use the  above
+To finish the proof of Lemma~\ref{l:ruptocon}, we have used the  above
 result to freely switch between weak transitions and traces
 during the induction argument.
 % , which either keep its
@@ -86,8 +86,8 @@ Below is the formally proved version of
 Theorem~\ref{t:contraBisimulationU}: (Here \texttt{WGS} stands for weakly guarded context without direct
 sums)
 \begin{alltt}
-UNIQUE_SOLUTION_OF_CONTRACTIONS:
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
+\hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}
 \end{alltt}
 
 \subsection{Unique solution of rooted contractions}
@@ -95,17 +95,30 @@ UNIQUE_SOLUTION_OF_CONTRACTIONS:
 The formal proof of ``unique solution of rooted contractions theorem''
 (Theorem~\ref{t:rcontraBisimulationU}) has the
 same initial proof steps as Theorem~\ref{t:contraBisimulationU} plus a
-little more steps to handle the rooted bisimilarity at conclusion. (In the thesis work, the conclusion of this theorem
-is weak bisimilarity, and the proof is exactly the same as Unique
-solution of contractions theorem. Now we got a stronger conclusion
-using observational congruence, and the previous version becomes a
-trivial collorary of the current version.) The
+little more steps to handle the rooted bisimilarity at conclusion. The
 two proofs are quite similar, mostly because the only property we need
 from (rooted) contraction is its precongruence. Once we have proved
 the precongruence of rooted contracion, we can naturally use the
 normal version of weakly guarded expressions with direct sums
-included. Below is the formally proved version of Theorem~\ref{t:rcontraBisimulationU}:
+included. Below is the formally verified version of
+Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
-UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
+\end{alltt}
+
+See how similar it is with Milner's original ``unique solution of
+equations'' theorem for strong bisimilarity ($\sim$) in which the same
+weak guardness (\texttt{WG}) is required:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
+\end{alltt}
+
+Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
+applicable version of Milner's ``unique solution of
+equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
+restrictions on equations:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+\hfill{[OBS_UNIQUE_SOLUTION]}
 \end{alltt}

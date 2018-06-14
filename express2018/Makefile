@@ -5,7 +5,7 @@ TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex 
 
 all: htex main.pdf
 
-htex: part2.tex sos.tex bisim.tex coarsest.tex context.tex
+htex: $(MUNGE) part2.tex sos.tex bisim.tex coarsest.tex context.tex
 
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
