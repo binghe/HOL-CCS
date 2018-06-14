@@ -34,9 +34,7 @@ For this, we first
  define the Reflexive Transitive Closure with a
 List (\texttt{LRTC}):
 given a  labelled transition relation \texttt{R}, 
-then
-\HOLinline{\HOLConst{LRTC}
-  \HOLFreeVar{R}} builds 
+then \texttt{LRTC R}  builds 
 the possible traces derived from \texttt{R}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenEquiv{}}
@@ -94,27 +92,49 @@ if $u \neq \tau$ then $u$ is the unique label in the list:
 \end{alltt}
 %\end{lemma}
 
+Now we show the formalized statements of Lemma~\ref{l:uptocon}, which
+is quite long:\vspace{-1em}
+\begin{alltt}
+\begin{small}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E}. \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E} \HOLFreeVar{Q}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{C}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{C} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{R}.
+            \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+            \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
+                \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}}
+                (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLFreeVar{Q})
+                  (\HOLBoundVar{C\sp{\prime}} \HOLFreeVar{Q})) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+           \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
+               \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}}
+               (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLFreeVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLFreeVar{Q})
+\end{small}
+\end{alltt}
+\vspace{-1em} Traces were involved in the proof of above lemma by using
+the following ``unfolding'' lemma:\vspace{-1em}
+\begin{alltt}
+\begin{small}
+\HOLTokenTurnstile{} \HOLConst{GCONTEXT} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLFreeVar{P}) \HOLFreeVar{xs} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+   \HOLConst{LENGTH} \HOLFreeVar{xs} \HOLSymConst{\HOLTokenLeq{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
+       \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLBoundVar{Q}) \HOLFreeVar{xs} (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})
+\end{small}
+\end{alltt}
+It roughly says, for any context $C$ and weakly guarded expression
+$E$, if $C \circ E^n[P] \overset{xs}{\Longrightarrow} P'$ and the length
+of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$, meaning
+it's not touched during the transitions. Without traces it is
+impossible to reason on the length of intermediate actions behind weak transitions.
 
-To finish the proof of Lemma~\ref{l:ruptocon}, we have used the  above
-result to freely switch between weak transitions and traces
-during the induction argument.
-% , which either keep its
-% length or become shorter after passing weak bisimilations, then we
-% used above lemma again to convert the traces back to weak transitions.
-
-\finish{would not it have been good to actually see the formalisation of 
-lemma~\ref{l:ruptocon}? (also to see how trace are actually used in
-the induction)}
-
-
-Below is the formalisation of
-Theorem~\ref{t:contraBisimulationU} (where \texttt{WGS} stands for
+With all above work, finally we can formally prove
+Theorem~\ref{t:contraBisimulationU}: (here \texttt{WGS} stands for
 `weakly guarded context with weakly-guarded sums')
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
-\hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}
 \end{alltt}
-
 
 \subsection{Unique solution of rooted contractions}
 
@@ -134,7 +154,6 @@ included.) Below is the formally verified version of
 Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
-\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 
 Having no constraints on sums, the result is
@@ -143,20 +162,16 @@ equations' theorem for \emph{strong} bisimilarity ($\sim$)~---
 the same
 weakly guarded  condition (\texttt{WG}) is required:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}
 \end{alltt}
-
-
-
 
 In contrast, Milner's `unique solution of
 equations' theorem for rooted bisimilarity ($\rapprox$)
-has more severe constraints: 
+has more severe constraints:
 % Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
 % applicable version of Milner's ``unique solution of
 % equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
 % restrictions on equations:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
-\hfill{[OBS_UNIQUE_SOLUTION]}
 \end{alltt}
