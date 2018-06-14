@@ -702,6 +702,51 @@ val WEAK_TRANS_AND_TRACE = store_thm (
 	(* goal 2.2 (of 2) *)
 	Q.EXISTS_TAC `L2` >> ASM_REWRITE_TAC [] ] ]);
 
+(* changed variables to P and P' *)
+val WEAK_TRANS_AND_TRACE' = store_thm (
+   "WEAK_TRANS_AND_TRACE'",
+  ``!P u P'. WEAK_TRANS P u P' <=> ?acts. TRACE P acts P' /\ ~NULL acts /\
+					if (u = tau) then NO_LABEL acts else UNIQUE_LABEL u acts``,
+    rpt GEN_TAC >> EQ_TAC (* 2 sub-goals here *)
+ >- ( DISCH_TAC \\
+      MATCH_MP_TAC WEAK_TRANS_TRACE2 >> ASM_REWRITE_TAC [] )
+ >> rpt STRIP_TAC
+ >> Cases_on `u`
+ >> FULL_SIMP_TAC std_ss [Action_distinct_label, NO_LABEL_def] (* 2 sub-goals here *)
+ >| [ (* goal 1 (of 2) *)
+      REWRITE_TAC [WEAK_TRANS] \\
+      Q.EXISTS_TAC `P` >> REWRITE_TAC [EPS_REFL] \\
+      qpat_x_assum `TRACE P acts P'` (ASSUME_TAC o (ONCE_REWRITE_RULE [TRACE_cases1])) \\
+      REV_FULL_SIMP_TAC list_ss [] \\
+      Know `HD acts = tau`
+      >- ( Cases_on `HD acts` >- REWRITE_TAC [] \\
+	   qpat_x_assum `!l. ~MEM (label l) acts` (ASSUME_TAC o (Q.SPEC `x`)) \\
+	   qpat_x_assum `HD acts = label x` ((FULL_SIMP_TAC list_ss) o wrap o SYM) \\
+	   PROVE_TAC [CONS, MEM] ) \\
+      DISCH_TAC >> FULL_SIMP_TAC list_ss [] \\
+      Q.EXISTS_TAC `u` >> ASM_REWRITE_TAC [] \\
+      REWRITE_TAC [EPS_AND_TRACE, NO_LABEL_def] \\
+      Q.EXISTS_TAC `TL acts` >> ASM_REWRITE_TAC [] \\
+      CCONTR_TAC >> FULL_SIMP_TAC bool_ss [] \\
+      qpat_x_assum `!l. ~MEM (label l) acts` (MP_TAC o (Q.SPEC `l`)) \\
+      Cases_on `acts` >- FULL_SIMP_TAC list_ss [] \\
+      REWRITE_TAC [MEM] \\
+      FULL_SIMP_TAC list_ss [],
+      (* goal 2 (of 2) *)
+      REWRITE_TAC [WEAK_TRANS] \\
+      IMP_RES_TAC UNIQUE_LABEL_DEF \\
+      qpat_x_assum `L1 ++ [label L] ++ L2 = acts` ((FULL_SIMP_TAC std_ss) o wrap o SYM) \\
+      qpat_x_assum `TRACE P (L1 ++ [label L] ++ L2) P'`
+	(STRIP_ASSUME_TAC o (REWRITE_RULE [TRACE_APPEND_cases])) \\
+      take [`u'`, `u`] \\
+      IMP_RES_TAC TRACE_ONE >> ASM_REWRITE_TAC [] \\
+      REWRITE_TAC [EPS_AND_TRACE, NO_LABEL_def] \\
+      CONJ_TAC >| (* 2 sub-goals here *)
+      [ (* goal 2.1 (of 2) *)
+	Q.EXISTS_TAC `L1` >> ASM_REWRITE_TAC [],
+	(* goal 2.2 (of 2) *)
+	Q.EXISTS_TAC `L2` >> ASM_REWRITE_TAC [] ] ]);
+
 val _ = export_theory ();
 val _ = html_theory "Trace";
 

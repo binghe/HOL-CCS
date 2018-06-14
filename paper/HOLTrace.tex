@@ -1,5 +1,5 @@
 \newcommand{\HOLTraceDate}{14 Giugno 2018}
-\newcommand{\HOLTraceTime}{13:17}
+\newcommand{\HOLTraceTime}{16:02}
 \begin{SaveVerbatim}{HOLTraceDefinitionsfiniteXXstateXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{FINITE} (\HOLConst{NODES} \HOLBoundVar{p})
 \end{SaveVerbatim}
@@ -354,6 +354,14 @@
            \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{us}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}}
+\begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACEYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{u} \HOLBoundVar{P\sp{\prime}}.
+       \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{acts}.
+           \HOLConst{TRACE} \HOLBoundVar{P} \HOLBoundVar{acts} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{acts} \HOLSymConst{\HOLTokenConj{}}
+           \HOLKeyword{if} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{acts} \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{acts}
+\end{SaveVerbatim}
+\newcommand{\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACEYY}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACEYY}}
 \begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXINXXNODES}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{q} \HOLConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLBoundVar{p}
 \end{SaveVerbatim}
@@ -429,6 +437,7 @@
 \HOLThmTag{Trace}{UNIQUE_LABEL_NOT_NULL}\HOLTraceTheoremsUNIQUEXXLABELXXNOTXXNULL
 \HOLThmTag{Trace}{WEAK_TRANS_AND_STEP}\HOLTraceTheoremsWEAKXXTRANSXXANDXXSTEP
 \HOLThmTag{Trace}{WEAK_TRANS_AND_TRACE}\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE
+\HOLThmTag{Trace}{WEAK_TRANS_AND_TRACE'}\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACEYY
 \HOLThmTag{Trace}{WEAK_TRANS_IN_NODES}\HOLTraceTheoremsWEAKXXTRANSXXINXXNODES
 \HOLThmTag{Trace}{WEAK_TRANS_Reach}\HOLTraceTheoremsWEAKXXTRANSXXReach
 \HOLThmTag{Trace}{WEAK_TRANS_TRACE}\HOLTraceTheoremsWEAKXXTRANSXXTRACE
