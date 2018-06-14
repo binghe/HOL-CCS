@@ -12,23 +12,51 @@
 \section{Conclusions and future work}
 \label{s:concl}
 
-We believe that, beside the discovery of the rooted contraction $\rcontr$
-with a more elegant unique solution theorem,
-our CCS formalisation in HOL4 has also
-provided a solid formal framework for future theoretical developments in
-Concurrency Theory, particularily for process algebras like CCS. It's
-easily understandable, with statements extremely close to the original
-textbook. The logic foundations of HOL makes the whole work (or individual
+We have highlighted a formalisation of the theory of CCS in the 
+HOL4 theorem prover. The formalisation has focused on the theory of
+unique solution of equations and contractions. 
+The formalisation has also allowed us to further develop the theory,
+notably the basic properties of rooted contraction, and the unique
+solution theorem for it with respect to rooted bisimilarity. 
+The formalisation brings up and exploits similarities between results
+and proofs for different equivalences and preorders. 
+We think that the statements in the formalisation are easy to read and
+understand, as they remain very close  to  the ordinary  statements of
+the theory of CCS. 
+Moreover, 
+the logic foundations of HOL makes the whole work (or individual
 parts) easily portable to other theorem provers.
 
-Further plan on the formalisation mainly includes: 1) the extension to
-multi-variable equation/contractions. 2) the support of recursion operators in
-CCS context and expressions.
+
+As future work,  it would be worth extending the current work
+to multiple equations and contractions; and considering other equivalences
+and preorders, notably trace relations.  
+On another line, one could  
+examine the formalisation of  a different approach to unique
+solutions, by Durier et al.\ \cite{DurierHS17}, in which the use of contraction is
+replaced by semantic conditions on process transitions such as
+divergence.  
+
+% Further plan on the formalisation mainly includes: 1) the extension to
+% multi-variable equation/contractions. 2) the support of recursion
+% operators in 
+% CCS context and expressions.
+
+
+% We believe that, beside the discovery of the rooted contraction $\rcontr$
+% with a more elegant unique solution theorem,
+% our CCS formalisation in HOL4 has also
+% provided a solid formal framework for future theoretical developments in
+% Concurrency Theory, particularily for process algebras like CCS. It's
+% easily understandable, with statements extremely close to the original
+% textbook. The logic foundations of HOL makes the whole work (or individual
+% parts) easily portable to other theorem provers.
+
 \subsection*{Acknowledgements}
 
 We would like to thank many people from the HOL community
-for their help in the past two years, in particular: 
+for their help in the past two years, in particular 
 Michael Norrish, Thomas Tuerk, 
-Ramana Kumar, Konrad Slind, and Jeremy Dawson. 
+Ramana Kumar, Konrad Slind, Robert Beers, and Jeremy Dawson. 
 % The second half of this
 % paper was written in memory of  Mike J. Gordon.
