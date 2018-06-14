@@ -31,8 +31,8 @@ Under above definition, we can formally define the concept of
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{alltt}
 
-A \emph{weakly guarded} context is a context in which each hole is
-underneath a  prefix (where \texttt{WG} stands for weakly guarded):
+A \emph{weakly guarded} (\texttt{WG}) context is a context in which each hole is
+underneath a prefix:
 \begin{alltt}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}

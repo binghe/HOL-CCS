@@ -22,8 +22,8 @@ Under above definition, we can formally define the concept of
 \HOLthm{Congruence.congruence_def}
 \end{alltt}
 
-A \emph{weakly guarded} context is a context in which each hole is
-underneath a  prefix (where \texttt{WG} stands for weakly guarded):
+A \emph{weakly guarded} (\texttt{WG}) context is a context in which each hole is
+underneath a prefix:
 \begin{alltt}
 \HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
