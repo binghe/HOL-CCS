@@ -43,8 +43,8 @@ operator, we have chosen to allow a  set of names as a parameter, rather than a
 the manipulation of 
  processes with different orders of
   nested restrictions.
- Also, we don't assume that the uses of \texttt{var} are
-  guarded by \texttt{rec} of the same variable.
+%  Also, we do not assume that the uses of \texttt{var} are
+%   guarded by \texttt{rec} of the same variable.
 
 %  (Notice the use of
 % recursition operator for representing process constants)
@@ -114,19 +114,19 @@ following facts should be proved:
 \iflong
 \item there exists transitions from $(a.0 | \bar{a}.0)$ (optional);
 \fi
-\item the correctness for each of the transitions by SOS rules;
-\item there's no other transition beside the three existing ones.
+\item the correctness for each of the transitions;
+\item the non-existence of other transitions.
 \end{enumerate}
-For large complex processes it is surprisingly hard to manually prove the
+For large  processes it may be surprisingly hard to manually prove the
 non-existence of transitions.  Hence the usefulness of appealing to 
 the new  function \texttt{CCS\_TRANS\_CONV}. 
-For instance the function
-called on the  process $(a.0 | \bar{a}.0)$ thus
+For instance this function
+is called on the  process $(a.0 | \bar{a}.0)$ thus:
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``
 \end{lstlisting}
-returns the following theorem, indeed describing all immediate
+This returns the following theorem, indeed describing all immediate
 transitions of the process:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}

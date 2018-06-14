@@ -18,8 +18,8 @@ work consists of about 20,000 lines of proof scripts in Standard ML
 HOL4 is written in Standard ML (ML for abbreviation), which plays three roles here:
 \begin{enumerate}
 \item It serves as the underlying implementation language for the core HOL engine;
-\item It's used to implement tactics (and tacticals) for writing proofs;
-\item It's used as the command language of the HOL interactive shell.
+\item it is used to implement tactics (and tacticals) for writing proofs;
+\item it is used as the command language of the HOL interactive shell.
 \end{enumerate}
 HOL4 users can write arbitrary applications which leverage
 the theorem proving facility. 
@@ -32,10 +32,10 @@ The HOL logic language, on the other
 
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphim (type
-variables). HOL4 implements the original HOL Logic, 
+variables). HOL4 implements the original HOL logics, 
 in contrast with 
  other theorem provers of the HOL family (e.g. Isabelle/HOL) that have
-made extensions
+made extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
@@ -59,9 +59,10 @@ automatically) into other theorem provers.
 
 In the
 formalisation we consider only single equations/contractions. 
-This considerably simplifies the  reading of the HOL scripts (on 
-the extension  to multiple equations/contractions
-see also  Section~\ref{s:concl}).
+This considerably simplifies the  reading of the HOL scripts.
+%  (on 
+% the extension  to multiple equations/contractions
+% see also  Section~\ref{s:concl}).
 
 % \subsection{Simplifications and Limitations}
 
