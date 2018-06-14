@@ -5,29 +5,39 @@
 
 \subsection{Unique solution of contractions}
 
-The major difficulties in the formalisation of the results about unique solution of
-contractions are in the proof of lemma~\ref{l:ruptocon}; in particular, it
-uses an induction on the length of weak transitions. 
-For this, one could introduced a refined form of weak transition relation
-enriched with its length, but such a non-standard relation finds no
-other uses beside proving our target theorem. Another way is to use 
-traces instead, as it shows more clearly all passing actions inside a
-trace, making formal reasoning easier.
+A delicate point in the formalisation of the results about unique solution of
+contractions are the proof of lemma~\ref{l:ruptocon} and alike lemmas;
+in particular, there is
+ an induction on the length of weak transitions. 
+For this, rather than 
+ introducing a refined form of weak transition relation
+enriched with its length, 
+we found it more elegant  to  work with traces
+(a motivation for this is to set the ground for extensions of this
+formalisation work to trace equivalence in place of bisimilarity).
 
-We represent a trace by the initial process, the final derivative, and
-the list of actions performed. 
-To formalise this, 
-we first introduce 
-the Reflexive Transitive Closure with a
-List (LRTC);
+% but such a non-standard relation finds no
+% other uses beside proving our target theorem. Another way is to use 
+% traces instead, as it shows more clearly all passing actions inside a
+% trace, making formal reasoning easier.
 
-A trace is represented by the beginning and ending CCS processes, plus
-a list of action it passes. Insteading of defining it directly, we
-have first defined a new concept called Reflexive Transitive Closure with a
-List (LRTC):
-given a  labelled transition relation $R$, \HOLinline{\HOLConst{LRTC}
+% We represent a trace by the initial process, the final derivative, and
+% the list of actions performed. 
+% To formalise this, 
+% we first introduce 
+% the Reflexive Transitive Closure with a
+% List (LRTC);
+
+A trace is represented by the initial and final processes, plus
+a list of actions  so performed.
+For this, we first 
+ define the Reflexive Transitive Closure with a
+List (\texttt{LRTC}):
+given a  labelled transition relation \texttt{R}, 
+then
+\HOLinline{\HOLConst{LRTC}
   \HOLFreeVar{R}} builds 
-the possible traces derived from $R$.
+the possible traces derived from \texttt{R}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
@@ -35,46 +45,55 @@ the possible traces derived from $R$.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
        \HOLBoundVar{P} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b}\hfill{[LRTC_DEF]}
 \end{alltt}
- Then the traces for the  CCS processes
+The traces for a  CCS processes
 are obtained
- by combining LRTC with the (strong) CCS transition
-relation:
+ by combining \texttt{LRTC} with the  CCS transition
+relation  \texttt{TRANS}:
 \begin{alltt}
 \HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
-
-If there's at most one visible action (label) in the list of actions of a trace,
-then the trace is also a weak transition. We divided this observation
-into two cases: no label and unique label. The definition of ``no
-label'' in an action list is easy and clear (\texttt{MEM} is for
-testing if an element is \emph{member} of a list):
+If there is at most one visible action (i.e., a label) 
+in the list of actions of a trace,
+then the trace  also represents a weak transition. Here 
+we distinguish two cases: no label and unique label. The definition of `no
+label' in an action list is easy (below \texttt{MEM} 
+tests if a given element is a member of a list):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLFreeVar{L}\hfill{[NO_LABEL_def]}
 \end{alltt}
-while the definition of ``unique label'' can be done in many ways, in
-which we have chosen to use the version learnt from Robert Beers in
-a private discussion which prevented counting or filtering in the list:
+The definition below of `unique label'
+%  can be done in many ways, in
+% which we have chosen to use the version learnt from Robert Beers in
+% a private discussion which 
+avoids counting or filtering in a list;
+it says that a label is unique in an action list iff it there is no other
+label in the remainder part of the list:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLFreeVar{L} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}. (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDoublePlus} [\HOLFreeVar{u}] \HOLSymConst{\HOLTokenDoublePlus} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{2}}}\hfill{[UNIQUE_LABEL_def]}
 \end{alltt}
-It says, a label is unique in an action list iff it there's no other
-labels in the rest part of the list.
 
 The final relationship between traces and weak transitions is stated
-and proved in the following lemma: (here $acts$ as a single variable means
-a list of actions)
-\begin{lemma}
-A weak transition $P\overset{u}{\Rightarrow}P'$ is a just trace with non
-empty action list: 1) without any visible label, if $u = \tau$, or 2)
-$u$ is the unique label in the list, if $u \neq \tau$.
+and proved in the following theorem
+(where the  variable $acts$ stands for
+a list of actions); 
+it says that a
+ weak transition $P\overset{u}{\Rightarrow}P'$ is a  trace with a
+ non-empty 
+action list, i.e., either without any (visible) label if $u = \tau$, orelse 
+if $u \neq \tau$ then $u$ is the unique label in the list: 
+%\begin{lemma}
+% A weak transition $P\overset{u}{\Rightarrow}P'$ is a just trace with non
+% empty action list: 1) without any visible label, if $u = \tau$, or 2)
+% $u$ is the unique label in the list, if $u \neq \tau$.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{acts}.
        \HOLConst{TRACE} \HOLFreeVar{P} \HOLBoundVar{acts} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{acts} \HOLSymConst{\HOLTokenConj{}}
        \HOLKeyword{if} \HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{acts} \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLBoundVar{acts}\hfill{[WEAK_TRANS_AND_TRACE]}
 \end{alltt}
-\end{lemma}
+%\end{lemma}
+
 
 To finish the proof of Lemma~\ref{l:ruptocon}, we have used the  above
 result to freely switch between weak transitions and traces
@@ -82,42 +101,61 @@ during the induction argument.
 % , which either keep its
 % length or become shorter after passing weak bisimilations, then we
 % used above lemma again to convert the traces back to weak transitions.
-Below is the formally proved version of
-Theorem~\ref{t:contraBisimulationU}: (Here \texttt{WGS} stands for weakly guarded context without direct
-sums)
+
+\finish{would not it have been good to actually see the formalisation of 
+lemma~\ref{l:ruptocon}? (also to see how trace are actually used in
+the induction)}
+
+
+Below is the formalisation of
+Theorem~\ref{t:contraBisimulationU} (where \texttt{WGS} stands for
+`weakly guarded context with weakly-guarded sums')
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}
 \end{alltt}
 
+
 \subsection{Unique solution of rooted contractions}
 
 The formal proof of ``unique solution of rooted contractions theorem''
 (Theorem~\ref{t:rcontraBisimulationU}) has the
-same initial proof steps as Theorem~\ref{t:contraBisimulationU} plus a
-little more steps to handle the rooted bisimilarity at conclusion. The
-two proofs are quite similar, mostly because the only property we need
-from (rooted) contraction is its precongruence. Once we have proved
-the precongruence of rooted contracion, we can naturally use the
-normal version of weakly guarded expressions with direct sums
-included. Below is the formally verified version of
+same initial proof steps as Theorem~\ref{t:contraBisimulationU}; 
+it then requires a
+few steps to handle  rooted bisimilarity in the conclusion. 
+At the end the
+two proofs are very similar, mostly because the only property we need
+from (rooted) contraction is its precongruence. 
+(Having proved
+the precongruence property for the rooted contracion, 
+we can use the
+plain version of weakly-guarded expressions with sums
+included.) Below is the formally verified version of
 Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 
-See how similar it is with Milner's original ``unique solution of
-equations'' theorem for strong bisimilarity ($\sim$) in which the same
-weak guardness (\texttt{WG}) is required:
+Having no constraints on sums, the result is
+ similar with Milner's original `unique solution of
+equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
+the same
+weakly guarded  condition (\texttt{WG}) is required:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
 
-Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
-applicable version of Milner's ``unique solution of
-equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
-restrictions on equations:
+
+
+
+In contrast, Milner's `unique solution of
+equations' theorem for rooted bisimilarity ($\rapprox$)
+has more severe constraints: 
+% Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
+% applicable version of Milner's ``unique solution of
+% equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
+% restrictions on equations:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
 \hfill{[OBS_UNIQUE_SOLUTION]}
