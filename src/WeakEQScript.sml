@@ -994,7 +994,7 @@ val WEAK_EQUIV_PRESD_BY_SUM = store_thm (
 	CHECK_ASSUME_TAC
 	 (REWRITE_RULE []
 	  (MATCH_MP (EQ_MP (Q.SPEC `E2'` STABLE) (ASSUME ``STABLE E2'``))
-		    (ASSUME ``TRANS E2' tau Q'``))) ] ]);
+		    (ASSUME ``TRANS E2' tau E2''``))) ] ]);
 
 (* Observation equivalence of stable agents is substitutive under binary
    summation on the right. *)
