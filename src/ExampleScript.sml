@@ -204,13 +204,13 @@ end;
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
        (!l.
-	 (!P'. TRANS P  (label l) P' ==>
+	 (!P'. TRANS P (label l) P' ==>
 	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
 	 (!Q'. TRANS Q (label l) Q' ==>
 	       (?P'. WEAK_TRANS P  (label l) P' /\ WB P' Q'))) /\
        (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
-      ==> WB P Q)`;
+     ==> WB P Q)`;
 
 (* SOS rules with changed variable names *)
 val PREFIX' = store_thm (
