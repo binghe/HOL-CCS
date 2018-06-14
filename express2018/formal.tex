@@ -32,12 +32,16 @@ The HOL logic language, on the other
 
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphim (type
-variables). HOL4 implemented the original HOL Logic, while
-some other theorem provers of the HOL family (e.g. Isabelle/HOL) added
-further extensions (they made the formal language more powerful,
-but they also bring the possibilities that the entire logic becomes inconsistent).
-The HOL Logic has considerability simpler logic
-foundations than most other theorem provers, e.g. Coq. As a result,
+variables). HOL4 implements the original HOL Logic, 
+in contrast with 
+ other theorem provers of the HOL family (e.g. Isabelle/HOL) that have
+made extensions
+%  (they made the formal language more powerful,
+% but they also bring the possibilities that the entire logic becomes
+% inconsistent). 
+Indeed the HOL Logic has considerability simpler logic
+foundations than most other theorem provers. %, e.g. Coq. 
+As a result,
 formal theories in HOL can be easily migrated (sometimes even
 automatically) into other theorem provers.
 
@@ -53,11 +57,11 @@ automatically) into other theorem provers.
 %   contractions theorem;
 % \end{enumerate}\finish{TODO: need updates}
 
-In contrast with the theorems in the first part of the paper, in the
+In the
 formalisation we consider only single equations/contractions. 
-This considerably simplifies the  reading of the HOL scripts. 
-The extension of the work to multiple equations/contractions is
-discussed in Section~\ref{s:concl}.
+This considerably simplifies the  reading of the HOL scripts (on 
+the extension  to multiple equations/contractions
+see also  Section~\ref{s:concl}).
 
 % \subsection{Simplifications and Limitations}
 
