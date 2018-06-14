@@ -893,7 +893,7 @@ val contracts_SUBST_GCONTEXT = store_thm (
 
 val contracts_precongruence = store_thm (
    "contracts_precongruence", ``precongruence1 $contracts``,
-    PROVE_TAC [precongruence1_def, contracts_SUBST_GCONTEXT]);
+    PROVE_TAC [precongruence1_def, contracts_PreOrder, contracts_SUBST_GCONTEXT]);
 
 (******************************************************************************)
 (*                                                                            *)
@@ -1597,7 +1597,8 @@ val OBS_contracts_SUBST_CONTEXT = store_thm (
 
 val OBS_contracts_precongruence = store_thm (
    "OBS_contracts_precongruence", ``precongruence OBS_contracts``,
-    PROVE_TAC [precongruence_def, OBS_contracts_SUBST_CONTEXT]);
+    PROVE_TAC [precongruence_def, OBS_contracts_PreOrder,
+	       OBS_contracts_SUBST_CONTEXT]);
 
 (******************************************************************************)
 (*                                                                            *)
@@ -1713,7 +1714,7 @@ val C_contracts_thm = save_thm (
 
 val C_contracts_precongruence = store_thm (
    "C_contracts_precongruence", ``precongruence $C_contracts``,
-    REWRITE_TAC [C_contracts, CC_precongruence]);
+    PROVE_TAC [C_contracts, CC_precongruence, contracts_PreOrder]);
 
 val OBS_contracts_IMP_C_contracts = store_thm (
    "OBS_contracts_IMP_C_contracts", ``!p q. OBS_contracts p q ==> C_contracts p q``,

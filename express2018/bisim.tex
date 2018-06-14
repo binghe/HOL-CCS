@@ -44,7 +44,7 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
 	 (!P'. TRANS P (label l) P' ==>
 	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
 	 (!Q'. TRANS Q (label l) Q' ==>
-	       (?P'. WEAK_TRANS P  (label l) P' /\ WB P' Q'))) /\
+	       (?P'. WEAK_TRANS P (label l) P' /\ WB P' Q'))) /\
        (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
      ==> WB P Q)`;
@@ -113,134 +113,8 @@ Definition~\ref{d:wb};  then other properties of bisimilarity, such
 as the fixed-point property in \texttt{WB_cases}, would have to be
 derived 
 manually (which is hard to do; indeed it was one of the main results
-in  Nesi's formalisation work  in HOL88 \cite{...}). 
+in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}). 
 
 
-
-
-% For bisimilarity, there're actually two equivalent definitions. A direct definition following textbooks
-% is to define it as the union of all weak bisimulations, just like in Definition~\ref{d:wb}:
-% \begin{definition}{(Bisimilariy, the direct definition)}
-% \label{d:wb1}
-% Two processes $P$ and $Q$ are (weak) bisimilar if and only if there exists
-% a weak bisimulation containing $P$ and $Q$, i.e.
-% \begin{equation}
-% P \wb Q \quad\mbox{iff}\quad\exists \RR.\, (P,Q) \in \RR \  \wedge\;\RR \mbox{is bisimulation}
-% \end{equation}
-% \end{definition}
-
-% But there's another way: since we know \emph{a priori} that
-% bisimilarity is a coinductive relation, we can recursively
-% \emph{build} it by calculating the greatest fixed point of a function:
-% \begin{definition}{(Bisimilariy, the coinduction definition)}
-% \label{d:wb2}
-% Bisimilarity, $\approx$, is the greatest fixed point of the function
-% $F\colon \mathrm{CCS}\times \mathrm{CCS}\rightarrow(\mathrm{CCS}\times \mathrm{CCS})$ such that,
-% $(P, Q) \in F(\RR)$ if
-% \begin{enumerate}
-% \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap
-%   \mu Q'$ and $(P',Q')\in \RR$, and
-% \item the converse of (1) on the actions from $Q$
-% \end{enumerate}
-% \end{definition}
-% Notice that Definition~\ref{d:wb2} doesn't need bisimulation as in
-% Definition~\ref{d:wb}, but it seems to have all needed information.
-% Definition~\ref{d:wb1} and Definition~\ref{d:wb2} are proven to be equivalent,
-% but only one of them can be used as the very definition of 
-% bisimilarity, while the other must be proved as a theorem.  In
-% particular, if we use Definition~\ref{d:wb2} as the very definition, the
-% (later proven) equivalent Definition~\ref{d:wb1} will serve as a connection
-% between bisimilarity and bisimulation. It turns out that, using
-% Definition~\ref{d:wb2} as definition we could have great benefits and the
-% proof of Definition~\ref{d:wb1} is quite simple, while in the other
-% direction it's extremely hard to prove Definition~\ref{d:wb2} (and those
-% ``benefits'', will show shortly) from a simple definition like
-% Definition~\ref{d:wb1}. 
-
-% In HOL4 (Kananaskis-11 or later), if we call the following \texttt{Hol_coreln}
-% command to build bisimilarity relation called \texttt{WB} (the actual
-% name for $\approx$ is \texttt{WEAK_EQUIV}) following Definition~\ref{d:wb2}:
-% \begin{lstlisting}
-% val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
-%     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
-%        (!l.
-% 	 (!P'. TRANS P (label l) P' ==>
-% 	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
-% 	 (!Q'. TRANS Q (label l) Q' ==>
-% 	       (?P'. WEAK_TRANS P  (label l) P' /\ WB P' Q'))) /\
-%        (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
-%        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
-%      ==> WB P Q)`;
-% \end{lstlisting}
-% It will return 3 theorems in which the 2nd and 3rd ones completely capture the characters of bisimilarity:
-% \begin{enumerate}
-% \item The coinduction principle for $\wb$:
-% \begin{small}
-% \begin{alltt}
-% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{WB\sp{\prime}}.
-%        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-%             \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-%             (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
-%                  (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}.
-%                       \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-%                       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%                  \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}.
-%                      \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-%                      \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%             (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%             \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
-%        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WB} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}\hfill{[WB_coind]}
-% \end{alltt}
-% \end{small}
-% \item The fixed point (or cases) theorem for $\wb$:
-% \begin{small}
-% \begin{alltt}
-% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-%        \HOLConst{WB} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
-%        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
-%             (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}.
-%                  \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-%                  \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%             \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}.
-%                 \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-%                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-%        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}\hfill{[WB_cases]}
-% \end{alltt}
-% \end{small}
-% \end{enumerate}
-
-% The coinduction principle \texttt{WB_coind} says that any
-% bisimulation is contained in the resulting relation (i.e. it's
-% largest), but it didn't limit the resulting relation into any set of
-% fixed points, because even the universal relation (the set of all pairs)
-% could fit with this theorem; the
-% purpose of the fixed point theorem \texttt{WB_cases} is to
-% further assert that the resulting relation is indeed a
-% fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
-% together make sure that bisimilarity is the greatest
-% fixed point, as
-% the former contributes to ``greatest'' while the latter
-% contributes to ``fixed point''.
-
-% The theorem \texttt{WB_cases} was called ``property star (*)'' \footnote{There were discussions on why
-%   the ``property star (*)'' cannot be used for defining
-%   bisimilairty, because there're many different relations satisfying
-%   this ``definition''.
-% Now the reason is quite clear, as \texttt{WB_cases} only
-% asserts a set of fixed points, while \texttt{WB_coind}
-%   asserts the greatest one in them. (c.f. p.\;88 of \cite{Mil89})} by Robin
-% Milner. It's very useful in proving
-% many results regarding bisimilarity, but it's hard to
-% directly prove it from Definition~\ref{d:wb1}. (It was a must for the
-% original CCS formalisation by Nesi in HOL88.)%
-% % \footnote{In
-% %   the original CCS formalisation in HOL88, Monica Nesi has to follow
-% %   this hard way, the original proof (for strong bisimilarity) appears
-% %   at p. 91 of \cite{Mil89}, the formal proof by Monica Nesi now lives
-% %   in \texttt{ExampleScript.sml} for historical references.} 
-
-
-
-\finish{I have removed other things as i fear they would confuse a
-  reader and I think the main point we wanted to say are now clearly expressed} 
+% \finish{I have removed other things as i fear they would confuse a
+%   reader and I think the main point we wanted to say are now clearly expressed} 

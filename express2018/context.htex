@@ -5,10 +5,12 @@
 
 \subsection{Context, guardness and (pre)congruence}
 
-We need to find a suitable formal definition of 
-context. There're multiple ways. Here we have chosen to use $\lambda$-expressions (typed
-$CCS\rightarrow CCS$) to represent a (multi-hole) 
-context. The definition is inductive:
+% We need to find a suitable formal definition of 
+% context. There're multiple ways. Here 
+
+We have chosen to use $\lambda$-expressions (typed
+$CCS\rightarrow CCS$) to represent  (multi-hole) 
+contexts. The definition is inductive:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
@@ -16,33 +18,39 @@ context. The definition is inductive:
 Under above definition, we can formally define the concept of
 ``precongruence'' and ``congruence'' in the following ways:
 \begin{alltt}
-\HOLthm[def]{Congruence.precongruence_def}\hfill{[precongruence_def]}
-\HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
+\HOLthm{Congruence.precongruence_def}
+\HOLthm{Congruence.congruence_def}
 \end{alltt}
 
-A \emph{weak guarded} context is a context in which all holes appears
-in the sub-expression of prefixed processes. We can easily define it
-following the same idea:
+A \emph{weakly guarded} (\texttt{WG}) context is a context in which each hole is
+underneath a prefix:
 \begin{alltt}
 \HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
-(Notice the differences between a weak guarded context and a normal
-one: $\lambda t. t$ is not weakly guarded as the variable is directly
-exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
-guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
+% (Notice the differences between a weak guarded context and a normal
+% one: $\lambda t. t$ is not weakly guarded as the variable is directly
+% exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
+% guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
+A \emph{strongly guarded} (\texttt{SG}) context is a context in which
+ each hole is underneath a visible prefix:
+\begin{alltt}
+\HOLthm{Congruence.SG_rules}\hfill{[SG_rules]}
+\end{alltt}
+And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole is under prefix or sums:
+ \begin{alltt}
+\HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
+\end{alltt}
+In the same manner, we can also define all
+variants of above concepts without \emph{direct} sums (\texttt{GCONTEXT}, \texttt{WGS} and
+\texttt{GSEQ}). A large amount of lemmas must be proved for their relationships and properties of compositions. These proofs all have long (and trivial) steps due to multiple levels of
+inductions on their structures.%  For example, one such 
 
-It's a similar process to define strongly guarded context
-(\texttt{SG}), sequential context (\texttt{SEQ}) and their
-variants without direct sums (\texttt{GCONTEXT}, \texttt{WGS},
-\texttt{GSEQ}). Some lemmas about their relationships have very long
-(but trivial) formal proofs due to multiple levels of
-inductions on context structures.%  For example, one such 
 % lemma says, for any  context $E$ which is both strongly guarded
 % and sequential (no direct sums) and another sequential context $H$ (no
 % direct sums), the composition $H \circ E$ is still both strongly
 % guarded and sequential (no direct sums):
 % \begin{alltt}
-% \HOLthm[nosp]{Congruence.SG_GSEQ_combin}
+
 % \end{alltt}
 
 % \subsection{Milner's ``unique solution of equations'' theorems}
