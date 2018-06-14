@@ -60,6 +60,7 @@ And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole i
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
 \end{alltt}
+
 In the same manner, we can also define all
 variants of above concepts without \emph{direct} sums (\texttt{GCONTEXT}, \texttt{WGS} and
 \texttt{GSEQ}). A large amount of lemmas must be proved for their relationships and properties of compositions. These proofs all have long (and trivial) steps due to multiple levels of

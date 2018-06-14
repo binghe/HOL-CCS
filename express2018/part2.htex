@@ -35,7 +35,7 @@ For this, we first
 List (\texttt{LRTC}):
 given a  labelled transition relation \texttt{R}, 
 then \texttt{LRTC R}  builds 
-the possible traces derived from \texttt{R}:
+the trace relation derived from \texttt{R}:
 \begin{alltt}
 \HOLthm{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}

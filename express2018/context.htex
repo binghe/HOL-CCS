@@ -40,6 +40,7 @@ And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole i
  \begin{alltt}
 \HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
+
 In the same manner, we can also define all
 variants of above concepts without \emph{direct} sums (\texttt{GCONTEXT}, \texttt{WGS} and
 \texttt{GSEQ}). A large amount of lemmas must be proved for their relationships and properties of compositions. These proofs all have long (and trivial) steps due to multiple levels of
