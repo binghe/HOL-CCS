@@ -20,10 +20,10 @@ two $\epsilon$-transitions:
 \begin{alltt}
 \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
 \end{alltt}
-With above definitions, we can literally define bisimulation relation following Def.\;\ref{d:wb}.
+With above definitions, we can literally define bisimulation relation following Definition~\ref{d:wb}.
 
 For bisimilarity, there're actually two equivalent definitions. A direct definition following textbooks
-is to define it as the union of all weak bisimulations, just like in Def.\;\ref{d:wb}:
+is to define it as the union of all weak bisimulations, just like in Definition~\ref{d:wb}:
 \begin{definition}{(Bisimilariy, the direct definition)}
 \label{d:wb1}
 Two processes $P$ and $Q$ are (weak) bisimilar if and only if there exists
@@ -47,24 +47,23 @@ $(P, Q) \in F(\RR)$ if
 \item the converse of (1) on the actions from $Q$
 \end{enumerate}
 \end{definition}
-Notice that Def.\;\ref{d:wb2} doesn't need the definition of
-bisimulation Def.\;\ref{d:wb}, but it seems to have all needed
-information.
-Def.\;\ref{d:wb1} and Def.\;\ref{d:wb2} are proven to be equivalent,
+Notice that Definition~\ref{d:wb2} doesn't need bisimulation as in
+Definition~\ref{d:wb}, but it seems to have all needed information.
+Definition~\ref{d:wb1} and Definition~\ref{d:wb2} are proven to be equivalent,
 but only one of them can be used as the very definition of 
 bisimilarity, while the other must be proved as a theorem.  In
-particular, if we use Def.\;\ref{d:wb2} as the very definition, the
-(later proven) equivalent Def.\;\ref{d:wb1} will serve as a connection
+particular, if we use Definition~\ref{d:wb2} as the very definition, the
+(later proven) equivalent Definition~\ref{d:wb1} will serve as a connection
 between bisimilarity and bisimulation. It turns out that, using
-Def.\;\ref{d:wb2} as definition we could have great benefits and the
-proof of Def.\;\ref{d:wb1} is quite simple, while in the other
-direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those
+Definition~\ref{d:wb2} as definition we could have great benefits and the
+proof of Definition~\ref{d:wb1} is quite simple, while in the other
+direction it's extremely hard to prove Definition~\ref{d:wb2} (and those
 ``benefits'', will show shortly) from a simple definition like
-Def.\;\ref{d:wb1}. 
+Definition~\ref{d:wb1}. 
 
 In HOL4 (Kananaskis-11 or later), if we call the following \texttt{Hol_coreln}
 command to build bisimilarity relation called \texttt{WB} (the actual
-name for $\approx$ is \texttt{WEAK_EQUIV}) following Def.\;\ref{d:wb2}:
+name for $\approx$ is \texttt{WEAK_EQUIV}) following Definition~\ref{d:wb2}:
 \begin{lstlisting}
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
@@ -136,7 +135,7 @@ asserts a set of fixed points, while \texttt{WB_coind}
 The theorem \texttt{WB_cases} was called ``property star (*)'' by Robin
 Milner. It's very useful in proving
 many results regarding bisimilarity, but it's hard to
-directly prove it from Def.\;\ref{d:wb1}. (It was a must for the
+directly prove it from Definition~\ref{d:wb1}. (It was a must for the
 original CCS formalisation by Nesi in HOL88.)%
 % \footnote{In
 %   the original CCS formalisation in HOL88, Monica Nesi has to follow
