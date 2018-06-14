@@ -1,12 +1,23 @@
 \section{Related formalisation work}
 
-Monica Nesi formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
-\cite{Nesi:2017wo} in old versions of HOL theorem prover, but the
-related proof scripts were not publically available.\footnote{Part of
- the formalization of pure CCS can be found at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}
-She was mainly focusing on writing decision procedures (ML functions) which
-automatically prove theorems showing the bisimilarity of two given CCS
+The closest to our work is Monica Nesi's.
+She made the first formalisation of CCS, using
+early versions of the HOL theorem prover (HOL88)\footnote{Part of
+ the formalization of pure CCS can be found at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}.
+Nesi's  main focus has been 
+ decision procedures (as ML functions) for
+automatically proving bisimilarities between CCS
 processes.%
+Her work has been a basis for ours. However the differences are
+substantial, both because we have used the most recent version of HOL
+(e.g., including support for coinduction) and because of the size of
+the body of the CCS theory considered. 
+
+\finish{above: is it fair?} 
+
+% formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
+% \cite{Nesi:2017wo} in old versions of HOL theorem prover, but the
+% related proof scripts were not publically available.
 % \footnote{The work is ported (by the 2nd author) from
 % HOL88 to latest HOL4, with small improvements on existing work, then
 % added the theory of context and (pre)congruence, coarsest
@@ -15,25 +26,90 @@ processes.%
 % equations/expansions/contractions et al, these additions have doubled
 % the size of original work.}
 
-Beside Nesi, there exist other CCS formalisations. Jesper Bengtson
-formalized CCS, $\pi$-calculi and $\psi$-calculi in his PhD
-thesis \cite{bengtson2010formalising} using Isabelle/HOL and its
-nominal logic. For CCS, he has formalized
-basic properties for strong/weak equivalence and observational
-congruence, however the CCS syntax doesn't have constants
-(or recursion operator), and the proved theorems also look quite
-different with their forms in textbooks.
-On the other side, Jesper
-Bengtson and Joachim Parrow made great progress on $\pi$-calculus formalization and
-proved that the algebraic axiomatization of bisimulation
-equivalence in the $\pi$-calculi is sound and complete. \cite{bengtson2007completeness}
-The other formalisation is based on Coq, done by Solange
-Coupet-Grimal in 1995, which is part of the
-``coq-contribs'' archive (Coq's official user contributed code)
-\footnote{\url{https://github.com/coq-contribs/ccs}}. This is actually
-a formalisation of transition systems without any algebraic operator,
-and covers the very basic properties of strong/weak equivalence and observational
-congruence. The last one was done by Chaudhuri et
-al. \cite{chaudhuri2014formalization} using Abella, this work
-particularily focus on bisimulation up to techniques while the CCS
-type doesn't have restriction, recursion and relabelling operators.
+%Beside Nesi, there exist other CCS formalisations. 
+Bengtson,  Parrow, and  Weber
+have made a substantial formalisation work 
+on CCS, $\pi$-calculi and $\psi$-calculi 
+into Isabelle/HOL and its
+nominal logic
+ \cite{bengtson2010formalising,bengtson2007completeness,DBLP:journals/jar/BengtsonPW16}. The main focus has been 
+ $\psi$-calculi and the handling  of name binders.
+The formalisations also  include
+ basic properties for strong and weak bisimilarities  such as
+ substitutivity and 
+ algebraic laws.
+% Jesper Bengtson's PhD thesis 
+%  \cite{bengtson2010formalising} looks  at 
+% formalizations of CCS, $\pi$-calculi and $\psi$-calculi
+% into Isabelle/HOL and its
+% nominal logic. For CCS, 
+% he has 
+%  formalized
+%  basic properties for strong/weak equivalence (congruence, basic
+%  algebraic laws), for a  and observational
+% congruence, however the CCS syntax doesn't have constants
+% (or recursion operator), using replication in place of recursion.
+% The formalisation effort has then been continued 
+%
+% On the other side, Jesper
+% Bengtson and Joachim Parrow made great progress on $\pi$-calculus
+% formalization and 
+% proved that the algebraic axiomatization of bisimulation
+% equivalence in the $\pi$-calculi is sound and
+% complete. \cite{bengtson2007completeness} 
+Other formalisation of CCS or related calculi include: 
+ Solange
+Coupet-Grimal, in 
+1995, in Coq (this  is part of the
+``coq-contribs'' archive --- Coq's official user contributed
+code\footnote{\url{https://github.com/coq-contribs/ccs}})  which is
+actually
+a formalisation of transition systems (without an algebraic structure),
+and covers  basic properties of strong and weak bisimilarities;
+and  Chaudhuri et
+al.\   \cite{chaudhuri2014formalization}  in Abella, which
+ focuses on `bisimulation up-to' techniques for strong bisimilarity 
+for  CCS and $\pi$-calculus. Formalisations less related to ours
+include
+ Kahsai and Miculan  \cite{...} for the spi-calculus    in
+Nominal Isabelle; 
+  Hirschkoff  \cite{...} for the $\pi$-calculus    in Coq. 
+
+
+% The other formalisation is based on Coq, done by Solange
+% Coupet-Grimal in 1995, which is part of the
+% ``coq-contribs'' archive (Coq's official user contributed code)
+% \footnote{\url{https://github.com/coq-contribs/ccs}}. This is actually
+% a formalisation of transition systems without any algebraic operator,
+% and covers the very basic properties of strong/weak equivalence and
+% observational 
+% congruence. 
+
+
+
+\finish{make sure we mention the papers below}
+
+\begin{itemize}
+\item
+Bengtson, J., Parrow, J.: Formalising the pi-calculus using nominal logic. Logical Methods in Computer
+Science
+5
+(2) (2008)
+
+
+\item 
+  Hirschkoff, D.: A full formalisation of pi-calculus theory in the calculus of constructions. In: E.L. Gunter,
+A.P. Felty (eds.) Proceedings TPHOLs 97,
+LNCS, vol. 1275,  Springer (1997
+
+
+\item 
+Kahsai, T., Miculan, M.: Implementing spi calculus using nominal techniques. In: 
+ Proceedings CiE 2008,
+LNCS, vol. 5028, Springer (2008)
+\end{itemize}
+ 
+
+\finish{in the references, the citation below is not complete: 
+Kaustuv Chaudhuri, Matteo Cimini, Dale Miller:
+A Lightweight Formalization of the Metatheory of Bisimulation-Up-To. CPP 2015: 157-166}
