@@ -5,24 +5,24 @@ TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex 
 
 all: htex main.pdf
 
-htex: $(MUNGE) part2.tex sos.tex bisim.tex coarsest.tex context.tex
+htex: part2.tex sos.tex bisim.tex coarsest.tex context.tex
 
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
 
-part2.tex: part2.htex
+part2.tex: part2.htex $(MUNGE)
 	$(MUNGE) < part2.htex > part2.tex
 
-sos.tex: sos.htex
+sos.tex: sos.htex $(MUNGE)
 	$(MUNGE) < sos.htex > sos.tex
 
-bisim.tex: bisim.htex
+bisim.tex: bisim.htex $(MUNGE)
 	$(MUNGE) < bisim.htex > bisim.tex
 
-coarsest.tex: coarsest.htex
+coarsest.tex: coarsest.htex $(MUNGE)
 	$(MUNGE) < coarsest.htex > coarsest.tex
 
-context.tex: context.htex
+context.tex: context.htex $(MUNGE)
 	$(MUNGE) < context.htex > context.tex
 
 clean:

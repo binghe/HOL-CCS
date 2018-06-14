@@ -121,7 +121,7 @@ We
 have formalized this property and
  called it the \emph{free action} property:
 \begin{alltt}
-\HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]]}
+\HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
 
 With this property, the formalisation of (\ref{equa:pq}) says:

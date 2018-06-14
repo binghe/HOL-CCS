@@ -18,8 +18,8 @@ contexts. The definition is inductive:
 Under above definition, we can formally define the concept of
 ``precongruence'' and ``congruence'' in the following ways:
 \begin{alltt}
-\HOLthm{Congruence.precongruence_def}
-\HOLthm{Congruence.congruence_def}
+\HOLthm[def]{Congruence.precongruence_def}
+\HOLthm[def]{Congruence.congruence_def}
 \end{alltt}
 
 A \emph{weakly guarded} (\texttt{WG}) context is a context in which each hole is
