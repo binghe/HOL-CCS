@@ -23,16 +23,13 @@ contexts. The definition is inductive:
 Under above definition, we can formally define the concept of
 ``precongruence'' and ``congruence'' in the following ways:
 \begin{alltt}
-\HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})\hfill{[precongruence_def]}
-\HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{precongruence} \HOLFreeVar{R}\hfill{[congruence_def]}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{alltt}
-
-
-\finish{
-The definintion of congruence  requires the relation to be an equivalence. This is correct.
-However the def of precongruence does not require the relation to be a preorder (ie. reflexive and transitive). Can it be added (only in the paper for now) ?
-} 
 
 A \emph{weakly guarded} context is a context in which each hole is
 underneath a  prefix (where \texttt{WG} stands for weakly guarded):
@@ -47,28 +44,34 @@ underneath a  prefix (where \texttt{WG} stands for weakly guarded):
 % one: $\lambda t. t$ is not weakly guarded as the variable is directly
 % exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 % guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
-
-In the same manner we can  define \emph{strongly guarded contexts}
-(\texttt{SG}), sequential contexts (\texttt{SEQ}), and their
-variants without  sums (\texttt{GCONTEXT}, \texttt{WGS},
-\texttt{GSEQ}). Some lemmas about their relationships have very long
-(but trivial) formal proofs due to multiple levels of
-inductions on context structures.%  For example, one such 
-
-\finish{above: not consistent with the terminology in
-  the first part; we should change part 1 to use  `strongly guarded'}
-\finish{also: in part 1 the theorems about unique solutions of plain
-  contractions say that sums can appear but only in their guarded
-  form; is this what is done in the formalisation? (this is a minor
-  point, we can adjust it later, since we do not show here the HOL definitions)}  
-
+A \emph{strongly guarded} (\texttt{SG}) context is a context in which
+ each hole is underneath a visible prefix:
+\begin{alltt}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})\hfill{[SG_rules]}
+\end{alltt}
+And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole is under prefix or sums:
+ \begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}) \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p})) \HOLSymConst{\HOLTokenConj{}}
+   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{..}\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{e\sb{\mathrm{2}}}. \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLBoundVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
+\end{alltt}
+In the same manner, we can also define all
+variants of above concepts without \emph{direct} sums (\texttt{GCONTEXT}, \texttt{WGS} and
+\texttt{GSEQ}). A large amount of lemmas must be proved for their relationships and properties of compositions. These proofs all have long (and trivial) steps due to multiple levels of
+inductions on their structures.%  For example, one such 
 
 % lemma says, for any  context $E$ which is both strongly guarded
 % and sequential (no direct sums) and another sequential context $H$ (no
 % direct sums), the composition $H \circ E$ is still both strongly
 % guarded and sequential (no direct sums):
 % \begin{alltt}
-% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLBoundVar{E}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} (\HOLBoundVar{H} \HOLSymConst{\HOLTokenCompose} \HOLBoundVar{E})
+
 % \end{alltt}
 
 % \subsection{Milner's ``unique solution of equations'' theorems}
