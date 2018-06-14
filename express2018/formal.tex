@@ -11,8 +11,9 @@ The whole formalisation can be found
 in \cite{Tian:2017wrba}  or in 
  in the official example folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
-work consists of about 20,000 lines of proof scripts in Standard ML,
-derived from an early work \cite{Nesi:1992ve} by Monica Nesi in 1992-1995.
+work consists of about 20,000 lines of proof scripts in Standard ML
+(and that follows the pioneering work by Nesi \cite{Nesi:1992ve}, in
+1992-1995). 
 
 HOL4 is written in Standard ML (ML for abbreviation), which plays three roles here:
 \begin{enumerate}
@@ -20,9 +21,14 @@ HOL4 is written in Standard ML (ML for abbreviation), which plays three roles he
 \item It's used to implement tactics (and tacticals) for writing proofs;
 \item It's used as the command language of the HOL interactive shell.
 \end{enumerate}
-Besides, HOL4 users can write arbitrary applications which leverages
-the theorem proving facility. The HOL logic language, on the other
-side, is more close to Classic ML, in which the early HOL systems were built.
+HOL4 users can write arbitrary applications which leverage
+the theorem proving facility. 
+\iflong
+The HOL logic language, on the other
+ side, is more close to Classic ML, in which the early HOL systems were built.
+\DS{removed the sentence because  it did not
+  seem important} 
+\fi
 
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphim (type
