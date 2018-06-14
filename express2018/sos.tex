@@ -17,11 +17,11 @@ the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible and invisible actions. The cardinality of
 ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' (and therefore of all
 CCS types built on top of it) 
- depends on the choice of the initial  type $\beta$.
+ depends on the choice of the initial type $\beta$.
 
 The core datatype ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS syntax, is then defined as an inductive
 datatype in HOL, based on its Datatype package ($\alpha$ is the type
-variable for recursion variables): 
+variable for recursion variables):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -43,10 +43,8 @@ operator, we have chosen to allow a  set of names as a parameter, rather than a
 the manipulation of 
  processes with different orders of
   nested restrictions.
- Also, we don't assume that al recursion are
-  guarded, i.e. any term like \texttt{var X} must appear in \texttt{P} of \texttt{rec X P}.
-\finish{do not understand above} 
-
+ Also, we don't assume that the uses of \texttt{var} are
+  guarded by \texttt{rec} of the same variable.
 
 %  (Notice the use of
 % recursition operator for representing process constants)
@@ -80,19 +78,18 @@ The transition semantics of CCS processes  follows
 the Structural Operational Semantics (SOS) rules in
 Figure~\ref{f:LTSCCS}:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{+} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{+} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM2]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[PAR1]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[PAR2]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{l}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLFreeVar{l})\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
-   \HOLFreeVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sb{\mathrm{2}}}\hfill\texttt{[PAR3]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} ((\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{label} \HOLFreeVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[RESTR]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{rf}\hfill\texttt{[RELABELING]}
-\HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{E} (\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}) \HOLFreeVar{X} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[REC]}
+\HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P}\hfill\texttt{[PREFIX]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{+} \HOLFreeVar{Q} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[SUM1]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Q} \HOLSymConst{+} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[SUM2]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{Q} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{Q}\hfill\texttt{[PAR1]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Q} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{Q} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[PAR2]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{l}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLTokenTransBegin\HOLConst{label} (\HOLConst{COMPL} \HOLFreeVar{l})\HOLTokenTransEnd \HOLFreeVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{Q} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{Q\sp{\prime}}\hfill\texttt{[PAR3]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} ((\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{label} \HOLFreeVar{l}) \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{Q}\hfill\texttt{[RESTR]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLFreeVar{Q} \HOLFreeVar{rf}\hfill\texttt{[RELABELING]}
+\HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{P} (\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{P}) \HOLFreeVar{X} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[REC]}
 \end{alltt}
-\finish{notation above and below: all E' maybe should be P'} 
+
 The rule \texttt{[REC]} (Recursion)
  says that if we substitute all appearences of variable $A$ in $E$ to
 $(\mathbf{rec}\; A\; E)$ and the resulting process has a transition to $E_1$
@@ -100,11 +97,10 @@ with action $u$, then $(\mathbf{rec}\; A\; E)$ has the same
 transition. From the HOL  viewpoint, these
 SOS rules are \emph{inductive 
   definitions} on the 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL4's 
-\texttt{Hol_reln} function.
-\finish{explain what \texttt{Hol_reln} is} 
+\texttt{Hol_reln} function (inductive relation package).
 
 A useful function that we have defined, exploiting the interplay
-between HOL4 and Standard ML (and following an idea by Nesi \cite{...})
+between HOL4 and Standard ML (and following an idea by Nesi \cite{Nesi:1992ve})
  is a complex Standard ML function
   taking a CCS process and returning a theorem indicating all its direct transitions.
 For instance, we know that the process $(a.0 | \bar{a}.0)$ has three
