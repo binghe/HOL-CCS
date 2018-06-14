@@ -1,4 +1,4 @@
- %%%% -*- Mode: LaTeX -*-
+%%%% -*- Mode: LaTeX -*-
 %%
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, coauthored by
 %% Prof. Davide Sangiorgi and Chun Tian.
@@ -20,10 +20,13 @@ two $\epsilon$-transitions:
 \begin{alltt}
 \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
 \end{alltt}
-With above definitions, we can literally define bisimulation relation following Def.\;\ref{d:wb}.
+With above definitions, we can  define bisimulation relation exactly 
+following Def.\;\ref{d:wb}.
 
-For bisimilarity, there're actually two equivalent definitions. A direct definition following textbooks
-is to define it as the union of all weak bisimulations, just like in Def.\;\ref{d:wb}:
+For defining bisimilarity, there are two possibilities. 
+The first, along the lines 
+of Definition~\ref{d:wb}, defines it
+ as the union of all bisimulations:
 \begin{definition}{(Bisimilariy, the direct definition)}
 \label{d:wb1}
 Two processes $P$ and $Q$ are (weak) bisimilar if and only if there exists
