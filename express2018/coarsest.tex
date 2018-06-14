@@ -18,11 +18,12 @@
 Bisimilarity ($\approx$) is not  congruence, since not preserved by 
 the sum operator. For this reason rooted bisimilarity has been
 introduced (Definition~\ref{d:rootedBisimilarity}). 
-We discuss in this subsection two proofs of the result stating that
+In this subsection we discuss  two proofs of the result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity: Milner's proof \cite{Mil89}, that requires
-that no process can use all available names; and van Glabbek's proof
-\cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
+bisimilarity.
+% : Milner's proof \cite{Mil89}, that requires
+% that no process can use all available names; and van Glabbek's proof
+% \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
 The `coarsest congruence contained in bisimilarity' is 
 the context closure, below called 
@@ -123,18 +124,40 @@ have formalized this property and
 \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}})\hfill{[free_action_def]]}
 \end{alltt}
 
-With this property, the formalisation of (\ref{equa:pq}) that we have
-obtained is:
-\begin{theorem}{(Coarsest congruence contained in $\wb$)}
+With this property, the formalisation of (\ref{equa:pq}) says:
+%\begin{theorem}{(Coarsest congruence contained in $\wb$)}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
 \end{alltt}
-\end{theorem}
+%\end{theorem}
 
 For contraction and rooted contraction, the situation and proof
-steps are the same:
-\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
+steps are the same, and the corresponding HOL4 theorem says:
+%\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{q}
 \end{alltt}
-\end{theorem}
+%\end{theorem}
+
+The above proof follows 
+Milner \cite{Mil89}, and requires
+ that no process uses all available names. 
+We have also formalised a different proof, 
+by
+ van Glabbek
+ \cite{vanGlabbeek:2005ur}, that does not require additional
+ assumptions. 
+The proof by van Glabbek uses transfinite induction to obtain 
+a sequence of processes (originally introduced by Klop \cite{...})
+ that are all pairwise  non-bisimilar. 
+We have formalised van Glabbek proof; however, as transfinite
+induction is not available in HOL4, 
+we have replaced it with plain induction; as a consequence, the final
+result is about a restricted class of processes (which we have taken
+to be the finite-state processes). We omit the details for lack of
+space, see \cite{..}. 
+
+
+\finish{check above} 
+
+
