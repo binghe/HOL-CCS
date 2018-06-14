@@ -62,49 +62,56 @@ direction it's extremely hard to prove Def.\;\ref{d:wb2} (and those
 ``benefits'', will show shortly) from a simple definition like
 Def.\;\ref{d:wb1}. 
 
-In HOL4 (Kananaskis-11 or later), if we call \texttt{Hol_coreln}
-command with the if-then rule in Def.\;\ref{d:wb2} (c.f. actual proof
-scripts for details), the command returns the following 3 theorems:
+In HOL4 (Kananaskis-11 or later), if we call the following \texttt{Hol_coreln}
+command to build bisimilarity relation called \texttt{WB} (the actual
+name for $\approx$ is \texttt{WEAK_EQUIV}) following Def.\;\ref{d:wb2}:
+\begin{lstlisting}
+val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
+    (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
+       (!l.
+	 (!P'. TRANS P  (label l) P' ==>
+	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
+	 (!Q'. TRANS Q (label l) Q' ==>
+	       (?P'. WEAK_TRANS P  (label l) P' /\ WB P' Q'))) /\
+       (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
+       (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
+      ==> WB P Q)`;
+\end{lstlisting}
+the command returns 3 theorems in which the 2nd and 3rd will
+completely capture the characters of bisimilarity:
 \begin{enumerate}
-\item The original input rules (now becomes a theorem):
-\begin{small}
-\begin{alltt}
-\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
-\end{alltt}
-\end{small}
 \item The coinduction principle for $\wb$:
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
+\HOLthm[nosp]{Example.WB_coind}\hfill{[WB_coind]}
 \end{alltt}
 \end{small}
 \item The fixed point (or cases) theorem for $\wb$:
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
+\HOLthm[nosp]{Example.WB_cases}\hfill{[WB_cases]}
 \end{alltt}
 \end{small}
 \end{enumerate}
 
-In case of single rule, \texttt{WEAK_EQUIV_rules} can be derived from \texttt{WEAK_EQUIV_cases}.
-The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
+The coinduction principle \texttt{WB_coind} says that any
 bisimulation is contained in the resulting relation (i.e. it's
 largest), but it didn't limit the resulting relation into any kind of
 fixed point, because even the universal relation (set of all pairs)
 could fit with this theorem; the
-purpose of the fixed point theorem \texttt{WEAK_EQUIV_cases} is to
+purpose of the fixed point theorem \texttt{WB_cases} is to
 further assert that the resulting relation is indeed a
-fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
+fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
 together make sure that bisimilarity is the greatest
 fixed point.\footnote{There were discussions on why
-  \texttt{WEAK_EQUIV_cases} cannot be used for defining
+  \texttt{WB_cases} cannot be used for defining
   bisimilairty, because there're many different relations satisfying
   this ``definition''.
-Now the reason is quite clear, as \texttt{WEAK_EQUIV_cases} only
-asserts a set of fixed points, while \texttt{WEAK_EQUIV_coind}
-  asserts the greatest one in them. (c.f. p.\;49 of \cite{Gorrieri:2015jt} and p.\;88 of \cite{Mil89})}
+Now the reason is quite clear, as \texttt{WB_cases} only
+asserts a set of fixed points, while \texttt{WB_coind}
+  asserts the greatest one in them. (c.f. p.\;88 of \cite{Mil89})}
 
-The theorem \texttt{WEAK_EQUIV_cases} was called ``property star (*)'' by Robin
+The theorem \texttt{WB_cases} was called ``property star (*)'' by Robin
 Milner. It's very useful in proving
 many results regarding bisimilarity, but it's hard to
 directly prove it from Def.\;\ref{d:wb1}. (It was a must for the
