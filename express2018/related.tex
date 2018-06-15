@@ -1,21 +1,21 @@
 \section{Related formalisation work}
 \label{s:rel}
 
-Monica Nesi formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
-\cite{Nesi:2017wo} in old versions of HOL theorem prover.\footnote{Part of
- the proof scripts for pure CCS now is available at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}.
-Nesi's main focus was on
+Monica Nesi was the first in this area, she formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
+\cite{Nesi:2017wo} in old versions of HOL theorem prover.
+%\footnote{Part of
+% the proof scripts for pure CCS now is available at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}.
+Her main focus was on
  decision procedures (as ML functions) for
 automatically proving bisimilarities between CCS
-processes. She stopped once all needed algebraic laws were proved. We
-first ported her pure CCS formalisation to HOL4 with many essential
-changes and then added new concepts and deep theorems. The total lines of
-proof scripts gets doubled for now.
+processes. We
+first ported her work pure CCS formalisation to HOL4 with essential
+changes and new contents.
 
 Bengtson,  Parrow and Weber
 have made a substantial formalisation work 
 on CCS, $\pi$-calculi
-\cite{bengtson2010formalising,bengtson2007formalising,bengtson2007completeness}
+\cite{bengtson2010formalising,bengtson2007completeness,bengtson2007formalising}
 and $\psi$-calculi 
 using Isabelle/HOL and its nominal datatype package, with main focus on the handling of name binders.
 % Jesper Bengtson's PhD thesis 
@@ -42,15 +42,6 @@ Coupet-Grimal\footnote{\url{https://github.com/coq-contribs/ccs}} in Coq
 and Chaudhuri et al.\;\cite{chaudhuri2015lightweight} in Abella. The
 latter focuses on `bisimulation up-to' techniques for strong bisimilarity 
 for CCS and $\pi$-calculus.
-Formalisations less related to ours
-include Kahsai and Miculan \cite{kahsai2008implementing} for the spi
-calculus  in Isabelle, and Hirschkoff \cite{hirschkoff1997full} for the $\pi$-calculus in Coq.
-
-% The other formalisation is based on Coq, done by Solange
-% Coupet-Grimal in 1995, which is part of the
-% ``coq-contribs'' archive (Coq's official user contributed code)
-% \footnote{\url{https://github.com/coq-contribs/ccs}}. This is actually
-% a formalisation of transition systems without any algebraic operator,
-% and covers the very basic properties of strong/weak equivalence and
-% observational 
-% congruence. 
+% Formalisations less related to ours
+% include Kahsai and Miculan \cite{kahsai2008implementing} for the spi
+% calculus  in Isabelle, and Hirschkoff \cite{hirschkoff1997full} for the $\pi$-calculus in Coq.

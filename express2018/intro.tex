@@ -6,7 +6,7 @@ landmark CCS book \cite{Mil89} is the
 componentwise bisimilar if they are solutions 
 of the same system of equations.
 This method  is important in verification techniques and tools
-based on algebraic reasoning \cite{theoryAndPractice,BaeBOOK}. 
+based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice}. 
 
 In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
 which practically is the most relevant case), however, 
@@ -43,12 +43,12 @@ bisimilarity (e.g. the fixed-point and substitutivity properties),
 their algebraic theory, various versions of ``bisimulation up to''
 techniques (e.g., bisimulation up-to bisimilarity),
 the main properties  of the rooted bisimilarity (the congruence induced by weak
-bisimilarity, also called observation congruence). Concerning rooed bisimilarity, the formalisation
+bisimilarity, also called observation congruence). Concerning rooted bisimilarity, the formalisation
 includes Hennessy and Deng lemmas, and two proofs that rooted bisimilarity is the largest
 congruence included in bisimilarity:
 one as in Milner's
 book,  requiring the hypothesis that  no processes can use all labels; the other without
-such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}
+such hypothesis, essentially formalising van Glabbeek's paper \cite{vanGlabbeek:2005ur}
 (such proof however follows the structure of the ordinal numbers, which cannot be handled
 in HOL, and therefore it is restricted to finite-state processes ).
 Similar theorems are proved for the rooted contraction preorder.
@@ -120,7 +120,7 @@ of overlooking or missing details as in hand-written proofs.
 
 
 \paragraph{Structure of the paper} 
-Section~\ref{ss:ccs} presens basic background material on CCS,
+Section~\ref{ss:ccs} presents basic background materials on CCS,
 including its syntax, operational semantics, bisimilarity and rooted
 bisimilarity. Section~\ref{s:eq} discussed equations and contractions.
  Section~\ref{ss:new} presents rooted contraction and the related

@@ -36,7 +36,7 @@ val _ = Datatype `CCS = nil
 We have added some  grammar support,
  using HOL powerful `pretty printer', to represent CCS
 processes in more readable forms (see the `HOL (abbrev.)'
-column of Table \ref{tab:ccsoperator}; the table summarises 
+column of Table \ref{tab:ccsoperator}; the table summarizes 
 the main syntactic notations for CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
@@ -47,7 +47,7 @@ the manipulation of
 %  guarded by \texttt{rec} of the same variable.
 
 %  (Notice the use of
-% recursition operator for representing process constants)
+% recursion operator for representing process constants)
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -91,7 +91,7 @@ Figure~\ref{f:LTSCCS}:
 \end{alltt}
 
 The rule \texttt{[REC]} (Recursion)
- says that if we substitute all appearences of variable $A$ in $E$ to
+ says that if we substitute all appearances of variable $A$ in $E$ to
 $(\mathbf{rec}\; A\; E)$ and the resulting process has a transition to $E_1$
 with action $u$, then $(\mathbf{rec}\; A\; E)$ has the same
 transition. From the HOL  viewpoint, these

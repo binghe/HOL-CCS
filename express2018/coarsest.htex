@@ -13,7 +13,7 @@
 % which ordinal theory is required.  Actually even the relationship
 % between its name and statement is not well explained in many CCS
 % textbooks. But van Glabbeek's paper has given the so far clearest
-% explainion, here we briefly repeat his arguments:
+% explanation, here we briefly repeat his arguments:
 
 Bisimilarity ($\approx$) is not  congruence, since not preserved by 
 the sum operator. For this reason rooted bisimilarity has been
@@ -42,7 +42,7 @@ below called \emph{sum equivalence} and written $\approx^+$:
 \end{alltt}
 
 
-% it doesn't satisfy subsitutivity on direct sums (but if the CCS syntax
+% it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
 % is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
 % congruence). The purpose is to find a coarsest congruence contained in
 % weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
@@ -56,7 +56,7 @@ below called \emph{sum equivalence} and written $\approx^+$:
 % \begin{alltt}
 % \HOLthm[def]{CoarsestCongr.WEAK_CONGR}
 % \end{alltt}
-% It can be shown that any such (pre)congruence closure is automatically coarset.
+% It can be shown that any such (pre)congruence closure is automatically coarsest.
 %
 % Now it remains to prove that, the congrunce relation built by above
 % two quite different approaches actually coincide. To achive this goal,
@@ -118,7 +118,7 @@ initial weak transitions (those directly emanating from
 %   \emph{each} of them didn't use up all labels on first weak
 %   transition, while the union of these labels are all labels.}
 We
-have formalized this property and
+have formalised this property and
  called it the \emph{free action} property:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}

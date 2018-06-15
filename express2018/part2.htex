@@ -73,7 +73,7 @@ a list of actions);
 it says that a
  weak transition $P\overset{u}{\Rightarrow}P'$ is a  trace with a
  non-empty 
-action list, i.e., either without any (visible) label if $u = \tau$, orelse 
+action list, i.e., either without any (visible) label if $u = \tau$, or else 
 if $u \neq \tau$ then $u$ is the unique label in the list: 
 %\begin{lemma}
 % A weak transition $P\overset{u}{\Rightarrow}P'$ is a just trace with non
@@ -122,7 +122,7 @@ At the end the
 two proofs are very similar, mostly because the only property we need
 from (rooted) contraction is its precongruence. 
 (Having proved
-the precongruence property for the rooted contracion, 
+the precongruence property for the rooted contraction, 
 we can use the
 plain version of weakly-guarded expressions with sums
 included.) Below is the formally verified version of

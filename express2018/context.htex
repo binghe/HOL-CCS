@@ -3,7 +3,7 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\subsection{Context, guardness and (pre)congruence}
+\subsection{Context, guardedness and (pre)congruence}
 
 % We need to find a suitable formal definition of 
 % context. There're multiple ways. Here 
@@ -67,7 +67,7 @@ inductions on their structures.%  For example, one such
 % $X$'' any more, as equation variable doesn't appear in $E$ at
 % all. Under these simplifications, the formal proof of Milner's unique
 % solution of equations theorem for $\sim$ is a literal mapping for informal
-% proofs based on bisimulation upto $\sim$, induction and case analysis
+% proofs based on bisimulation up to $\sim$, induction and case analysis
 % of weakly guarded contexts. Below is the formal version of Lemma 4.13
 % and Proposition 4.14 in Milner's book:
 

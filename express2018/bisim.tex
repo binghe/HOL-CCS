@@ -36,7 +36,13 @@ Precisely we call
 the \texttt{Hol_coreln}
 command as follows (where  \texttt{WB} is meant to be bisimilarity;
 recall also that, in HOL, {\tt !} and  {\tt ?}  stand for universal and
-existential quantifiers):
+existential quantifiers), which returns 3 theorems. We report below  two of them, 
+\texttt{WB_coind} and \texttt{WB_cases},
+which 
+express the coinduction proof method for bisimilarity 
+(any bisimulation is contained in bisimilarity)
+and the fixed-point property of bisimilarity
+(bisimilarity itself is a bisimulation, thus the largest bisimulation):
 \begin{lstlisting}
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
@@ -49,14 +55,6 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
      ==> WB P Q)`;
 \end{lstlisting}
-The output of the command  consists of 
- 3 theorems; we report below  two of them, 
-\texttt{WB_coind} and \texttt{WB_cases},
-which 
-express the coinduction proof method for bisimilarity 
-(any bisimulation is contained in bisimilarity)
-and the fixed-point property of bisimilarity
-(bisimilarity itself is a bisimulation, thus the largest bisimulation): 
 \begin{enumerate}
 \item 
 \begin{small}
