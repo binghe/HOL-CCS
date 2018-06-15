@@ -49,13 +49,12 @@ each $E_i$ only makes use of guarded sums.
  
 \begin{lemma}
 \label{l:uptocon}
-Suppose $\til P$ and $\til Q$ are solutions  for $\wb$
- of a system of weakly-guarded
-contractions that uses  weakly-guarded sums.
-For any context $\qct$ that uses  weakly-guarded sums, 
+Suppose $\til P$ and $\til Q$ are solutions  for $\mcontrBIS$
+ of a system of weakly-guarded contractions (no direct sums).
+For any context $\qct$ (no direct sums),
 if  $\ct{\til P}\Arr{\mu}  R$,
  then 
-there is a  context $\qctp$ that uses  weakly-guarded sums
+there is a context $\qctp$ (no direct sums)
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
