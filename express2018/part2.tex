@@ -125,8 +125,8 @@ the following ``unfolding'' lemma:\vspace{-1em}
 \end{alltt}
 It roughly says, for any context $C$ and weakly guarded expression
 $E$, if $C \circ E^n[P] \overset{xs}{\Longrightarrow} P'$ and the length
-of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$, meaning
-it's not touched during the transitions. Without traces it is
+of actions $xs \leqslant n$, then $P'$ has the form of $C'[P]$, meaning
+$P$ is not touched during the transitions. Without using traces it is
 impossible to reason on the length of intermediate actions behind weak transitions.
 
 With all above work, finally we can formally prove
