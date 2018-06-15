@@ -5,15 +5,14 @@
 
 \subsection{CCS and its transitions by SOS rules}
 
-In the formalisation of CCS, 
+In our formalisation of CCS, 
 the type ``\HOLty{:'b Label}'' ($\beta$ is a
 type variable) accounts for visible actions, divided into input
 and output actions:
 \begin{lstlisting}
 val _ = Datatype `Label = name 'b | coname 'b`;
 \end{lstlisting}
-Then
-the type ``\HOLty{:'b Action}'' is the
+And the type ``\HOLty{:'b Action}'' is the
 union of all visible and invisible actions. The cardinality of
 ``\HOLty{:'b Action}'' (and therefore of all
 CCS types built on top of it) 

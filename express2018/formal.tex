@@ -15,21 +15,6 @@ work consists of about 20,000 lines of proof scripts in Standard ML
 (and that follows the pioneering work by Nesi \cite{Nesi:1992ve}, in
 1992-1995). 
 
-HOL4 is written in Standard ML (ML for abbreviation), which plays three roles here:
-\begin{enumerate}
-\item It serves as the underlying implementation language for the core HOL engine;
-\item it is used to implement tactics (and tacticals) for writing proofs;
-\item it is used as the command language of the HOL interactive shell.
-\end{enumerate}
-HOL4 users can write arbitrary applications which leverage
-the theorem proving facility. 
-\iflong
-The HOL logic language, on the other
- side, is more close to Classic ML, in which the early HOL systems were built.
-\DS{removed the sentence because  it did not
-  seem important} 
-\fi
-
 Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
 choice operator, axiom of infinity, and rank-1 polymorphism (type
 variables). HOL4 implements the original HOL logics, 
@@ -45,6 +30,21 @@ As a result,
 formal theories in HOL can be easily migrated (sometimes even
 automatically) into other theorem provers.
 
+HOL4 is written in Standard ML (ML for abbreviation), which plays three roles here:
+\begin{enumerate}
+\item It serves as the underlying implementation language for the core HOL engine;
+\item it is used to implement tactics (and tacticals) for writing proofs;
+\item it is used as the command language of the HOL interactive shell.
+\end{enumerate}
+Besides, HOL4 users usually write complex automatic
+verification tools (in the same language) by calling HOL's interactive theorem proving facilities.
+\iflong
+The HOL logic language, on the other
+ side, is more close to Classic ML, in which the early HOL systems were built.
+\DS{removed the sentence because  it did not
+  seem important} 
+\fi
+
 % \finish{below: to be reformulated (by Davide) later} 
 % We will not repeat all definitions and theorems of CCS again by their
 % formalized versions. Instead, we just focus on several highlights in
@@ -57,9 +57,10 @@ automatically) into other theorem provers.
 %   contractions theorem;
 % \end{enumerate}\finish{TODO: need updates}
 
-In the
+In this
 formalisation we consider only single equations/contractions. 
-This considerably simplifies the  reading of the HOL scripts.
+This setup considerably simplified the required proof steps while still aligned with
+their informal proofs.
 %  (on 
 % the extension  to multiple equations/contractions
 % see also  Section~\ref{s:concl}).
