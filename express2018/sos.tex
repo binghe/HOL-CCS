@@ -19,17 +19,19 @@ CCS types built on top of it)
  depends on the choice of the initial type $\beta$.
 
 The core datatype ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS syntax, is then defined as an inductive
-datatype in HOL, based on its Datatype package ($\alpha$ is the type
-variable for recursion variables):
+datatype in HOL, based on its Datatype package (here \texttt{'a} as $\alpha$
+is the type
+variable for recursion variables, \texttt{'b} as $\beta$ is the type
+variable for actions):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
-		      | var 'A
+		      | var 'a
 		      | prefix ('b Action) CCS
 		      | sum CCS CCS
 		      | par CCS CCS
 		      | restr (('b Label) set) CCS
 		      | relab CCS ('b Relabeling)
-		      | rec 'A CCS`;
+		      | rec 'a CCS`;
 \end{lstlisting}
 
 We have added some  grammar support,

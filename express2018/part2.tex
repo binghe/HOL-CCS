@@ -122,18 +122,12 @@ the following `unfolding' lemma:\vspace{-1em}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLBoundVar{Q}) \HOLFreeVar{xs} (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})
 \end{small}
 \end{alltt}
+\vspace{-1em}
 It roughly says that, for any context $C$ and weakly guarded expression
 $E$, if $C [\, E^n[P]\,] \overset{xs}{\Longrightarrow} P'$ and the length
 of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$ (meaning
 that $P$ is not touched during the transitions). Traces are necessary
  to  reason about the length of intermediate actions in weak transitions.
-% =======
-% It roughly says, for any context $C$ and weakly guarded expression
-% $E$, if $C \circ E^n[P] \overset{xs}{\Longrightarrow} P'$ and the length
-% of actions $xs \leqslant n$, then $P'$ has the form of $C'[P]$, meaning
-% $P$ is not touched during the transitions. Without using traces it is
-% impossible to reason on the length of intermediate actions behind weak transitions.
-% >>>>>>> cc6dee720d90c66ca8c543bc3826fbc1f9c81686
 
 With all above work, finally we can formally prove
 Theorem~\ref{t:contraBisimulationU} (here \texttt{WGS} stands for
