@@ -19,9 +19,8 @@ contexts. The definition is inductive:
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{e} \HOLBoundVar{t}))) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLBoundVar{e} \HOLBoundVar{t}) \HOLBoundVar{rf})\hfill{[CONTEXT_rules]}
 \end{alltt}
-
-Under above definition, we can formally define the concept of
-``precongruence'' and ``congruence'' in the following ways:
+We can then define
+`precongruence' and `congruence' thus:
 \begin{alltt}
 \HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{PreOrder} \HOLFreeVar{R}
@@ -62,9 +61,11 @@ And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole i
 \end{alltt}
 
 In the same manner, we can also define all
-variants of above concepts without \emph{direct} sums (\texttt{GCONTEXT}, \texttt{WGS} and
-\texttt{GSEQ}). A large amount of lemmas must be proved for their relationships and properties of compositions. These proofs all have long (and trivial) steps due to multiple levels of
-inductions on their structures.%  For example, one such 
+variants of above concepts with only weakly-guarded sums (\texttt{GCONTEXT}, \texttt{WGS} and
+\texttt{GSEQ}). Several lemmas have then to be proved for ther
+relationships among these kinds of contexts and properties about their
+compositions. These proofs are usually tedious but  long,  due to multiple levels of
+inductions on the structure of the contexts.%  For example, one such 
 
 % lemma says, for any  context $E$ which is both strongly guarded
 % and sequential (no direct sums) and another sequential context $H$ (no

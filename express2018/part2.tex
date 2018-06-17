@@ -92,8 +92,7 @@ if $u \neq \tau$ then $u$ is the unique label in the list:
 \end{alltt}
 %\end{lemma}
 
-Now we show the formalized statements of Lemma~\ref{l:uptocon}, which
-is quite long:\vspace{-1em}
+We show the  formalized statement of Lemma~\ref{l:uptocon}:\vspace{-1em}
 \begin{alltt}
 \begin{small}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E}. \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E} \HOLFreeVar{Q}) \HOLSymConst{\HOLTokenImp{}}
@@ -112,8 +111,8 @@ is quite long:\vspace{-1em}
                (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLFreeVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLFreeVar{Q})
 \end{small}
 \end{alltt}
-\vspace{-1em} Traces were involved in the proof of above lemma by using
-the following ``unfolding'' lemma:\vspace{-1em}
+\vspace{-1em} Traces are introduced in the proof of above lemma via 
+the following `unfolding' lemma:\vspace{-1em}
 \begin{alltt}
 \begin{small}
 \HOLTokenTurnstile{} \HOLConst{GCONTEXT} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLFreeVar{P}) \HOLFreeVar{xs} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
@@ -123,15 +122,15 @@ the following ``unfolding'' lemma:\vspace{-1em}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLBoundVar{Q}) \HOLFreeVar{xs} (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})
 \end{small}
 \end{alltt}
-It roughly says, for any context $C$ and weakly guarded expression
-$E$, if $C \circ E^n[P] \overset{xs}{\Longrightarrow} P'$ and the length
-of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$, meaning
-it's not touched during the transitions. Without traces it is
-impossible to reason on the length of intermediate actions behind weak transitions.
+It roughly says that, for any context $C$ and weakly guarded expression
+$E$, if $C [\, E^n[P]\,] \overset{xs}{\Longrightarrow} P'$ and the length
+of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$ (meaning
+that $P$ is not touched during the transitions). Traces are necessary
+ to  reason about the length of intermediate actions in weak transitions.
 
 With all above work, finally we can formally prove
-Theorem~\ref{t:contraBisimulationU}: (here \texttt{WGS} stands for
-`weakly guarded context with weakly-guarded sums')
+Theorem~\ref{t:contraBisimulationU} (here \texttt{WGS} stands for
+`weakly guarded context with weakly-guarded sums'):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
 \end{alltt}
@@ -142,22 +141,21 @@ The formal proof of ``unique solution of rooted contractions theorem''
 (Theorem~\ref{t:rcontraBisimulationU}) has the
 same initial proof steps as Theorem~\ref{t:contraBisimulationU}; 
 it then requires a
-few steps to handle  rooted bisimilarity in the conclusion. 
-At the end the
+few more steps to handle  rooted bisimilarity in the conclusion. 
+Overall  the
 two proofs are very similar, mostly because the only property we need
 from (rooted) contraction is its precongruence. 
-(Having proved
-the precongruence property for the rooted contraction, 
-we can use the
-plain version of weakly-guarded expressions with sums
-included.) Below is the formally verified version of
-Theorem~\ref{t:rcontraBisimulationU}:
+ Below is the formally verified version of
+Theorem~\ref{t:rcontraBisimulationU}
+(having proved
+the precongruence of rooted contraction, 
+we can use  weakly-guarded expressions,   without constraints on  sums;
+that is, \texttt{WG} in place of \texttt{WGS}):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
 \end{alltt}
-
-Having no constraints on sums, the result is
- similar with Milner's original `unique solution of
+Having removed the  constraints on sums, the result is
+ similar to Milner's original `unique solution of
 equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
 the same
 weakly guarded  condition (\texttt{WG}) is required:

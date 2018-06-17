@@ -50,11 +50,14 @@ each $E_i$ only makes use of guarded sums.
 \begin{lemma}
 \label{l:uptocon}
 Suppose $\til P$ and $\til Q$ are solutions  for $\mcontrBIS$
- of a system of weakly-guarded contractions (no direct sums).
-For any context $\qct$ (no direct sums),
+ of a system of weakly-guarded contractions that uses 
+weakly-guarded sums.
+For any context $\qct$  that uses 
+weakly-guarded sums,
 if  $\ct{\til P}\Arr{\mu}  R$,
  then 
-there is a context $\qctp$ (no direct sums)
+there is a context $\qctp$  that uses 
+weakly-guarded sums
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
@@ -119,7 +122,7 @@ $\qct$} \} \, .
 \section{Rooted contraction}
 \label{ss:new}
 
-The unique solution theorem of Section~\ref{ss:SysContr} require a
+The unique solution theorem of Section~\ref{ss:SysContr} requires a
 constrained syntax for sums, due to the congruence and precongruence
 problems of bisimilarity and contraction with such operator. 
 We show here that the constraints can be
@@ -159,7 +162,7 @@ largest precongruence contained in $\contr$.
 \end{theorem}  
 The proof of this result is along the lines of the analogous result
 for rooted bisimilarity with respect to bisimilarity. 
-Similarly one can define and handle the rooted variant of the expansion preorder. 
+%Similarly one can define and handle the rooted variant of the expansion preorder. 
 
 For a system of contraction, the meaning of 
 `solution  for $\rcontr$' and of 

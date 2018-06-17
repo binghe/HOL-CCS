@@ -11,11 +11,12 @@ The whole formalisation can be found
 in \cite{Tian:2017wrba}  or in 
  in the official example folder of HOL4 source
 code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
-work consists of about 20,000 lines of proof scripts in Standard ML
-(and that follows the pioneering work by Nesi \cite{Nesi:1992ve}, in
-1992-1995). 
+work consists of about 20,000 lines of proof scripts in Standard ML;
+it develops
+some pioneering work by Nesi \cite{Nesi:1992ve}, in
+1992-1995. 
 
-Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hibert
+Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hilbert
 choice operator, axiom of infinity, and rank-1 polymorphism (type
 variables). HOL4 implements the original HOL logics, 
 in contrast with 
@@ -36,8 +37,9 @@ HOL4 is written in Standard ML (ML for abbreviation), which plays three roles he
 \item it is used to implement tactics (and tacticals) for writing proofs;
 \item it is used as the command language of the HOL interactive shell.
 \end{enumerate}
-Besides, HOL4 users usually write complex automatic
-verification tools (in the same language) by calling HOL's interactive theorem proving facilities.
+Further, in the same language
+ HOL4 users can write complex automatic
+verification tools  by calling HOL's interactive theorem proving facilities.
 \iflong
 The HOL logic language, on the other
  side, is more close to Classic ML, in which the early HOL systems were built.
@@ -59,8 +61,11 @@ The HOL logic language, on the other
 
 In this
 formalisation we consider only single equations/contractions. 
-This setup considerably simplified the required proof steps while still aligned with
-their informal proofs.
+This  %considerably
+ simplifies the required proof steps in HOL   while enhancing the
+ reading of the scripts.
+%   still aligned with
+% their informal proofs.
 %  (on 
 % the extension  to multiple equations/contractions
 % see also  Section~\ref{s:concl}).

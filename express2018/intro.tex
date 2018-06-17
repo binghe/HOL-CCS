@@ -11,21 +11,22 @@ based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice}.
 In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
 which practically is the most relevant case), however, 
 Milner's proof method has severe syntactical limitations. 
-To overcome such limitations, Sangiorgi proposes to replace
-equations with  special inequations called
+A way for  overcoming such limitations is to replace 
+equations
+ with  special inequations called
 \emph{contractions} \cite{sangiorgi2015equations}. Contraction is a
 preorder that, roughly, places some efficiency
-constraints on processes.  Uniqueness of the solutions of a system of contractions
+constraints on processes.  Uniqueness of the solution of a system of contractions
  is defined as with systems of equations:  
 any two solutions must be bisimilar.
-The difference with equations is in the meaning of solution:
+The difference with equations is in the meaning of a solution:
 in the case of contractions
 the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem can be
 removed.  One constraint that still remains in
 \cite{sangiorgi2015equations} is on occurrences of the sum operator,
-due to the failure of substitutivity of contraction w.r.t. such operator.
+due to the failure of the substitutivity of contraction for  such an operator.
 
 
 The main goal  of the work described in this paper is 
@@ -40,20 +41,19 @@ core of the theory of CCS \cite{Mil89}
  relies on a number of more fundamental results):
 indeed the formalisation encompasses the basic properties of strong and weak
 bisimilarity (e.g. the fixed-point and substitutivity properties), 
-their algebraic theory, various versions of ``bisimulation up to''
+their basic algebraic theory, various versions of ``bisimulation up to''
 techniques (e.g., bisimulation up-to bisimilarity),
 the main properties  of the rooted bisimilarity (the congruence induced by weak
-bisimilarity, also called observation congruence). Concerning rooted bisimilarity, the formalisation
+bisimilarity, also called observation congruence), and of the expansion preorder (an
+efficiency-like refinement of bisimilarity). Concerning rooted bisimilarity, the formalisation
 includes Hennessy and Deng lemmas, and two proofs that rooted bisimilarity is the largest
 congruence included in bisimilarity:
 one as in Milner's
 book,  requiring the hypothesis that  no processes can use all labels; the other without
 such hypothesis, essentially formalising van Glabbeek's paper \cite{vanGlabbeek:2005ur}
-(such proof however follows the structure of the ordinal numbers, which cannot be handled
+(such a proof however follows the structure of the ordinal numbers, which cannot be handled
 in HOL, and therefore it is restricted to finite-state processes ).
 Similar theorems are proved for the rooted contraction preorder.
-
-  
 In this respect,  the work is an extensive experiment with the use of the HOL theorem prover and its
 most recent developments, including a package  for expressing coinductive definitions.
 The
@@ -66,10 +66,11 @@ further refining the theory of unique solutions.
 In particular, the existing theory  placed limitations on the body of the contractions due to the
 substitutivity problems of weak bisimilarity and other behavioural relations with respect
 to the sum operator.  
-We have thus refined the proof  technique based on contractions by moving to the 
+We have thus refined the proof  technique based on contractions by moving to  
 \emph{rooted contraction}, that is, the coarsest (pre)congruence contained in the contraction
-preorder.  Using rooted contraction one obtains a unique-solution theorem that is valid for
-\emph{rooted bisimilarity} (hence also for bisimilarity itself), and without syntactic
+preorder.  The resulting 
+ unique-solution theorem is valid for
+\emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
 constraints on the occurrences of sums.   
 
 % \finish{ I had to remove the reference \cite{Tian:2017wrba} here
@@ -87,7 +88,7 @@ contraction preorder as an auxiliary relation, and other unique solution results
 the one for rooted in which
 the auxiliary relation is rooted contraction); various forms of enhancement of the bisimulation
 proof method (the `up-to' techniques).  
-In these cases, there are only a few places in which the HOL scripts have to be modified.
+In these cases,  moving between proofs there are only a few places in which the HOL scripts have to be modified.
 Then the successful termination of the scripts  gives us a guarantee that the proof is
 completed,  removing the risk 
 of overlooking or missing details as in hand-written proofs. 

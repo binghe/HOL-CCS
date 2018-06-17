@@ -27,7 +27,8 @@ bisimilarity.
 
 The `coarsest congruence contained in bisimilarity' is 
 the context closure, below called 
-``weak bisimilarity congruence'' and written $[\approx]$, formalised thus:
+\emph{weak bisimilarity congruence}   and % written $[\approx]$, 
+formalised thus:
 \begin{alltt}
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))\hfill{[CC_def]}
@@ -148,14 +149,16 @@ by
  \cite{vanGlabbeek:2005ur}, that does not require additional
  assumptions. 
 The proof by van Glabbeek uses transfinite induction to obtain 
-a sequence of processes (originally introduced by Jan Willem Klop, in
-personal communication with van Glabbeek)
+a sequence of processes %(introduced by  Klop)
  that are all pairwise non-bisimilar. 
-We have formalised van Glabbeek's proof; however, as the typed logic
-implemented in various HOL systems (including Isabelle/HOL) is not
+We have formalised van Glabbeek's proof; however, as 
+the HOL
+the typed logic
+%implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible ordinal values \cite{norrish2013ordinals}, we
-cannot precisely duplicate this proof. Instead,
-we have replaced it with plain induction; as a consequence, the final
+we have replaced transfinite induction with plain induction; as a consequence, the final
 result is about a restricted class of processes (which we have taken
 to be the finite-state processes). We omit the details for lack of
-space, see \cite{Tian:2017wrba} for details. 
+space. %, see \cite{Tian:2017wrba} for details. 
+
+%cannot precisely duplicate this proof. Instead,

@@ -1,23 +1,25 @@
 \section{Related formalisation work}
 \label{s:rel}
 
-Monica Nesi was the first in this area, she formalized both pure CCS \cite{Nesi:1992ve} and Value-Passing CCS
-\cite{Nesi:2017wo} in old versions of HOL theorem prover.
+The closest of our work is Monica Nesi's \cite{Nesi:1992ve,Nesi:2017wo}. She has made
+the first formalization of CCS,  using early versions of the HOL theorem prover.
+% both pure CCS  and Value-Passing CCS
+%\cite{Nesi:2017wo} in old versions of HOL theorem prover.
 %\footnote{Part of
-% the proof scripts for pure CCS now is available at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}.
-Her main focus was on
+% the proof scripts for pure CCS now is available at \url{https://github.com/binghe/informatica-public/tree/master/CCS2/CCS-Nesi}.}. 
+Her main focus is  on
  decision procedures (as ML functions) for
 automatically proving bisimilarities between CCS
-processes. We
-first ported her work pure CCS formalisation to HOL4 with essential
-changes and new contents.
+processes.  Her work has been a basis for ours. However, the differences are substantial,
+both because we have used the most recent version of HOL, and because of the spectrum of
+the theory considered.
 
 Bengtson,  Parrow and Weber
 have made a substantial formalisation work 
 on CCS, $\pi$-calculi
-\cite{bengtson2010formalising,bengtson2007completeness,bengtson2007formalising}
 and $\psi$-calculi 
-using Isabelle/HOL and its nominal datatype package, with main focus on the handling of name binders.
+using Isabelle/HOL and its nominal datatype package, with main focus on the handling of
+name binders \cite{bengtson2010formalising,bengtson2007completeness,bengtson2007formalising}.
 % Jesper Bengtson's PhD thesis 
 %  \cite{bengtson2010formalising} looks  at 
 % formalizations of CCS, $\pi$-calculi and $\psi$-calculi

@@ -34,15 +34,17 @@ This essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. 
 Precisely we call 
 the \texttt{Hol_coreln}
-command as follows (where  \texttt{WB} is meant to be bisimilarity;
-recall also that, in HOL, {\tt !} and  {\tt ?}  stand for universal and
-existential quantifiers), which returns 3 theorems. We report below  two of them, 
+command as follows. It returns 3 theorems; we report below  two of them, 
 \texttt{WB_coind} and \texttt{WB_cases},
 which 
 express the coinduction proof method for bisimilarity 
 (any bisimulation is contained in bisimilarity)
 and the fixed-point property of bisimilarity
-(bisimilarity itself is a bisimulation, thus the largest bisimulation):
+(bisimilarity itself is a bisimulation, thus the largest
+bisimulation); here
+  \texttt{WB} is meant to be bisimilarity
+(recall also that, in HOL, {\tt !} and  {\tt ?}  stand for universal and
+existential quantifiers):
 \begin{lstlisting}
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
