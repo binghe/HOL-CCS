@@ -27,7 +27,8 @@ bisimilarity.
 
 The `coarsest congruence contained in bisimilarity' is 
 the context closure, below called 
-``weak bisimilarity congruence'' and written $[\approx]$, formalised thus:
+\emph{weak bisimilarity congruence}   and % written $[\approx]$, 
+formalised thus:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
@@ -148,14 +149,15 @@ by
  \cite{vanGlabbeek:2005ur}, that does not require additional
  assumptions. 
 The proof by van Glabbeek uses transfinite induction to obtain 
-a sequence of processes (originally introduced by Jan Willem Klop, in
-personal communication with van Glabbeek)
+a sequence of processes %(introduced by  Klop)
  that are all pairwise non-bisimilar. 
-We have formalised van Glabbeek's proof; however, as the typed logic
+We have formalised van Glabbeek's proof; however, as 
+the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
-strong enough to define a type for all possible ordinal values \cite{norrish2013ordinals}, we
-cannot precisely duplicate this proof. Instead,
-we have replaced it with plain induction; as a consequence, the final
+strong enough to define a type for all possible ordinal values \cite{norrish2013ordinals},
+we have replaced transfinite induction with plain induction; as a consequence, the final
 result is about a restricted class of processes (which we have taken
 to be the finite-state processes). We omit the details for lack of
-space, see \cite{Tian:2017wrba} for details. 
+space. %, see \cite{Tian:2017wrba} for details. 
+
+%cannot precisely duplicate this proof. Instead,

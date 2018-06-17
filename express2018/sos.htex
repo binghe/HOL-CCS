@@ -12,15 +12,17 @@ and output actions:
 \begin{lstlisting}
 val _ = Datatype `Label = name 'b | coname 'b`;
 \end{lstlisting}
-And the type ``\HOLty{:'b Action}'' is the
+The type ``\HOLty{:'b Action}'' is the
 union of all visible and invisible actions. The cardinality of
 ``\HOLty{:'b Action}'' (and therefore of all
 CCS types built on top of it) 
  depends on the choice of the initial type $\beta$.
 
 The core datatype ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS syntax, is then defined as an inductive
-datatype in HOL, based on its Datatype package ($\alpha$ is the type
-variable for recursion variables):
+datatype in HOL, based on its Datatype package (here \texttt{'a} as $\alpha$
+is the type
+variable for recursion variables, \texttt{'b} as $\beta$ is the type
+variable for actions):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -60,7 +62,7 @@ sum & $P + Q$ & \texttt{sum P Q} & \HOLtm{sum P Q} \\
 parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLtm{P || Q} \\
 restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}
   \\
-recursion & $A$ with $A\Defi P$ & \texttt{rec A P} & \HOLtm{rec A P}
+recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}
   \\
 \hline
 input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
@@ -89,9 +91,9 @@ Figure~\ref{f:LTSCCS}:
 \end{alltt}
 
 The rule \texttt{[REC]} (Recursion)
- says that if we substitute all appearances of variable $A$ in $E$ to
-$(\mathbf{rec}\; A\; E)$ and the resulting process has a transition to $E_1$
-with action $u$, then $(\mathbf{rec}\; A\; E)$ has the same
+ says that if we substitute all appearances of variable $A$ in $P$ to
+$(\mathbf{rec}\; A\; P)$ and the resulting process has a transition to $P'$
+with action $u$, then $(\mathbf{rec}\; A\; P)$ has the same
 transition. From the HOL  viewpoint, these
 SOS rules are \emph{inductive 
   definitions} on the 3-ary relation \HOLtm{TRANS} of type ``\HOLty{:('a, 'b) CCS ->
