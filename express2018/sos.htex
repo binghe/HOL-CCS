@@ -19,10 +19,10 @@ CCS types built on top of it)
  depends on the choice of the initial type $\beta$.
 
 The core datatype ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS syntax, is then defined as an inductive
-datatype in HOL, based on its Datatype package (here \texttt{'a} as $\alpha$
+datatype in HOL, based on its Datatype package (here \texttt{'a} 
 is the type
-variable for recursion variables, \texttt{'b} as $\beta$ is the type
-variable for actions):
+variable   $\alpha$ for recursion variables, \texttt{'b} is the type
+variable   $\beta$ for actions):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a

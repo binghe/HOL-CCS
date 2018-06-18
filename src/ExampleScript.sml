@@ -250,8 +250,8 @@ val RELABELING' = store_thm (
     PROVE_TAC [RELABELING]);
 
 val REC' = store_thm (
-   "REC'", ``!P u X P'.     TRANS (CCS_Subst P (rec X P) X) u P'
-		==> TRANS (rec X P) u P'``,
+   "REC'", ``!P u A P'.     TRANS (CCS_Subst P (rec A P) A) u P'
+		==> TRANS (rec A P) u P'``,
     PROVE_TAC [REC]);
 
 val _ = export_theory ();
