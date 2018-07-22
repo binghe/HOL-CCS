@@ -8,9 +8,11 @@
 % We need to find a suitable formal definition of 
 % context. There're multiple ways. Here 
 
-We have chosen to use $\lambda$-expressions (typed
-$CCS\rightarrow CCS$) to represent  (multi-hole) 
-contexts. The definition is inductive:
+We have chosen to use $\lambda$-expressions (\hl{with the type}
+``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}'')
+for representing \emph{multi-or-no-hole contexts}.
+%
+The definition is inductive:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
