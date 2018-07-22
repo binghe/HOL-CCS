@@ -12,6 +12,13 @@ We have chosen to use $\lambda$-expressions (\hl{with the type}
 ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}'')
 for representing \emph{multi-or-no-hole contexts}.
 %
+\hl{This choice has a significant advantage over \emph{one-hole
+contexts}, as each hole corresponds to one
+appearence of the \emph{same} variable in single-variable
+expressions (or equations). (Thus \emph{contexts} can be directly used in
+formulating the unique solution of equations theorems in
+single-variable cases, and the drawbacks are slightly longer congruence
+proofs)}
 The definition is inductive:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
