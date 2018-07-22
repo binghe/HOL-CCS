@@ -65,6 +65,7 @@ restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}
 recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}
   \\
 \hline
+invisible action & $\tau$ & \texttt{tau} & \HOLtm{tau} \\
 input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)} \\
 \hline
