@@ -109,7 +109,7 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % successfully defined using HOL's set and list theories.} However, by
 just assuming that the
 initial weak transitions (those directly emanating from 
- $p$ and $q$) do not use all possible visible labels.
+ $p$ and $q$) do not use all \hl{available visible actions}.
 % analyzing the proof steps, we found that, what's really required is to
 % not use up all available labels in those weak transitions directly
 % lead from $p$ and $q$. In another words, even they have used all
@@ -140,24 +140,24 @@ steps are the same, and the corresponding HOL4 theorem says:
 \end{alltt}
 %\end{theorem}
 
-The above proof follows 
-Milner \cite{Mil89}, and requires
- that no process uses all available names. 
-We have also formalised a different proof, 
-by
- van Glabbeek
- \cite{vanGlabbeek:2005ur}, that does not require additional
- assumptions. 
-The proof by van Glabbeek uses transfinite induction to obtain 
-a sequence of processes %(introduced by  Klop)
- that are all pairwise non-bisimilar. 
-We have formalised van Glabbeek's proof; however, as 
-the typed logic
+The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
+if only $p$ (or $q$) has the free action while the other has used all available
+actions, the classic assumption $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
+  names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
+sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
+
+\hl{There exists a very different proof,
+following van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
+require any additional assumption.
+\hl{However, this proof relays on arbitrary infinite sum of 
+processes and uses transfinite induction to obtain
+an arbitary large sequence of processes % (firstly introduced by  Klop)
+ that are all pairwise non-bisimilar.} We have also formalised this proof.
+However, since the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible ordinal values \cite{norrish2013ordinals},
 we have replaced transfinite induction with plain induction; as a consequence, the final
 result is about a restricted class of processes (which we have taken
-to be the finite-state processes). We omit the details for lack of
-space. %, see \cite{Tian:2017wrba} for details. 
-
-%cannot precisely duplicate this proof. Instead,
+to be the finite-state processes). We omit the details due to space
+limits. (c.f. \cite{Tian:2017wrba} for details)
