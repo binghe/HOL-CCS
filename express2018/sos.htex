@@ -34,11 +34,11 @@ val _ = Datatype `CCS = nil
 		      | rec 'a CCS`;
 \end{lstlisting}
 
-We have added some  grammar support,
- using HOL powerful `pretty printer', to represent CCS
-processes in more readable forms (see the `HOL (abbrev.)'
-column of Table \ref{tab:ccsoperator}; the table summarizes 
-the main syntactic notations for CCS). For the restriction
+We have added some grammar support,
+ using \hl{HOL's powerful pretty printer}, to represent CCS
+processes in more readable forms (c.f. \textbf{HOL (abbrev.)}
+column of Table \ref{tab:ccsoperator}, \hl{which} summarizes 
+the main syntactic notations \hl{of} CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
 the manipulation of 
