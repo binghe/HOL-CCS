@@ -20,14 +20,10 @@ two $\epsilon$-transitions:
 \HOLthm[def]{WeakEQ.WEAK_TRANS}\hfill{[WEAK_TRANS]}
 \end{alltt}
 
-
-
-
 For the definition of bisimilarity and the associated coinduction
-principle, 
-we have  taken
+principle, we have taken
 advantage of HOL's coinductive relation package (\texttt{Hol_coreln} \cite{Anonymous:Iu-sOoz1}),
-a new tools since its Kananaskis-11 release (March 3,
+a new tool since its Kananaskis-11 release (March 3,
 2017).\footnote{\url{https://hol-theorem-prover.org/kananaskis-11.release.html\#new-tools}}
 % HOL4 (Kananaskis-11 or later releases).
 This essentially amounts to defining bisimilarity as the greatest
