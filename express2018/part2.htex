@@ -6,7 +6,7 @@
 \subsection{Unique solution of contractions}
 
 A delicate point in the formalisation of the results about unique solution of
-contractions are the proof of lemma~\ref{l:ruptocon} and alike lemmas;
+contractions are the proof of Lemma~\ref{l:ruptocon} and alike lemmas;
 in particular, there is
  an induction on the length of weak transitions. 
 For this, rather than 
