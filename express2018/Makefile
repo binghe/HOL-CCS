@@ -1,11 +1,16 @@
 MUNGE = ../src/munge.exe
-TEXFILES = main.tex part2.tex intro.tex bisim.tex sos.tex ccs.tex expansion.tex \
-	contraction.tex unique.tex equa.tex formal.tex coarsest.tex context.tex \
-	related.tex conclusions.tex tokens.tex
 
-all: htex main.pdf
+HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex
+TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
+	contraction.tex unique.tex equa.tex formal.tex \
+	related.tex conclusions.tex tokens.tex $(HTEXFILES)
 
-htex: part2.tex sos.tex bisim.tex coarsest.tex context.tex
+# XeTeX results into much smaller PDF
+TEXCMD = pdflatex
+
+all: htex main.pdf main.ps
+
+htex: $(HTEXFILES)
 
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
@@ -32,10 +37,18 @@ dist-clean: clean
 	@rm -f *.pdf
 
 main.pdf: $(TEXFILES) generic.bib
-	pdflatex main
-	pdflatex main
+	$(TEXCMD) main
+	$(TEXCMD) main
 	bibtex main
-	pdflatex main
-	pdflatex main
+	$(TEXCMD) main
+	$(TEXCMD) main
+
+main.ps: main.pdf
+	latex main
+	dvips main
+
+force: htex
+	bibtex main
+	$(TEXCMD) main
 
 .PHONY: all
