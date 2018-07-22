@@ -7,38 +7,40 @@ including the new concepts and theorems proposed in the first half of
 this paper.
 %  The main purpose is to convince the readers that, there's no flaw
 %  in the informal proofs. 
-The whole formalisation can be found 
-in \cite{Tian:2017wrba}  or in 
- in the official example folder of HOL4 source
-code\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL}}. The
-work consists of about 20,000 lines of proof scripts in Standard ML;
-it develops
-some pioneering work by Nesi \cite{Nesi:1992ve}, in
-1992-1995. 
+The whole formalisation (apart from minor fixes and extensions in this
+paper)
+is described in \cite{Tian:2017wrba}, and the
+proof scripts are in HOL4 official examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}. The
+work consists of about 20,000 lines of proof scripts in Standard ML. 
 
-Higher Order Logic (or ``HOL Logic'') \cite{hollogic} stands for simple-typed $\lambda$-calculus plus Hilbert
-choice operator, axiom of infinity, and rank-1 polymorphism (type
-variables). HOL4 implemented the original HOL Logic, 
+Higher Order Logic (or \emph{HOL Logic}) \cite{hollogic} is a variant of
+Church’s simple theory of types (STT) \cite{church1940formulation}
+\hl{(or \emph{simple-typed $\lambda$-calculus}),
+plus a higher order version of Hilbert's choice operator $\varepsilon$,
+Axiom of Infinity, and Rank-1 (prenex) polymorphism.}
+HOL4 has implemented the original HOL Logic, 
 while some other theorem provers in HOL family (e.g. Isabelle/HOL) have
 certain extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
-Indeed the HOL Logic has considerable simpler logic
+Indeed the HOL Logic has considerable simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
 As a result,
-formal theories in HOL can be easily migrated (sometimes even
-automatically) into other theorem provers.
+formal theories built in HOL4 is relatively easier convincible and can
+be also easily migrated into other theorem provers,
+sometimes even automatically \cite{hurd2011opentheory}.
 
-HOL4 is written in Standard ML (ML for abbreviation), which plays three roles here:
+HOL4 is written in Standard ML, a single programming language who
+plays three different roles: (The situation is quite different in
+other systems like Coq\footnote{\hl{The Coq Proof Assistant.} \url{https://coq.inria.fr}}.)
 \begin{enumerate}
 \item It serves as the underlying implementation language for the core HOL engine;
 \item it is used to implement tactics (and tacticals) for writing proofs;
 \item it is used as the command language of the HOL interactive shell.
 \end{enumerate}
-Further, in the same language
- HOL4 users can write complex automatic
-verification tools  by calling HOL's interactive theorem proving facilities.
+\hl{Moreover, using} the same language HOL4 users can write complex automatic
+verification tools by calling HOL's interactive theorem proving facilities.
 
 % \finish{below: to be reformulated (by Davide) later} 
 % We will not repeat all definitions and theorems of CCS again by their
@@ -52,11 +54,13 @@ verification tools  by calling HOL's interactive theorem proving facilities.
 %   contractions theorem;
 % \end{enumerate}\finish{TODO: need updates}
 
-In this
-formalisation we consider only single equations/contractions. 
-This  %considerably
- simplifies the required proof steps in HOL   while enhancing the
- reading of the scripts.
+\textbf{In this
+formalisation we consider only single-variable equations/contractions.}
+This considerably
+ simplifies the required proofs in HOL, enhances the readibility of
+ proof scripts, \hl{without loss of generality (for paper proofs, the
+ general case is just a routine
+ adaptation).}
 %   still aligned with
 % their informal proofs.
 %  (on 
