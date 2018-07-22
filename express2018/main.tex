@@ -11,6 +11,8 @@
 \usepackage{lmodern} % Latin Modern fonts (better than CM-Super)
 \usepackage[utf8]{inputenc} % no need for XeTeX, which always uses UTF-8
 
+\usepackage{newtxtext} % Better looking, more compact texts (less space)
+
 %% Math symbol packages
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -39,9 +41,11 @@
 
 \usepackage{listings}
 \renewcommand{\ttdefault}{cmtt} % {pcr}
-\lstset{tabsize=8,language=ML,basicstyle=\small\ttfamily\bfseries}
-
-\usepackage{hyperref}
+\lstset{tabsize=8,language=ML,basicstyle=\scriptsize\ttfamily\bfseries,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}}
 
 %
 % LaTeX math formula spacing:

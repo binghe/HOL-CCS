@@ -5,10 +5,10 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
-
-For the definition of (weak) bisimilarity we first need weak
-transitions (abstracting from $\tau$-moves). 
-We define a (possibly empty) sequence of $\tau$-transitions as
+\hl{To define (weak) bisimilarity, we first need to define weak
+transitions of CCS processes. Following the name adopted by Nesi} \cite{Nesi:1992ve},
+we define a (possibly empty) sequence of $\tau$-transitions between
+two processes as
 a new relation called \texttt{EPS} ($\overset{\epsilon}{\Rightarrow}$), which is the RTC
 (reflexive transitive closure, $^*$) of the single-step $\tau$-transition:
 \begin{alltt}
@@ -30,52 +30,50 @@ This essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. 
 Precisely we call 
 the \texttt{Hol_coreln}
-command as follows. It returns 3 theorems; we report below  two of them, 
-\texttt{WB_coind} and \texttt{WB_cases},
-which 
-express the coinduction proof method for bisimilarity 
+command as follows: (here {\tt !} and  {\tt ?} stand for universal and
+existential quantifiers in HOL's ASCII logic representation)
+\begin{lstlisting}
+val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
+    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+       (!l.
+	 (!E1. TRANS E  (label l) E1 ==>
+	       (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
+	 (!E2. TRANS E' (label l) E2 ==>
+	       (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
+       (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
+       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
+      ==> WEAK_EQUIV E E')`;
+\end{lstlisting}
+It returns 3 theorems; we report below last two of them,
+\texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases},
+which express the coinduction proof method for bisimilarity 
 (any bisimulation is contained in bisimilarity)
 and the fixed-point property of bisimilarity
 (bisimilarity itself is a bisimulation, thus the largest
-bisimulation); here
-  \texttt{WB} is meant to be bisimilarity
-(recall also that, in HOL, {\tt !} and  {\tt ?}  stand for universal and
-existential quantifiers):
-\begin{lstlisting}
-val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
-    (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
-       (!l.
-	 (!P'. TRANS P (label l) P' ==>
-	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
-	 (!Q'. TRANS Q (label l) Q' ==>
-	       (?P'. WEAK_TRANS P (label l) P' /\ WB P' Q'))) /\
-       (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
-       (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
-     ==> WB P Q)`;
-\end{lstlisting}
+bisimulation).
 \begin{enumerate}
 \item 
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{Example.WB_coind}\hfill{[WB_coind]}
+\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
 \end{alltt}
 \end{small}
 \item %The fixed point (or cases) theorem for $\wb$:
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{Example.WB_cases}\hfill{[WB_cases]}
+\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
 \end{alltt}
 \end{small}
 \end{enumerate}
 
-% The coinduction principle \texttt{WB_coind} says that any
+% The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 % bisimulation is contained in the resulting relation (i.e. it's
 % largest), but it didn't limit the resulting relation into any set of
 % fixed points, because even the universal relation (the set of all pairs)
 % could fit with this theorem; the
-% purpose of the fixed point theorem \texttt{WB_cases} is to
+% purpose of the fixed point theorem \texttt{WEAK_EQUIV_cases} is to
 % further assert that the resulting relation is indeed a
-% fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
+% fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
 % together make sure that bisimilarity is the greatest
 % fixed point, as
 % the former contributes to ``greatest'' while the latter
@@ -84,7 +82,7 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
 Without the  HOL4 coinduction package, bisimilarity would have to be
 defined  following 
 Definition~\ref{d:wb};  then other properties of bisimilarity, such
-as the fixed-point property in \texttt{WB_cases}, would have to be
+as the fixed-point property in \texttt{WEAK_EQUIV_cases}, would have to be
 derived 
 manually (which is hard to do; indeed it was one of the main results
 in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}). 
