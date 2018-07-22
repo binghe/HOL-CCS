@@ -5,24 +5,29 @@
 
 \subsection{CCS and its transitions by SOS rules}
 
-In our formalisation of CCS, 
-the type ``\HOLty{:'b Label}'' ($\beta$ is a
+In our CCS formalisation, the type ``\HOLty{:'b Label}'' ($\beta$ is a
 type variable) accounts for visible actions, divided into input
-and output actions:
+and output actions, defined by HOL's Datatype package: (\texttt{'b} or
+$\beta$ is the type variable for actions)
 \begin{lstlisting}
 val _ = Datatype `Label = name 'b | coname 'b`;
 \end{lstlisting}
 The type ``\HOLty{:'b Action}'' is the
 union of all visible and invisible actions. The cardinality of
 ``\HOLty{:'b Action}'' (and therefore of all
-CCS types built on top of it) 
- depends on the choice of the initial type $\beta$.
+CCS types built on top of it)
+ depends on the choice (or \emph{type-instantiation}) of $\beta$.
 
-The core datatype ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS syntax, is then defined as an inductive
-datatype in HOL, based on its Datatype package (here \texttt{'a} 
-is the type
-variable $\alpha$ for recursion variables, \texttt{'b} is the type
-variable $\beta$ for actions, \hl{\texttt{` `} are backquotes of HOL terms}):
+The core datatype ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
+syntax\footnote{\hl{The order of type variables $\alpha, \beta$ can be
+    arbitrary. But our choice is aligned with other CCS literals.
+$\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
+and $k$ actions.} \cite{gorrieri2017ccs} \hl{Thus, to formalize theorems on
+this kind of CCS subcalculus, it is enough to instantiate the type
+variables $\alpha, \beta$ with types having the corresponding cardinalities $h, k$.}}, is then defined inductively:
+(\texttt{'a} or $\alpha$ is the type variable for recursion variables,
+``\HOLty{:'b Relabeling}'' is \hl{the type of all relabeling functions,
+`\mbox{\color{red}{\texttt{`}}}' is the backquote for HOL terms}):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -36,8 +41,8 @@ val _ = Datatype `CCS = nil
 
 We have added some grammar support,
  using \hl{HOL's powerful pretty printer}, to represent CCS
-processes in more readable forms (c.f. \textbf{HOL (abbrev.)}
-column of Table \ref{tab:ccsoperator}, \hl{which} summarizes 
+processes in more readable forms (c.f. the column \textbf{HOL (abbrev.)}
+in Table \ref{tab:ccsoperator}, \hl{which} summarizes 
 the main syntactic notations \hl{of} CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
@@ -126,7 +131,7 @@ non-existence of transitions.  Hence the usefulness of appealing to
 the new  function \texttt{CCS\_TRANS\_CONV}. 
 For instance this function
 is called on the  process $(a.0 | \bar{a}.0)$ thus:
-\hl{(here \texttt{`` ``} are double-backquotes of HOL terms)}
+\hl{(`\mbox{\color{red}{\texttt{``}}}' is the double-backquote for HOL terms)}
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``
