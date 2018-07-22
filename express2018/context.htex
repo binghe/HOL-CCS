@@ -21,7 +21,7 @@ We can then define
 \HOLthm[def]{Congruence.congruence_def}
 \end{alltt}
 
-A \emph{weakly guarded} (\texttt{WG}) context is a context in which each hole is
+A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
 \begin{alltt}
 \HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
@@ -30,12 +30,13 @@ underneath a prefix:
 % one: $\lambda t. t$ is not weakly guarded as the variable is directly
 % exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 % guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
-A \emph{strongly guarded} (\texttt{SG}) context is a context in which
- each hole is underneath a visible prefix:
+A context is \emph{strongly guarded} (\texttt{SG}) if each hole is underneath a visible prefix:
 \begin{alltt}
 \HOLthm{Congruence.SG_rules}\hfill{[SG_rules]}
 \end{alltt}
-And a \emph{sequential} (\texttt{SEQ}) context is a context in which each hole is under prefix or sums:
+A context is \emph{sequential} (\texttt{SEQ}) if each of its subcontext with
+a hole, apart from the hole itself, is in form of a prefix or sum:
+(c.f. Sec. 7.3 of \cite{Mil89}) 
  \begin{alltt}
 \HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
