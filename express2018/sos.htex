@@ -64,6 +64,8 @@ restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}
   \\
 recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}
   \\
+relabeling & $P\;[r\!\!f]$ & \texttt{relab P rf} & \HOLtm{relab P rf}
+  \\
 \hline
 invisible action & $\tau$ & \texttt{tau} & \HOLtm{tau} \\
 input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
