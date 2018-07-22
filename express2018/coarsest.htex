@@ -150,7 +150,7 @@ sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
 \hl{There exists a very different proof,
 following van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
-\hl{However, this proof relays on arbitrary infinite sum of 
+\hl{However, this proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
 an arbitary large sequence of processes % (firstly introduced by  Klop)
  that are all pairwise non-bisimilar.} We have also formalised this proof.
