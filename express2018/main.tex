@@ -60,6 +60,11 @@
 \usepackage{graphicx}
 \usepackage[all,cmtip]{xy}
 
+% hightlighting changed texts with \hl{}
+\usepackage{color,soul}
+% or disable the hightlighting on final submission
+%\newcommand*\hl{}
+
 \input{commonmacros.sty}
 \input{davidemacro.sty}
 \usepackage{DSarrow} % this is something to use extensible arrows in transitions
@@ -101,18 +106,14 @@ Davide Sangiorgi
   bisimilarity that overcomes certain syntactic constraints of
   Milner's ``unique solution of equations'' technique.  The paper
   presents an overview of a rather comprehensive formalisation of the
-  core of the theory of CCS 
- in the HOL
-theorem prover (HOL4),  with a focus towards the theory of unique solutions of contractions.
-(The
-formalisation consists of about 20,000 lines of proof scripts in Standard ML.)
-Some refinements of the theory itself are obtained.
-In particular we remove the constraints on the occurrences of the sum operator by 
-moving to 
-rooted contraction, that is, the coarsest precongruence contained in the contraction
-preorder.
-
-
+  core of the theory of CCS in the HOL theorem prover (HOL4), with a
+  focus towards the theory of unique solutions of contractions.  (The
+  formalisation consists of about 20,000 lines of proof scripts in
+  Standard ML.)  Some refinements of the theory itself are obtained.
+  In particular we remove the constraints on the occurrences of the
+  sum operator, \hl{which must be prefixed sums,} by moving to rooted
+  contraction, that is, the coarsest
+  precongruence contained in the contraction preorder.
 
 % theorem for (rooted) weak
 % bisimilarity have severe syntactical limitations, i.e.\;the
