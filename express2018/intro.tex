@@ -14,7 +14,7 @@ Milner's proof method has severe syntactical limitations.
 A way for  overcoming such limitations is to replace 
 equations
  with  special inequations called
-\emph{contractions} \cite{sangiorgi2015equations}. Contraction is a
+\emph{contractions} \cite{sangiorgi2015equations,sangiorgi2017equations}. Contraction is a
 preorder that, roughly, places some efficiency
 constraints on processes.  Uniqueness of the solution of a system of contractions
  is defined as with systems of equations:  
@@ -25,14 +25,12 @@ the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem can be
 removed.  One constraint that still remains in
-\cite{sangiorgi2015equations} is on occurrences of the sum operator,
+\cite{sangiorgi2017equations}
+is on occurrences of the sum operator,
 due to the failure of the substitutivity of contraction for  such an operator.
 
-
-The main goal  of the work described in this paper is 
-a rather  
- comprehensive formalisation  of the core of the theory of CCS 
- in the HOL
+The main goal of the work described in this paper is a rather
+comprehensive formalisation  of the core of the theory of CCS in the HOL
 theorem prover (HOL4),  with a focus on the theory of unique solutions of contractions.
 The formalisation however is not confined to the theory of  unique solutions, but embraces 
 most of the 
