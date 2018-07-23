@@ -21,7 +21,7 @@ two $\epsilon$-transitions:
 \end{alltt}
 
 For the definition of bisimilarity and the associated coinduction
-principle, we have taken
+principle \cite{sangiorgi2011advanced}, we have taken
 advantage of HOL's coinductive relation package (\texttt{Hol_coreln} \cite{holdesc}),
 a new tool since its Kananaskis-11 release (March 3,
 2017).\footnote{\url{https://hol-theorem-prover.org/kananaskis-11.release.html\#new-tools}}
