@@ -24,6 +24,12 @@ open BisimulationUptoTheory UniqueSolutionsTheory;
 val _ = new_theory "Example";
 val _ = temp_loose_equality ();
 
+(* For paper generating purposes, some type abbreviations are disabled *)
+val _ = disable_tyabbrev_printing "transition";
+val _ = disable_tyabbrev_printing "context";
+val _ = disable_tyabbrev_printing "simulation";
+val _ = disable_tyabbrev_printing "list_simulation";
+
 (******************************************************************************)
 (*                                                                            *)
 (*          The proof of PROPERTY_STAR (old way as in Milner's book)          *)

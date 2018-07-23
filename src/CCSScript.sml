@@ -374,7 +374,6 @@ val CCS_COND_CLAUSES = save_thm (
 
 val _ = type_abbrev ("transition",
 		    ``:('a, 'b) CCS -> 'b Action -> ('a, 'b) CCS -> bool``);
-val _ = disable_tyabbrev_printing "transition";
 
 (* Inductive definition of the transition relation TRANS for CCS.
    TRANS: CCS -> Action -> CCS -> bool
