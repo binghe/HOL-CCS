@@ -10,8 +10,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Latin Modern fonts (better than CM-Super)
 \usepackage[utf8]{inputenc} % no need for XeTeX, which always uses UTF-8
-
-\usepackage{newtxtext} % Better looking, more compact texts (less space)
+\usepackage{newtxtext} % Better looking, also more compact
 
 %% Math symbol packages
 \usepackage{amsmath}
@@ -41,7 +40,7 @@
 
 \usepackage{listings}
 \renewcommand{\ttdefault}{cmtt} % {pcr}
-\lstset{tabsize=8,language=ML,basicstyle=\scriptsize\ttfamily\bfseries,
+\lstset{tabsize=8,language=ML,basicstyle=\small\ttfamily\bfseries,
                 keywordstyle=\color{blue}\ttfamily,
                 stringstyle=\color{red}\ttfamily,
                 commentstyle=\color{green}\ttfamily,
@@ -158,6 +157,8 @@ Davide Sangiorgi
 % part 3
 \input{related}
 \input{conclusions}
+
+\newpage
 
 \bibliographystyle{eptcs}
 \bibliography{generic}
