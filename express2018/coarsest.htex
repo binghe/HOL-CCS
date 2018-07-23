@@ -51,8 +51,8 @@ closure of $R$ (thus it is the coarsest one):}
 
 Given the central role of the  
  sum operator, we also consider the closure of bisimilarity under such
- operator, 
-below called \emph{sum equivalence} and written $\approx^+$:
+ operator, called \hl{\emph{equivalence compatible with sums}}
+(\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
 \end{alltt}
@@ -87,8 +87,8 @@ below called \emph{sum equivalence} and written $\approx^+$:
 Rooted bisimilarity, being a congruence contained in bisimilarity,  
 is contained in   weak bisimilarity congruence that, in turn,
 trivially is contained in sum
-equivalence. Thus the crux is proving that sum equivalence implies
-rooted bisimilarity:
+equivalence. Thus the crux is proving that \texttt{SUM_EQUIV} implies
+rooted bisimilarity ($\approx^c$):
 \begin{equation}
 \label{equa:pq}
 \forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Rightarrow p \approx^c\! q  
@@ -166,7 +166,8 @@ require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a stable
  process $k$ which is not (weakly, actually also strongly) bisimilar with
-all derivatives of $p$ and $q$, then sum equivalence indeed implies rooted bisimilarity:
+all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
+rooted bisimilarity ($\approx^c$):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
