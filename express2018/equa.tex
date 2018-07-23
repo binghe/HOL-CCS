@@ -95,18 +95,24 @@ other actions) is a solution for $X = a|  X$.)
 % (3) are $K$ and $K | b$, for $K \Defi a
 % . K$.
 
-\begin{definition}
+\begin{definition}[guardedness of equations]
+\label{def:guardness}
 A system of equations 
 $\{  X_i = E_i\}_{i\in I}$
  is 
 \begin{itemize}
 \item
-\emph{(strongly) guarded} if,  in each    $E_i$, each occurrence of
-an \behav\  variable is underneath a visible prefix;
+\textbf{weakly guarded} if,  in each    $E_i$, each occurrence of
+an \behav\  variable is underneath a prefix;
+
+\item
+\textbf{(strongly) guarded} if,  in each    $E_i$, each occurrence of
+an \behav\  variable is underneath a \textbf{visible} prefix;
 
 \item 
- \emph{sequential} if,  in each    $E_i$, each occurrence of
-an \behav\  variable only appears  underneath prefixes and sums.
+ \textbf{sequential} if,  in each    $E_i$, each of its subexpressions with occurrence of
+an \behav\  variable, apart from the variable itself, is in forms of
+prefixes or sums.
 \end{itemize}
  \end{definition}
 

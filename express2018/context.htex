@@ -33,15 +33,23 @@ A (pre)congruence as relation on CCS processes is then defined on top of above c
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
 \begin{alltt}
-\HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
+\HOLthm[def]{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
 % (Notice the differences between a weak guarded context and a normal
 % one: $\lambda t. t$ is not weakly guarded as the variable is directly
 % exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 % guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
-A context is \emph{strongly guarded} (\texttt{SG}) if each hole is underneath a visible prefix:
+
+A context is \emph{(strongly) guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
 \begin{alltt}
-\HOLthm{Congruence.SG_rules}\hfill{[SG_rules]}
+\HOLthm[def]{Congruence.SG_rules}\hfill{[SG_rules]}
+\end{alltt}
+
+A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
+a hole, apart from the hole itself, is in forms of prefixes or sums:
+(c.f. Def.~\ref{def:guardness} and \cite{Mil89}, p.101,157)
+ \begin{alltt}
+\HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
 A context is \emph{sequential} (\texttt{SEQ}) if each of its subcontext with
 a hole, apart from the hole itself, is in form of a prefix or sum:
