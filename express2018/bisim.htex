@@ -47,14 +47,16 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
      ==> WB P Q)`;
 \end{lstlisting}
 \texttt{Hol_coreln} returns 3 theorems, of the first being always the
-same as input term\footnote{\hl{The mixing of HOL notation and mathematical
+same as input term\footnote{\hl{Our mixing of HOL notation and mathematical
   notation in this paper is not arbitrary. We have to paste here the
   original proof scripts, which is written in HOL's ASCII term
   notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also suppports writing Unicode symbols directly in
   proof scripts but we didn't make use of them. On the other side, all formal definitions and
   theorems in this paper are automatically generated from HOL4 in
-  which we have carefully configured the pretty printer to output them
-in mathematical notations as much as possible.}} (now proved automatically as a theorem).
+  which we have done lots of work for generating
+  Unicode and TeX outputs as natural as possible. What's really
+  arbitrary is the presense/absense of outermost universal
+  quantifiers in all generated theorems.}} (now proved automatically as a theorem).
 The second and third theorems, namely \texttt{WB_coind} and \texttt{WB_cases},
 express the coinduction proof method for bisimilarity 
 (i.e.~any bisimulation is contained in bisimilarity)
@@ -88,15 +90,13 @@ together make sure that bisimilarity is the greatest
 fixed point, as
 the former contributes to ``greatest'' while the latter
 contributes to ``fixed point''.}
-
-Without the  HOL4 coinduction package, bisimilarity would have to be
-defined  following 
-Definition~\ref{d:wb};  then other properties of bisimilarity, such
+%
+Without the  HOL's new coinductive relation package, bisimilarity
+would have to be defined by following literally
+Def.~\ref{d:wb};  then other properties of bisimilarity, such
 as the fixed-point property in \texttt{WB_cases}, would have to be
-derived 
-manually (which is hard to do; indeed it was one of the main results
-in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}). 
-
+derived manually (which is quite hard; indeed it was one of the main results
+in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}).
 
 % \finish{I have removed other things as i fear they would confuse a
 %   reader and I think the main point we wanted to say are now clearly expressed} 
