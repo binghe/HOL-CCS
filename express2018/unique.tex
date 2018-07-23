@@ -11,42 +11,30 @@ $\{  X_i\}_{i\in I}$.
 
 \begin{definition}
 \label{d:uniContra}
-Given a  system of contractions 
+Given a system of contractions 
 $\{  X_i \mcontr E_i\}_{i\in I}$, 
  we say that:
 \begin{itemize}
-\item
- $\til P$ is a \emph{solution  for $\mcontrBIS$ of the 
- system of contractions} 
- if $\til P \mcontrBIS \til E [\til P]$;
-\item 
-the system  
-has  \emph{a unique 
-solution for $\approx$}
-if 
-whenever 
- $\til P$ and $\til Q$ are both solutions  for  $\mcontrBIS$
- then $\til P \approx \til Q$.
+\item $\til P$ is a \emph{solution (for $\mcontrBIS$) of the 
+ system of contractions} if $\til P \mcontrBIS \til E [\til P]$;
+\item the system has \emph{a unique solution (for $\approx$)}
+if $\til P \approx \til Q$ whenever $\til P$ and $\til Q$ are both solutions.
 \end{itemize}
 \end{definition}
-  
 
+The guardedness of contractions follows Def.~\ref{def:guardness} (for equations).
+% \begin{definition}
+% \label{d:guarded}
+% A system of contractions $\{  X_i \mcontr E_i\}_{i\in I}$
+%  is
+% \emph{weakly guarded}
+% if,  in each    $E_i$, each occurrence of
+% a \behavC\ variable is underneath a prefix.
 
-\begin{definition}
-\label{d:guarded}
-A system of contractions $\{  X_i \mcontr E_i\}_{i\in I}$
- is
-\emph{weakly guarded}
-if,  in each    $E_i$, each occurrence of
-a \behavC\ variable is underneath a prefix.
+% The system use \emph{weakly-guarded sums} if 
+% each $E_i$ only makes use of guarded sums.
+% \end{definition}
 
-The system use \emph{weakly-guarded sums} if 
-each $E_i$ only makes use of guarded sums.
-\end{definition}
-
-
-
- 
 \begin{lemma}
 \label{l:uptocon}
 Suppose $\til P$ and $\til Q$ are solutions  for $\mcontrBIS$
@@ -62,16 +50,15 @@ such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
 
-\begin{proof}{[Sketch]}
+\begin{proof}{(sketch from \cite{sangiorgi2017equations})}
 Let $n$ be the length of the transition $\ct{\til P}\Arr\mu R$  (the
 number of `strong steps' of which it is composed), and  
 let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
 from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
 of the contractions $n$ times. Thus in $\qctpp$ each hole is
 underneath at least $n$ prefixes, and cannot contribute to an action
-in the first $n$ transitions; moreover all the contexts use
-weakly-guarded sums. 
-
+in the first $n$ transitions; moreover all the contexts have only
+weakly-guarded sums.
 
 We have $\ct{\til P} \mcontrBIS \ctpp{\til P}$, and 
 $\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
@@ -101,23 +88,26 @@ $
 \begin{theorem}[unique solution of contractions for $\wb$]
 \label{t:contraBisimulationU}
 A system of weakly-guarded contractions
- that uses  weakly-guarded sums    has 
-a unique solution 
- for $\wb$.
-\end{theorem} 
+having only weakly-guarded sums, has a unique solution for $\wb$.
+\end{theorem}
 
-\begin{proof}{[Sketch]}
-One shows that if $\til P$ and $\til Q$ are solutions for $\wb$ of a system of weakly-guarded
-contractions that uses weakly-guarded sums,  then the
- relation 
-\[\R \DSdefi \{ 
+\begin{proof}{(sketch from \cite{sangiorgi2017equations})}
+Suppose $\til P$ and $\til Q$ are two such solutions (for $\wb$) and consider
+the relation
+\begin{equation*}
+\R \DSdefi \{ 
 (R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
-$\qct$} \} \, . 
-\]
- is a bisimulation, exploiting 
- Lemma~\ref{l:uptocon}.
-\end{proof} 
-
+$\qct$ (having only weakly-guarded sums)} \} \enspace.
+\end{equation*}
+We show that $\R$ is a bisimulation. Suppose $R\ \R\ S$ vis the context
+$C$, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
+S'$ and $R'\ \R\ S'$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
+\Arcap{\mu} R'' \wb R'$ for some $R''$. By Lemma~\ref{l:uptocon},
+there is $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
+\Arcap{\mu} \wb C'[{\til Q}]$. Hence, by definition of $\wb$, there is
+also $S'$ with $S \Arcap{\mu} S' \wb C'[{\til Q}]$. This closes the
+proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$.
+\end{proof}
 
 \section{Rooted contraction}
 \label{ss:new}
@@ -158,18 +148,19 @@ following theorem states:}
 
 \begin{theorem}
 \label{t:rcontrPrecongruence}
-Relation $\rcontr$ is a precongruence in CCS.  Indeed it is the
-largest precongruence contained in $\contr$.
+$\rcontr$ is a precongruence in CCS, and it is the
+coarsest precongruence contained in $\contr$.
 \end{theorem}  
 The proof of this result is along the lines of the analogous result
 for rooted bisimilarity with respect to bisimilarity. 
-%Similarly one can define and handle the rooted variant of the expansion preorder. 
+%Similarly one can define and handle the rooted variant of the
+%expansion preorder. (not sure)
 
 For a system of contractions, the meaning of 
 ``solution for $\rcontr$'' and of 
  \emph{a unique 
 solution for $\rapprox$}
-is the expected one---just replace in Definition~\ref{d:uniContra}  the preorder 
+is the expected one --- just replace in Definition~\ref{d:uniContra}  the preorder 
 $\contr$ with $\rcontr$, and the equivalence 
 $\approx$ with $\rapprox$.
 
@@ -182,7 +173,6 @@ $\rcontr$ and $\rapprox$ allow us to avoid issues with the sum
 operator. Some care is needed in Theorem~\ref{t:rcontraBisimulationU}
 to make sure that the final result is about  
 $\rapprox$, rather than (the weaker) $\approx$.
-
 
 \begin{lemma}
 \label{l:ruptocon}
@@ -197,11 +187,9 @@ such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
 
-\begin{theorem}[Unique solution of contractions for $\rapprox$]
+\begin{theorem}[unique solution of contractions for $\rapprox$]
 \label{t:rcontraBisimulationU}
-A system of weakly-guarded contractions
-    has 
-a unique solution 
+A system of weakly-guarded contractions has a unique solution 
  for $\rapprox$.
 \end{theorem} 
 
