@@ -40,7 +40,7 @@ the context closure of $R$ is always finer}\footnote{\hl{This is why
 \texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
 $R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
 \begin{alltt}
-\HOLthm{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
+\HOLthm[nosp,showtypes]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
 \hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
 itself may not be) is contained in the context
@@ -171,6 +171,8 @@ all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
 rooted bisimilarity ($\approx^c$):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
+\end{alltt}
+\begin{alltt}
 \HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
 \end{alltt}
 \hl{To actually find this process $k$, the proof relies on arbitrary infinite sum of 

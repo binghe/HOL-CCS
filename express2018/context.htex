@@ -24,7 +24,7 @@ single-variable cases.} The precise definition is given inductively:
 
 A (pre)congruence is a relation of CCS processes defined on top of
 above multi-hole contexts. \hl{The only difference between congruence and
-precongruence is, the former must be equivalence (reflexive,
+precongruence is, the former must be an equivalence (reflexive,
 symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
@@ -52,7 +52,8 @@ A context is \emph{(strongly) guarded} (\texttt{SG}) if each hole is underneath 
 
 A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
 a hole, apart from the hole itself, is in forms of prefixes or sums:
-(c.f. Def.~\ref{def:guardness} and \cite{Mil89}, p.101,157)
+(c.f. Def.~\ref{def:guardness} and p.101,157 of \cite{Mil89} for
+the informal definitions.)
  \begin{alltt}
 \HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}

@@ -91,7 +91,7 @@ Now the formalised version of Lemma~\ref{l:uptocon}:
 \end{alltt}
 \vspace{-1em}
 Traces are actually used in the proof of above lemma via 
-the following `unfolding' lemma:\vspace{-1em}
+the following ``unfolding lemma'':\vspace{-1em}
 \begin{alltt}
 \begin{small}
 \HOLthm{UniqueSolutions.unfolding_lemma4}\hfill{[unfolding_lemma4]}
@@ -103,9 +103,9 @@ $E$, if $C [\, E^n[P]\,] \overset{xs}{\Longrightarrow} P'$ and the length
 of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$ (meaning
 that $P$ is not touched during the transitions). Traces are used for
 reasoning about the \hl{number} of intermediate actions in weak
-transitions. For instance, watching at Def.~\ref{d:BisCon}, \hl{it is not
-hard to see that, the length of weak transition always gets shorter
-(or remains the same) when passing into $\mcontrBIS$ (from left to right)}.
+transitions. For instance, from Def.~\ref{d:BisCon}, \hl{it is easy
+to see that, a weak transition either gets shorter
+or remains the same when passing into $\mcontrBIS$ from left to right}.
 \hl{This fact, among others, is crucial} in proving
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
 $\tau$-transitions passing into $\mcontrBIS$ (from left to right):
