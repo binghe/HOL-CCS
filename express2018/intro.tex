@@ -5,29 +5,31 @@ landmark CCS book \cite{Mil89} is the
 \emph{unique solution of equations}, whereby two tuples of processes are
 componentwise bisimilar if they are solutions 
 of the same system of equations.
-This method  is important in verification techniques and tools
+This method is important in verification techniques and tools
 based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice}. 
 
-In the   \emph{weak} case (when  behavioural equivalences abstract from internal moves,
-which practically is the most relevant case), however, 
-Milner's proof method has severe syntactical limitations. 
-A way for  overcoming such limitations is to replace 
-equations
- with  special inequations called
+In the versions of Milner's unique solution theorems for proving that all
+solutions are weakly (or rooted) bisimilar (in practice these are the most
+relevant cases), however,
+Milner's proof method has severe syntactical limitations, such that
+the equations must be ``guarded and sequential,'' that is, the
+variables of the equations may only be used underneath a visible
+prefix and preceed, in the syntax tree, only by the sum and prefix operators.
+One way of overcoming such limitations is to replace equations
+ with special inequations called
 \emph{contractions} \cite{sangiorgi2015equations,sangiorgi2017equations}. Contraction is a
 preorder that, roughly, places some efficiency
-constraints on processes.  Uniqueness of the solution of a system of contractions
- is defined as with systems of equations:  
-any two solutions must be bisimilar.
+constraints on processes.  The uniqueness of solutions of a system of contractions
+is defined as with systems of equations: any two solutions must be bisimilar.
 The difference with equations is in the meaning of a solution:
-in the case of contractions
-the solution is evaluated with respect to
+in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem can be
 removed.  One constraint that still remains in
-\cite{sangiorgi2017equations}
-is on occurrences of the sum operator,
-due to the failure of the substitutivity of contraction for  such an operator.
+\cite{sangiorgi2017equations} (in which the issue is bypassed using a more
+restrictive CCS syntax)
+is the occurrences of direct sums, due to the failure of the
+substitutivity of contraction under direct sums.
 
 The main goal of the work described in this paper is a rather
 comprehensive formalisation of the core of the theory of CCS in the HOL
