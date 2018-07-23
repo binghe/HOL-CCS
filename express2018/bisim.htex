@@ -91,12 +91,13 @@ fixed point, as
 the former contributes to ``greatest'' while the latter
 contributes to ``fixed point''.}
 %
-Without the  HOL's new coinductive relation package, bisimilarity
+Without HOL's coinductive relation package, bisimilarity
 would have to be defined by following literally
 Def.~\ref{d:wb};  then other properties of bisimilarity, such
 as the fixed-point property in \texttt{WB_cases}, would have to be
 derived manually (which is quite hard; indeed it was one of the main results
-in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}).
+in Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}).
 
 % \finish{I have removed other things as i fear they would confuse a
-%   reader and I think the main point we wanted to say are now clearly expressed} 
+%   reader and I think the main point we wanted to say are now clearly
+%   expressed}  (I don't buy this any more, sorry)
