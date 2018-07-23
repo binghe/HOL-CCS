@@ -16,7 +16,7 @@ of  prefixing, parallel composition,  sum, restriction, recursion and \hl{relabe
 P  & := &  \nil \; \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd % \; \mu . P\; \midd  \; 
   (\res a\!)\, P  \;  \midd \;  A \; \midd \; \recu A  P
-\; \midd \; P\; [f]  % relabelling
+\; \midd \; P\; [r\!\!f]  % relabelling
 \end{array}
 \end{equation*}
 %We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
@@ -56,7 +56,7 @@ $\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
  \recu A P   \arr{ \mu} P'  } $
 \hskip .5cm  
 $\displaystyle{ P \arr{\mu} P' \over
- P \;[f] \arr{f(\mu)} P' \;[f]} $ $\forall a.\, f(\outC a) = \overline{f(a)}$
+ P \;[r\!\!f] \arr{r\!\!f(\mu)} P' \;[r\!\!f]} $ $\forall a.\, r\!\!f(\outC a) = \overline{r\!\!f(a)}$
 $ \hb$ %  &
 \end{center}
 \caption{\hl{Structural Operational Semantics} of CCS}
@@ -102,4 +102,5 @@ $G$ is some expression, means that  $P$ stands
 for the  expression
 $G$.
 If $\leq$ is a preorder, then  $\geq$  is its inverse (and
-conversely).    
+conversely).
+
