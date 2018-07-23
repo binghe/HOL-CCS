@@ -32,8 +32,7 @@ A trace is represented by the initial and final processes, plus
 a list of actions  so performed.
 For this, we first 
  define the Reflexive Transitive Closure with a
-List (\texttt{LRTC}):
-given a  labelled transition relation \texttt{R}, 
+List (\texttt{LRTC}). Given a  labelled transition relation \texttt{R}, 
 then \texttt{LRTC R}  builds 
 the trace relation derived from \texttt{R}:
 \begin{alltt}
@@ -129,6 +128,7 @@ we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
 \begin{alltt}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
+\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 Having removed the  constraints on sums, the result is
  similar to Milner's original `unique solution of
@@ -136,7 +136,7 @@ equations' theorem for \emph{strong} bisimilarity ($\sim$)~---
 the same
 weakly guarded  condition (\texttt{WG}) is required:
 \begin{alltt}
-\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
 
 In contrast, Milner's `unique solution of
@@ -148,4 +148,6 @@ has more severe constraints:
 % restrictions on equations:
 \begin{alltt}
 \HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
+\hfill{[OBS_UNIQUE_SOLUTION]}
 \end{alltt}
+\vspace{-4ex}
