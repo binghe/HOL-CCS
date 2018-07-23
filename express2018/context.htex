@@ -17,8 +17,7 @@ contexts}, as each hole corresponds to one
 appearence of the \emph{same} variable in single-variable
 expressions (or equations). Thus \emph{contexts} can be directly used in
 formulating the unique solution of equations theorems in
-single-variable cases, and the drawbacks are slightly longer congruence
-proofs.} The precise definition is given inductively:
+single-variable cases.} The precise definition is given inductively:
 \begin{alltt}
 \HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
@@ -30,6 +29,9 @@ symmetric, transitive), while the latter can be just a preorder (reflexive, tran
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
 \hfill{[precongruence_def]}
+\end{alltt}
+\vspace{-4ex}
+\begin{alltt}
 \HOLthm[def]{Congruence.precongruence_def}
 \end{alltt}
 
