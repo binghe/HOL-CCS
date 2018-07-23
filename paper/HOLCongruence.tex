@@ -1,5 +1,5 @@
-\newcommand{\HOLCongruenceDate}{14 Giugno 2018}
-\newcommand{\HOLCongruenceTime}{22:21}
+\newcommand{\HOLCongruenceDate}{23 Luglio 2018}
+\newcommand{\HOLCongruenceTime}{15:04}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsCCXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
 \end{SaveVerbatim}
@@ -7,19 +7,15 @@
 \begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceOneXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{congruence1} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}.
-           \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}}
-           \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}}
-           \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{equivalence} \HOLBoundVar{R}
+       \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionscongruenceOneXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceOneXXdef}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{congruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}.
-           \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}}
-           \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}}
-           \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{equivalence} \HOLBoundVar{R}
+       \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionscongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceXXdef}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsCONTEXTXXdef}
@@ -102,15 +98,15 @@
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceOneXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{precongruence1} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}.
-           \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{PreOrder} \HOLBoundVar{R}
+       \HOLConst{PreOrder} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionsprecongruenceOneXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceOneXXdef}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{precongruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}.
-           \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{PreOrder} \HOLBoundVar{R}
+       \HOLConst{PreOrder} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionsprecongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceXXdef}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsSEQXXdef}

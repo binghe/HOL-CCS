@@ -15,29 +15,50 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-Bisimilarity ($\approx$) is not  congruence, since not preserved by 
+Bisimilarity ($\approx$) is not congruence, since not preserved by 
 the sum operator. For this reason rooted bisimilarity has been
-introduced (Definition~\ref{d:rootedBisimilarity}). 
+introduced (Def.~\ref{d:rootedBisimilarity}). 
 In this subsection we discuss  two proofs of the result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity.
+bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89}:
+\begin{equation}
+\label{eq:coarsest}
+\forall p\; q.\; p \approx^c\! q \Leftrightarrow ( \forall r.\; p+r \approx q+r )
+\end{equation}
+
 % : Milner's proof \cite{Mil89}, that requires
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
-The `coarsest congruence contained in bisimilarity' is 
-the context closure, below called 
-\emph{weak bisimilarity congruence}   and % written $[\approx]$, 
-formalised thus:
+Following \cite{vanGlabbeek:2005ur}, the coarsest congruence
+contained in (weak) bisimilarity (we call it \emph{bisimilarity
+  congruence} hereafter), can be directly constructed as
+the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))\hfill{[CC_def]}
 \end{alltt}
+\hl{Now we show why this works. For any relation $R$ 
+on CCS processes, \emph{no matter if it is (pre)congruence or not},
+the context closure of $R$ is always finer}\footnote{\hl{This is why
+  we don't need to put $R\ g\ h$ in the antecedent in
+\texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
+$R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
+\end{alltt}
+\hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
+itself may not be) is contained in the context
+closure of $R$ (thus it is the coarsest one):}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{congruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{precongruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest']}
+\end{alltt}
 
 Given the central role of the  
  sum operator, we also consider the closure of bisimilarity under such
- operator, 
-below called \emph{sum equivalence} and written $\approx^+$:
+ operator, called \hl{\emph{equivalence compatible with sums}}
+(\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
 \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})\hfill{[SUM_EQUIV]}
 \end{alltt}
@@ -69,29 +90,38 @@ below called \emph{sum equivalence} and written $\approx^+$:
 % \begin{alltt}
 % \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r})
 % \end{alltt}
-Rooted bisimilarity, being a congruence contained in bisimilarity,  
-is contained in   weak bisimilarity congruence that, in turn,
-trivially is contained in sum
-equivalence. Thus the crux is proving that sum equivalence implies
-rooted bisimilarity:
+\hl{Rooted bisimilarity $\approx^c$ (a congruence contained in
+$\wb$), is now contained in \texttt{WEAK_CONGR},
+which in turn is trivially contained in \texttt{SUM_EQUIV}}, as shown
+in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
+the crux is to prove that \texttt{SUM_EQUIV} implies
+rooted bisimilarity ($\approx^c$), making all three relations
+($\approx^c$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
 \forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Rightarrow p \approx^c\! q  
 \end{equation}
-% \begin{displaymath}
-% \xymatrix{
-% {\textrm{Weak bisimilarity } (\approx)} & {\textrm{Sum
-%     equivalence } (\approx^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
-% {\textrm{Weak bisim. congruence } ([\approx])}
-% \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
-% {\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
-% }
-% \end{displaymath}
+
+\begin{figure}[ht]
+\begin{displaymath}
+\xymatrix@R=2ex{
+{\textrm{Weak bisimilarity } (\approx)} & {\textrm{Equiv.
+    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+\vspace{-2ex}
+\caption{\hl{Relationship between several relations}}
+\label{fig:relationship}
+\end{figure}
+
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not make use of all possible labels.
+and $q$ do not use up all available labels (i.e. visible actions).
 Formalising such an argument requires however 
 a detailed
-treatment on free and bound names  of CCS
+treatment on free and bound names of CCS
 processes (with the restriction operator being a binder).
 However, the proof of (\ref{equa:pq}) can be carried out 
 % But it's
@@ -107,9 +137,8 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % definitions given by recursion operator. All CCS results using these
 % concepts are not touched so far, although these four concepts are
 % successfully defined using HOL's set and list theories.} However, by
-just assuming that the
-initial weak transitions (those directly emanating from 
- $p$ and $q$) do not use all possible visible labels.
+just assuming that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use up all \hl{available labels}.
 % analyzing the proof steps, we found that, what's really required is to
 % not use up all available labels in those weak transitions directly
 % lead from $p$ and $q$. In another words, even they have used all
@@ -118,16 +147,17 @@ initial weak transitions (those directly emanating from
 %   can be considered separately: the proof can be finished as long as
 %   \emph{each} of them didn't use up all labels on first weak
 %   transition, while the union of these labels are all labels.}
-We
-have formalised this property and
+We have formalised this property and
  called it the \emph{free action} property:
 \begin{alltt}
 \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}})\hfill{[free_action_def]}
 \end{alltt}
 
-With this property, the formalisation of (\ref{equa:pq}) says:
+With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
+\vspace{-2ex}
 \begin{alltt}
+\hfill{[COARSEST_CONGR_RL]}
 \HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
 \end{alltt}
 %\end{theorem}
@@ -135,29 +165,52 @@ With this property, the formalisation of (\ref{equa:pq}) says:
 For contraction and rooted contraction, the situation and proof
 steps are the same, and the corresponding HOL4 theorem says:
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
+\vspace{-2ex}
 \begin{alltt}
+\hfill{[COARSEST_PRECONGR_RL]}
 \HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{q}
 \end{alltt}
 %\end{theorem}
 
-The above proof follows 
-Milner \cite{Mil89}, and requires
- that no process uses all available names. 
-We have also formalised a different proof, 
-by
- van Glabbeek
- \cite{vanGlabbeek:2005ur}, that does not require additional
- assumptions. 
-The proof by van Glabbeek uses transfinite induction to obtain 
-a sequence of processes %(introduced by  Klop)
- that are all pairwise non-bisimilar. 
-We have formalised van Glabbeek's proof; however, as 
-the typed logic
-implemented in various HOL systems (including Isabelle/HOL) is not
-strong enough to define a type for all possible ordinal values \cite{norrish2013ordinals},
-we have replaced transfinite induction with plain induction; as a consequence, the final
-result is about a restricted class of processes (which we have taken
-to be the finite-state processes). We omit the details for lack of
-space. %, see \cite{Tian:2017wrba} for details. 
+The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
+if only $p$ (or $q$) has the free action while the other has used up all available
+labels, the classic assumption $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
+  names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
+sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
 
-%cannot precisely duplicate this proof. Instead,
+\hl{There exists a very different, much more complex proof,
+given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
+require any additional assumption.
+The core lemma says, for
+any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
+ process $k$ which is not (weakly, actually also strongly) bisimilar with
+all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
+rooted bisimilarity ($\approx^c$):
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{+} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{+} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q}\hfill{[PROP3_COMMON]}
+\end{alltt}
+\begin{alltt}
+\HOLConst{STABLE} \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
+\end{alltt}
+\hl{To actually find this process $k$, the proof relies on arbitrary infinite sum of 
+processes and uses transfinite induction to obtain
+an arbitary large sequence of processes % (firstly introduced by  Klop)
+ that are all pairwise non-bisimilar.} 
+We have partially formalised
+this proof, because the typed logic
+implemented in various HOL systems (including Isabelle/HOL) is not
+strong enough to define a type for all possible ordinal values
+\cite{norrish2013ordinals}, thus
+we have replaced transfinite induction with plain induction. As a
+consequence, the final
+result is about a restricted class of processes (which we have taken
+to be the finite-state processes). This proof uses extensively HOL's
+\texttt{pred_set} theory \cite{melham1992hol} and has an interesting mix
+of CCS and pure mathematics in it. (c.f. \cite{Tian:2017wrba} for
+more details.)

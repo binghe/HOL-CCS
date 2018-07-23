@@ -1,5 +1,5 @@
-\newcommand{\HOLContractionDate}{14 Giugno 2018}
-\newcommand{\HOLContractionTime}{22:21}
+\newcommand{\HOLContractionDate}{23 Luglio 2018}
+\newcommand{\HOLContractionTime}{16:41}
 \begin{SaveVerbatim}{HOLContractionDefinitionsCXXcontracts}
 \HOLTokenTurnstile{} \HOLConst{C_contracts} \HOLSymConst{=} \HOLConst{CC} (\HOLConst{contracts})
 \end{SaveVerbatim}
@@ -195,6 +195,16 @@
                \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}
 \end{SaveVerbatim}
 \newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXtau}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXtau}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEXXtauYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}}.
+           \HOLConst{TRACE} \HOLBoundVar{P} \HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}.
+               \HOLConst{TRACE} \HOLBoundVar{Q} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLConst{contracts} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXtauYY}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXtauYY}}
 \begin{SaveVerbatim}{HOLContractionTheoremscontractsXXcases}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
        \HOLBoundVar{a\sb{\mathrm{0}}} \HOLConst{contracts} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
@@ -593,6 +603,7 @@
 \HOLThmTag{Contraction}{contracts_AND_TRACE2}\HOLContractionTheoremscontractsXXANDXXTRACETwo
 \HOLThmTag{Contraction}{contracts_AND_TRACE_label}\HOLContractionTheoremscontractsXXANDXXTRACEXXlabel
 \HOLThmTag{Contraction}{contracts_AND_TRACE_tau}\HOLContractionTheoremscontractsXXANDXXTRACEXXtau
+\HOLThmTag{Contraction}{contracts_AND_TRACE_tau'}\HOLContractionTheoremscontractsXXANDXXTRACEXXtauYY
 \HOLThmTag{Contraction}{contracts_cases}\HOLContractionTheoremscontractsXXcases
 \HOLThmTag{Contraction}{contracts_coind}\HOLContractionTheoremscontractsXXcoind
 \HOLThmTag{Contraction}{contracts_EPS}\HOLContractionTheoremscontractsXXEPS

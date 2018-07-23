@@ -5,24 +5,28 @@
 
 \subsection{CCS and its transitions by SOS rules}
 
-In our formalisation of CCS, 
-the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' ($\beta$ is a
-type variable) accounts for visible actions, divided into input
-and output actions:
+In our CCS formalisation, the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
+$\beta$ is the type variable for actions) accounts for visible actions, divided into input
+and output actions, defined by HOL's Datatype package:
 \begin{lstlisting}
 val _ = Datatype `Label = name 'b | coname 'b`;
 \end{lstlisting}
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible and invisible actions. The cardinality of
 ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' (and therefore of all
-CCS types built on top of it) 
- depends on the choice of the initial type $\beta$.
+CCS types built on top of it)
+ depends on the choice (or \emph{type-instantiation}) of $\beta$.
 
-The core datatype ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS syntax, is then defined as an inductive
-datatype in HOL, based on its Datatype package (here \texttt{'a} 
-is the type
-variable   $\alpha$ for recursion variables, \texttt{'b} is the type
-variable   $\beta$ for actions):
+The type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS
+syntax\footnote{\hl{The order of type variables $\alpha, \beta$ can be
+    arbitrary. But our choice is aligned with other CCS literals.
+$\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
+and $k$ actions.} \cite{gorrieri2017ccs} \hl{Thus, to formalize theorems on
+this kind of CCS subcalculus, it is enough to instantiate the type
+variables $\alpha, \beta$ with types having the corresponding cardinalities $h, k$.}}, is then defined inductively:
+(\texttt{'a} or $\alpha$ is the type variable for recursion variables,
+``\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}}'' is \hl{the type of all relabeling functions,
+`\mbox{\color{blue}{\texttt{`}}}' is the backquote for HOL terms}):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -34,11 +38,11 @@ val _ = Datatype `CCS = nil
 		      | rec 'a CCS`;
 \end{lstlisting}
 
-We have added some  grammar support,
- using HOL powerful `pretty printer', to represent CCS
-processes in more readable forms (see the `HOL (abbrev.)'
-column of Table \ref{tab:ccsoperator}; the table summarizes 
-the main syntactic notations for CCS). For the restriction
+We have added some grammar support,
+ using \hl{HOL's powerful pretty printer}, to represent CCS
+processes in more readable forms (c.f. the column \textbf{HOL (abbrev.)}
+in Table \ref{tab:ccsoperator}, \hl{which} summarizes 
+the main syntactic notations \hl{of} CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
 the manipulation of 
@@ -64,7 +68,10 @@ restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLinline{\HOLSymConst{\ensu
   \\
 recursion & $\recu A P$ & \texttt{rec A P} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P}}
   \\
+relabeling & $P\;[r\!\!f]$ & \texttt{relab P rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf}}
+  \\
 \hline
+invisible action & $\tau$ & \texttt{tau} & \HOLinline{\HOLSymConst{\ensuremath{\tau}}} \\
 input action & $a$ & \texttt{label (name a)} & \HOLinline{\HOLConst{In} \HOLFreeVar{a}} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out} \HOLFreeVar{a}} \\
 \hline
@@ -75,9 +82,8 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out
    \label{tab:ccsoperator}
 \end{table}
 
-The transition semantics of CCS processes  follows
-the Structural Operational Semantics (SOS) rules in
-Figure~\ref{f:LTSCCS}:
+The transition semantics of CCS processes follows Structural
+Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P}\hfill\texttt{[PREFIX]}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{+} \HOLFreeVar{Q} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[SUM1]}
@@ -97,32 +103,33 @@ $(\mathbf{rec}\; A\; P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\mathbf{rec}\; A\; P)$ has the same
 transition. From the HOL  viewpoint, these
 SOS rules are \emph{inductive 
-  definitions} on the 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL4's 
-\texttt{Hol_reln} function (inductive relation package).
+  definitions} on the 3-ary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL's 
+\texttt{Hol_reln} function.
 
 A useful function that we have defined, exploiting the interplay
 between HOL4 and Standard ML (and following an idea by Nesi \cite{Nesi:1992ve})
  is a complex Standard ML function
-  taking a CCS process and returning a theorem indicating all its direct transitions.
+  taking a CCS process and returning a theorem indicating all its
+  direct transitions.\footnote{If the input process could yield
+    something infinite branching, due to the use of recursion or
+    relabeling operators, the program will loop forever without
+    outputing a theorem.}
 For instance, we know that the process $(a.0 | \bar{a}.0)$ has three
 possible transitions: $(a.0 | \bar{a}.0) \overset{a}{\longrightarrow}
 (0 | \bar{a}.0)$, $(a.0 | \bar{a}.0)
 \overset{\bar{a}}{\longrightarrow} (a.0 | 0)$ and $(a.0 | \bar{a}.0)
 \overset{\tau}{\longrightarrow} (0 | 0)$.
 To completely describe all possible transitions of a process, if done manually, the
-following facts should be proved:
-\begin{enumerate}
-\iflong
-\item there exists transitions from $(a.0 | \bar{a}.0)$ (optional);
-\fi
-\item the correctness for each of the transitions;
-\item the non-existence of other transitions.
-\end{enumerate}
+following facts should be proved: (1) there exists transitions from
+$(a.0 | \bar{a}.0)$ (optional); (2) the correctness for each of the
+transitions; and (3) the non-existence of other transitions.
+
 For large processes it may be surprisingly hard to manually prove the
 non-existence of transitions.  Hence the usefulness of appealing to 
 the new  function \texttt{CCS\_TRANS\_CONV}. 
 For instance this function
 is called on the  process $(a.0 | \bar{a}.0)$ thus:
+\hl{(`\mbox{\color{blue}{\texttt{``}}}' is the double-backquote for HOL terms)}
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``

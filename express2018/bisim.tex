@@ -5,10 +5,10 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
-
-For the definition of (weak) bisimilarity we first need weak
-transitions (abstracting from $\tau$-moves). 
-We define a (possibly empty) sequence of $\tau$-transitions as
+\hl{To define (weak) bisimilarity, we first need to define weak
+transitions of CCS processes. Following the name adopted by Nesi} \cite{Nesi:1992ve},
+we define a (possibly empty) sequence of $\tau$-transitions between
+two processes as
 a new relation called \texttt{EPS} ($\overset{\epsilon}{\Rightarrow}$), which is the RTC
 (reflexive transitive closure, $^*$) of the single-step $\tau$-transition:
 \begin{alltt}
@@ -20,31 +20,20 @@ two $\epsilon$-transitions:
 \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
 \end{alltt}
 
-
-
-
 For the definition of bisimilarity and the associated coinduction
-principle, 
-we have  taken
-advantage of HOL's coinductive relation package (\texttt{Hol_coreln} \cite{Anonymous:Iu-sOoz1}),
-a new tools since its Kananaskis-11 release (March 3,
+principle \cite{sangiorgi2011advanced}, we have taken
+advantage of HOL's coinductive relation package (\texttt{Hol_coreln} \cite{holdesc}),
+a new tool since its Kananaskis-11 release (March 3,
 2017).\footnote{\url{https://hol-theorem-prover.org/kananaskis-11.release.html\#new-tools}}
 % HOL4 (Kananaskis-11 or later releases).
 This essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. 
 Precisely we call 
 the \texttt{Hol_coreln}
-command as follows. It returns 3 theorems; we report below  two of them, 
-\texttt{WB_coind} and \texttt{WB_cases},
-which 
-express the coinduction proof method for bisimilarity 
-(any bisimulation is contained in bisimilarity)
-and the fixed-point property of bisimilarity
-(bisimilarity itself is a bisimulation, thus the largest
-bisimulation); here
-  \texttt{WB} is meant to be bisimilarity
-(recall also that, in HOL, {\tt !} and  {\tt ?}  stand for universal and
-existential quantifiers):
+command as follows: (here \texttt{WB} is meant to be
+\texttt{WEAK_EQUIV} ($\approx$) in the rest of this paper;
+{\tt !} and {\tt ?} stand for universal and
+existential quantifiers.)
 \begin{lstlisting}
 val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
     (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
@@ -57,6 +46,23 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
        (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
      ==> WB P Q)`;
 \end{lstlisting}
+\texttt{Hol_coreln} returns 3 theorems, of the first being always the
+same as input term\footnote{\hl{Our mixing of HOL notation and mathematical
+  notation in this paper is not arbitrary. We have to paste here the
+  original proof scripts, which is written in HOL's ASCII term
+  notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also suppports writing Unicode symbols directly in
+  proof scripts but we didn't make use of them. On the other side, all formal definitions and
+  theorems in this paper are automatically generated from HOL4 in
+  which we have done lots of work for generating
+  Unicode and TeX outputs as natural as possible. What's really
+  arbitrary is the presense/absense of outermost universal
+  quantifiers in all generated theorems.}} (now proved automatically as a theorem).
+The second and third theorems, namely \texttt{WB_coind} and \texttt{WB_cases},
+express the coinduction proof method for bisimilarity 
+(i.e.~any bisimulation is contained in bisimilarity)
+and the fixed-point property of bisimilarity
+(bisimilarity itself is a bisimulation, thus the largest
+bisimulation):
 \begin{enumerate}
 \item 
 \begin{small}
@@ -73,7 +79,7 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
                      \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
             (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
             \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WB} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}\hfill{[WB_coind]}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{WB\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WB} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}\hfill{[WB_coind, WEAK_EQUIV_coind]}
 \end{alltt}
 \end{small}
 \item %The fixed point (or cases) theorem for $\wb$:
@@ -89,32 +95,31 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
                 \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}\hfill{[WB_cases]}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{P\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WB} \HOLBoundVar{P\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}\hfill{[WB_cases, WEAK_EQUIV_cases]}
 \end{alltt}
 \end{small}
 \end{enumerate}
 
-% The coinduction principle \texttt{WB_coind} says that any
-% bisimulation is contained in the resulting relation (i.e. it's
-% largest), but it didn't limit the resulting relation into any set of
-% fixed points, because even the universal relation (the set of all pairs)
-% could fit with this theorem; the
-% purpose of the fixed point theorem \texttt{WB_cases} is to
-% further assert that the resulting relation is indeed a
-% fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
-% together make sure that bisimilarity is the greatest
-% fixed point, as
-% the former contributes to ``greatest'' while the latter
-% contributes to ``fixed point''.
-
-Without the  HOL4 coinduction package, bisimilarity would have to be
-defined  following 
-Definition~\ref{d:wb};  then other properties of bisimilarity, such
+\hl{The coinduction principle \texttt{WB_coind} says that any
+bisimulation is contained in the resulting relation (i.e. it is
+largest), but it didn't limit the resulting relation into any set of
+fixed points, because even the universal relation (the set of all pairs)
+could fit with this theorem; the
+purpose of the fixed point theorem \texttt{WB_cases} is to
+further assert that the resulting relation is indeed a
+fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
+together make sure that bisimilarity is the greatest
+fixed point, as
+the former contributes to ``greatest'' while the latter
+contributes to ``fixed point''.}
+%
+Without HOL's coinductive relation package, bisimilarity
+would have to be defined by following literally
+Def.~\ref{d:wb};  then other properties of bisimilarity, such
 as the fixed-point property in \texttt{WB_cases}, would have to be
-derived 
-manually (which is hard to do; indeed it was one of the main results
-in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}). 
-
+derived manually (which is quite hard; indeed it was one of the main results
+in Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}).
 
 % \finish{I have removed other things as i fear they would confuse a
-%   reader and I think the main point we wanted to say are now clearly expressed} 
+%   reader and I think the main point we wanted to say are now clearly
+%   expressed}  (I don't buy this any more, sorry)
