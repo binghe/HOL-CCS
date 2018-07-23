@@ -120,14 +120,10 @@ possible transitions: $(a.0 | \bar{a}.0) \overset{a}{\longrightarrow}
 \overset{\bar{a}}{\longrightarrow} (a.0 | 0)$ and $(a.0 | \bar{a}.0)
 \overset{\tau}{\longrightarrow} (0 | 0)$.
 To completely describe all possible transitions of a process, if done manually, the
-following facts should be proved:
-\begin{enumerate}
-\iflong
-\item there exists transitions from $(a.0 | \bar{a}.0)$ (optional);
-\fi
-\item the correctness for each of the transitions;
-\item the non-existence of other transitions.
-\end{enumerate}
+following facts should be proved: (1) there exists transitions from
+$(a.0 | \bar{a}.0)$ (optional); (2) the correctness for each of the
+transitions; and (3) the non-existence of other transitions.
+
 For large processes it may be surprisingly hard to manually prove the
 non-existence of transitions.  Hence the usefulness of appealing to 
 the new  function \texttt{CCS\_TRANS\_CONV}. 
