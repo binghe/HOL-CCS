@@ -33,15 +33,18 @@ be also easily migrated into other theorem provers,
 sometimes even automatically \cite{hurd2011opentheory}.
 
 HOL4 is written in Standard ML, a single programming language who
-plays three different roles: (The situation is quite different in
-other systems like Coq\footnote{\hl{The Coq Proof Assistant.} \url{https://coq.inria.fr}}.)
+plays three different roles:
+%(The situation is quite different in other systems like Coq\footnote{\hl{The Coq Proof Assistant.} \url{https://coq.inria.fr}}.)
 \begin{enumerate}
 \item It serves as the underlying implementation language for the core HOL engine;
 \item it is used to implement tactics (and tacticals) for writing proofs;
 \item it is used as the command language of the HOL interactive shell.
 \end{enumerate}
 \hl{Moreover, using} the same language HOL4 users can write complex automatic
-verification tools by calling HOL's interactive theorem proving facilities.
+verification tools by calling HOL's interactive theorem proving
+facilities. \hl{(The formal proof of theorems in CCS theory
+is mostly done by an \emph{interactive process} closely following
+their informal proofs.)}
 
 % \finish{below: to be reformulated (by Davide) later} 
 % We will not repeat all definitions and theorems of CCS again by their
