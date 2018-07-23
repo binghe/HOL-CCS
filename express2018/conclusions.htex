@@ -1,0 +1,76 @@
+% \section{To Do}
+% \label{s:todo}
+
+% \finish{discuss multiple equations/contractions} 
+
+% The formalisation of multi-variable context (or expressions) and the version of
+% ``unique solutions'' theorems with multiple equations/contractions, is
+% a relative hard problem. To the best of our knowledge, so far there's no formalization (in any kind of
+% process calculi) touching these areas yet. However, we've made a few initial steps
+% of this interesting problem.
+
+\section{Conclusions and future work}
+\label{s:concl}
+
+We have highlighted a formalisation of the theory of CCS in the 
+HOL4 theorem prover (for lack of space we have not discussed 
+the formalisation of some basic algebraic theory, of the basic
+properties of the expansion preorder,   and of a few
+ versions of `bisimulation up to'
+techniques). % such as  bisimulation up-to bisimilarity). 
+The formalisation has focused on the theory of
+unique solution of equations and contractions. 
+It has also allowed us to further develop the theory,
+notably the basic properties of rooted contraction, and the unique
+solution theorem for it with respect to rooted bisimilarity. 
+The formalisation brings up and exploits similarities between results
+and proofs for different equivalences and preorders. 
+We think that the statements in the formalisation are easy to read and
+understand, as they are very close to the orginal statements found in
+standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
+
+For the future work, it would be worth extending the current work
+to multi-variable equations/contractions. \hl{Preliminary work shows that,
+the key idea could be using unguarded constants as free variables
+(\texttt{FV}) and define guardness directly on type CCS (instead of CCS
+$\rightarrow$ CCS) then connect to previous context:}
+\begin{alltt}
+\HOLthm{Congruence.weakly_guarded1_def}
+\end{alltt}
+
+Formalising other equivalences and preorders could also be considered,
+notably the trace equivalences.
+On the other side, one could examine the formalisation of a different
+approach \cite{DurierHS17} to unique
+solutions, in which the use of contraction is
+replaced by semantic conditions on process transitions such as
+divergence. \hl{The problem of formalising value-passing CCS in a
+more elegant way with minimal efforts (by exploiting the type variable
+of actions, for example) also deserves some thinking.}
+
+% Further plan on the formalisation mainly includes: 1) the extension to
+% multi-variable equation/contractions. 2) the support of recursion
+% operators in 
+% CCS context and expressions.
+
+% We believe that, beside the discovery of the rooted contraction $\rcontr$
+% with a more elegant unique solution theorem,
+% our CCS formalisation in HOL4 has also
+% provided a solid formal framework for future theoretical developments in
+% Concurrency Theory, particularily for process algebras like CCS. It's
+% easily understandable, with statements extremely close to the original
+% textbook. The logic foundations of HOL makes the whole work (or individual
+% parts) easily portable to other theorem provers.
+
+\paragraph{Acknowledgements}
+
+We have benefitted from suggestions and comments 
+from several people from the HOL
+community, including Robert Beers, Jeremy Dawson,
+Ramana Kumar,
+Michael Norrish, 
+Konrad Slind, and
+Thomas Tuerk.
+%
+The second half of this
+paper was written in memory of Mike J. Gordon, the creator of HOL theorem prover.
