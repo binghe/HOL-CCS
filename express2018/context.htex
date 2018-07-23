@@ -10,20 +10,23 @@
 
 We have chosen to use $\lambda$-expressions (\hl{with the type}
 ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}'')
-for representing \emph{multi-or-no-hole contexts}.
+to represent \emph{multi-hole contexts}.
 %
 \hl{This choice has a significant advantage over \emph{one-hole
 contexts}, as each hole corresponds to one
 appearence of the \emph{same} variable in single-variable
-expressions (or equations). (Thus \emph{contexts} can be directly used in
+expressions (or equations). Thus \emph{contexts} can be directly used in
 formulating the unique solution of equations theorems in
 single-variable cases, and the drawbacks are slightly longer congruence
-proofs)}
-The definition is inductive:
+proofs.} The precise definition is given inductively:
 \begin{alltt}
-\HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
-A (pre)congruence as relation on CCS processes is then defined on top of above contexts:
+
+A (pre)congruence is a relation of CCS processes defined on top of
+above multi-hole contexts. \hl{The only difference between congruence and
+precongruence is, the former must be equivalence (reflexive,
+symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
 \hfill{[precongruence_def]}
@@ -51,16 +54,22 @@ a hole, apart from the hole itself, is in forms of prefixes or sums:
  \begin{alltt}
 \HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
-A context is \emph{sequential} (\texttt{SEQ}) if each of its subcontext with
-a hole, apart from the hole itself, is in form of a prefix or sum:
-(c.f. Sec. 7.3 of \cite{Mil89}) 
- \begin{alltt}
-\HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
+
+In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums are forbidden):}
+\begin{alltt}
+\HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
-In the same manner, we can also define all
-variants of above concepts with only weakly-guarded sums (\texttt{GCONTEXT}, \texttt{WGS} and
-\texttt{GSEQ}). Several lemmas have then to be proved for their
+\hl{Although weak bisimilarity is not compatible with an unrestricted
+variant of binary choice, it is compatible with weakly guarded
+sums. As a consequence, weak bisimilarity is indeed a ``congruence''
+if we have had another version of \texttt{congruence} w.r.t. above \texttt{GCONTEXT}.}
+%
+Many lemmas have then to be proved for their
 relationships among these kinds of contexts and properties about their
 compositions. These proofs are usually tedious but  long,  due to multiple levels of
 inductions on the structure of the contexts.%  For example, one such 
