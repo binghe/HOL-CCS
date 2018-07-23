@@ -27,7 +27,7 @@ this kind of CCS subcalculus, it is enough to instantiate the type
 variables $\alpha, \beta$ with types having the corresponding cardinalities $h, k$.}}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
 ``\HOLty{:'b Relabeling}'' is \hl{the type of all relabeling functions,
-`\mbox{\color{red}{\texttt{`}}}' is the backquote for HOL terms}):
+`\mbox{\color{blue}{\texttt{`}}}' is the backquote for HOL terms}):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -135,7 +135,7 @@ non-existence of transitions.  Hence the usefulness of appealing to
 the new  function \texttt{CCS\_TRANS\_CONV}. 
 For instance this function
 is called on the  process $(a.0 | \bar{a}.0)$ thus:
-\hl{(`\mbox{\color{red}{\texttt{``}}}' is the double-backquote for HOL terms)}
+\hl{(`\mbox{\color{blue}{\texttt{``}}}' is the double-backquote for HOL terms)}
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``
