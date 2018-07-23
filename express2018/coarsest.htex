@@ -35,7 +35,8 @@ the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 \end{alltt}
 \hl{Now we show why this works. For any relation $R$ 
 on CCS processes, \emph{no matter if it is (pre)congruence or not},
-the context closure of $R$ is always finer}\footnote{\hl{This is why we don't need to put $R\ g\ h$ in the antecedent in
+the context closure of $R$ is always finer}\footnote{\hl{This is why
+  we don't need to put $R\ g\ h$ in the antecedent in
 \texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
 $R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
 \begin{alltt}
@@ -141,7 +142,7 @@ We have formalised this property and
 With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
 \begin{alltt}
-\HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_RL}
+\HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_RL}\hfill{[COARSEST_CONGR_RL]}
 \end{alltt}
 %\end{theorem}
 
@@ -149,7 +150,7 @@ For contraction and rooted contraction, the situation and proof
 steps are the same, and the corresponding HOL4 theorem says:
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \begin{alltt}
-\HOLthm[nosp]{Contraction.COARSEST_PRECONGR_RL}
+\HOLthm[nosp]{Contraction.COARSEST_PRECONGR_RL}\hfill{[COARSEST_PRECONGR_RL]}
 \end{alltt}
 %\end{theorem}
 
@@ -164,7 +165,7 @@ sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
-any two processes $p$ and $q$, if there exists a stable
+any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
  process $k$ which is not (weakly, actually also strongly) bisimilar with
 all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
 rooted bisimilarity ($\approx^c$):
