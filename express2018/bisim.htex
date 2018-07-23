@@ -30,59 +30,69 @@ This essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. 
 Precisely we call 
 the \texttt{Hol_coreln}
-command as follows: (here {\tt !} and  {\tt ?} stand for universal and
-existential quantifiers in HOL's ASCII logic representation)
+command as follows: (here \texttt{WB} is meant to be
+\texttt{WEAK_EQUIV} ($\approx$) in the rest of this paper;
+{\tt !} and {\tt ?} stand for universal and
+existential quantifiers.)
 \begin{lstlisting}
-val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
+    (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
        (!l.
-	 (!E1. TRANS E  (label l) E1 ==>
-	       (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
-	 (!E2. TRANS E' (label l) E2 ==>
-	       (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
-       (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
-       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
-      ==> WEAK_EQUIV E E')`;
+	 (!P'. TRANS P (label l) P' ==>
+	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
+	 (!Q'. TRANS Q (label l) Q' ==>
+	       (?P'. WEAK_TRANS P (label l) P' /\ WB P' Q'))) /\
+       (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
+       (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
+     ==> WB P Q)`;
 \end{lstlisting}
-It returns 3 theorems; we report below last two of them,
-\texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases},
-which express the coinduction proof method for bisimilarity 
-(any bisimulation is contained in bisimilarity)
+\texttt{Hol_coreln} returns 3 theorems, of the first being always the
+same as input term\footnote{\hl{The mixing of HOL notation and mathematical
+  notation in this paper is not arbitrary. We have to paste here the
+  original proof scripts, which is written in HOL's ASCII term
+  notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also suppports writing Unicode symbols directly in
+  proof scripts but we didn't make use of them. On the other side, all formal definitions and
+  theorems in this paper are automatically generated from HOL4 in
+  which we have carefully configured the pretty printer to output them
+in mathematical notations as much as possible.}} (now proved automatically as a theorem).
+The second and third theorems, namely \texttt{WB_coind} and \texttt{WB_cases},
+express the coinduction proof method for bisimilarity 
+(i.e.~any bisimulation is contained in bisimilarity)
 and the fixed-point property of bisimilarity
 (bisimilarity itself is a bisimulation, thus the largest
-bisimulation).
+bisimulation):
 \begin{enumerate}
 \item 
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
+\HOLthm[nosp]{Example.WB_coind}\hfill{[WB_coind, WEAK_EQUIV_coind]}
 \end{alltt}
 \end{small}
 \item %The fixed point (or cases) theorem for $\wb$:
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
+\HOLthm[nosp]{Example.WB_cases}\hfill{[WB_cases, WEAK_EQUIV_cases]}
 \end{alltt}
 \end{small}
 \end{enumerate}
 
-% The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
-% bisimulation is contained in the resulting relation (i.e. it's
-% largest), but it didn't limit the resulting relation into any set of
-% fixed points, because even the universal relation (the set of all pairs)
-% could fit with this theorem; the
-% purpose of the fixed point theorem \texttt{WEAK_EQUIV_cases} is to
-% further assert that the resulting relation is indeed a
-% fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
-% together make sure that bisimilarity is the greatest
-% fixed point, as
-% the former contributes to ``greatest'' while the latter
-% contributes to ``fixed point''.
+\hl{The coinduction principle \texttt{WB_coind} says that any
+bisimulation is contained in the resulting relation (i.e. it is
+largest), but it didn't limit the resulting relation into any set of
+fixed points, because even the universal relation (the set of all pairs)
+could fit with this theorem; the
+purpose of the fixed point theorem \texttt{WB_cases} is to
+further assert that the resulting relation is indeed a
+fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
+together make sure that bisimilarity is the greatest
+fixed point, as
+the former contributes to ``greatest'' while the latter
+contributes to ``fixed point''.}
 
 Without the  HOL4 coinduction package, bisimilarity would have to be
 defined  following 
 Definition~\ref{d:wb};  then other properties of bisimilarity, such
-as the fixed-point property in \texttt{WEAK_EQUIV_cases}, would have to be
+as the fixed-point property in \texttt{WB_cases}, would have to be
 derived 
 manually (which is hard to do; indeed it was one of the main results
 in  Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}). 
