@@ -3,14 +3,15 @@ author: Chun Tian
 ---
 
 # Calculus of Communicating Systems in Higher Order Logic
-A formalisation of Milner's CCS in [HOL4](https://github.com/HOL-Theorem-Prover/HOL)
+(A formalisation of Milner's CCS in [HOL4](https://github.com/HOL-Theorem-Prover/HOL))
 
 This (private) repository holds unpublished CCS formalization in HOL theorem prover (HOL4) and LaTeX sources of related papers.
 
-## Papers being published
+## Papers being published (or self-uploaded) so far
 
-- Tian, C., Sangiorgi, D.: _Unique solutions of contractions, CCS, and their HOL formalisation._ [EXPRESS/SOS 2018](http://disat.uninsubria.it/~simone.tini/express_sos.html)
+- Tian, C.: A Formalization of Unique Solutions of Equations in Process Algebra, http://amslaurea.unibo.it/14798/ (2017). (arXiv reprint: https://arxiv.org/abs/1712.09402)
+- Tian, C., Sangiorgi, D.: _Unique solutions of contractions, CCS, and their HOL formalisation,_ [EXPRESS/SOS](http://disat.uninsubria.it/~simone.tini/express_sos.html) (2018).
 
 ## Notes
 
-Please use [https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS] for stable versions which is confirmed buildable with the same snapshot of HOL4.
+Please use [HOL official example](https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS) for stable versions confirmed buildable with the same snapshot of HOL4.
