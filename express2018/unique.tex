@@ -96,13 +96,14 @@ having only weakly-guarded sums, has a unique solution for $\wb$.
 \begin{proof}{(sketch from \cite{sangiorgi2017equations})}
 Suppose $\til P$ and $\til Q$ are two such solutions (for $\wb$) and consider
 the relation
-\begin{equation*}
+\begin{equation}
+\label{eq:R}
 \R \DSdefi \{ 
 (R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
 $\qct$ (having only weakly-guarded sums)} \} \enspace.
-\end{equation*}
-We show that $\R$ is a bisimulation. Suppose $R\ \R\ S$ vis the context
-$C$, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
+\end{equation}
+We show that $\R$ is a bisimulation. \hl{Suppose $R\ \R\ S$ vis the context
+$C$}, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
 S'$ and $R'\ \R\ S'$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
 \Arcap{\mu} R'' \wb R'$ for some $R''$. By Lemma~\ref{l:uptocon},
 there is $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
@@ -119,11 +120,10 @@ constrained syntax for sums, due to the congruence and precongruence
 problems of bisimilarity and contraction with such operator. 
 We show here that the constraints can be
 removed by moving to the induced congruence and precongruence, the
-latter 
-called \emph{rooted contraction}.
-\begin{definition}[rooted contraction]
+latter called \emph{rooted contraction}:
+\begin{definition}
 \label{d:rcontra}
-Two processes $P$ and $Q$ are in \emph{rooted contraction}, written 
+Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
  $P\rcontr Q$, if
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
@@ -139,42 +139,34 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written
 
 \hl{The discovery of this definition is with help of HOL theorem
   prover and
-the following two principles:} 1) Its definition must not be recursive,
+the following two principles:} (1) Its definition must not be recursive,
 instead it should resemble the definition of rooted bisimilarity
 $\approx^c$ in Def.~\ref{d:rootedBisimilarity};
-2) It must be built on top of existing \emph{contracts}
+(2) It must be built on top of existing \emph{contracts}
 relation $\mcontrBIS$, which we believe it's the \emph{right} one
 because of its completeness. \hl{Multiple candicates were quickly tested,
 finally only above definition is proven to be a precongruence, as the
-following theorem states:}
+following theorem states.} (The proof of this result is along the lines of the analogous result
+for rooted bisimilarity with respect to bisimilarity.)
 
 \begin{theorem}
 \label{t:rcontrPrecongruence}
 $\rcontr$ is a precongruence in CCS, and it is the
 coarsest precongruence contained in $\contr$.
 \end{theorem}  
-The proof of this result is along the lines of the analogous result
-for rooted bisimilarity with respect to bisimilarity. 
-%Similarly one can define and handle the rooted variant of the
-%expansion preorder. (not sure)
 
-For a system of contractions, the meaning of 
-``solution for $\rcontr$'' and of 
- \emph{a unique 
-solution for $\rapprox$}
+For a system of rooted contractions, the meaning of 
+``solution for $\rcontr$'' and of \emph{a unique solution for $\rapprox$}
 is the expected one --- just replace in Definition~\ref{d:uniContra}  the preorder 
 $\contr$ with $\rcontr$, and the equivalence 
 $\approx$ with $\rapprox$.
-
-For the rooted relations, the analogous of Lemma~\ref{l:uptocon} and of
+%
+For this new relation, the analogous of Lemma~\ref{l:uptocon} and of
 Theorem~\ref{t:contraBisimulationU} can now be stated without constraints on the sum
-operator.  
-The schema of the proofs is also the same; the substitutivity
-properties of 
-$\rcontr$ and $\rapprox$ allow us to avoid issues with the sum
-operator. Some care is needed in Theorem~\ref{t:rcontraBisimulationU}
-to make sure that the final result is about  
-$\rapprox$, rather than (the weaker) $\approx$.
+operator.
+The schema of the proofs is almost the same, because all needed
+properties of $\rcontr$ in the proof is its precongruence, which is
+now true for unrestricted contexts using direct sums:
 
 \begin{lemma}
 \label{l:ruptocon}
@@ -192,6 +184,17 @@ such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu}
 \begin{theorem}[unique solution of contractions for $\rapprox$]
 \label{t:rcontraBisimulationU}
 A system of weakly-guarded contractions has a unique solution 
- for $\rapprox$.
+ for $\rapprox$. (thus also for $\wb$)
 \end{theorem} 
 
+\begin{proof}
+We first follow the same steps as in the proof of Theorem~\ref{t:contraBisimulationU} to show the relation $\R$ (now
+with $\rcontr$ and unrestrict context $C$) in (\ref{eq:R}) is bisimulation,
+exploting Lemma~\ref{l:ruptocon}. \hl{Then it remains to show that,} for
+any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
+there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$!) and
+$P'\ \R\ Q'$, and also for the converse direction, exploting Lemma
+4.13 of \cite{Mil89} \hl{(unexpected!)}. \hl{By definition of
+\emph{bisimulation} (not $\wb$!) and $\approx^c$, we actually proved $P
+\approx^c Q$ instead of $P \wb Q$.}
+\end{proof}
