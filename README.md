@@ -3,7 +3,7 @@ author: Chun Tian
 ---
 
 # Calculus of Communicating Systems in Higher Order Logic
-CCS in HOL4
+A formalisation of Milner's CCS in [HOL4](https://github.com/HOL-Theorem-Prover/HOL)
 
 This (private) repository holds unpublished CCS formalization in HOL theorem prover (HOL4) and LaTeX sources of related papers.
 
