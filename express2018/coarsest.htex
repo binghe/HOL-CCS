@@ -25,13 +25,28 @@ bisimilarity.
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
-The `coarsest congruence contained in bisimilarity' is 
-the context closure, below called 
-\emph{weak bisimilarity congruence}   and % written $[\approx]$, 
-formalised thus:
+Inspired by \cite{vanGlabbeek:2005ur}, the `coarsest congruence
+contained in bisimilarity',
+below called \emph{(weak) bisimilarity congruence}, is defined as
+the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
+\end{alltt}
+\hl{Now we show why this works. For any relation $R$ 
+on CCS processes, \emph{no matter if it is (pre)congruence or not},
+the context closure of $R$ is always finer}\footnote{\hl{This is why we don't need to put $R\ g\ h$ in the antecedent in
+\texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
+$R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
+\begin{alltt}
+\HOLthm{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
+\end{alltt}
+\hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
+itself may not be) is contained in the context
+closure of $R$ (thus it is the coarsest one):}
+\begin{alltt}
+\HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
+\HOLthm[nosp]{Congruence.CC_is_coarsest'}\hfill{[CC_is_coarsest']}
 \end{alltt}
 
 Given the central role of the  
