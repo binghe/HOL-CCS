@@ -298,27 +298,23 @@ val WEAK_EQUIV_SUBST_GCONTEXT = store_thm (
 (******************************************************************************)
 
 val precongruence_def = Define `
-    precongruence R =
-	!x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y) /\
-	PreOrder R`;
+    precongruence R = PreOrder R /\
+	!x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* a special version of precongruence with only guarded sums *)
 val precongruence1_def = Define `
-    precongruence1 R =
-	!x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y) /\
-	PreOrder R`;
+    precongruence1 R =PreOrder R /\
+	!x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* The definition of congruence for CCS, TODO: use precongruence *)
 val congruence_def = Define `
-    congruence R =
-	!x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y) /\
-	equivalence R`;
+    congruence R = equivalence R /\
+	!x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* a special version of congruence with only guarded sums *)
 val congruence1_def = Define `
-    congruence1 R =
-	!x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y) /\
-	equivalence R`;
+    congruence1 R = equivalence R /\
+	!x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 val STRONG_EQUIV_congruence = store_thm (
    "STRONG_EQUIV_congruence", ``congruence STRONG_EQUIV``,
@@ -347,9 +343,6 @@ val CC_precongruence = store_thm (
     REWRITE_TAC [precongruence_def, CC_def]
  >> RW_TAC std_ss []
  >| [ (* goal 1 (of 2) *)
-      `CONTEXT (c o ctx)` by PROVE_TAC [CONTEXT_combin] \\
-      RES_TAC >> FULL_SIMP_TAC std_ss [o_THM],
-      (* goal 2 (of 2) *)
       REWRITE_TAC [PreOrder] \\
       rpt STRIP_TAC >| (* 2 sub-goals here *)
       [ (* goal 1.1 (of 2) *)
@@ -359,7 +352,10 @@ val CC_precongruence = store_thm (
         (* goal 1.2 (of 2) *)
         REWRITE_TAC [transitive_def] >> BETA_TAC \\
         rpt STRIP_TAC >> RES_TAC \\
-        PROVE_TAC [PreOrder, transitive_def] ] ]);
+        PROVE_TAC [PreOrder, transitive_def] ],
+      (* goal 2 (of 2) *)
+      `CONTEXT (c o ctx)` by PROVE_TAC [CONTEXT_combin] \\
+      RES_TAC >> FULL_SIMP_TAC std_ss [o_THM] ]);
 
 (* The built relation is indeed congruence *)
 val CC_congruence = store_thm (
@@ -367,9 +363,6 @@ val CC_congruence = store_thm (
     REWRITE_TAC [congruence_def, CC_def]
  >> RW_TAC std_ss [] (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
-      `CONTEXT (c o ctx)` by PROVE_TAC [CONTEXT_combin] \\
-      RES_TAC >> FULL_SIMP_TAC std_ss [o_THM],
-      (* goal 2 (of 2) *)
       REWRITE_TAC [equivalence_def] \\
       rpt STRIP_TAC >| (* 3 sub-goals here *)
       [ (* goal 1.1 (of 3) *)
@@ -383,7 +376,10 @@ val CC_congruence = store_thm (
         (* goal 1.3 (of 3) *)
         REWRITE_TAC [transitive_def] >> BETA_TAC \\
         rpt STRIP_TAC >> RES_TAC \\
-        PROVE_TAC [equivalence_def, transitive_def] ] ]);
+        PROVE_TAC [equivalence_def, transitive_def] ],
+      (* goal 2 (of 2) *)
+      `CONTEXT (c o ctx)` by PROVE_TAC [CONTEXT_combin] \\
+      RES_TAC >> FULL_SIMP_TAC std_ss [o_THM] ]);
 
 (* The congruence is finer than original relation *)
 val CC_is_finer = store_thm (

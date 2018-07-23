@@ -23,11 +23,11 @@ The definition is inductive:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
-We can then define
-`precongruence' and `congruence' thus:
+A (pre)congruence as relation on CCS processes is then defined on top of above contexts:
 \begin{alltt}
+\HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
+\hfill{[precongruence_def]}
 \HOLthm[def]{Congruence.precongruence_def}
-\HOLthm[def]{Congruence.congruence_def}
 \end{alltt}
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
