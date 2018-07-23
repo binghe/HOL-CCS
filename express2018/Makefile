@@ -1,6 +1,6 @@
 MUNGE = ../src/munge.exe
 
-HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex
+HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex conclusions.tex
 TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
 	contraction.tex unique.tex equa.tex formal.tex \
 	related.tex conclusions.tex tokens.tex $(HTEXFILES)
@@ -29,6 +29,9 @@ coarsest.tex: coarsest.htex $(MUNGE)
 
 context.tex: context.htex $(MUNGE)
 	$(MUNGE) < context.htex > context.tex
+
+conclusions.tex: conclusions.htex $(MUNGE)
+	$(MUNGE) < conclusions.htex > conclusions.tex
 
 clean:
 	@rm -f *.aux *.blg *.log [0-9]*.tex *.bbl *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
