@@ -103,10 +103,10 @@ rooted bisimilarity:
 % }
 % \end{displaymath}
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not make use of all available labels (i.e. visible actions).
+and $q$ do not use up all available labels (i.e. visible actions).
 Formalising such an argument requires however 
 a detailed
-treatment on free and bound names  of CCS
+treatment on free and bound names of CCS
 processes (with the restriction operator being a binder).
 However, the proof of (\ref{equa:pq}) can be carried out 
 % But it's
@@ -122,9 +122,8 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % definitions given by recursion operator. All CCS results using these
 % concepts are not touched so far, although these four concepts are
 % successfully defined using HOL's set and list theories.} However, by
-just assuming that the
-initial weak transitions (those directly emanating from 
- $p$ and $q$) do not use all \hl{available labels}.
+just assuming that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use up all \hl{available labels}.
 % analyzing the proof steps, we found that, what's really required is to
 % not use up all available labels in those weak transitions directly
 % lead from $p$ and $q$. In another words, even they have used all
@@ -155,7 +154,7 @@ steps are the same, and the corresponding HOL4 theorem says:
 %\end{theorem}
 
 The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
-if only $p$ (or $q$) has the free action while the other has used all available
+if only $p$ (or $q$) has the free action while the other has used up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
@@ -167,7 +166,7 @@ require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a stable
  process $k$ which is not (weakly, actually also strongly) bisimilar with
- any process leading from $p$ and $q$, then sum equivalence indeed implies rooted bisimilarity:
+all derivatives of $p$ and $q$, then sum equivalence indeed implies rooted bisimilarity:
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
