@@ -1009,6 +1009,15 @@ val contracts_AND_TRACE_tau = store_thm (
  >> MP_TAC (Q.SPECL [`E`, `xs`, `E1`] contracts_AND_TRACE_tau_lemma)
  >> RW_TAC std_ss []);
 
+(* the version shown in the paper using P and Q *)
+val contracts_AND_TRACE_tau' = store_thm (
+   "contracts_AND_TRACE_tau'",
+  ``!P Q. P contracts Q ==>
+	!xs P'. TRACE P xs P' /\ NO_LABEL xs ==>
+	    ?xs' Q'. TRACE Q xs' Q' /\ P' contracts Q' /\
+		(LENGTH xs' <= LENGTH xs) /\ NO_LABEL xs'``,
+    METIS_TAC [contracts_AND_TRACE_tau]);
+
 val contracts_AND_TRACE_label_lemma = Q.prove (
    `!E xs E1. TRACE E xs E1 ==> !l. UNIQUE_LABEL (label l) xs ==>
 	!E'. E contracts E' ==>
