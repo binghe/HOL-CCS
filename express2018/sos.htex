@@ -111,7 +111,11 @@ SOS rules are \emph{inductive
 A useful function that we have defined, exploiting the interplay
 between HOL4 and Standard ML (and following an idea by Nesi \cite{Nesi:1992ve})
  is a complex Standard ML function
-  taking a CCS process and returning a theorem indicating all its direct transitions.
+  taking a CCS process and returning a theorem indicating all its
+  direct transitions.\footnote{If the input process could yield
+    something infinite branching, due to the use of recursion or
+    relabeling operators, the program will loop forever without
+    outputing a theorem.}
 For instance, we know that the process $(a.0 | \bar{a}.0)$ has three
 possible transitions: $(a.0 | \bar{a}.0) \overset{a}{\longrightarrow}
 (0 | \bar{a}.0)$, $(a.0 | \bar{a}.0)
