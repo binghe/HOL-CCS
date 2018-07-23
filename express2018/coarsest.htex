@@ -15,19 +15,24 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-Bisimilarity ($\approx$) is not  congruence, since not preserved by 
+Bisimilarity ($\approx$) is not congruence, since not preserved by 
 the sum operator. For this reason rooted bisimilarity has been
-introduced (Definition~\ref{d:rootedBisimilarity}). 
+introduced (Def.~\ref{d:rootedBisimilarity}). 
 In this subsection we discuss  two proofs of the result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity.
+bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89}:
+\begin{equation}
+\label{eq:coarsest}
+\forall p\; q.\; p \approx^c\! q \Leftrightarrow ( \forall r.\; p+r \approx q+r )
+\end{equation}
+
 % : Milner's proof \cite{Mil89}, that requires
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
-Inspired by \cite{vanGlabbeek:2005ur}, the `coarsest congruence
-contained in bisimilarity',
-below called \emph{(weak) bisimilarity congruence}, is defined as
+Following \cite{vanGlabbeek:2005ur}, the coarsest congruence
+contained in (weak) bisimilarity (we call it \emph{bisimilarity
+  congruence} hereafter), can be directly constructed as
 the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
@@ -40,7 +45,7 @@ the context closure of $R$ is always finer}\footnote{\hl{This is why
 \texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
 $R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
 \begin{alltt}
-\HOLthm[nosp,showtypes]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
+\HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
 \hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
 itself may not be) is contained in the context
@@ -85,24 +90,33 @@ Given the central role of the
 % \begin{alltt}
 % \HOLthm[def]{CoarsestCongr.SUM_EQUIV}
 % \end{alltt}
-Rooted bisimilarity, being a congruence contained in bisimilarity,  
-is contained in   weak bisimilarity congruence that, in turn,
-trivially is contained in sum
-equivalence. Thus the crux is proving that \texttt{SUM_EQUIV} implies
-rooted bisimilarity ($\approx^c$):
+\hl{Rooted bisimilarity $\approx^c$ (a congruence contained in
+$\wb$), is now contained in \texttt{WEAK_CONGR},
+which in turn is trivially contained in \texttt{SUM_EQUIV}}, as shown
+in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
+the crux is to prove that \texttt{SUM_EQUIV} implies
+rooted bisimilarity ($\approx^c$), making all three relations
+($\approx^c$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
 \forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Rightarrow p \approx^c\! q  
 \end{equation}
-% \begin{displaymath}
-% \xymatrix{
-% {\textrm{Weak bisimilarity } (\approx)} & {\textrm{Sum
-%     equivalence } (\approx^+)} \ar@/^3ex/[ldd]^{\subseteq ?}\\
-% {\textrm{Weak bisim. congruence } ([\approx])}
-% \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
-% {\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
-% }
-% \end{displaymath}
+
+\begin{figure}[ht]
+\begin{displaymath}
+\xymatrix@R=2ex{
+{\textrm{Weak bisimilarity } (\approx)} & {\textrm{Equiv.
+    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+{\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
+\ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
+{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+}
+\end{displaymath}
+\vspace{-2ex}
+\caption{\hl{Relationship between several relations}}
+\label{fig:relationship}
+\end{figure}
+
 The standard argument \cite{Mil89} requires that $p$
 and $q$ do not use up all available labels (i.e. visible actions).
 Formalising such an argument requires however 
@@ -141,16 +155,20 @@ We have formalised this property and
 
 With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
+\vspace{-2ex}
 \begin{alltt}
-\HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_RL}\hfill{[COARSEST_CONGR_RL]}
+\hfill{[COARSEST_CONGR_RL]}
+\HOLthm[]{CoarsestCongr.COARSEST_CONGR_RL}
 \end{alltt}
 %\end{theorem}
 
 For contraction and rooted contraction, the situation and proof
 steps are the same, and the corresponding HOL4 theorem says:
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
+\vspace{-2ex}
 \begin{alltt}
-\HOLthm[nosp]{Contraction.COARSEST_PRECONGR_RL}\hfill{[COARSEST_PRECONGR_RL]}
+\hfill{[COARSEST_PRECONGR_RL]}
+\HOLthm[]{Contraction.COARSEST_PRECONGR_RL}
 \end{alltt}
 %\end{theorem}
 
