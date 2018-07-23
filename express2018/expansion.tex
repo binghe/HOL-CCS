@@ -1,44 +1,41 @@
-\subsection{Bisimilarity and  rooted bisimilarity}
+\subsection{Bisimilarity and rooted bisimilarity}
 \label{ss:BiEx}
 
 The equivalences we consider are  mainly
  \emph{weak}, in that they
 abstract from the number of internal steps performed
-\begin{definition}[bisimilarity]
+\begin{definition}%[bisimilarity]
 \label{d:wb}
 A process relation ${\R}$ 
- is a (weak) \emph{bisimulation} if, whenever
+ is a \emph{bisimulation} if, whenever
  $P\RR Q$, %for all $\mu$ 
 we have:
 \begin{enumerate}
-\item 
-    $P \arr\mu P'$   implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;
-\item the converse of (1)
- on the actions from $Q$.
-%\item if $Q  \Ar\mu   Q'$, then there is $P'$ s.t.\ $P
-%\Arcap\mu  P'$ and $P' 
-%\RR Q'$.
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;\vspace{-4pt}
+\item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
+  \mu P'$ and $P' \RR Q'$.
+% (the converse of (1) on the actions from $Q$)
 \end{enumerate}  
- $P$ and $Q$ are \emph{bisimilar},
-written $P \wb
- Q$, if $P \RR Q$ for some  bisimulation $\R$.  
+ $P$ and $Q$ are \textbf{bisimilar},
+written as $P \wb Q$, if $P \RR Q$ for any bisimulation $\R$.  
 \end{definition} 
 
-We sometimes call bisimilarity `\emph{weak}', to
-distinguish it from \emph{strong bisimilarity}, $\sim$,
+We sometimes call bisimilarity the \emph{weak} one, to
+distinguish it from \emph{strong bisimilarity} ($\sim$)
 obtained by replacing in the above definition   the weak answer $
 Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
-Bisimilarity is not preserved by the sum operator. 
-For this, Milner introduces \emph{observational congruence}, also called \emph{rooted
-  bisimilarity}.
-\begin{definition}[rooted bisimilarity]
+Bisimilarity (the weak one) is not preserved by the sum operator (except for
+guarded sums). For this, Milner introduces \emph{observational congruence}, also called \emph{rooted
+  bisimilarity} \cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
+\begin{definition}%[rooted bisimilarity]
 \label{d:rootedBisimilarity}
 Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written $P
 \rapprox Q$, if we have:
 \begin{enumerate}
  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \wb Q'$;
-\item the converse of (1) on the actions from $Q$.
+ \item  $Q \arr\mu Q'$ implies that there is $P'$ such that $P
+   \Arr\mu P'$ and $P' \wb Q'$. %the converse of (1) on the actions from $Q$.
 \end{enumerate}
 \end{definition}
 % Besides reducing the rooted bisimiarity of two processes to
