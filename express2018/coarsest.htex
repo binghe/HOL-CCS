@@ -15,15 +15,16 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-Bisimilarity ($\approx$) is not congruence, since not preserved by 
-the sum operator. For this reason rooted bisimilarity has been
-introduced (Def.~\ref{d:rootedBisimilarity}). 
-In this subsection we discuss  two proofs of the result stating that
+As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
+introduced (Def.~\ref{d:rootedBisimilarity}).
+In this subsection we discuss two proofs of an important result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89}:
+bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89} (thus it
+is the best one):
 \begin{equation}
 \label{eq:coarsest}
-\forall p\; q.\; p \approx^c\! q \Leftrightarrow ( \forall r.\; p+r \approx q+r )
+\forall p\ \ q.\ p\ \approx^c\ \! q\ \Leftrightarrow\ ( \forall r.\ p\ +\
+r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 
 % : Milner's proof \cite{Mil89}, that requires
@@ -99,7 +100,8 @@ rooted bisimilarity ($\approx^c$), making all three relations
 ($\approx^c$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
-\forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Rightarrow p \approx^c\! q  
+\forall p\ \ q.\ ( \forall r.\ p\ +\ r \approx q\ +\ r ) \
+\Rightarrow\ p\ \approx^c\ \! q  \enspace.
 \end{equation}
 
 \begin{figure}[ht]
@@ -120,9 +122,8 @@ rooted bisimilarity ($\approx^c$), making all three relations
 The standard argument \cite{Mil89} requires that $p$
 and $q$ do not use up all available labels (i.e. visible actions).
 Formalising such an argument requires however 
-a detailed
-treatment on free and bound names of CCS
-processes (with the restriction operator being a binder).
+a detailed treatment on free and bound names of CCS
+processes (with the restriction operator being a binder), not done yet.
 However, the proof of (\ref{equa:pq}) can be carried out 
 % But it's
 % not easy to formalize and use such an assumption without a detailed
@@ -152,7 +153,7 @@ We have formalised this property and
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
-
+%
 With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
 \vspace{-2ex}
@@ -163,7 +164,7 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\end{theorem}
 
 For contraction and rooted contraction, the situation and proof
-steps are the same, and the corresponding HOL4 theorem says:
+steps are almost the same, and the corresponding HOL theorem says:
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
 \begin{alltt}
@@ -173,29 +174,31 @@ steps are the same, and the corresponding HOL4 theorem says:
 %\end{theorem}
 
 The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
-if only $p$ (or $q$) has the free action while the other has used up all available
+if only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
-  names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
-sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
+  names}) does not hold, and the proof cannot be finished.} Our
+assumption is a bit \emph{weaker}
+in the sense that, $p$ and $q$ do not really need to have the
+\emph{same} free action. ($a$ and $\outC a$ are \emph{different} actions.)
 
 \hl{There exists a very different, much more complex proof,
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
- process $k$ which is not (weakly, actually also strongly) bisimilar with
-all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
-rooted bisimilarity ($\approx^c$):
+ process $k$ which is not bisimilar with any derivative of $p$ and
+ $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\approx^c$):
 \begin{alltt}
-\HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
+\HOLthm{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
 \begin{alltt}
-\HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
+\HOLthm[def]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
-\hl{To actually find this process $k$, the proof relies on arbitrary infinite sum of 
+\hl{To actually get this process $k$, the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
-an arbitary large sequence of processes % (firstly introduced by  Klop)
+an arbitary large sequence of processes (firstly introduced by Jan
+Willem Klop \cite{vanGlabbeek:2005ur})
  that are all pairwise non-bisimilar.} 
 We have partially formalised
 this proof, because the typed logic

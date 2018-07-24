@@ -860,6 +860,11 @@ val _ = hide "STABLE"; (* conflicted with sortingTheory *)
 val STABLE = new_definition ("STABLE",
   ``STABLE (E :('a, 'b) CCS) = (!u E'. TRANS E u E' ==> ~(u = tau))``);
 
+(* Alternative definition using P, Q, p, q as process variables *)
+val STABLE' = store_thm (
+   "STABLE'", ``STABLE p = (!u p'. TRANS p u p' ==> ~(u = tau))``,
+    PROVE_TAC [STABLE]);
+
 val STABLE_NO_TRANS_TAU = store_thm (
    "STABLE_NO_TRANS_TAU", ``!E. STABLE E ==> !E'. ~(TRANS E tau E')``,
     REPEAT GEN_TAC
