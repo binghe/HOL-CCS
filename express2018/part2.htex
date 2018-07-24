@@ -31,10 +31,10 @@ formalisation work to trace equivalence in place of bisimilarity).
 A trace is represented by the initial and final processes, plus
 a list of actions  so performed.
 For this, we first 
- define \hl{the concept of list-accumulating reflexive transitive closure
+ define \hl{the concept of label-accumulated reflexive transitive closure
  (\texttt{LRTC})}.
-Given a labelled transition relation \texttt{R}, \texttt{LRTC R} is
-a 3-ary relation representing the trace of transitions:
+Given a labeled transition relation \texttt{R} on CCS, \texttt{LRTC R} is
+a label-accumulated relation representing the trace of transitions:
 \begin{alltt}
 \HOLthm[def]{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
