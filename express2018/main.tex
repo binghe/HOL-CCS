@@ -40,7 +40,7 @@
 
 \usepackage{listings}
 \renewcommand{\ttdefault}{cmtt} % {pcr}
-\lstset{tabsize=8,language=ML,basicstyle=\scriptsize\ttfamily\bfseries,
+\lstset{tabsize=8,language=ML,basicstyle=\small\ttfamily\bfseries,
                 keywordstyle=\color{blue}\ttfamily,
                 stringstyle=\color{red}\ttfamily,
                 commentstyle=\color{green}\ttfamily,
@@ -62,11 +62,12 @@
 
 \usepackage{graphicx}
 \usepackage[all,cmtip]{xy}
+\usepackage{color}
 
 % hightlighting changed texts with \hl{}
-\usepackage{color,soul}
+% \usepackage{soul}
 % or disable the hightlighting on final submission
-%\newcommand*\hl{}
+\newcommand*\hl{}
 
 \input{commonmacros.sty}
 \input{davidemacro.sty}
@@ -87,7 +88,7 @@ their HOL formalisation}
 \author{Chun Tian
 \institute{Fondazione Bruno Kessler%
 \thanks{\hl{Part of this work was
-  carried out when the first author was studying in Universit\`a di Bologna (UNIBO).}}
+  carried out when the first author was studying at Universit\`a di Bologna.}}
 \\Trento, Italy}
 % =======
 % \institute{Fondazione Bruno Kessler\thanks{Part of this work was
@@ -115,9 +116,9 @@ Davide Sangiorgi
   focus towards the theory of unique solutions of contractions.  (The
   formalisation consists of about 20,000 lines of proof scripts in
   Standard ML.)  Some refinements of the theory itself are obtained.
-  In particular we remove the constraints \hl{on the use of Summation,
-  which must be guarded sums,} by moving to rooted
-  contraction, that is, the coarsest
+  In particular we remove the constraints \hl{on the use of summation,
+  which must be weakly-guarded,} by moving to \emph{rooted
+  contraction}, that is, the coarsest
   precongruence contained in the contraction preorder.
 
 % theorem for (rooted) weak
