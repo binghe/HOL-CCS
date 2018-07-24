@@ -173,16 +173,17 @@ steps are almost the same, and the corresponding HOL theorem says:
 \end{alltt}
 %\end{theorem}
 
-The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
-if only $p$ (or $q$) has free actions while the other uses up all available
+The formal proof of above results precisely follows Milner
+\cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}) does not hold, and the proof cannot be finished.} Our
 assumption is a bit \emph{weaker}
 in the sense that, $p$ and $q$ do not really need to have the
-\emph{same} free action. ($a$ and $\outC a$ are \emph{different} actions.)
+\emph{same} free action. (Besides, actions like $a$ and $\outC a$ are
+\emph{different}.)
 
-\hl{There exists a very different, much more complex proof,
+\hl{There exists a very different, much more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
