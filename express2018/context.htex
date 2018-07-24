@@ -22,19 +22,6 @@ single-variable cases.} The precise definition is given inductively:
 \HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
 
-A (pre)congruence is a relation of CCS processes defined on top of
-above multi-hole contexts. \hl{The only difference between congruence and
-precongruence is, the former must be an equivalence (reflexive,
-symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
-\begin{alltt}
-\HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
-\hfill{[precongruence_def]}
-\end{alltt}
-\vspace{-4ex}
-\begin{alltt}
-\HOLthm[def]{Congruence.precongruence_def}
-\end{alltt}
-
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
 \begin{alltt}
@@ -67,49 +54,35 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums
 \HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
-\hl{Although weak bisimilarity is not compatible with an unrestricted
-variant of binary choice, it is compatible with weakly guarded
-sums. As a consequence, weak bisimilarity is indeed a ``congruence''
-if we have had another version of \texttt{congruence} w.r.t. above \texttt{GCONTEXT}.}
-%
-Many lemmas have then to be proved for their
-relationships among these kinds of contexts and properties about their
-compositions. These proofs are usually tedious but  long,  due to multiple levels of
-inductions on the structure of the contexts.%  For example, one such 
+% Many lemmas have then to be proved for their
+% relationships among these kinds of contexts and properties about their
+% compositions. These proofs are usually tedious but  long,  due to multiple levels of
+% inductions on the structure of the contexts.
 
-% lemma says, for any  context $E$ which is both strongly guarded
-% and sequential (no direct sums) and another sequential context $H$ (no
-% direct sums), the composition $H \circ E$ is still both strongly
-% guarded and sequential (no direct sums):
-% \begin{alltt}
+A (pre)congruence is a relation on CCS processes defined on top of
+\texttt{CONTEXT}. \hl{The only difference between congruence and
+precongruence is, the former must be an equivalence (reflexive,
+symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
+\begin{alltt}
+\HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
+\hfill{[precongruence_def]}
+\end{alltt}
+\vspace{-4ex}
+\begin{alltt}
+\HOLthm[def]{Congruence.precongruence_def}
+\end{alltt}
 
-% \end{alltt}
+\hl{For example, we can prove that, strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are both congruence by above
+definition: (the transitivity proof of rooted bisimilarity is actually not easy.)}
+\begin{alltt}
+\HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
+\HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
+\hl{Weak bisimilarity ($\approx$) is \emph{not} congruence
+  w.r.t. \texttt{CONTEXT}. However, it is ``congruence''
+  w.r.t. \texttt{GCONTEXT} (or if the CCS syntax were defined with
+  only guarded sum operator, as in \cite{sangiorgi2015equations}) because $\approx$ is indeed preserved by 
+  weakly-guarded sums.}
 
-% \subsection{Milner's ``unique solution of equations'' theorems}
-
-% Once the representation issue of CCS equations is resolved, the actual
-% proofs of Milner's unique solution of equations theorems is not very
-% interesting from the view of theorem proving, although it's a 
-% precise proof engineering work producing quite long proofs.
-% Since we have chosen to use  context to represent
-% single-variable equations, an equation like $P \sim E\{P/X\}$ now
-% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) 
-% context, and there's no need to say it ``contains at most the variable
-% $X$'' any more, as equation variable doesn't appear in $E$ at
-% all. Under these simplifications, the formal proof of Milner's unique
-% solution of equations theorem for $\sim$ is a literal mapping for informal
-% proofs based on bisimulation up to $\sim$, induction and case analysis
-% of weakly guarded contexts. Below is the formal version of Lemma 4.13
-% and Proposition 4.14 in Milner's book:
-
-% \begin{alltt}
-% STRONG_UNIQUE_SOLUTION:
-% \end{alltt}
-
-% \begin{alltt}
-% WEAK_UNIQUE_SOLUTION:
-% \end{alltt}
-
-% \begin{alltt}
-% OBS_UNIQUE_SOLUTION:
-% \end{alltt}
+% no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM
