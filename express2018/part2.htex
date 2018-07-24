@@ -39,8 +39,8 @@ a 3-ary relation representing the trace of transitions:
 \HOLthm[def]{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
 \hl{The trace relation for CCS can be then obtained
- by composing \texttt{LRTC} with the (strong) transition
-relation \texttt{TRANS}}:
+ by calling \texttt{LRTC} on the (strong, or single-step) labeled transition
+ relation \texttt{TRANS} ($\overset{\mu}{\rightarrow}$) defined by SOS rules}:
 \begin{alltt}
 \HOLthm[def]{Trace.TRACE_def}\hfill{[TRACE_def]}
 \end{alltt}
