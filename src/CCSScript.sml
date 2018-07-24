@@ -298,6 +298,9 @@ val _ = TeX_notation { hol = "nu",
 		       TeX = ("\\ensuremath{\\nu}", 1) };
 
 val _ = overload_on ("+", ``sum``); (* priority: 500 *)
+val _ = TeX_notation { hol = "+",
+		       TeX = ("\\ensuremath{+}", 1) };
+
 val _ = set_mapped_fixity { fixity = Infix(LEFT, 600), tok = "||", term_name = "par" };
 val _ = TeX_notation { hol = "||",
 		       TeX = ("\\ensuremath{\\parallel}", 1) };
