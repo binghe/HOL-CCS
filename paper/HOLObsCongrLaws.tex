@@ -1,5 +1,5 @@
-\newcommand{\HOLObsCongrLawsDate}{23 Luglio 2018}
-\newcommand{\HOLObsCongrLawsTime}{15:04}
+\newcommand{\HOLObsCongrLawsDate}{24 Luglio 2018}
+\newcommand{\HOLObsCongrLawsTime}{10:52}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXEXPANSIONXXLAW}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} (\HOLBoundVar{f} \HOLBoundVar{i})) \HOLSymConst{\HOLTokenConj{}}
@@ -7,10 +7,10 @@
        \HOLConst{OBS_CONGR} (\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
          (\HOLConst{SIGMA}
             (\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{i})\HOLSymConst{..}(\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{i}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}))
-            \HOLBoundVar{n} \HOLSymConst{+}
+            \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}}
           \HOLConst{SIGMA}
             (\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})\HOLSymConst{..}(\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})))
-            \HOLBoundVar{m} \HOLSymConst{+} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
+            \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXEXPANSIONXXLAW}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXEXPANSIONXXLAW}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPARXXASSOC}
@@ -34,7 +34,7 @@
        \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
            \HOLConst{OBS_CONGR} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+}
+             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
               \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXNOXXSYNCR}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXNOXXSYNCR}}
@@ -43,26 +43,26 @@
        (\HOLBoundVar{l} \HOLSymConst{=} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
            \HOLConst{OBS_CONGR} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+}
-              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
+              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXSYNCR}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXSYNCR}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{OBS_CONGR} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXTAU}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXPREFXXTAU}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXPREF}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLBoundVar{u}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXPREF}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXPREF}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXTAU}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPREFXXRECXXEQUIV}
@@ -82,7 +82,7 @@
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXRELABXXPREFIX}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXRELABXXPREFIX}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXRELABXXSUM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
-       \HOLConst{OBS_CONGR} (\HOLConst{relab} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{rf}) (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{+} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
+       \HOLConst{OBS_CONGR} (\HOLConst{relab} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{rf}) (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\ensuremath{+}} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXRELABXXSUM}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXRELABXXSUM}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXRESTRXXNIL}
@@ -106,31 +106,31 @@
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXRESTRXXPREFIXXXTAU}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXRESTRXXPREFIXXXTAU}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXRESTRXXSUM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}})) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}})) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXRESTRXXSUM}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXRESTRXXSUM}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}})) (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXL}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXL}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXR}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXASSOCXXR}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXCOMM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXCOMM}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXCOMM}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXIDEMP}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXIDEMP}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXIDEMP}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLConst{nil} \HOLSymConst{+} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLConst{nil} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXL}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXL}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{nil}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{nil}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXR}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXUNFOLDING}
@@ -142,11 +142,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsTAUOne}{\UseVerbatim{HOLObsCongrLawsTheoremsTAUOne}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsTAUTwo}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsTAUTwo}{\UseVerbatim{HOLObsCongrLawsTheoremsTAUTwo}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsTAUThree}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsTAUThree}{\UseVerbatim{HOLObsCongrLawsTheoremsTAUThree}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsWEAKXXTAUOne}
@@ -154,11 +154,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsWEAKXXTAUOne}{\UseVerbatim{HOLObsCongrLawsTheoremsWEAKXXTAUOne}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsWEAKXXTAUTwo}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsWEAKXXTAUTwo}{\UseVerbatim{HOLObsCongrLawsTheoremsWEAKXXTAUTwo}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsWEAKXXTAUThree}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsWEAKXXTAUThree}{\UseVerbatim{HOLObsCongrLawsTheoremsWEAKXXTAUThree}}
 \newcommand{\HOLObsCongrLawsTheorems}{
