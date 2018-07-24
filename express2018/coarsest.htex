@@ -66,7 +66,7 @@ Given the central role of the
 
 
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
-% is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
+% is non-standard, i.e.~has only prefixed sums, $\approx$ is indeed a
 % congruence). The purpose is to find a coarsest congruence contained in
 % weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
 % There're two ways to build a congruence from weak bisimilarity, one
@@ -120,7 +120,7 @@ rooted bisimilarity ($\approx^c$), making all three relations
 \end{figure}
 
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use up all available labels (i.e. visible actions).
+and $q$ do not use up all available labels (i.e.~visible actions).
 Formalising such an argument requires however 
 a detailed treatment on free and bound names of CCS
 processes (with the restriction operator being a binder), not done yet.
@@ -186,7 +186,7 @@ in the sense that, $p$ and $q$ do not really need to have the
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
-any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
+any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\approx^c$):
 \begin{alltt}

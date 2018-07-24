@@ -46,7 +46,7 @@ the informal definitions.)
 \end{alltt}
 
 In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums are forbidden):}
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~direct sums are forbidden):}
 \begin{alltt}
 \HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}

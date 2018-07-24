@@ -46,7 +46,7 @@ relation \texttt{TRANS}}:
 \end{alltt}
 
 \hl{Notice that if the list of actions is empty, that means that there is no transition and hence,}
-if there is at most one visible action (i.e. a label) in the list of actions,
+if there is at most one visible action (i.e.~a label) in the list of actions,
 then the trace is also a weak transition. Here
 we must distinguish between two cases: no label and unique label (in
 the list of actions). The definition of ``no
