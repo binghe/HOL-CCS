@@ -72,6 +72,7 @@ recursion & $\recu A P$ & \texttt{rec A P} & \HOLinline{\HOLConst{rec} \HOLFreeV
 relabeling & $P\;[r\!\!f]$ & \texttt{relab P rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf}}
   \\
 \hline
+constant & $A$ & \texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
 invisible action & $\tau$ & \texttt{tau} & \HOLinline{\HOLSymConst{\ensuremath{\tau}}} \\
 input action & $a$ & \texttt{label (name a)} & \HOLinline{\HOLConst{In} \HOLFreeVar{a}} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out} \HOLFreeVar{a}} \\
@@ -79,7 +80,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out
 \end{tabular}
 \end{center}
 \vspace{-1em}
-   \caption{Syntax of CCS operators}
+   \caption{Syntax of CCS operators, constant and actions}
    \label{tab:ccsoperator}
 \end{table}
 

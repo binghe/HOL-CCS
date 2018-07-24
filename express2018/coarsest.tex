@@ -23,7 +23,7 @@ bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89} (thus it
 is the best one):
 \begin{equation}
 \label{eq:coarsest}
-\forall p\ \ q.\ p\ \approx^c\ \! q\ \Leftrightarrow\ ( \forall r.\ p\ +\
+\forall p\ \ q.\ p\ \rapprox\ \! q\ \Leftrightarrow\ ( \forall r.\ p\ +\
 r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 
@@ -43,7 +43,7 @@ the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 on CCS processes, \emph{no matter if it is (pre)congruence or not},
 the context closure of $R$ is always finer}\footnote{\hl{This is why
   we don't need to put $R\ g\ h$ in the antecedent in
-\texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
+\texttt{CC\_def}, as with the trivial context $(\lambda x.\,x)$ it is a conclusion.}} than
 $R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
@@ -66,12 +66,12 @@ Given the central role of the
 
 
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
-% is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
+% is non-standard, i.e.~has only prefixed sums, $\approx$ is indeed a
 % congruence). The purpose is to find a coarsest congruence contained in
 % weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
 % There're two ways to build a congruence from weak bisimilarity, one
 % way is the standard definition for observational congruence (rooted
-% weak bisimilarity) $\approx^c$ in CCS textbooks, but even it's proven to be a
+% weak bisimilarity) $\rapprox$ in CCS textbooks, but even it's proven to be a
 % congruence we don't know if it's coarsest one.  The other way is to
 % build a (pre)congruence closure (Def ??) directly upon
 % the original weak bisimilarity relation, we call the resulting
@@ -91,17 +91,17 @@ Given the central role of the
 % \begin{alltt}
 % \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})
 % \end{alltt}
-\hl{Rooted bisimilarity $\approx^c$ (a congruence contained in
+\hl{Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
 the crux is to prove that \texttt{SUM_EQUIV} implies
-rooted bisimilarity ($\approx^c$), making all three relations
-($\approx^c$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
+rooted bisimilarity ($\rapprox$), making all three relations
+($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
 \forall p\ \ q.\ ( \forall r.\ p\ +\ r \approx q\ +\ r ) \
-\Rightarrow\ p\ \approx^c\ \! q  \enspace.
+\Rightarrow\ p\ \rapprox\ \! q  \enspace.
 \end{equation}
 
 \begin{figure}[ht]
@@ -111,7 +111,7 @@ rooted bisimilarity ($\approx^c$), making all three relations
     compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq ?}\\
 {\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
 \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
-{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+{\textrm{Rooted bisimilarity } (\rapprox)} \ar[u]^{\subseteq}
 }
 \end{displaymath}
 \vspace{-2ex}
@@ -120,7 +120,7 @@ rooted bisimilarity ($\approx^c$), making all three relations
 \end{figure}
 
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use up all available labels (i.e. visible actions).
+and $q$ do not use up all available labels (i.e.~visible actions).
 Formalising such an argument requires however 
 a detailed treatment on free and bound names of CCS
 processes (with the restriction operator being a binder), not done yet.
@@ -164,7 +164,7 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\end{theorem}
 
 For contraction and rooted contraction, the situation and proof
-steps are almost the same, and the corresponding HOL theorem says:
+steps are almost identical, and the corresponding HOL theorem says:
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
 \begin{alltt}
@@ -173,22 +173,23 @@ steps are almost the same, and the corresponding HOL theorem says:
 \end{alltt}
 %\end{theorem}
 
-The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
-if only $p$ (or $q$) has free actions while the other uses up all available
+The formal proof of above results precisely follows Milner
+\cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}) does not hold, and the proof cannot be finished.} Our
 assumption is a bit \emph{weaker}
 in the sense that, $p$ and $q$ do not really need to have the
-\emph{same} free action. ($a$ and $\outC a$ are \emph{different} actions.)
+\emph{same} free action (besides, actions like $a$ and $\outC a$ are
+\emph{different} here).
 
-\hl{There exists a very different, much more complex proof,
+\hl{There exists a very different, much more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
-any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
+any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
- $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\approx^c$):
+ $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\rapprox$):
 \begin{alltt}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
         \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}

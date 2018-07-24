@@ -31,10 +31,10 @@ formalisation work to trace equivalence in place of bisimilarity).
 A trace is represented by the initial and final processes, plus
 a list of actions  so performed.
 For this, we first 
- define \hl{the concept of list-accumulating reflexive transitive closure
+ define \hl{the concept of label-accumulated reflexive transitive closure
  (\texttt{LRTC})}.
-Given a labelled transition relation \texttt{R}, \texttt{LRTC R} is
-a 3-ary relation representing the trace of transitions:
+Given a labeled transition relation \texttt{R} on CCS, \texttt{LRTC R} is
+a label-accumulated relation representing the trace of transitions:
 \begin{alltt}
 \HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
@@ -43,14 +43,14 @@ a 3-ary relation representing the trace of transitions:
     \HOLBoundVar{P} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b}\hfill{[LRTC_DEF]}
 \end{alltt}
 \hl{The trace relation for CCS can be then obtained
- by composing \texttt{LRTC} with the (strong) transition
-relation \texttt{TRANS}}:
+ by calling \texttt{LRTC} on the (strong, or single-step) labeled transition
+ relation \texttt{TRANS} ($\overset{\mu}{\rightarrow}$) defined by SOS rules}:
 \begin{alltt}
 \HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
 
 \hl{Notice that if the list of actions is empty, that means that there is no transition and hence,}
-if there is at most one visible action (i.e. a label) in the list of actions,
+if there is at most one visible action (i.e.~a label) in the list of actions,
 then the trace is also a weak transition. Here
 we must distinguish between two cases: no label and unique label (in
 the list of actions). The definition of ``no
@@ -170,15 +170,14 @@ that is, \texttt{WG} in place of \texttt{WGS}):
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
+
 Having removed the  constraints on sums, the result is
  similar to Milner's original `unique solution of
 equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
-the same
-weakly guarded  condition (\texttt{WG}) is required:
+the same weakly guarded context (\texttt{WG}) is required:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
-
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$)
 has more severe constraints:
