@@ -140,15 +140,14 @@ that is, \texttt{WG} in place of \texttt{WGS}):
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
+
 Having removed the  constraints on sums, the result is
  similar to Milner's original `unique solution of
 equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
-the same
-weakly guarded  condition (\texttt{WG}) is required:
+the same weakly guarded context (\texttt{WG}) is required:
 \begin{alltt}
 \HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
-
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$)
 has more severe constraints:
