@@ -1,5 +1,5 @@
-\newcommand{\HOLContractionDate}{24 Luglio 2018}
-\newcommand{\HOLContractionTime}{15:33}
+\newcommand{\HOLContractionDate}{25 Luglio 2018}
+\newcommand{\HOLContractionTime}{16:20}
 \begin{SaveVerbatim}{HOLContractionDefinitionsCXXcontracts}
 \HOLTokenTurnstile{} \HOLConst{C_contracts} \HOLSymConst{=} \HOLConst{CC} (\HOLConst{contracts})
 \end{SaveVerbatim}
@@ -185,6 +185,17 @@
                \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs\sp{\prime}}
 \end{SaveVerbatim}
 \newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXlabel}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXlabel}}
+\begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEXXlabelYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \HOLBoundVar{P\sp{\prime}}.
+           \HOLConst{TRACE} \HOLBoundVar{P} \HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+           \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}.
+               \HOLConst{TRACE} \HOLBoundVar{Q} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLContractionTheoremscontractsXXANDXXTRACEXXlabelYY}{\UseVerbatim{HOLContractionTheoremscontractsXXANDXXTRACEXXlabelYY}}
 \begin{SaveVerbatim}{HOLContractionTheoremscontractsXXANDXXTRACEXXtau}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLBoundVar{E} \HOLConst{contracts} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
@@ -602,6 +613,7 @@
 \HOLThmTag{Contraction}{contracts_AND_TRACE1}\HOLContractionTheoremscontractsXXANDXXTRACEOne
 \HOLThmTag{Contraction}{contracts_AND_TRACE2}\HOLContractionTheoremscontractsXXANDXXTRACETwo
 \HOLThmTag{Contraction}{contracts_AND_TRACE_label}\HOLContractionTheoremscontractsXXANDXXTRACEXXlabel
+\HOLThmTag{Contraction}{contracts_AND_TRACE_label'}\HOLContractionTheoremscontractsXXANDXXTRACEXXlabelYY
 \HOLThmTag{Contraction}{contracts_AND_TRACE_tau}\HOLContractionTheoremscontractsXXANDXXTRACEXXtau
 \HOLThmTag{Contraction}{contracts_AND_TRACE_tau'}\HOLContractionTheoremscontractsXXANDXXTRACEXXtauYY
 \HOLThmTag{Contraction}{contracts_cases}\HOLContractionTheoremscontractsXXcases
