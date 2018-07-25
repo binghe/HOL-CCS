@@ -38,22 +38,18 @@ the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))\hfill{[CC_def]}
 \end{alltt}
-\hl{Indeed, for any relation $R$ 
-on CCS processes, {no matter if it is (pre)congruence or not},
-the context closure of $R$ is always finer}\footnote{We 
-need not put $R\ g\ h$ in the antecedent in
-\texttt{CC\_def}, as this  is anyhow obtained 
-from the trivial context $\lambda x.\,x$.} than
+\hl{Now we show why this works. For any relation $R$ 
+on CCS processes, \emph{no matter if it is (pre)congruence or not},
+the context closure of $R$ is always finer}\footnote{\hl{This is why
+  we don't need to put $R\ g\ h$ in the antecedent in
+\texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
 $R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
 \end{alltt}
-\hl{Furthermore, we  prove that any (pre)congruence contained in $R$
-%  (which
-% itself may not be) 
-is contained in the context
-closure of $R$; hence such context
-closure is the coarsest (pre)congruence:}
+\hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
+itself may not be) is contained in the context
+closure of $R$ (thus it is the coarsest one):}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{congruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{precongruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest']}
@@ -117,12 +113,12 @@ rooted bisimilarity ($\approx^c$), making all three relations
 }
 \end{displaymath}
 \vspace{-2ex}
-\caption{\hl{Relationship between the equivalences mentioned}}
+\caption{\hl{Relationship between several relations}}
 \label{fig:relationship}
 \end{figure}
 
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use  all available labels (i.e. visible actions).
+and $q$ do not use up all available labels (i.e. visible actions).
 Formalising such an argument requires however 
 a detailed
 treatment on free and bound names of CCS
@@ -176,13 +172,14 @@ steps are the same, and the corresponding HOL4 theorem says:
 \end{alltt}
 %\end{theorem}
 
-The above proof precisely follows \cite{Mil89}. \hl{(If only $p$ (or $q$) has the free action while the other has used  all available
+The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
+if only $p$ (or $q$) has the free action while the other has used up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
-\mathrm{fn}(q) \neq \mathscr{L}$, where $\mathrm{fn}$ stands for \emph{free
-  names}, does not hold, and the proof cannot be completed.)} Our result is a bit stronger in the
+\mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
+  names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
 sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
 
-\hl{There exists a  different,  more complex, proof,
+\hl{There exists a very different, much more complex proof,
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for

@@ -30,25 +30,25 @@ understand, as they are very close to the orginal statements found in
 standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
 For the future work, it would be worth extending the current work
-to multi-variable equations/contractions. \hl{
-A the key aspect could be using unguarded constants as free variables
+to multi-variable equations/contractions. \hl{Preliminary work shows that,
+the key idea could be using unguarded constants as free variables
 (\texttt{FV}) and define guardness directly on type CCS (instead of CCS
-$\rightarrow$ CCS):}
+$\rightarrow$ CCS) then connect to previous context:}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{weakly_guarded1} \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{e} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
 \end{alltt}
 
 Formalising other equivalences and preorders could also be considered,
-notably the trace equivalences as well as 
-more refined calculi such as  value-passing CCS (e.g.,  exploiting the type variable
-of actions).}
-
-On another line, one could examine the formalisation of a different
+notably the trace equivalences.
+On the other side, one could examine the formalisation of a different
 approach \cite{DurierHS17} to unique
 solutions, in which the use of contraction is
 replaced by semantic conditions on process transitions such as
-divergence. 
+divergence. \hl{The problem of formalising value-passing CCS in a
+more elegant way with minimal efforts (by exploiting the type variable
+of actions, for example) also deserves some thinking.}
+
 % Further plan on the formalisation mainly includes: 1) the extension to
 % multi-variable equation/contractions. 2) the support of recursion
 % operators in 

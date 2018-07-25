@@ -49,13 +49,12 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
 \texttt{Hol_coreln} returns 3 theorems, of the first being always the
 same as input term\footnote{\hl{Our mixing of HOL notation and mathematical
   notation in this paper is not arbitrary. We have to paste here the
-  original proof scripts,  written in HOL's ASCII term
+  original proof scripts, which is written in HOL's ASCII term
   notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also suppports writing Unicode symbols directly in
-  proof scripts but we did not make use of them. 
-However, all formal definitions and
-  theorems in the paper are automatically generated from HOL4 in
-  which we have made an effort  for generating
-  Unicode and TeX outputs as natural as possible. What is really
+  proof scripts but we didn't make use of them. On the other side, all formal definitions and
+  theorems in this paper are automatically generated from HOL4 in
+  which we have done lots of work for generating
+  Unicode and TeX outputs as natural as possible. What's really
   arbitrary is the presense/absense of outermost universal
   quantifiers in all generated theorems.}} (now proved automatically as a theorem).
 The second and third theorems, namely \texttt{WB_coind} and \texttt{WB_cases},
@@ -102,19 +101,17 @@ bisimulation):
 \end{enumerate}
 
 \hl{The coinduction principle \texttt{WB_coind} says that any
-bisimulation is contained in the resulting relation 
- but it does not constrain such resulting relation
-(e.g.,  even the universal relation~--- the set of all pairs~---
- would satisfy the property); the
- fixed point assertion \texttt{WB_cases} however
-further asserts that the resulting relation is indeed a
-fixed point. 
-% Thus \texttt{WB_coind} and \texttt{WB_cases}
-% together make sure that bisimilarity is the greatest
-% fixed point, as
-% the former contributes to ``greatest'' while the latter
-% contributes to ``fixed point''.
-}
+bisimulation is contained in the resulting relation (i.e. it is
+largest), but it didn't limit the resulting relation into any set of
+fixed points, because even the universal relation (the set of all pairs)
+could fit with this theorem; the
+purpose of the fixed point theorem \texttt{WB_cases} is to
+further assert that the resulting relation is indeed a
+fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
+together make sure that bisimilarity is the greatest
+fixed point, as
+the former contributes to ``greatest'' while the latter
+contributes to ``fixed point''.}
 %
 Without HOL's coinductive relation package, bisimilarity
 would have to be defined by following literally
