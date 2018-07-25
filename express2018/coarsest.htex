@@ -31,20 +31,20 @@ r\ \approx\ q\ +\ r )\enspace.
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
-Following \cite{vanGlabbeek:2005ur}, the coarsest congruence
-contained in (weak) bisimilarity (we call it \emph{bisimilarity
-  congruence} hereafter), can be directly constructed as
-the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
+Actually the coarsest congruence
+contained in (weak) bisimilarity, namely the \emph{bisimilarity
+  congruence} \cite{vanGlabbeek:2005ur}, can be constructed as
+the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
 \end{alltt}
-\hl{Now we show why this works. For any relation $R$ 
-on CCS processes, \emph{no matter if it is (pre)congruence or not},
-the context closure of $R$ is always finer}\footnote{\hl{This is why
-  we don't need to put $R\ g\ h$ in the antecedent in
-\texttt{CC\_def}, as with the trivial context $(\lambda x.\,x)$ it is a conclusion.}} than
-$R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
+\hl{For any relation $R$ 
+on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) than
+$R$, no matter if $R$ is (pre)congruence or not}\footnote{\hl{But if $R$ is
+  equivalence (or preorder), the composition closure of $R$ must be congruence
+  (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
+\texttt{CC\_def}, as with the trivial context $(\lambda x.\,x)$, $R\ g\ h$ becomes a conclusion.}}: (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
@@ -63,7 +63,6 @@ Given the central role of the
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
 \end{alltt}
-
 
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
 % is non-standard, i.e.~has only prefixed sums, $\approx$ is indeed a
