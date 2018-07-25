@@ -35,8 +35,8 @@ A process relation ${\R}$
  P'$ and $P' 
 \wb Q'$.
 \end{enumerate}
-\emph{Bisimilarity  contraction}, written $\mcontrBIS$, is the union
-of all bisimulation contractions. 
+\emph{Bisimilarity  contraction}, written as $P \mcontrBIS Q$ ($P$
+\emph{contracts to} $Q$), if $P\ \R\ Q$ for some contraction $\R$.
 \end{definition}
 % We say that $P$  {\emph{bisimilarly  contracts} $Q$, written
 % $Q \mcontrBIS Q$.
@@ -50,11 +50,10 @@ In contrast, the second clause of Definition~\ref{d:BisCon}, on the
 challenges from $Q$, entirely ignores efficiency: it is the same
 clause of  weak bisimulation~--- the final derivatives are even required
 to be related  by $\wb$, rather than by $\R$.
- 
 
 Bisimilarity  contraction is coarser than 
  the \emph{expansion relation} 
-$\expa$ \cite{sangiorgi2015equations,arun1992efficiency}.
+$\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
 This is a
 preorder widely used in proof techniques for bisimilarity and that 
 intuitively refines bisimilarity by 
@@ -101,4 +100,5 @@ $\expa$, which explains the strictness of the inclusion
 % The substitutivity proofs for for expansion and bisimilarity carry
 % over to contraction,   
 
-\hl{Like (weak)} bisimilarity and expansion, contraction is preserved by all operators but sum.
+\hl{Like} (weak) bisimilarity and expansion, contraction is
+preserved by all operators but (direct) sum.
