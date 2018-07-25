@@ -80,12 +80,12 @@ Given the central role of the
 % \end{alltt}
 % It can be shown that any such (pre)congruence closure is automatically coarsest.
 %
-% Now it remains to prove that, the congrunce relation built by above
-% two quite different approaches actually coincide. To achive this goal,
+% Now it remains to prove that, the congruence relation built by above
+% two quite different approaches actually coincide. To achieve this goal,
 % we first noticed that, all other operators beside sums used in
-% semantic context doesn't matter, because they're already substituible
+% semantic context doesn't matter, because they're already substitutable
 % for weak bisimilarity. The only important operator is the sum
-% operator. To focus on this important operator, we can temporily
+% operator. To focus on this important operator, we can temporally
 % introduce another concept called \emph{sum equivalence}:
 % \begin{alltt}
 % \HOLthm[def]{CoarsestCongr.SUM_EQUIV}
@@ -199,7 +199,7 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \end{alltt}
 \hl{To actually get this process $k$, the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
-an arbitary large sequence of processes (firstly introduced by Jan
+an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
  that are all pairwise non-bisimilar.} 
 We have partially formalised

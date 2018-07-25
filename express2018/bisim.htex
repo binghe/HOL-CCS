@@ -50,7 +50,7 @@ val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
 same as input term\footnote{\hl{Our mixing of HOL notation and mathematical
   notation in this paper is not arbitrary. We have to paste here the
   original proof scripts, which is written in HOL's ASCII term
-  notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also suppports writing Unicode symbols directly in
+  notation} (c.f. \cite{holdesc} for more details). \hl{HOL4 also supports writing Unicode symbols directly in
   proof scripts but we did not make use of them. However, all formal definitions and
   theorems in the paper are automatically generated from HOL4 in
   which we have made an effort for generating
