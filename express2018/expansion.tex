@@ -1,8 +1,8 @@
 \subsection{Bisimilarity and rooted bisimilarity}
 \label{ss:BiEx}
 
-The equivalences we consider are mainly the \emph{weak} ones, in that they
-abstract from the number of internal steps performed:
+The equivalences we consider here are mainly \emph{weak} ones, in that they
+abstract from the number of internal steps being performed:
 \begin{definition}%[bisimilarity]
 \label{d:wb}
 A process relation ${\R}$ is a \emph{bisimulation} if, whenever
@@ -15,14 +15,14 @@ we have:
 % (the converse of (1) on the actions from $Q$)
 \end{enumerate}  
  $P$ and $Q$ are \textbf{bisimilar},
-written as $P \wb Q$, if $P \RR Q$ for any bisimulation $\R$.  
-\end{definition} 
+written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
+\end{definition}
 
 We sometimes call bisimilarity the \emph{weak} one, to
-distinguish it from \emph{strong bisimilarity} ($\sim$)
+distinguish it from \emph{strong} bisimilarity ($\sim$),
 obtained by replacing in the above definition   the weak answer $
 Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
-Bisimilarity (the weak one) is not preserved by the sum operator (except for
+Weak bisimilarity is not preserved by the sum operator (except for
 guarded sums). For this, Milner introduced \emph{observational congruence}, also called \emph{rooted
   bisimilarity} \cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
 \begin{definition}%[rooted bisimilarity]
@@ -54,7 +54,7 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written $P
 \begin{theorem}
 \label{t:rapproxCongruence}
 $\rapprox$ is a congruence in CCS, and it is the
-coarsest congruence contained in $\approx$.
+coarsest (i.e.~largest) congruence contained in $\approx$.
 \end{theorem}
 
 % \finish{Remove expansion here? --Chun}

@@ -135,9 +135,10 @@ Theorem~\ref{t:rcontraBisimulationU}
 the precongruence of rooted contraction, 
 we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
+\vspace{-2ex}
 \begin{alltt}
-\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
 \end{alltt}
 
 Having removed the  constraints on sums, the result is
@@ -147,15 +148,16 @@ the same weakly guarded context (\texttt{WG}) is required:
 \begin{alltt}
 \HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
+
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$)
-has more severe constraints (both strongly guarded and sequential):
+has more severe constraints (must be both strongly guarded and sequential):
 % Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
 % applicable version of Milner's ``unique solution of
 % equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
 % restrictions on equations:
+\vspace{-2ex}
 \begin{alltt}
-\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
 \hfill{[OBS_UNIQUE_SOLUTION]}
+\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
 \end{alltt}
-\vspace{-4ex}

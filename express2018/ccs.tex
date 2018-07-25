@@ -6,10 +6,11 @@
 
 
 We assume  a possibly infinite set of \emph{names} $\mathscr{L} = \{a, b,
-\ldots\}$, which does not contain the special symbol $\tau$, and
-a set of variables $A,B, \ldots$ for writing recursive behaviours. 
-The class  of the CCS processes is inductively built from $\nil$ by the operators
-of  prefixing, parallel composition,  sum, restriction, recursion and \hl{relabeling}:
+\ldots\}$ forming input and output actions, plus a special invisible
+action $\tau$ not in $\mathscr{L}$, and a set of variables $A,B,
+\ldots$ for defining recursive behaviours.
+The class  of the CCS processes is inductively defined from $\nil$ by the operators
+of prefixing, parallel composition, sum (binary choice), restriction, recursion and \hl{relabeling}:
 \begin{equation*}
 \begin{array}{ccl}
 \mu  & := &  \tau \hspace{.3pt} \; \midd \; a  \; \midd \;  \outC a  \\
@@ -21,7 +22,8 @@ P_1 + P_2 \; \midd % \; \mu . P\; \midd  \;
 \end{equation*}
 %We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
 The operational semantics of CCS is given by means of
-a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} (the symmetric version of the two rules for
+a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as SOS
+rules (the symmetric version of the two rules for
 parallel composition and the rule for sum are omitted).
 A CCS expression uses only \emph{weakly-guarded sums} if all occurrences of
 the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
@@ -62,9 +64,9 @@ $ \hb$ %  &
 \caption{\hl{Structural Operational Semantics} of CCS}
 \label{f:LTSCCS}
 \end{figure*}
-Some standard notations for transitions:  $\Longrightarrow $ is the 
-reflexive and  transitive closure of $\arr\tau $, and 
-$\Arr \mu $ is $\Longrightarrow \arr\mu \Longrightarrow $ (the
+Some standard notations for transitions:  $\Arr\epsilon$ is the 
+reflexive and transitive closure of $\arr\tau$, and 
+$\Arr \mu $ is $\Arr\epsilon \arr\mu \Arr\epsilon$ (the
 composition of the three relations).
 Moreover,   
 $ 
@@ -94,7 +96,7 @@ And $\ct{\til P}$ is the process obtained by replacing each hole
 $\holei i$ of the  context $\qct$ with $P_i$.  
 We write $
 \ctx \R$ for the closure of a relation under contexts. Thus $P\: \ctx \R\: Q$
-means that there are a context $\qct$ and tuples $\til P,\til Q$ with
+means that there are context $\qct$ and tuples $\til P,\til Q$ with
 $P =  \ct{\til P}, Q =  \ct{\til Q}$ and    $\til P \RR \til Q$.
 We use  symbol 
 $\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
