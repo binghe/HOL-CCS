@@ -46,7 +46,7 @@ the informal definitions.)
 \end{alltt}
 
 In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~direct sums are forbidden):}
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):}
 \begin{alltt}
 \HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}
@@ -61,7 +61,7 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~direct sums
 
 A (pre)congruence is a relation on CCS processes defined on top of
 \texttt{CONTEXT}. \hl{The only difference between congruence and
-precongruence is, the former must be an equivalence (reflexive,
+precongruence is that the former must be an equivalence (reflexive,
 symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
@@ -79,10 +79,12 @@ definition: (the transitivity proof of rooted bisimilarity is actually not easy.
 \HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
 \HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
 \end{alltt}
-\hl{Weak bisimilarity ($\approx$) is \emph{not} congruence
-  w.r.t. \texttt{CONTEXT}. However, it is ``congruence''
-  w.r.t. \texttt{GCONTEXT} (or if the CCS syntax were defined with
-  only guarded sum operator, as in \cite{sangiorgi2015equations}) because $\approx$ is indeed preserved by 
+
+\hl{Although weak bisimilarity ($\approx$) is \emph{not} congruence
+  with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
+  with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
+  only guarded sum operator \cite{sangiorgi2015equations}) as weak
+  bisimilarity ($\approx$) is indeed preserved by 
   weakly-guarded sums.}
 
 % no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM
