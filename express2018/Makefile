@@ -15,22 +15,22 @@ htex: $(HTEXFILES)
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
 
-part2.tex: part2.htex $(MUNGE)
+part2.tex: part2.htex
 	$(MUNGE) < part2.htex > part2.tex
 
-sos.tex: sos.htex $(MUNGE)
+sos.tex: sos.htex
 	$(MUNGE) < sos.htex > sos.tex
 
-bisim.tex: bisim.htex $(MUNGE)
+bisim.tex: bisim.htex
 	$(MUNGE) < bisim.htex > bisim.tex
 
-coarsest.tex: coarsest.htex $(MUNGE)
+coarsest.tex: coarsest.htex
 	$(MUNGE) < coarsest.htex > coarsest.tex
 
-context.tex: context.htex $(MUNGE)
+context.tex: context.htex
 	$(MUNGE) < context.htex > context.tex
 
-conclusions.tex: conclusions.htex $(MUNGE)
+conclusions.tex: conclusions.htex
 	$(MUNGE) < conclusions.htex > conclusions.tex
 
 clean:
