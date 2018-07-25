@@ -5,12 +5,12 @@
 \label{ss:ccs}
 
 
-We assume  a possibly infinite set of \emph{names} $\mathscr{L} = \{a, b,
-\ldots\}$ forming input and output actions, plus a special invisible
-action $\tau$ not in $\mathscr{L}$, and a set of variables $A,B,
+We assume  a possibly infinite set of names $\mathscr{L} = \{a, b,
+\ldots\}$ forming input and $\overline{\mbox{output}}$ actions, plus a special invisible
+action $\tau \notin \mathscr{L}$, and a set of variables $A,B,
 \ldots$ for defining recursive behaviours.
-The class  of the CCS processes is inductively defined from $\nil$ by the operators
-of prefixing, parallel composition, sum (binary choice), restriction, recursion and \hl{relabeling}:
+Given a deadlock $\nil$, the class of CCS processes is then inductively defined from $\nil$ by the operators
+of prefixing, parallel composition, summation (binary choice), restriction, recursion and \hl{relabeling}:
 \begin{equation*}
 \begin{array}{ccl}
 \mu  & := &  \tau \hspace{.3pt} \; \midd \; a  \; \midd \;  \outC a  \\
