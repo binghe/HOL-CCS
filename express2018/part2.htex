@@ -107,9 +107,9 @@ to see that, a weak transition either becomes shorter
 or remains the same when moving between $\mcontrBIS$-related processes}.
 \hl{This property is essential} in the proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
-$\tau$-transitions passing into $\mcontrBIS$ (from left to right):
+non-$\tau$ weak transitions passing into $\mcontrBIS$ (from left to right):
 \begin{alltt}
-\HOLthm{Contraction.contracts_AND_TRACE_tau'}\hfill{[contracts_AND_TRACE_tau]}
+\HOLthm{Contraction.contracts_AND_TRACE_label'}\hfill{[contracts_AND_TRACE_label]}
 \end{alltt}
 
 \hl{With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulationU}:}

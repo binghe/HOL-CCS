@@ -132,14 +132,14 @@ to see that, a weak transition either becomes shorter
 or remains the same when moving between $\mcontrBIS$-related processes}.
 \hl{This property is essential} in the proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
-$\tau$-transitions passing into $\mcontrBIS$ (from left to right):
+non-$\tau$ weak transitions passing into $\mcontrBIS$ (from left to right):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}}.
-       \HOLConst{TRACE} \HOLFreeVar{P} \HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \HOLBoundVar{P\sp{\prime}}.
+       \HOLConst{TRACE} \HOLFreeVar{P} \HOLBoundVar{xs} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}}.
-           \HOLConst{TRACE} \HOLFreeVar{Q} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}}
-           \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}\hfill{[contracts_AND_TRACE_tau]}
+           \HOLConst{TRACE} \HOLFreeVar{Q} \HOLBoundVar{xs\sp{\prime}} \HOLBoundVar{Q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLBoundVar{xs\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLConst{LENGTH} \HOLBoundVar{xs} \HOLSymConst{\HOLTokenConj{}}
+           \HOLConst{UNIQUE_LABEL} (\HOLConst{label} \HOLBoundVar{l}) \HOLBoundVar{xs\sp{\prime}}\hfill{[contracts_AND_TRACE_label]}
 \end{alltt}
 
 \hl{With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulationU}:}

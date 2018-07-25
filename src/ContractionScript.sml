@@ -1063,6 +1063,15 @@ val contracts_AND_TRACE_label = store_thm (
  >> MP_TAC (Q.SPECL [`E`, `xs`, `E1`] contracts_AND_TRACE_label_lemma)
  >> RW_TAC std_ss []);
 
+(* the version shown in the paper using P and Q *)
+val contracts_AND_TRACE_label' = store_thm (
+   "contracts_AND_TRACE_label'",
+  ``!P Q. P contracts Q ==>
+	!xs l P'. TRACE P xs P' /\ UNIQUE_LABEL (label l) xs ==>
+	    ?xs' Q'. TRACE Q xs' Q' /\ P contracts Q /\
+		(LENGTH xs' <= LENGTH xs) /\ UNIQUE_LABEL (label l) xs'``,
+    METIS_TAC [contracts_AND_TRACE_label]);
+
 (******************************************************************************)
 (*                                                                            *)
 (*                Bisimulation Upto `contracts` and context                   *)
