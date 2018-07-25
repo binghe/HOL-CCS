@@ -142,5 +142,5 @@ is called on the  process $(a.0 | \bar{a}.0)$ thus:
 This returns the following theorem, indeed describing all immediate
 transitions of the process:
 \begin{alltt}
-\HOLthm{Example.ex_A}
+\HOLthm{Example.ex_A}\hfill{[Example.ex_A]}
 \end{alltt}
