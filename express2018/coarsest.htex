@@ -39,17 +39,18 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
 \end{alltt}
-\hl{For any relation $R$ 
+\hl{Indeed, for any relation $R$ 
 on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) than
 $R$, no matter if $R$ is (pre)congruence or not}\footnote{\hl{But if $R$ is
   equivalence (or preorder), the composition closure of $R$ must be congruence
   (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
-\texttt{CC\_def}, as with the trivial context $(\lambda x.\,x)$, $R\ g\ h$ becomes a conclusion.}}: (here $\subseteq_r$ stands for \emph{relational subset})
+\texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}}: (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
-\hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
-itself may not be) is contained in the composition closure of $R$ (thus the coarsest one):}
+\hl{Furthermore, we prove that any (pre)congruence contained in $R$ (which
+itself may not be) is contained in the composition closure of $R$
+(hence the closure is the coarsest one):}
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
 \HOLthm[nosp]{Congruence.CC_is_coarsest'}\hfill{[CC_is_coarsest']}
@@ -104,16 +105,16 @@ rooted bisimilarity ($\rapprox$), making all three relations
 
 \begin{figure}[ht]
 \begin{displaymath}
-\xymatrix@R=2ex{
+\xymatrix@R=3ex{
 {\textrm{Weak bisimilarity } (\approx)} & {\textrm{Equiv.
-    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq}\\
 {\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
 \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
 {\textrm{Rooted bisimilarity } (\rapprox)} \ar[u]^{\subseteq}
 }
 \end{displaymath}
 \vspace{-2ex}
-\caption{\hl{Relationship between several relations}}
+\caption{\hl{Relationship between the equivalences mentioned}}
 \label{fig:relationship}
 \end{figure}
 
@@ -177,13 +178,13 @@ The formal proofs of above two results precisely follow Milner
 \cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
-  names}) does not hold, and the proof cannot be finished.} Our
+  names}) does not hold, and the proof cannot be completed.} Our
 assumption is a bit \emph{weaker}
 in the sense that, $p$ and $q$ do not really need to have the
 \emph{same} free action (also, $a$ and $\outC a$ are
 \emph{different} actions).
 
-\hl{There exists a very different, much more complex proof of (\ref{eq:coarsest}),
+\hl{There exists a different, more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
