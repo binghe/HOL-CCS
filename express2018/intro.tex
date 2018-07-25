@@ -6,7 +6,7 @@ landmark CCS book \cite{Mil89} is the
 componentwise bisimilar if they are solutions 
 of the same system of equations.
 This method is important in verification techniques and tools
-based on algebraic reasoning \cite{RosUnder10,BaeBOOK,theoryAndPractice}. 
+based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice,RosUnder10}. 
 
 In the versions of Milner's unique solution theorems for proving that all
 solutions are weakly (or rooted) bisimilar (in practice these are the most
@@ -44,12 +44,12 @@ rooted bisimilarity (the congruence induced by weak
 bisimilarity, also called observation congruence), and
 their algebraic laws. Further extensions (beyond Nesi
 \cite{Nesi:1992ve}) include four versions of ``bisimulation up to''
-techniques (e.g., bisimulation up-to bisimilarity), and of the
+techniques (e.g., bisimulation up-to bisimilarity) \cite{Mil89,sangiorgi1992problem}, and the
 expansion and contraction preorder (two
 efficiency-like refinements of weak bisimilarity). Concerning rooted bisimilarity, the formalisation
 includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
 \cite{Gorrieri:2015jt}),
- and two long proofs saying the rooted bisimilarity is the largest (coarsest)
+ and two long proofs saying the rooted bisimilarity is the coarsest (largest)
  congruence contained in (weak) bisimilarity: one following Milner's
  book \cite{Mil89}, with the hypothesis that no processes can use up
  all labels;
@@ -85,7 +85,7 @@ the result about unique solution of equations for weak bisimilarity that uses th
 contraction preorder as an auxiliary relation, and other unique solution results (e.g., 
 the one for rooted in which
 the auxiliary relation is rooted contraction); various forms of enhancements of the bisimulation
-proof method (the `up-to' techniques) \cite{Mil89,sangiorgi1992problem}.
+proof method (the `up-to' techniques).
 In these cases,  moving between proofs there are only a few places in
 which the HOL scripts have to be modified.
 Then the successful termination of the scripts  gives us a guarantee that the proof is
