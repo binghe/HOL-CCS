@@ -49,10 +49,10 @@ relation \texttt{TRANS}}:
 \HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
 
-\hl{Notice that if the list of actions is empty, that means that there is no transition and hence,}
-if there is at most one visible action (i.e. a label) in the list of actions,
+\hl{If the list of actions is empty,  there is no transition and hence,}
+if there is at most one visible action (i.e., a label) in the list of actions,
 then the trace is also a weak transition. Here
-we must distinguish between two cases: no label and unique label (in
+we have to distinguish two cases: no label and unique label (in
 the list of actions). The definition of ``no
 label'' in an action list is easy (here \texttt{MEM} tests if a given element is a member of a list):
 \begin{alltt}
@@ -60,8 +60,8 @@ label'' in an action list is easy (here \texttt{MEM} tests if a given element is
 \end{alltt}
 
 The definition of ``unique label'' \hl{can be done in many ways, the
-following definition (learnt from Robert Beers) has
-avoided any counting or filtering in the list.}
+following definition\footnote{A suggestion from Robert Beers}
+avoids any counting or filtering in the list.}
 It says that a label is unique in a list of actions if and only if there is no
 label in the rest of list:
 \begin{alltt}
@@ -128,9 +128,9 @@ of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$ (meaning
 that $P$ is not touched during the transitions). Traces are used for
 reasoning about the \hl{number} of intermediate actions in weak
 transitions. For instance, from Def.~\ref{d:BisCon}, \hl{it is easy
-to see that, a weak transition either gets shorter
-or remains the same when passing into $\mcontrBIS$ from left to right}.
-\hl{This fact, among others, is crucial} in proving
+to see that a weak transition either becomes shorter
+or remains the same when moving between $\mcontrBIS$-related processes}.
+\hl{This property is essential} in the  proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
 $\tau$-transitions passing into $\mcontrBIS$ (from left to right):
 \begin{alltt}
@@ -142,8 +142,8 @@ $\tau$-transitions passing into $\mcontrBIS$ (from left to right):
            \HOLConst{NO_LABEL} \HOLBoundVar{xs\sp{\prime}}\hfill{[contracts_AND_TRACE_tau]}
 \end{alltt}
 
-Finally, \hl{with all above work carefully done with patience,}
- we have formally proved Theorem~\ref{t:contraBisimulationU}:
+We can thus finally prove
+ Theorem~\ref{t:contraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}

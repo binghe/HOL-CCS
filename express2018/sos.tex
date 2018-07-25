@@ -19,10 +19,10 @@ CCS types built on top of it)
 
 The type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS
 syntax\footnote{\hl{The order of type variables $\alpha, \beta$ can be
-    arbitrary. But our choice is aligned with other CCS literals.
+    arbitrary. Our choice is aligned with other CCS literals. Then
 $\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
-and $k$ actions.} \cite{gorrieri2017ccs} \hl{Thus, to formalize theorems on
-this kind of CCS subcalculus, it is enough to instantiate the type
+and $k$ actions.} \hl{Thus, to formalize theorems on such a 
+calculus, it is enough to instantiate the type
 variables $\alpha, \beta$ with types having the corresponding cardinalities $h, k$.}}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
 ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}}'' is \hl{the type of all relabeling functions,

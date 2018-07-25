@@ -30,7 +30,7 @@ single-variable cases.} The precise definition is given inductively:
 
 A (pre)congruence is a relation of CCS processes defined on top of
 above multi-hole contexts. \hl{The only difference between congruence and
-precongruence is, the former must be an equivalence (reflexive,
+precongruence is that the former must be an equivalence (reflexive,
 symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
 \begin{alltt}
 \HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
@@ -82,7 +82,7 @@ the informal definitions.)
 \end{alltt}
 
 In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums are forbidden):}
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. arbitrary sums are forbidden):}
 \begin{alltt}
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
@@ -101,10 +101,10 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums
 \HOLConst{WGS} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[WGS_rules]}
 \end{alltt}
 
-\hl{Although weak bisimilarity is not compatible with an unrestricted
-variant of binary choice, it is compatible with weakly guarded
-sums. As a consequence, weak bisimilarity is indeed a ``congruence''
-if we have had another version of \texttt{congruence} w.r.t. above \texttt{GCONTEXT}.}
+\hl{Although weak bisimilarity is not compatible with  aribtrary sums, it is compatible with weakly guarded
+sums. As a consequence, weak bisimilarity would  indeed be a ``congruence''
+if we have had a version of \texttt{congruence} referring to
+ \texttt{GCONTEXT}.}
 %
 Many lemmas have then to be proved for their
 relationships among these kinds of contexts and properties about their
