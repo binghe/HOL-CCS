@@ -23,7 +23,7 @@ bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89} (thus it
 is the best one):
 \begin{equation}
 \label{eq:coarsest}
-\forall p\ \ q.\ p\ \rapprox\ \! q\ \Leftrightarrow\ ( \forall r.\ p\ +\
+\forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
 r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 
@@ -49,8 +49,7 @@ $R$, no matter if $R$ is (pre)congruence or not}\footnote{\hl{But if $R$ is
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
 \hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
-itself may not be) is contained in the context
-closure of $R$ (thus it is the coarsest one):}
+itself may not be) is contained in the composition closure of $R$ (thus the coarsest one):}
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
 \HOLthm[nosp]{Congruence.CC_is_coarsest'}\hfill{[CC_is_coarsest']}
@@ -99,8 +98,8 @@ rooted bisimilarity ($\rapprox$), making all three relations
 ($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
-\forall p\ \ q.\ ( \forall r.\ p\ +\ r \approx q\ +\ r ) \
-\Rightarrow\ p\ \rapprox\ \! q  \enspace.
+\forall p\ \ q.\ ( \forall r.\ p\ +\ r \;\approx\; q\ +\ r ) \
+\Rightarrow\ p\ \rapprox\ \! q\enspace.
 \end{equation}
 
 \begin{figure}[ht]
@@ -162,8 +161,10 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 \end{alltt}
 %\end{theorem}
 
-For contraction and rooted contraction, the situation and proof
-steps are almost identical, and the corresponding HOL theorem says:
+With an almost identical proof, rooted contraction
+($\rcontr$) is also the coarsest
+precongruence contained in bisimilarity contraction ($\mcontrBIS$)
+(the other direction of (\ref{eq:coarsest}) is trivial):
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
 \begin{alltt}
@@ -172,15 +173,15 @@ steps are almost identical, and the corresponding HOL theorem says:
 \end{alltt}
 %\end{theorem}
 
-The formal proof of above results precisely follows Milner
+The formal proofs of above two results precisely follow Milner
 \cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}) does not hold, and the proof cannot be finished.} Our
 assumption is a bit \emph{weaker}
 in the sense that, $p$ and $q$ do not really need to have the
-\emph{same} free action (besides, actions like $a$ and $\outC a$ are
-\emph{different} here).
+\emph{same} free action (also, $a$ and $\outC a$ are
+\emph{different} actions).
 
 \hl{There exists a very different, much more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
