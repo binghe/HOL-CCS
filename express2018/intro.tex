@@ -6,7 +6,7 @@ landmark CCS book \cite{Mil89} is the
 componentwise bisimilar if they are solutions 
 of the same system of equations.
 This method is important in verification techniques and tools
-based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice}. 
+based on algebraic reasoning \cite{RosUnder10,BaeBOOK,theoryAndPractice}. 
 
 In the versions of Milner's unique solution theorems for proving that all
 solutions are weakly (or rooted) bisimilar (in practice these are the most
@@ -53,7 +53,7 @@ includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
  congruence contained in (weak) bisimilarity: one following Milner's
  book \cite{Mil89}, with the hypothesis that no processes can use up
  all labels;
-the other without such hypothesis, essentially formalising van Glabbeek's paper \cite{vanGlabbeek:2005ur}.
+the other without such hypothesis, essentially formalising van Glabbeek's paper \cite{van2005characterisation}.
 Similar theorems are proved for the rooted contraction preorder.
 In this respect, the work is an extensive experiment with the use of the HOL theorem prover and its
 most recent developments, including a package for expressing coinductive definitions.
@@ -84,9 +84,10 @@ and the coarsest precongruence contained in the contraction  preorder;
 the result about unique solution of equations for weak bisimilarity that uses the
 contraction preorder as an auxiliary relation, and other unique solution results (e.g., 
 the one for rooted in which
-the auxiliary relation is rooted contraction); various forms of enhancement of the bisimulation
-proof method (the `up-to' techniques).  
-In these cases,  moving between proofs there are only a few places in which the HOL scripts have to be modified.
+the auxiliary relation is rooted contraction); various forms of enhancements of the bisimulation
+proof method (the `up-to' techniques) \cite{Mil89,sangiorgi1992problem}.
+In these cases,  moving between proofs there are only a few places in
+which the HOL scripts have to be modified.
 Then the successful termination of the scripts  gives us a guarantee that the proof is
 completed,  removing the risk 
 of overlooking or missing details as in hand-written proofs.
@@ -113,7 +114,7 @@ of overlooking or missing details as in hand-written proofs.
 % % bisimilarity, the formalisation includes the proof that the latter is the coarsest
 % % congruence included in the former, for which two proofs are formalized: one as in Milner's
 % % book,  requiring the hypothesis that  no processes can use all labels; the other without
-% % such hypothesis, essentially formalising van Glabbek's paper \cite{vanGlabbeek:2005ur}.
+% % such hypothesis, essentially formalising van Glabbek's paper \cite{van2005characterisation}.
 % % Similar theorems are proved for rooted contractions wrt the contraction preorder.
 
 \paragraph{Structure of the paper} 

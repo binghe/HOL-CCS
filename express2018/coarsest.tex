@@ -19,7 +19,7 @@ As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilari
 introduced (Def.~\ref{d:rootedBisimilarity}).
 In this subsection we discuss two proofs of an important result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89} (thus it
+bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89} (thus it
 is the best one):
 \begin{equation}
 \label{eq:coarsest}
@@ -29,11 +29,11 @@ r\ \approx\ q\ +\ r )\enspace.
 
 % : Milner's proof \cite{Mil89}, that requires
 % that no process can use all available names; and van Glabbeek's proof
-% \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
+% \cite{van2005characterisation}, that does not require additional assumptions. 
 
 Actually the coarsest congruence
 contained in (weak) bisimilarity, namely the \emph{bisimilarity
-  congruence} \cite{vanGlabbeek:2005ur}, can be constructed as
+  congruence} \cite{van2005characterisation}, can be constructed as
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
@@ -185,7 +185,7 @@ in the sense that, $p$ and $q$ do not really need to have the
 \emph{different} actions).
 
 \hl{There exists a different, more complex proof of (\ref{eq:coarsest}),
-given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
+given by van Glabbeek} \cite{van2005characterisation}, which does not
 require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
@@ -204,7 +204,7 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \hl{To actually get this process $k$, the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
 an arbitary large sequence of processes (firstly introduced by Jan
-Willem Klop \cite{vanGlabbeek:2005ur})
+Willem Klop \cite{van2005characterisation})
  that are all pairwise non-bisimilar.} 
 We have partially formalised
 this proof, because the typed logic
