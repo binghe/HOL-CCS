@@ -1,5 +1,5 @@
-\newcommand{\HOLWeakLawsDate}{23 Luglio 2018}
-\newcommand{\HOLWeakLawsTime}{15:04}
+\newcommand{\HOLWeakLawsDate}{24 Luglio 2018}
+\newcommand{\HOLWeakLawsTime}{15:32}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsTAUXXWEAK}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
@@ -7,7 +7,7 @@
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXEQUIVXXSUBSTXXSUMXXL}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{WEAK_EQUIV} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STABLE} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STABLE} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{+} \HOLBoundVar{E}) (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}})
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) (\HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXEQUIVXXSUBSTXXSUMXXL}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXEQUIVXXSUBSTXXSUMXXL}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXEXPANSIONXXLAW}
@@ -17,10 +17,10 @@
        \HOLConst{WEAK_EQUIV} (\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
          (\HOLConst{SIGMA}
             (\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{i})\HOLSymConst{..}(\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{i}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}))
-            \HOLBoundVar{n} \HOLSymConst{+}
+            \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}}
           \HOLConst{SIGMA}
             (\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})\HOLSymConst{..}(\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})))
-            \HOLBoundVar{m} \HOLSymConst{+} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
+            \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXEXPANSIONXXLAW}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXEXPANSIONXXLAW}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPARXXASSOC}
@@ -44,7 +44,7 @@
        \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
            \HOLConst{WEAK_EQUIV} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+}
+             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
               \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXPREFXXNOXXSYNCR}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXPREFXXNOXXSYNCR}}
@@ -53,26 +53,26 @@
        (\HOLBoundVar{l} \HOLSymConst{=} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
            \HOLConst{WEAK_EQUIV} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+}
-              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
+              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXPREFXXSYNCR}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXPREFXXSYNCR}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPARXXPREFXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{WEAK_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXPREFXXTAU}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXPREFXXTAU}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPARXXTAUXXPREF}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLBoundVar{u}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXTAUXXPREF}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXTAUXXPREF}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPARXXTAUXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{+} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXTAUXXTAU}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPREFXXRECXXEQUIV}
@@ -92,7 +92,7 @@
 \newcommand{\HOLWeakLawsTheoremsWEAKXXRELABXXPREFIX}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXRELABXXPREFIX}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXRELABXXSUM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
-       \HOLConst{WEAK_EQUIV} (\HOLConst{relab} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{rf}) (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{+} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
+       \HOLConst{WEAK_EQUIV} (\HOLConst{relab} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{rf}) (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\ensuremath{+}} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXRELABXXSUM}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXRELABXXSUM}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXRESTRXXNIL}
@@ -116,31 +116,31 @@
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXRESTRXXPREFIXXXTAU}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXRESTRXXPREFIXXXTAU}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXRESTRXXSUM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}})) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{+} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}})) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXRESTRXXSUM}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXRESTRXXSUM}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}})) (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXL}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXL}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{+} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXR}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXASSOCXXR}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXCOMM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{+} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXCOMM}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXCOMM}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXIDEMP}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXIDEMP}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXIDEMP}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{nil} \HOLSymConst{+} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{nil} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXL}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXL}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{+} \HOLConst{nil}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{nil}) \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXR}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXUNFOLDING}

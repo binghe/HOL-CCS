@@ -22,26 +22,10 @@ single-variable cases.} The precise definition is given inductively:
 \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[CONTEXT_rules]}
-\end{alltt}
-
-A (pre)congruence is a relation of CCS processes defined on top of
-above multi-hole contexts. \hl{The only difference between congruence and
-precongruence is, the former must be an equivalence (reflexive,
-symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
-\begin{alltt}
-\HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
-\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})\hfill{[congruence_def]}
-\hfill{[precongruence_def]}
-\end{alltt}
-\vspace{-4ex}
-\begin{alltt}
-\HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{alltt}
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
@@ -49,7 +33,7 @@ underneath a prefix:
 \begin{alltt}
 \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[WG_rules]}
@@ -64,7 +48,7 @@ A context is \emph{(strongly) guarded} (\texttt{SG}) if each hole is underneath 
 \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLFreeVar{l}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
 \HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[SG_rules]}
@@ -78,16 +62,16 @@ the informal definitions.)
 \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{SEQ} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
+\HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
 \end{alltt}
 
 In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums are forbidden):}
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):}
 \begin{alltt}
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[GCONTEXT_rules]}
@@ -95,55 +79,46 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e. direct sums
 \begin{alltt}
 \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
 \HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
-\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{+} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{WGS} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
 \HOLConst{WGS} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{WGS} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[WGS_rules]}
 \end{alltt}
 
-\hl{Although weak bisimilarity is not compatible with an unrestricted
-variant of binary choice, it is compatible with weakly guarded
-sums. As a consequence, weak bisimilarity is indeed a ``congruence''
-if we have had another version of \texttt{congruence} w.r.t. above \texttt{GCONTEXT}.}
-%
-Many lemmas have then to be proved for their
-relationships among these kinds of contexts and properties about their
-compositions. These proofs are usually tedious but  long,  due to multiple levels of
-inductions on the structure of the contexts.%  For example, one such 
+% Many lemmas have then to be proved for their
+% relationships among these kinds of contexts and properties about their
+% compositions. These proofs are usually tedious but  long,  due to multiple levels of
+% inductions on the structure of the contexts.
 
-% lemma says, for any  context $E$ which is both strongly guarded
-% and sequential (no direct sums) and another sequential context $H$ (no
-% direct sums), the composition $H \circ E$ is still both strongly
-% guarded and sequential (no direct sums):
-% \begin{alltt}
+A (pre)congruence is a relation on CCS processes defined on top of
+\texttt{CONTEXT}. \hl{The only difference between congruence and
+precongruence is that the former must be an equivalence (reflexive,
+symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
+\begin{alltt}
+\HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})\hfill{[congruence_def]}
+\hfill{[precongruence_def]}
+\end{alltt}
+\vspace{-4ex}
+\begin{alltt}
+\HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{alltt}
 
-% \end{alltt}
+\hl{For example, we can prove that, strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are both congruence by above
+definition: (the transitivity proof of rooted bisimilarity is actually not easy.)}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
 
-% \subsection{Milner's ``unique solution of equations'' theorems}
+\hl{Although weak bisimilarity ($\approx$) is \emph{not} congruence
+  with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
+  with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
+  only guarded sum operator \cite{sangiorgi2015equations}) as weak
+  bisimilarity ($\approx$) is indeed preserved by 
+  weakly-guarded sums.}
 
-% Once the representation issue of CCS equations is resolved, the actual
-% proofs of Milner's unique solution of equations theorems is not very
-% interesting from the view of theorem proving, although it's a 
-% precise proof engineering work producing quite long proofs.
-% Since we have chosen to use  context to represent
-% single-variable equations, an equation like $P \sim E\{P/X\}$ now
-% becomes $P \sim E[P]$, in which $E$ is a (multi-hole) 
-% context, and there's no need to say it ``contains at most the variable
-% $X$'' any more, as equation variable doesn't appear in $E$ at
-% all. Under these simplifications, the formal proof of Milner's unique
-% solution of equations theorem for $\sim$ is a literal mapping for informal
-% proofs based on bisimulation up to $\sim$, induction and case analysis
-% of weakly guarded contexts. Below is the formal version of Lemma 4.13
-% and Proposition 4.14 in Milner's book:
-
-% \begin{alltt}
-% STRONG_UNIQUE_SOLUTION:
-% \end{alltt}
-
-% \begin{alltt}
-% WEAK_UNIQUE_SOLUTION:
-% \end{alltt}
-
-% \begin{alltt}
-% OBS_UNIQUE_SOLUTION:
-% \end{alltt}
+% no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM

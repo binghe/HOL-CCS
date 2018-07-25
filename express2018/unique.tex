@@ -137,17 +137,17 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
 %bisimilarity on top of that of the  contraction preorder
 %$\mcontrBIS$.  %% Reviewer said this sentance is unclear. I too think so.
 
-\hl{The discovery of this definition is with help of HOL theorem
+\hl{The precise formulation of  this definition was guided by the HOL theorem
   prover and
-the following two principles:} (1) Its definition must not be recursive,
-instead it should resemble the definition of rooted bisimilarity
+the following two principles:} (1) the definition should not be recursive,
+along the lines of rooted bisimilarity
 $\approx^c$ in Def.~\ref{d:rootedBisimilarity};
-(2) It must be built on top of existing \emph{contracts}
-relation $\mcontrBIS$, which we believe it's the \emph{right} one
-because of its completeness. \hl{Multiple candicates were quickly tested,
-finally only above definition is proven to be a precongruence, as the
-following theorem states.} (The proof of this result is along the lines of the analogous result
-for rooted bisimilarity with respect to bisimilarity.)
+(2) the definition should  be built on top of existing \emph{contraction}
+relation $\mcontrBIS$ (because of its completeness). 
+\hl{A few other candicates were quickly tested and rejected, e.g.,
+  because of  precongruence issue.} The proof of the precongruence
+ result below is along the lines of the analogous result
+for rooted bisimilarity with respect to bisimilarity.
 
 \begin{theorem}
 \label{t:rcontrPrecongruence}
@@ -164,10 +164,9 @@ $\approx$ with $\rapprox$.
 For this new relation, the analogous of Lemma~\ref{l:uptocon} and of
 Theorem~\ref{t:contraBisimulationU} can now be stated without constraints on the sum
 operator.
-The schema of the proofs is almost the same, because all needed
-properties of $\rcontr$ in the proof is its precongruence, which is
-now true for unrestricted contexts using direct sums:
-
+The schema of the proofs is almost identical, because all 
+properties of $\rcontr$ needed in this proof is its precongruence, which is
+indeed true on unrestricted contexts including direct sums:
 \begin{lemma}
 \label{l:ruptocon}
 Suppose $\til P$ and $\til Q$ are solutions  for $\rcontr$ 
@@ -194,7 +193,7 @@ exploting Lemma~\ref{l:ruptocon}. \hl{Then it remains to show that,} for
 any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
 there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$!) and
 $P'\ \R\ Q'$, and also for the converse direction, exploting Lemma
-4.13 of \cite{Mil89} \hl{(unexpected!)}. \hl{By definition of
+4.13 of \cite{Mil89} \hl{(surprisingly)}. \hl{By definition of
 \emph{bisimulation} (not $\wb$!) and $\approx^c$, we actually proved $P
 \approx^c Q$ instead of $P \wb Q$.}
 \end{proof}

@@ -15,41 +15,42 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-Bisimilarity ($\approx$) is not congruence, since not preserved by 
-the sum operator. For this reason rooted bisimilarity has been
-introduced (Def.~\ref{d:rootedBisimilarity}). 
-In this subsection we discuss  two proofs of the result stating that
+As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
+introduced (Def.~\ref{d:rootedBisimilarity}).
+In this subsection we discuss two proofs of an important result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89}:
+bisimilarity \cite{vanGlabbeek:2005ur,Gorrieri:2015jt,Mil89} (thus it
+is the best one):
 \begin{equation}
 \label{eq:coarsest}
-\forall p\; q.\; p \approx^c\! q \Leftrightarrow ( \forall r.\; p+r \approx q+r )
+\forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
+r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 
 % : Milner's proof \cite{Mil89}, that requires
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{vanGlabbeek:2005ur}, that does not require additional assumptions. 
 
-Following \cite{vanGlabbeek:2005ur}, the coarsest congruence
-contained in (weak) bisimilarity (we call it \emph{bisimilarity
-  congruence} hereafter), can be directly constructed as
-the \emph{context closure} (\texttt{CC}) of (weak) bisimilarity:
+Actually the coarsest congruence
+contained in (weak) bisimilarity, namely the \emph{bisimilarity
+  congruence} \cite{vanGlabbeek:2005ur}, can be constructed as
+the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
 \end{alltt}
-\hl{Now we show why this works. For any relation $R$ 
-on CCS processes, \emph{no matter if it is (pre)congruence or not},
-the context closure of $R$ is always finer}\footnote{\hl{This is why
-  we don't need to put $R\ g\ h$ in the antecedent in
-\texttt{CC\_def}, as with the trivial context $\lambda x.\,x$ it is a conclusion.}} than
-$R$: (here $\subseteq_r$ stands for relation inclusion in HOL4.)
+\hl{Indeed, for any relation $R$ 
+on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) than
+$R$, no matter if $R$ is (pre)congruence or not}\footnote{\hl{But if $R$ is
+  equivalence (or preorder), the composition closure of $R$ must be congruence
+  (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
+\texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}}: (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
-\hl{Furthermore, we have proved that, any (pre)congruence contained in $R$ (which
-itself may not be) is contained in the context
-closure of $R$ (thus it is the coarsest one):}
+\hl{Furthermore, we prove that any (pre)congruence contained in $R$ (which
+itself may not be) is contained in the composition closure of $R$
+(hence the closure is the coarsest one):}
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
 \HOLthm[nosp]{Congruence.CC_is_coarsest'}\hfill{[CC_is_coarsest']}
@@ -63,14 +64,13 @@ Given the central role of the
 \HOLthm[def]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
 \end{alltt}
 
-
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
-% is non-standard, i.e. has only prefixed sums, $\approx$ is indeed a
+% is non-standard, i.e.~has only prefixed sums, $\approx$ is indeed a
 % congruence). The purpose is to find a coarsest congruence contained in
 % weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
 % There're two ways to build a congruence from weak bisimilarity, one
 % way is the standard definition for observational congruence (rooted
-% weak bisimilarity) $\approx^c$ in CCS textbooks, but even it's proven to be a
+% weak bisimilarity) $\rapprox$ in CCS textbooks, but even it's proven to be a
 % congruence we don't know if it's coarsest one.  The other way is to
 % build a (pre)congruence closure (Def ??) directly upon
 % the original weak bisimilarity relation, we call the resulting
@@ -90,39 +90,39 @@ Given the central role of the
 % \begin{alltt}
 % \HOLthm[def]{CoarsestCongr.SUM_EQUIV}
 % \end{alltt}
-\hl{Rooted bisimilarity $\approx^c$ (a congruence contained in
+\hl{Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
 the crux is to prove that \texttt{SUM_EQUIV} implies
-rooted bisimilarity ($\approx^c$), making all three relations
-($\approx^c$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
+rooted bisimilarity ($\rapprox$), making all three relations
+($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
 \begin{equation}
 \label{equa:pq}
-\forall p\; q.\; ( \forall r.\; p+r \approx q+r ) \Rightarrow p \approx^c\! q  
+\forall p\ \ q.\ ( \forall r.\ p\ +\ r \;\approx\; q\ +\ r ) \
+\Rightarrow\ p\ \rapprox\ \! q\enspace.
 \end{equation}
 
 \begin{figure}[ht]
 \begin{displaymath}
-\xymatrix@R=2ex{
+\xymatrix@R=3ex{
 {\textrm{Weak bisimilarity } (\approx)} & {\textrm{Equiv.
-    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq ?}\\
+    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq}\\
 {\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
 \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
-{\textrm{Rooted bisimilarity } (\approx^c)} \ar[u]^{\subseteq}
+{\textrm{Rooted bisimilarity } (\rapprox)} \ar[u]^{\subseteq}
 }
 \end{displaymath}
 \vspace{-2ex}
-\caption{\hl{Relationship between several relations}}
+\caption{\hl{Relationship between the equivalences mentioned}}
 \label{fig:relationship}
 \end{figure}
 
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use up all available labels (i.e. visible actions).
+and $q$ do not use up all available labels (i.e.~visible actions).
 Formalising such an argument requires however 
-a detailed
-treatment on free and bound names of CCS
-processes (with the restriction operator being a binder).
+a detailed treatment on free and bound names of CCS
+processes (with the restriction operator being a binder), not done yet.
 However, the proof of (\ref{equa:pq}) can be carried out 
 % But it's
 % not easy to formalize and use such an assumption without a detailed
@@ -152,7 +152,7 @@ We have formalised this property and
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
-
+%
 With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
 \vspace{-2ex}
@@ -162,8 +162,10 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 \end{alltt}
 %\end{theorem}
 
-For contraction and rooted contraction, the situation and proof
-steps are the same, and the corresponding HOL4 theorem says:
+With an almost identical proof, rooted contraction
+($\rcontr$) is also the coarsest
+precongruence contained in bisimilarity contraction ($\mcontrBIS$)
+(the other direction of (\ref{eq:coarsest}) is trivial):
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
 \begin{alltt}
@@ -172,30 +174,33 @@ steps are the same, and the corresponding HOL4 theorem says:
 \end{alltt}
 %\end{theorem}
 
-The above proof precisely follows \cite{Mil89}. \hl{Noticed that,
-if only $p$ (or $q$) has the free action while the other has used up all available
+The formal proofs of above two results precisely follow Milner
+\cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
-  names}) does not hold, and the proof cannot be finished.} Our result is a bit stronger in the
-sense that, $p$ and $q$ do not really need to have the \emph{same} free action.
+  names}) does not hold, and the proof cannot be completed.} Our
+assumption is a bit \emph{weaker}
+in the sense that, $p$ and $q$ do not really need to have the
+\emph{same} free action (also, $a$ and $\outC a$ are
+\emph{different} actions).
 
-\hl{There exists a very different, much more complex proof,
+\hl{There exists a different, more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek} \cite{vanGlabbeek:2005ur}, which does not
 require any additional assumption.
 The core lemma says, for
-any two processes $p$ and $q$, if there exists a \emph{stable} (i.e. $\tau$-free)
- process $k$ which is not (weakly, actually also strongly) bisimilar with
-all derivatives of $p$ and $q$, then \texttt{SUM_EQUIV} indeed implies
-rooted bisimilarity ($\approx^c$):
+any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
+ process $k$ which is not bisimilar with any derivative of $p$ and
+ $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\rapprox$):
 \begin{alltt}
-\HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
+\HOLthm{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
 \begin{alltt}
-\HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
+\HOLthm[def]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
-\hl{To actually find this process $k$, the proof relies on arbitrary infinite sum of 
+\hl{To actually get this process $k$, the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
-an arbitary large sequence of processes % (firstly introduced by  Klop)
+an arbitary large sequence of processes (firstly introduced by Jan
+Willem Klop \cite{vanGlabbeek:2005ur})
  that are all pairwise non-bisimilar.} 
 We have partially formalised
 this proof, because the typed logic
