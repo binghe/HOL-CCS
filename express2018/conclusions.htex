@@ -3,7 +3,7 @@
 \section{Conclusions and future work}
 \label{s:concl}
 
-We have highlighted a formalisation of the theory of CCS in the 
+In this paper, we have highlighted a formalisation of the theory of CCS in the 
 HOL4 theorem prover (for lack of space we have not discussed 
 the formalisation of some basic algebraic theory, of the basic
 properties of the expansion preorder,   and of a few
@@ -20,25 +20,26 @@ We think that the statements in the formalisation are easy to read and
 understand, as they are very close to the original statements found in
 standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
-For the future work, it would be worth extending the current work
-to multi-variable equations/contractions. \hl{Preliminary work shows that,
-a key aspect could be using unguarded constants as free variables
-(\texttt{FV}) and define guardedness directly on type CCS (instead of CCS
-$\rightarrow$ CCS) then connect to previous context:}
+For the future work, it would be worth extending
+to multi-variable equations/contractions. \hl{A key aspect could be using unguarded constants as free variables
+(\texttt{FV}) and define guardedness directly on expressions of type CCS (instead of
+CCS $\rightarrow$ CCS), then link to contexts. For instance, an expression is weakly-guarded when each
+of its free variables, replaced by a hole, results in a weakly-guarded context.}
 \begin{alltt}
 \HOLthm{Congruence.weakly_guarded1_def}
 \end{alltt}
 
 Formalising other equivalences and preorders could also be considered,
 notably the trace equivalences, \hl{as well as more refined process
-calculi such as value-passing CCS (e.g.~ exploiting the type variable
+calculi such as value-passing CCS (e.g.~exploiting the type variable
 of actions).}
 %
 On another research line, one could examine the formalisation of a different
 approach \cite{DurierHS17} to unique
 solutions, in which the use of contraction is
 replaced by semantic conditions on process transitions such as
-divergence.
+divergence. We hope this work also inspires new formalisations on
+other process calculi.
 
 % Further plan on the formalisation mainly includes: 1) the extension to
 % multi-variable equation/contractions. 2) the support of recursion
