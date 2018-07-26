@@ -14,11 +14,12 @@ proof scripts are in HOL4 official
 examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}. The
 current work consists of about 20,000 lines of proof scripts in Standard ML.
 
-Higher Order Logic (or \emph{HOL Logic}) \cite{hollogic} is a variant of
-Church’s simple theory of types (STT) \cite{church1940formulation}
-\hl{(or \emph{simple-typed $\lambda$-calculus}),
+Higher Order Logic (or \emph{HOL Logic}) \cite{hollogic}, which traces
+its roots back to
+\emph{Edinburgh LCF} by Robin Milner and others in 1972, is a variant of
+Church’s simple theory of types (STT) \cite{church1940formulation},
 plus a higher order version of Hilbert's choice operator $\varepsilon$,
-Axiom of Infinity, and Rank-1 (prenex) polymorphism.}
+Axiom of Infinity, and Rank-1 (prenex) polymorphism.
 HOL4 has implemented the original HOL Logic, 
 while some other theorem provers in HOL family (e.g. Isabelle/HOL) have
 certain extensions.
@@ -27,17 +28,17 @@ certain extensions.
 % inconsistent). 
 Indeed the HOL Logic has considerable simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
-As a result,
-formal theories built in HOL4 is relatively easier convincible and can
-be also easily migrated into other theorem provers,
-sometimes even automatically \cite{hurd2011opentheory}.
+As a consequence,
+formal theories built in HOL is easily convincible and can
+also be easily ported to other proof systems,
+sometimes automatically \cite{hurd2011opentheory}.
 
 HOL4 is written in Standard ML, a single programming language which
 plays three different roles:
 %(The situation is quite different in other systems like Coq\footnote{\hl{The Coq Proof Assistant.} \url{https://coq.inria.fr}}.)
 \begin{enumerate}
-\item It serves as the underlying implementation language for the core HOL engine;
-\item it is used to implement tactics (and tacticals) for writing proofs;
+\item It serves as the underlying implementation language for the core HOL engine;\vspace{-1ex}
+\item it is used to implement tactics (and tacticals) for writing proofs;\vspace{-1ex}
 \item it is used as the command language of the HOL interactive shell.
 \end{enumerate}
 \hl{Moreover, using} the same language HOL4 users can write complex automatic
