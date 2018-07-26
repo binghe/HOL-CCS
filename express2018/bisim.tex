@@ -10,7 +10,8 @@ transitions of CCS processes. Following the name adopted by Nesi} \cite{Nesi:199
 we define a (possibly empty) sequence of $\tau$-transitions between
 two processes as
 a new relation called \texttt{EPS} ($\overset{\epsilon}{\Rightarrow}$), which is the RTC
-(reflexive transitive closure, $^*$) of the single-step $\tau$-transition:
+(reflexive transitive closure, denoted by \mbox{\color{blue}{$^*$}} in
+HOL4) of ordinary $\tau$-transitions of CCS processes:
 \begin{alltt}
 \HOLConst{EPS} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}})\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
 \end{alltt}
