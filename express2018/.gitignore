@@ -10,3 +10,6 @@
 *.bbl
 *.synctex.gz
 *.bak
+/Thumbs.db
+*.dvi
+*.ps
