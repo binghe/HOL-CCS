@@ -22,9 +22,9 @@ standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
 For the future work, it would be worth extending
 to multi-variable equations/contractions. \hl{A key aspect could be using unguarded constants as free variables
-(\texttt{FV}) and define guardedness directly on expressions of type CCS (instead of
-CCS $\rightarrow$ CCS), then link to contexts. For instance, an expression is weakly-guarded when each
-of its free variables, replaced by a hole, results in a weakly-guarded context.}
+(\texttt{FV}) and defining guardedness directly on expressions of type CCS (instead of
+CCS $\rightarrow$ CCS), then linking to contexts. For instance, an expression is weakly-guarded when each
+of its free variables, replaced by a hole, results in a weakly-guarded context:}
 \begin{alltt}
 \HOLthm{Congruence.weakly_guarded1_def}
 \end{alltt}
