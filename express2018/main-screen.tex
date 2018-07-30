@@ -4,10 +4,12 @@
 %% Prof. Davide Sangiorgi and Chun Tian.
 
 \newif\iflong\longfalse
-\newif\ifscreen\screenfalse
+\newif\ifscreen\screentrue
 
 \documentclass[submission]{eptcs} % required template (EPTCS)
 \providecommand{\event}{EXPRESS/SOS 2018} % Name of the event you are submitting to
+
+\usepackage[screen,centering,margin=2cm]{geometry}
 
 \usepackage{breakurl}
 
@@ -143,25 +145,30 @@ Davide Sangiorgi
 % formalisation work.
 \end{abstract}
 
+% TOC appears at last, after Appendix.
+\newpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+
 % part 1 (Sangiorgi)
-\input{intro}
-\input{ccs}
-\input{expansion}
-\input{equa}
-\input{contraction}
-\input{unique}
+\include{intro}
+\include{ccs}
+\include{expansion}
+\include{equa}
+\include{contraction}
+\include{unique}
 
 % part 2 (Tian)
-\input{formal}
-\input{sos}
-\input{bisim}
-\input{context}
-\input{coarsest}
-\input{part2}
+\include{formal}
+\include{sos}
+\include{bisim}
+\include{context}
+\include{coarsest}
+\include{part2}
 
 % part 3
-\input{related}
-\input{conclusions}
+\include{related}
+\include{conclusions}
 
 \newpage
 

@@ -8,7 +8,7 @@ TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
 # XeTeX results into much smaller PDF
 TEXCMD = pdflatex
 
-all: htex main.pdf main.ps
+all: htex main.pdf main.ps main-screen.pdf
 
 htex: $(HTEXFILES)
 
@@ -49,6 +49,13 @@ main.pdf: $(TEXFILES) generic.bib
 main.ps: main.pdf
 	latex main
 	dvips main
+
+main-screen.pdf: main.ps
+	$(TEXCMD) main-screen
+	$(TEXCMD) main-screen
+	bibtex main-screen
+	$(TEXCMD) main-screen
+	$(TEXCMD) main-screen
 
 force: htex
 	bibtex main
