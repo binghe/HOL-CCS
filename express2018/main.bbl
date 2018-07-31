@@ -281,14 +281,15 @@
 \bibitem{RosUnder10}
 \bibinfo{author}{A.~W. \surnamestart Roscoe\surnameend} (\bibinfo{year}{2010}):
   \emph{\bibinfo{title}{Understanding Concurrent Systems}}.
-\newblock \bibinfo{publisher}{Springer}.
+\newblock \bibinfo{publisher}{Springer}, \doi{10.1007/978-1-84882-258-0}.
 
 \bibitemdeclare{book}{Sangiorgi:2011ut}
 \bibitem{Sangiorgi:2011ut}
 \bibinfo{author}{Davide \surnamestart Sangiorgi\surnameend}
   (\bibinfo{year}{2011}): \emph{\bibinfo{title}{Introduction to Bisimulation
   and Coinduction}}.
-\newblock \bibinfo{publisher}{Cambridge University Press}.
+\newblock \bibinfo{publisher}{Cambridge University Press},
+  \doi{10.1017/CBO9780511777110}.
 
 \bibitemdeclare{inproceedings}{sangiorgi2015equations}
 \bibitem{sangiorgi2015equations}
@@ -326,7 +327,8 @@
 \bibinfo{author}{Davide \surnamestart Sangiorgi\surnameend} \&
   \bibinfo{author}{Jan \surnamestart Rutten\surnameend} (\bibinfo{year}{2011}):
   \emph{\bibinfo{title}{Advanced Topics in Bisimulation and Coinduction}}.
-\newblock \bibinfo{publisher}{Cambridge University Press}.
+\newblock \bibinfo{publisher}{Cambridge University Press},
+  \doi{10.1017/CBO9780511777110}.
 
 \bibitemdeclare{inproceedings}{slind2008brief}
 \bibitem{slind2008brief}
