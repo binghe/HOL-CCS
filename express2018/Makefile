@@ -34,10 +34,11 @@ conclusions.tex: conclusions.htex
 	$(MUNGE) < conclusions.htex > conclusions.tex
 
 clean:
-	@rm -f *.aux *.blg *.log [0-9]*.tex *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
+	@rm -f *.aux *.blg *.log [0-9]*.tex *.out *.idx *.toc *.ilg *.ind *.hix *.pag \
+*.synctex.gz Thumbs.db
 
 dist-clean: clean
-	@rm -f *.pdf
+	@rm -f *.pdf *.dvi *.ps
 
 main.pdf: $(TEXFILES) generic.bib
 	$(TEXCMD) main
