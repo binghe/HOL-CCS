@@ -1,0 +1,69 @@
+%%%% -*- Mode: LaTeX -*-
+
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+
+\usepackage[english]{babel} %italian
+\usepackage{newlfont}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{latexsym}
+\usepackage{sansmath}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{bussproofs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\usepackage{listings}
+\renewcommand{\ttdefault}{cmtt} % {pcr}
+\lstset{tabsize=8,language=C,basicstyle=\footnotesize\ttfamily\bfseries}
+
+% HOL support
+\usepackage{holindex}
+\usepackage{alltt}
+\include{tokens}
+
+%https://en.wikibooks.org/wiki/LaTeX/Xy-pic
+%\begin{displaymath}
+%    \xymatrix{
+%        \bullet\ar@{->}[rr]     && \bullet\\
+%        \bullet\ar@{.<}[rr]     && \bullet\\
+%        \bullet\ar@{~)}[rr]     && \bullet\\
+%        \bullet\ar@{=(}[rr]     && \bullet\\
+%        \bullet\ar@{~/}[rr]     && \bullet\\
+%        \bullet\ar@{^{(}->}[rr] && \bullet\\
+%        \bullet\ar@2{->}[rr]    && \bullet\\
+%        \bullet\ar@3{->}[rr]    && \bullet\\
+%        \bullet\ar@{=+}[rr]     && \bullet }
+%\end{displaymath}
+\usepackage[all,cmtip]{xy}
+
+\begin{document}
+
+\title[Unique solutions of contractions]{Unique solutions of contractions, CCS, and their HOL formalisation}
+
+\author[C. Tian and D. Sangiorgi]{\textbf{Chun Tian} \and Davide Sangiorgi}
+
+%\date{December 20, 2017}
+
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>
+%    \frametitle{Outline for section \thesection}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+
+% page 1 (of 15)
+\begin{frame}
+\titlepage
+\end{frame}
+
+\include{expess2018-body}
+
+\end{document}
