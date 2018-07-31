@@ -30,16 +30,17 @@ of its free variables, replaced by a hole, results in a weakly-guarded context:}
 \end{alltt}
 
 Formalising other equivalences and preorders could also be considered,
-notably the trace equivalences, \hl{as well as more refined process
-calculi such as value-passing CCS (e.g.~exploiting the type variable
-of actions).}
+notably the trace equivalences, as well as more refined process
+calculi such as value-passing CCS.
+% (e.g.~exploiting the type variable
+%of actions).}
 %
 On another research line, one could examine the formalisation of a different
 approach \cite{DurierHS17} to unique
 solutions, in which the use of contraction is
 replaced by semantic conditions on process transitions such as
-divergence. We hope this work also inspires new formalisations on
-other process calculi.
+divergence. 
+%We hope this work also inspires new formalisations on other process calculi.
 
 % Further plan on the formalisation mainly includes: 1) the extension to
 % multi-variable equation/contractions. 2) the support of recursion
