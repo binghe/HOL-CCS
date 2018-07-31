@@ -34,7 +34,7 @@ conclusions.tex: conclusions.htex
 	$(MUNGE) < conclusions.htex > conclusions.tex
 
 clean:
-	@rm -f *.aux *.blg *.log [0-9]*.tex *.bbl *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
+	@rm -f *.aux *.blg *.log [0-9]*.tex *.out *.idx *.toc *.ilg *.ind *.hix *.pag *.synctex.gz
 
 dist-clean: clean
 	@rm -f *.pdf
