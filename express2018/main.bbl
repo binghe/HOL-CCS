@@ -165,14 +165,6 @@
 \newblock
   \urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-logic.pdf}.
 
-\bibitemdeclare{inproceedings}{hurd2011opentheory}
-\bibitem{hurd2011opentheory}
-\bibinfo{author}{Joe \surnamestart Hurd\surnameend} (\bibinfo{year}{2011}):
-  \emph{\bibinfo{title}{The OpenTheory standard theory library}}.
-\newblock In: {\sl \bibinfo{booktitle}{NASA Formal Methods Symposium}},
-  \bibinfo{organization}{Springer}, pp. \bibinfo{pages}{177--191},
-  \doi{10.1007/978-3-642-20398-5_14}.
-
 \bibitemdeclare{inproceedings}{kahsai2008implementing}
 \bibitem{kahsai2008implementing}
 \bibinfo{author}{Temesghen \surnamestart Kahsai\surnameend} \&
@@ -182,6 +174,15 @@
 \newblock In: {\sl \bibinfo{booktitle}{Conference on Computability in Europe}},
   \bibinfo{organization}{Springer}, pp. \bibinfo{pages}{294--305},
   \doi{10.1007/978-3-540-69407-6_33}.
+
+\bibitemdeclare{inproceedings}{hurd2011opentheory}
+\bibitem{hurd2011opentheory}
+\bibinfo{author}{Joe \surnamestart Leslie-Hurd\surnameend}
+  (\bibinfo{year}{2011}): \emph{\bibinfo{title}{The OpenTheory standard theory
+  library}}.
+\newblock In: {\sl \bibinfo{booktitle}{NASA Formal Methods Symposium}},
+  \bibinfo{organization}{Springer}, pp. \bibinfo{pages}{177--191},
+  \doi{10.1007/978-3-642-20398-5_14}.
 
 \bibitemdeclare{article}{melham1992hol}
 \bibitem{melham1992hol}
