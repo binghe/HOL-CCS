@@ -9,18 +9,6 @@
 \providecommand{\doi}[1]{doi:\urlalt{http://dx.doi.org/#1}{#1}}
 \providecommand{\bibinfo}[2]{#2}
 
-\bibitemdeclare{manual}{holdesc}
-\bibitem{holdesc}
- (\bibinfo{year}{2018}): \emph{\bibinfo{title}{{The HOL System DESCRIPTION}}}.
-\newblock
-  \urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-description.pdf}.
-
-\bibitemdeclare{manual}{hollogic}
-\bibitem{hollogic}
- (\bibinfo{year}{2018}): \emph{\bibinfo{title}{{The HOL System LOGIC}}}.
-\newblock
-  \urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-logic.pdf}.
-
 \bibitemdeclare{article}{arun1992efficiency}
 \bibitem{arun1992efficiency}
 \bibinfo{author}{S.~\surnamestart Arun-Kumar\surnameend} \&
@@ -33,12 +21,13 @@
 
 \bibitemdeclare{book}{BaeBOOK}
 \bibitem{BaeBOOK}
-\bibinfo{author}{J.~C.~M. \surnamestart Baeten\surnameend},
-  \bibinfo{author}{T.~\surnamestart Basten\surnameend} \&
-  \bibinfo{author}{M.~A. \surnamestart Reniers\surnameend}
+\bibinfo{author}{Jos C.~M. \surnamestart Baeten\surnameend},
+  \bibinfo{author}{Twan \surnamestart Basten\surnameend} \&
+  \bibinfo{author}{Michel~A. \surnamestart Reniers\surnameend}
   (\bibinfo{year}{2010}): \emph{\bibinfo{title}{Process Algebra: Equational
   Theories of Communicating Processes}}.
-\newblock \bibinfo{publisher}{Cambridge University Press}.
+\newblock \bibinfo{publisher}{Cambridge University Press},
+  \doi{10.1017/CBO9781139195003}.
 
 \bibitemdeclare{phdthesis}{bengtson2010formalising}
 \bibitem{bengtson2010formalising}
@@ -123,16 +112,16 @@
   the Road to Infinity}}, \bibinfo{publisher}{Springer}, pp.
   \bibinfo{pages}{26--39}, \doi{10.1007/11601548_4}.
 
-\bibitemdeclare{inproceedings}{gordon1979edinburgh}
+\bibitemdeclare{book}{gordon1979edinburgh}
 \bibitem{gordon1979edinburgh}
-\bibinfo{author}{Michael~J.C. \surnamestart Gordon\surnameend},
+\bibinfo{author}{Michael J.~C. \surnamestart Gordon\surnameend},
   \bibinfo{author}{Arthur~J. \surnamestart Milner\surnameend} \&
   \bibinfo{author}{Christopher~P. \surnamestart Wadsworth\surnameend}
   (\bibinfo{year}{1979}): \emph{\bibinfo{title}{Edinburgh {LCF}: A Mechanised
   Logic of Computation}}.
-\newblock In: {\sl \bibinfo{booktitle}{Lecture Notes in Computer Science}},
-  \bibinfo{volume}{78}, \bibinfo{publisher}{Springer}, \bibinfo{address}{Berlin
-  Heidelberg}, \doi{10.1007/3-540-09724-4}.
+\newblock {\sl \bibinfo{series}{Lecture Notes in Computer
+  Science}}~\bibinfo{volume}{78}, \bibinfo{publisher}{Springer},
+  \bibinfo{address}{Berlin Heidelberg}, \doi{10.1007/3-540-09724-4}.
 
 \bibitemdeclare{article}{gorrieri2017ccs}
 \bibitem{gorrieri2017ccs}
@@ -161,6 +150,20 @@
 \newblock In: {\sl \bibinfo{booktitle}{International Conference on Theorem
   Proving in Higher Order Logics}}, \bibinfo{organization}{Springer}, pp.
   \bibinfo{pages}{153--169}, \doi{10.1007/BFb0028392}.
+
+\bibitemdeclare{manual}{holdesc}
+\bibitem{holdesc}
+\bibinfo{author}{\surnamestart {HOL4 contributors}\surnameend}
+  (\bibinfo{year}{2018}): \emph{\bibinfo{title}{{The HOL System DESCRIPTION}}}.
+\newblock
+  \urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-description.pdf}.
+
+\bibitemdeclare{manual}{hollogic}
+\bibitem{hollogic}
+\bibinfo{author}{\surnamestart {HOL4 contributors}\surnameend}
+  (\bibinfo{year}{2018}): \emph{\bibinfo{title}{{The HOL System LOGIC}}}.
+\newblock
+  \urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-logic.pdf}.
 
 \bibitemdeclare{inproceedings}{hurd2011opentheory}
 \bibitem{hurd2011opentheory}
@@ -271,16 +274,18 @@
 
 \bibitemdeclare{book}{theoryAndPractice}
 \bibitem{theoryAndPractice}
-\bibinfo{author}{A.~W. \surnamestart Roscoe\surnameend} (\bibinfo{year}{1998}):
-  \emph{\bibinfo{title}{The theory and practice of concurrency}}.
+\bibinfo{author}{Andrew~W. \surnamestart Roscoe\surnameend}
+  (\bibinfo{year}{1998}): \emph{\bibinfo{title}{The theory and practice of
+  concurrency}}.
 \newblock \bibinfo{publisher}{{Prentice Hall}}.
 \newblock
   \urlprefix\url{http://www.cs.ox.ac.uk/people/bill.roscoe/publications/68b.pdf}.
 
 \bibitemdeclare{book}{RosUnder10}
 \bibitem{RosUnder10}
-\bibinfo{author}{A.~W. \surnamestart Roscoe\surnameend} (\bibinfo{year}{2010}):
-  \emph{\bibinfo{title}{Understanding Concurrent Systems}}.
+\bibinfo{author}{Andrew~W. \surnamestart Roscoe\surnameend}
+  (\bibinfo{year}{2010}): \emph{\bibinfo{title}{Understanding Concurrent
+  Systems}}.
 \newblock \bibinfo{publisher}{Springer}, \doi{10.1007/978-1-84882-258-0}.
 
 \bibitemdeclare{book}{Sangiorgi:2011ut}
