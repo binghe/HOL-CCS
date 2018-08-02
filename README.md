@@ -7,7 +7,7 @@ author: Chun Tian
 
 This (private) repository holds unpublished CCS formalization in HOL theorem prover (HOL4) and LaTeX sources of related papers.
 
-## Papers being published (or self-uploaded) so far
+## Published papers
 
 - Tian, C.: A Formalization of Unique Solutions of Equations in Process Algebra, http://amslaurea.unibo.it/14798/ (2017). (arXiv reprint: https://arxiv.org/abs/1712.09402)
 - Tian, C., Sangiorgi, D.: _Unique solutions of contractions, CCS, and their HOL formalisation,_ [EXPRESS/SOS](http://disat.uninsubria.it/~simone.tini/express_sos.html) (2018).
