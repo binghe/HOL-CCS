@@ -40,16 +40,19 @@ clean:
 dist-clean: clean
 	@rm -f *.pdf *.dvi *.ps
 
-main.pdf: $(TEXFILES) generic.bib
-	$(TEXCMD) main
-	$(TEXCMD) main
-	bibtex main
-	$(TEXCMD) main
-	$(TEXCMD) main
-
-main.ps: main.pdf
+main.dvi: $(TEXFILES) generic.bib
 	latex main
+	latex main
+	bibtex main
+	latex main
+	latex main
+
+main.ps: main.dvi
 	dvips main
+
+# This is EPTCS workflow
+main.pdf: main.ps
+	ps2pdf main.ps
 
 main-screen.pdf: main.ps
 	$(TEXCMD) main-screen
