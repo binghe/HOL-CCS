@@ -1,0 +1,208 @@
+%%%% -*- Mode: LaTeX; -*-
+
+% 30 minutes presentation of EXPRESS/SOS 2018 paper.
+% target: 25 slides (exclude title and thanks pages)
+
+%4
+\begin{frame}[fragile]\frametitle{Calculus of Communicating Systems (CCS)}
+\begin{definition}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{align*}
+p & ::= \mathrm{nil} \;\; | \;\; \alpha.p \;\; | \;\; p + q \;\; | \;\; p\,\|\,q \;\; | \;\; (\nu
+a)p \;\; | \;\; p[b/a] \;\; | \;\; \mathrm{var}\, X \;\; | \;\;
+\mathrm{rec}\, X\, p \\
+\alpha & ::= \tau \;\; | \;\; l \quad \text{(action)};
+\qquad\qquad l ::= b \;\; | \;\; \overline{b} \quad \text{(label)}
+\end{align*}
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Operator} & \textbf{Notation} & \textbf{HOL} & \textbf{HOL
+  (alternative)}\\
+\hline
+nil & $\textbf{0}$ &  \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
+Rrefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{b}\HOLSymConst{..}\HOLConst{nil}} \\
+Sum & $p + q$ & \texttt{sum p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{q}} \\
+Parallel & $p \,\mid\, q$ & \texttt{par p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{q}} \\
+Restriction & $(\nu L)\,p$ & \texttt{restr L p} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{p}} \\
+Relabeling & $p [rf]$ & \texttt{relab p rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{p} \HOLFreeVar{rf}} \\
+Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} (\HOLFreeVar{a}\HOLSymConst{..}\HOLConst{var} \HOLFreeVar{A})} \\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\end{definition}
+
+\begin{definition}[Guarded sums]
+%\vspace*{-1em}
+\begin{equation*}
+\alpha.p + \beta.q\qquad\text{or}\qquad \Sigma_i \mu_i.p_i
+\end{equation*}
+\end{definition}
+\end{frame}
+
+%3
+\def\HOL{\textsc{Hol}}
+\newcommand\fun{{\to}}
+\newcommand\prd{{\times}}
+\newcommand{\ty}[1]{\textsl{#1}}
+\newcommand\conj{\ \wedge\ }
+\newcommand\disj{\ \vee\ }
+\newcommand\imp{ \Rightarrow }
+\newcommand\eqv{\ \equiv\ }
+\newcommand\cond{\rightarrow}
+\newcommand\vbar{\mid}
+\newcommand\turn{\ \vdash\ } % FIXME: "\ " resultgs in extra space
+\newcommand\hilbert{\varepsilon}
+\newcommand{\uquant}[1]{\forall #1.\ }
+\newcommand{\equant}[1]{\exists #1.\ }
+\newcommand{\hquant}[1]{\hilbert #1.\ }
+\newcommand{\iquant}[1]{\exists ! #1.\ }
+\newcommand{\lquant}[1]{\lambda #1.\ }
+\newcommand{\ml}[1]{\mbox{{\def\_{\char'137}\texttt{#1}}}}
+\newcommand{\con}[1]{\mathrm{#1}}
+
+\newcommand\bool{\ty{bool}}
+\newcommand\num{\ty{num}}
+\newcommand\ind{\ty{ind}}
+\newcommand\lst{\ty{list}}
+
+\providecommand{\T}{\con{T}}
+\renewcommand{\T}{\con{T}}
+\newcommand\F{\con{F}}
+\newcommand\OneOne{\con{One\_One}}
+\newcommand\OntoSubset{\con{Onto\_Subset}}
+\newcommand\Onto{\con{Onto}}
+\newcommand\TyDef{\con{Type\_Definition}}
+
+\newlength{\ttX}
+\settowidth{\ttX}{\tt X}
+\newcommand{\tyvar}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize type variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\tyatom}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize atomic types}}
+\put(.5,3.3){\vector(0,1){2.6}}
+\end{picture}}
+\newcommand{\funty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function types}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (domain, codomain)}}
+\put(1,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\cmpty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(2,3.3){\makebox(0,0)[b]{\footnotesize compound types}}
+\put(1.9,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\settowidth{\ttX}{\tt X}
+\newcommand{\var}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\const}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize constants}}
+\put(.5,3.5){\vector(0,1){2.4}}
+\end{picture}}
+\newcommand{\app}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function applications}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (function $t$, argument $t'$)}}
+\put(0.5,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\abs}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(1,3.3){\makebox(0,0)[b]{\footnotesize $\lambda$-abstractions}}
+\put(0.7,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\begin{frame}[fragile]\frametitle{Higher Order Logic (HOL)}
+\begin{footnotesize}
+\vspace*{-1em}
+\begin{columns}
+\column{.73\textwidth}
+\begin{definition}[Type in HOL]
+\vspace*{-1.5em}
+\begin{equation*}
+\sigma\quad ::=\quad {\mathord{\mathop{\alpha}\limits_{\tyvar}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\tyatom}}}
+        \quad\mid\quad\underbrace{(\sigma_1, \ldots , \sigma_n){op}}_{\cmpty}
+        \quad\mid\quad\underbrace{\sigma_1\fun\sigma_2}_{\funty}
+\end{equation*}
+\end{definition}
+\vspace*{-10pt}
+\begin{definition}[Term in HOL]
+\vspace*{-1em}
+\begin{equation*}
+t \quad ::=\quad {\mathord{\mathop{x}\limits_{\var}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\const}}}
+        \quad\mid\quad\underbrace{t\ t'}_{\app}
+        \quad\mid\quad\underbrace{\lambda x .\ t}_{\abs}
+\end{equation*}
+\end{definition}
+\column{.23\textwidth}
+\begin{block}{Primitive rules}
+\begin{tiny}
+\begin{enumerate}
+\item Assumption introduction [{\tt ASSUME}],
+\item Reflexivity [{\tt
+  REFL}],
+\item $\beta$-conversion [{\tt BETA\_CONV}],
+\item Substitution [{\tt
+SUBST}],
+\item Abstraction [{\tt ABS}],
+\item Type instantiation [{\tt
+INST\_TYPE}], 
+\item Discharging an assumption [{\tt DISCH}], 
+\item Modus Ponens [{\tt MP}]
+\end{enumerate}
+\end{tiny}
+\end{block}
+\end{columns}
+\begin{columns}
+\column{.45\textwidth}
+\vspace*{-1.2em}
+\begin{block}{Logical constants}
+\vspace*{-1em}
+\begin{tiny}
+\[
+\begin{array}{l}
+\turn \T       =  ((\lquant{x_{\ty{bool}}}x) =
+               (\lquant{x_{\ty{bool}}}x))    \\
+\turn \forall  =  \lquant{P_{\alpha\fun\ty{bool}}}\ P =
+                    (\lquant{x}\T ) \\
+\turn \exists  =  \lquant{P_{\alpha\fun\ty{bool}}}\
+                    P({\hilbert}\ P) \\
+\turn \F       =  \uquant{b_{\ty{bool}}}\ b  \\
+\turn \neg    =  \lquant{b}\ b \imp \F \\
+\turn {\wedge}  =  \lquant{b_1\ b_2}\uquant{b}
+                     (b_1\imp (b_2 \imp b)) \imp b \\
+\turn {\vee}  =  \lquant{b_1\ b_2}\uquant{b}
+                   (b_1 \imp b)\imp ((b_2 \imp b) \imp b) \\
+\end{array}
+\]
+\end{tiny}
+\end{block}
+\column{.5\textwidth}
+\begin{block}{Axioms}
+\vspace*{-1em}
+\begin{tiny}
+\[
+\begin{array}{@{}l@{\qquad}l}
+\mbox{\tiny\tt BOOL\_CASES\_AX}&\vdash \uquant{b} (b = \T ) \vee (b = \F )\\
+% \\
+\mbox{\tiny\tt ETA\_AX}&
+\vdash \uquant{f_{\alpha\fun\beta}}(\lquant{x}f\ x) = f\\
+% \\
+\mbox{\tiny\tt SELECT\_AX}&
+\vdash \uquant{P_{\alpha\fun\ty{bool}}\ x} P\ x \imp
+P({\hilbert}\ P)\\
+%  \\
+\mbox{\tiny\tt INFINITY\_AX}&
+\vdash \equant{f_{\ind\fun \ind}} \OneOne \ f \conj \neg(\Onto \ f)\\
+\end{array}
+\]
+\end{tiny}
+\end{block}
+\end{columns}
+\end{footnotesize}
+\end{frame}
