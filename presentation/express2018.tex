@@ -27,6 +27,10 @@
 \usepackage{alltt}
 \include{tokens}
 
+\input{commonmacros.sty}
+\input{davidemacro.sty}
+\usepackage{DSarrow} % this is something to use extensible arrows in transitions
+
 %https://en.wikibooks.org/wiki/LaTeX/Xy-pic
 %\begin{displaymath}
 %    \xymatrix{
@@ -44,12 +48,13 @@
 
 \begin{document}
 
-\title[Unique solutions of contractions ...]{Unique solutions of
-  contractions, CCS, and their HOL formalisation}
+\title[Unique Solutions of Contractions, ...]{Unique Solutions of
+  Contractions, CCS, and\\
+ their HOL Formalisation}
 
 \author[C. Tian and D. Sangiorgi]{\textbf{Chun Tian} \inst{1} \and
   Davide Sangiorgi \inst{2}}
-\institute[FBK, Unibo]{\inst{1} Fondazione Bruno Kessler (FBK),
+\institute[]{\inst{1} Fondazione Bruno Kessler (FBK),
  Italy \and \inst{2} Universit\`a di Bologna, Italy and INRIA, France}
 
 %\date{December 20, 2017}

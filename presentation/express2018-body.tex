@@ -1,45 +1,94 @@
 %%%% -*- Mode: LaTeX; -*-
 
 % 30 minutes presentation of EXPRESS/SOS 2018 paper.
-% target: 25 slides (exclude title and thanks pages)
+
+% Target: 25 slides (exclude title and thanks pages)
+
+% Table of Contents: (just write what I did in this paper!!!!!)
+
+% 1. CCS.
+% 2. Unique solution of equations (Milner)
+% 3. Contraction and unique solution theorem (Sangiorgi)
+% 4. Rooted contraction and unique solution theorem
+% 5. Coarsest (pre)congruence contained in \approx and \mcontrBIS
+
+% N (conclusions):
+%% 1. "sometimes the greatest advantage of formalisation of theories
+%% with theorem provers is the refinement of previously know results".
+
+\begin{frame}[fragile]
+\frametitle{Unique Solution of Equations (Robin Milner)}
+From ``Milner, R.: \emph{Communication and Concurrency}, 1989'':
+\begin{theorem}[for $\sim$]
+Let $\tilde{E}$ be weakly guarded with free variables at most
+$\tilde{X}$, and let $\tilde{P}\sim\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\sim\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\sim\tilde{Q}$.
+\end{theorem}
+
+\begin{theorem}[for $\approx$]
+Let $\tilde{E}$ be guarded and sequential with only guarded sums and
+free variables as most $\tilde{X}$, and let
+$\tilde{P}\approx\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\approx\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
+\end{theorem}
+
+\begin{theorem}[for $\approx^\mathrm{c}$]
+Let $\tilde{E}$ be guarded and sequential with free variables at most
+$\tilde{X}$, and let $\tilde{P}\approx^\mathrm{c}\!\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\approx^\mathrm{c}\!\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx^\mathrm{c}\!\tilde{Q}$.
+\end{theorem}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditions required by Milner's theorems (1)}
+\begin{definition}
+$X$ is \emph{weakly guarded} in $E$ if each occurrence of $X$ is
+within some subexpression $\alpha.F$ of $E$.
+\end{definition}
+
+\begin{definition}
+$X$ is \emph{(strongly) guarded} in $E$ if each occurrence of $X$ is
+within some subexpression $l.F$ of $E$.
+
+$X$ is \emph{sequential} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\alpha.F$ or
+$\Sigma \tilde{F}$.
+
+\begin{enumerate}
+\item Any $P$ (without $X$) is guarded and sequential;
+\item If $E$ is sequential, then $l.E$ is guarded and sequential;
+\item If $E$ is guarded and sequential, so is $\alpha.E$;
+\item If $E_1$ and $E_2$ are both guarded and sequential, so is $E_1 + E_2$.
+\end{enumerate}
+\end{definition}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditions required by Milner's theorems (2)}
+\begin{definition}
+$X$ is \emph{sequential with only guarded sums} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\alpha.F$ or
+$\Sigma \alpha_i.F_i$.
+\begin{enumerate}
+\item Any $P$ (without $X$) is guarded and ``sequential'';
+\item If $E$ is ``sequential'', then $l.E$ is guarded and
+  ``sequential'';
+\item If $E$ is guarded and ``sequential'', so is $\alpha.E$;
+\item If $E_1$ and $E_2$ are guarded and ``sequential'', so is
+  $\tau.E_1 + \tau.E_2$;
+\item If $E_1$ is guarded and ``sequential'', $E_2$ is ``sequential'',
+  then $\tau.E_1 + l.E_2$ is guarded and ``sequential'';
+\item If $E_1$ is ``sequential'', $E_2$ is guarded and ``sequential'',
+  then $l.E_1 + \tau.E_2$ is guarded and ``sequential'';
+\item If $E_1$ and $E_2$ are ``sequential'', $l_1.E_1 +
+  l_2.E_2$ is guarded and ``sequential''.
+\end{enumerate}
+\end{definition}
+\end{frame}
 
 %4
-\begin{frame}[fragile]\frametitle{Calculus of Communicating Systems (CCS)}
-\begin{definition}
-\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
-\begin{align*}
-p & ::= \mathrm{nil} \;\; | \;\; \alpha.p \;\; | \;\; p + q \;\; | \;\; p\,\|\,q \;\; | \;\; (\nu
-a)p \;\; | \;\; p[b/a] \;\; | \;\; \mathrm{var}\, X \;\; | \;\;
-\mathrm{rec}\, X\, p \\
-\alpha & ::= \tau \;\; | \;\; l \quad \text{(action)};
-\qquad\qquad l ::= b \;\; | \;\; \overline{b} \quad \text{(label)}
-\end{align*}
-\begin{footnotesize}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Operator} & \textbf{Notation} & \textbf{HOL} & \textbf{HOL
-  (alternative)}\\
-\hline
-nil & $\textbf{0}$ &  \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
-Rrefix & $a.b.0$ & \texttt{prefix a (prefix b nil)} & \HOLinline{\HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{b}\HOLSymConst{..}\HOLConst{nil}} \\
-Sum & $p + q$ & \texttt{sum p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{q}} \\
-Parallel & $p \,\mid\, q$ & \texttt{par p q} & \HOLinline{\HOLFreeVar{p} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{q}} \\
-Restriction & $(\nu L)\,p$ & \texttt{restr L p} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{p}} \\
-Relabeling & $p [rf]$ & \texttt{relab p rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{p} \HOLFreeVar{rf}} \\
-Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} (\HOLFreeVar{a}\HOLSymConst{..}\HOLConst{var} \HOLFreeVar{A})} \\
-\hline
-\end{tabular}
-\end{center}
-\end{footnotesize}
-\end{definition}
-
-\begin{definition}[Guarded sums]
-%\vspace*{-1em}
-\begin{equation*}
-\alpha.p + \beta.q\qquad\text{or}\qquad \Sigma_i \mu_i.p_i
-\end{equation*}
-\end{definition}
+\begin{frame}[fragile]
+\frametitle{Calculus of Communicating Systems (CCS)}
 \end{frame}
 
 %3
@@ -51,7 +100,6 @@ Constant & $A=a.A$ & \texttt{rec A (prefix a (var A))} & \HOLinline{\HOLConst{re
 \newcommand\disj{\ \vee\ }
 \newcommand\imp{ \Rightarrow }
 \newcommand\eqv{\ \equiv\ }
-\newcommand\cond{\rightarrow}
 \newcommand\vbar{\mid}
 \newcommand\turn{\ \vdash\ } % FIXME: "\ " resultgs in extra space
 \newcommand\hilbert{\varepsilon}
