@@ -16,8 +16,8 @@
 %% 1. "sometimes the greatest advantage of formalisation of theories
 %% with theorem provers is the refinement of previously know results".
 
-\begin{frame}[fragile]
-\frametitle{Unique Solution of Equations (Robin Milner)}
+\begin{frame}
+\frametitle{Unique Solution of Equations (Robin Milner, 1989)}
 From ``Milner, R.: \emph{Communication and Concurrency}, 1989'':
 \begin{theorem}[for $\sim$]
 Let $\tilde{E}$ be weakly guarded with free variables at most
@@ -32,15 +32,15 @@ $\tilde{P}\approx\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\approx\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
 \end{theorem}
 
-\begin{theorem}[for $\approx^\mathrm{c}$]
+\begin{theorem}[for $\rapprox$]
 Let $\tilde{E}$ be guarded and sequential with free variables at most
-$\tilde{X}$, and let $\tilde{P}\approx^\mathrm{c}\!\tilde{E}\{\tilde{P}/\tilde{X}\}$,
-$\tilde{Q}\approx^\mathrm{c}\!\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx^\mathrm{c}\!\tilde{Q}$.
+$\tilde{X}$, and let $\tilde{P}\rapprox\!\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\rapprox\!\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\rapprox\!\tilde{Q}$.
 \end{theorem}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Conditions required by Milner's theorems (1)}
+\begin{frame}
+\frametitle{Conditions required by Milner's theorems ($\sim$, $\rapprox$)}
 \begin{definition}
 $X$ is \emph{weakly guarded} in $E$ if each occurrence of $X$ is
 within some subexpression $\alpha.F$ of $E$.
@@ -63,8 +63,8 @@ $\Sigma \tilde{F}$.
 \end{definition}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Conditions required by Milner's theorems (2)}
+\begin{frame}
+\frametitle{Conditions required by Milner's theorems ($\approx$)}
 \begin{definition}
 $X$ is \emph{sequential with only guarded sums} in $E$ if every subexpression of $E$ which
 contains $X$, apart from $X$ itself, is of the form $\alpha.F$ or
@@ -84,6 +84,57 @@ $\Sigma \alpha_i.F_i$.
   l_2.E_2$ is guarded and ``sequential''.
 \end{enumerate}
 \end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{A refinement of Milner's technique (D. Sangiorgi, 2017)}
+\begin{definition}
+A process relation ${\R}$ 
+ is a \emph{(bisimulation) contraction} if whenever
+ $P\RR Q$, %for all $\mu$ 
+\begin{enumerate}
+\item  $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
+  Q'$ and $P' \RR Q'$;
+\item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
+ P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$, if $P\ \R\ Q$ for some contraction $\R$.
+%
+\end{definition}
+\begin{lemma}[Precongruence of $\mcontrBIS$ in CCS]
+$\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
+all CCS operators but direct sums.
+\end{lemma}
+\begin{theorem}[Unique Solution of Contractions]
+Let $\tilde{E}$ be weakly guarded with only guarded sums and
+free variables as most $\tilde{X}$, and let
+$\tilde{P}\mcontrBIS\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\mcontrBIS\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Further refinement of Milner's technique (C. Tian, 2018)}
+\begin{definition}
+Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
+ $P\rcontr Q$, if
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
+ and $P'\mcontrBIS Q'$;
+\item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+ P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\end{definition}
+\begin{lemma}[Precongruence of $\rcontr$ in CCS]
+$\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
+all CCS operators.
+\end{lemma}
+\begin{theorem}[Unique Solution of Rooted Contractions]
+Let $\tilde{E}$ be weakly guarded with free variables as most $\tilde{X}$, and let
+$\tilde{P}\rcontr\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\rcontr\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then
+$\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
+\end{theorem}
 \end{frame}
 
 %4
