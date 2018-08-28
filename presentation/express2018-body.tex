@@ -16,16 +16,122 @@
 %% 1. "sometimes the greatest advantage of formalisation of theories
 %% with theorem provers is the refinement of previously know results".
 
+%4
+\begin{frame}[fragile]
+\frametitle{Calculus of Communicating Systems (CCS)}
+\vspace{-2ex}
+\begin{definition}[Actions and CCS processes]
+\vspace{-2ex}
+\begin{equation*}
+\begin{small}
+\begin{array}{ccl}
+\mu  & := &  \tau \hspace{.3pt} \midd a  \midd  \outC a  \\
+P  & := &  \nil \midd  \mu.P \midd  P_1 |  P_2 \midd
+P_1 + P_2 \midd  (\res a\!)\, P  \midd  P\; [rf]  \midd A \midd \recu A  P
+\end{array}
+\end{small}
+\end{equation*}
+\end{definition}
+\begin{definition}[Structural Operational Semantics]
+\begin{center}
+\begin{small}
+%\vskip .1cm
+ $\displaystyle{  \over  \mu.  P    \arr\mu
+P } $  $ \hb$   
+%\hskip .5cm
+ $\displaystyle{   P \arr\mu   P' \over   P + Q   \arr\mu
+P'  } $  $ \hb$   
+%\hskip .5cm
+ $\displaystyle{   Q \arr\mu   Q' \over   P + Q   \arr\mu
+Q'  } $  $ \hb$ 
+%\hskip .5cm
+ $\displaystyle{   P \arr\mu   P' \over   P | Q   \arr\mu
+P' | Q } $  $ \hb$   
+\\
+\vspace{.2cm}
+ $\displaystyle{   Q \arr\mu   Q' \over   P | Q   \arr\mu
+P | Q' } $  $ \hb$   
+%\hskip .3cm
+$\displaystyle{ P \arr{ a}P' \hk \hk  Q
+\arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
+|  Q'  }$ 
+\hskip .3cm
+$\displaystyle{ P \arr{\mu}P' \over
+ (\res a\!)\, P   \arr{\mu} (\res a\!)\, P'} $ $ \mu \neq a, \outC a$
+$ \hb$
+\\
+\vspace{.2cm}
+$\displaystyle{ P \arr{\mu} P' \over
+ P \;[rf] \arr{rf(\mu)} P' \;[rf]} $ $\forall a.\, rf(\outC a) = \overline{rf(a)}$
+$ \hb$
+\hskip .2cm
+$\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
+ \recu A P   \arr{ \mu} P'  } $
+\end{small}
+\end{center}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bisimulation and Bisimiarity}
+\begin{small}
+\begin{definition}
+A process relation ${\R}$ is a \emph{strong bisimulation} if, whenever
+ $P\RR Q$, we have:
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \arr \mu Q'$ and $P' \RR Q'$;
+\item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \arr \mu P'$ and $P' \RR Q'$\enspace.
+\end{enumerate}  
+ $P$ and $Q$ are \emph{bisimilar} ($P \sim Q$), if $P \RR Q$ for some bisimulation $\R$.
+\end{definition}
+\begin{definition}
+A process relation ${\R}$ is a \emph{weak bisimulation} if, whenever
+ $P\RR Q$, we have:
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$%\vspace{-4pt}
+\item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
+  \mu P'$ and $P' \RR Q'$\enspace.
+\end{enumerate}  
+ $P$ and $Q$ are \emph{weakly bisimilar} ($P \wb Q$), if $P \RR Q$ for some bisimulation $\R$.
+\end{definition}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Rooted Bisimiarity (Observation Congruence)}
+\begin{definition}
+Two processes $P$ and $Q$ are \textbf{rooted bisimilar} ($P\rapprox\! Q$), if we have:
+\begin{enumerate}
+ \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+   \Arr\mu Q'$ and $P' \wb Q'$;
+ \item  $Q \arr\mu Q'$ implies that there is $P'$ such that $P
+   \Arr\mu P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\end{definition}
+\begin{theorem}
+\begin{enumerate}
+\item $P \rapprox Q \Rightarrow P \wb Q$;
+\item $\sim$ and $\rapprox$ are preserved by all CCS operators; \hfill
+  (Congruence)
+\item $\approx$ is preserved by all CCS operators but direct sums;\hfill
+  (``Congruence'')
+\item $P \approx Q\ \Leftrightarrow\ (P \rapprox\! Q
+  \vee P \rapprox\! \tau.Q \vee \tau.P \rapprox\! Q)$.\hfill (Hennessy Lemma)
+\item $P \rapprox\! Q\ \Leftrightarrow\ ( \forall R.\
+  P + R \approx Q + R)$.\hfill (Coarsest Congruence in $\approx$)
+\end{enumerate}
+\end{theorem}
+\end{frame}
+
 \begin{frame}
 \frametitle{Unique Solution of Equations (Robin Milner, 1989)}
-From ``Milner, R.: \emph{Communication and Concurrency}, 1989'':
 \begin{theorem}[for $\sim$]
 Let $\tilde{E}$ be weakly guarded with free variables at most
 $\tilde{X}$, and let $\tilde{P}\sim\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\sim\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\sim\tilde{Q}$.
 \end{theorem}
 
-\begin{theorem}[for $\approx$]
+\begin{theorem}[for $\approx$, not explicitly appeared]
 Let $\tilde{E}$ be guarded and sequential with only guarded sums and
 free variables as most $\tilde{X}$, and let
 $\tilde{P}\approx\tilde{E}\{\tilde{P}/\tilde{X}\}$,
@@ -40,10 +146,10 @@ $\tilde{Q}\rapprox\!\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\rapprox\!
 \end{frame}
 
 \begin{frame}
-\frametitle{Conditions required by Milner's theorems ($\sim$, $\rapprox$)}
+\frametitle{Conditions required by Milner's theorems (for $\sim$, $\rapprox$)}
 \begin{definition}
 $X$ is \emph{weakly guarded} in $E$ if each occurrence of $X$ is
-within some subexpression $\alpha.F$ of $E$.
+within some subexpression $\mu.F$ of $E$.
 \end{definition}
 
 \begin{definition}
@@ -51,29 +157,31 @@ $X$ is \emph{(strongly) guarded} in $E$ if each occurrence of $X$ is
 within some subexpression $l.F$ of $E$.
 
 $X$ is \emph{sequential} in $E$ if every subexpression of $E$ which
-contains $X$, apart from $X$ itself, is of the form $\alpha.F$ or
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
 $\Sigma \tilde{F}$.
-
+\begin{small}
 \begin{enumerate}
 \item Any $P$ (without $X$) is guarded and sequential;
 \item If $E$ is sequential, then $l.E$ is guarded and sequential;
-\item If $E$ is guarded and sequential, so is $\alpha.E$;
+\item If $E$ is guarded and sequential, so is $\mu.E$;
 \item If $E_1$ and $E_2$ are both guarded and sequential, so is $E_1 + E_2$.
 \end{enumerate}
+\end{small}
 \end{definition}
 \end{frame}
 
 \begin{frame}
-\frametitle{Conditions required by Milner's theorems ($\approx$)}
+\frametitle{Conditions required by Milner's theorem (for $\approx$)}
 \begin{definition}
 $X$ is \emph{sequential with only guarded sums} in $E$ if every subexpression of $E$ which
-contains $X$, apart from $X$ itself, is of the form $\alpha.F$ or
-$\Sigma \alpha_i.F_i$.
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
+$\Sigma \mu_i.F_i$.
+\begin{small}
 \begin{enumerate}
 \item Any $P$ (without $X$) is guarded and ``sequential'';
 \item If $E$ is ``sequential'', then $l.E$ is guarded and
   ``sequential'';
-\item If $E$ is guarded and ``sequential'', so is $\alpha.E$;
+\item If $E$ is guarded and ``sequential'', so is $\mu.E$;
 \item If $E_1$ and $E_2$ are guarded and ``sequential'', so is
   $\tau.E_1 + \tau.E_2$;
 \item If $E_1$ is guarded and ``sequential'', $E_2$ is ``sequential'',
@@ -83,12 +191,14 @@ $\Sigma \alpha_i.F_i$.
 \item If $E_1$ and $E_2$ are ``sequential'', $l_1.E_1 +
   l_2.E_2$ is guarded and ``sequential''.
 \end{enumerate}
+\end{small}
 \end{definition}
 \end{frame}
 
 \begin{frame}
-\frametitle{A refinement of Milner's technique (D. Sangiorgi, 2017)}
-\begin{definition}
+\frametitle{A refinement of Milner's technique (D. Sangiorgi, 2015)}
+\begin{small}
+\begin{definition}[Contraction]
 A process relation ${\R}$ 
  is a \emph{(bisimulation) contraction} if whenever
  $P\RR Q$, %for all $\mu$ 
@@ -101,6 +211,7 @@ A process relation ${\R}$
 \emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$, if $P\ \R\ Q$ for some contraction $\R$.
 %
 \end{definition}
+\end{small}
 \begin{lemma}[Precongruence of $\mcontrBIS$ in CCS]
 $\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
 all CCS operators but direct sums.
@@ -114,8 +225,8 @@ $\tilde{Q}\mcontrBIS\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\ti
 \end{frame}
 
 \begin{frame}
-\frametitle{Further refinement of Milner's technique (C. Tian, 2018)}
-\begin{definition}
+\frametitle{Further refinements (C. Tian, 2017; the current paper)}
+\begin{definition}[Rooted contraction]
 Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
  $P\rcontr Q$, if
 \begin{enumerate}
@@ -135,11 +246,6 @@ $\tilde{P}\rcontr\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\rcontr\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then
 $\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
 \end{theorem}
-\end{frame}
-
-%4
-\begin{frame}[fragile]
-\frametitle{Calculus of Communicating Systems (CCS)}
 \end{frame}
 
 %3
@@ -304,4 +410,39 @@ P({\hilbert}\ P)\\
 \end{block}
 \end{columns}
 \end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Syntax of CCS operators, constant and actions}
+New types: ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'',
+``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' and ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}}''.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Operator} & \textbf{CCS Notation} & \textbf{HOL term} &
+                                                                \textbf{HOL (abbrev.)}\\
+\hline
+nil & $\textbf{0}$ & \HOLinline{\HOLConst{nil}} & \HOLinline{\HOLConst{nil}} \\
+prefix & $u.P$ & \texttt{prefix u P} & \HOLinline{\HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{P}} \\
+sum & $P + Q$ & \texttt{sum P Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{Q}} \\
+parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{Q}} \\
+restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLinline{\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{P}}
+  \\
+recursion & $\recu A P$ & \texttt{rec A P} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P}}
+  \\
+relabeling & $P\;[rf]$ & \texttt{relab P rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf}}
+  \\
+\hline
+constant & $A$ & \texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
+invisible action & $\tau$ & \texttt{tau} & \HOLinline{\HOLSymConst{\ensuremath{\tau}}} \\
+input action & $a$ & \texttt{label (name a)} & \HOLinline{\HOLConst{In} \HOLFreeVar{a}} \\
+output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out} \HOLFreeVar{a}} \\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Formalised SOS}
+
 \end{frame}
