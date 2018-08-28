@@ -10,7 +10,7 @@ This (private) repository holds unpublished CCS formalization in HOL theorem pro
 ## Published papers
 
 - Tian, C.: A Formalization of Unique Solutions of Equations in Process Algebra, http://amslaurea.unibo.it/14798/ (2017). (arXiv reprint: https://arxiv.org/abs/1712.09402)
-- Tian, C., Sangiorgi, D.: _Unique solutions of contractions, CCS, and their HOL formalisation,_ [EXPRESS/SOS](http://disat.uninsubria.it/~simone.tini/express_sos.html) (2018).
+- Tian, C., Sangiorgi, D.: [Unique solutions of contractions, CCS, and their HOL formalisation](http://dx.doi.org/10.4204/EPTCS.276.10), [EXPRESS/SOS](http://disat.uninsubria.it/~simone.tini/express_sos.html) (2018).
 
 ## Notes
 
