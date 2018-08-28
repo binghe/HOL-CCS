@@ -14,4 +14,4 @@ This (private) repository holds unpublished CCS formalization in HOL theorem pro
 
 ## Notes
 
-Please use [HOL official example](https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS) for stable versions confirmed buildable with the same snapshot of HOL4.
+Please use [HOL official example](https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS) for stable versions confirmed working with latest HOL4.
