@@ -417,6 +417,7 @@ P({\hilbert}\ P)\\
 New types: ``\HOLty{:('a, 'b) CCS}'', ``\HOLty{:'b Action}'',
 ``\HOLty{:'b Label}'' and ``\HOLty{:'b Relabeling}''.
 \begin{center}
+\begin{small}
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Operator} & \textbf{CCS Notation} & \textbf{HOL term} &
@@ -439,10 +440,101 @@ input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)} \\
 \hline
 \end{tabular}
+\end{small}
 \end{center}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Formalised SOS}
+\frametitle{CCS transitions: an inductive relation}
+3-ary inductive relation \texttt{TRANS}: ``\texttt{TRANS P u Q}'' or ``\HOLtm{TRANS P
+  u Q}''.
+\begin{small}
+\begin{alltt}
+\HOLthm{Example.PREFIX'}\hfill\texttt{[PREFIX]}
+\HOLthm{Example.SUM1'}\hfill\texttt{[SUM1]}
+\HOLthm{Example.SUM2'}\hfill\texttt{[SUM2]}
+\HOLthm{Example.PAR1'}\hfill\texttt{[PAR1]}
+\HOLthm{Example.PAR2'}\hfill\texttt{[PAR2]}
+\end{alltt}
+\end{small}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{Example.PAR3'}\hfill\texttt{[PAR3]}
 
+\HOLthm{Example.RESTR'}\hfill\texttt{[RESTR]}
+
+\HOLthm{Example.RELABELING'}\hfill\texttt{[RELABELING]}
+\end{alltt}
+\end{scriptsize}
+\begin{small}
+\begin{alltt}
+\HOLthm{Example.REC'}\hfill\texttt{[REC]}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Relabeling and Substution}
+\begin{small}
+\begin{alltt}
+\HOLthm[showtypes,def]{CCS.Is_Relabeling_def}
+
+\HOLthm[def]{CCS.relabel_def}
+\end{alltt}
+\end{small}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm[def]{CCS.CCS_Subst_def}\hfill\texttt{[CCS_Subst_def]}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bisimulation and Bisimilarity}
+\begin{small}
+\begin{enumerate}
+\item \begin{alltt}
+\HOLtm{EPS E E'} (EPS E E'), \HOLthm[def]{WeakEQ.EPS_def}
+\end{alltt}
+\item \begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_TRANS}
+\end{alltt}
+\item \begin{scriptsize}\begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_BISIM}
+\end{alltt}\end{scriptsize}
+\item \begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_EQUIV}
+\end{alltt}
+\end{enumerate}
+\end{small}
+(Actual definition of $\wb$ is based on HOL4's coinductive relation package.)
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multi-hole contexts: inductive unary relation}
+\vspace{-2ex}
+\begin{definition}
+\HOLtm[showtypes]{CONTEXT}
+\begin{alltt}
+\HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\end{alltt}
+\end{definition}
+\begin{examples}
+$E[X] = a.X + b.X$ is presented as ``\HOLtm{\t. prefix a t + prefix b
+  t}'' ($a.[] + b.[]$)).
+\end{examples}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Contraction}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Contraction}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rooted contraction}
 \end{frame}
