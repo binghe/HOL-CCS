@@ -248,6 +248,36 @@ $\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
 \end{theorem}
 \end{frame}
 
+\begin{frame}
+\frametitle{CCS Formalisation in HOL}
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|r|}
+\hline
+\textbf{Name} & \textbf{Summary} & \textbf{Lines} \\
+\hline
+CCSTheory & Basic CCS definitions, SOS rules & 1009 \\
+CCSConv & Decision procedure of CCS transitions & 562 \\
+StrongEQTheory & Strong bisimulation and bisimilarity ($\sim$) & 634 \\
+StrongLawsTheory & Algebraic laws of $\sim$; expansion law & 2002 \\
+WeakEQTheory & Weak bisimulation and bisimilarity & 1974 \\
+WeakLawsTheory & Algebraic laws of $\wb$ & 335 \\
+ObsCongrTheory & Observation congruence ($\rapprox$) & 697 \\
+ObsCongrLawsTheory & Algebraic laws of $\rapprox$ & 402 \\
+\hline
+BisimulationUptoTheory & Bisimulation up to $\sim$, $\wb$ and $\rapprox$ & 1180 \\
+CongruenceTheory & Context, guardedness and congruence & 1457 \\
+CoarsestCongrTheory & Deep results between $\wb$ and $\rapprox$ & 872 \\
+TraceTheory & Trace and relationship with weak transition & 753 \\
+ExpansionTheory & Expansion preorder, precongruence & 976 \\
+ContractionTheory & Contraction preorder, precongruence & 2068 \\
+UniqueSolutionTheory & Unique solution of equations/contractions & 2386 \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
 %3
 \def\HOL{\textsc{Hol}}
 \newcommand\fun{{\to}}
@@ -504,6 +534,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out
 
 \begin{frame}[fragile]
 \frametitle{Bisimulation and Bisimilarity}
+\begin{definition}
 \begin{small}
 \begin{enumerate}
 \item \begin{alltt}
@@ -530,13 +561,28 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out
 \end{alltt}
 \end{enumerate}
 \end{small}
-(Actual definition of $\wb$ is based on HOL4's coinductive relation package.)
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bisimilarity as a fixed point}
+\vspace{-2ex}
+The actual definition of $\wb$ is automatically built by HOL4's
+\texttt{Hol_coreln}, coinducitve relation package:
+\lstinputlisting{WeakEquiv.sml}
+\texttt{Hol_coreln} returns 3 theorems:
+\begin{enumerate}
+\item \texttt{WEAK_EQUIV_rule}: input ``rules'' proved as a theorem.
+\item \texttt{WEAK_EQUIV_coind}: the resulting relation is maximal.
+\item \texttt{WEAK_EQUIV_cases}: the resulting relation is a fix point.
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Multi-hole contexts: inductive unary relation}
 \vspace{-2ex}
 \begin{definition}
+\begin{small}
 \HOLinline{(\HOLConst{CONTEXT} :((\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}) \HOLTokenTransEnd \HOLTyOp{bool})}
 \begin{alltt}
 \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
@@ -547,6 +593,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
 \HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[CONTEXT_rules]}
 \end{alltt}
+\end{small}
 \end{definition}
 \begin{examples}
 $E[X] = a.X + b.X$ is presented as ``\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{..}\HOLBoundVar{t}}'' ($a.[] + b.[]$)).
@@ -554,15 +601,210 @@ $E[X] = a.X + b.X$ is presented as ``\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Contraction}
-
+\frametitle{Multi-hole contexts with only direct sums}
+\vspace{-2ex}
+\begin{definition}
+\begin{small}
+\HOLinline{(\HOLConst{GCONTEXT} :((\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}) \HOLTokenTransEnd \HOLTyOp{bool})}
+\begin{alltt}
+\HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
+\HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[GCONTEXT_rules]}
+\end{alltt}
+\end{small}
+\end{definition}
+(\texttt{GCONTEXT} can be also seen as a normal context under special
+CCS syntax with only guarded sums $\Sigma \mu_i.p_i$.)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Contraction}
-
+\frametitle{Congruence and Precongruence}
+\begin{scriptsize}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{reflexive} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{transitive} \HOLFreeVar{R}
+\HOLTokenTurnstile{} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{reflexive} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{symmetric} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{transitive} \HOLFreeVar{R}
+\end{alltt}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\HOLTokenTurnstile{} \HOLConst{precongruence1} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\HOLTokenTurnstile{} \HOLConst{congruence1} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{alltt}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}
+\HOLTokenTurnstile{} \HOLConst{congruence1} \HOLConst{WEAK_EQUIV}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}
+\end{alltt}
+\end{scriptsize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Rooted contraction}
+\frametitle{Weakly-guarded contexts: with and without direct sums}
+\begin{alltt}
+\HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
+\HOLConst{WG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[WG_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{GCONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GCONTEXT} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{WGS} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{WGS} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
+\HOLConst{WGS} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[WGS_rules]}
+\end{alltt}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{(Strongly) guarded contexts}
+\begin{alltt}
+\HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{CONTEXT} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLFreeVar{l}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SG} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLFreeVar{e} \HOLBoundVar{t}))
+\HOLConst{SG} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} (\HOLFreeVar{e} \HOLBoundVar{t}) \HOLFreeVar{rf})\hfill{[SG_rules]}
+\end{alltt}
+There's no need to define special version of \texttt{SG} with only
+guarded sums, as ``guarded and sequential'' always appears together
+(but a single relation defnition is too complex).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sequential contexts: with and without direct sums}
+\begin{alltt}
+\HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{SEQ} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
+\HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
+\HOLConst{GSEQ} \HOLFreeVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{..}\HOLFreeVar{e} \HOLBoundVar{t})
+\HOLConst{GSEQ} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GSEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a\sb{\mathrm{1}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{a\sb{\mathrm{2}}}\HOLSymConst{..}\HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})
+\hfill{[GSEQ_rules]}
+\end{alltt}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Contraction: formal definition}
+\begin{scriptsize}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{CONTRACTION} \HOLFreeVar{Con} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLFreeVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+            \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[CONTRACTION]}
+\end{alltt}
+
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[contracts_IMP_WEAK_EQUIV]}
+\end{alltt}
+
+$\mcontrBIS$ is preorder and precongruence:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{PreOrder} (\HOLSymConst{contracts})\hfill{[contracts_PreOrder]}
+\HOLTokenTurnstile{} \HOLConst{precongruence1} (\HOLSymConst{contracts})\hfill{[contracts_precongruence]}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rooted contraction: formal definition}
+\begin{small}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}
+\hfill{[OBS_contracts]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E\sp{\prime}}\hfill{[OBS_contracts_IMP_contracts]}
+\HOLTokenTurnstile{} \HOLConst{PreOrder} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_PreOrder]}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_precongruence]}
+\end{alltt}
+
+Inspired by the definition rooted bisimilarity (not recursive, built
+upon non-rooted relation), with candidates quickly checked by
+theorem prover on its transitivity)
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{All five unique solution theorems}
+\begin{small}
+\begin{enumerate}
+\item \texttt{STRONG_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}
+\end{alltt}
+\item \texttt{WEAK_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
+\end{alltt}
+\item \texttt{OBS_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS:}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:}
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+\end{alltt}
+\end{enumerate}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coarsest (pre)congruence contained in $\wb$ ($\rcontr$)}
+\end{frame}
+
+\begin{frame}
+\frametitle{On multi-variable equations}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Unsolved problems}
+
+\end{frame}
+
+%% Proof examples:
+
+% 1. NIL has no transition (2 proofs, with, w/o TRANS_ind)
+% 2. Transitivity of ObsCongr. (EPS_ind_right and EPS_ind)
+
+%% discovery of new theorem and definitions.

@@ -248,6 +248,36 @@ $\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
 \end{theorem}
 \end{frame}
 
+\begin{frame}
+\frametitle{CCS Formalisation in HOL}
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|r|}
+\hline
+\textbf{Name} & \textbf{Summary} & \textbf{Lines} \\
+\hline
+CCSTheory & Basic CCS definitions, SOS rules & 1009 \\
+CCSConv & Decision procedure of CCS transitions & 562 \\
+StrongEQTheory & Strong bisimulation and bisimilarity ($\sim$) & 634 \\
+StrongLawsTheory & Algebraic laws of $\sim$; expansion law & 2002 \\
+WeakEQTheory & Weak bisimulation and bisimilarity & 1974 \\
+WeakLawsTheory & Algebraic laws of $\wb$ & 335 \\
+ObsCongrTheory & Observation congruence ($\rapprox$) & 697 \\
+ObsCongrLawsTheory & Algebraic laws of $\rapprox$ & 402 \\
+\hline
+BisimulationUptoTheory & Bisimulation up to $\sim$, $\wb$ and $\rapprox$ & 1180 \\
+CongruenceTheory & Context, guardedness and congruence & 1457 \\
+CoarsestCongrTheory & Deep results between $\wb$ and $\rapprox$ & 872 \\
+TraceTheory & Trace and relationship with weak transition & 753 \\
+ExpansionTheory & Expansion preorder, precongruence & 976 \\
+ContractionTheory & Contraction preorder, precongruence & 2068 \\
+UniqueSolutionTheory & Unique solution of equations/contractions & 2386 \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
 %3
 \def\HOL{\textsc{Hol}}
 \newcommand\fun{{\to}}
@@ -491,6 +521,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)}
 
 \begin{frame}[fragile]
 \frametitle{Bisimulation and Bisimilarity}
+\begin{definition}
 \begin{small}
 \begin{enumerate}
 \item \begin{alltt}
@@ -507,17 +538,33 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)}
 \end{alltt}
 \end{enumerate}
 \end{small}
-(Actual definition of $\wb$ is based on HOL4's coinductive relation package.)
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bisimilarity as a fixed point}
+\vspace{-2ex}
+The actual definition of $\wb$ is automatically built by HOL4's
+\texttt{Hol_coreln}, coinducitve relation package:
+\lstinputlisting{WeakEquiv.sml}
+\texttt{Hol_coreln} returns 3 theorems:
+\begin{enumerate}
+\item \texttt{WEAK_EQUIV_rule}: input ``rules'' proved as a theorem.
+\item \texttt{WEAK_EQUIV_coind}: the resulting relation is maximal.
+\item \texttt{WEAK_EQUIV_cases}: the resulting relation is a fix point.
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Multi-hole contexts: inductive unary relation}
 \vspace{-2ex}
 \begin{definition}
+\begin{small}
 \HOLtm[showtypes]{CONTEXT}
 \begin{alltt}
 \HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
+\end{small}
 \end{definition}
 \begin{examples}
 $E[X] = a.X + b.X$ is presented as ``\HOLtm{\t. prefix a t + prefix b
@@ -526,15 +573,157 @@ $E[X] = a.X + b.X$ is presented as ``\HOLtm{\t. prefix a t + prefix b
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Contraction}
-
+\frametitle{Multi-hole contexts with only direct sums}
+\vspace{-2ex}
+\begin{definition}
+\begin{small}
+\HOLtm[showtypes]{GCONTEXT}
+\begin{alltt}
+\HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
+\end{alltt}
+\end{small}
+\end{definition}
+(\texttt{GCONTEXT} can be also seen as a normal context under special
+CCS syntax with only guarded sums $\Sigma \mu_i.p_i$.)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Contraction}
-
+\frametitle{Congruence and Precongruence}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{relation.PreOrder}
+\HOLthm{relation.equivalence_def}
+\end{alltt}
+\begin{alltt}
+\HOLthm{Congruence.precongruence_def}
+\HOLthm{Congruence.precongruence1_def}
+\HOLthm{Congruence.congruence_def}
+\HOLthm{Congruence.congruence1_def}
+\end{alltt}
+\begin{alltt}
+\HOLthm{Congruence.STRONG_EQUIV_congruence}
+\HOLthm{Congruence.WEAK_EQUIV_congruence}
+\HOLthm{Congruence.OBS_CONGR_congruence}
+\end{alltt}
+\end{scriptsize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Rooted contraction}
+\frametitle{Weakly-guarded contexts: with and without direct sums}
+\begin{alltt}
+\HOLthm[def]{Congruence.WG_rules}\hfill{[WG_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
+\end{alltt}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{(Strongly) guarded contexts}
+\begin{alltt}
+\HOLthm[def]{Congruence.SG_rules}\hfill{[SG_rules]}
+\end{alltt}
+There's no need to define special version of \texttt{SG} with only
+guarded sums, as ``guarded and sequential'' always appears together
+(but a single relation defnition is too complex).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sequential contexts: with and without direct sums}
+\begin{alltt}
+\HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{Congruence.GSEQ_rules}
+\hfill{[GSEQ_rules]}
+\end{alltt}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Contraction: formal definition}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{Contraction.CONTRACTION}\hfill{[CONTRACTION]}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
+\HOLthm{Contraction.contracts_IMP_WEAK_EQUIV}\hfill{[contracts_IMP_WEAK_EQUIV]}
+\end{alltt}
+
+$\mcontrBIS$ is preorder and precongruence:
+\begin{alltt}
+\HOLthm{Contraction.contracts_PreOrder}\hfill{[contracts_PreOrder]}
+\HOLthm{Contraction.contracts_precongruence}\hfill{[contracts_precongruence]}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rooted contraction: formal definition}
+\begin{small}
+\begin{alltt}
+\HOLthm{Contraction.OBS_contracts}
+\hfill{[OBS_contracts]}
+\HOLthm{Contraction.OBS_contracts_IMP_contracts}\hfill{[OBS_contracts_IMP_contracts]}
+\HOLthm{Contraction.OBS_contracts_PreOrder}\hfill{[OBS_contracts_PreOrder]}
+\HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
+\end{alltt}
+
+Inspired by the definition rooted bisimilarity (not recursive, built
+upon non-rooted relation), with candidates quickly checked by
+theorem prover on its transitivity)
+\begin{alltt}
+\HOLthm{ObsCongr.OBS_CONGR}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{All five unique solution theorems}
+\begin{small}
+\begin{enumerate}
+\item \texttt{STRONG_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{WEAK_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.WEAK_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{OBS_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
+\end{alltt}
+\end{enumerate}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coarsest (pre)congruence contained in $\wb$ ($\rcontr$)}
+\end{frame}
+
+\begin{frame}
+\frametitle{On multi-variable equations}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Unsolved problems}
+
+\end{frame}
+
+%% Proof examples:
+
+% 1. NIL has no transition (2 proofs, with, w/o TRANS_ind)
+% 2. Transitivity of ObsCongr. (EPS_ind_right and EPS_ind)
+
+%% discovery of new theorem and definitions.
