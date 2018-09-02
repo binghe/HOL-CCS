@@ -630,6 +630,9 @@ guarded sums, as ``guarded and sequential'' always appears together
 
 \begin{frame}[fragile]
 \frametitle{Sequential contexts: with and without direct sums}
+``$X$ is \emph{sequential} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
+$\Sigma \tilde{F}$.''
 \begin{alltt}
 \HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
@@ -708,17 +711,102 @@ theorem prover on its transitivity)
 \end{frame}
 
 \begin{frame}
-\frametitle{Coarsest (pre)congruence contained in $\wb$ ($\rcontr$)}
+\frametitle{Coarsest congruence contained in $\wb$}
+\begin{theorem}
+Assumping $p$ and $q$ do not use all labels, i.e. $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$,
+\begin{equation*}
+p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
+r\ \approx\ q\ +\ r )\enspace.
+\end{equation*}
+(The assumption can be removed with a
+more complicated proof by Rob van Glabbeek, but this proof depends on infinite
+sum operator and ordinals)
+\end{theorem}
+Our formalised version:
+\begin{small}
+\begin{alltt}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_THM}\hfill{[COARSEST_CONGR_THM]}
+\end{alltt}
+where
+\begin{alltt}
+\HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
+\end{alltt}
+\end{small}
 \end{frame}
 
 \begin{frame}
-\frametitle{On multi-variable equations}
+\frametitle{Coarsest precongruence contained in $\rcontr$}
+\begin{theorem}
+\begin{alltt}
+\HOLthm{Contraction.COARSEST_PRECONGR_THM'}\hfill{[COARSEST_PRECONGR_THM']}
+\end{alltt}
+Thus the current definition of $\rcontr$ is the best possible one.
+\end{theorem}
 
+Another version following van Glabbeek's proof:
+\begin{alltt}
+\HOLthm{Contraction.COARSEST_PRECONGR_FINITE}\hfill{[COARSEST_PRECONGR_FINITE]}
+\end{alltt}
+\begin{small}
+\begin{alltt}
+\HOLthm[def]{Trace.finite_state_def}\hfill{[finite_state_def]}
+
+\HOLthm[def]{Trace.NODES_def}\hfill{[NODES_def]}
+
+\HOLthm[def]{Trace.Reach_def}\hfill{[Reach_def]}
+\end{alltt}
+\end{small}
 \end{frame}
 
 \begin{frame}
-\frametitle{Unsolved problems}
+\frametitle{Toward multi-variable equations}
+\begin{small}
+The multi-variable case is a ``routing'' adaptation in informal
+proofs; theorems on multi-variable equation cannot be proved
+by their single-variable version.
 
+Current idea: reuse the guardedness definition of single-variable equation
+(i.e. multi-hole contexts)
+\begin{examples}
+\vspace{-3ex}
+\begin{align*}
+E[X; Y] &= a.X + b.X + c.Y + d.Y \\
+E_1[\cdot] &= a.[] + b.X + c.Y + d.Y \\
+E_2[\cdot] &= a.X + b.[] + c.Y + d.Y \\
+E_3[\cdot] &= a.[] + b.[] + c.Y + d.Y \\
+E[X; Y] &= E_1[X] = E_2[X] = E_3[X]
+\end{align*}
+\end{examples}
+\begin{definition}
+\begin{alltt}
+\HOLthm[def]{Congruence.weakly_guarded1_def}
+\hfill{[weakly_guaded1_def]}
+\end{alltt}
+\end{definition}
+\end{small}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Open problems}
+%
+%\end{frame}
+
+\begin{frame}
+\frametitle{Conclusions}
+\begin{enumerate}
+\item Now we have a \emph{more} complete formalisation of CCS with an
+  archive of rigous formal proofs of related theorems and lemmas in textbook.
+\item Sangiorgi's theorem on unique solution of contractions is formally verified and
+  slightly extended. (frontier)
+\item \emph{Sometimes} formalising a theory helps in finding
+  new interesting results or refing previously known results.
+\item This work could be a template or working basis for CCS extensions or other process calculi, even in other
+  theorem provers than HOL.
+\end{enumerate}
+
+This CCS formalisation will be continuously maintained as part of HOL4
+official examples to make sure its long-term availability.
 \end{frame}
 
 %% Proof examples:
