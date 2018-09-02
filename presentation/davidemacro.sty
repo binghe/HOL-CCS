@@ -1,0 +1,408 @@
+\newcommand{\finish}[1]{ \vskip .2cm  {\bf #1} \vskip .2cm   \marginpar{{\bf $DS$}}}
+
+\newcommand{\DS}[1]{ \vskip .2cm  {\bf #1} \vskip .2cm   \marginpar{{\bf $ds$}}}
+
+\newcommand{\recu}[2]{\mathtt{rec}\: #1 . #2}
+\newcommand{\varr}[1]{\mbox{\texttt{var}}\: #1}
+
+\newcommand{\rapprox}{\mathrel{\approx^{\mathrm{c}}}}
+
+
+% NEW THINGS 
+
+\newcommand{\mylabel}[1]{{\rm (#1).}}
+\newcommand{\MYsketch}{[Sketch] }
+
+
+\newcommand{\behav}{equation}
+\newcommand{\behavC}{contraction}
+
+
+\newcommand{\hb}{\hskip .5cm}
+
+\newcommand{\ArrN}[2]{\mathrel{\stackrel{{\;\;#1\;\;}}{\mbox{\rightarrowfillWEAK}}_{#2}
+  }} 
+                                    %weak  labelled transitions weighted
+
+\newcommand{\Var}{{\cal X}}
+
+\newcommand{\AL}{{\cal RL}}
+\newcommand{\PL}{{\cal L}}
+
+\newcommand{\sign}{\Sigma}
+\newcommand{\prsign}{\pr_\sign}
+
+
+% possible actions in Abnients:
+\newcommand{\qina}{{\ccc{in}} } 
+\newcommand{\qout}{{\ccc{out}} }
+\newcommand{\qopen}{{\ccc{open}} }
+\newcommand{\capa}{{\ccc{capa}} }
+\newcommand{\amb}[2]{#1 [\, #2 \,] } % ambients
+
+\newcommand{\HOAMB}{\mbox{\rm{HO$\pi$Amb}}}
+\newcommand{\SeqCCS}{\mbox{\rm{SeqCCS}}}
+
+
+\newcommand{\SE}{{E\!S}}
+\newcommand{\SL}{{L\!S}}
+\newcommand{\SEp}{{E\!S'}}
+\newcommand{\SEpU}{{E\!S'_1}}
+
+
+%\newcommand{\mcontrP}[1]{\mathrel{\stackrel{{\footnotesize{\mbox{$\succ$}}}}{\footnotesize{\mbox{$#1$}}}}}
+\newcommand{\mexpaP}[1]{\mathrel{\stackrel{{\footnotesize{\mbox{$\prec$}}}}{\footnotesize{\mbox{$#1$}}}}}
+
+\newcommand{\wc}{\mathrel{\approx^\mathrm{c}}}
+\newcommand{\wb}{\approx}
+\newcommand{\contr}{\mathrel{\succeq_{\rm{bis}}}}
+\newcommand{\expa}{\mathrel{\succeq_{\rm{e}}}}
+
+
+\newcommand{\mcontr}{\mathrel{\succeq}}
+\newcommand{\mexpa}{\mathrel{\preceq}}
+
+\newcommand{\mcontrmay}{\mathrel{\succeq_{\rm{ctx}}}}
+\newcommand{\mexpamay}{\mathrel{\preceq_{\rm{ctx}}}}
+
+
+\newcommand{\mcontrTE}{\mathrel{\succeq_{\rm{tr}}}}
+\newcommand{\TE}{\approx_{\rm tr}}       %trace equivalence
+
+
+\newcommand{\mcontrBIS}{\mathrel{\succeq_\mathrm{bis}}}
+\newcommand{\mexpaBIS}{\mathrel{\preceq_\mathrm{bis}}}
+
+
+\newcommand{\rcontr}{\mathrel{\succeq^\mathrm{c}_\mathrm{bis}}}
+\newcommand{\rexpa}{\mathrel{\preceq^\mathrm{c}_\mathrm{bis}}}
+
+
+\newcommand{\til}{\tilde}
+
+\newcommand{\ctx}[1]{#1^{\rm{c}}}
+
+\newcommand{\Dwaleq}[1]{\Dwa^{\leq #1}}
+\newcommand{\Dwageq}[1]{\Dwa^{\geq #1}}
+
+
+\newcommand{\holeDS}{ [ \cdot  ] }
+\newcommand{\holei}[1]{[\cdot]_{#1}}
+\newcommand{\ctp}[1]{ C' \brac{#1} }  %primed context       
+\newcommand{\qctp}{ C'  }
+\newcommand{\ctpp}[1]{ C'' \brac{#1} }  %primed context       
+\newcommand{\ctppp}[1]{ C''' \brac{#1} }  %primed context       
+
+\newcommand{\qctpp}{ C''  }
+\newcommand{\qctppp}{ C'''  }
+
+
+\newcommand{\may}{\approx_{\rm ctx}}       %may equivalence
+
+\newcommand{\mayHA}{\approx^{\rm{HAmb}}_{\rm ctx}}       %may equivalence
+
+\newcommand{\hk}{\hskip .2cm }
+\newcommand{\mysp}{10pt}
+\newcommand{\tkp}{10pt}
+\newcommand{\tkpS}{6pt}
+\newcommand{\tkpSS}{3pt}
+\newcommand{\tkpP}{15pt}
+
+\newcommand{\smay}{\mathrel{\sim_{\rm ctx}}}       %may equivalence
+\newcommand{\smayHA}{\mathrel{\sim^{\rm{HAmb}}_{\rm ctx}}}       %may equivalence
+
+\newcommand{\holE}{\contexthole}  % hole
+
+\newcommand{\murule}{\fortherules\mu} % mu rule of $\lambda$-calculus
+\newcommand{\nurule}{\fortherules\nu} % nu rule of $\lambda$-calculus
+\newcommand{\nuvrule}{\fortherules\nuv} % nuv rule of $\lambda$-calculus
+\newcommand{\xirule}{\fortherules\xi} % xi rule of $\lambda$-calculus
+\newcommand{\betarule}{\fortherules\beta} %beta rule of $\lambda$-calculus
+\newcommand{\betavrule}{\fortherules\betav} % beta_v rule of $\lambda$-calculus
+\newcommand{\etarule}{\fortherules\eta} % eta rule of $\lambda$-calculus
+\newcommand{\nuv}{\nu_{\myrm v}} %beta rule of $\lambda$-calculus
+\newcommand{\betav}{\mbox{$\beta_{\myrm{v}}$}} %beta rule of $\lambda$-calculus
+\newcommand{\alpharule}{\fortherules\alpha} %alpha rule 
+\newcommand{\fortherules}[1]{\mbox{$#1$}} %auxiliary def for the rules
+
+
+
+\newcommand{\barbedbis}
+{\mathrel{\stackrel{\bfcdotB}{\approx}}}
+
+%OLD:
+%{\mbox{ $\approx \! \! \! \!\! \!\!        
+%\raisebox{1.15ex}[0ex][0ex]{\bfcdot} \; \,$}}
+
+
+
+\newcommand{\wbb}{\mathrel{\approx_{\rm{bar}}}}
+\newcommand{\wbc}{\mathrel{\approx^{\rm{c}}_{\rm{bar}}}}
+% \newcommand{\wbb}{\mathrel{\barbedbis}}
+% \newcommand{\wbc}{\cong}
+
+
+\newcommand{\bfcdotB}{ {\mbox{\boldmath $.$}}  }         
+
+\newcommand{\bcontra}
+{\mathrel{\mcontr_{\rm{bar}}}}
+%{\mathrel{\stackrel{\bfcdotB}{\mcontr}}}
+
+\newcommand{\cbc}
+{\mathrel{\mcontr^{\rm{c}}_{\rm{bar}}}}
+%{\mathrel{{\mcontr_{\rm{bc}}}}}
+
+
+\newcommand{\mypt}{2pt} 
+
+% --------------
+
+
+
+\newenvironment{myquote}
+               {\list{}{\rightmargin\leftmargin}%
+                \item\relax}
+               {\endlist}
+
+
+% \newenvironment{proofEx}{
+% \begin{myquote}
+% %\trivlist\parindent=0pt
+% %      \item[\hskip \labelsep{\bf Answer: }]}
+% \noindent %{\bf Answer to}
+% }
+% {\qed%\endtrivlist
+% \end{myquote}}
+
+%SPECIAL SYMBOLS
+
+\newcommand{\EXX}[1]{{\bf Exercise~\ref{#1}}} % for answers to exercises 
+\newcommand{\EXXpa}[2]{{\bf Exercise~\ref{#1}(#2)}} % for answers to exercises 
+
+
+\newcommand{\Mybar}{\hrulefill} % separation rule
+
+% \def\finish#1{\vskip.2cm\noindent{\em #1}%
+%   \marginpar{$\longleftarrow$}\vskip.2cm}
+
+\newcommand{\spaceD}{\,}
+
+
+\newcommand{\bulletD}{\diamond}
+%\mathrel{\lozenge} %\bowtie %blacktriangle %\minuso %\blacktriangleup %filleddiamond %\blackdiamond}
+
+\newcommand{\ccc}{\rmtt} % {\rm\tt{#1}}}  %{\mbox{{\tt #1}}}
+\newcommand{\cccTT}{\tt} % {\rm\tt{#1}}}  %{\mbox{{\tt #1}}}
+
+\newcommand{\rr}{\RR}  
+\newcommand{\Id}{{\cal I}} % identity relation  
+
+
+\newcommand{\Prop}{{\cal P}} %
+\newcommand{\FF}{F} % a function
+\newcommand{\FFbis}{F_{\sim}} 
+\newcommand{\FFbisW}{F_{\approx}} 
+\newcommand{\finLISTS}{\mbox{{\tt FinLists}$_{A}$}} %   
+\newcommand{\fininfLISTS}{\mbox{{\tt FinInfLists}$_{A}$}} %   
+\newcommand{\finLISTSi}[1]{\mbox{\tt FinLists}_{#1}} %   
+\newcommand{\fininfLISTSi}[1]{\mbox{\tt FinInfLists}_{#1}} %   
+\newcommand{\nilLISTS}{\mbox{\tt nil}} %   
+\newcommand{\mapLISTS}[2]{\mbox{\tt map}\: #1\: #2 } %   
+\newcommand{\qmapLISTS}{\mbox{\tt map}} %   
+\newcommand{\iterate}[2]{\mbox{\tt iterate}\: #1\: #2 } %   
+\newcommand{\qiterate}{\mbox{\tt iterate}} %   
+\newcommand{\qnats}{\mbox{\tt nats}} %   
+\newcommand{\qfrom}{\mbox{\tt from}\: } %   
+\newcommand{\fibs}{\mbox{\tt fibs}} %   
+\newcommand{\qplus}{\mbox{\tt plus}\:} %   
+\newcommand{\qtail}{\mbox{\tt tail}\,} %   
+\newcommand{\plusU}{+_1} %   
+\newcommand{\FFlist}{\Phi_{A\tt list}} 
+
+\newcommand{\consLISTS}{\mbox{\tt cons}} %   
+\newcommand{\consLISTSnew}[2]{\langle #1\rangle \bullet #2} %   
+\newcommand{\consLISTSnewB}[2]{ #1 \bullet #2} %   
+
+
+\newcommand{\simList}{\sim}  %_{A\tt list}}} % bisimilarity on lists 
+
+
+\newcommand{\tree}[1]{\mbox{{\tt Tree}$(#1)$}} %   
+%\newcommand{\root}[1]{\mbox{{\tt root}$(#1)$}} %   
+\newcommand{\T}{{\cal T}}
+\newcommand{\Vp}{{\tt V}}
+\newcommand{\Rp}{{\tt R}}
+\newcommand{\Gin}[2]{{\cal G}^{\tt ind}(#1,#2)} %   
+\newcommand{\Gco}[2]{{\cal G}^{\tt coind}(#1,#2)} %   
+
+
+
+\newcommand{\pws}[1]{\wp (#1)} % powerset
+\newcommand{\lfp}[1]{\qqlfp(#1)} % least fixed point 
+\newcommand{\gfp}[1]{\qqgfp(#1)} % greatest fixed point
+\newcommand{\qqlfp}{{\tt lfp}} % least fixed point abbrv.
+\newcommand{\qqgfp}{{\tt gfp}} % greatest fixed point abbrv.
+\newcommand{\qlfp}{least fixed point}
+\newcommand{\qgfp}{greatest fixed point} 
+
+
+\newcommand{\Fcoin}{F_{\tt coind}} % coind. def. set
+\newcommand{\Fin}{F_{\tt ind}}     % ind. def. set
+
+\newcommand{\Lao}{\Lambda^0}  %closed $\lambda$-terms
+
+
+
+  %convergence
+
+\newcommand{\Dwa}{\Downarrow}           % plain convergence
+\newcommand{\DwaP}[2]{#1 \Downarrow #2} % plain convergence, in rules
+
+
+\newcommand{\EQsin}[2]{#1 = #2} % syn. equality in rules
+
+\newcommand{\dwa}{\downarrow}           % plain convergence
+\newcommand{\Up}{\Uparrow}   % divergence
+\newcommand{\UpP}{\Uparrow}   % divergence in rules
+
+\newcommand{\Reach}{\Downarrow}           % reachability
+\newcommand{\Termi}{\downharpoonright}        % can terminate
+\newcommand{\TermiP}{\Termi}        % can terminate, in rules
+\newcommand{\Adiv}{\upharpoonright_\mu}           % \mu-divergence
+\newcommand{\Adiva}{\upharpoonright_a}           % \mu-divergence
+
+\newcommand{\LL}{{\cal L}}  % set of terms
+\newcommand{\States}[1]{{\tt St}^{#1}} %states of an LTS
+
+
+\newcommand{\myemptyItem}{\mbox{$ $ }} % utile per il xy package
+\newcommand{\NONemptyItem}[1]{\mbox{$#1$ }} % utile per il xy package
+
+\newcommand{\LongrightarrowN}[1]{\Longrightarrow_{#1}}
+
+
+% for imperative programs
+\newcommand{\XX}{\spaceD{\ccc{X}}}
+\newcommand{\YY}{\spaceD{\ccc{Y}}}
+
+% for LTSs
+\newcommand{\Act}{\mbox{\it Act}} 
+\newcommand{\pr}{\mbox{\it Pr}} % \mbox{\it Pr}}  %{{\mathbb P}} %{{\cal P}r} 
+\newcommand{\power}{\wp} 
+\renewcommand{\Pr}{\pr} % \mbox{\it Pr}}  %{{\mathbb P}} %{{\cal P}r} 
+
+
+% membership stuff among relations
+\newcommand{\memb}[3]{ #1 #3 #2 } 
+\newcommand{\rmemb}[3]{ {(#1 , #3)} \in { #2} } 
+%\newcommand{\Rmemb}[3]{ \tobr{#1 , #3} \in  #2 } 
+
+% symbols
+%\newcommand{\vv}{P} 
+%\newcommand{\ww}{Q} 
+\newcommand{\pp}{P} 
+\newcommand{\qq}{Q} 
+
+\newcommand{\rmm}[1]{\mbox{\rm #1}} %labels of transitions in figure 
+
+
+%% for inference rules
+
+
+\newcommand{\infrule}[3]{\[
+{\trans{#1}\quadrule \displaystyle{#2 \over #3} } %\\[10pt]
+\]}
+\newcommand{\infruleSIDE}[4]{\[
+{\trans{#1}\quadrule\displaystyle{#2 \over #3}\;\; #4 } %\\[10pt]
+\]}  % inf rule with a side condition
+\newcommand{\shortinfrule}[3]{ {\trans{#1}} \quadrule
+     \displaystyle{#2 \over #3}}
+\newcommand{\shortinfruleSIDE}[4]{ {\trans{#1}} \quadrule
+     \displaystyle{#2 \over #3}\;\; #4}
+
+\newcommand{\shortaxiom}[2]{{\trans{#1}}\quadrule
+\displaystyle{ \over #2}}
+
+\newcommand{\myinf}[3]{{\rn{#1}}\quadrule \displaystyle{#2 \over #3} }
+    % for  plain  inference rules
+
+\def\trans#1{\rn{#1}}   % for the names of transition rules
+\newcommand{\rn}[1]{%
+  \ifmmode 
+    \mathchoice
+      {\mbox{\sc #1}}
+      {\mbox{\sc #1}}
+      {\mbox{\small\sc #1}}
+      {\mbox{\tiny\uppercase{#1}}}%
+  \else
+    {\sc #1}%
+  \fi}
+
+\newcommand{\quadrule}{\hskip .2cm }
+
+\newcommand{\andalso}{\quad\quad}
+
+
+% references
+
+\def\reff#1{(\ref{#1})}       %references between brackets
+
+
+
+\newcommand{\enco}[1]{[\! [ #1 ] \! ]  }
+
+
+\newcommand{\mydots}{,\ldots,}
+
+% for not\sim_n
+
+\newcommand{\notsimN}[1]{\mathrel{\not\!{\sim_{#1}}} }
+
+
+
+\newcommand{\cti}[2]{ C_{#1} \brac{#2} }   %filled context
+\newcommand{\ctD}[1]{ D \brac{#1} }   %filled context
+\newcommand{\qcti}[1]{ C_{#1}  }   % context
+
+\newcommand{\ctDp}[1]{ D' \brac{#1} }   %filled context
+\newcommand{\qctD}{D}   % context
+\newcommand{\qctDp}{D'}   % context
+
+%\newcommand{\qctp}{C'}   % context
+
+
+\newcommand{\beginlongtable}{
+ \begin{longtable}{l@{\extracolsep{\fill}}p{76mm}@{\extracolsep{\fill}}r}
+%{|l@{\extracolsep{\fill}}p{80mm}@{\extracolsep{\fill}}r|}
+%% READ THIS !!!
+%% ho cancellato sotto altrimenti mi fa una entry nella list of tables
+%\caption{ffff} \\
+%\hline
+%symbol          & description                & page \\
+%\hline
+}
+\newcommand{\ENDlongtable}{% \hline
+\end{longtable}}
+
+\newcommand{\GLSbeg}[1]{\noindent %\underline
+{\bf \large #1}}
+
+\newcommand{\GLS}[1]{
+\multicolumn{3}{l}{%\noindent 
+%\underline
+{\bf \large #1}}\\ }
+\newcommand{\GLSb}[1]{
+\multicolumn{3}{l}{%\noindent 
+%\underline
+{\it \large #1}}\\ }
+
+\newcommand{\beginlongtableIN}{\\}
+\newcommand{\ENDlongtableIN}{\\}
+
+% % to add or remove a line to a page use these 
+% \newcommand{\longpage}{\enlargethispage{\baselineskip}} 
+% \newcommand{\shortpage}{\enlargethispage{-\baselineskip}} 
+
+
+
+

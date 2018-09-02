@@ -302,7 +302,7 @@ val precongruence_def = Define `
 
 (* a special version of precongruence with only guarded sums *)
 val precongruence1_def = Define `
-    precongruence1 R =PreOrder R /\
+    precongruence1 R = PreOrder R /\
 	!x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* The definition of congruence for CCS, TODO: use precongruence *)

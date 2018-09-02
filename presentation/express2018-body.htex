@@ -1,0 +1,817 @@
+%%%% -*- Mode: LaTeX; -*-
+
+% 30 minutes presentation of EXPRESS/SOS 2018 paper.
+
+% Target: 25 slides (exclude title and thanks pages)
+
+% Table of Contents: (just write what I did in this paper!!!!!)
+
+% 1. CCS.
+% 2. Unique solution of equations (Milner)
+% 3. Contraction and unique solution theorem (Sangiorgi)
+% 4. Rooted contraction and unique solution theorem
+% 5. Coarsest (pre)congruence contained in \approx and \mcontrBIS
+
+% N (conclusions):
+%% 1. "sometimes the greatest advantage of formalisation of theories
+%% with theorem provers is the refinement of previously know results".
+
+%4
+\begin{frame}[fragile]
+\frametitle{Calculus of Communicating Systems (CCS)}
+\vspace{-2ex}
+\begin{definition}[Actions and CCS processes]
+\vspace{-2ex}
+\begin{equation*}
+\begin{small}
+\begin{array}{ccl}
+\mu  & := &  \tau \hspace{.3pt} \midd a  \midd  \outC a  \\
+P  & := &  \nil \midd  \mu.P \midd  P_1 |  P_2 \midd
+P_1 + P_2 \midd  (\res a\!)\, P  \midd  P\; [rf]  \midd A \midd \recu A  P
+\end{array}
+\end{small}
+\end{equation*}
+\end{definition}
+\begin{definition}[Structural Operational Semantics]
+\begin{center}
+\begin{small}
+%\vskip .1cm
+ $\displaystyle{  \over  \mu.  P    \arr\mu
+P } $  $ \hb$   
+%\hskip .5cm
+ $\displaystyle{   P \arr\mu   P' \over   P + Q   \arr\mu
+P'  } $  $ \hb$   
+%\hskip .5cm
+ $\displaystyle{   Q \arr\mu   Q' \over   P + Q   \arr\mu
+Q'  } $  $ \hb$ 
+%\hskip .5cm
+ $\displaystyle{   P \arr\mu   P' \over   P | Q   \arr\mu
+P' | Q } $  $ \hb$   
+\\
+\vspace{.2cm}
+ $\displaystyle{   Q \arr\mu   Q' \over   P | Q   \arr\mu
+P | Q' } $  $ \hb$   
+%\hskip .3cm
+$\displaystyle{ P \arr{ a}P' \hk \hk  Q
+\arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
+|  Q'  }$ 
+\hskip .3cm
+$\displaystyle{ P \arr{\mu}P' \over
+ (\res a\!)\, P   \arr{\mu} (\res a\!)\, P'} $ $ \mu \neq a, \outC a$
+$ \hb$
+\\
+\vspace{.2cm}
+$\displaystyle{ P \arr{\mu} P' \over
+ P \;[rf] \arr{rf(\mu)} P' \;[rf]} $ $\forall a.\, rf(\outC a) = \overline{rf(a)}$
+$ \hb$
+\hskip .2cm
+$\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
+ \recu A P   \arr{ \mu} P'  } $
+\end{small}
+\end{center}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bisimulation and Bisimiarity}
+\begin{small}
+\begin{definition}
+A process relation ${\R}$ is a \emph{strong bisimulation} if, whenever
+ $P\RR Q$, we have:
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \arr \mu Q'$ and $P' \RR Q'$;
+\item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \arr \mu P'$ and $P' \RR Q'$\enspace.
+\end{enumerate}  
+ $P$ and $Q$ are \emph{bisimilar} ($P \sim Q$), if $P \RR Q$ for some bisimulation $\R$.
+\end{definition}
+\begin{definition}
+A process relation ${\R}$ is a \emph{weak bisimulation} if, whenever
+ $P\RR Q$, we have:
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$%\vspace{-4pt}
+\item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
+  \mu P'$ and $P' \RR Q'$\enspace.
+\end{enumerate}  
+ $P$ and $Q$ are \emph{weakly bisimilar} ($P \wb Q$), if $P \RR Q$ for some bisimulation $\R$.
+\end{definition}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Rooted Bisimiarity (Observation Congruence)}
+\begin{definition}
+Two processes $P$ and $Q$ are \textbf{rooted bisimilar} ($P\rapprox\! Q$), if we have:
+\begin{enumerate}
+ \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+   \Arr\mu Q'$ and $P' \wb Q'$;
+ \item  $Q \arr\mu Q'$ implies that there is $P'$ such that $P
+   \Arr\mu P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\end{definition}
+\begin{theorem}
+\begin{enumerate}
+\item $P \rapprox Q \Rightarrow P \wb Q$;
+\item $\sim$ and $\rapprox$ are preserved by all CCS operators; \hfill
+  (Congruence)
+\item $\approx$ is preserved by all CCS operators but direct sums;\hfill
+  (``Congruence'')
+\item $P \approx Q\ \Leftrightarrow\ (P \rapprox\! Q
+  \vee P \rapprox\! \tau.Q \vee \tau.P \rapprox\! Q)$.\hfill (Hennessy Lemma)
+\item $P \rapprox\! Q\ \Leftrightarrow\ ( \forall R.\
+  P + R \approx Q + R)$.\hfill (Coarsest Congruence in $\approx$)
+\end{enumerate}
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Unique Solution of Equations (Robin Milner, 1989)}
+\begin{theorem}[for $\sim$]
+Let $\tilde{E}$ be weakly guarded with free variables at most
+$\tilde{X}$, and let $\tilde{P}\sim\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\sim\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\sim\tilde{Q}$.
+\end{theorem}
+
+\begin{theorem}[for $\approx$, not explicitly appeared]
+Let $\tilde{E}$ be guarded and sequential with only guarded sums and
+free variables as most $\tilde{X}$, and let
+$\tilde{P}\approx\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\approx\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
+\end{theorem}
+
+\begin{theorem}[for $\rapprox$]
+Let $\tilde{E}$ be guarded and sequential with free variables at most
+$\tilde{X}$, and let $\tilde{P}\rapprox\!\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\rapprox\!\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\rapprox\!\tilde{Q}$.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions required by Milner's theorems (for $\sim$, $\rapprox$)}
+\begin{definition}
+$X$ is \emph{weakly guarded} in $E$ if each occurrence of $X$ is
+within some subexpression $\mu.F$ of $E$.
+\end{definition}
+
+\begin{definition}
+$X$ is \emph{(strongly) guarded} in $E$ if each occurrence of $X$ is
+within some subexpression $l.F$ of $E$.
+
+$X$ is \emph{sequential} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
+$\Sigma \tilde{F}$.
+\begin{small}
+\begin{enumerate}
+\item Any $P$ (without $X$) is guarded and sequential;
+\item If $E$ is sequential, then $l.E$ is guarded and sequential;
+\item If $E$ is guarded and sequential, so is $\mu.E$;
+\item If $E_1$ and $E_2$ are both guarded and sequential, so is $E_1 + E_2$.
+\end{enumerate}
+\end{small}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions required by Milner's theorem (for $\approx$)}
+\begin{definition}
+$X$ is \emph{sequential with only guarded sums} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
+$\Sigma \mu_i.F_i$.
+\begin{small}
+\begin{enumerate}
+\item Any $P$ (without $X$) is guarded and ``sequential'';
+\item If $E$ is ``sequential'', then $l.E$ is guarded and
+  ``sequential'';
+\item If $E$ is guarded and ``sequential'', so is $\mu.E$;
+\item If $E_1$ and $E_2$ are guarded and ``sequential'', so is
+  $\tau.E_1 + \tau.E_2$;
+\item If $E_1$ is guarded and ``sequential'', $E_2$ is ``sequential'',
+  then $\tau.E_1 + l.E_2$ is guarded and ``sequential'';
+\item If $E_1$ is ``sequential'', $E_2$ is guarded and ``sequential'',
+  then $l.E_1 + \tau.E_2$ is guarded and ``sequential'';
+\item If $E_1$ and $E_2$ are ``sequential'', $l_1.E_1 +
+  l_2.E_2$ is guarded and ``sequential''.
+\end{enumerate}
+\end{small}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{A refinement of Milner's technique (D. Sangiorgi, 2015)}
+\begin{small}
+\begin{definition}[Contraction]
+A process relation ${\R}$ 
+ is a \emph{(bisimulation) contraction} if whenever
+ $P\RR Q$, %for all $\mu$ 
+\begin{enumerate}
+\item  $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
+  Q'$ and $P' \RR Q'$;
+\item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
+ P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$, if $P\ \R\ Q$ for some contraction $\R$.
+%
+\end{definition}
+\end{small}
+\begin{lemma}[Precongruence of $\mcontrBIS$ in CCS]
+$\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
+all CCS operators but direct sums.
+\end{lemma}
+\begin{theorem}[Unique Solution of Contractions]
+Let $\tilde{E}$ be weakly guarded with only guarded sums and
+free variables as most $\tilde{X}$, and let
+$\tilde{P}\mcontrBIS\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\mcontrBIS\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Further refinements (C. Tian, 2017; the current paper)}
+\begin{definition}[Rooted contraction]
+Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
+ $P\rcontr Q$, if
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
+ and $P'\mcontrBIS Q'$;
+\item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+ P'$ and $P' \wb Q'$\enspace.
+\end{enumerate}
+\end{definition}
+\begin{lemma}[Precongruence of $\rcontr$ in CCS]
+$\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
+all CCS operators.
+\end{lemma}
+\begin{theorem}[Unique Solution of Rooted Contractions]
+Let $\tilde{E}$ be weakly guarded with free variables as most $\tilde{X}$, and let
+$\tilde{P}\rcontr\tilde{E}\{\tilde{P}/\tilde{X}\}$,
+$\tilde{Q}\rcontr\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then
+$\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{CCS Formalisation in HOL}
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|r|}
+\hline
+\textbf{Name} & \textbf{Summary} & \textbf{Lines} \\
+\hline
+CCSTheory & Basic CCS definitions, SOS rules & 1009 \\
+CCSConv & Decision procedure of CCS transitions & 562 \\
+StrongEQTheory & Strong bisimulation and bisimilarity ($\sim$) & 634 \\
+StrongLawsTheory & Algebraic laws of $\sim$; expansion law & 2002 \\
+WeakEQTheory & Weak bisimulation and bisimilarity & 1974 \\
+WeakLawsTheory & Algebraic laws of $\wb$ & 335 \\
+ObsCongrTheory & Observation congruence ($\rapprox$) & 697 \\
+ObsCongrLawsTheory & Algebraic laws of $\rapprox$ & 402 \\
+\hline
+BisimulationUptoTheory & Bisimulation up to $\sim$, $\wb$ and $\rapprox$ & 1180 \\
+CongruenceTheory & Context, guardedness and congruence & 1457 \\
+CoarsestCongrTheory & Deep results between $\wb$ and $\rapprox$ & 872 \\
+TraceTheory & Trace and relationship with weak transition & 753 \\
+ExpansionTheory & Expansion preorder, precongruence & 976 \\
+ContractionTheory & Contraction preorder, precongruence & 2068 \\
+UniqueSolutionTheory & Unique solution of equations/contractions & 2386 \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+%3
+\def\HOL{\textsc{Hol}}
+\newcommand\fun{{\to}}
+\newcommand\prd{{\times}}
+\newcommand{\ty}[1]{\textsl{#1}}
+\newcommand\conj{\ \wedge\ }
+\newcommand\disj{\ \vee\ }
+\newcommand\imp{ \Rightarrow }
+\newcommand\eqv{\ \equiv\ }
+\newcommand\vbar{\mid}
+\newcommand\turn{\ \vdash\ } % FIXME: "\ " resultgs in extra space
+\newcommand\hilbert{\varepsilon}
+\newcommand{\uquant}[1]{\forall #1.\ }
+\newcommand{\equant}[1]{\exists #1.\ }
+\newcommand{\hquant}[1]{\hilbert #1.\ }
+\newcommand{\iquant}[1]{\exists ! #1.\ }
+\newcommand{\lquant}[1]{\lambda #1.\ }
+\newcommand{\ml}[1]{\mbox{{\def\_{\char'137}\texttt{#1}}}}
+\newcommand{\con}[1]{\mathrm{#1}}
+
+\newcommand\bool{\ty{bool}}
+\newcommand\num{\ty{num}}
+\newcommand\ind{\ty{ind}}
+\newcommand\lst{\ty{list}}
+
+\providecommand{\T}{\con{T}}
+\renewcommand{\T}{\con{T}}
+\newcommand\F{\con{F}}
+\newcommand\OneOne{\con{One\_One}}
+\newcommand\OntoSubset{\con{Onto\_Subset}}
+\newcommand\Onto{\con{Onto}}
+\newcommand\TyDef{\con{Type\_Definition}}
+
+\newlength{\ttX}
+\settowidth{\ttX}{\tt X}
+\newcommand{\tyvar}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize type variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\tyatom}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize atomic types}}
+\put(.5,3.3){\vector(0,1){2.6}}
+\end{picture}}
+\newcommand{\funty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function types}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (domain, codomain)}}
+\put(1,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\cmpty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(2,3.3){\makebox(0,0)[b]{\footnotesize compound types}}
+\put(1.9,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\settowidth{\ttX}{\tt X}
+\newcommand{\var}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\const}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize constants}}
+\put(.5,3.5){\vector(0,1){2.4}}
+\end{picture}}
+\newcommand{\app}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function applications}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (function $t$, argument $t'$)}}
+\put(0.5,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\abs}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(1,3.3){\makebox(0,0)[b]{\footnotesize $\lambda$-abstractions}}
+\put(0.7,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\begin{frame}[fragile]\frametitle{Higher Order Logic (HOL)}
+\begin{footnotesize}
+\vspace*{-1em}
+\begin{columns}
+\column{.73\textwidth}
+\begin{definition}[Type in HOL]
+\vspace*{-1.5em}
+\begin{equation*}
+\sigma\quad ::=\quad {\mathord{\mathop{\alpha}\limits_{\tyvar}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\tyatom}}}
+        \quad\mid\quad\underbrace{(\sigma_1, \ldots , \sigma_n){op}}_{\cmpty}
+        \quad\mid\quad\underbrace{\sigma_1\fun\sigma_2}_{\funty}
+\end{equation*}
+\end{definition}
+\vspace*{-10pt}
+\begin{definition}[Term in HOL]
+\vspace*{-1em}
+\begin{equation*}
+t \quad ::=\quad {\mathord{\mathop{x}\limits_{\var}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\const}}}
+        \quad\mid\quad\underbrace{t\ t'}_{\app}
+        \quad\mid\quad\underbrace{\lambda x .\ t}_{\abs}
+\end{equation*}
+\end{definition}
+\column{.23\textwidth}
+\begin{block}{Primitive rules}
+\begin{tiny}
+\begin{enumerate}
+\item Assumption introduction [{\tt ASSUME}],
+\item Reflexivity [{\tt
+  REFL}],
+\item $\beta$-conversion [{\tt BETA\_CONV}],
+\item Substitution [{\tt
+SUBST}],
+\item Abstraction [{\tt ABS}],
+\item Type instantiation [{\tt
+INST\_TYPE}], 
+\item Discharging an assumption [{\tt DISCH}], 
+\item Modus Ponens [{\tt MP}]
+\end{enumerate}
+\end{tiny}
+\end{block}
+\end{columns}
+\begin{columns}
+\column{.45\textwidth}
+\vspace*{-1.2em}
+\begin{block}{Logical constants}
+\vspace*{-1em}
+\begin{tiny}
+\[
+\begin{array}{l}
+\turn \T       =  ((\lquant{x_{\ty{bool}}}x) =
+               (\lquant{x_{\ty{bool}}}x))    \\
+\turn \forall  =  \lquant{P_{\alpha\fun\ty{bool}}}\ P =
+                    (\lquant{x}\T ) \\
+\turn \exists  =  \lquant{P_{\alpha\fun\ty{bool}}}\
+                    P({\hilbert}\ P) \\
+\turn \F       =  \uquant{b_{\ty{bool}}}\ b  \\
+\turn \neg    =  \lquant{b}\ b \imp \F \\
+\turn {\wedge}  =  \lquant{b_1\ b_2}\uquant{b}
+                     (b_1\imp (b_2 \imp b)) \imp b \\
+\turn {\vee}  =  \lquant{b_1\ b_2}\uquant{b}
+                   (b_1 \imp b)\imp ((b_2 \imp b) \imp b) \\
+\end{array}
+\]
+\end{tiny}
+\end{block}
+\column{.5\textwidth}
+\begin{block}{Axioms}
+\vspace*{-1em}
+\begin{tiny}
+\[
+\begin{array}{@{}l@{\qquad}l}
+\mbox{\tiny\tt BOOL\_CASES\_AX}&\vdash \uquant{b} (b = \T ) \vee (b = \F )\\
+% \\
+\mbox{\tiny\tt ETA\_AX}&
+\vdash \uquant{f_{\alpha\fun\beta}}(\lquant{x}f\ x) = f\\
+% \\
+\mbox{\tiny\tt SELECT\_AX}&
+\vdash \uquant{P_{\alpha\fun\ty{bool}}\ x} P\ x \imp
+P({\hilbert}\ P)\\
+%  \\
+\mbox{\tiny\tt INFINITY\_AX}&
+\vdash \equant{f_{\ind\fun \ind}} \OneOne \ f \conj \neg(\Onto \ f)\\
+\end{array}
+\]
+\end{tiny}
+\end{block}
+\end{columns}
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Syntax of CCS operators, constant and actions}
+New types: ``\HOLty{:('a, 'b) CCS}'', ``\HOLty{:'b Action}'',
+``\HOLty{:'b Label}'' and ``\HOLty{:'b Relabeling}''.
+\begin{center}
+\begin{small}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Operator} & \textbf{CCS Notation} & \textbf{HOL term} &
+                                                                \textbf{HOL (abbrev.)}\\
+\hline
+nil & $\textbf{0}$ & \HOLtm{nil} & \HOLtm{nil} \\
+prefix & $u.P$ & \texttt{prefix u P} & \HOLtm{prefix u P} \\
+sum & $P + Q$ & \texttt{sum P Q} & \HOLtm{sum P Q} \\
+parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLtm{P || Q} \\
+restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}
+  \\
+recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}
+  \\
+relabeling & $P\;[rf]$ & \texttt{relab P rf} & \HOLtm{relab P rf}
+  \\
+\hline
+constant & $A$ & \texttt{var A} & \HOLtm{var A} \\
+invisible action & $\tau$ & \texttt{tau} & \HOLtm{tau} \\
+input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
+output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)} \\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{CCS transitions: an inductive relation}
+3-ary inductive relation \texttt{TRANS}: ``\texttt{TRANS P u Q}'' or ``\HOLtm{TRANS P
+  u Q}''.
+\begin{small}
+\begin{alltt}
+\HOLthm{Example.PREFIX'}\hfill\texttt{[PREFIX]}
+\HOLthm{Example.SUM1'}\hfill\texttt{[SUM1]}
+\HOLthm{Example.SUM2'}\hfill\texttt{[SUM2]}
+\HOLthm{Example.PAR1'}\hfill\texttt{[PAR1]}
+\HOLthm{Example.PAR2'}\hfill\texttt{[PAR2]}
+\end{alltt}
+\end{small}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{Example.PAR3'}\hfill\texttt{[PAR3]}
+
+\HOLthm{Example.RESTR'}\hfill\texttt{[RESTR]}
+
+\HOLthm{Example.RELABELING'}\hfill\texttt{[RELABELING]}
+\end{alltt}
+\end{scriptsize}
+\begin{small}
+\begin{alltt}
+\HOLthm{Example.REC'}\hfill\texttt{[REC]}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Relabeling and Substution}
+\begin{small}
+\begin{alltt}
+\HOLthm[showtypes,def]{CCS.Is_Relabeling_def}
+
+\HOLthm[def]{CCS.relabel_def}
+\end{alltt}
+\end{small}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm[def]{CCS.CCS_Subst_def}\hfill\texttt{[CCS_Subst_def]}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bisimulation and Bisimilarity}
+\begin{definition}
+\begin{small}
+\begin{enumerate}
+\item \begin{alltt}
+\HOLtm{EPS E E'} (EPS E E'), \HOLthm[def]{WeakEQ.EPS_def}
+\end{alltt}
+\item \begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_TRANS}
+\end{alltt}
+\item \begin{scriptsize}\begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_BISIM}
+\end{alltt}\end{scriptsize}
+\item \begin{alltt}
+\HOLthm[def]{WeakEQ.WEAK_EQUIV}
+\end{alltt}
+\end{enumerate}
+\end{small}
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bisimilarity as a fixed point}
+\vspace{-2ex}
+The actual definition of $\wb$ is automatically built by HOL4's
+\texttt{Hol_coreln}, coinducitve relation package:
+\lstinputlisting{WeakEquiv.sml}
+\texttt{Hol_coreln} returns 3 theorems:
+\begin{enumerate}
+\item \texttt{WEAK_EQUIV_rule}: input ``rules'' proved as a theorem.
+\item \texttt{WEAK_EQUIV_coind}: the resulting relation is maximal.
+\item \texttt{WEAK_EQUIV_cases}: the resulting relation is a fix point.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multi-hole contexts: inductive unary relation}
+\vspace{-2ex}
+\begin{definition}
+\begin{small}
+\HOLtm[showtypes]{CONTEXT}
+\begin{alltt}
+\HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\end{alltt}
+\end{small}
+\end{definition}
+\begin{examples}
+$E[X] = a.X + b.X$ is presented as ``\HOLtm{\t. prefix a t + prefix b
+  t}'' ($a.[] + b.[]$)).
+\end{examples}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multi-hole contexts with only direct sums}
+\vspace{-2ex}
+\begin{definition}
+\begin{small}
+\HOLtm[showtypes]{GCONTEXT}
+\begin{alltt}
+\HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
+\end{alltt}
+\end{small}
+\end{definition}
+(\texttt{GCONTEXT} can be also seen as a normal context under special
+CCS syntax with only guarded sums $\Sigma \mu_i.p_i$.)
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Congruence and Precongruence}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{relation.PreOrder}
+\HOLthm{relation.equivalence_def}
+\end{alltt}
+\begin{alltt}
+\HOLthm{Congruence.precongruence_def}
+\HOLthm{Congruence.precongruence1_def}
+\HOLthm{Congruence.congruence_def}
+\HOLthm{Congruence.congruence1_def}
+\end{alltt}
+\begin{alltt}
+\HOLthm{Congruence.STRONG_EQUIV_congruence}
+\HOLthm{Congruence.WEAK_EQUIV_congruence}
+\HOLthm{Congruence.OBS_CONGR_congruence}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weakly-guarded contexts: with and without direct sums}
+\begin{alltt}
+\HOLthm[def]{Congruence.WG_rules}\hfill{[WG_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
+\end{alltt}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{(Strongly) guarded contexts}
+\begin{alltt}
+\HOLthm[def]{Congruence.SG_rules}\hfill{[SG_rules]}
+\end{alltt}
+There's no need to define special version of \texttt{SG} with only
+guarded sums, as ``guarded and sequential'' always appears together
+(but a single relation defnition is too complex).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sequential contexts: with and without direct sums}
+``$X$ is \emph{sequential} in $E$ if every subexpression of $E$ which
+contains $X$, apart from $X$ itself, is of the form $\mu.F$ or
+$\Sigma \tilde{F}$.''
+\begin{alltt}
+\HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{Congruence.GSEQ_rules}
+\hfill{[GSEQ_rules]}
+\end{alltt}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Contraction: formal definition}
+\begin{scriptsize}
+\begin{alltt}
+\HOLthm{Contraction.CONTRACTION}\hfill{[CONTRACTION]}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
+\HOLthm{Contraction.contracts_IMP_WEAK_EQUIV}\hfill{[contracts_IMP_WEAK_EQUIV]}
+\end{alltt}
+
+$\mcontrBIS$ is preorder and precongruence:
+\begin{alltt}
+\HOLthm{Contraction.contracts_PreOrder}\hfill{[contracts_PreOrder]}
+\HOLthm{Contraction.contracts_precongruence}\hfill{[contracts_precongruence]}
+\end{alltt}
+\end{scriptsize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Rooted contraction: formal definition}
+\begin{small}
+\begin{alltt}
+\HOLthm{Contraction.OBS_contracts}
+\hfill{[OBS_contracts]}
+\HOLthm{Contraction.OBS_contracts_IMP_contracts}\hfill{[OBS_contracts_IMP_contracts]}
+\HOLthm{Contraction.OBS_contracts_PreOrder}\hfill{[OBS_contracts_PreOrder]}
+\HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
+\end{alltt}
+
+Inspired by the definition rooted bisimilarity (not recursive, built
+upon non-rooted relation), with candidates quickly checked by
+theorem prover on its transitivity)
+\begin{alltt}
+\HOLthm{ObsCongr.OBS_CONGR}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{All five unique solution theorems}
+\begin{small}
+\begin{enumerate}
+\item \texttt{STRONG_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{WEAK_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.WEAK_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{OBS_UNIQUE_SOLUTION:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}
+\end{alltt}
+\item \texttt{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS:}
+\begin{alltt}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
+\end{alltt}
+\end{enumerate}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coarsest congruence contained in $\wb$}
+\begin{theorem}
+Assumping $p$ and $q$ do not use all labels, i.e. $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$,
+\begin{equation*}
+p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
+r\ \approx\ q\ +\ r )\enspace.
+\end{equation*}
+(The assumption can be removed with a
+more complicated proof by Rob van Glabbeek, but this proof depends on infinite
+sum operator and ordinals)
+\end{theorem}
+Our formalised version:
+\begin{small}
+\begin{alltt}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_THM}\hfill{[COARSEST_CONGR_THM]}
+\end{alltt}
+where
+\begin{alltt}
+\HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coarsest precongruence contained in $\rcontr$}
+\begin{theorem}
+\begin{alltt}
+\HOLthm{Contraction.COARSEST_PRECONGR_THM'}\hfill{[COARSEST_PRECONGR_THM']}
+\end{alltt}
+Thus the current definition of $\rcontr$ is the best possible one.
+\end{theorem}
+
+Another version following van Glabbeek's proof:
+\begin{alltt}
+\HOLthm{Contraction.COARSEST_PRECONGR_FINITE}\hfill{[COARSEST_PRECONGR_FINITE]}
+\end{alltt}
+\begin{small}
+\begin{alltt}
+\HOLthm[def]{Trace.finite_state_def}\hfill{[finite_state_def]}
+
+\HOLthm[def]{Trace.NODES_def}\hfill{[NODES_def]}
+
+\HOLthm[def]{Trace.Reach_def}\hfill{[Reach_def]}
+\end{alltt}
+\end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Toward multi-variable equations}
+\begin{small}
+The multi-variable case is a ``routing'' adaptation in informal
+proofs; theorems on multi-variable equation cannot be proved
+by their single-variable version.
+
+Current idea: reuse the guardedness definition of single-variable equation
+(i.e. multi-hole contexts)
+\begin{examples}
+\vspace{-3ex}
+\begin{align*}
+E[X; Y] &= a.X + b.X + c.Y + d.Y \\
+E_1[\cdot] &= a.[] + b.X + c.Y + d.Y \\
+E_2[\cdot] &= a.X + b.[] + c.Y + d.Y \\
+E_3[\cdot] &= a.[] + b.[] + c.Y + d.Y \\
+E[X; Y] &= E_1[X] = E_2[X] = E_3[X]
+\end{align*}
+\end{examples}
+\begin{definition}
+\begin{alltt}
+\HOLthm[def]{Congruence.weakly_guarded1_def}
+\hfill{[weakly_guaded1_def]}
+\end{alltt}
+\end{definition}
+\end{small}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Open problems}
+%
+%\end{frame}
+
+\begin{frame}
+\frametitle{Conclusions}
+\begin{enumerate}
+\item Now we have a \emph{more} complete formalisation of CCS with an
+  archive of rigous formal proofs of related theorems and lemmas in textbook.
+\item Sangiorgi's theorem on unique solution of contractions is formally verified and
+  slightly extended. (frontier)
+\item \emph{Sometimes} formalising a theory helps in finding
+  new interesting results or refing previously known results.
+\item This work could be a template or working basis for CCS extensions or other process calculi, even in other
+  theorem provers than HOL.
+\end{enumerate}
+
+This CCS formalisation will be continuously maintained as part of HOL4
+official examples to make sure its long-term availability.
+\end{frame}
+
+%% Proof examples:
+
+% 1. NIL has no transition (2 proofs, with, w/o TRANS_ind)
+% 2. Transitivity of ObsCongr. (EPS_ind_right and EPS_ind)
+
+%% discovery of new theorem and definitions.

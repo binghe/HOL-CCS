@@ -384,7 +384,7 @@ val _ = type_abbrev ("transition",
    NOTE: noticed that, the theorem TRANS_ind is never needed, thus even we define
    TRANS co-inductively (i.e. by Hol_coreln), the whole formalization still works.
  *)
-val (TRANS_rules, TRANS_coind, TRANS_cases) = Hol_coreln `
+val (TRANS_rules, TRANS_ind, TRANS_cases) = Hol_reln `
     (!E u.                           TRANS (prefix u E) u E) /\		(* PREFIX *)
     (!E u E1 E'.    TRANS E u E1 ==> TRANS (sum E E') u E1) /\		(* SUM1 *)
     (!E u E1 E'.    TRANS E u E1 ==> TRANS (sum E' E) u E1) /\		(* SUM2 *)

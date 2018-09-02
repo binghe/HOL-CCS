@@ -3,7 +3,6 @@
 \documentclass{beamer}
 \usetheme{CambridgeUS}
 
-\usepackage[english]{babel} %italian
 \usepackage{newlfont}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -21,12 +20,16 @@
 \usepackage{bookmark}
 \usepackage{listings}
 \renewcommand{\ttdefault}{cmtt} % {pcr}
-\lstset{tabsize=8,language=C,basicstyle=\footnotesize\ttfamily\bfseries}
+\lstset{tabsize=8,language=ML,basicstyle=\scriptsize\ttfamily\bfseries}
 
 % HOL support
 \usepackage{holindex}
 \usepackage{alltt}
 \include{tokens}
+
+\input{commonmacros.sty}
+\input{davidemacro.sty}
+\usepackage{DSarrow} % this is something to use extensible arrows in transitions
 
 %https://en.wikibooks.org/wiki/LaTeX/Xy-pic
 %\begin{displaymath}
@@ -45,9 +48,14 @@
 
 \begin{document}
 
-\title[Unique solutions of contractions]{Unique solutions of contractions, CCS, and their HOL formalisation}
+\title[Unique Solutions of Contractions, ...]{Unique Solutions of
+  Contractions, CCS, and\\
+ their HOL Formalisation}
 
-\author[C. Tian and D. Sangiorgi]{\textbf{Chun Tian} \and Davide Sangiorgi}
+\author[C. Tian and D. Sangiorgi]{\textbf{Chun Tian} \inst{1} \and
+  Davide Sangiorgi \inst{2}}
+\institute[]{\inst{1} Fondazione Bruno Kessler (FBK),
+ Italy \and \inst{2} Universit\`a di Bologna, Italy and INRIA, France}
 
 %\date{December 20, 2017}
 
@@ -64,6 +72,6 @@
 \titlepage
 \end{frame}
 
-\include{expess2018-body}
+\include{express2018-body}
 
 \end{document}
