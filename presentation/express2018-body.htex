@@ -15,6 +15,29 @@
 % N (conclusions):
 %% 1. "sometimes the greatest advantage of formalisation of theories
 %% with theorem provers is the refinement of previously know results".
+\begin{frame}[fragile]\frametitle{Project Motivation}
+\begin{itemize}
+\item Concurrency Theory is important 
+  for understanding concurrent and reactive systems;
+\item Milner's Calculus of Communicating Systems (CCS) is
+  simple, elegant process calculi widely adopted in Concurrency Theory courses, yet textbooks
+  cannot provide all proof details;
+\item The CCS formalisation project is a good chance for learning Interactive Theorm
+  Proving (ITP), with minimal dependencies on other formal theories.
+\end{itemize}
+\begin{block}{Project summary}
+\begin{itemize}
+\item ~20,000 lines of Standard ML code;
+\item ~500 \emph{manually} proved lemmas/theorems.
+\end{itemize}
+Availabile in HOL official examples:
+\begin{color}{blue}
+\begin{texttt}
+https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS
+\end{texttt}
+\end{color}
+\end{block}
+\end{frame}
 
 %4
 \begin{frame}[fragile]
@@ -133,7 +156,7 @@ $\tilde{Q}\sim\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\sim\tilde{Q}$.
 
 \begin{theorem}[for $\approx$, not explicitly appeared]
 Let $\tilde{E}$ be guarded and sequential with only guarded sums and
-free variables as most $\tilde{X}$, and let
+free variables at most $\tilde{X}$, and let
 $\tilde{P}\approx\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\approx\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
 \end{theorem}
@@ -218,7 +241,7 @@ all CCS operators but direct sums.
 \end{lemma}
 \begin{theorem}[Unique Solution of Contractions]
 Let $\tilde{E}$ be weakly guarded with only guarded sums and
-free variables as most $\tilde{X}$, and let
+free variables at most $\tilde{X}$, and let
 $\tilde{P}\mcontrBIS\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\mcontrBIS\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then $\tilde{P}\approx\tilde{Q}$.
 \end{theorem}
@@ -241,7 +264,7 @@ $\mcontrBIS$ is a preorder (reflexive, transitive) and is preserved by
 all CCS operators.
 \end{lemma}
 \begin{theorem}[Unique Solution of Rooted Contractions]
-Let $\tilde{E}$ be weakly guarded with free variables as most $\tilde{X}$, and let
+Let $\tilde{E}$ be weakly guarded with free variables at most $\tilde{X}$, and let
 $\tilde{P}\rcontr\tilde{E}\{\tilde{P}/\tilde{X}\}$,
 $\tilde{Q}\rcontr\tilde{E}\{\tilde{Q}/\tilde{X}\}$, then
 $\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
@@ -249,7 +272,7 @@ $\tilde{P}\rapprox\tilde{Q}$ (thus also $\tilde{P}\approx\tilde{Q}$).
 \end{frame}
 
 \begin{frame}
-\frametitle{CCS Formalisation in HOL}
+\frametitle{CCS Formalisation in HOL (Monica Nesi and Chun Tian)}
 \begin{center}
 \begin{small}
 \begin{tabular}{|l|l|r|}
@@ -489,11 +512,11 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)}
 \end{small}
 \begin{scriptsize}
 \begin{alltt}
-\HOLthm{Example.PAR3'}\hfill\texttt{[PAR3]}
+\HOLthm{Example.PAR3'}\hfill\begin{small}\texttt{[PAR3]}\end{small}
 
-\HOLthm{Example.RESTR'}\hfill\texttt{[RESTR]}
+\HOLthm{Example.RESTR'}\hfill\begin{small}\texttt{[RESTR]}\end{small}
 
-\HOLthm{Example.RELABELING'}\hfill\texttt{[RELABELING]}
+\HOLthm{Example.RELABELING'}\hfill\begin{small}\texttt{[RELABELING]}\end{small}
 \end{alltt}
 \end{scriptsize}
 \begin{small}
@@ -560,9 +583,13 @@ The actual definition of $\wb$ is automatically built by HOL4's
 \vspace{-2ex}
 \begin{definition}
 \begin{small}
-\HOLtm[showtypes]{CONTEXT}
 \begin{alltt}
 \HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\end{alltt}
+The composition of two contexts is still a context:
+\vspace*{-10pt}
+\begin{alltt}
+\HOLthm{Congruence.CONTEXT_combin}\hfill{[CONTEXT_combin]}
 \end{alltt}
 \end{small}
 \end{definition}
@@ -577,7 +604,6 @@ $E[X] = a.X + b.X$ is presented as ``\HOLtm{\t. prefix a t + prefix b
 \vspace{-2ex}
 \begin{definition}
 \begin{small}
-\HOLtm[showtypes]{GCONTEXT}
 \begin{alltt}
 \HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}
@@ -588,7 +614,7 @@ CCS syntax with only guarded sums $\Sigma \mu_i.p_i$.)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Congruence and Precongruence}
+\frametitle{Congruence and precongruence}
 \begin{scriptsize}
 \begin{alltt}
 \HOLthm{relation.PreOrder}
@@ -719,11 +745,8 @@ Assumping $p$ and $q$ do not use all labels, i.e. $\mathrm{fn}(p) \cup
 p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
 r\ \approx\ q\ +\ r )\enspace.
 \end{equation*}
-(The assumption can be removed with a
-more complicated proof by Rob van Glabbeek, but this proof depends on infinite
-sum operator and ordinals)
 \end{theorem}
-Our formalised version:
+Our formalised version (with slightly weaker assumptions):
 \begin{small}
 \begin{alltt}
 \HOLthm{CoarsestCongr.COARSEST_CONGR_THM}\hfill{[COARSEST_CONGR_THM]}
@@ -733,6 +756,37 @@ where
 \HOLthm[def]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
 \end{small}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coarsest congruence contained in $\wb$ (van Glabbeek's method)}
+\begin{scriptsize}
+\begin{lemma}
+Given processes $p$ and $q$, if there's a special process $k(p,q)$,
+then the hard part ($\leftarrow$) of ``coarsest congruence'' theorem
+holds without classic assumption.
+\begin{alltt}
+\HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
+\end{alltt}
+\begin{alltt}
+\HOLthm[def]{WeakEQ.STABLE}\hfill{[STABLE]}
+\end{alltt}
+\end{lemma}
+\begin{definition}[Arbitrary non-bisimir processes (Klop) - finite version]
+\begin{alltt}
+KLOP_def:\\
+\HOLthm{CoarsestCongr.KLOP_def}
+
+KLOP_PROP2':\\
+\HOLthm{CoarsestCongr.KLOP_PROP2'}
+\end{alltt}
+\end{definition}
+\begin{lemma}
+\begin{alltt}
+\HOLthm{CoarsestCongr.KLOP_LEMMA_FINITE}\hfill{[KLOP_LEMMA_FINITE]}
+\end{alltt}
+\end{lemma}
+\end{scriptsize}
 \end{frame}
 
 \begin{frame}
@@ -762,7 +816,7 @@ Another version following van Glabbeek's proof:
 \begin{frame}
 \frametitle{Toward multi-variable equations}
 \begin{small}
-The multi-variable case is a ``routing'' adaptation in informal
+The multi-variable case is a ``routine'' adaptation in informal
 proofs; theorems on multi-variable equation cannot be proved
 by their single-variable version.
 
@@ -791,6 +845,23 @@ E[X; Y] &= E_1[X] = E_2[X] = E_3[X]
 %\frametitle{Open problems}
 %
 %\end{frame}
+\begin{frame}
+\frametitle{Future directions}
+\begin{enumerate}
+\item Formalizing unique-solution theorems under multi-variable
+  equations/contractions (represented as CCS terms with free variables).
+\item Formalizing CCS theorems related to free/bound names and
+  free/bound variables. (learning from experiences from $\pi$-calculi formalisations)
+\item Formalizing Sangiorgi's 2017 work (Divergence and Unique
+  Solution of Equations) and other CCS results in frontier.
+\item Decision procedure for various bisimilarity. (Concurrency
+  Workbench in HOL4)
+\item CCS with arbitrary sums; Deeper look at the ``coarsest (pre)congruence'' theorem without
+ classic assumptions.
+\item Connecting CCS Theory with Graph Theory (LTS as digraph) and
+  Probability Theory.
+\end{enumerate}
+\end{frame}
 
 \begin{frame}
 \frametitle{Conclusions}
@@ -800,7 +871,7 @@ E[X; Y] &= E_1[X] = E_2[X] = E_3[X]
 \item Sangiorgi's theorem on unique solution of contractions is formally verified and
   slightly extended. (frontier)
 \item \emph{Sometimes} formalising a theory helps in finding
-  new interesting results or refing previously known results.
+  new interesting results or refining previously known results.
 \item This work could be a template or working basis for CCS extensions or other process calculi, even in other
   theorem provers than HOL.
 \end{enumerate}
