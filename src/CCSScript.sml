@@ -290,6 +290,11 @@ val _ = Datatype `CCS = nil
 		      | relab CCS ('b Relabeling)
 		      | rec 'a CCS `;
 
+(* the ultimate version is only possible once HOL4 got a better Datatype package:
+		      | summ (num -> CCS)
+		      | fix (num -> 'a) (num -> CCS) num
+ *)
+
 (* compact representation for single-action restriction *)
 val _ = overload_on ("nu", ``\(n :'b) P. restr {name n} P``);
 val _ = overload_on ("nu", ``restr``);
