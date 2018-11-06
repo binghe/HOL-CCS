@@ -1,0 +1,182 @@
+%%%% -*- Mode: LaTeX -*-
+%%
+%% This version is for Elsevier's Information and Computation Journal submission.
+%% by Davide Sangiorgi and Chun Tian.
+
+\documentclass[review]{elsarticle}
+
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+
+\journal{Journal of Information and Computation}
+
+% use \iflong to extend this paper from the previous EXPRESS/SOS paper.
+\newif\iflong\longfalse
+
+\usepackage{breakurl}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin Modern fonts (better than CM-Super)
+\usepackage[utf8]{inputenc} % no need for XeTeX, which always uses UTF-8
+\usepackage{newtxtext} % Better looking, also more compact
+
+%% Math symbol packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% \cupdot (the best one)
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+\usepackage{amsthm}
+%\usepackage{newtxmath} % must be after amsthm (but can't use in this paper)
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition} 
+\newtheorem{remark}[definition]{Remark}
+
+% HOL theorem embedding support
+\usepackage{holindex}
+\usepackage{alltt}
+\usepackage{proof}
+\include{tokens}
+
+\usepackage{listings}
+\renewcommand{\ttdefault}{cmtt} % {pcr}
+\lstset{tabsize=8,language=ML,basicstyle=\small\ttfamily\bfseries,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}}
+
+%
+% LaTeX math formula spacing:
+%
+% \enskip	leave a horizontal space of respectively half an em
+% \quad		space equal to the current font size (= 18 mu), one em
+% \qquad	twice of \quad (= 36 mu), i.e. two ems
+% \enspace	it's inherited from Plain TeX and is almost the same
+%                      as \enskip, but technically it is a kern, rather than a skip.
+% \,	3/18 of \quad (= 3 mu)
+% \:	4/18 of \quad (= 4 mu)
+% \;	5/18 of \quad (= 5 mu)
+% \!	-3/18 of \quad (= -3 mu)
+% \ (space after backslash!) equivalent of space in normal text
+
+\usepackage{graphicx}
+\usepackage[all,cmtip]{xy}
+\usepackage{color}
+
+% hightlighting changed texts with \hl{}
+% \usepackage{soul}
+% or disable the hightlighting on final submission
+\newcommand*\hl{}
+
+\input{commonmacros.sty}
+\input{davidemacro.sty}
+\usepackage{DSarrow} % this is something to use extensible arrows in transitions
+
+% \usepackage{pgf,tikz}
+% \usetikzlibrary{arrows}
+
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% PDF meta data (must be added manually, maybe removed by proceeding editor)
+%\hypersetup{pdftitle={Unique Solutions of Contractions, CCS, and their HOL Formalisation},
+%	pdfauthor={Chun Tian; Davide Sangiorgi},
+%	pdfsubject={Concurrency Theory},
+%	pdfkeywords={theorem proving, process calculi, coinduction, unique solution of equations, congruence}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Unique Solutions of Contractions, CCS, and their HOL
+  Formalisation\tnoteref{mytitlenote}}
+\tnotetext[mytitlenote]{An extended version of the EXPRESS/SOS 2018
+  workshop paper.}
+
+\author[mymainaddress]{Chun Tian\fnref{myfootnote}}
+\address[mymainaddress]{Fondazione Bruno Kessler, Trento, Italy}
+\ead{ctian@fbk.eu}
+\fntext[myfootnote]{Part of this work was carried out when the first
+  author was studying at Universit\`a di Bologna.}
+
+\author[mysecondaryaddress]{Davide Sangiorgi}
+\ead{davide.sangiorgi@unibo.it}
+\address[mysecondaryaddress]{Universit\`a di Bologna and INRIA, Bologna, Italy}
+
+\begin{abstract}
+  The unique solution of contractions is a proof technique for
+  bisimilarity that overcomes certain syntactic constraints of
+  Milner's ``unique solution of equations'' technique.  The paper
+  presents an overview of a rather comprehensive formalisation of the
+  core of the theory of CCS in the HOL theorem prover (HOL4), with a
+  focus towards the theory of unique solutions of contractions.  (The
+  formalisation consists of about 20,000 lines of proof scripts in
+  Standard ML.)  Some refinements of the theory itself are obtained.
+  In particular we remove the constraints \hl{on summation,
+  which must be weakly-guarded,} by moving to \emph{rooted
+  contraction}, that is, the coarsest
+  precongruence contained in the contraction preorder.
+
+% theorem for (rooted) weak
+% bisimilarity have severe syntactical limitations, i.e.\;the
+% equations must be both strongly guarded and sequential. By replacing
+% equations with special inequations called ``contraction'', Sangiorgi
+% has proven the ``unique solution of contractions'' theorem for weak
+% bisimialarity, which requires only weakly guarded equations. However,
+% contraction is not (pre)congruence under direct sums of processes.
+% To overcome this difficulty, we further moved to ``rooted
+% contraction'', which is the coarsest precongruence contained in
+% contraction bisimilarity. Using rooted contraction one obtains an
+% unique-solution theorem that is valid for 
+% \emph{rooted bisimilarity} (hence also for bisimilarity itself) while
+% requires true weak guardness (with direct sums). All results were
+% formalized in HOL theorem prover (HOL4), as part of a rather complete
+% formalisation of process algebra CCS. We show some highlights of this
+% formalisation work.
+\end{abstract}
+
+\begin{keyword}
+process calculi \sep theorem provers \sep coinduction \sep unique
+solution of equations \sep congruence
+\end{keyword}
+
+\end{frontmatter}
+
+% doesn't work, why?
+%\linenumbers
+
+% part 1 (Sangiorgi)
+\input{intro}
+\input{ccs}
+\input{expansion}
+\input{equa}
+\input{contraction}
+\input{unique}
+
+% part 2 (Tian)
+\input{formal}
+\input{sos}
+\input{bisim}
+\input{context}
+\input{coarsest}
+\input{part2}
+
+% part 3
+\input{related}
+\input{conclusions}
+
+\newpage
+
+\bibliography{generic}
+\end{document}

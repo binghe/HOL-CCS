@@ -1,0 +1,97 @@
+\section{Formalisation}
+\label{s:for}
+We highlight here a formalisation of CCS
+in the HOL theorem
+prover (HOL4) \cite{slind2008brief},
+including the new concepts and theorems proposed in the first half of
+this paper.
+%  The main purpose is to convince the readers that, there's no flaw
+%  in the informal proofs. 
+The whole formalisation (apart from minor fixes and extensions in this
+paper)
+is described in \cite{Tian:2017wrba}, and the
+proof scripts are in HOL4 official
+examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}. The
+current work consists of about 20,000 lines of proof scripts in Standard ML.
+
+Higher Order Logic (or \emph{HOL Logic}) \cite{hollogic}, which traces
+its roots back to LCF
+\cite{gordon1979edinburgh,milner1972logic} by Robin Milner and others since 1972, is a variant of
+Church’s simple theory of types (STT) \cite{church1940formulation},
+plus a higher order version of Hilbert's choice operator $\varepsilon$,
+Axiom of Infinity, and Rank-1 (prenex) polymorphism.
+HOL4 has implemented the original HOL Logic, 
+while some other theorem provers in HOL family (e.g. Isabelle/HOL) have
+certain extensions.
+%  (they made the formal language more powerful,
+% but they also bring the possibilities that the entire logic becomes
+% inconsistent). 
+Indeed the HOL Logic has considerable simpler logical
+foundations than most other theorem provers. %, e.g. Coq. 
+As a consequence,
+formal theories built in HOL is easily convincible and can
+also be easily ported to other proof systems,
+sometimes automatically \cite{hurd2011opentheory}.
+
+HOL4 is written in Standard ML, a single programming language which
+plays three different roles:
+%(The situation is quite different in other systems like Coq\footnote{\hl{The Coq Proof Assistant.} \url{https://coq.inria.fr}}.)
+\begin{enumerate}
+\item It serves as the underlying implementation language for the core HOL engine;\vspace{-1ex}
+\item it is used to implement tactics (and tacticals) for writing proofs;\vspace{-1ex}
+\item it is used as the command language of the HOL interactive shell.
+\end{enumerate}
+\hl{Moreover, using} the same language HOL4 users can write complex automatic
+verification tools by calling HOL's theorem proving
+facilities. \hl{(The formal proofs of theorems in CCS theory
+are mostly done by an \emph{interactive process} closely following
+their informal proofs, with minimal automatic proof searching.)}
+
+% \finish{below: to be reformulated (by Davide) later} 
+% We will not repeat all definitions and theorems of CCS again by their
+% formalized versions. Instead, we just focus on several highlights in
+% this work, i.e.
+% \begin{enumerate}
+% \item The use of HOL's new coinductive relation package for defining bisimilarity;
+% \item The formalisation of context by $\lambda$-expression and the theory of
+%   (pre)congruence for CCS;
+% \item The definition and uses of trace in the proof of unique solution of
+%   contractions theorem;
+% \end{enumerate}\finish{TODO: need updates}
+
+\emph{In this
+formalisation we consider only single-variable equations/contractions.}
+This considerably
+ simplifies the required proofs in HOL, also enhances the readability of
+ proof scripts \hl{without loss of generality. (For paper proofs, the
+ multi-variable case is just a routine adaptation.)}
+%   still aligned with
+% their informal proofs.
+%  (on 
+% the extension  to multiple equations/contractions
+% see also  Section~\ref{s:concl}).
+
+% \subsection{Simplifications and Limitations}
+
+% We have only formally verified simplified forms of the unique
+% solution theorems introduced in the first part. This is to not only
+% save the formalisation efforts, but also to make us focusing on the most
+% important part of the proof. The most important simplification is
+% that, we have only proved all unique solution theorems with only single-variable equations
+% (contractions).
+
+% But such a simplification doesn't hurt the rigorousness of our entire
+% work, as once the single-equation version of the theorem is
+% proven, the general case is just a routine
+% adaptation for paper proofs.
+% It's not easy to formalize multi-variable CCS equations with
+% introducing a large number of definitions and intermediate
+% results. It's easy, however, to directly use the semantics context to
+% represent single-variable equations without the need of formalizing
+% the concept of ``equation'' at all.
+
+% There're two major limitations in this work. One is due to HOL, we only support Finitary CCS, i.e.
+% no infinite sum nor infinite parallel composition.
+% The other limitation is, equation variables (or holes in semantics contexts)
+% cannot appear inside recursion operator closure. However, these limitations do not
+% cause any difference in the proof of main results represented in this paper.

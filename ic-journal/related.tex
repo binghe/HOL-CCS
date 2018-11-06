@@ -1,0 +1,56 @@
+\section{Related work on formalisation}
+\label{s:rel}
+
+\hl{Monica Nesi did the first CCS formalisations for both pure and
+value-passing CCS} \cite{Nesi:1992ve,Nesi:2017wo} using early versions of the HOL
+theorem prover.\footnote{Part of this work can now be found at
+  \url{https://github.com/binghe/HOL-CCS/tree/master/CCS-Nesi}.}
+Her main focus was on implementing decision procedures (as a ML
+program, e.g.~\cite{cleaveland1993concurrency}) for
+automatically proving bisimilarities of CCS
+processes. %, thus she stopped proving deeper theorems in Milner's
+           %book, once the congruence and algebraic laws of 
+%strong, weak and rooted bisimilarity were proved.
+\hl{Her work is
+  the working basis of ours. However, the differences are substantial, especially in the way of defining
+bisimilarities. We greatly benefited from features and standard
+libraries in recent versions of HOL4, and our formalisation has
+covered a much larger spectrum of the (pure) CCS theory.}
+
+Bengtson, Parrow and Weber did a substantial formalisation work
+on CCS, $\pi$-calculi
+and $\psi$-calculi 
+using Isabelle/HOL and its \texttt{nominal} logic, with main focus on the handling of
+name binders \cite{bengtson2010formalising,bengtson2007completeness,parrow2009formalising}.
+% Jesper Bengtson's PhD thesis 
+%  \cite{bengtson2010formalising} looks  at 
+% formalizations of CCS, $\pi$-calculi and $\psi$-calculi
+% into Isabelle/HOL and its
+% nominal logic. For CCS, 
+% he has 
+%  formalized
+%  basic properties for strong/weak equivalence (congruence, basic
+%  algebraic laws), for a  and observational
+% congruence, however the CCS syntax doesn't have constants
+% (or recursion operator), using replication in place of recursion.
+% The formalisation effort has then been continued 
+%
+% On the other side, Jesper
+% Bengtson and Joachim Parrow made great progress on $\pi$-calculus
+% formalization and 
+% proved that the algebraic axiomatization of bisimulation
+% equivalence in the $\pi$-calculi is sound and
+% complete. \cite{bengtson2007completeness} 
+Other formalisations in this area include the early work of T. F. Melham
+\cite{melham1994mechanized} and O.A. Mohamed
+\cite{mohamed1995mechanizing} in HOL, Compton
+\cite{compton2005embedding} in Isabelle/HOL,
+Solange\footnote{\url{https://github.com/coq-contribs/ccs}} in Coq
+and Chaudhuri et al.\;\cite{chaudhuri2015lightweight} in Abella, the latter
+focuses on `bisimulation up-to' techniques %for strong bisimilarity
+for CCS and $\pi$-calculus.
+Damien Pous \cite{pous2007new} also formalised up-to techniques and some CCS examples in
+Coq.
+Formalisations less related to ours
+include Kahsai and Miculan \cite{kahsai2008implementing} for the spi
+calculus in Isabelle/HOL, and Hirschkoff \cite{hirschkoff1997full} for the $\pi$-calculus in Coq.
