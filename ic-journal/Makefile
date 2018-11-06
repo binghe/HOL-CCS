@@ -8,7 +8,7 @@ TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
 # XeTeX results into much smaller PDF
 TEXCMD = pdflatex
 
-all: htex main.pdf main.ps
+all: htex main.pdf
 
 htex: $(HTEXFILES)
 
@@ -40,19 +40,12 @@ clean:
 dist-clean: clean
 	@rm -f *.pdf *.dvi *.ps
 
-main.dvi: $(TEXFILES) generic.bib
-	latex main
-	latex main
+main.pdf: $(TEXFILES) generic.bib
+	$(TEXCMD) main
+	$(TEXCMD) main
 	bibtex main
-	latex main
-	latex main
-
-main.ps: main.dvi
-	dvips main
-
-# This is EPTCS workflow
-main.pdf: main.ps
-	ps2pdf main.ps
+	$(TEXCMD) main
+	$(TEXCMD) main
 
 force: htex
 	bibtex main
