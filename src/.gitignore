@@ -1,11 +1,8 @@
 /.hollogs/
 /.HOLMK/
-/heap
-*.exe
 *.ui
-*.uo
-*.html
-*Theory.sig
-*Theory.sml
-*.lst
 *.dat
+*.uo
+/heap
+*Theory.*
+*.exe
