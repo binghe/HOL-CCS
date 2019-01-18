@@ -67,12 +67,9 @@ nil & $\textbf{0}$ & \HOLtm{nil} & \HOLtm{nil} \\
 prefix & $u.P$ & \texttt{prefix u P} & \HOLtm{prefix u P} \\
 sum & $P + Q$ & \texttt{sum P Q} & \HOLtm{sum P Q} \\
 parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLtm{P || Q} \\
-restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}
-  \\
-recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}
-  \\
-relabeling & $P\;[r\!\!f]$ & \texttt{relab P rf} & \HOLtm{relab P rf}
-  \\
+restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}  \\
+recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}  \\
+relabeling & $P\;[r\!f]$ & \texttt{relab P rf} & \HOLtm{relab P rf}  \\
 \hline
 constant & $A$ & \texttt{var A} & \HOLtm{var A} \\
 invisible action & $\tau$ & \texttt{tau} & \HOLtm{tau} \\
@@ -81,7 +78,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)}
 \hline
 \end{tabular}
 \end{center}
-\vspace{-1em}
+%\vspace{-1em}
    \caption{Syntax of CCS operators, constant and actions}
    \label{tab:ccsoperator}
 \end{table}
