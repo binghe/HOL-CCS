@@ -8,16 +8,16 @@
 % We need to find a suitable formal definition of 
 % context. There're multiple ways. Here 
 
-We have chosen to use $\lambda$-expressions (\hl{with the type}
+We have chosen to use $\lambda$-expressions (with the type
 ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'')
 to represent \emph{multi-hole contexts}.
 %
-\hl{This choice has a significant advantage over \emph{one-hole
+This choice has a significant advantage over \emph{one-hole
 contexts}, as each hole corresponds to one
 appearance of the \emph{same} variable in single-variable
 expressions (or equations). Thus \emph{contexts} can be directly used in
 formulating the unique solution of equations theorems in
-single-variable cases.} The precise definition is given inductively:
+single-variable cases. The precise definition is given inductively:
 \begin{alltt}
 \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
@@ -65,8 +65,8 @@ the informal definitions.)
 \HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{e\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{e\sb{\mathrm{2}}} \HOLBoundVar{t})\hfill{[SEQ_rules]}
 \end{alltt}
 
-In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):}
+In the same manner, we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
 \begin{alltt}
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t})
 \HOLConst{GCONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{p})
@@ -91,9 +91,9 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
 % inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
-\texttt{CONTEXT}. \hl{The only difference between congruence and
+\texttt{CONTEXT}. The only difference between congruence and
 precongruence is that the former must be an equivalence (reflexive,
-symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
+symmetric, transitive), while the latter can be just a preorder (reflexive, transitive):
 \begin{alltt}
 \HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}}
@@ -106,19 +106,19 @@ symmetric, transitive), while the latter can be just a preorder (reflexive, tran
 \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{alltt}
 
-\hl{For example, we can prove that, strong bisimilarity ($\sim$) and
+For example, we can prove that, strong bisimilarity ($\sim$) and
 rooted bisimilarity ($\approx^c$) are both congruence by above
-definition: (the transitivity proof of rooted bisimilarity is actually not easy.)}
+definition: (the transitivity proof of rooted bisimilarity is actually not easy.)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
 \HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
 \end{alltt}
 
-\hl{Although weak bisimilarity ($\approx$) is \emph{not} congruence
+Although weak bisimilarity ($\approx$) is \emph{not} congruence
   with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
   with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
   only guarded sum operator \cite{sangiorgi2015equations}) as weak
   bisimilarity ($\approx$) is indeed preserved by 
-  weakly-guarded sums.}
+  weakly-guarded sums.
 
 % no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM

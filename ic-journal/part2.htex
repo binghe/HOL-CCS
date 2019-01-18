@@ -31,21 +31,21 @@ formalisation work to trace equivalence in place of bisimilarity).
 A trace is represented by the initial and final processes, plus
 a list of actions  so performed.
 For this, we first 
- define \hl{the concept of label-accumulated reflexive transitive closure
- (\texttt{LRTC})}.
+ define the concept of label-accumulated reflexive transitive closure
+ (\texttt{LRTC}).
 Given a labeled transition relation \texttt{R} on CCS, \texttt{LRTC R} is
 a label-accumulated relation representing the trace of transitions:
 \begin{alltt}
 \HOLthm[def]{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
-\hl{The trace relation for CCS can be then obtained
+The trace relation for CCS can be then obtained
  by calling \texttt{LRTC} on the (strong, or single-step) labeled transition
- relation \texttt{TRANS} ($\overset{\mu}{\rightarrow}$) defined by SOS rules}:
+ relation \texttt{TRANS} ($\overset{\mu}{\rightarrow}$) defined by SOS rules:
 \begin{alltt}
 \HOLthm[def]{Trace.TRACE_def}\hfill{[TRACE_def]}
 \end{alltt}
 
-\hl{If the list of actions is empty, that means that there is no transition and hence,}
+If the list of actions is empty, that means that there is no transition and hence,
 if there is at most one visible action (i.e., a label) in the list of actions,
 then the trace is also a weak transition. Here
 we have to distinguish between two cases: no label and unique label (in
@@ -55,9 +55,9 @@ label'' in an action list is easy (here \texttt{MEM} tests if a given element is
 \HOLthm[def]{Trace.NO_LABEL_def}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
-The definition of ``unique label'' \hl{can be done in many ways, the
+The definition of ``unique label'' can be done in many ways, the
 following definition (a suggestion from Robert Beers)
-avoids any counting or filtering in the list.}
+avoids any counting or filtering in the list.
 It says that a label is unique in a list of actions if and only if there is no
 label in the rest of list:
 \begin{alltt}
@@ -96,28 +96,27 @@ the following ``unfolding lemma'':\vspace{-1em}
 \HOLthm{UniqueSolutions.unfolding_lemma4}\hfill{[unfolding_lemma4]}
 \end{small}
 \end{alltt}
-\vspace{-1em}
+
 It roughly says, for any context $C$ and weakly-guarded context
 $E$, if $C [\, E^n[P]\,] \overset{xs}{\Longrightarrow} P'$ and the length
 of actions $xs \leqslant n$, then $P$ has the form of $C'[P]$ (meaning
 that $P$ is not touched during the transitions). Traces are used for
-reasoning about the \hl{number} of intermediate actions in weak
-transitions. For instance, from Def.~\ref{d:BisCon}, \hl{it is easy
+reasoning about the number of intermediate actions in weak
+transitions. For instance, from Def.~\ref{d:BisCon}, it is easy
 to see that, a weak transition either becomes shorter
-or remains the same when moving between $\mcontrBIS$-related processes}.
-\hl{This property is essential} in the proof of
+or remains the same when moving between $\mcontrBIS$-related processes.
+This property is essential in the proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
 non-$\tau$ weak transitions passing into $\mcontrBIS$ (from left to right):
 \begin{alltt}
 \HOLthm{Contraction.contracts_AND_TRACE_label'}\hfill{[contracts_AND_TRACE_label]}
 \end{alltt}
 
-\hl{With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulationU}:}
+With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulationU}:
 \begin{alltt}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_CONTRACTIONS}
 \hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}
 \end{alltt}
-\vspace{-2ex}
 
 \subsection{Unique solution of rooted contractions}
 
@@ -135,7 +134,7 @@ Theorem~\ref{t:rcontraBisimulationU}
 the precongruence of rooted contraction, 
 we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
-\vspace{-2ex}
+
 \begin{alltt}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
@@ -156,7 +155,7 @@ has more severe constraints (must be both strongly guarded and sequential):
 % applicable version of Milner's ``unique solution of
 % equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
 % restrictions on equations:
-\vspace{-2ex}
+
 \begin{alltt}
 \hfill{[OBS_UNIQUE_SOLUTION]}
 \HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}

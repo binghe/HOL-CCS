@@ -39,18 +39,18 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))\hfill{[CC_def]}
 \end{alltt}
-\hl{Indeed, for any relation $R$ 
+Indeed, for any relation $R$ 
 on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) than
-$R$, no matter if $R$ is (pre)congruence or not}\footnote{\hl{But if $R$ is
+$R$, no matter if $R$ is (pre)congruence or not\footnote{But if $R$ is
   equivalence (or preorder), the composition closure of $R$ must be congruence
   (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
-\texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}}: (here $\subseteq_r$ stands for \emph{relational subset})
+\texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}: (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
 \end{alltt}
-\hl{Furthermore, we prove that any (pre)congruence contained in $R$ (which
+Furthermore, we prove that any (pre)congruence contained in $R$ (which
 itself may not be) is contained in the composition closure of $R$
-(hence the closure is the coarsest one):}
+(hence the closure is the coarsest one):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{congruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{precongruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest']}
@@ -58,7 +58,7 @@ itself may not be) is contained in the composition closure of $R$
 
 Given the central role of the  
  sum operator, we also consider the closure of bisimilarity under such
- operator, called \hl{\emph{equivalence compatible with sums}}
+ operator, called \emph{equivalence compatible with sums}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
 \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})\hfill{[SUM_EQUIV]}
@@ -90,9 +90,9 @@ Given the central role of the
 % \begin{alltt}
 % \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})
 % \end{alltt}
-\hl{Rooted bisimilarity $\rapprox$ (a congruence contained in
+Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
-which in turn is trivially contained in \texttt{SUM_EQUIV}}, as shown
+which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
 the crux is to prove that \texttt{SUM_EQUIV} implies
 rooted bisimilarity ($\rapprox$), making all three relations
@@ -114,7 +114,7 @@ rooted bisimilarity ($\rapprox$), making all three relations
 }
 \end{displaymath}
 \vspace{-2ex}
-\caption{\hl{Relationship between the equivalences mentioned}}
+\caption{Relationship between the equivalences mentioned}
 \label{fig:relationship}
 \end{figure}
 
@@ -138,7 +138,7 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % concepts are not touched so far, although these four concepts are
 % successfully defined using HOL's set and list theories.} However, by
 just assuming that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use up all \hl{available labels}.
+ $p$ and $q$ do not use up all available labels.
 % analyzing the proof steps, we found that, what's really required is to
 % not use up all available labels in those weak transitions directly
 % lead from $p$ and $q$. In another words, even they have used all
@@ -175,17 +175,17 @@ precongruence contained in bisimilarity contraction ($\mcontrBIS$)
 %\end{theorem}
 
 The formal proofs of above two results precisely follow Milner
-\cite{Mil89}. \hl{If only $p$ (or $q$) has free actions while the other uses up all available
+\cite{Mil89}. If only $p$ (or $q$) has free actions while the other uses up all available
 labels, the classic assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
-  names}) does not hold, and the proof cannot be completed.} Our
+  names}) does not hold, and the proof cannot be completed. Our
 assumption is a bit \emph{weaker}
 in the sense that, $p$ and $q$ do not really need to have the
 \emph{same} free action (also, $a$ and $\outC a$ are
 \emph{different} actions).
 
-\hl{There exists a different, more complex proof of (\ref{eq:coarsest}),
-given by van Glabbeek} \cite{van2005characterisation}, which does not
+There exists a different, more complex proof of (\ref{eq:coarsest}),
+given by van Glabbeek \cite{van2005characterisation}, which does not
 require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
@@ -201,11 +201,11 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \begin{alltt}
 \HOLConst{STABLE} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
-\hl{To actually get this process $k$, the proof relies on arbitrary infinite sum of 
+To actually get this process $k$, the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
- that are all pairwise non-bisimilar.} 
+ that are all pairwise non-bisimilar.
 We have partially formalised
 this proof, because the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not

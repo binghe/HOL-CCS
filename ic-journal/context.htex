@@ -8,16 +8,16 @@
 % We need to find a suitable formal definition of 
 % context. There're multiple ways. Here 
 
-We have chosen to use $\lambda$-expressions (\hl{with the type}
+We have chosen to use $\lambda$-expressions (with the type
 ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}'')
 to represent \emph{multi-hole contexts}.
 %
-\hl{This choice has a significant advantage over \emph{one-hole
+This choice has a significant advantage over \emph{one-hole
 contexts}, as each hole corresponds to one
 appearance of the \emph{same} variable in single-variable
 expressions (or equations). Thus \emph{contexts} can be directly used in
 formulating the unique solution of equations theorems in
-single-variable cases.} The precise definition is given inductively:
+single-variable cases. The precise definition is given inductively:
 \begin{alltt}
 \HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
@@ -45,8 +45,8 @@ the informal definitions.)
 \HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
 
-In the same manner, \hl{we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):}
+In the same manner, we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
+contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
 \begin{alltt}
 \HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}
@@ -60,9 +60,9 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
 % inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
-\texttt{CONTEXT}. \hl{The only difference between congruence and
+\texttt{CONTEXT}. The only difference between congruence and
 precongruence is that the former must be an equivalence (reflexive,
-symmetric, transitive), while the latter can be just a preorder (reflexive, transitive)}:
+symmetric, transitive), while the latter can be just a preorder (reflexive, transitive):
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
 \hfill{[precongruence_def]}
@@ -72,19 +72,19 @@ symmetric, transitive), while the latter can be just a preorder (reflexive, tran
 \HOLthm[def]{Congruence.precongruence_def}
 \end{alltt}
 
-\hl{For example, we can prove that, strong bisimilarity ($\sim$) and
+For example, we can prove that, strong bisimilarity ($\sim$) and
 rooted bisimilarity ($\approx^c$) are both congruence by above
-definition: (the transitivity proof of rooted bisimilarity is actually not easy.)}
+definition: (the transitivity proof of rooted bisimilarity is actually not easy.)
 \begin{alltt}
 \HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
 \HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
 \end{alltt}
 
-\hl{Although weak bisimilarity ($\approx$) is \emph{not} congruence
+Although weak bisimilarity ($\approx$) is \emph{not} congruence
   with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
   with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
   only guarded sum operator \cite{sangiorgi2015equations}) as weak
   bisimilarity ($\approx$) is indeed preserved by 
-  weakly-guarded sums.}
+  weakly-guarded sums.
 
 % no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM

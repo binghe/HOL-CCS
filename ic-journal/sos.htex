@@ -19,17 +19,17 @@ CCS types built on top of it)
  depends on the choice (or \emph{type-instantiation}) of $\beta$.
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
-syntax\footnote{\hl{The order of type variables $\alpha$ and $\beta$
+syntax\footnote{The order of type variables $\alpha$ and $\beta$
     is irrelevant. Our choice is aligned with other CCS literals.
 $\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
-and $k$ actions.} \cite{gorrieri2017ccs} \hl{Thus, to formalize theorems on
+and $k$ actions. \cite{gorrieri2017ccs} Thus, to formalize theorems on
 such a CCS subcalculus, the needed CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$. Monica Nesi goes
-too far by adding another type variable $\gamma$ for value-passing CCS \cite{Nesi:2017wo}.}}, is then defined inductively:
+too far by adding another type variable $\gamma$ for value-passing CCS \cite{Nesi:2017wo}.}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
-``\HOLty{:'b Relabeling}'' is \hl{the type of all relabeling functions,
-\mbox{\color{blue}{\texttt{`}}} is for backquotes of HOL terms}):
+``\HOLty{:'b Relabeling}'' is the type of all relabeling functions,
+\mbox{\color{blue}{\texttt{`}}} is for backquotes of HOL terms):
 \begin{lstlisting}
 val _ = Datatype `CCS = nil
 		      | var 'a
@@ -42,10 +42,10 @@ val _ = Datatype `CCS = nil
 \end{lstlisting}
 
 We have added some grammar support,
- using \hl{HOL's powerful pretty printer}, to represent CCS
+ using HOL's powerful pretty printer, to represent CCS
 processes in more readable forms (c.f. the column \textbf{HOL (abbrev.)}
-in Table \ref{tab:ccsoperator}, \hl{which} summarizes 
-the main syntactic notations \hl{of} CCS). For the restriction
+in Table \ref{tab:ccsoperator}, which summarizes 
+the main syntactic notations of CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
 the manipulation of 
@@ -130,8 +130,8 @@ non-existence of transitions.  Hence the usefulness of appealing to
 the new  function \texttt{CCS\_TRANS\_CONV}. 
 For instance this function
 is called on the  process $(a.0 | \bar{a}.0)$ thus:
-\hl{(\mbox{\color{blue}{\texttt{``}}} is for double-backquotes of HOL
-  terms, \mbox{\color{blue}{\texttt{>}}} is HOL's prompt)}
+(\mbox{\color{blue}{\texttt{``}}} is for double-backquotes of HOL
+  terms, \mbox{\color{blue}{\texttt{>}}} is HOL's prompt)
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``

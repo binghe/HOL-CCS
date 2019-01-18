@@ -9,7 +9,7 @@ We assume  a possibly infinite set of names $\mathscr{L} = \{a, b,
 action $\tau \notin \mathscr{L}$, and a set of variables $A,B,
 \ldots$ for defining recursive behaviours.
 Given a deadlock $\nil$, the class of CCS processes is then inductively defined from $\nil$ by the operators
-of prefixing, parallel composition, summation (binary choice), restriction, recursion and \hl{relabeling}:
+of prefixing, parallel composition, summation (binary choice), restriction, recursion and relabeling:
 \begin{equation*}
 \begin{array}{ccl}
 \mu  & := &  \tau \hspace{.3pt} \; \midd \; a  \; \midd \;  \outC a  \\
@@ -60,7 +60,7 @@ $\displaystyle{ P \arr{\mu} P' \over
  P \;[r\!f] \arr{r\!f(\mu)} P' \;[r\!f]} $ $\forall a.\, r\!f(\outC a) = \overline{r\!f(a)}$
 $ \hb$ %  &
 \end{center}
-\caption{\hl{Structural Operational Semantics} of CCS}
+\caption{Structural Operational Semantics of CCS}
 \label{f:LTSCCS}
 \end{figure*}
 Some standard notations for transitions: $\Arr\epsilon$ is the 
