@@ -50,7 +50,7 @@ val Label_not_eq' = save_thm (
 val Label_11 = TypeBase.one_one_of ``:'b Label``;
 
 (* NEW: define the set of actions as the OPTION of Label *)
-val _ = type_abbrev ("Action", ``:'b Label option``);
+val _ = type_abbrev_pp ("Action", ``:'b Label option``);
 
 val _ = overload_on ("tau",   ``NONE :'b Action``);
 val _ = overload_on ("label", ``SOME :'b Label -> 'b Action``);
@@ -201,11 +201,13 @@ val REP_Relabeling_THM = store_thm ("REP_Relabeling_THM",
  >> REWRITE_TAC []);
 
 (* Relabeling labels is extended to actions by renaming tau as tau. *)
-val relabel_def = Define `(relabel (rf :'b Relabeling) tau = tau) /\
-                          (relabel rf (label l) = label (REP_Relabeling rf l))`;
+val relabel_def = Define `
+   (relabel (rf :'b Relabeling) tau = tau) /\
+   (relabel rf (label l) = label (REP_Relabeling rf l))`;
 
 (* If the renaming of an action is a label, that action is a label. *)
-val Relab_label = store_thm ("Relab_label",
+val Relab_label = store_thm (
+   "Relab_label",
   ``!(rf :'b Relabeling) u l. (relabel rf u = label l) ==> ?l'. u = label l'``,
     Induct_on `u`
  >- REWRITE_TAC [relabel_def, Action_distinct]
@@ -215,7 +217,8 @@ val Relab_label = store_thm ("Relab_label",
  >> REWRITE_TAC []);
 
 (* If the renaming of an action is tau, that action is tau. *)
-val Relab_tau = store_thm ("Relab_tau",
+val Relab_tau = store_thm (
+   "Relab_tau",
   ``!(rf :'b Relabeling) u. (relabel rf u = tau) ==> (u = tau)``,
     Induct_on `u`
  >> REWRITE_TAC [relabel_def, Action_distinct_label]);
@@ -230,7 +233,8 @@ val Apply_Relab_def = Define `
      else if (COMPL (SND newold) = l) then (COMPL (FST newold))
      else (Apply_Relab ls l))`;
 
-val Apply_Relab_COMPL_THM = store_thm ("Apply_Relab_COMPL_THM",
+val Apply_Relab_COMPL_THM = store_thm (
+   "Apply_Relab_COMPL_THM",
   ``!labl (s: 'b). Apply_Relab labl (coname s) = COMPL (Apply_Relab labl (name s))``,
     Induct
  >- REWRITE_TAC [Apply_Relab_def, COMPL_LAB_def]
@@ -267,7 +271,8 @@ val RELAB_def = Define `
 (* |- ∀labl' labl.
      (RELAB labl' = RELAB labl) ⇔ (Apply_Relab labl' = Apply_Relab labl)
  *)
-val APPLY_RELAB_THM = save_thm ("APPLY_RELAB_THM",
+val APPLY_RELAB_THM = save_thm (
+   "APPLY_RELAB_THM",
     Q_GENL [`labl'`, `labl`]
       (REWRITE_RULE [GSYM RELAB_def]
         (MATCH_MP (MATCH_MP ABS_Relabeling_one_one
