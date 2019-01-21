@@ -5,6 +5,8 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
+\hl{TODO: strong bisimulation and bisimilarity}
+
 To define (weak) bisimilarity, we first need to define weak
 transitions of CCS processes. Following the name adopted by Nesi \cite{Nesi:1992ve},
 we define a (possibly empty) sequence of $\tau$-transitions between
@@ -36,16 +38,16 @@ command as follows: (here \texttt{WB} is meant to be
 {\tt !} and {\tt ?} stand for universal and
 existential quantifiers.)
 \begin{lstlisting}
-val (WB_rules, WB_coind, WB_cases) = Hol_coreln `
-    (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
+val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
+    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!l.
-	 (!P'. TRANS P (label l) P' ==>
-	       (?Q'. WEAK_TRANS Q (label l) Q' /\ WB P' Q')) /\
-	 (!Q'. TRANS Q (label l) Q' ==>
-	       (?P'. WEAK_TRANS P (label l) P' /\ WB P' Q'))) /\
-       (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WB P' Q')) /\
-       (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WB P' Q'))
-     ==> WB P Q)`;
+         (!E1. TRANS E  (label l) E1 ==>
+               (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
+         (!E2. TRANS E' (label l) E2 ==>
+               (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
+       (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
+       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
+      ==> WEAK_EQUIV E E')`;
 \end{lstlisting}
 \texttt{Hol_coreln} returns 3 theorems, of the first being always the
 same as input term\footnote{Our mixing of HOL notation and mathematical
@@ -58,7 +60,7 @@ same as input term\footnote{Our mixing of HOL notation and mathematical
   Unicode and TeX outputs as natural as possible. What is really
   arbitrary is the presense/absense of outermost universal
   quantifiers in all generated theorems.} (now proved automatically as a theorem).
-The second and third theorems, namely \texttt{WB_coind} and \texttt{WB_cases},
+The second and third theorems, namely \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases},
 express the coinduction proof method for bisimilarity 
 (i.e.~any bisimulation is contained in bisimilarity)
 and the fixed-point property of bisimilarity
@@ -68,25 +70,25 @@ bisimulation):
 \item 
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{Example.WB_coind}\hfill{[WB_coind, WEAK_EQUIV_coind]}
+\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
 \end{alltt}
 \end{small}
 \item %The fixed point (or cases) theorem for $\wb$:
 \begin{small}
 \begin{alltt}
-\HOLthm[nosp]{Example.WB_cases}\hfill{[WB_cases, WEAK_EQUIV_cases]}
+\HOLthm[nosp]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
 \end{alltt}
 \end{small}
 \end{enumerate}
 
-The coinduction principle \texttt{WB_coind} says that any
+The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 bisimulation is contained in the resulting relation (i.e.~it is
 largest), but it didn't constrain the resulting relation in the set of
 fixed points (e.g.~even the universal relation --- the set of all
 pairs --- would fit with this theorem); the
-purpose of \texttt{WB_cases} is to
+purpose of \texttt{WEAK_EQUIV_cases} is to
 further assert that the resulting relation is indeed a
-fixed point. Thus \texttt{WB_coind} and \texttt{WB_cases}
+fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
 together make sure that bisimilarity is the greatest
 fixed point, as
 the former contributes to ``greatest'' while the latter
@@ -95,10 +97,17 @@ contributes to ``fixed point''.
 Without HOL's coinductive relation package, bisimilarity
 would have to be defined by following literally
 Def.~\ref{d:wb};  then other properties of bisimilarity, such
-as the fixed-point property in \texttt{WB_cases}, would have to be
+as the fixed-point property in \texttt{WEAK_EQUIV_cases}, would have to be
 derived manually (which is quite hard; indeed it was one of the main results
 in Nesi's formalisation work  in HOL88 \cite{Nesi:1992ve}).
 
 % \finish{I have removed other things as i fear they would confuse a
 %   reader and I think the main point we wanted to say are now clearly
 %   expressed}  (I don't buy this any more, sorry)
+
+\hl{(TODO: rooted bisimilarity)}
+
+\hl{(TODO: expansion and contraction)}
+
+\hl{Bisimulation Up to}
+%   next file: context.htex

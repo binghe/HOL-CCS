@@ -88,3 +88,6 @@ Although weak bisimilarity ($\approx$) is \emph{not} congruence
   weakly-guarded sums.
 
 % no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM
+
+% next file: coarsest.htex
+  

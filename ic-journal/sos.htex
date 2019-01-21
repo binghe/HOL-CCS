@@ -26,7 +26,8 @@ and $k$ actions. \cite{gorrieri2017ccs} Thus, to formalize theorems on
 such a CCS subcalculus, the needed CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$. Monica Nesi goes
-too far by adding another type variable $\gamma$ for value-passing CCS \cite{Nesi:2017wo}.}, is then defined inductively:
+too far by adding another type variable $\gamma$ for value-passing CCS
+\cite{Nesi:2017wo}.}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
 ``\HOLty{:'b Relabeling}'' is the type of all relabeling functions,
 \mbox{\color{blue}{\texttt{`}}} is for backquotes of HOL terms):
@@ -141,3 +142,5 @@ transitions of the process:
 \begin{alltt}
 \HOLthm{Example.ex_A}\hfill{[Example.ex_A]}
 \end{alltt}
+
+% next file: bisim.htex
