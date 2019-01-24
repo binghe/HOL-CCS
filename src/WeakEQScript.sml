@@ -681,27 +681,15 @@ val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
        (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
        (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
       ==> WEAK_EQUIV E E')`;
-(* next version
-val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
-    (!(P :('a, 'b) CCS) (Q :('a, 'b) CCS).
-       (!l.
-         (!P'. TRANS P (label l) P' ==>
-               (?Q'. WEAK_TRANS Q (label l) Q' /\ WEAK_EQUIV P' Q')) /\
-         (!Q'. TRANS Q (label l) Q' ==>
-               (?P'. WEAK_TRANS P (label l) P' /\ WEAK_EQUIV P' Q'))) /\
-       (!P'. TRANS P tau P' ==> (?Q'. EPS Q Q' /\ WEAK_EQUIV P' Q')) /\
-       (!Q'. TRANS Q tau Q' ==> (?P'. EPS P P' /\ WEAK_EQUIV P' Q'))
-      ==> WEAK_EQUIV P Q)`;
- *)
 
 val _ = add_rule { block_style = (AroundEachPhrase, (PP.CONSISTENT, 0)),
                    fixity = Infix (NONASSOC, 450),
                    paren_style = OnlyIfNecessary,
                    pp_elements = [HardSpace 1, TOK (UTF8.chr 0x2248), BreakSpace (1,0)],
-                   term_name = "WEAK_EQUIV" }
+                   term_name = "WEAK_EQUIV" };
 
 val _ = TeX_notation { hol = UTF8.chr 0x2248,
-                       TeX = ("\\HOLTokenWeakEQ", 1) }
+                       TeX = ("\\HOLTokenWeakEQ", 1) };
 
 (* "Weak bisimilarity is a weak bisimulation" *)
 val WEAK_EQUIV_IS_WEAK_BISIM = store_thm (
