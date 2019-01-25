@@ -6,7 +6,7 @@
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
 \bibitem{Mil89}
-R.~Milner, {Communication and concurrency}, {PHI} Series in computer science,
+R.~Milner, Communication and concurrency, {PHI} Series in computer science,
   Prentice-Hall, 1989 (1989).
 
 \bibitem{BaeBOOK}
@@ -121,14 +121,14 @@ A.~Church, A formulation of the simple theory of types, The journal of symbolic
 \newblock \href {https://doi.org/10.2307/2266170} {\path{doi:10.2307/2266170}}.
 
 \bibitem{hurd2011opentheory}
-J.~Leslie-Hurd, The opentheory standard theory library, in: NASA Formal Methods
-  Symposium, Springer, 2011, pp. 177--191 (2011).
+J.~Leslie-Hurd, {The OpenTheory standard theory library}, in: NASA Formal
+  Methods Symposium, Springer, 2011, pp. 177--191 (2011).
 \newblock \href {https://doi.org/10.1007/978-3-642-20398-5_14}
   {\path{doi:10.1007/978-3-642-20398-5_14}}.
 
 \bibitem{gorrieri2017ccs}
-R.~Gorrieri, Ccs (25, 12) is turing-complete, Fundamenta Informaticae 154~(1-4)
-  (2017) 145--166 (2017).
+R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
+  154~(1-4) (2017) 145--166 (2017).
 \newblock \href {https://doi.org/10.3233/FI-2017-1557}
   {\path{doi:10.3233/FI-2017-1557}}.
 
@@ -137,12 +137,6 @@ M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
   Computing 11~(2) (1999) 160--199 (1999).
 \newblock \href {https://doi.org/10.1007/s001650050046}
   {\path{doi:10.1007/s001650050046}}.
-
-\bibitem{sangiorgi2011advanced}
-D.~Sangiorgi, J.~Rutten, Advanced Topics in Bisimulation and Coinduction,
-  Cambridge University Press, 2011 (Oct. 2011).
-\newblock \href {https://doi.org/10.1017/CBO9780511777110}
-  {\path{doi:10.1017/CBO9780511777110}}.
 
 \bibitem{holdesc}
 {HOL4 contributors},
@@ -159,8 +153,8 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
 
 \bibitem{melham1992hol}
 T.~F. Melham,
-  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}{The
-  hol pred_sets library}, Universiy of Cambridge Computer Lab (feb 1992).
+  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}{{The
+  HOL pred_sets Library}}, Universiy of Cambridge Computer Lab (feb 1992).
 \newblock \href {https://doi.org/10.1.1.219.5390} {\path{doi:10.1.1.219.5390}}.
 \newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}
 
@@ -190,14 +184,14 @@ J.~Parrow, J.~Bengtson, Formalising the pi-calculus using nominal logic,
   {\path{doi:10.2168/LMCS-5(2:16)2009}}.
 
 \bibitem{melham1994mechanized}
-T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{A mechanized
-  theory of the pi-calculus in hol}, Nord. J. Comput. 1~(1) (1994) 50--76
+T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
+  Theory of the Pi-Calculus in HOL}}, Nord. J. Comput. 1~(1) (1994) 50--76
   (1994).
 \newblock \href {https://doi.org/10.1.1.56.4370} {\path{doi:10.1.1.56.4370}}.
 \newline\urlprefix\url{http://core.ac.uk/download/pdf/22878407.pdf}
 
 \bibitem{mohamed1995mechanizing}
-O.~A{\"i}t~Mohamed, {Mechanizing a $\pi$-calculus equivalence in HOL}, in:
+O.~A{\"i}t~Mohamed, {{Mechanizing a $\pi$-calculus equivalence in HOL}}, in:
   E.~Thomas~Schubert, P.~J. Windley, J.~Alves-Foss (Eds.), Higher Order Logic
   Theorem Proving and Its Applications, Springer Berlin Heidelberg, Berlin,
   Heidelberg, 1995, pp. 1--16 (1995).
@@ -206,8 +200,8 @@ O.~A{\"i}t~Mohamed, {Mechanizing a $\pi$-calculus equivalence in HOL}, in:
 
 \bibitem{compton2005embedding}
 M.~Compton,
-  \href{https://web.comlab.ox.ac.uk/techreports/oucl/RR-05-02.pdf#page=36}{Embedding
-  a fair ccs in isabelle/hol}, in: Theorem Proving in Higher Order Logics:
+  \href{https://web.comlab.ox.ac.uk/techreports/oucl/RR-05-02.pdf#page=36}{{Embedding
+  a fair CCS in Isabelle/HOL}}, in: Theorem Proving in Higher Order Logics:
   Emerging Trends Proceedings, 2005, p.~30 (2005).
 \newblock \href {https://doi.org/10.1.1.105.834} {\path{doi:10.1.1.105.834}}.
 \newline\urlprefix\url{https://web.comlab.ox.ac.uk/techreports/oucl/RR-05-02.pdf#page=36}

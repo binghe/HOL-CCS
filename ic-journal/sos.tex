@@ -140,10 +140,11 @@ is called on the  process $(a.0 | \bar{a}.0)$ thus:
 This returns the following theorem, indeed describing all immediate
 transitions of the process:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
-   ((\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil}) \HOLSymConst{\HOLTokenDisj{}}
-    (\HOLFreeVar{u} \HOLSymConst{=} \HOLConst{Out} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})) \HOLSymConst{\HOLTokenDisj{}}
-   (\HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})\hfill{[Example.ex_A]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}.
+       \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}}
+       ((\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{Out} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil}) \HOLSymConst{\HOLTokenDisj{}}
+        (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{Out} \HOLStringLit{a}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{In} \HOLStringLit{a}\HOLSymConst{..}\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})) \HOLSymConst{\HOLTokenDisj{}}
+       (\HOLBoundVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil})\hfill{[Example.ex_A]}
 \end{alltt}
 
 % next file: bisim.htex
