@@ -8,19 +8,15 @@ Uniqueness of  solutions of equations \cite{Mil89} intuitively says that if  a c
 certain  conditions, 
 then all processes $P$  that satisfy the equation $ P \wb \ct P$ are
 bisimilar with each other.
-We need variables to write equations. We  use
- capital
-letters  $X,Y,Z$
- for  these variables and call them \emph{\behav\  variables}.
- The body of an equation is a CCS expression
+We need variables to write equations. We use capital letters $X,Y,Z$
+for these variables and call them \emph{\behav\  variables}.
+The body of an equation is a CCS expression
 possibly containing \behav\  variables. Thus such expressions, ranged
-over by $E$, live in the CCS
-grammar extended with \behav\  variables.
+over by $E$, live in the CCS grammar extended with \behav\  variables.
 % , which we  call 
 %  \emph{extended CCS}. 
 
-  
-\begin{definition}
+\begin{definition}[\hl{System of equations}]
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
 $E_i$ possibly containing  such variables. 
@@ -32,14 +28,14 @@ is
 
 We write $E[\til P]$ for the expression resulting from $E$ by
 replacing each variable $X_i$   with the process $P_i$, assuming
-$\til P$ and $\til X$ have the same length. (This is syntactic
+$\til P$ and $\til X$ have the same length. (This is a syntactic
 replacement.) 
-% The components of $\til P$ need not be
-%  different from each other, as it must be for the variables $\til X$.
-% If the system has infinitely many equations,
-% the  tuples $\til P$ and $\til X$
-%  are infinite too.
-\begin{definition}
+\hl{The components of $\til P$ need not be
+different from each other, as it must be for the variables $\til X$.
+If the system has infinitely many equations,
+the  tuples $\til P$ and $\til X$
+are infinite too.}
+\begin{definition}[\hl{Unique solution of equations}]
 Suppose  $\{  X_i = E_i\}_{i\in I}$ is a system of equations: 
 \begin{itemize}
 \item
@@ -48,54 +44,42 @@ system of equations  for $\wb$}
 if for each $i$ it holds
 that $P_i \wb E_i [\til P]$;
 
-\item it %the  system
+\item It %the  system
  has \emph{a unique solution for $\wb$}  if whenever 
  $\til P$ and $\til Q$ are both solutions for $\wb$, then $\til P \wb
  \til Q$. 
 \end{itemize} 
  \end{definition} 
 
+ \begin{example}
+\hl{Examples of systems with an unique solution for $\wb$ are:}
+\begin{enumerate}[(1)]
+\item $X = a. X$;
+\item $X_1 = a.  X_2,\qquad X_2 = b.  X_1$\enspace.
+\end{enumerate}
+\end{example}
+The unique solution of (1), modulo $\wb$, is the
+constant $K \Defi a. K$:
+for any other solution $P$ we have $P \wb K$.
+The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
+with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
+pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
 
-
-
-% Examples of systems with a  unique solution for $\wb$ are: 
-% \begin{enumerate}
-% \item
-% $ X = a. X$ 
-
-% \item 
-% $ X_1 = a.  X_2$, $ X_2 = b.  X_1$  
-
-% \end{enumerate}
-
-For instance, the solution of the equation 
-$ X = a. X$ 
-is  the process
-$R \DSdefi \recu A {\, (a. A)}$, and for any other solution $P$ we have $P \wb R$.
-In contrast, the equation 
- $X = a|  X$ has solutions that may be quite different, for instance,
+\begin{example}
+\hl{Examples of systems that do not have unique solutions are:}
+\begin{enumerate}[(1)]
+\item $X = X$;
+\item $X = \tau . X$;
+\item $X = a | X$\enspace.
+\end{enumerate}
+\end{example}
+All processes are solutions of (1) and (2);
+In contrast, the equation (3) has solutions that may be quite different, for instance,
  $K$ and $K | b$, for $K \DSdefi \recu K {\, (a. K)}$. (Actually any process capable of
-continuously performing $a$ actions (while behaves arbitrarily on
-other actions) is a solution for $X = a|  X$.)
- 
-% The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
-% . K$:  for any other solution $P$ we have $P \wb K$.
-% The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
-% with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
-% pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
-% Examples of systems that do not have a unique solution are: 
-% \begin{enumerate}
-% \item $X = X $ 
+continuously performing $a$ actions while behaves arbitrarily on
+other actions is a solution for $X = a|  X$.)
 
-% \item $X = \tau . X$
-% \item $X = a | X$
-
-% \end{enumerate} 
-% All processes are solutions of (1) and (2); examples of solutions for
-% (3) are $K$ and $K | b$, for $K \Defi a
-% . K$.
-
-\begin{definition}[guardedness of equations]
+\begin{definition}[Guardedness of equations]
 \label{def:guardness}
 A system of equations 
 $\{  X_i = E_i\}_{i\in I}$
@@ -113,27 +97,24 @@ $\{  X_i = E_i\}_{i\in I}$
 \end{itemize}
 \end{definition}
 
-% In other words,  
-% if the system is sequential, then 
-%  for
-% every expression $E_i$, any subexpression of $E_i$ in which $X_j $ 
-% appears, apart from $X_j$ itself,  is a sum (of prefixed terms). 
-% For instance, 
-% \begin{itemize}
-% \item $X = \tau. X + \mu . \nil$ is sequential but not 
-%  guarded, because the guarding prefix for the variable
-% is not visible.
+\hl{In other words,
+ if the system is sequential, then  for
+ every expression $E_i$, any subexpression of $E_i$ in which $X_j $ 
+ appears, apart from $X_j$ itself,  is a sum (of prefixed terms).}
+ For instance, 
+ \begin{itemize}
+ \item $X = \tau. X + \mu . \nil$ is sequential but not 
+  guarded, because the guarding prefix for the variable is not visible.
 
-% \item $X =  \ell . X | P$ is  guarded but not sequential.
+ \item $X =  \ell . X | P$ is guarded but not sequential, because of
+   the use of parallel composition.
 
-% \item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as 
-% $X = \tau . (a. X + \tau . b .X + \tau  )$
-% are both 
-%  guarded and sequential.
-% \end{itemize} 
+ \item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as 
+ $X = \tau . (a. X + \tau . b .X + \tau  )$
+are both guarded and sequential.
+\end{itemize}
 
-
-\begin{theorem}[unique solution of equations, \cite{Mil89}]
+\begin{theorem}[Unique solution of equations \cite{Mil89}]
 \label{t:Mil89}
 A system of guarded and sequential equations (without direct sums)
 $\{  X_i = E_i\}_{i\in I}$ has \hl{an} unique solution for $\wb$.

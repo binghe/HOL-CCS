@@ -4,10 +4,10 @@
 \section{CCS}
 \label{ss:ccs}
 
-We assume  a possibly infinite set of names $\mathscr{L} = \{a, b,
+We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
 \ldots\}$ forming input and $\overline{\mbox{output}}$ actions, plus a special invisible
-action $\tau \notin \mathscr{L}$, and a set of variables $A,B,
-\ldots$ for defining recursive behaviours.
+action $\tau \notin \mathscr{L}$, and a set of variables $A, B,
+\ldots$ for defining recursive behaviours \hl{of CCS processes}.
 Given a deadlock $\nil$, the class of CCS processes is then inductively defined from $\nil$ by the operators
 of prefixing, parallel composition, summation (binary choice), restriction, recursion and relabeling:
 \begin{equation*}
@@ -19,9 +19,10 @@ P_1 + P_2 \; \midd % \; \mu . P\; \midd  \;
 \; \midd \; P\; [r\!f]  % relabelling
 \end{array}
 \end{equation*}
-%We sometimes omit trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil $ .
-The operational semantics of CCS is given by means of
-a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as SOS
+\hl{We sometimes omit the trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.}
+The operational semantics of CCS is then given by means of
+a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as
+some \hl{Structural Operational Semantics (SOS)}
 rules (the symmetric version of the two rules for
 parallel composition and the rule for sum are omitted).
 A CCS expression uses only \emph{weakly-guarded sums} if all occurrences of
@@ -30,8 +31,8 @@ the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
  The \emph{immediate derivatives} of a
 process $P$ are the elements of the set $\{P' \st P \arr\mu P' \mbox{
   for some $\mu$}\}$.
-% We use $\ell$ to range over
-%  visible actions (i.e.~inputs or outputs, excluding  $\tau$).
+ \hl{We use $\ell$ to range over
+  visible actions (i.e.~inputs or outputs, excluding  $\tau$).}
 \begin{figure*}[t]
 \begin{center}
 \vskip .1cm
@@ -77,15 +78,14 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-Letters  $\R$, $\S$ range over relations.
+\hl{Let} letters $\R$, $\S$ range over relations \hl{of CCS processes}.
 We use infix notation for relations, e.g., 
 $P \RR Q$ means that $(P,Q) \in \R$.
-We use a tilde to denote a tuple, with countably many elements; thus
-the tuple may also be infinite.
- All
-notations  are  extended to tuples componentwise;
-e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for  each  
-component $i$  of the tuples $\til P$ and $\til Q$.
+We use a tilde \hl{like $\til P$} to denote a tuple \hl{(of processes)}, with
+countably many elements; thus the tuple may also be infinite.
+All notations are extended to tuples componentwise,
+e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for each  
+component $i$ of the tuples $\til P$ and $\til Q$.
 And $\ct{\til P}$ is the process obtained by replacing each hole
 $\holei i$ of the  context $\qct$ with $P_i$.  
 We write $
