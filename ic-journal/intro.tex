@@ -1,18 +1,18 @@
 \section{Introduction}
 
 A prominent proof method for bisimulation, put forward by Robin Milner and widely used in his
-landmark CCS book \cite{Mil89} is the
+landmark CCS book \cite{Mil89}, is the
 \emph{unique solution of equations}, whereby two tuples of processes are
 componentwise bisimilar if they are solutions 
 of the same system of equations.
 This method is important in verification techniques and tools
 based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice,RosUnder10}. 
 
-In the versions of Milner's unique solution theorems for proving that all
+In the versions of Milner's unique-solution theorems for proving that all
 solutions are weakly (or rooted) bisimilar (in practice these are the most
 relevant cases), however,
 Milner's proof method has severe syntactical limitations, such that
-the equations must be ``guarded and sequential,'' that is, the
+the equations must be ``(strongly) guarded and sequential,'' that is, the
 variables of the equations may only be used underneath a visible
 prefix and proceed, in the syntax tree, only by the sum and prefix operators.
 One way of overcoming such limitations is to replace equations
@@ -32,11 +32,13 @@ is the occurrences of direct sums, due to the failure of the
 substitutivity of contraction under direct sums.
 
 The main goal of the work described in this paper is a rather
-comprehensive formalisation of the core of the theory of CCS in the HOL
-theorem prover (HOL4),  with a focus on the theory of unique solutions of contractions.
+comprehensive formalisation of the core theory of CCS in the HOL
+theorem prover (HOL4),  with a focus on the theory of unique solutions
+of \hl{equations and} contractions.
 The formalisation, however, is not confined to the theory of unique
-solutions of equations, but embraces a significant portion the theory of CCS \cite{Mil89}
-(mostly because the theory of unique solutions relies on a large number of more fundamental results).
+solutions of equations \hl{(and contractions)}, but embraces a
+significant portion the theory of CCS \cite{Mil89}, mostly because the
+theory of unique solutions relies on a large number of more fundamental results.
 Indeed the formalisation encompasses the basic properties of strong and weak
 bisimilarity (e.g. the fixed-point and substitutivity properties), the
 basic properties of
@@ -49,18 +51,18 @@ expansion and contraction preorder (two
 efficiency-like refinements of weak bisimilarity). Concerning rooted bisimilarity, the formalisation
 includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
 \cite{Gorrieri:2015jt}),
- and two long proofs saying the rooted bisimilarity is the coarsest (largest)
+ and two long proofs saying \hl{that} the rooted bisimilarity is the coarsest (largest)
  congruence contained in (weak) bisimilarity: one following Milner's
  book \cite{Mil89}, with the hypothesis that no processes can use up
  all labels;
 the other without such hypothesis, essentially formalising van Glabbeek's paper \cite{van2005characterisation}.
 Similar theorems are proved for the rooted contraction preorder.
-In this respect, the work is an extensive experiment with the use of the HOL theorem prover and its
-most recent developments, including a package for expressing coinductive definitions.
+In this respect, the work is an extensive experiment with the use of the HOL theorem prover with its
+recent developments, including a package for coinductive definitions.
 
 From the view of CCS theory, this formalisation has offered us the possibility of
-further refining the theory of unique solutions of
-equations, as formally proving a previously known result gives us a
+further refining the theory of unique solutions of \hl{contractions}, as
+formally proving a previously known result gives us the
 chance to see \emph{what's really needed} for establishing that result.
 In particular, the existing theory \cite{sangiorgi2017equations} has
 placed limitations on the body of the contractions due to the
@@ -72,61 +74,37 @@ preorder. The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
 constraints on the occurrences of sums.
 
-% \finish{ I had to remove the reference \cite{Tian:2017wrba} here
-% since it would further 
-%   weaken this paper. } 
-
 Another \hl{benefit} of the formalisation is 
 that we can take advantage of results about different 
-equivalences or preorders that share a similar proof structure. 
+equivalences and preorders that share similar proof structures. 
 Examples are: the results that rooted bisimilarity and rooted contraction are,
 respectively, the coarsest congruence contained in weak bisimilarity 
-and the coarsest precongruence contained in the contraction  preorder; 
+and the coarsest precongruence contained in the contraction preorder; 
 the result about unique solution of equations for weak bisimilarity that uses the
 contraction preorder as an auxiliary relation, and other unique solution results (e.g., 
 the one for rooted in which
 the auxiliary relation is rooted contraction); various forms of enhancements of the bisimulation
 proof method (the `up-to' techniques).
-In these cases,  moving between proofs there are only a few places in
+In these cases, moving between proofs there are only a few places in
 which the HOL proof scripts have to be modified.
 Then the successful termination of the proof gives us a guarantee that the proof is
-complete and trustworthy, removing the risk 
-of overlooking or missing details as in hand-written proofs.
-
-% to describe
-% The purpose of this paper is twofold. 
-% On the one hand, 
-% On the other hand, we provide a  
-%  comprehensive formalisation  of the core of the theory of CCS 
-%  in the HOL
-% theorem prover (HOL4). The formalisation  includes the proofs of
-% Milner's 3 ``unique solution of equations'' theorems and
-% contractions discussed in the present paper, but is not limited to it (partly because such
-% theorems rely on a number of more fundamental results):
-% indeed the formalisation encompasses the basic properties of strong and weak
-% bisimilarity (e.g. the fixed-point and substitutivity properties), 
-% their algebraic theory, various versions of ``bisimulation up to''
-% techniques (e.g., bisimulation up-to expansion),
-% the basic properties  of rooted bisimilarity. 
-% Thus the work is an extensive experiment with the use of the HOL theorem provers and its
-% most recent developments, including a facility  for expressing coinductive definitions.
-
-% % Considering the relationship between bisimilarity and rooted
-% % bisimilarity, the formalisation includes the proof that the latter is the coarsest
-% % congruence included in the former, for which two proofs are formalized: one as in Milner's
-% % book,  requiring the hypothesis that  no processes can use all labels; the other without
-% % such hypothesis, essentially formalising van Glabbek's paper \cite{van2005characterisation}.
-% % Similar theorems are proved for rooted contractions wrt the contraction preorder.
+complete and trustworthy, \hl{eliminating} the risks 
+of overlooking or missing details as in \hl{\emph{paper-and-pencil} proofs}.
 
 \paragraph{Structure of the paper} 
+
 Section~\ref{ss:ccs} presents basic background materials on CCS,
 including its syntax, operational semantics, bisimilarity and rooted
-bisimilarity. Section~\ref{s:eq} discussed equations and contractions.
- Section~\ref{ss:new} presents rooted contraction and the related
- unique-solution result for rooted bisimilarity. Section~\ref{s:for}
- highlights our formalisation in HOL4. Finally,  Section~\ref{s:rel} and
- \ref{s:concl} discuss related work, conclusions,  and  a few
- directions for future work.
+bisimilarity.
+%
+Section~\ref{s:eq} discussed equations and contractions.
+%
+Section~\ref{ss:new} presents rooted contraction and the related
+unique-solution result for rooted bisimilarity.
+%
+Section~\ref{s:for} highlights our formalisation in HOL4.
+%
+Finally,  Section~\ref{s:rel} and \ref{s:concl} discuss related work,
+conclusions, and a few directions for future work.
 
- % next file: ccs.tex
- 
+%%% next file: ccs.tex
