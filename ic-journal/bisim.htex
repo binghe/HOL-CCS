@@ -22,7 +22,7 @@ Above definitions come from Nesi's work in HOL88 \cite{Nesi:1992ve}.
 However, it is not easy \citep[p.~91]{Mil89} to derive from above
 definitions the following useful \emph{Property Star (*)}:
 \begin{quote}
-  $P\sim Q$ iff, for all $\alpha\in Act$,\hfill{(*)}
+  $P\sim Q$ iff, for all $\alpha\in \mathscr{L} \cup \{\tau\}$,\hfill{(*)}
   \begin{enumerate}[(i)]
     \item Whenever $P\overset{\alpha}{\rightarrow}P'$ then, for some
       $Q'$, $Q\overset{\alpha}{\rightarrow}Q'$ and $P'\sim Q'$
@@ -86,8 +86,9 @@ To define (weak) bisimilarity, we first need to define weak
 transitions of CCS processes. Following the name adopted by Nesi \cite{Nesi:1992ve},
 we define a (possibly empty) sequence of $\tau$-transitions between
 two processes as
-a new relation called \texttt{EPS} ($\overset{\epsilon}{\Rightarrow}$), which is the RTC
-(reflexive transitive closure, denoted by \mbox{\color{blue}{$^*$}} in
+a new relation called \texttt{EPS}
+($\overset{\epsilon}{\Rightarrow}$), which is the
+reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
 \begin{alltt}
 \HOLthm[def]{WeakEQ.EPS_def}\hfill{[EPS_def]}
@@ -163,7 +164,54 @@ becomes a theorem:
 
 \hl{(TODO: rooted bisimilarity)}
 
+\begin{alltt}
+  \HOLthm[def]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm{CoarsestCongr.DENG_LEMMA}\hfill{[DENG_LEMMA]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
+\end{alltt}
+
 \hl{(TODO: expansion and contraction)}
 
+\begin{alltt}
+  \HOLthm[def]{Expansion.EXPANSION}\hfill{[EXPANSION]}
+  
+  \HOLthm{Expansion.expands_thm}\hfill{[expands_thm]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm[def]{Contraction.CONTRACTION}\hfill{[CONTRACTION]}
+  
+  \HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
+\end{alltt}
+
 \hl{Bisimulation Up to}
-%   next file: context.htex
+
+\begin{alltt}
+  \HOLthm[def]{BisimulationUpto.STRONG_BISIM_UPTO}\hfill{[STRONG_BISIM_UPTO]}
+
+  \HOLthm{BisimulationUpto.STRONG_EQUIV_BY_BISIM_UPTO}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO}\hfill{[WEAK_BISIM_UPTO]}
+
+  \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+
+\begin{alltt}
+  \HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}\hfill{[WEAK_BISIM_UPTO_ALT]}
+
+  \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
+\end{alltt}
+
+%  next file: context.htex

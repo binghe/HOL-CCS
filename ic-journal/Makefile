@@ -2,10 +2,9 @@ MUNGE = ../src/munge.exe
 
 HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex conclusions.tex
 TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
-	contraction.tex unique.tex equa.tex formal.tex \
-	related.tex conclusions.tex tokens.tex $(HTEXFILES)
+           contraction.tex unique.tex equa.tex formal.tex \
+           related.tex conclusions.tex tokens.tex $(HTEXFILES)
 
-# XeTeX results into much smaller PDF
 TEXCMD = pdflatex
 
 all: htex main.pdf
@@ -15,27 +14,27 @@ htex: $(HTEXFILES)
 tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
 
-part2.tex: part2.htex
+part2.tex: part2.htex $(MUNGE)
 	$(MUNGE) < part2.htex > part2.tex
 
-sos.tex: sos.htex
+sos.tex: sos.htex $(MUNGE)
 	$(MUNGE) < sos.htex > sos.tex
 
-bisim.tex: bisim.htex
+bisim.tex: bisim.htex $(MUNGE)
 	$(MUNGE) < bisim.htex > bisim.tex
 
-coarsest.tex: coarsest.htex
+coarsest.tex: coarsest.htex $(MUNGE)
 	$(MUNGE) < coarsest.htex > coarsest.tex
 
-context.tex: context.htex
+context.tex: context.htex $(MUNGE)
 	$(MUNGE) < context.htex > context.tex
 
-conclusions.tex: conclusions.htex
+conclusions.tex: conclusions.htex $(MUNGE)
 	$(MUNGE) < conclusions.htex > conclusions.tex
 
 clean:
 	@rm -f *.aux *.blg *.log [0-9]*.tex *.out *.idx *.toc *.ilg *.ind *.hix *.pag \
-*.synctex.gz Thumbs.db *.spl
+               *.synctex.gz Thumbs.db *.spl
 
 dist-clean: clean
 	@rm -f *.pdf *.dvi *.ps

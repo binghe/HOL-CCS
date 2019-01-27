@@ -8,17 +8,11 @@ REL_FILES = Holmakefile CCSScript.sml *Lib.sig *Lib.sml *Conv.sig *Conv.sml toke
 	ExpansionScript.sml ContractionScript.sml \
 	BisimulationUptoScript.sml UniqueSolutionsScript.sml
 
-INFORMATICA_PUBLIC = ../../../../Informatica-public
-
 all:
 	Holmake
 
 clean:
 	Holmake clean
 	@rm -rf .HOLMK .hollogs
-
-release:
-	@mkdir -p $(INFORMATICA_PUBLIC)/thesis/src
-	@cp -f $(REL_FILES) $(INFORMATICA_PUBLIC)/thesis/src
 
 .PHONY: all

@@ -6,6 +6,17 @@
 \subsection{Unique solution of equations}
 
 \hl{TODO}
+\begin{alltt}
+\HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}\hfill{[STRONG_UNIQUE_SOLUTION]}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm{UniqueSolutions.WEAK_UNIQUE_SOLUTION}\hfill{[WEAK_UNIQUE_SOLUTION]}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm{UniqueSolutions.OBS_UNIQUE_SOLUTION}\hfill{[OBS_UNIQUE_SOLUTION]}
+\end{alltt}
 
 \subsection{Unique solution of contractions}
 
