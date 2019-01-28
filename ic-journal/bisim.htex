@@ -5,8 +5,8 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
-\hl{The definition of Strong bisimulation (\texttt{STRONG_BISIM}) and strong
-  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions}.
+\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) and strong
+  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions:}
 \begin{alltt}
   \HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
 \end{alltt}

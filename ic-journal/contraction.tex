@@ -62,15 +62,11 @@ tells us  that $Q$ is always at least as efficient as $P$, whereas  the
  contraction $P \mcontrBIS Q$  just says that $Q$ has the  possibility of
 being at least as efficient as $P$. 
 
-% \iflong\newDS
-% Note the use of $\wb$, in place of $\R$, in the second clause:
-%  we are only interested to know that $Q$ may  mimic $P$'s
-% more in an efficient manner (first clause); we do not care about
-% efficiency
-% on the
-% challenges proposed by $Q$,   which are handled using ordinary
-% bisimilarity.
-% \fi
+Note the use of $\wb$, in place of $\R$, in the second clause:
+we are only interested to know that $Q$ may  mimic $P$'s
+more in an efficient manner (first clause); we do not care about
+efficiency on the challenges proposed by $Q$, which are handled using ordinary
+bisimilarity.
 
 \begin{example}
 \label{exa:contr}
@@ -82,18 +78,16 @@ $  a \mcontrBIS a +
 $  P  \mcontrBIS P +Q$. The last two relations do not hold with 
 $\expa$, which explains the strictness of the inclusion
  ${\expa} \subset {\mcontrBIS}$. 
-% The inclusion is strict: for instance
-% $a+ \tau . a \mcontrBIS a$, where $\mcontrBIS$ cannot be replaced by
-%  $\contr$. Also the converse of  $a+ \tau . a \mcontrBIS a$ holds, namely
-% $  a \mcontrBIS a +
-% \tau . a $. However, we have %\mcontrBIS a + \tau^n . a $
-%  $ a \not  \mcontrBIS \tau. a$
+The inclusion is strict: for instance
+$a+ \tau . a \mcontrBIS a$, where $\mcontrBIS$ cannot be replaced by
+$\contr$. Also the converse of  $a+ \tau . a \mcontrBIS a$ holds, namely
+$  a \mcontrBIS a +
+\tau . a $. However, we have %\mcontrBIS a + \tau^n . a $
+$ a \not  \mcontrBIS \tau. a$
 \end{example} 
 
-% The substitutivity proofs for for expansion and bisimilarity carry
-% over to contraction,   
-
-Like (weak) bisimilarity and expansion, contraction is
+The substitutivity proofs for for expansion and bisimilarity carry
+over to contraction. Like (weak) bisimilarity and expansion, contraction is
 preserved by all operators but (direct) sum.
 
 % next file: unique.tex
