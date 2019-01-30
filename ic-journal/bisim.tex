@@ -251,6 +251,21 @@ of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
        \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{E\sp{\prime}}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 
+Strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are both congruence by above
+definition:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
+
+Although weak bisimilarity ($\approx$) is \emph{not} congruence
+  with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
+  with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
+  only guarded sum operator \cite{sangiorgi2015equations}) as weak
+  bisimilarity ($\approx$) is indeed preserved by 
+  weakly-guarded sums.
+
 On the relationship of bisimilarity and rooted bisimilarity, Deng Lemma and Hennessy Lemma are
 formally proved: (they are not used in other proofs, however)
 \begin{alltt}
@@ -260,6 +275,12 @@ formally proved: (they are not used in other proofs, however)
   
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
+
+\subsection{Algebraic Laws}
+
+\hl{(TODO)}
+
+\subsection{Expansion, Contraction and Rooted Contraction}
 
 To formally define bisimulation expansion and contraction (and their preorders), we have
 followed the same ways as in the case of strong and weak bisimilarities:
@@ -290,6 +311,8 @@ followed the same ways as in the case of strong and weak bisimilarities:
   
   \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
+
+\hl{TODO: rooted contraction}
 
 \subsection{Formalisation of ``bisimulation up to''}
 
@@ -352,7 +375,7 @@ $\mathcal{S} \subseteq\;\sim$:
 \HOLTokenTurnstile{} \HOLConst{STRONG_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Q}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
 \end{alltt}
 \end{theorem}
-Hence, to prove $P \sim Q$, one only needs to find a strong bisimulation
+Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ which contains $(P, Q)$.
 
 The concept of bisimulation up to $\approx$ is a modified version of

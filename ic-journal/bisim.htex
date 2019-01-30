@@ -182,6 +182,21 @@ of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 
+Strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are both congruence by above
+definition:
+\begin{alltt}
+\HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
+\HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
+
+Although weak bisimilarity ($\approx$) is \emph{not} congruence
+  with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
+  with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
+  only guarded sum operator \cite{sangiorgi2015equations}) as weak
+  bisimilarity ($\approx$) is indeed preserved by 
+  weakly-guarded sums.
+
 On the relationship of bisimilarity and rooted bisimilarity, Deng Lemma and Hennessy Lemma are
 formally proved: (they are not used in other proofs, however)
 \begin{alltt}
@@ -189,6 +204,12 @@ formally proved: (they are not used in other proofs, however)
   
 \HOLthm{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
+
+\subsection{Algebraic Laws}
+
+\hl{(TODO)}
+
+\subsection{Expansion, Contraction and Rooted Contraction}
 
 To formally define bisimulation expansion and contraction (and their preorders), we have
 followed the same ways as in the case of strong and weak bisimilarities:
@@ -203,6 +224,8 @@ followed the same ways as in the case of strong and weak bisimilarities:
   
   \HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
 \end{alltt}
+
+\hl{TODO: rooted contraction}
 
 \subsection{Formalisation of ``bisimulation up to''}
 

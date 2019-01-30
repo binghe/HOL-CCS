@@ -106,22 +106,5 @@ symmetric, transitive), while the latter can be just a preorder (reflexive, tran
 \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{alltt}
 
-For example, we can prove that, strong bisimilarity ($\sim$) and
-rooted bisimilarity ($\approx^c$) are both congruence by above
-definition: (the transitivity proof of rooted bisimilarity is actually not easy.)
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
-\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
-\end{alltt}
-
-Although weak bisimilarity ($\approx$) is \emph{not} congruence
-  with respect to~\texttt{CONTEXT}, it is indeed ``congruence''
-  with respect to~\texttt{GCONTEXT} (or if the CCS syntax were defined with
-  only guarded sum operator \cite{sangiorgi2015equations}) as weak
-  bisimilarity ($\approx$) is indeed preserved by 
-  weakly-guarded sums.
-
-% no space for WEAK_EQUIV_PRESD_BY_GUARDED_SUM
-
 % next file: coarsest.htex
   
