@@ -11,22 +11,24 @@
   without this package the bisimilaries can still be defined, just
   proving its basic properties will be a bit complicated.}
 
-\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) and strong
-  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions:}
+\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) strictly follows
+  its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
+what kind of binary relations on CCS process is a (strong) bisimulation:}
 \begin{alltt}
-  \HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
+\HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
 \end{alltt}
-
-With above definition it is simple to prove that, the identity
-relation is a bisimulation, and bisimulation is preserved by inversion
+With above definition it is easy to prove that, the identity
+relation is indeed a bisimulation, and bisimulation is preserved by inversion
 and composition and union operations.
 
+For (strong) bisimilarity \texttt{STRONG_EQUIV} ($\sim$), the standard definition
+would be the following one:
 \begin{alltt}
   \HOLthm[def]{StrongEQ.STRONG_EQUIV}\hfill{[STRONG_EQUIV]}
 \end{alltt}
-Above definitions come from Nesi's work in HOL88 \cite{Nesi:1992ve}.
-However, it is not easy \citep[p.~91]{Mil89} to derive from above
-definitions the following useful \emph{Property Star (*)}:
+This is indeed the way adopted in Nesi's work \cite{Nesi:1992ve} in the time of HOL88 in which
+there is no other way. However, with above definition it is not easy \citep[p.~91]{Mil89}
+\hl{to derive out the following useful property called} \emph{Property Star (*)}:
 \begin{quote}
   $P\sim Q$ iff, for all $\alpha\in \mathscr{L} \cup \{\tau\}$,\hfill{(*)}
   \begin{enumerate}[(i)]
@@ -37,13 +39,14 @@ definitions the following useful \emph{Property Star (*)}:
   \end{enumerate}
 \end{quote}
 
-As we know that bisimiliarity is a coinductive relation, now with HOL's
-new coinductive relation package (\texttt{Hol_coreln} since the Kananaskis-11 release, it is possible
-to define (strong) bisimilarity in a more convienent way, which
+However we know that bisimiliarity is a coinductive relation, now with HOL's
+new coinductive relation package (\texttt{Hol_coreln} (since Kananaskis-11 release),
+it is possible to define (strong) bisimilarity in a more convienent way, which
 essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. Precisely we call 
-\texttt{Hol_coreln} command as follows: (here {\tt !} and {\tt ?} stand for universal and
-existential quantifiers in HOL's ASCII-based term syntax)
+\texttt{Hol_coreln} command in the following way:%
+\footnote{Here {\tt !} and {\tt ?} stand for universal and
+existential quantifiers in HOL's ASCII-based term syntax.}
 \begin{lstlisting}
 val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -73,13 +76,13 @@ and the fixed-point property of bisimilarity
 bisimulation):
 \begin{enumerate}
 \item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_rules}\hfill{[STRONG_EQUIV_rules]}
+\HOLthm{StrongEQ.STRONG_EQUIV_rules}\hfill{[STRONG_EQUIV_rules]}
 \end{alltt}
 \item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_coind}\hfill{[STRONG_EQUIV_coind]}
+\HOLthm{StrongEQ.STRONG_EQUIV_coind}\hfill{[STRONG_EQUIV_coind]}
 \end{alltt}
 \item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_cases}\hfill{[STRONG_EQUIV_cases]}
+\HOLthm{StrongEQ.STRONG_EQUIV_cases}\hfill{[STRONG_EQUIV_cases]}
 \end{alltt}
 \end{enumerate}
 The last theorem \texttt{STRONG_EQUIV_cases} is actually the Property
@@ -107,7 +110,7 @@ two $\epsilon$-transitions:
 
 Weak bisimulation is defined upon weak transition:
 \begin{alltt}
-  \HOLthm[def]{WeakEQ.WEAK_BISIM}\hfill{[WEAK_BISIM]}
+\HOLthm[def]{WeakEQ.WEAK_BISIM}\hfill{[WEAK_BISIM]}
 \end{alltt}
 
 Again, we can prove that, the identity
@@ -142,8 +145,8 @@ with the following three theorems defining \texttt{WEAK_EQUIV}:
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 bisimulation is contained in the resulting relation (i.e.~it is
 largest), but it didn't constrain the resulting relation in the set of
-fixed points (e.g.~even the universal relation --- the set of all
-pairs --- would fit with this theorem); the
+fixed points (e.g.~even the universal relation---the set of all
+pairs---would fit with this theorem); the
 purpose of \texttt{WEAK_EQUIV_cases} is to
 further assert that the resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
@@ -161,29 +164,29 @@ derived manually.
 Finally, the original (textbook) definition of \texttt{WEAK_EQUIV} now
 becomes a theorem:
 \begin{alltt}
-  \HOLthm{WeakEQ.WEAK_EQUIV}\hfill{[WEAK_EQUIV]}
+\HOLthm{WeakEQ.WEAK_EQUIV}\hfill{[WEAK_EQUIV]}
 \end{alltt}
 
 % \finish{I have removed other things as i fear they would confuse a
 %   reader and I think the main point we wanted to say are now clearly
 %   expressed}  (I don't buy this any more, sorry)
 
-\hl{(TODO: rooted bisimilarity)}
-
+The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) strictly
+follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
-  \HOLthm[def]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
+\HOLthm[def]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
+\end{alltt}
+With the formal version of Lemma\ref{l:obsCongrByWeakBisim}:
+\begin{alltt}
+\HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 
+On the relationship of bisimilarity and rooted bisimilarity, Deng Lemma and Hennessy Lemma are
+formally proved: (they are not used in other proofs, however)
 \begin{alltt}
-  \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
-\end{alltt}
-
-\begin{alltt}
-  \HOLthm{CoarsestCongr.DENG_LEMMA}\hfill{[DENG_LEMMA]}
-\end{alltt}
-
-\begin{alltt}
-  \HOLthm{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
+\HOLthm{CoarsestCongr.DENG_LEMMA}\hfill{[DENG_LEMMA]}
+  
+\HOLthm{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
 
 \hl{(TODO: expansion and contraction)}

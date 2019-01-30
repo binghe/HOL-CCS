@@ -11,27 +11,29 @@
   without this package the bisimilaries can still be defined, just
   proving its basic properties will be a bit complicated.}
 
-\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) and strong
-  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions:}
+\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) strictly follows
+  its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
+what kind of binary relations on CCS process is a (strong) bisimulation:}
 \begin{alltt}
-  \HOLConst{STRONG_BISIM} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{STRONG_BISIM} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Bsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
         (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
         \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_BISIM]}
 \end{alltt}
-
-With above definition it is simple to prove that, the identity
-relation is a bisimulation, and bisimulation is preserved by inversion
+With above definition it is easy to prove that, the identity
+relation is indeed a bisimulation, and bisimulation is preserved by inversion
 and composition and union operations.
 
+For (strong) bisimilarity \texttt{STRONG_EQUIV} ($\sim$), the standard definition
+would be the following one:
 \begin{alltt}
   \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Bsm}. \HOLBoundVar{Bsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_BISIM} \HOLBoundVar{Bsm}\hfill{[STRONG_EQUIV]}
 \end{alltt}
-Above definitions come from Nesi's work in HOL88 \cite{Nesi:1992ve}.
-However, it is not easy \citep[p.~91]{Mil89} to derive from above
-definitions the following useful \emph{Property Star (*)}:
+This is indeed the way adopted in Nesi's work \cite{Nesi:1992ve} in the time of HOL88 in which
+there is no other way. However, with above definition it is not easy \citep[p.~91]{Mil89}
+\hl{to derive out the following useful property called} \emph{Property Star (*)}:
 \begin{quote}
   $P\sim Q$ iff, for all $\alpha\in \mathscr{L} \cup \{\tau\}$,\hfill{(*)}
   \begin{enumerate}[(i)]
@@ -42,13 +44,14 @@ definitions the following useful \emph{Property Star (*)}:
   \end{enumerate}
 \end{quote}
 
-As we know that bisimiliarity is a coinductive relation, now with HOL's
-new coinductive relation package (\texttt{Hol_coreln} since the Kananaskis-11 release, it is possible
-to define (strong) bisimilarity in a more convienent way, which
+However we know that bisimiliarity is a coinductive relation, now with HOL's
+new coinductive relation package (\texttt{Hol_coreln} (since Kananaskis-11 release),
+it is possible to define (strong) bisimilarity in a more convienent way, which
 essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. Precisely we call 
-\texttt{Hol_coreln} command as follows: (here {\tt !} and {\tt ?} stand for universal and
-existential quantifiers in HOL's ASCII-based term syntax)
+\texttt{Hol_coreln} command in the following way:%
+\footnote{Here {\tt !} and {\tt ?} stand for universal and
+existential quantifiers in HOL's ASCII-based term syntax.}
 \begin{lstlisting}
 val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -78,31 +81,28 @@ and the fixed-point property of bisimilarity
 bisimulation):
 \begin{enumerate}
 \item \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
-       \HOLBoundVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sp{\prime}}\hfill{[STRONG_EQUIV_rules]}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}}\hfill{[STRONG_EQUIV_rules]}
 \end{alltt}
 \item \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}}.
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-            \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
-                     \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
-                    \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
-                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{a\sb{\mathrm{1}}}\hfill{[STRONG_EQUIV_coind]}
+\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
+        \HOLFreeVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                 \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLFreeVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{a\sb{\mathrm{1}}}\hfill{[STRONG_EQUIV_coind]}
 \end{alltt}
 \item \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-       \HOLBoundVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_EQUIV_cases]}
+\HOLTokenTurnstile{} \HOLFreeVar{a\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_EQUIV_cases]}
 \end{alltt}
 \end{enumerate}
 The last theorem \texttt{STRONG_EQUIV_cases} is actually the Property
@@ -130,7 +130,7 @@ two $\epsilon$-transitions:
 
 Weak bisimulation is defined upon weak transition:
 \begin{alltt}
-  \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -206,8 +206,8 @@ with the following three theorems defining \texttt{WEAK_EQUIV}:
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 bisimulation is contained in the resulting relation (i.e.~it is
 largest), but it didn't constrain the resulting relation in the set of
-fixed points (e.g.~even the universal relation --- the set of all
-pairs --- would fit with this theorem); the
+fixed points (e.g.~even the universal relation---the set of all
+pairs---would fit with this theorem); the
 purpose of \texttt{WEAK_EQUIV_cases} is to
 further assert that the resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
@@ -225,24 +225,24 @@ derived manually.
 Finally, the original (textbook) definition of \texttt{WEAK_EQUIV} now
 becomes a theorem:
 \begin{alltt}
-  \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Wbsm}. \HOLBoundVar{Wbsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Wbsm}\hfill{[WEAK_EQUIV]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Wbsm}. \HOLBoundVar{Wbsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Wbsm}\hfill{[WEAK_EQUIV]}
 \end{alltt}
 
 % \finish{I have removed other things as i fear they would confuse a
 %   reader and I think the main point we wanted to say are now clearly
 %   expressed}  (I don't buy this any more, sorry)
 
-\hl{(TODO: rooted bisimilarity)}
-
+The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) strictly
+follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
-  \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_CONGR]}
 \end{alltt}
-
+With the formal version of Lemma\ref{l:obsCongrByWeakBisim}:
 \begin{alltt}
-  \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
             (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
@@ -250,14 +250,14 @@ becomes a theorem:
        \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{E\sp{\prime}}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 
+On the relationship of bisimilarity and rooted bisimilarity, Deng Lemma and Hennessy Lemma are
+formally proved: (they are not used in other proofs, however)
 \begin{alltt}
-  \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
+\HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
    (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q}) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLFreeVar{q} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}}
    \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[DENG_LEMMA]}
-\end{alltt}
-
-\begin{alltt}
-  \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[HENNESSY_LEMMA]}
+  
+\HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
 
 \hl{(TODO: expansion and contraction)}

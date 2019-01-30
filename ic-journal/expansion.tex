@@ -34,20 +34,20 @@ Two processes $P$ and $Q$ are \textbf{rooted bisimilar}, written as $P
    \Arr\mu P'$ and $P' \wb Q'$\enspace.
 \end{enumerate}
 \end{definition}
-% Besides reducing the rooted bisimiarity of two processes to
-% the bisimilarities of their first-step transition ends, this definition also brings a proof technique for proving the
-% rooted bisimiarity by constructing a bisimulation:
-% \begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
-% \label{l:obsCongrByWeakBisim}
-% Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
-% satisfies the following properties:
-% \begin{enumerate}
-%  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
-%    \Arr\mu Q'$ and $P' \RR Q'$;
-% \item the converse of (1) on the actions from $Q$.
-% \end{enumerate}
-% then $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
-% \end{lemma}
+
+Besides reducing the rooted bisimiarity of two processes to
+the bisimilarities of their first-step transition ends, above definition also brings a proof technique for proving the rooted bisimiarity by constructing a bisimulation:
+\begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
+\label{l:obsCongrByWeakBisim}
+Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
+satisfies the following properties:
+\begin{enumerate}
+\item $P \arr\mu P'$ implies that there is $Q'$ such that $Q
+   \Arr\mu Q'$ and $P' \RR Q'$;
+\item the converse of (1) on the actions from $Q$.
+\end{enumerate}
+then $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
+\end{lemma}
 
 \begin{theorem}
 \label{t:rapproxCongruence}

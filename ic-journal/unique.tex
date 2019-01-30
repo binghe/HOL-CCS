@@ -2,9 +2,9 @@
 \label{ss:SysContr}
 
 A \emph{system of contractions} is defined as a system of equations,
-except that the contraction symbol $\mcontr$ is used in the place of
+except that the contraction symbol $\mcontrBIS$ is used in the place of
 the equality symbol $=$. Thus a system of contractions is a set 
-$\{  X_i \mcontr E_i\}_{i\in I}$
+$\{  X_i \mcontrBIS E_i\}_{i\in I}$
 where $I$ is an  indexing set and expressions
 $E_i$  may contain the  \behavC\  variables 
 $\{  X_i\}_{i\in I}$.
@@ -12,28 +12,17 @@ $\{  X_i\}_{i\in I}$.
 \begin{definition}
 \label{d:uniContra}
 Given a system of contractions 
-$\{  X_i \mcontr E_i\}_{i\in I}$, 
+$\{  X_i \mcontrBIS E_i\}_{i\in I}$, 
  we say that:
 \begin{itemize}
 \item $\til P$ is a \emph{solution (for $\mcontrBIS$) of the 
  system of contractions} if $\til P \mcontrBIS \til E [\til P]$;
-\item the system has \emph{a unique solution (for $\approx$)}
+\item The system has \emph{a unique solution (for $\approx$)}
 if $\til P \approx \til Q$ whenever $\til P$ and $\til Q$ are both solutions.
 \end{itemize}
 \end{definition}
 
 The guardedness of contractions follows Def.~\ref{def:guardness} (for equations).
-% \begin{definition}
-% \label{d:guarded}
-% A system of contractions $\{  X_i \mcontr E_i\}_{i\in I}$
-%  is
-% \emph{weakly guarded}
-% if,  in each    $E_i$, each occurrence of
-% a \behavC\ variable is underneath a prefix.
-
-% The system use \emph{weakly-guarded sums} if 
-% each $E_i$ only makes use of guarded sums.
-% \end{definition}
 
 \begin{lemma}
 \label{l:uptocon}
@@ -115,7 +104,7 @@ proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$.
 \subsection{Rooted contraction}
 \label{ss:new}
 
-The unique-solution theorem \ref{t:contraBisimulationU} of Section~\ref{ss:SysContr} requires a
+The unique-solution Theorem \ref{t:contraBisimulationU} requires a
 constrained syntax for sums, due to the congruence and precongruence
 problems of bisimilarity and contraction with \hl{direct sums}. 
 We show here that the constraints can be
@@ -123,8 +112,8 @@ We show here that the constraints can be
 latter called \emph{rooted contraction}:
 \begin{definition}
 \label{d:rcontra}
-Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
- $P\rcontr Q$, if
+Two processes $P$ and $Q$ are in \textbf{rooted contraction}, written as
+ $P\rcontr Q$, if for all $\mu$
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ with $Q \arr \mu Q'$
  and $P'\mcontrBIS Q'$;
@@ -137,16 +126,16 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
 %bisimilarity on top of that of the  contraction preorder
 %$\mcontrBIS$.  %% Reviewer said this sentance is unclear. I too think so.
 
-The precise formulation of  this definition was guided by the HOL theorem
-  prover and
-the following two principles: (1) the definition should not be recursive,
+\hl{The discovery of above definition was guided by the HOL theorem
+  prover keeping in mind}
+the following two principles: (1) its definition should not be recursive,
 along the lines of rooted bisimilarity
 $\rapprox$ in Def.~\ref{d:rootedBisimilarity};
-(2) the definition should  be built on top of existing \emph{contraction}
+(2) its definition should be built on top of the existing \emph{contraction}
 relation $\mcontrBIS$ (because of its completeness). 
-A few other candidates were quickly tested and rejected, e.g.,
-  because of  precongruence issue. The proof of the precongruence
- result below is along the lines of the analogous result
+A few other candidates were quickly tested and rejected,
+whenever the precongruence proof attempts failed. \hl{The successful
+proof of the precongruence result of $\rcontr$} is along the lines of the analogous result
 for rooted bisimilarity with respect to bisimilarity.
 
 \begin{theorem}
@@ -195,7 +184,7 @@ any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
 there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$!) and
 $P'\ \R\ Q'$, and also for the converse direction, exploting Lemma
 4.13 of \cite{Mil89} (surprisingly). By definition of
-\emph{bisimulation} (not $\wb$!) and $\approx^c$, we actually proved $P
+\emph{bisimulation} and $\approx^c$, we actually proved $P
 \approx^c Q$ instead of $P \wb Q$.
 \end{proof}
 

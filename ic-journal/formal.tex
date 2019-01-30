@@ -1,4 +1,4 @@
-\section{Formalisation}
+\section{The formalisation}
 \label{s:for}
 
 We highlight here a formalisation of CCS
@@ -13,7 +13,7 @@ paper)
 is described in \cite{Tian:2017wrba}, and the
 proof scripts are in HOL4 official
 examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}. The
-current work consists of about 20,000 lines of proof scripts in Standard ML.
+current work consists of about 20,000 lines of proof scripts.
 
 Higher Order Logic (HOL) \cite{hollogic} traces
 its roots back to LCF
@@ -61,17 +61,14 @@ their informal proofs, with minimal automatic proof searching.)
 %   contractions theorem;
 % \end{enumerate}\finish{TODO: need updates}
 
-\emph{In this
+\textbf{In this
 formalisation we consider only single-variable equations/contractions.}
 This considerably
  simplifies the required proofs in HOL, also enhances the readability of
- proof scripts without loss of generality. (For paper proofs, the
- multi-variable case is just a routine adaptation.)
-%   still aligned with
-% their informal proofs.
-%  (on 
-% the extension  to multiple equations/contractions
-% see also  Section~\ref{s:concl}).
+ proof scripts without loss of generality. For the informal pencil-and-paper proofs, the
+ multi-variable case is just a routine adaptation, \hl{while the elegant formalisation
+   of multi-variable equations is quite a challenge.} In Section~\ref{s:concl} some ideas
+ are discussed.
 
 % \subsection{Simplifications and Limitations}
 

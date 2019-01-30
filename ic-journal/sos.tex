@@ -3,7 +3,7 @@
 %% This is the draft of the 2nd part of EXPRESS/SOS 2018 paper, co-authored by
 %% Prof. Davide Sangiorgi and Chun Tian.
 
-\subsection{CCS and its transitions by SOS rules}
+\subsection{CCS processes and their transitions}
 
 In our CCS formalisation, the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
 $\beta$ is the type variable for actions) accounts for visible actions, divided into input
@@ -16,11 +16,11 @@ union of all visible actions, plus invisible action $\tau$ (now based on
 HOL's \texttt{option} theory). The cardinality of
 ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' (and therefore of all
 CCS types built on top of it)
- depends on the choice (or \emph{type-instantiation}) of $\beta$.
+ depends on the choice (or \emph{type-instantiation}) of \hl{type variable} $\beta$.
 
 The type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS}}'', accounting for the CCS
 syntax\footnote{The order of type variables $\alpha$ and $\beta$
-    is irrelevant. Our choice is aligned with other CCS literals.
+    is arbitrary. Our choice is aligned with other CCS literals.
 $\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
 and $k$ actions. \cite{gorrieri2017ccs} Thus, to formalize theorems on
 such a CCS subcalculus, the needed CCS type can be retrieved by instantiating the type
@@ -44,8 +44,8 @@ val _ = Datatype `CCS = nil
 
 We have added some grammar support,
  using HOL's powerful pretty printer, to represent CCS
-processes in more readable forms (c.f. the column \textbf{HOL (abbrev.)}
-in Table \ref{tab:ccsoperator}, which summarizes 
+processes in more readable forms (c.f. the column ``HOL (abbrev.)''
+of Table \ref{tab:ccsoperator}, which summarizes 
 the main syntactic notations of CCS). For the restriction
 operator, we have chosen to allow a  set of names as a parameter, rather than a
   single name as in the ordinary  CCS syntax; this simplifies 
@@ -99,23 +99,39 @@ Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
 \HOLTokenTurnstile{} \HOLConst{CCS_Subst} \HOLFreeVar{P} (\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P}) \HOLFreeVar{A} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{P\sp{\prime}}\hfill\texttt{[REC]}
 \end{alltt}
 
-The rule \texttt{REC} (Recursion)
+The last rule \texttt{REC} (Recursion)
  says that if we substitute all appearances of variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. From HOL's viewpoint, these
+transition. In its definition, \texttt{CCS_Subst} is a recursive substutiion function
+with the following long definition:
+\begin{alltt}
+\HOLConst{CCS_Subst} \HOLConst{nil} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=} \HOLConst{nil}
+\HOLConst{CCS_Subst} (\HOLFreeVar{u}\HOLSymConst{..}\HOLFreeVar{E}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=} \HOLFreeVar{u}\HOLSymConst{..}\HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
+\HOLConst{CCS_Subst} (\HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sb{\mathrm{2}}}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=}
+\HOLConst{CCS_Subst} \HOLFreeVar{E\sb{\mathrm{1}}} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLConst{CCS_Subst} \HOLFreeVar{E\sb{\mathrm{2}}} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
+\HOLConst{CCS_Subst} (\HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\parallel}} \HOLFreeVar{E\sb{\mathrm{2}}}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=}
+\HOLConst{CCS_Subst} \HOLFreeVar{E\sb{\mathrm{1}}} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{CCS_Subst} \HOLFreeVar{E\sb{\mathrm{2}}} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
+\HOLConst{CCS_Subst} (\HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} \HOLFreeVar{E}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=} \HOLSymConst{\ensuremath{\nu}} \HOLFreeVar{L} (\HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X})
+\HOLConst{CCS_Subst} (\HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{f}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=} \HOLConst{relab} (\HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}) \HOLFreeVar{f}
+\HOLConst{CCS_Subst} (\HOLConst{var} \HOLFreeVar{Y}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{=} \HOLFreeVar{X} \HOLKeyword{then} \HOLFreeVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}
+\HOLConst{CCS_Subst} (\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}) \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X} \HOLSymConst{=}
+\HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{=} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} (\HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X})\hfill{[CCS_Subst_def]}
+\end{alltt}
+
+From HOL's viewpoint, these
 SOS rules are \emph{inductive 
   definitions} on the tenary relation \HOLinline{\HOLConst{TRANS}} of type ``\HOLinline{(\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTokenTransEnd (\ensuremath{\alpha}, \ensuremath{\beta}) \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}'', generated by HOL's 
 \texttt{Hol_reln} function.
 
-A useful function that we have defined, exploiting the interplay
-between HOL4 and Standard ML (and following an idea by Nesi \cite{Nesi:1992ve})
+A useful \hl{facility} exploiting the interplay
+between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
  is a complex Standard ML function
-  taking a CCS process and returning a theorem indicating all its
-  direct transitions.\footnote{If the input process could yield
-    something infinite branching, due to the use of recursion or
-    relabeling operators, the program will loop forever without
-    outputting a theorem.}
+  taking a CCS process and returning a theorem indicating all
+  direct transitions of the process.\footnote{If the input process could yield
+    something infinite branching (i.e.~divergent), due to the use of recursion or
+    relabeling operators, the program will loop forever without giving the output.
+  \hl{Checking if any given process is divergent, is beyond the scope of current work.}}
 For instance, we know that the process $(a.0 | \bar{a}.0)$ has three
 possible transitions: $(a.0 | \bar{a}.0) \overset{a}{\longrightarrow}
 (0 | \bar{a}.0)$, $(a.0 | \bar{a}.0)
