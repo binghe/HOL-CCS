@@ -117,11 +117,10 @@
 \begin{abstract}
   The unique solution of contractions is a proof technique for
   bisimilarity that overcomes certain syntactic constraints of
-  Milner's ``unique solution of equations'' technique, \hl{in which the
-  versions for weak bisimilarity and its rooted version require that
-  the involved equations must be both strongly guarded and
-  sequential. By replacing
-  equations with special inequations called ``contraction'', Sangiorgi
+  Milner's ``unique solution of equations'' technique, \hl{such that the
+  theorems for weak bisimilarity and its rooted version require that
+  the involved equations must be guarded and sequential. By replacing
+  equations with special inequations called \emph{contraction}, Sangiorgi
   has proven the ``unique solution of contractions'' theorem for weak
   bisimialarity, which requires only weakly guarded contractions.}
 
@@ -131,15 +130,15 @@
   formalisation consists of about 20,000 lines of proof scripts.)
   Some refinements of the theory itself are also obtained.
   In particular we remove the constraints on summation,
-  \hl{which must be weakly guarded, as the contraction
+  \hl{which must be weakly guarded since the contraction
   preorder is not a precongruence under direct sums,} by moving to \emph{rooted
   contraction}. \hl{Using rooted contraction one obtains an enhanced
   unique-solution theorem which is valid for rooted bisimilarity
   (hence also for bisimilarity itself) while requires (true) weak
   guardness with arbitrary sums.
-  We also prove that, the rooted contraction is the coarsest
-  precongruence contained in the contraction preorder, like the
-  case where rooted bisimilarity to be the coarsest congruence contained
+  It is also prove that, the rooted contraction is the coarsest
+  precongruence contained in the contraction preorder (thus is the best possible one),
+  as rooted bisimilarity is the coarsest congruence contained
   in (weak) bisimilarity.}
 \end{abstract}
 
