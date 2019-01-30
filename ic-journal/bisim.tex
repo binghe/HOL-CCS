@@ -5,8 +5,14 @@
 
 \subsection{Bisimulation and Bisimilarity}
 
-\hl{The definition of Strong bisimulation (\texttt{STRONG_BISIM}) and strong
-  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions}.
+\hl{One highlight in this project is the simplified definitions of
+  bisimilarities using HOL's new coinductive relational package.  Noticed that,
+  coinductive relations are consequences of Higher Order Logic,
+  without this package the bisimilaries can still be defined, just
+  proving its basic properties will be a bit complicated.}
+
+\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) and strong
+  bisimilarity (\texttt{STRONG_EQUIV}) strictly follow their textbook definitions:}
 \begin{alltt}
   \HOLConst{STRONG_BISIM} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
