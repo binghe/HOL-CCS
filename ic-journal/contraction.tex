@@ -19,11 +19,10 @@ more $\tau$-steps than those performed by $P$).
 \begin{definition}%[bisimulation contraction]
 \label{d:BisCon}
 A process relation ${\R}$ 
- is a \textbf{(bisimulation) contraction} if, whenever
- $P\RR Q$, %for all $\mu$ 
-
+ is a \textbf{contraction} if, whenever
+ $P\RR Q$, for all $\mu$
 \begin{enumerate}
-\item   $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
+\item $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
   Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
  P'$ and $P' \wb Q'$\enspace.
@@ -31,9 +30,6 @@ A process relation ${\R}$
 \emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$ ($P$
 \textbf{contracts to} $Q$), if $P\ \R\ Q$ for some contraction $\R$.
 \end{definition}
-% We say that $P$  {\emph{bisimilarly  contracts} $Q$, written
-% $Q \mcontrBIS Q$.
-% We write $\mexpaBIS$ for the inverse of $\mcontrBIS$.
 
 In the first clause $Q$ is required to match $P$'s challenge
 transition with at most one transition.
@@ -44,11 +40,9 @@ challenges from $Q$, entirely ignores efficiency: it is the same
 clause of  weak bisimulation~--- the final derivatives are even required
 to be related  by $\wb$, rather than by $\R$.
 
-Bisimilarity  contraction is coarser than 
- the \emph{expansion relation} 
-$\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
-This is a
-preorder widely used in proof techniques for bisimilarity and that 
+Bisimilarity contraction is coarser than 
+ the \emph{expansion relation} $\expa$.
+This is a preorder widely used in proof techniques for bisimilarity and that 
 intuitively refines bisimilarity by 
  formalising the idea of \emph{efficiency} between processes.
 Clause (1) is the same in the two
@@ -88,6 +82,6 @@ $ a \not  \mcontrBIS \tau. a$
 
 The substitutivity proofs for for expansion and bisimilarity carry
 over to contraction. Like (weak) bisimilarity and expansion, contraction is
-preserved by all operators but (direct) sum.
+preserved by all operators but (direct) sums.
 
-% next file: unique.tex
+% next file: equa.tex

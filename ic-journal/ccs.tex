@@ -8,7 +8,7 @@ We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
 \ldots\}$ forming input and $\overline{\mbox{output}}$ actions, plus a special invisible
 action $\tau \notin \mathscr{L}$, and a set of variables $A, B,
 \ldots$ for defining recursive behaviours.
-Given a deadlock $\nil$, the class of CCS processes is then inductively defined from $\nil$ by the operators
+Given a deadlock $\nil$, the class of CCS processes is inductively defined from $\nil$ by the operators
 of prefixing, parallel composition, summation (binary choice), restriction, recursion and relabeling:
 \begin{equation*}
 \begin{array}{cccl}
@@ -22,10 +22,10 @@ P_1 + P_2 \; \midd % \; \mu . P\; \midd  \;
 \hl{We sometimes omit the trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.}
 The operational semantics of CCS is then given by means of
 a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as
-some \hl{Structural Operational Semantics (SOS)}
+\hl{Structural Operational Semantics (SOS)}
 rules (the symmetric version of the two rules for
 parallel composition and the rule for sum are omitted).
-A CCS expression uses only \emph{weakly-guarded sums} if all occurrences of
+A CCS expression uses only \emph{weakly\hl{ }guarded sums} if all occurrences of
 the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
 + \mu_n.P_n$, for some $n \geq 2$.
  The \emph{immediate derivatives} of a
@@ -78,11 +78,11 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-\hl{Let} letters $\R$, $\S$ range over relations \hl{of CCS processes}.
-We use infix notation for relations, e.g., 
-$P \RR Q$ means that $(P,Q) \in \R$.
-We use tilded letters \hl{like $\til P$} to denote tuples \hl{(of processes)} with
-countably many elements; thus the tuple may also be infinite \hl{(??)}.
+\hl{Let variables} $\R$, $\S$ range over binary relations%
+\footnote{We use infix notation for relations, e.g., 
+$P \RR Q$ means that $(P,Q) \in \R$.} of CCS processes.
+We use tilded letters \hl{like $\til P$} to denote tuples \hl{of processes} with
+countably many elements; (Thus the tuple may also be infinite.)
 All notations are extended to tuples componentwise,
 e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for each  
 component $i$ of the tuples $\til P$ and $\til Q$.

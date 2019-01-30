@@ -1,4 +1,4 @@
-\section{Equations and contractions}
+\section{Systems of equations and contractions}
 \label{s:eq}
 
 \subsection{Systems of  equations}
@@ -12,18 +12,15 @@ We need variables to write equations. We use capital letters $X,Y,Z$
 for these variables and call them \emph{\behav\  variables}.
 The body of an equation is a CCS expression
 possibly containing \behav\  variables. Thus such expressions, ranged
-over by $E$, live in the CCS grammar extended with \behav\  variables.
-% , which we  call 
-%  \emph{extended CCS}. 
+over $E$, live in the CCS grammar extended with \behav\ variables
+, which we  call \emph{extended CCS}.
 
 \begin{definition}[\hl{System of equations}]
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
 $E_i$ possibly containing  such variables. 
-Then 
-$\{  X_i = E_i\}_{i\in I}$
-is 
-  a \emph{system of equations}. (There is one equation for each variable $X_i$.)
+Then $\{X_i = E_i\}_{i\in I}$ is 
+a \emph{system of equations}. (There is one equation for each variable $X_i$.)
 \end{definition}
 
 We write $E[\til P]$ for the expression resulting from $E$ by
@@ -117,15 +114,15 @@ are both guarded and sequential.
 \begin{theorem}[Unique solution of equations \cite{Mil89}]
 \label{t:Mil89}
 A system of guarded and sequential equations (without direct sums)
-$\{  X_i = E_i\}_{i\in I}$ has \hl{an} unique solution for $\wb$.
+$\{X_i = E_i\}_{i\in I}$ has \hl{an} unique solution for $\wb$.
 \end{theorem}
 
-% The proof exploits an invariance property on immediate transitions for
-% guarded and sequential expressions, and then extracts a bisimulation
-% (up-to bisimilarity) out
-% of the solutions of the system.  
-To see the  need of the sequentiality  condition, consider
+The proof exploits an invariance property on immediate transitions for
+guarded and sequential expressions, and then extracts a bisimulation
+(up-to bisimilarity) out
+of the solutions of the system.
+To see the  need of the sequentiality condition, consider
  the equation (from \cite{Mil89}) $X = \res a (a. X | \outC a)$
 where $X$ is guarded but not sequential. Any process that does not use $a$ is a solution.
 
-% next file: contraction.tex
+% next file: unique.tex
