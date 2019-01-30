@@ -176,7 +176,8 @@ follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
 \HOLthm[def]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
 \end{alltt}
-With the formal version of Lemma\ref{l:obsCongrByWeakBisim}:
+And the formal version of Lemma~\ref{l:obsCongrByWeakBisim}, which is needed in the proof
+of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
@@ -189,8 +190,8 @@ formally proved: (they are not used in other proofs, however)
 \HOLthm{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
 
-\hl{(TODO: expansion and contraction)}
-
+To formally define bisimulation expansion and contraction (and their preorders), we have
+followed the same ways as in the case of strong and weak bisimilarities:
 \begin{alltt}
   \HOLthm[def]{Expansion.EXPANSION}\hfill{[EXPANSION]}
   
@@ -203,24 +204,97 @@ formally proved: (they are not used in other proofs, however)
   \HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{Bisimulation Up to}
+\subsection{Formalisation of ``bisimulation up to''}
+
+``Bisimulation up to'' is a powerful proof technique for proving many
+difficult results in process algebra. Generally speaking, it's a
+technique for reducing the size of the relation needed to define a bisimulation.
+By definition, two processes are bisimilar if there exists a
+bisimulation relation containing them as a pair. However, in practice
+this definition is hardly ever followed plainly; instead, to reduce
+the size of the relations exhibited one prefers to define relations
+which are bisimulations only when closed up under some specific and
+priviledged relation, so to relieve the proof work needed. We call
+this an \emph{``up-to'' technique}. It is a pretty general device
+which allows a great variety of prssibilities.
+
+Following \cite{Mil89}, the concept of ``Bisimulation up to
+$\sim$'' starts with a generalization of the notion of strong
+bisimulation, which is often more useful in applications.
+The following definition and proposition put the idea on a firm
+basis. Henceforward we shall oftern write $P\mathcal{R} Q$ to mean
+$(P, Q) \in \mathcal{R}$, for any binary relation $\mathcal{R}$. Note
+also that $\sim \mathcal{S} \sim$ is a composition of binary
+relations, so that $P \sim \mathcal{S} \sim Q$ means that for some
+$P'$ and $Q'$ we have $P \sim P'$, $P' \,\mathcal{S}\, Q'$ and $Q' \sim Q$.
+
+\begin{definition}[Bisimulation up to $\sim$]
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
+  \mathcal{S} Q$ implies, for all $\alpha \in Act$,
+\begin{enumerate}
+\item Whenever $P \overset{\alpha}{\rightarrow} P'$ then, for some
+  $Q'$, $Q \overset{\alpha}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
+  \sim Q'$,
+\item Whenever $Q \overset{\alpha}{\rightarrow} Q'$ then, for some
+  $P'$, $P \overset{\alpha}{\rightarrow} P'$ and $P' \sim \mathcal{S}
+  \sim Q'$.
+\end{enumerate}
+Or formally,
+\begin{alltt}
+\HOLthm[def]{BisimulationUpto.STRONG_BISIM_UPTO}\hfill{[STRONG_BISIM_UPTO]}
+\end{alltt}
+\end{definition}
+
+\begin{theorem}
+If $\mathcal{S}$ is a ``bisimulation up to $\sim$'', then
+$\mathcal{S} \subseteq\;\sim$:
+\begin{alltt}
+\HOLthm{BisimulationUpto.STRONG_EQUIV_BY_BISIM_UPTO}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+\end{theorem}
+Hence, to prove $P \sim Q$, one only needs to find a bisimulation
+up to $\sim$ which contains $(P, Q)$.
+
+The concept of bisimulation up to $\approx$ is a modified version of
+Milner's original definition presented in modern textbooks and
+corrected by \cite{sangiorgi1992problem}:
+\begin{definition}{(Bisimulation up to $\approx$)}
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P
+  \mathcal{S} Q$ implies, for all $\alpha \in Act$,
+\begin{enumerate}
+\item Whenever $P \overset{\alpha}{\rightarrow} P'$ then, for some
+  $Q'$, $Q \overset{\hat{\alpha}}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
+  \approx Q'$,
+\item Whenever $Q \overset{\alpha}{\rightarrow} Q'$ then, for some
+  $P'$, $P \overset{\hat{\alpha}}{\rightarrow} P'$ and $P' \approx \mathcal{S}
+  \sim Q'$.
+\end{enumerate}
+Or formally,
+\begin{alltt}
+\HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO}\hfill{[WEAK_BISIM_UPTO]}
+\end{alltt}
+\end{definition}
+
+\begin{theorem}
+If $\mathcal{S}$ is a bisimulation up to $\approx$, then
+$\mathcal{S} \subseteq\;\approx$:
+\begin{alltt}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+\end{theorem}
+
+\hl{(TODO)}
 
 \begin{alltt}
-  \HOLthm[def]{BisimulationUpto.STRONG_BISIM_UPTO}\hfill{[STRONG_BISIM_UPTO]}
+\HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}\hfill{[WEAK_BISIM_UPTO_ALT]}
 
-  \HOLthm{BisimulationUpto.STRONG_EQUIV_BY_BISIM_UPTO}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
 \end{alltt}
 
 \begin{alltt}
-  \HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO}\hfill{[WEAK_BISIM_UPTO]}
+\HOLthm[def]{BisimulationUpto.OBS_BISIM_UPTO}\hfill{[OBS_BISIM_UPTO]}
 
-  \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
-\end{alltt}
-
-\begin{alltt}
-  \HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}\hfill{[WEAK_BISIM_UPTO_ALT]}
-
-  \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
+\HOLthm{BisimulationUpto.OBS_CONGR_BY_BISIM_UPTO}\hfill{[OBS_CONGR_BY_BISIM_UPTO]}
 \end{alltt}
 
 %  next file: context.htex

@@ -240,7 +240,8 @@ follows Definition~\ref{d:rootedBisimilarity}:
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_CONGR]}
 \end{alltt}
-With the formal version of Lemma\ref{l:obsCongrByWeakBisim}:
+And the formal version of Lemma~\ref{l:obsCongrByWeakBisim}, which is needed in the proof
+of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
@@ -260,8 +261,8 @@ formally proved: (they are not used in other proofs, however)
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
 
-\hl{(TODO: expansion and contraction)}
-
+To formally define bisimulation expansion and contraction (and their preorders), we have
+followed the same ways as in the case of strong and weak bisimilarities:
 \begin{alltt}
   \HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
@@ -290,10 +291,44 @@ formally proved: (they are not used in other proofs, however)
   \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{Bisimulation Up to}
+\subsection{Formalisation of ``bisimulation up to''}
 
+``Bisimulation up to'' is a powerful proof technique for proving many
+difficult results in process algebra. Generally speaking, it's a
+technique for reducing the size of the relation needed to define a bisimulation.
+By definition, two processes are bisimilar if there exists a
+bisimulation relation containing them as a pair. However, in practice
+this definition is hardly ever followed plainly; instead, to reduce
+the size of the relations exhibited one prefers to define relations
+which are bisimulations only when closed up under some specific and
+priviledged relation, so to relieve the proof work needed. We call
+this an \emph{``up-to'' technique}. It is a pretty general device
+which allows a great variety of prssibilities.
+
+Following \cite{Mil89}, the concept of ``Bisimulation up to
+$\sim$'' starts with a generalization of the notion of strong
+bisimulation, which is often more useful in applications.
+The following definition and proposition put the idea on a firm
+basis. Henceforward we shall oftern write $P\mathcal{R} Q$ to mean
+$(P, Q) \in \mathcal{R}$, for any binary relation $\mathcal{R}$. Note
+also that $\sim \mathcal{S} \sim$ is a composition of binary
+relations, so that $P \sim \mathcal{S} \sim Q$ means that for some
+$P'$ and $Q'$ we have $P \sim P'$, $P' \,\mathcal{S}\, Q'$ and $Q' \sim Q$.
+
+\begin{definition}[Bisimulation up to $\sim$]
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
+  \mathcal{S} Q$ implies, for all $\alpha \in Act$,
+\begin{enumerate}
+\item Whenever $P \overset{\alpha}{\rightarrow} P'$ then, for some
+  $Q'$, $Q \overset{\alpha}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
+  \sim Q'$,
+\item Whenever $Q \overset{\alpha}{\rightarrow} Q'$ then, for some
+  $P'$, $P \overset{\alpha}{\rightarrow} P'$ and $P' \sim \mathcal{S}
+  \sim Q'$.
+\end{enumerate}
+Or formally,
 \begin{alltt}
-  \HOLConst{STRONG_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{STRONG_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Bsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
@@ -307,12 +342,36 @@ formally proved: (they are not used in other proofs, however)
             \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
                 \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
                 (\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_BISIM_UPTO]}
-
-  \HOLTokenTurnstile{} \HOLConst{STRONG_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Q}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
 \end{alltt}
+\end{definition}
 
+\begin{theorem}
+If $\mathcal{S}$ is a ``bisimulation up to $\sim$'', then
+$\mathcal{S} \subseteq\;\sim$:
 \begin{alltt}
-  \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLTokenTurnstile{} \HOLConst{STRONG_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Q}\hfill{[STRONG_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+\end{theorem}
+Hence, to prove $P \sim Q$, one only needs to find a strong bisimulation
+up to $\sim$ which contains $(P, Q)$.
+
+The concept of bisimulation up to $\approx$ is a modified version of
+Milner's original definition presented in modern textbooks and
+corrected by \cite{sangiorgi1992problem}:
+\begin{definition}{(Bisimulation up to $\approx$)}
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P
+  \mathcal{S} Q$ implies, for all $\alpha \in Act$,
+\begin{enumerate}
+\item Whenever $P \overset{\alpha}{\rightarrow} P'$ then, for some
+  $Q'$, $Q \overset{\hat{\alpha}}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
+  \approx Q'$,
+\item Whenever $Q \overset{\alpha}{\rightarrow} Q'$ then, for some
+  $P'$, $P \overset{\hat{\alpha}}{\rightarrow} P'$ and $P' \approx \mathcal{S}
+  \sim Q'$.
+\end{enumerate}
+Or formally,
+\begin{alltt}
+\HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -333,12 +392,21 @@ formally proved: (they are not used in other proofs, however)
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
         \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
         \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} (\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[WEAK_BISIM_UPTO]}
-
-  \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
 \end{alltt}
+\end{definition}
+
+\begin{theorem}
+If $\mathcal{S}$ is a bisimulation up to $\approx$, then
+$\mathcal{S} \subseteq\;\approx$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
+\end{alltt}
+\end{theorem}
+
+\hl{(TODO)}
 
 \begin{alltt}
-  \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -359,7 +427,26 @@ formally proved: (they are not used in other proofs, however)
         \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
         \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[WEAK_BISIM_UPTO_ALT]}
 
-  \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
+\end{alltt}
+
+\begin{alltt}
+\HOLConst{OBS_BISIM_UPTO} \HOLFreeVar{Obsm} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+    \HOLFreeVar{Obsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+             \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+             \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+                 \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                 (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Obsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
+            \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
+                \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                (\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Obsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}) \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_BISIM_UPTO]}
+
+\HOLTokenTurnstile{} \HOLConst{OBS_BISIM_UPTO} \HOLFreeVar{Obsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Obsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}\hfill{[OBS_CONGR_BY_BISIM_UPTO]}
 \end{alltt}
 
 %  next file: context.htex
