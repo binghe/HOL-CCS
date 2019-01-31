@@ -370,14 +370,22 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{alltt}
 \end{theorem}
 
-\hl{(TODO)}
-
+The above version of ``bisimulation up to $\wb$'' is mainly is of its
+own interests. However, it cannot be used to prove
+Milner's ``unique solution of equations'' theorem for $\wb$. The
+following alternative version of ``bisimulation up to $\wb$'',
+instead, can be used to prove that theorem, but it is usually hard to
+check the validity of double weak transitions in its definition:
 \begin{alltt}
 \HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}\hfill{[WEAK_BISIM_UPTO_ALT]}
 
 \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
 \end{alltt}
 
+Finally, we have introduced a fourth version, ``bisimulation up
+to $\rapprox$'' (\texttt{OBS_BISIM_UPTO}), which can be used as a proof method for rooted
+bisimilarity. (However, Milner's ``unique solution of equations''
+theorem for $\rapprox$ cannot be proved by this method.) 
 \begin{alltt}
 \HOLthm[def]{BisimulationUpto.OBS_BISIM_UPTO}\hfill{[OBS_BISIM_UPTO]}
 
