@@ -304,7 +304,7 @@ last three ones were all constructed in forward way by applications of
 previous proven algebraic laws, without directly using any SOS
 inference rules and the definition of strong equivalence.
 
-The same kind of laws naturally hold for weak bisimilarities and
+The same kind of algebraic laws naturally hold for weak bisimilarities and
 rooted bisimilarities, simple because they are implied by strong
 bisimilarity.
 
@@ -313,7 +313,7 @@ bisimilarity.
 To formally define bisimulation expansion and contraction (and their preorders), we have
 followed the same ways as in the case of strong and weak bisimilarities:
 \begin{alltt}
-  \HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Exp} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -323,11 +323,11 @@ followed the same ways as in the case of strong and weak bisimilarities:
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[EXPANSION]}
   
-  \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Exp}. \HOLBoundVar{Exp} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EXPANSION} \HOLBoundVar{Exp}\hfill{[expands_thm]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Exp}. \HOLBoundVar{Exp} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EXPANSION} \HOLBoundVar{Exp}\hfill{[expands_thm]}
 \end{alltt}
 
 \begin{alltt}
-  \HOLConst{CONTRACTION} \HOLFreeVar{Con} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLConst{CONTRACTION} \HOLFreeVar{Con} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
     \HOLFreeVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -337,10 +337,49 @@ followed the same ways as in the case of strong and weak bisimilarities:
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[CONTRACTION]}
   
-  \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{TODO: rooted contraction}
+We can prove that, `contraction' is contained in weak bisimulation,
+and the `contracts' (bisimularity contraction) is between `expands'
+and  weak equivalence:
+\begin{proposition}{(Relationships between contraction, expansion and weak
+    bisimulation)}
+\begin{enumerate}
+\item `expands' implies `contracts',
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q}\hfill[expands_IMP_contracts]
+\end{alltt}
+\item `contracts' implies weak equivalence (`contracts' is contained
+  in weak equivalence).
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill[contracts_IMP_WEAK_EQUIV]
+\end{alltt}
+\end{enumerate}
+\end{proposition}
+
+The proof of all properties of contraction and `contracts' are slightly
+harder than the case of expansion and `expands', and we usually need
+to reduce the proof to corresponding properties of weak equivalence.
+Also, surprisingly, a contraction doesn't imply weak bisimulation,
+i.e. the following proposition doesn't hold:
+\begin{alltt}
+\HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
+\end{alltt}
+As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove $Con$ itself is a weak
+   bisimulation, but rather that $Con$ "union" weak bisimilarity is a
+   weak bisimulation. This is quite unexpected.
+
+The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
+defined as the following, with its precongruence result:
+\begin{alltt}
+\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_contracts]}
+
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_precongruence]}
+\end{alltt}
 
 \subsection{Formalisation of ``bisimulation up to''}
 
@@ -356,7 +395,7 @@ priviledged relation, so to relieve the proof work needed. We call
 this an \emph{``up-to'' technique}. It is a pretty general device
 which allows a great variety of prssibilities.
 
-Following \cite{Mil89}, the concept of ``Bisimulation up to
+Following Milner \cite{Mil89}, the concept of ``Bisimulation up to
 $\sim$'' starts with a generalization of the notion of strong
 bisimulation, which is often more useful in applications.
 The following definition and proposition put the idea on a firm
