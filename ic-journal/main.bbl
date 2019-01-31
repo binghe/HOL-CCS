@@ -5,6 +5,16 @@
 \expandafter\ifx\csname href\endcsname\relax
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
+\bibitem{EPTCS276.10}
+C.~Tian, D.~Sangiorgi, {Unique Solutions of Contractions, CCS, and their HOL
+  Formalisation}, in: J.~A. P\'erez, S.~Tini (Eds.), {\rm Proceedings Combined
+  25th International Workshop on} Expressiveness in Concurrency {\rm and 15th
+  Workshop on} Structural Operational Semantics, {\rm Beijing, China, September
+  3, 2018}, Vol. 276 of Electronic Proceedings in Theoretical Computer Science,
+  Open Publishing Association, 2018, pp. 122--139 (2018).
+\newblock \href {https://doi.org/10.4204/EPTCS.276.10}
+  {\path{doi:10.4204/EPTCS.276.10}}.
+
 \bibitem{Mil89}
 R.~Milner, Communication and concurrency, {PHI} Series in computer science,
   Prentice-Hall, 1989 (1989).
@@ -150,13 +160,6 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
   Proving, Springer, 2013, pp. 133--146 (2013).
 \newblock \href {https://doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
-
-\bibitem{melham1992hol}
-T.~F. Melham,
-  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}{{The
-  HOL pred_sets Library}}, Universiy of Cambridge Computer Lab (feb 1992).
-\newblock \href {https://doi.org/10.1.1.219.5390} {\path{doi:10.1.1.219.5390}}.
-\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}
 
 \bibitem{cleaveland1993concurrency}
 R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A

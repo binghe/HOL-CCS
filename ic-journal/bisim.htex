@@ -279,7 +279,8 @@ i.e. the following proposition doesn't hold:
 \begin{alltt}
 \HOLtm{!Con. CONTRACTION Con ==> WEAK_BISIM Con}
 \end{alltt}
-As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove $Con$ itself is a weak
+As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove
+$Con$ itself is a weak
    bisimulation, but rather that $Con$ "union" weak bisimilarity is a
    weak bisimulation. This is quite unexpected.
 
@@ -291,9 +292,9 @@ defined as the following, with its precongruence result:
 \HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
 \end{alltt}
 
-\subsection{Formalisation of ``bisimulation up to''}
+\subsection{The formalisation of ``bisimulation up to''}
 
-``Bisimulation up to'' is a powerful proof technique for proving many
+\hl{``Bisimulation up to'' is a powerful proof technique for proving many
 difficult results in process algebra. Generally speaking, it's a
 technique for reducing the size of the relation needed to define a bisimulation.
 By definition, two processes are bisimilar if there exists a
@@ -303,7 +304,7 @@ the size of the relations exhibited one prefers to define relations
 which are bisimulations only when closed up under some specific and
 priviledged relation, so to relieve the proof work needed. We call
 this an \emph{``up-to'' technique}. It is a pretty general device
-which allows a great variety of prssibilities.
+which allows a great variety of prssibilities.}
 
 Following Milner \cite{Mil89}, the concept of ``Bisimulation up to
 $\sim$'' starts with a generalization of the notion of strong

@@ -10,7 +10,7 @@
 % theorem in CCS is somehow special, as its current known proofs either
 % rely on quite restricted conditions, or have an extremely complicated proof
 % (c.f. van Glabbeek's paper) in
-% which ordinal theory is required.  Actually even the relationship
+% which the theory of ordinals is required.  Actually even the relationship
 % between its name and statement is not well explained in many CCS
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
@@ -44,7 +44,8 @@ on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) 
 $R$, no matter if $R$ is (pre)congruence or not\footnote{But if $R$ is
   equivalence (or preorder), the composition closure of $R$ must be congruence
   (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
-\texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}: (here $\subseteq_r$ stands for \emph{relational subset})
+  \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}:
+(here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
@@ -165,7 +166,7 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 With an almost identical proof, rooted contraction
 ($\rcontr$) is also the coarsest
 precongruence contained in bisimilarity contraction ($\mcontrBIS$)
-(the other direction of (\ref{eq:coarsest}) is trivial):
+(the other direction is trivial):
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
 \begin{alltt}
@@ -205,16 +206,189 @@ Willem Klop \cite{van2005characterisation})
 We have partially formalised
 this proof, because the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
-strong enough to define a type for all possible ordinal values
+strong enough to define a type for all possible ordinals
 \cite{norrish2013ordinals}, thus
 we have replaced transfinite induction with plain induction. As a
 consequence, the final
 result is about a restricted class of processes (which we have taken
-to be the finite-state processes). This proof uses extensively HOL's
-\texttt{pred_set} theory \cite{melham1992hol} and has an interesting mix
-of CCS and pure mathematics in it. (c.f. \cite{Tian:2017wrba} for
-more details.)
+to be the finite-state processes).
 
-\hl{(TODO: add details of this version)}
+\subsection{Arbitrary many non-bisimilar processes}
+
+The assumption in previous \texttt{PROP3_COMMON} requires the
+existence of a special CCS process, which is not weak equivalence to
+any sub-process leading from the two root processes by weak
+transitions. On worst cases, there may be infinite such
+sub-processes\footnote{Even the CCS is finite branching, that's
+  because after a weak transition, the end process may have an
+  infinite $\tau$-chain, and with each $\tau$-transition added into
+  the weak transition, the new end process is still a valid weak
+  transition, thus lead to infinite number of weak transitions.} Thus
+there's no essential differences to consider all states in the
+process group instead.
+
+Then it's natural to ask if there are infinite
+equivalence classes of CCS processes. If so, then it should be 
+possible to choose one which is not equivalent with all the (finite) states in the
+graphs of the two given processes. It turns out that, after Jan Willem
+Klop, it's possible to construct such processes, in which each of them forms a new
+equivalence class, we call them ``Klop processes'' in this paper:
+\begin{definition}[Klop processes]
+For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
+define a CCS process $k_\lambda$ as follows:
+\begin{itemize}
+\item $k_0 = 0$,
+\item $k_{\lambda+1} = k_\lambda + a.k_\lambda$ and
+\item for $\lambda$ a limit ordinal, $k_\lambda = \sum_{\mu < \lambda}
+  k_\mu$, meaning that $k_\lambda$ is constructed from all graphs
+  $k_\mu$ for $\mu < \lambda$ by identifying their root.
+\end{itemize}
+\end{definition}
+
+If both processes $p$ and $q$ are finite-state CCS processes, that is,
+the number of reachable states from $p$ and $q$ are both finite. And
+in this case, the following limited version of Klop processes can be
+defined as a recursive function (on natural numbers) in HOL4:
+\begin{definition}{(Klop processes as recursive function on natural numbers)}
+\begin{alltt}
+\HOLthm[def]{CoarsestCongr.KLOP_def}\hfill[KLOP_def]
+\end{alltt}
+\end{definition}
+
+By induction on the definition of Klop processes and SOS inference
+rules ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we can easily prove
+the following properties of Klop functions:
+\begin{proposition}{(Properties of Klop functions and processes)}
+\begin{enumerate}
+\item All Klop processes are stable:
+\begin{alltt}
+\HOLthm{CoarsestCongr.KLOP_PROP0}\hfill[KLOP_PROP0]
+\end{alltt}
+\item All transitions of a Klop process must lead to another smaller Klop
+  process, and any smaller Klop process must be a possible transition
+  of a larger Klop process:
+\begin{alltt}
+\hfill[KLOP_PROP1]
+\HOLthm{CoarsestCongr.KLOP_PROP1}
+\end{alltt}
+\item The weak transition version of above property:
+\begin{alltt}
+\hfill[KLOP_PROP1']
+\HOLthm{CoarsestCongr.KLOP_PROP1'}
+\end{alltt}
+\item All Klop processes are distinct according to strong equivalence:
+\begin{alltt}
+\HOLthm{CoarsestCongr.KLOP_PROP2}\hfill[KLOP_PROP2]
+\end{alltt}
+\item All Klop processes are distinct according to weak equivalence:
+\begin{alltt}
+\HOLthm{CoarsestCongr.KLOP_PROP2'}\hfill[KLOP_PROP2']
+\end{alltt}
+\item Klop functions are one-one:
+\begin{alltt}
+\HOLthm{CoarsestCongr.KLOP_ONE_ONE}\hfill{KLOP_ONE_ONE}
+\end{alltt}
+\end{enumerate}
+\end{proposition}
+
+Once we have a recursive function defined on all natural numbers $0, 1,
+\ldots$, we can map them into a set containing all these Klop processes,
+and the set is countable infinite. On the other side, the number of
+all states coming from
+two finite-state CCS processes $p$ and $q$ is finite. Choosing from an
+infinite set for an element distinct with any subprocess leading from
+$p$ and $q$, is always possible.  This result is purely mathematical,
+completely falling into basic set theory:
+\begin{lemma}
+Given an equivalence relation $R$ defined on a type, and two sets $A, B$
+of elements in this type, $A$ is finite, $B$ is infinite, and all elements
+in $B$ are not equivalent, then there exists an element $k$ in $B$
+which is not equivalent with any element in $A$:
+\begin{alltt}
+\HOLthm{CoarsestCongr.INFINITE_EXISTS_LEMMA}\hfill[INFINITE_EXISTS_LEMMA]
+\end{alltt}
+\end{lemma}
+\begin{proof}
+  We built an explicit mapping $f$ from $A$ to $B$\footnote{There're
+    multiple ways to prove this lemma, a simpler proof is to make a
+    reverse mapping from $B$ to the power set of $A$ (or further use
+    the Axiom of Choice (AC) to make a mapping from $B$ to $A$), then
+    the non-injectivity of this mapping will contradict the fact that
+    all elements in the infinite set are distinct. Our proof doesn't
+    need AC, and it relies on very simple truths about sets.}, for all
+  $x \in A$, $y = f(x)$ if $y \in B$ and $y$ is equivalent with
+  $x$. But it's possible that no element in $B$ is equivalent with
+  $x$, and in this case we just choose an arbitrary element as
+  $f(x)$. Such a mapping is to make sure the range of $f$ always fall
+  into $B$.
+
+  Now we can map $A$ to a subset of $B$, say $B_0$, and the
+  cardinality of $B_0$ must be equal or smaller than the cardinality
+  of $A$, thus finite. Now we choose an element $k$ from the rest part
+  of $B$, this element is the desire one, because for any element
+  $x \in A$, if it's equivalent with $k$, consider two cases for
+  $y = f(x) \in B_0$:
+  \begin{enumerate}
+  \item $y$ is equivalent with $x$. In this case by transitivity of
+    $R$, we have two distinct elements $y$ and $k$, one in $B_0$, the
+    other in $B\setminus B_0$, they're equivalent. This violates the
+    assumption that all elements in $B$ are distinct.
+  \item $y$ is arbitrary chosen because there's no equivalent element
+    for $x$ in $B$. But we already know one: $k$.
+  \end{enumerate}
+  Thus there's no element $x$ (in $A$) which is equivalent with $k$.
+\end{proof}
+
+To reason about finite-state CCS, we also need to define the concept
+of ``finite-state'':
+\begin{definition}{(Definitions related to finite-state CCS)}
+\begin{enumerate}
+\item Define \emph{reachable} as the RTC of a relation, which
+  indicates the existence of a transition between two processes:
+\begin{alltt}
+\HOLthm[def]{Trace.Reach_def}\hfill[Reach_def]
+\end{alltt}
+\item The ``nodes'' of a process is the set of all processes reachable
+  from it:
+\begin{alltt}
+\HOLthm[def]{Trace.NODES_def}\hfill[NODES_def]
+\end{alltt}
+\item A process is finite-state if the set of nodes is finite:
+\begin{alltt}
+\HOLthm[def]{Trace.finite_state_def}\hfill[finite_state_def]
+\end{alltt}
+\end{enumerate}
+\end{definition}
+
+Among many properties of above definitions, we mainly rely on the
+following ``obvious'' property on weak transitions:
+\begin{proposition}
+If $p$ weakly transit to $q$, then $q$ must be in the node set of $p$:
+\begin{alltt}
+\HOLthm{Trace.WEAK_TRANS_IN_NODES}\hfill[WEAK_TRANS_IN_NODES]
+\end{alltt}
+\end{proposition}
+
+Using all above results, now we can easily prove the following finite
+version of ``Klop lemma'':
+\begin{lemma}{(Klop lemma, the finite version)}
+\label{lem:klop-lemma-finite}
+For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
+is not weak equivalent with any sub-process weakly transited from $p$
+and $q$:
+\begin{alltt}
+KLOP_LEMMA_FINITE:
+\HOLthm[nosp]{CoarsestCongr.KLOP_LEMMA_FINITE}
+\end{alltt}
+\end{lemma}
+
+Combining above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
+we can easily prove the following theorem for finite-state CCS:
+\begin{theorem}{(Coarsest congruence contained in $\approx$ for
+    finite-state CCS)}
+\begin{alltt}
+\HOLthm{CoarsestCongr.COARSEST_CONGR_FINITE}\hfill[COARSEST_CONGR_FINITE]
+\end{alltt}
+\end{theorem}
 
 % next file: part2.htex
