@@ -1,5 +1,5 @@
-\newcommand{\HOLCCSDate}{25 Agosto 2018}
-\newcommand{\HOLCCSTime}{13:35}
+\newcommand{\HOLCCSDate}{01 Febbraio 2019}
+\newcommand{\HOLCCSTime}{00:12}
 \begin{SaveVerbatim}{HOLCCSDatatypesCCS}
 \HOLFreeVar{CCS} =
     \HOLConst{nil}
@@ -74,11 +74,11 @@
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{rf} \HOLBoundVar{fm}.
         \HOLConst{CCS_Subst1} (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLConst{relab} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm}) \HOLBoundVar{rf}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{fm}.
-        \HOLConst{CCS_Subst1} (\HOLConst{var} \HOLBoundVar{Y}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLBoundVar{fm} \HOLConst{'} \HOLBoundVar{Y}
-        \HOLKeyword{else} \HOLConst{var} \HOLBoundVar{Y}) \HOLSymConst{\HOLTokenConj{}}
+        \HOLConst{CCS_Subst1} (\HOLConst{var} \HOLBoundVar{Y}) \HOLBoundVar{fm} \HOLSymConst{=}
+        \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLBoundVar{fm} \HOLConst{'} \HOLBoundVar{Y} \HOLKeyword{else} \HOLConst{var} \HOLBoundVar{Y}) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E} \HOLBoundVar{fm}.
-       \HOLConst{CCS_Subst1} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{fm} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}
-       \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm})
+       \HOLConst{CCS_Subst1} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{fm} \HOLSymConst{=}
+       \HOLKeyword{if} \HOLBoundVar{Y} \HOLConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLBoundVar{fm} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst1} \HOLBoundVar{E} \HOLBoundVar{fm})
 \end{SaveVerbatim}
 \newcommand{\HOLCCSDefinitionsCCSXXSubstOneXXdef}{\UseVerbatim{HOLCCSDefinitionsCCSXXSubstOneXXdef}}
 \begin{SaveVerbatim}{HOLCCSDefinitionsCCSXXSubstTwoXXdef}
@@ -100,8 +100,8 @@
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
         \HOLConst{CCS_Subst} (\HOLConst{var} \HOLBoundVar{Y}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLSymConst{=} \HOLBoundVar{X} \HOLKeyword{then} \HOLBoundVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLBoundVar{Y}) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Y} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}.
-       \HOLConst{CCS_Subst} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=} \HOLKeyword{if} \HOLBoundVar{Y} \HOLSymConst{=} \HOLBoundVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}
-       \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X})
+       \HOLConst{CCS_Subst} (\HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E}) \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X} \HOLSymConst{=}
+       \HOLKeyword{if} \HOLBoundVar{Y} \HOLSymConst{=} \HOLBoundVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLBoundVar{Y} \HOLBoundVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLBoundVar{Y} (\HOLConst{CCS_Subst} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X})
 \end{SaveVerbatim}
 \newcommand{\HOLCCSDefinitionsCCSXXSubstXXdef}{\UseVerbatim{HOLCCSDefinitionsCCSXXSubstXXdef}}
 \begin{SaveVerbatim}{HOLCCSDefinitionsCOMPLXXACTXXdef}

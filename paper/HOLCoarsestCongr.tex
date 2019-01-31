@@ -1,5 +1,5 @@
-\newcommand{\HOLCoarsestCongrDate}{25 Agosto 2018}
-\newcommand{\HOLCoarsestCongrTime}{13:36}
+\newcommand{\HOLCoarsestCongrDate}{01 Febbraio 2019}
+\newcommand{\HOLCoarsestCongrTime}{00:12}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsfreeXXactionXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}})
 \end{SaveVerbatim}
@@ -92,8 +92,8 @@
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}.
         \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}}
-        \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
+        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}}
+        \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}.
        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{+}}

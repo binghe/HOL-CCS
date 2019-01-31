@@ -1,5 +1,5 @@
-\newcommand{\HOLTraceDate}{25 Agosto 2018}
-\newcommand{\HOLTraceTime}{13:36}
+\newcommand{\HOLTraceDate}{01 Febbraio 2019}
+\newcommand{\HOLTraceTime}{00:12}
 \begin{SaveVerbatim}{HOLTraceDefinitionsfiniteXXstateXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{FINITE} (\HOLConst{NODES} \HOLBoundVar{p})
 \end{SaveVerbatim}
@@ -77,13 +77,15 @@
 \newcommand{\HOLTraceTheoremsLRTCXXAPPENDXXCASES}{\UseVerbatim{HOLTraceTheoremsLRTCXXAPPENDXXCASES}}
 \begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXCASESOne}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
-       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
        \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{R} \HOLBoundVar{x} (\HOLConst{HD} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{u} (\HOLConst{TL} \HOLBoundVar{l}) \HOLBoundVar{y}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsLRTCXXCASESOne}{\UseVerbatim{HOLTraceTheoremsLRTCXXCASESOne}}
 \begin{SaveVerbatim}{HOLTraceTheoremsLRTCXXCASESTwo}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
-       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
        \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{LRTC} \HOLBoundVar{R} \HOLBoundVar{x} (\HOLConst{FRONT} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{u} (\HOLConst{LAST} \HOLBoundVar{l}) \HOLBoundVar{y}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsLRTCXXCASESTwo}{\UseVerbatim{HOLTraceTheoremsLRTCXXCASESTwo}}
@@ -245,13 +247,15 @@
 \newcommand{\HOLTraceTheoremsTRACEXXAPPENDXXcases}{\UseVerbatim{HOLTraceTheoremsTRACEXXAPPENDXXcases}}
 \begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXcasesOne}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
-       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
        \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{x} \HOLTokenTransBegin\HOLConst{HD} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} \HOLBoundVar{u} (\HOLConst{TL} \HOLBoundVar{l}) \HOLBoundVar{y}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsTRACEXXcasesOne}{\UseVerbatim{HOLTraceTheoremsTRACEXXcasesOne}}
 \begin{SaveVerbatim}{HOLTraceTheoremsTRACEXXcasesTwo}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y}.
-       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}} \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
+       \HOLConst{TRACE} \HOLBoundVar{x} \HOLBoundVar{l} \HOLBoundVar{y} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLKeyword{if} \HOLConst{NULL} \HOLBoundVar{l} \HOLKeyword{then} \HOLBoundVar{x} \HOLSymConst{=} \HOLBoundVar{y}
        \HOLKeyword{else} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLConst{TRACE} \HOLBoundVar{x} (\HOLConst{FRONT} \HOLBoundVar{l}) \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{u} \HOLTokenTransBegin\HOLConst{LAST} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{y}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsTRACEXXcasesTwo}{\UseVerbatim{HOLTraceTheoremsTRACEXXcasesTwo}}
@@ -350,8 +354,8 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
        \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{us}.
-           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{us} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{us} \HOLSymConst{\HOLTokenConj{}} \HOLKeyword{if} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{us}
-           \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{us}
+           \HOLConst{TRACE} \HOLBoundVar{E} \HOLBoundVar{us} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{us} \HOLSymConst{\HOLTokenConj{}}
+           \HOLKeyword{if} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{us} \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLBoundVar{u} \HOLBoundVar{us}
 \end{SaveVerbatim}
 \newcommand{\HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}{\UseVerbatim{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACE}}
 \begin{SaveVerbatim}{HOLTraceTheoremsWEAKXXTRANSXXANDXXTRACEYY}

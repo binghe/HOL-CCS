@@ -1,5 +1,5 @@
-\newcommand{\HOLStrongLawsDate}{25 Agosto 2018}
-\newcommand{\HOLStrongLawsTime}{13:36}
+\newcommand{\HOLStrongLawsDate}{01 Febbraio 2019}
+\newcommand{\HOLStrongLawsTime}{00:12}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsALLXXSYNCXXdef}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
         \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
@@ -36,7 +36,8 @@
         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
         \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
         \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
+        \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=}
        \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
@@ -68,7 +69,7 @@
         \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
         \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-        \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
+        \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
         \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))))
           (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
@@ -107,7 +108,7 @@
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
         \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1}) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
+        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
@@ -117,7 +118,7 @@
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
         \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
+        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
@@ -304,9 +305,11 @@
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXUNFOLDING}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXUNFOLDING}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXBASE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
-       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
+       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
+       \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
        \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLKeyword{else} \HOLConst{nil}
+         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
+       \HOLKeyword{else} \HOLConst{nil}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXBASE}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXdefXXcompute}
@@ -314,18 +317,19 @@
         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
         \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
         \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
+        \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
         \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then}
-          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1})
+          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})
         \HOLKeyword{else} \HOLKeyword{if}
           \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=}
           \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))))
         \HOLKeyword{then}
           \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))) \HOLSymConst{\ensuremath{+}}
-          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1})
-        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{-} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
+          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})
+        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then}
