@@ -5,18 +5,131 @@
 
 \subsection{Unique solution of equations}
 
-\hl{TODO}
+\paragraph{For strong bisimularity}
+\hl{Based on results of ``bisimulation up to $\sim$'', we have first proved the following
+non-trivial lemma. It states in effect that if $X$ is weakly guarded
+in $E$, then the ``first move'' of $E$ is independent of the agent
+substituted for $X$:}
+\begin{lemma}[Lemma 3.13 of \cite{Mil89}]
+If the variable $X$ are weakly guarded in $E$, and
+$E\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
+$E'\{P/X\}$ (for some expression $E'$), and moreover, for any $Q$,
+$E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
+       \HOLFreeVar{E} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}}. \HOLConst{CONTEXT} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{E} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION_LEMMA]}
+\end{alltt}
+\end{lemma}
+
+We're now ready to prove the following, the main proposition above the
+``unique solution of equations'':
+\begin{theorem}[Proposition 3.14 of \cite{Mil89}]
+Let the expression $E$ contains at most the variable $X$, and let $X$ be weakly
+guarded in $E$, then
+\begin{equation}
+\text{If } P \sim E\{P/X\} \text{ and } Q \sim E\{Q/X\} \text{ then }
+P \sim Q.
+\end{equation}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
+\end{theorem}
+In above proof, we have identified 14 major sub-goals, dividing into 7
+groups, in which each pairs are symmetric (thus having similar proof
+steps). The proof of this last theorem consists of 500 lines (each
+line usually have 2 or 3 HOL tactics, to make the proof not too long
+in lines).
 
+\paragraph{For weak bisimilarity}
+Actually Milner's book contains only two ``unique solutions of
+equations'' theorems, one for strong equivalence, the other for
+observational congruence (with a wrong proof).   But there's indeed a
+version for weak equivalence which shares a large portion of proof
+steps with the case for ``observation congruence''.  The problem is, since weak
+equivalence is not congruence, to make correct statement of this
+theorem, we must slightly modify the concept of sequential expresses
+with further restrictions: no direct sums (or only guarded sums).
+The ``unique solution of equations'' theorem for weak equivalence
+requires more restrictions on the expression, namely, strong guardness.
+Now we're ready to state and prove the following lemma:
+\begin{lemma}
+If the variable $X$ are (strongly) guarded and sequential in $G$, and
+$G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
+$H\{P/X\}$ (for some expression $H$), and for any $Q$,
+$G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
+sequential, and if $\alpha = \tau$ then $H$ is also guarded.
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
+       \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}.
+           \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} ((\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}\hfill{[WEAK_UNIQUE_SOLUTION_LEMMA]}
+\end{alltt}
+\end{lemma}
+
+Once above lemma is proved, it's just one small step toward the target theorem:
+\begin{theorem}{(Unique solution of equations for weak equivalence)}
+Let $E$ be guarded and sequential expressions, and let $P \wb
+E\{P/X\}$,
+$Q \wb E\{Q/X\}$. Then $P \wb Q$.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}\hfill{[WEAK_UNIQUE_SOLUTION]}
 \end{alltt}
+\end{theorem}
 
+\paragraph{For rooted bisimilarity}
+For ``unique solutions of
+equations'' theorem of rooted bisimilarity, we have used a whole new technique, i.e. the
+following lemma:
+\begin{lemma}
+To prove two processes $E$ and $E'$ are observational congruence, it's
+enough to construct a bisimulation with additional observational
+transition properties:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{E\sp{\prime}}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
+\end{alltt}
+\end{lemma}
+
+This lemma can be easily proved by definition of observational
+congruence and weak equivalence, however it's never mentioned in
+Milner's book. Actually we think it's impossible to prove the
+corresponding ``unique solutions'' theorem without this result.
+What we have proved is the following one. Notice that, we didn't use
+any ``bisimulation up-to'' techniques, because they're not applicable
+once above theorem \texttt{OBS_CONGR_BY_WEAK_BISIM} is used. Instead
+we have directly constructed a bisimulation to finish the proof.
+\begin{lemma}
+If the variable $X$ are (strongly) guarded and sequential in $G$, and
+$G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
+$H\{P/X\}$ (for some expression $H$), and for any $Q$,
+$G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
+sequential, and if $\alpha = \tau$ then $H$ is also guarded.
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
+       \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}.
+           \HOLConst{SEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} ((\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}\hfill{[OBS_UNIQUE_SOLUTION_LEMMA]}
+\end{alltt}
+\end{lemma}
+
+\begin{theorem}{(Unique solution of equations for observational congruence)}
+Let $E$ be guarded and sequential expressions, and let $P \rapprox
+E\{P/X\}$,
+$Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}\hfill{[OBS_UNIQUE_SOLUTION]}
 \end{alltt}
+\end{theorem}
 
 \subsection{Unique solution of contractions}
 
@@ -179,7 +292,6 @@ Theorem~\ref{t:rcontraBisimulationU}
 the precongruence of rooted contraction, 
 we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
-
 \begin{alltt}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
@@ -188,23 +300,13 @@ that is, \texttt{WG} in place of \texttt{WGS}):
 Having removed the  constraints on sums, the result is
  similar to Milner's original `unique solution of
 equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
-the same weakly guarded context (\texttt{WG}) is required:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
-\end{alltt}
-
+the same weakly guarded context (\texttt{WG}) is required.
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$)
 has more severe constraints (must be both strongly guarded and sequential):
-% Or our Theorem~\ref{t:rcontraBisimulationU} can be seen as a more
-% applicable version of Milner's ``unique solution of
-% equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
-% restrictions on equations:
-
-\begin{alltt}
-\hfill{[OBS_UNIQUE_SOLUTION]}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
-\end{alltt}
+The Theorem~\ref{t:rcontraBisimulationU} \hl{can also be seen as a more
+applicable version of Milner's ``unique solution of
+equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
+restrictions on equations.}
 
 % next file: related.tex
-
