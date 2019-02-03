@@ -1,0 +1,36 @@
+
+\subsection{Expansions}
+\label{s:expa}
+
+\hl{The bisimulation proof method can be enhanced by means of \emph{up-to
+techniques}. One of the most useful auxiliary relations in up-to
+techniques is the \emph{expansion} relation} $\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
+This is an asymmetric version
+of $\wb$ where $P \expa Q$ means that $P \wb Q$,
+but also that $Q$ achieves the same as $P$
+with no more work, i.e.~with no more $\tau$ actions.
+Intuitively, if $P \expa Q$, we can think of $Q$ as being
+at least as fast as $P$
+or, more generally, we can think that $P$ uses at least as many resources as $Q$.
+\begin{definition}%[expansion]
+\label{d:expa}
+A process relation ${\R}$
+  is an \textbf{expansion} if, whenever
+we have $P\RR Q$, for all $\mu$
+ \begin{enumerate}
+ \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu
+   Q'$
+  and $P' \RR Q'$;
+ \item
+     $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+  P'$ and $P'
+ \RR Q'$.
+ \end{enumerate}
+  $P$  {\em expands} $Q$, written as
+ $P  \expa Q$,
+ if $P \RR Q$ for some expansion $\R$.
+ \end{definition}
+
+Same as bisimilarity, the expansion preorder is preserved by all operators but (direct) sums.
+
+% next file: contraction.tex
