@@ -5,14 +5,14 @@ The equivalences we consider here are mainly \emph{weak} ones, in that they
 abstract from the number of internal steps being performed:
 \begin{definition}%[bisimilarity]
 \label{d:wb}
-A process relation ${\R}$ is a \textbf{bisimulation} if, whenever
- $P\RR Q$, \hl{for all $\mu\in \mathscr{L}\cup\{\tau\}$} we have:
+A process relation ${\R}$ is a \emph{bisimulation} if, whenever
+ $P\RR Q$, \DS{for all $\mu$} we have:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
   \mu P'$ and $P' \RR Q'$\enspace.
 \end{enumerate}
- $P$ and $Q$ are \textbf{bisimilar},
+ $P$ and $Q$ are \emph{bisimilar},
 written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
 \end{definition}
 
@@ -25,8 +25,10 @@ guarded sums). For this, Milner introduced \emph{observational congruence}, also
   bisimilarity} \cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
 \begin{definition}%[rooted bisimilarity]
 \label{d:rootedBisimilarity}
-Two processes $P$ and $Q$ are \textbf{rooted bisimilar}, written as $P
-\rapprox Q$, iff \hl{for all $\mu\in \mathscr{L}\cup\{\tau\}$}
+Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
+\rapprox Q$, if
+\DS{for all $\mu$}:
+%  \hl{for all $\mu\in \mathscr{L}\cup\{\tau\}$}
 \begin{enumerate}
  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \wb Q'$;
@@ -36,8 +38,10 @@ Two processes $P$ and $Q$ are \textbf{rooted bisimilar}, written as $P
 \end{definition}
 
 Besides reducing the rooted bisimiarity of two processes to
-the bisimilarities of their first-step transition ends, above definition also brings a proof technique for proving the rooted bisimiarity by constructing a bisimulation:
-\begin{lemma}{(Rooted bisimilarity by constructing a bisimulation)}
+the bisimilarities of their  \DS{immediate derivatives}, the
+above definition also brings up a proof technique \DS{for proving  rooted
+bisimiarity results  by constructing a bisimulation.}
+\begin{lemma}%{(Rooted bisimilarity by constructing a bisimulation)}
 \label{l:obsCongrByWeakBisim}
 Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
 satisfies the following properties:
@@ -54,39 +58,3 @@ then $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
 $\rapprox$ is a congruence in CCS, and it is the
 coarsest congruence contained in $\approx$ \cite{van2005characterisation}.
 \end{theorem}
-
-\subsection{Expansions}
-\label{s:expa}
-
-\hl{The bisimulation proof method can be enhanced by means of \emph{up-to
-techniques}. One of the most useful auxiliary relations in up-to
-techniques is the \emph{expansion} relation} $\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
-This is an asymmetric version
-of $\wb$ where $P \expa Q$ means that $P \wb Q$,
-but also that $Q$ achieves the same as $P$
-with no more work, i.e.~with no more $\tau$ actions.
-Intuitively, if $P \expa Q$, we can think of $Q$ as being
-at least as fast as $P$
-or, more generally, we can think that $P$ uses at least as many resources as $Q$.
-\begin{definition}%[expansion]
-\label{d:expa}
-A process relation ${\R}$
-  is an \textbf{expansion} if, whenever
-we have $P\RR Q$, for all $\mu$
- \begin{enumerate}
- \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu
-   Q'$
-  and $P' \RR Q'$;
- \item
-     $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
-  P'$ and $P'
- \RR Q'$.
- \end{enumerate}
-  $P$  {\em expands} $Q$, written as
- $P  \expa Q$,
- if $P \RR Q$ for some expansion $\R$.
- \end{definition}
-
-Same as bisimilarity, the expansion preorder is preserved by all operators but (direct) sums.
-
-% next file: contraction.tex

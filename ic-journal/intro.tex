@@ -8,9 +8,10 @@ of the same system of equations.
 This method is important in verification techniques and tools
 based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice,RosUnder10}. 
 
-\hl{In Milner's versions of unique-solution theorems} for proving that all
-solutions are weakly (or rooted) bisimilar (in practice these are the most
-relevant cases), however, the proof method has severe syntactical limitations:
+\DS{
+In Milner's versions of the unique-solution theorems for weak
+equivalences,
+ the  method has severe syntactical limitations:}
 the equations must be \emph{(strongly) guarded and sequential}. That is, the
 variables of the equations may only be used underneath a visible
 prefix and proceed, in the syntax tree, only by the sum and prefix operators.
@@ -24,7 +25,7 @@ The difference with equations is in the meaning of a solution:
 in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem can be
-\hl{eliminated}.  One constraint that still remains in
+removed.  One constraint that still remains in
 \cite{sangiorgi2017equations} (in which the issue is bypassed using a more
 restrictive CCS syntax)
 is the occurrences of direct sums, due to the failure of the
@@ -35,7 +36,7 @@ comprehensive formalisation of the core theory of CCS in the HOL
 theorem prover (HOL4),  with a focus on the theory of unique solutions
 of \hl{equations and} contractions.
 The formalisation, however, is not confined to the theory of unique
-solutions of equations \hl{(and contractions)}, but embraces a
+\DS{solutions}, but embraces a
 significant portion the theory of CCS \cite{Mil89}, mostly because the
 theory of unique solutions relies on a large number of more fundamental results.
 Indeed the formalisation encompasses the basic properties of strong and weak
@@ -50,7 +51,7 @@ expansion and contraction preorder (two
 efficiency-like refinements of weak bisimilarity). Concerning rooted bisimilarity, the formalisation
 includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
 \cite{Gorrieri:2015jt}),
- and two long proofs saying \hl{that} the rooted bisimilarity is the coarsest (largest)
+ and two long proofs saying \hl{that}  rooted bisimilarity is the coarsest (largest)
  congruence contained in (weak) bisimilarity: one following Milner's
  book \cite{Mil89}, with the hypothesis that no processes can use up
  all labels;

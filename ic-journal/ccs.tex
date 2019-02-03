@@ -32,7 +32,8 @@ the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
 process $P$ are the elements of the set $\{P' \st P \arr\mu P' \mbox{
   for some $\mu$}\}$.
  \hl{We use $\ell$ to range over
-  visible actions (i.e.~inputs or outputs, excluding  $\tau$).}
+  visible actions (i.e.~inputs or outputs, excluding  $\tau$)}
+ \DS{and $\alpha, \mu$  to range over all actions.}
 \begin{figure*}[t]
 \begin{center}
 \vskip .1cm
@@ -78,11 +79,11 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-\hl{Let variables} $\R$, $\S$ range over binary relations%
-\footnote{We use infix notation for relations, e.g., 
-$P \RR Q$ means that $(P,Q) \in \R$.} of CCS processes.
-We use tilded letters \hl{like $\til P$} to denote tuples \hl{of processes} with
-countably many elements; (Thus the tuple may also be infinite.)
+\DS{We let $\R$, $\S$ range over binary relations, sometimes using 
+ infix notation for them; e.g., 
+$P \RR Q$ means that $(P,Q) \in \R$.}
+We use \DS{a tilde, as in  $\til P$, to denote tuples of processes with
+countably many elements (thus the tuple may also be infinite.}
 All notations are extended to tuples componentwise,
 e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for each  
 component $i$ of the tuples $\til P$ and $\til Q$.

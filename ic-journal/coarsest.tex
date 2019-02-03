@@ -15,12 +15,13 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
+\DS{
+%As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
 introduced (Def.~\ref{d:rootedBisimilarity}).
 In this subsection we discuss two proofs of an important result stating that
 rooted bisimilarity is the coarsest congruence contained in
-bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89} (thus it
-is the best one):
+bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
+}
 \begin{equation}
 \label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
@@ -175,15 +176,16 @@ precongruence contained in bisimilarity contraction ($\mcontrBIS$)
 \end{alltt}
 %\end{theorem}
 
-The formal proofs of above two results precisely follow Milner
-\cite{Mil89}. If only $p$ (or $q$) has free actions while the other uses up all available
-labels, the classic assumption $\mathrm{fn}(p) \cup
+\DS{
+The formal proofs  of the above two results  follow Milner's proof
+\cite{Mil89}. If only $p$ (or $q$) has free actions while the other uses all available
+labels, the assumption $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}) does not hold, and the proof cannot be completed. Our
-assumption is a bit \emph{weaker}
-in the sense that, $p$ and $q$ do not really need to have the
-\emph{same} free action (also, $a$ and $\outC a$ are
-\emph{different} actions).
+assumption is \emph{weaker}
+in the sense that $p$ and $q$ need not have the
+\emph{same} free actions (note that $a$ and its complementary  $\outC a$ are
+considered \emph{different} as actions).}
 
 There exists a different, more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek \cite{van2005characterisation}, which does not
@@ -202,7 +204,8 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \begin{alltt}
 \HOLConst{STABLE} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
-To actually get this process $k$, the proof relies on arbitrary infinite sum of 
+\DS{To construct this process $k$,}
+ the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
@@ -218,25 +221,22 @@ result is about a restricted class of processes (which we have taken
 to be the finite-state processes).
 
 \subsection{Arbitrary many non-bisimilar processes}
-
-The assumption in previous \texttt{PROP3_COMMON} requires the
-existence of a special CCS process, which is not weak equivalence to
-any sub-process leading from the two root processes by weak
-transitions. On worst cases, there may be infinite such
-sub-processes\footnote{Even the CCS is finite branching, that's
-  because after a weak transition, the end process may have an
-  infinite $\tau$-chain, and with each $\tau$-transition added into
-  the weak transition, the new end process is still a valid weak
-  transition, thus lead to infinite number of weak transitions.} Thus
-there's no essential differences to consider all states in the
-process group instead.
-
-Then it's natural to ask if there are infinite
-equivalence classes of CCS processes. If so, then it should be 
-possible to choose one which is not equivalent with all the (finite) states in the
-graphs of the two given processes. It turns out that, after Jan Willem
-Klop, it's possible to construct such processes, in which each of them forms a new
-equivalence class, we call them ``Klop processes'' in this paper:
+\DS{
+The assumption in the  previous \texttt{PROP3_COMMON} requires the
+existence of a special CCS process, which is not weak bisimilar to
+any sub-process emanating from the two root processes by weak
+transitions. In the worst case, there may be infinite such
+sub-processes (even on finitely branching processes).
+We can however consider  the equivalence classes of CCS processes 
+modulo weak bisimilarity.
+If there are infinitely many of them, 
+then it should be 
+possible to choose one  that is distinct from all the (finitely many) states in the
+graphs of the two given processes.  
+This can be done following a contruction originally given by 
+ Jan Willem
+Klop \cite{CITATION???}.
+ We call  ``Klop processes''  the processes in this construction:}
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
 define a CCS process $k_\lambda$ as follows:
@@ -248,11 +248,11 @@ define a CCS process $k_\lambda$ as follows:
   $k_\mu$ for $\mu < \lambda$ by identifying their root.
 \end{itemize}
 \end{definition}
-
-If both processes $p$ and $q$ are finite-state CCS processes, that is,
-the number of reachable states from $p$ and $q$ are both finite. And
-in this case, the following limited version of Klop processes can be
-defined as a recursive function (on natural numbers) in HOL4:
+\DS{When processes are finite-state, that is,
+the number of  states in which a process may evolve by performing
+transitions is finite, 
+we can use  the following subset of Klop processes, 
+defined as a recursive function (on natural numbers) in HOL4:}
 \begin{definition}{(Klop processes as recursive function on natural numbers)}
 \begin{alltt}
 \HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}
@@ -261,7 +261,7 @@ defined as a recursive function (on natural numbers) in HOL4:
 \end{definition}
 
 By induction on the definition of Klop processes and SOS inference
-rules ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we can easily prove
+rules ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we can  prove
 the following properties of Klop functions:
 \begin{proposition}{(Properties of Klop functions and processes)}
 \begin{enumerate}
@@ -269,14 +269,13 @@ the following properties of Klop functions:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{STABLE} (\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill[KLOP_PROP0]
 \end{alltt}
-\item All transitions of a Klop process must lead to another smaller Klop
-  process, and any smaller Klop process must be a possible transition
-  of a larger Klop process:
+\item  \DS{Any transition from a Klop process leads to a smaller Klop
+  process, and conversely:}
 \begin{alltt}
 \hfill[KLOP_PROP1]
 \HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})
 \end{alltt}
-\item The weak transition version of above property:
+\item The weak transition version of the above property:
 \begin{alltt}
 \hfill[KLOP_PROP1']
 \HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenWeakTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})
@@ -295,15 +294,24 @@ the following properties of Klop functions:
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-
-Once we have a recursive function defined on all natural numbers $0, 1,
-\ldots$, we can map them into a set containing all these Klop processes,
-and the set is countable infinite. On the other side, the number of
-all states coming from
-two finite-state CCS processes $p$ and $q$ is finite. Choosing from an
-infinite set for an element distinct with any subprocess leading from
-$p$ and $q$, is always possible.  This result is purely mathematical,
-completely falling into basic set theory:
+\DS{Having
+ a recursive function  on all natural numbers,
+  we can map these into a set containing  all Klop processes. 
+We can therefore 
+choose a number that is mapped onto a Klop process
+that is distinct (i.e., not bisimilar)  from 
+any  of the derivatives of two  given 
+two finite-state CCS processes $p$ and $q$
+(by definition, the number of such derivatives is finite).
+This is done by 
+appealing to a   basic   set-theory result.
+}
+% (processes 
+% all states coming from
+% two finite-state CCS processes $p$ and $q$ is finite. Choosing from an
+% infinite set for an element distinct with any subprocess leading from
+% $p$ and $q$, is always possible.  This result is purely mathematical,
+% completely falling into basic set theory:
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
 of elements in this type, $A$ is finite, $B$ is infinite, and all elements
@@ -316,36 +324,36 @@ which is not equivalent with any element in $A$:
    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}. \HOLBoundVar{k} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n}. \HOLBoundVar{n} \HOLSymConst{\HOLTokenIn{}} \HOLFreeVar{A} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLFreeVar{R} \HOLBoundVar{n} \HOLBoundVar{k}\hfill[INFINITE_EXISTS_LEMMA]
 \end{alltt}
 \end{lemma}
-\begin{proof}
-  We built an explicit mapping $f$ from $A$ to $B$\footnote{There're
-    multiple ways to prove this lemma, a simpler proof is to make a
-    reverse mapping from $B$ to the power set of $A$ (or further use
-    the Axiom of Choice (AC) to make a mapping from $B$ to $A$), then
-    the non-injectivity of this mapping will contradict the fact that
-    all elements in the infinite set are distinct. Our proof doesn't
-    need AC, and it relies on very simple truths about sets.}, for all
-  $x \in A$, $y = f(x)$ if $y \in B$ and $y$ is equivalent with
-  $x$. But it's possible that no element in $B$ is equivalent with
-  $x$, and in this case we just choose an arbitrary element as
-  $f(x)$. Such a mapping is to make sure the range of $f$ always fall
-  into $B$.
+% \begin{proof}
+%   We built an explicit mapping $f$ from $A$ to $B$\footnote{There're
+%     multiple ways to prove this lemma, a simpler proof is to make a
+%     reverse mapping from $B$ to the power set of $A$ (or further use
+%     the Axiom of Choice (AC) to make a mapping from $B$ to $A$), then
+%     the non-injectivity of this mapping will contradict the fact that
+%     all elements in the infinite set are distinct. Our proof doesn't
+%     need AC, and it relies on very simple truths about sets.}, for all
+%   $x \in A$, $y = f(x)$ if $y \in B$ and $y$ is equivalent with
+%   $x$. But it's possible that no element in $B$ is equivalent with
+%   $x$, and in this case we just choose an arbitrary element as
+%   $f(x)$. Such a mapping is to make sure the range of $f$ always fall
+%   into $B$.
 
-  Now we can map $A$ to a subset of $B$, say $B_0$, and the
-  cardinality of $B_0$ must be equal or smaller than the cardinality
-  of $A$, thus finite. Now we choose an element $k$ from the rest part
-  of $B$, this element is the desire one, because for any element
-  $x \in A$, if it's equivalent with $k$, consider two cases for
-  $y = f(x) \in B_0$:
-  \begin{enumerate}
-  \item $y$ is equivalent with $x$. In this case by transitivity of
-    $R$, we have two distinct elements $y$ and $k$, one in $B_0$, the
-    other in $B\setminus B_0$, they're equivalent. This violates the
-    assumption that all elements in $B$ are distinct.
-  \item $y$ is arbitrary chosen because there's no equivalent element
-    for $x$ in $B$. But we already know one: $k$.
-  \end{enumerate}
-  Thus there's no element $x$ (in $A$) which is equivalent with $k$.
-\end{proof}
+%   Now we can map $A$ to a subset of $B$, say $B_0$, and the
+%   cardinality of $B_0$ must be equal or smaller than the cardinality
+%   of $A$, thus finite. Now we choose an element $k$ from the rest part
+%   of $B$, this element is the desire one, because for any element
+%   $x \in A$, if it's equivalent with $k$, consider two cases for
+%   $y = f(x) \in B_0$:
+%   \begin{enumerate}
+%   \item $y$ is equivalent with $x$. In this case by transitivity of
+%     $R$, we have two distinct elements $y$ and $k$, one in $B_0$, the
+%     other in $B\setminus B_0$, they're equivalent. This violates the
+%     assumption that all elements in $B$ are distinct.
+%   \item $y$ is arbitrary chosen because there's no equivalent element
+%     for $x$ in $B$. But we already know one: $k$.
+%   \end{enumerate}
+%   Thus there's no element $x$ (in $A$) which is equivalent with $k$.
+% \end{proof}
 
 To reason about finite-state CCS, we also need to define the concept
 of ``finite-state'':
@@ -371,19 +379,19 @@ of ``finite-state'':
 Among many properties of above definitions, we mainly rely on the
 following ``obvious'' property on weak transitions:
 \begin{proposition}
-If $p$ weakly transit to $q$, then $q$ must be in the node set of $p$:
+\DS{If $p$ has a  weak transition onto $q$,} then $q$ must be in the node set of $p$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{q} \HOLSymConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLFreeVar{p}\hfill[WEAK_TRANS_IN_NODES]
 \end{alltt}
 \end{proposition}
 
-Using all above results, now we can easily prove the following finite
+Using all the above results, now we can easily prove the following finite
 version of ``Klop lemma'':
-\begin{lemma}{(Klop lemma, the finite version)}
+\begin{lemma}{(Klop lemma,  finite version)}
 \label{lem:klop-lemma-finite}
-For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
-is not weak equivalent with any sub-process weakly transited from $p$
-and $q$:
+\DS{For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
+is not weak equivalent to any derivative  of $p$
+and $q$ (i.e., processes reachable from $p$ and $q$ by means of transitions):}
 \begin{alltt}
 KLOP_LEMMA_FINITE:
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
@@ -394,8 +402,8 @@ KLOP_LEMMA_FINITE:
 \end{alltt}
 \end{lemma}
 
-Combining above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
-we can easily prove the following theorem for finite-state CCS:
+Combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
+we can  prove the following theorem for finite-state CCS:
 \begin{theorem}{(Coarsest congruence contained in $\approx$ for
     finite-state CCS)}
 \begin{alltt}

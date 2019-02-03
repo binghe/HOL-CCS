@@ -1,35 +1,38 @@
 \subsection{Contractions}
 \label{s:mcontr}
 
-The constraints \hl{on equations (which must be both guarded and
-sequential)} in Theorem~\ref{t:Mil89} can be
+The constraints on the unique-solution Theorem~\ref{t:Mil89} can be 
 weakened if we move from equations to a special kind of inequations called
   \emph{contractions}.
 
 Intuitively, the bisimilarity contraction $\mcontrBIS$ is a preorder in which 
 $P \mcontrBIS Q  $  holds  if $P \wb Q$ and, in addition, 
-$Q$ \emph{has the possibility of being at least as efficient as $P$} (as far as
-$\tau$-actions \hl{are} performed). 
+$Q$ has the \emph{possibility} of being at least as efficient as $P$ (as far as
+$\tau$-actions performed). 
 Process $Q$, however, may be nondeterministic and may have other ways
-of doing the same work, and those could be slow (i.e., involving
+of doing the same work, and these could be  slow (i.e., involving
 more $\tau$-steps than those performed by $P$).
-Thus, in contrast with expansion, we cannot really say that `$Q$ is more efficient than
-$P$'.
+% Thus, in contrast with expansion,  we cannot really say that `$Q$ is more efficient than
+% $P$'.
 
 \begin{definition}%[bisimulation contraction]
 \label{d:BisCon}
 A process relation ${\R}$ 
- is a \textbf{contraction} if, whenever
- $P\RR Q$, for all $\mu$
+ is a \emph{(bisimulation) contraction} if, whenever
+ $P\RR Q$, %for all $\mu$ 
+
 \begin{enumerate}
-\item $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
+\item   $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
   Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
  P'$ and $P' \wb Q'$\enspace.
 \end{enumerate}
 \emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$ ($P$
-\textbf{contracts to} $Q$), if $P\ \R\ Q$ for some contraction $\R$.
+\emph{contracts to} $Q$), if $P\ \R\ Q$ for some contraction $\R$.
 \end{definition}
+% We say that $P$  {\emph{bisimilarly  contracts} $Q$, written
+% $Q \mcontrBIS Q$.
+% We write $\mexpaBIS$ for the inverse of $\mcontrBIS$.
 
 In the first clause $Q$ is required to match $P$'s challenge
 transition with at most one transition.
@@ -40,11 +43,13 @@ challenges from $Q$, entirely ignores efficiency: it is the same
 clause of  weak bisimulation~--- the final derivatives are even required
 to be related  by $\wb$, rather than by $\R$.
 
-Bisimilarity contraction is coarser than 
- the \emph{expansion relation} $\expa$.
-This is a preorder widely used in proof techniques for bisimilarity and that 
+Bisimilarity  contraction is coarser than 
+ the \emph{expansion relation} 
+$\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
+This is a
+preorder widely used in proof techniques for bisimilarity and that 
 intuitively refines bisimilarity by 
- formalising the idea of \emph{efficiency} between processes.
+ formalising the idea of `efficiency' between processes.
 Clause (1) is the same in the two
 preorders. But in clause (2) expansion uses 
 $P \Arr \mu P'$, rather than $P \Arcap \mu P'$; 
@@ -56,11 +61,38 @@ tells us  that $Q$ is always at least as efficient as $P$, whereas  the
  contraction $P \mcontrBIS Q$  just says that $Q$ has the  possibility of
 being at least as efficient as $P$. 
 
-Note the use of $\wb$, in place of $\R$, in the second clause:
-we are only interested to know that $Q$ may  mimic $P$'s
-more in an efficient manner (first clause); we do not care about
-efficiency on the challenges proposed by $Q$, which are handled using ordinary
-bisimilarity.
+% \iflong\newDS
+% Note the use of $\wb$, in place of $\R$, in the second clause:
+%  we are only interested to know that $Q$ may  mimic $P$'s
+% more in an efficient manner (first clause); we do not care about
+% efficiency
+% on the
+% challenges proposed by $Q$,   which are handled using ordinary
+% bisimilarity.
+% \fi
+
+\begin{definition}%[expansion]
+\label{d:expa}
+A process relation ${\R}$
+  is an \emph{expansion} if, whenever
+we have $P\RR Q$, for all $\mu$
+ \begin{enumerate}
+ \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu
+   Q'$
+  and $P' \RR Q'$;
+ \item
+     $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
+  P'$ and $P'
+ \RR Q'$.
+ \end{enumerate}
+  $P$  {\em expands} $Q$, written as
+ $P  \expa Q$,
+ if $P \RR Q$ for some expansion $\R$.
+ \end{definition}
+
+As bisimilarity, so the expansion preorder is preserved by all operators but  sums.
+
+
 
 \begin{example}
 \label{exa:contr}
@@ -72,16 +104,16 @@ $  a \mcontrBIS a +
 $  P  \mcontrBIS P +Q$. The last two relations do not hold with 
 $\expa$, which explains the strictness of the inclusion
  ${\expa} \subset {\mcontrBIS}$. 
-The inclusion is strict: for instance
-$a+ \tau . a \mcontrBIS a$, where $\mcontrBIS$ cannot be replaced by
-$\contr$. Also the converse of  $a+ \tau . a \mcontrBIS a$ holds, namely
-$  a \mcontrBIS a +
-\tau . a $. However, we have %\mcontrBIS a + \tau^n . a $
-$ a \not  \mcontrBIS \tau. a$
+% The inclusion is strict: for instance
+% $a+ \tau . a \mcontrBIS a$, where $\mcontrBIS$ cannot be replaced by
+%  $\contr$. Also the converse of  $a+ \tau . a \mcontrBIS a$ holds, namely
+% $  a \mcontrBIS a +
+% \tau . a $. However, we have %\mcontrBIS a + \tau^n . a $
+%  $ a \not  \mcontrBIS \tau. a$
 \end{example} 
 
-The substitutivity proofs for for expansion and bisimilarity carry
-over to contraction. Like (weak) bisimilarity and expansion, contraction is
-preserved by all operators but (direct) sums.
+% The substitutivity proofs for for expansion and bisimilarity carry
+% over to contraction,   
 
-% next file: equa.tex
+\hl{Like} (weak) bisimilarity and expansion, contraction is
+preserved by all operators but (direct) sum.
