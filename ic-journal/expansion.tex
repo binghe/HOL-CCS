@@ -6,7 +6,7 @@ abstract from the number of internal steps being performed:
 \begin{definition}%[bisimilarity]
 \label{d:wb}
 A process relation ${\R}$ is a \emph{bisimulation} if, whenever
- $P\RR Q$, \DS{for all $\mu$} we have:
+ $P\RR Q$, for all $\mu$ we have:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
@@ -27,8 +27,8 @@ guarded sums). For this, Milner introduced \emph{observational congruence}, also
 \label{d:rootedBisimilarity}
 Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
 \rapprox Q$, if
-\DS{for all $\mu$}:
-%  \hl{for all $\mu\in \mathscr{L}\cup\{\tau\}$}
+for all $\mu$:
+%  for all $\mu\in \mathscr{L}\cup\{\tau\}$
 \begin{enumerate}
  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \wb Q'$;
@@ -38,9 +38,9 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
 \end{definition}
 
 Besides reducing the rooted bisimiarity of two processes to
-the bisimilarities of their  \DS{immediate derivatives}, the
-above definition also brings up a proof technique \DS{for proving  rooted
-bisimiarity results  by constructing a bisimulation.}
+the bisimilarities of their immediate derivatives, the
+above definition also brings up a proof technique for proving  rooted
+bisimiarity results  by constructing a bisimulation.
 \begin{lemma}%{(Rooted bisimilarity by constructing a bisimulation)}
 \label{l:obsCongrByWeakBisim}
 Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$

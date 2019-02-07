@@ -102,8 +102,8 @@ the relation
 (R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
 $\qct$ (weakly-guarded sum only)} \} \enspace.
 \end{equation}
-We show that $\R$ is a bisimulation. \hl{Suppose $R\ \R\ S$ vis the context
-$C$}, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
+We show that $\R$ is a bisimulation. Suppose $R\ \R\ S$ vis the context
+$C$, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
 S'$ and $R'\ \R\ S'$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
 \Arcap{\mu} R'' \wb R'$ for some $R''$. By Lemma~\ref{l:uptocon},
 there is $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
@@ -137,15 +137,15 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
 %bisimilarity on top of that of the  contraction preorder
 %$\mcontrBIS$.  %% Reviewer said this sentance is unclear. I too think so.
 
-\hl{The precise formulation of  this definition was guided by the HOL theorem
-  prover and
-the following two principles:} (1) the definition should not be recursive,
+The precise formulation of  this definition was guided by the HOL theorem
+prover and
+the following two principles: (1) the definition should not be recursive,
 along the lines of rooted bisimilarity
 $\rapprox$ in Def.~\ref{d:rootedBisimilarity};
 (2) the definition should  be built on top of existing \emph{contraction}
 relation $\mcontrBIS$ (because of its completeness). 
-\hl{A few other candidates were quickly tested and rejected, e.g.,
-  because of  precongruence issue.} The proof of the precongruence
+A few other candidates were quickly tested and rejected, e.g.,
+  because of  precongruence issue. The proof of the precongruence
  result below is along the lines of the analogous result
 for rooted bisimilarity with respect to bisimilarity.
 
@@ -189,11 +189,11 @@ A system of weakly-guarded contractions has a unique solution
 \begin{proof}
 We first follow the same steps as in the proof of Theorem~\ref{t:contraBisimulationU} to show the relation $\R$ (now
 with $\rcontr$ and unrestricted context $C$) in (\ref{eq:R}) is bisimulation,
-exploting Lemma~\ref{l:ruptocon}. \hl{Then it remains to show that,} for
+exploting Lemma~\ref{l:ruptocon}. Then it remains to show that, for
 any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
 there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$!) and
 $P'\ \R\ Q'$, and also for the converse direction, exploting Lemma
-4.13 of \cite{Mil89} \hl{(surprisingly)}. \hl{By definition of
+4.13 of \cite{Mil89} (TODO). By definition of
 \emph{bisimulation} (not $\wb$!) and $\approx^c$, we actually proved $P
-\approx^c Q$ instead of $P \wb Q$.}
+\approx^c Q$ instead of $P \wb Q$.
 \end{proof}

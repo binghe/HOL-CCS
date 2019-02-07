@@ -169,10 +169,6 @@ R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A
 \newblock \href {https://doi.org/10.1145/151646.151648}
   {\path{doi:10.1145/151646.151648}}.
 
-\bibitem{bengtson2010formalising}
-J.~Bengtson, Formalising process calculi, Ph.D. thesis, Acta Universitatis
-  Upsaliensis (2010).
-
 \bibitem{bengtson2007completeness}
 J.~Bengtson, J.~Parrow, A completeness proof for bisimulation in the
   pi-calculus using isabelle, Electronic Notes in Theoretical Computer Science

@@ -8,10 +8,9 @@ of the same system of equations.
 This method is important in verification techniques and tools
 based on algebraic reasoning \cite{BaeBOOK,theoryAndPractice,RosUnder10}. 
 
-\DS{
 In Milner's versions of the unique-solution theorems for weak
 equivalences,
- the  method has severe syntactical limitations:}
+ the  method has severe syntactical limitations:
 the equations must be \emph{(strongly) guarded and sequential}. That is, the
 variables of the equations may only be used underneath a visible
 prefix and proceed, in the syntax tree, only by the sum and prefix operators.
@@ -20,7 +19,7 @@ One way of overcoming such limitations is to replace the equations
 \emph{contractions} \cite{sangiorgi2015equations,sangiorgi2017equations}. Contraction is a
 preorder that, roughly, places some efficiency
 constraints on processes.  The uniqueness of solutions of a system of contractions
-is defined as with systems of equations: any two solutions must be \hl{(componentwise)} bisimilar.
+is defined as with systems of equations: any two solutions must be (componentwise) bisimilar.
 The difference with equations is in the meaning of a solution:
 in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
@@ -34,9 +33,9 @@ substitutivity of contraction under direct sums.
 The main goal of the work described in this paper is a rather
 comprehensive formalisation of the core theory of CCS in the HOL
 theorem prover (HOL4),  with a focus on the theory of unique solutions
-of \hl{equations and} contractions.
+of equations and contractions.
 The formalisation, however, is not confined to the theory of unique
-\DS{solutions}, but embraces a
+solutions, but embraces a
 significant portion the theory of CCS \cite{Mil89}, mostly because the
 theory of unique solutions relies on a large number of more fundamental results.
 Indeed the formalisation encompasses the basic properties of strong and weak
@@ -51,7 +50,7 @@ expansion and contraction preorder (two
 efficiency-like refinements of weak bisimilarity). Concerning rooted bisimilarity, the formalisation
 includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
 \cite{Gorrieri:2015jt}),
- and two long proofs saying \hl{that}  rooted bisimilarity is the coarsest (largest)
+ and two long proofs saying that  rooted bisimilarity is the coarsest (largest)
  congruence contained in (weak) bisimilarity: one following Milner's
  book \cite{Mil89}, with the hypothesis that no processes can use up
  all labels;
@@ -61,7 +60,7 @@ In this respect, the work is an extensive experiment with the use of the HOL the
 recent developments, including a package for coinductive definitions.
 
 From the view of CCS theory, this formalisation has offered us the possibility of
-further refining the theory of unique solutions of \hl{contractions}, as
+further refining the theory of unique solutions of contractions, as
 formally proving a previously known result gives us the
 chance to see \emph{what is really needed} for establishing that result.
 In particular, the existing theory \cite{sangiorgi2017equations} has
@@ -74,7 +73,7 @@ preorder. The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
 constraints on the occurrences of sums.
 
-Another \hl{benefit} of the formalisation is 
+Another benefit of the formalisation is 
 that we can take advantage of results about different 
 equivalences and preorders that share similar proof structures. 
 Examples are: the results that rooted bisimilarity and rooted contraction are,
@@ -88,10 +87,10 @@ proof method (the `up-to' techniques).
 In these cases, moving between proofs there are only a few places in
 which the HOL proof scripts have to be modified.
 Then the successful termination of the proof gives us a guarantee that the proof is
-complete and trustworthy, \hl{eliminating} the risks 
-of overlooking or missing details as in \hl{\emph{paper-and-pencil} proofs}.
+complete and trustworthy, eliminating the risks 
+of overlooking or missing details as in \emph{paper-and-pencil} proofs.
 
-\paragraph{Structure of the paper} 
+\paragraph{Structure of the paper}
 
 Section~\ref{ss:ccs} presents basic background materials on CCS,
 including its syntax, operational semantics, bisimilarity and rooted

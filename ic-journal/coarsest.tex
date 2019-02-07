@@ -15,13 +15,11 @@
 % textbooks. But van Glabbeek's paper has given the so far clearest
 % explanation, here we briefly repeat his arguments:
 
-\DS{
 %As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
 introduced (Def.~\ref{d:rootedBisimilarity}).
 In this subsection we discuss two proofs of an important result stating that
 rooted bisimilarity is the coarsest congruence contained in
 bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
-}
 \begin{equation}
 \label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
@@ -157,10 +155,8 @@ We have formalised this property and
 %
 With this property, the actual formalisation of (\ref{equa:pq}) says:
 %\begin{theorem}{(Coarsest congruence contained in $\wb$)}
-\vspace{-2ex}
 \begin{alltt}
-\hfill{[COARSEST_CONGR_RL]}
-\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}
+\HOLTokenTurnstile{} \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[COARSEST_CONGR_RL]}
 \end{alltt}
 %\end{theorem}
 
@@ -176,7 +172,6 @@ precongruence contained in bisimilarity contraction ($\mcontrBIS$)
 \end{alltt}
 %\end{theorem}
 
-\DS{
 The formal proofs  of the above two results  follow Milner's proof
 \cite{Mil89}. If only $p$ (or $q$) has free actions while the other uses all available
 labels, the assumption $\mathrm{fn}(p) \cup
@@ -185,7 +180,7 @@ labels, the assumption $\mathrm{fn}(p) \cup
 assumption is \emph{weaker}
 in the sense that $p$ and $q$ need not have the
 \emph{same} free actions (note that $a$ and its complementary  $\outC a$ are
-considered \emph{different} as actions).}
+considered \emph{different} as actions).
 
 There exists a different, more complex proof of (\ref{eq:coarsest}),
 given by van Glabbeek \cite{van2005characterisation}, which does not
@@ -204,7 +199,7 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \begin{alltt}
 \HOLConst{STABLE} \HOLFreeVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
-\DS{To construct this process $k$,}
+To construct this process $k$,
  the proof relies on arbitrary infinite sum of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
@@ -221,7 +216,7 @@ result is about a restricted class of processes (which we have taken
 to be the finite-state processes).
 
 \subsection{Arbitrary many non-bisimilar processes}
-\DS{
+
 The assumption in the  previous \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weak bisimilar to
 any sub-process emanating from the two root processes by weak
@@ -234,9 +229,8 @@ then it should be
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
 This can be done following a contruction originally given by 
- Jan Willem
-Klop \cite{CITATION???}.
- We call  ``Klop processes''  the processes in this construction:}
+ Jan Willem Klop \cite{van2005characterisation}.
+ We call  ``Klop processes''  the processes in this construction:
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
 define a CCS process $k_\lambda$ as follows:
@@ -248,15 +242,15 @@ define a CCS process $k_\lambda$ as follows:
   $k_\mu$ for $\mu < \lambda$ by identifying their root.
 \end{itemize}
 \end{definition}
-\DS{When processes are finite-state, that is,
+When processes are finite-state, that is,
 the number of  states in which a process may evolve by performing
 transitions is finite, 
 we can use  the following subset of Klop processes, 
-defined as a recursive function (on natural numbers) in HOL4:}
+defined as a recursive function (on natural numbers) in HOL4:
 \begin{definition}{(Klop processes as recursive function on natural numbers)}
 \begin{alltt}
 \HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}
-\HOLConst{KLOP} \HOLFreeVar{a} (\HOLConst{SUC} \HOLFreeVar{n}) \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill[KLOP_def]
+\HOLConst{KLOP} \HOLFreeVar{a} (\HOLConst{SUC} \HOLFreeVar{n}) \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill{[KLOP_def]}
 \end{alltt}
 \end{definition}
 
@@ -269,32 +263,30 @@ the following properties of Klop functions:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{STABLE} (\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill[KLOP_PROP0]
 \end{alltt}
-\item  \DS{Any transition from a Klop process leads to a smaller Klop
-  process, and conversely:}
+\item Any transition from a Klop process leads to a smaller Klop
+  process, and conversely:
 \begin{alltt}
-\hfill[KLOP_PROP1]
-\HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})
+\HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})\hfill{[KLOP_PROP1]}
 \end{alltt}
 \item The weak transition version of the above property:
 \begin{alltt}
-\hfill[KLOP_PROP1']
-\HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenWeakTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})
+\HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenWeakTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})\hfill{[KLOP_PROP1']}
 \end{alltt}
 \item All Klop processes are distinct according to strong equivalence:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{m} \HOLSymConst{\HOLTokenStrongEQ} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill[KLOP_PROP2]
+\HOLTokenTurnstile{} \HOLFreeVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{m} \HOLSymConst{\HOLTokenStrongEQ} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill{[KLOP_PROP2]}
 \end{alltt}
 \item All Klop processes are distinct according to weak equivalence:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{m} \HOLSymConst{\HOLTokenWeakEQ} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill[KLOP_PROP2']
+\HOLTokenTurnstile{} \HOLFreeVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{m} \HOLSymConst{\HOLTokenWeakEQ} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill{[KLOP_PROP2']}
 \end{alltt}
 \item Klop functions are one-one:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{ONE_ONE} (\HOLConst{KLOP} \HOLFreeVar{a})\hfill{KLOP_ONE_ONE}
+\HOLTokenTurnstile{} \HOLConst{ONE_ONE} (\HOLConst{KLOP} \HOLFreeVar{a})\hfill{[KLOP_ONE_ONE]}
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-\DS{Having
+Having
  a recursive function  on all natural numbers,
   we can map these into a set containing  all Klop processes. 
 We can therefore 
@@ -304,8 +296,8 @@ any  of the derivatives of two  given
 two finite-state CCS processes $p$ and $q$
 (by definition, the number of such derivatives is finite).
 This is done by 
-appealing to a   basic   set-theory result.
-}
+appealing to a basic set-theory result.
+
 % (processes 
 % all states coming from
 % two finite-state CCS processes $p$ and $q$ is finite. Choosing from an
@@ -379,7 +371,7 @@ of ``finite-state'':
 Among many properties of above definitions, we mainly rely on the
 following ``obvious'' property on weak transitions:
 \begin{proposition}
-\DS{If $p$ has a  weak transition onto $q$,} then $q$ must be in the node set of $p$:
+If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{q} \HOLSymConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLFreeVar{p}\hfill[WEAK_TRANS_IN_NODES]
 \end{alltt}
@@ -389,16 +381,15 @@ Using all the above results, now we can easily prove the following finite
 version of ``Klop lemma'':
 \begin{lemma}{(Klop lemma,  finite version)}
 \label{lem:klop-lemma-finite}
-\DS{For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
+For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
 is not weak equivalent to any derivative  of $p$
-and $q$ (i.e., processes reachable from $p$ and $q$ by means of transitions):}
+and $q$ (i.e., processes reachable from $p$ and $q$ by means of transitions):
 \begin{alltt}
-KLOP_LEMMA_FINITE:
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k})\hfill{[KLOP_LEMMA_FINITE]}
 \end{alltt}
 \end{lemma}
 

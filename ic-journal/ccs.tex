@@ -19,21 +19,21 @@ P_1 + P_2 \; \midd % \; \mu . P\; \midd  \;
 \; \midd \; P\; [r\!f]  % relabelling
 \end{array}
 \end{equation*}
-\hl{We sometimes omit the trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.}
+We sometimes omit the trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
 The operational semantics of CCS is then given by means of
 a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as
-\hl{Structural Operational Semantics (SOS)}
+Structural Operational Semantics (SOS)
 rules (the symmetric version of the two rules for
 parallel composition and the rule for sum are omitted).
-A CCS expression uses only \emph{weakly\hl{ }guarded sums} if all occurrences of
+A CCS expression uses only \emph{weakly guarded sums} if all occurrences of
 the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
 + \mu_n.P_n$, for some $n \geq 2$.
  The \emph{immediate derivatives} of a
 process $P$ are the elements of the set $\{P' \st P \arr\mu P' \mbox{
   for some $\mu$}\}$.
- \hl{We use $\ell$ to range over
-  visible actions (i.e.~inputs or outputs, excluding  $\tau$)}
- \DS{and $\alpha, \mu$  to range over all actions.}
+We use $\ell$ to range over
+visible actions (i.e.~inputs or outputs, excluding  $\tau$)
+and $\alpha, \mu$  to range over all actions.
 \begin{figure*}[t]
 \begin{center}
 \vskip .1cm
@@ -79,11 +79,11 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-\DS{We let $\R$, $\S$ range over binary relations, sometimes using 
+We let $\R$, $\S$ range over binary relations, sometimes using 
  infix notation for them; e.g., 
-$P \RR Q$ means that $(P,Q) \in \R$.}
-We use \DS{a tilde, as in  $\til P$, to denote tuples of processes with
-countably many elements (thus the tuple may also be infinite.}
+$P \RR Q$ means that $(P,Q) \in \R$.
+We use a tilde, as in  $\til P$, to denote tuples of processes with
+countably many elements (thus the tuple may also be infinite.)
 All notations are extended to tuples componentwise,
 e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for each  
 component $i$ of the tuples $\til P$ and $\til Q$.

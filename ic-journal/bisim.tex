@@ -5,14 +5,14 @@
 
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
-\DS{An highlight in this project is the simplified definitions of
+An highlight in this project is the simplified definitions of
   bisimilarities using the new coinductive relational package for HOL.  
 Without it, the bisimilaries can still be defined,  but
-  proving their basic properties would be more complicated.}
+  proving their basic properties would be more complicated.
 
-\hl{The definition of strong bisimulation (\texttt{STRONG_BISIM}) strictly follows
+The definition of strong bisimulation (\texttt{STRONG_BISIM}) strictly follows
   its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
-what kind of binary relations on CCS process is a (strong) bisimulation:}
+what kind of binary relations on CCS process is a (strong) bisimulation:
 \begin{alltt}
 \HOLConst{STRONG_BISIM} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
@@ -30,9 +30,9 @@ would be the following one:
 \begin{alltt}
   \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Bsm}. \HOLBoundVar{Bsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_BISIM} \HOLBoundVar{Bsm}\hfill{[STRONG_EQUIV]}
 \end{alltt}
-\DS{This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
+This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
   time of HOL88. With the above definition, deriving
- the following property  \citep[p.~91]{Mil89}  is tedious:}
+ the following property  \citep[p.~91]{Mil89}  is tedious:
 \begin{quote}
   $P\sim Q$ iff, for all $\mu$,\hfill{(*)}
   \begin{enumerate}[(i)]
@@ -64,8 +64,7 @@ val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
 \texttt{STRONG_EQUIV_rules}, is the
 same as the input term\footnote{Our mixing of HOL notation and mathematical
   notation in this paper is not arbitrary.
-%\DS
-{We have  pasted here the
+We have  pasted here the
     original proof scripts,  written in HOL ASCII term
   notation (c.f.\  \cite{holdesc} for more details; HOL4 also supports writing Unicode symbols directly in
   proof scripts). All formal definitions and
@@ -73,7 +72,7 @@ same as the input term\footnote{Our mixing of HOL notation and mathematical
   tried to  generate
   Unicode and TeX outputs as easy  as possible to read (what is really
   arbitrary is the presense/absense of outermost universal
-  quantifiers in all generated theorems)}.}, but now promoted into a theorem;
+  quantifiers in all generated theorems).}, but now promoted into a theorem;
 The second and third theorems, namely \texttt{STRONG_EQUIV_coind} and \texttt{STRONG_EQUIV_cases},
 represent the coinduction proof method for bisimilarity 
 (i.e.~any bisimulation is contained in bisimilarity)
@@ -106,8 +105,7 @@ bisimulation):
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_EQUIV_cases]}
 \end{alltt}
 \end{enumerate}
-\DS{The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed  property
-(*).}
+The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed  property (*).
 % , and these theorems completely capture the definition of
 % , because now we can easily derive the original definition of
 % \texttt{STRONG_EQUIV} as a theorem from \texttt{STRONG_EQUIV_coind}
@@ -115,10 +113,10 @@ bisimulation):
 
 To define (weak) bisimilarity, we first need to define weak
 transitions of CCS processes. 
-\DS{Following  Nesi \cite{Nesi:1992ve},
+Following  Nesi \cite{Nesi:1992ve},
 we define a (possibly empty) sequence of $\tau$-transitions between
 two processes as
-a new relation  \texttt{EPS}}
+a new relation  \texttt{EPS}
 ($\overset{\epsilon}{\Rightarrow}$), which is the
 reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
@@ -146,10 +144,10 @@ Weak bisimulation is defined upon weak transition:
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[WEAK_BISIM]}
 \end{alltt}
 
-\DS{Again, we can prove that the identity
+Again, we can prove that the identity
 relation is a bisimulation, that bisimulation is preserved by inversion,
  composition, and union. With the following call to
-\texttt{Hol_coreln} the definition of weak bisimilarity can be generated:}
+\texttt{Hol_coreln} the definition of weak bisimilarity can be generated:
 \begin{lstlisting}
 val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -261,7 +259,7 @@ rooted bisimilarity ($\approx^c$) are  congruence relations:
 \HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
 \end{alltt}
 
-\DS{Although weak bisimilarity ($\approx$) is \emph{not} a congruence
+Although weak bisimilarity ($\approx$) is \emph{not} a congruence
   with respect to~\texttt{CONTEXT}, it is indeed substitutive
   with respect to~\texttt{GCONTEXT} 
 % (or if the CCS syntax were defined with
@@ -270,12 +268,12 @@ as weak
   bisimilarity ($\approx$) is indeed preserved by 
   weakly-guarded sums.
 
-\DS{On the relationship between bisimilarity and rooted bisimilarity, 
+On the relationship between bisimilarity and rooted bisimilarity, 
 we also prove 
 Deng
 Lemma and Hennessy Lemma
  (Lemma 4.1 and 4.2 in
-\cite{Gorrieri:2015jt}):}
+\cite{Gorrieri:2015jt}):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}}
    (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q}) \HOLSymConst{\HOLTokenDisj{}} (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLFreeVar{q} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}}
@@ -286,12 +284,12 @@ Lemma and Hennessy Lemma
 
 \subsection{Algebraic Laws}
 
-\DS{Having formalised  the definitions of strong bisimulation and strong bisimilarity,
+Having formalised  the definitions of strong bisimulation and strong bisimilarity,
 we can derive  \emph{algebraic laws} for the 
  bisimilarities. We only report a few laws for 
- the sum operator:}
+ the sum operator:
 \begin{alltt}
-STRONG_SUM_IDEMP:          \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E}
+STRONG_SUM_IDEMP:          \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E}  
 STRONG_SUM_COMM:           \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E}
 STRONG_SUM_IDENT_L:        \HOLTokenTurnstile{} \HOLConst{nil} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E}
 STRONG_SUM_IDENT_R:        \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{nil} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E}
@@ -301,7 +299,6 @@ STRONG_SUM_MID_IDEMP:      \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ens
 STRONG_LEFT_SUM_MID_IDEMP: \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}}
 \end{alltt}
 
-\DS{
 % Not all above theorems are primitive (in the sense of providing a
 % minimal axiomatization set for proving all other strong algebraic
 % laws). 
@@ -314,10 +311,10 @@ last 3 laws are derived in a forward manner by applications of
 previous proven laws, without directly using any SOS
 inference rules and the definition of bisimulation.
  
-The  algebraic laws can be lifted to weak bisimilarity  and rooted 
+The algebraic laws can be lifted to weak bisimilarity  and rooted 
  bisimilarity, as  they are coarser than   strong
 bisimilarity.
-}
+
 \subsection{Expansion, Contraction and Rooted Contraction}
 
 To formally define bisimulation expansion and contraction (and their preorders), we have
@@ -332,7 +329,7 @@ followed the same ways as in the case of strong and weak bisimilarities:
          \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Exp} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[EXPANSION]}
-  
+
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Exp}. \HOLBoundVar{Exp} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EXPANSION} \HOLBoundVar{Exp}\hfill{[expands_thm]}
 \end{alltt}
 
@@ -346,13 +343,12 @@ followed the same ways as in the case of strong and weak bisimilarities:
          \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Con} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[CONTRACTION]}
-  
+
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-\DS{
 We can prove that the contraction preorder is contained in weak bisimilarity,
-and contains the expansion preorder. }
+and contains the expansion preorder.
 \begin{proposition}{(Relationships between contraction, expansion and weak
     bisimilarity)}
 \begin{enumerate}
@@ -366,19 +362,18 @@ and contains the expansion preorder. }
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-\DS{
 In general a proof of a property for the  contraction preorder is
 harder than that for the  expansion preorder; we sometimes need
-to reduce the proof to corresponding properties of weak bisimilarity.}
+to reduce the proof to corresponding properties of weak bisimilarity.
 Also, surprisingly, a contraction doesn't imply weak bisimulation,
 i.e. the following proposition doesn't hold:
 \begin{alltt}
 \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
-\DS{As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove
+As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove
 that $Con$ itself is a weak
    bisimulation, but rather that the union of  $Con$ and weak bisimilarity is a
-   weak bisimulation. }
+   weak bisimulation.
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as the following, with its precongruence result:
@@ -393,7 +388,7 @@ defined as the following, with its precongruence result:
 
 \subsection{The formalisation of ``bisimulation up to''}
 
-\DS{``Bisimulation up to'' is a powerful proof technique.}
+``Bisimulation up to'' is a powerful proof technique.
  Generally speaking, it's a
 technique for reducing the size of the relation needed to define a bisimulation.
 By definition, two processes are bisimilar if there exists a
@@ -407,7 +402,6 @@ this an \emph{``up-to'' technique}.
 % which allows a great variety of prssibilities.
 
 
-\DS{
 % Following Milner \cite{Mil89}, the concept of ``bisimulation up to
 % $\sim$''  begins  with a generalization of the notion of strong
 % bisimulation, which is often more useful in applications.
@@ -419,7 +413,6 @@ Moreover,
  $\sim \mathcal{S} \sim$ is the composition of the binary
 relations, hence $P \sim \mathcal{S} \sim Q$ means that, for some
 $P'$ and $Q'$, we have $P \sim P'$, $P' \,\mathcal{S}\, Q'$ and $Q' \sim Q$.
-}
 \begin{definition}[Bisimulation up to $\sim$]
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
   \mathcal{S} Q$ implies, for all $\mu$,
@@ -460,9 +453,8 @@ $\mathcal{S} \subseteq\;\sim$:
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
 
-
-\DS{For weak bisimilarity, there are a few versions of the `up-to
-  bisimilarity'. The most common one is the following.}
+For weak bisimilarity, there are a few versions of the `up-to
+  bisimilarity'. The most common one is the following.
 
 \begin{definition}{(Bisimulation up to $\approx$)}
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P
@@ -509,14 +501,13 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{alltt}
 \end{theorem}
 
-\DS{
 The above version of ``bisimulation up to $\wb$'' cannot be used to prove
-Milner's ``unique solution of equations'' theorem for $\wb$}, for
+Milner's ``unique solution of equations'' theorem for $\wb$, for
 which we need 
 the
 following version (though less practical to use
 as it is  usually harder to
-check  multi-step transitions than one-step transitions):}
+check multi-step transitions than one-step transitions):
 \begin{alltt}
 \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
@@ -542,12 +533,11 @@ check  multi-step transitions than one-step transitions):}
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
 \end{alltt}
 
-\DS{
 Finally, we  present a fourth version, ``bisimulation up
 to $\rapprox$'' (\texttt{OBS_BISIM_UPTO}), which can be used as a proof method for rooted
 bisimilarity. (It is not however powerful enough to be used   within
 the proof of Milner's ``unique solution of equations''
-theorem for $\rapprox$.)} 
+theorem for $\rapprox$.)
 \begin{alltt}
 \HOLConst{OBS_BISIM_UPTO} \HOLFreeVar{Obsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
