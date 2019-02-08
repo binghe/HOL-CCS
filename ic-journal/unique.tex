@@ -179,21 +179,43 @@ there is a  context $\qctp$
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu}
  \wb \ctp{\til Q}$.
 \end{lemma}
+The proof of Lemma~\ref{l:ruptocon} is exactly the same as of
+Lemma~\ref{l:uptocon}, because all we need from $\mcontrBIS$ and
+$\rcontr$ is their precongruences (in the sense of different
+definitions of contexts). Also notice that, the conclusion of
+Lemma~\ref{l:ruptocon} still uses $\mcontrBIS$, because $\rcontr$ does
+not hold.
 
-\begin{theorem}[unique solution of contractions for $\rapprox$]
+\begin{theorem}[Unique solution of contractions for $\rapprox$]
 \label{t:rcontraBisimulationU}
 A system of weakly-guarded contractions has a unique solution 
- for $\rapprox$. (thus also for $\wb$)
+ for $\rapprox$ (thus also for $\wb$).
 \end{theorem} 
 
 \begin{proof}
-We first follow the same steps as in the proof of Theorem~\ref{t:contraBisimulationU} to show the relation $\R$ (now
-with $\rcontr$ and unrestricted context $C$) in (\ref{eq:R}) is bisimulation,
-exploting Lemma~\ref{l:ruptocon}. Then it remains to show that, for
+\hl{Suppose $\til P$ and $\til Q$ are two such solutions: $\til P \rcontr
+C[{\til P}]$ and $\til Q \rcontr C[{\til Q}]$ (thus also $\til P \wb
+C[{\til P}]$ and $\til Q \wb C[{\til Q}]$).} We first follow the same steps as in the proof of
+Theorem~\ref{t:contraBisimulationU} to show that the following
+relation is bisimulation: (instead of using Lemma~\ref{l:uptocon}, now we need to use
+Lemma~\ref{l:ruptocon})
+\begin{equation}
+\label{eq:R2}
+\R \DSdefi \{ 
+(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
+$\qct$} \} \enspace.
+\end{equation}
+
+\hl{So far we have only proved $\til P$ and $\til Q$ are bisimilar,
+  $\til P \wb \til Q$, since obviously $(\til P,\til Q)
+\in \R$. But actually they are even rooted bisimilar.} To further prove
+$\til P \rapprox \til Q$, we can leverage
+Lemma~\ref{l:obsCongrByWeakBisim}. Thus it remains to show that, for 
 any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
-there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$!) and
-$P'\ \R\ Q'$, and also for the converse direction, exploting Lemma
-4.13 of \cite{Mil89} (TODO). By definition of
-\emph{bisimulation} (not $\wb$!) and $\approx^c$, we actually proved $P
-\approx^c Q$ instead of $P \wb Q$.
+there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$) and
+$P'\ \R\ Q'$ (also for the converse direction).  The prove for this
+part is routine, just at certain steps we have to use
+Lemma~\ref{lem:313} in Section~\ref{ss:part2}, the
+one for proving Milner's ``unique solution of equations for $\sim$'',
+quite unexpected.
 \end{proof}
