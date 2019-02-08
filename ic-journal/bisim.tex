@@ -10,7 +10,7 @@ An highlight in this project is the simplified definitions of
 Without it, the bisimilaries can still be defined,  but
   proving their basic properties would be more complicated.
 
-The definition of strong bisimulation (\texttt{STRONG_BISIM}) strictly follows
+The definition of strong bisimulation (\texttt{STRONG_BISIM})  follows
   its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
 what kind of binary relations on CCS process is a (strong) bisimulation:
 \begin{alltt}
@@ -25,14 +25,15 @@ With above definition it is easy to prove that the identity
 relation is indeed a bisimulation,  that bisimulation is preserved by
 inversion, composition, and union operations.
 
-For (strong) bisimilarity \texttt{STRONG_EQUIV} ($\sim$), the standard definition
-would be the following one:
+\DDS{Without the  coinductive relation package for HOL,
+ the  definition
+would be the following one:}
 \begin{alltt}
   \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Bsm}. \HOLBoundVar{Bsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_BISIM} \HOLBoundVar{Bsm}\hfill{[STRONG_EQUIV]}
 \end{alltt}
 This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
-  time of HOL88. With the above definition, deriving
- the following property  \citep[p.~91]{Mil89}  is tedious:
+  time of HOL88. With the above definition, deriving, e.g.,
+ the  property (*) below \citep[p.~91]{Mil89}  is tedious:
 \begin{quote}
   $P\sim Q$ iff, for all $\mu$,\hfill{(*)}
   \begin{enumerate}[(i)]
@@ -43,7 +44,8 @@ This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
   \end{enumerate}
 \end{quote}
 
-However we know that bisimiliarity is a coinductive relation, now with HOL's
+%However we know that bisimiliarity is a coinductive relation, now 
+\DDS{With HOL}
 new coinductive relation package (\texttt{Hol_coreln} (since Kananaskis-11 release),
 it is possible to define (strong) bisimilarity in a more convienent way, which
 essentially amounts to defining bisimilarity as the greatest
@@ -72,7 +74,7 @@ We have  pasted here the
   tried to  generate
   Unicode and TeX outputs as easy  as possible to read (what is really
   arbitrary is the presense/absense of outermost universal
-  quantifiers in all generated theorems).}, but now promoted into a theorem;
+  quantifiers in all generated theorems).}, but now promoted into a theorem.
 The second and third theorems, namely \texttt{STRONG_EQUIV_coind} and \texttt{STRONG_EQUIV_cases},
 represent the coinduction proof method for bisimilarity 
 (i.e.~any bisimulation is contained in bisimilarity)
@@ -105,7 +107,8 @@ bisimulation):
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[STRONG_EQUIV_cases]}
 \end{alltt}
 \end{enumerate}
-The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed  property (*).
+The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed  property (*)
+mentioned earlier.
 % , and these theorems completely capture the definition of
 % , because now we can easily derive the original definition of
 % \texttt{STRONG_EQUIV} as a theorem from \texttt{STRONG_EQUIV_coind}
@@ -146,8 +149,11 @@ Weak bisimulation is defined upon weak transition:
 
 Again, we can prove that the identity
 relation is a bisimulation, that bisimulation is preserved by inversion,
- composition, and union. With the following call to
-\texttt{Hol_coreln} the definition of weak bisimilarity can be generated:
+ composition, and union. 
+\DDS{The definition of weak bisimilarity can be
+ generated
+with the following call to
+\texttt{Hol_coreln}:}
 \begin{lstlisting}
 val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -241,7 +247,7 @@ follows Definition~\ref{d:rootedBisimilarity}:
     (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_CONGR]}
 \end{alltt}
-Here is the formal version of Lemma~\ref{l:obsCongrByWeakBisim}, which is needed in the proof
+Below is the formal version of Lemma~\ref{l:obsCongrByWeakBisim}, which is needed in the proof
 of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
@@ -264,8 +270,7 @@ Although weak bisimilarity ($\approx$) is \emph{not} a congruence
   with respect to~\texttt{GCONTEXT} 
 % (or if the CCS syntax were defined with
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
-as weak
-  bisimilarity ($\approx$) is indeed preserved by 
+as $\approx$ is indeed preserved by 
   weakly-guarded sums.
 
 On the relationship between bisimilarity and rooted bisimilarity, 
@@ -308,8 +313,8 @@ first 5 laws are proved
 relations, and their formal proofs are written in
 a goal-directed manner. Instead, the
 last 3 laws are derived in a forward manner by applications of
-previous proven laws, without directly using any SOS
-inference rules and the definition of bisimulation.
+previous proven laws (without directly using the SOS
+inference rules and the definition of bisimulation).
  
 The algebraic laws can be lifted to weak bisimilarity  and rooted 
  bisimilarity, as  they are coarser than   strong
@@ -365,7 +370,7 @@ and contains the expansion preorder.
 In general a proof of a property for the  contraction preorder is
 harder than that for the  expansion preorder; we sometimes need
 to reduce the proof to corresponding properties of weak bisimilarity.
-Also, surprisingly, a contraction doesn't imply weak bisimulation,
+Also, surprisingly, a contraction does not imply weak bisimulation,
 i.e. the following proposition doesn't hold:
 \begin{alltt}
 \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
@@ -376,7 +381,7 @@ that $Con$ itself is a weak
    weak bisimulation.
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
-defined as the following, with its precongruence result:
+defined as follows, with its precongruence result:
 \begin{alltt}
 \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
@@ -388,16 +393,15 @@ defined as the following, with its precongruence result:
 
 \subsection{The formalisation of ``bisimulation up to''}
 
-``Bisimulation up to'' is a powerful proof technique.
- Generally speaking, it's a
-technique for reducing the size of the relation needed to define a bisimulation.
+``Bisimulation up to'' is a family of  powerful proof techniques,
+used to reduce the size of a relation needed to define a bisimulation.
 By definition, two processes are bisimilar if there exists a
 bisimulation relation containing them as a pair. However, in practice
 this definition is hardly ever followed plainly; instead, to reduce
 the size of the relations exhibited one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. We call
-this an \emph{``up-to'' technique}. 
+privileged relation, so to relieve the proof work needed. These are  called
+ an \emph{``up-to'' techniques}. 
 % It is a pretty general device
 % which allows a great variety of prssibilities.
 
@@ -452,7 +456,6 @@ $\mathcal{S} \subseteq\;\sim$:
 \end{theorem}
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
-
 For weak bisimilarity, there are a few versions of the `up-to
   bisimilarity'. The most common one is the following.
 
@@ -501,13 +504,15 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{alltt}
 \end{theorem}
 
-The above version of ``bisimulation up to $\wb$'' cannot be used to prove
+The above version of ``bisimulation up to $\wb$'' 
+is not powerful enough to be used within
+the proof of 
 Milner's ``unique solution of equations'' theorem for $\wb$, for
 which we need 
 the
-following version (though less practical to use
-as it is  usually harder to
-check multi-step transitions than one-step transitions):
+following version (though less practical to use,
+as checking multi-step transitions is  usually harder then
+checking one-step transitions):
 \begin{alltt}
 \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenEquiv{}}
 \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
@@ -535,7 +540,7 @@ check multi-step transitions than one-step transitions):
 
 Finally, we  present a fourth version, ``bisimulation up
 to $\rapprox$'' (\texttt{OBS_BISIM_UPTO}), which can be used as a proof method for rooted
-bisimilarity. (It is not however powerful enough to be used   within
+bisimilarity. (Again, it is not  powerful enough to be used   within
 the proof of Milner's ``unique solution of equations''
 theorem for $\rapprox$.)
 \begin{alltt}

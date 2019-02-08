@@ -159,7 +159,8 @@ For a system of rooted contractions, the meaning of
 ``solution for $\rcontr$'' and of \emph{a unique solution for $\rapprox$}
 is the expected one --- just replace in Def.~\ref{d:uniContra}  the preorder 
 $\contr$ with $\rcontr$, and the equivalence 
-$\approx$ with $\rapprox$.
+$\approx$ with $\rapprox$ \DDS{ (note that  with $\rapprox$ one considers
+solutions with respect to  $\rcontr$).}
 %
 For this new relation, the analogous of Lemma~\ref{l:uptocon} and of
 Theorem~\ref{t:contraBisimulationU} can now be stated without constraints on the sum
@@ -189,7 +190,7 @@ not hold.
 \begin{theorem}[Unique solution of contractions for $\rapprox$]
 \label{t:rcontraBisimulationU}
 A system of weakly-guarded contractions has a unique solution 
- for $\rapprox$ (thus also for $\wb$).
+ for $\rapprox$. % (thus also for $\wb$).
 \end{theorem} 
 
 \begin{proof}
@@ -197,25 +198,25 @@ A system of weakly-guarded contractions has a unique solution
 C[{\til P}]$ and $\til Q \rcontr C[{\til Q}]$ (thus also $\til P \wb
 C[{\til P}]$ and $\til Q \wb C[{\til Q}]$).} We first follow the same steps as in the proof of
 Theorem~\ref{t:contraBisimulationU} to show that the following
-relation is bisimulation: (instead of using Lemma~\ref{l:uptocon}, now we need to use
-Lemma~\ref{l:ruptocon})
+relation is bisimulation 
+\DDS{ (using 
+Lemma~\ref{l:ruptocon}
+in place of  Lemma~\ref{l:uptocon}):}
 \begin{equation}
 \label{eq:R2}
 \R \DSdefi \{ 
 (R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
 $\qct$} \} \enspace.
 \end{equation}
-
-\hl{So far we have only proved $\til P$ and $\til Q$ are bisimilar,
-  $\til P \wb \til Q$, since obviously $(\til P,\til Q)
-\in \R$. But actually they are even rooted bisimilar.} To further prove
-$\til P \rapprox \til Q$, we can leverage
+\DDS{The property that $\R$ is a bisimulation  proves  $\til P$ and $\til Q$ bisimilar, i.e.,
+  $\til P \wb \til Q$.  To further prove
+$\til P \rapprox \til Q$, we  appeal to
 Lemma~\ref{l:obsCongrByWeakBisim}. Thus it remains to show that, for 
-any two process $P$ and $Q$ with action $\mu$, if $P \arr{\mu} P'$ then
-there is $Q'$ such that $Q \Arr{\mu} Q'$ (not $Q \Arcap{\mu} Q'$) and
-$P'\ \R\ Q'$ (also for the converse direction).  The prove for this
-part is routine, just at certain steps we have to use
-Lemma~\ref{lem:313} in Section~\ref{ss:part2}, the
-one for proving Milner's ``unique solution of equations for $\sim$'',
-quite unexpected.
+any two process $P$ and $Q$ and action $\mu$, if $P \arr{\mu} P'$ then
+there is $Q'$ such that $Q \Arr{\mu} Q'$  and
+$P'\ \R\ Q'$ (and  the converse direction).  The prove for this
+part is routine,  using 
+Lemma 3.13 of \cite{Mil89},  reported as 
+Lemma~\ref{lem:313} in Section~\ref{ss:part2} (the lemma is  also needed 
+in  Milner's  proof of ``unique solution of equations for $\sim$'').}
 \end{proof}

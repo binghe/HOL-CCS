@@ -42,8 +42,7 @@ P \sim Q.
 In above proof, we have identified 14 major sub-goals, dividing them into 7
 groups, in which each pair is symmetric (thus having similar proof
 steps). The proof of this last theorem consists of 500 lines (each
-line usually has 2 or 3 HOL tactics, to make the proof not too long
-in lines).
+line usually has 2 or 3 HOL tactics, to make the proof shorter).
 
 \paragraph{Weak bisimilarity}
 Milner's book \cite{Mil89} contains only two ``unique solutions of
@@ -77,7 +76,7 @@ sequential, and if $\alpha = \tau$ then $H$ is also guarded.
 \end{lemma}
 
 We can then derive the target theorem:
-\begin{theorem}{(Unique solution of equations for weak equivalence)}
+\begin{theorem}{(Unique solution of equations for weak bisimilarity)}
 Let $E$ be guarded and sequential expressions, and let $P \wb
 E\{P/X\}$,
 $Q \wb E\{Q/X\}$. Then $P \wb Q$.
@@ -88,10 +87,11 @@ $Q \wb E\{Q/X\}$. Then $P \wb Q$.
 
 \paragraph{Rooted bisimilarity}
 For the ``unique solutions of
-equations'' theorem of rooted bisimilarity, we have used a new technique, i.e., the
+equations'' theorem of rooted bisimilarity, we use a different
+technique, represented by the
 following lemma.   It is   assertion 
  \texttt{OBS_CONGR_BY_WEAK_BISIM} mentioned in
- Section~\ref{ss:bb}, corresponding to
+ Section~\ref{ss:bb}, and corresponds to
  Lemma~\ref{l:obsCongrByWeakBisim}; we only report the text for  \texttt{OBS_CONGR_BY_WEAK_BISIM}.
 
 \begin{lemma}
