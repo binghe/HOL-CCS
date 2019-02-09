@@ -7,7 +7,7 @@ TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
 
 TEXCMD = pdflatex
 
-all: htex main.pdf
+all: htex main.pdf main.ps
 
 htex: $(HTEXFILES)
 
@@ -45,6 +45,16 @@ main.pdf: $(TEXFILES) generic.bib
 	bibtex main
 	$(TEXCMD) main
 	$(TEXCMD) main
+
+main.dvi: $(TEXFILES) generic.bib
+	latex main
+	latex main
+	bibtex main
+	latex main
+	latex main
+
+main.ps: main.dvi
+	dvips main
 
 force: htex
 	bibtex main
