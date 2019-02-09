@@ -17,7 +17,7 @@
 
 %As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
 %introduced (Def.~\ref{d:rootedBisimilarity}).
-In this subsection we discuss two proofs of \DDS{the fundamental  result} stating that
+In this subsection we discuss two proofs of the fundamental result stating that
 rooted bisimilarity is the coarsest congruence contained in
 bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{equation}
@@ -30,9 +30,9 @@ r\ \approx\ q\ +\ r )\enspace.
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{van2005characterisation}, that does not require additional assumptions. 
 
-\DDS{The coarsest congruence
-contained in (weak) bisimilarity, namely  \emph{bisimilarity
-  congruence}, is}
+The coarsest congruence
+contained in (weak) bisimilarity, namely \emph{bisimilarity
+  congruence}, is
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
@@ -40,10 +40,9 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \end{alltt}
  (We need not  put $R\ g\ h$ in the antecedent of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.)
-\DDS{For any relation $R$ 
+For any relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
-fine as }
-$R$
+fine as $R$
 (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
@@ -172,7 +171,7 @@ precongruence contained in the bisimilarity contraction ($\mcontrBIS$)
 \end{alltt}
 %\end{theorem}
 
-\DDS{The formal proofs  of the above two results  follow Milner's proof
+The formal proofs  of the above two results  follow Milner's proof
 \cite{Mil89}. The assumption is Milner's result 
 requires  $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
@@ -189,7 +188,7 @@ the same for $p$ and for $q$
 % in the sense that $p$ and $q$ need not have the
 % \emph{same} free actions 
 (and where an action $a$ and its complementary  $\outC a$ are
-considered \emph{different} actions).}
+considered \emph{different} actions).
 
 There exists a different, more complex, proof of (\ref{eq:coarsest}),
 given by van Glabbeek \cite{van2005characterisation}, which does not
@@ -223,9 +222,9 @@ we have replaced transfinite induction with plain induction. As a
 consequence, the final
 result is about a restricted class of processes (which we have taken
 to be the finite-state processes).
-\DDS{The proof, in the section below, uses extensively HOL's
+The proof, in the section below, uses extensively HOL's
 \texttt{pred_set} theory \cite{melham1992hol}, with a mix
-of CCS and pure mathematics.}
+of CCS and pure mathematics.
 
 
 
@@ -242,7 +241,7 @@ If there are infinitely many of such classes,
 then it will be 
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
-\DDS{This can be done following Klop's contruction \cite{van2005characterisation}.}
+This can be done following Klop's contruction \cite{van2005characterisation}.
  We call  ``Klop processes''  the processes in this construction:
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
@@ -285,7 +284,7 @@ the following properties of Klop functions:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLFreeVar{a}\HOLTokenWeakTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLFreeVar{a} \HOLBoundVar{m})\hfill{[KLOP_PROP1']}
 \end{alltt}
-\item (All Klop processes are distinct according to strong   bisimilarity)
+\item (All Klop processes are distinct according to strong bisimilarity)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{m} \HOLSymConst{\HOLTokenStrongEQ} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n})\hfill{[KLOP_PROP2]}
 \end{alltt}
@@ -320,8 +319,8 @@ appealing to a basic set-theory result.
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
 of elements in this type, 
-\DDS{if $A$ is finite, $B$ is infinite, and all elements
-in $B$ belong to distinct equivalence classes,} then there exists an element $k$ in $B$
+if $A$ is finite, $B$ is infinite, and all elements
+in $B$ belong to distinct equivalence classes, then there exists an element $k$ in $B$
 which is not equivalent to any element in $A$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenImp{}}
@@ -395,11 +394,11 @@ Using all the above results, now we can  prove the following finite
 version of ``Klop lemma'':
 \begin{lemma}{(Klop lemma,  finite version)}
 \label{lem:klop-lemma-finite}
-\DDS{For any two finite-state CCS $p$ and $q$, there is another process
+For any two finite-state CCS $p$ and $q$, there is another process
 $k$, which is not weakly bisimilar 
 with
  any weak derivative  of $p$
-and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):}
+and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}

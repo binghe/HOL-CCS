@@ -4,20 +4,40 @@
 \label{s:concl}
 
 In this paper, we have highlighted a formalisation of the theory of CCS in the 
-HOL4 theorem prover (for lack of space we have not discussed 
-the formalisation of some basic algebraic theory, of the basic
-properties of the expansion preorder,   and of a few
- versions of `bisimulation up to'
-techniques). % such as  bisimulation up-to bisimilarity). 
-The formalisation has focused on the theory of
-unique solution of equations and contractions. 
-It has also allowed us to further develop the theory,
+HOL4 theorem prover.
+%  (for lack of space we have not discussed 
+% the formalisation of some basic algebraic theory, of the basic
+% properties of the expansion preorder,   and of a few
+%  versions of `bisimulation up to'
+% techniques). %
+%such as  bisimulation up-to bisimilarity). 
+The formalisation supports 4 methods for establishing (strong and weak) bisimilarity
+results: 
+\begin{enumerate}
+\item
+ constructing a bisimulation (the standard bisimulation proof
+method);
+\item constructing a `bisimulation up-to'; 
+\item employing algebraic laws;
+\item defining a system of equations or contractions
+(i.e., the `unique-solution' method)
+\end{enumerate}
+
+The formalisation has actually focused on the theory of
+unique solution of equations and contractions. It    
+ has also allowed us to further develop the theory,
 notably the basic properties of rooted contraction, and the unique
 solution theorem for it with respect to rooted bisimilarity. 
 The formalisation brings up and exploits similarities between results
-and proofs for different equivalences and preorders. 
+and proofs for different equivalences and preorders. Indeed we have
+considered several `unique-solution' results (for various equivalences
+and preorders); they share many parts of the proofs, but present a few
+delicate and subtle differences in a few points. In a paper-pencil
+proof, checking all details would be long and error-prune, since one
+is tempted to overlook  details that tend to repeat themselves. 
+A theorem-prover formalisation is in this respect  helpful and reassuring.
 We think that the statements in the formalisation are easy to read and
-understand, as they are very close to the original statements found in
+understand, as they are  close to the original statements found in
 standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
 For the future work, it would be worth extending
@@ -66,5 +86,5 @@ Michael Norrish,
 Konrad Slind, and
 Thomas T\"{u}rk.
 %
-The second half of this
-paper was written in memory of Michael J.~C.~Gordon, the creator of HOL theorem prover.
+The 
+paper was written in memory of Michael J.~C.~Gordon, the creator of the HOL theorem prover.

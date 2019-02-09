@@ -21,12 +21,12 @@ CCS types built on top of it)
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
 syntax\footnote{The order of type variables $\alpha$ and $\beta$
     is arbitrary. Our choice is aligned with other CCS literals.
-$\mathrm{CCS}(h,k)$ is the CCS subcalculus which can use at most $h$ constants
-and $k$ actions. \cite{gorrieri2017ccs} Thus, to formalize theorems on
-such a CCS subcalculus, the needed CCS type can be retrieved by instantiating the type
+$\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
+and $k$ actions \cite{gorrieri2017ccs}. Thus, to formalize theorems on
+such a calculus, the needed CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$. Monica Nesi goes
-too far by adding another type variable $\gamma$ for value-passing CCS
+farther, by adding another type variable $\gamma$ for value-passing CCS
 \cite{Nesi:2017wo}.}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
 ``\HOLty{:'b Relabeling}'' is the type of all relabeling functions,

@@ -54,15 +54,15 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
 \HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
-Many lemmas have then to be proved for their
+Many lemmas have then to be proved for the
  relationships among these kinds of contexts and properties about their
  compositions. These proofs are usually tedious but long,  due to multiple levels of
  inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
 \texttt{CONTEXT}. The only difference between congruence and
-precongruence is that the former must be an equivalence (reflexive,
-symmetric, transitive), while the latter can be just a preorder (reflexive, transitive):
+precongruence is that the former  is an equivalence (reflexive,
+symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
 \begin{alltt}
 \HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
 \hfill{[precongruence_def]}

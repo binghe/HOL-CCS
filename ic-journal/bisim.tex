@@ -25,9 +25,8 @@ With above definition it is easy to prove that the identity
 relation is indeed a bisimulation,  that bisimulation is preserved by
 inversion, composition, and union operations.
 
-\DDS{Without the  coinductive relation package for HOL,
- the  definition
-would be the following one:}
+Without the coinductive relation package for HOL,
+the definition would be the following one:
 \begin{alltt}
   \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Bsm}. \HOLBoundVar{Bsm} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_BISIM} \HOLBoundVar{Bsm}\hfill{[STRONG_EQUIV]}
 \end{alltt}
@@ -45,7 +44,7 @@ This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
 \end{quote}
 
 %However we know that bisimiliarity is a coinductive relation, now 
-\DDS{With HOL}
+With HOL's
 new coinductive relation package (\texttt{Hol_coreln} (since Kananaskis-11 release),
 it is possible to define (strong) bisimilarity in a more convienent way, which
 essentially amounts to defining bisimilarity as the greatest
@@ -150,10 +149,9 @@ Weak bisimulation is defined upon weak transition:
 Again, we can prove that the identity
 relation is a bisimulation, that bisimulation is preserved by inversion,
  composition, and union. 
-\DDS{The definition of weak bisimilarity can be
- generated
-with the following call to
-\texttt{Hol_coreln}:}
+The definition of weak bisimilarity can be
+ generated with the following call to
+\texttt{Hol_coreln}:
 \begin{lstlisting}
 val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -540,7 +538,7 @@ checking one-step transitions):
 
 Finally, we  present a fourth version, ``bisimulation up
 to $\rapprox$'' (\texttt{OBS_BISIM_UPTO}), which can be used as a proof method for rooted
-bisimilarity. (Again, it is not  powerful enough to be used   within
+bisimilarity. (Again, it is not powerful enough to be used within
 the proof of Milner's ``unique solution of equations''
 theorem for $\rapprox$.)
 \begin{alltt}

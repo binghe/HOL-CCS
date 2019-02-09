@@ -16,8 +16,8 @@
 % explanation, here we briefly repeat his arguments:
 
 %As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
-introduced (Def.~\ref{d:rootedBisimilarity}).
-In this subsection we discuss two proofs of an important result stating that
+%introduced (Def.~\ref{d:rootedBisimilarity}).
+In this subsection we discuss two proofs of the fundamental result stating that
 rooted bisimilarity is the coarsest congruence contained in
 bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{equation}
@@ -30,20 +30,19 @@ r\ \approx\ q\ +\ r )\enspace.
 % that no process can use all available names; and van Glabbeek's proof
 % \cite{van2005characterisation}, that does not require additional assumptions. 
 
-Actually the coarsest congruence
-contained in (weak) bisimilarity, namely the \emph{bisimilarity
-  congruence} \cite{van2005characterisation}, can be constructed as
+The coarsest congruence
+contained in (weak) bisimilarity, namely \emph{bisimilarity
+  congruence}, is
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \HOLthm[def]{Congruence.CC_def}\hfill{[CC_def]}
 \end{alltt}
-Indeed, for any relation $R$ 
-on CCS processes, the composition closure of $R$ is always finer (i.e.~smaller) than
-$R$, no matter if $R$ is (pre)congruence or not\footnote{But if $R$ is
-  equivalence (or preorder), the composition closure of $R$ must be congruence
-  (or precongruence). Also there is no need to put $R\ g\ h$ in the antecedent of
-  \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.}:
+ (We need not  put $R\ g\ h$ in the antecedent of
+  \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.)
+For any relation $R$ 
+on CCS processes, the composition closure of $R$ is always at least as
+fine as $R$
 (here $\subseteq_r$ stands for \emph{relational subset})
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
@@ -96,7 +95,7 @@ which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
 the crux is to prove that \texttt{SUM_EQUIV} implies
 rooted bisimilarity ($\rapprox$), making all three relations
-($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) equivalent:
+($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) coincide:
 \begin{equation}
 \label{equa:pq}
 \forall p\ \ q.\ ( \forall r.\ p\ +\ r \;\approx\; q\ +\ r ) \
@@ -119,10 +118,10 @@ rooted bisimilarity ($\rapprox$), making all three relations
 \end{figure}
 
 The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use up all available labels (i.e.~visible actions).
-Formalising such an argument requires however 
+and $q$ do not use up available labels (i.e.~visible actions).
+Formalising such an argument requires  
 a detailed treatment on free and bound names of CCS
-processes (with the restriction operator being a binder), not done yet.
+processes (with the restriction operator being a binder).
 However, the proof of (\ref{equa:pq}) can be carried out 
 % But it's
 % not easy to formalize and use such an assumption without a detailed
@@ -138,7 +137,7 @@ However, the proof of (\ref{equa:pq}) can be carried out
 % concepts are not touched so far, although these four concepts are
 % successfully defined using HOL's set and list theories.} However, by
 just assuming that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use up all available labels.
+ $p$ and $q$ do not use  all available labels.
 % analyzing the proof steps, we found that, what's really required is to
 % not use up all available labels in those weak transitions directly
 % lead from $p$ and $q$. In another words, even they have used all
@@ -162,7 +161,7 @@ With this property, the actual formalisation of (\ref{equa:pq}) says:
 
 With an almost identical proof, rooted contraction
 ($\rcontr$) is also the coarsest
-precongruence contained in bisimilarity contraction ($\mcontrBIS$)
+precongruence contained in the bisimilarity contraction ($\mcontrBIS$)
 (the other direction is trivial):
 %\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
 \vspace{-2ex}
@@ -173,16 +172,25 @@ precongruence contained in bisimilarity contraction ($\mcontrBIS$)
 %\end{theorem}
 
 The formal proofs  of the above two results  follow Milner's proof
-\cite{Mil89}. If only $p$ (or $q$) has free actions while the other uses all available
-labels, the assumption $\mathrm{fn}(p) \cup
-\mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
-  names}) does not hold, and the proof cannot be completed. Our
-assumption is \emph{weaker}
-in the sense that $p$ and $q$ need not have the
-\emph{same} free actions (note that $a$ and its complementary  $\outC a$ are
-considered \emph{different} as actions).
+\cite{Mil89}. The assumption is Milner's result 
+requires  $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
+  names}), and is therefore strictly stronger than the assumption in
+our result above, where we only look at immediate weak
+derivatives $p$ and $q$, requiring that there is at least one action
+that never appears as a label; moreover such an action need not be
+the same for $p$ and for $q$
+%  If only $p$ (or $q$) has free actions while the other uses all available
+% labels, the assumption $\mathrm{fn}(p) \cup
+% \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
+%   names}) does not hold, and the proof cannot be completed. Our
+% assumption is \emph{weaker}
+% in the sense that $p$ and $q$ need not have the
+% \emph{same} free actions 
+(and where an action $a$ and its complementary  $\outC a$ are
+considered \emph{different} actions).
 
-There exists a different, more complex proof of (\ref{eq:coarsest}),
+There exists a different, more complex, proof of (\ref{eq:coarsest}),
 given by van Glabbeek \cite{van2005characterisation}, which does not
 require any additional assumption.
 The core lemma says, for
@@ -196,7 +204,7 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \HOLthm[def]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
 To construct this process $k$,
- the proof relies on arbitrary infinite sum of 
+ the proof relies on arbitrary infinite sums of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
@@ -210,22 +218,26 @@ we have replaced transfinite induction with plain induction. As a
 consequence, the final
 result is about a restricted class of processes (which we have taken
 to be the finite-state processes).
+The proof, in the section below, uses extensively HOL's
+\texttt{pred_set} theory \cite{melham1992hol}, with a mix
+of CCS and pure mathematics.
+
+
 
 \subsection{Arbitrary many non-bisimilar processes}
 
 The assumption in the  previous \texttt{PROP3_COMMON} requires the
-existence of a special CCS process, which is not weak bisimilar to
+existence of a special CCS process, which is not weakly bisimilar to
 any sub-process emanating from the two root processes by weak
 transitions. In the worst case, there may be infinite such
 sub-processes (even on finitely branching processes).
 We can however consider  the equivalence classes of CCS processes 
 modulo weak bisimilarity.
-If there are infinitely many of them, 
-then it should be 
+If there are infinitely many of such classes, 
+then it will be 
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
-This can be done following a contruction originally given by 
- Jan Willem Klop \cite{van2005characterisation}.
+This can be done following Klop's contruction \cite{van2005characterisation}.
  We call  ``Klop processes''  the processes in this construction:
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
@@ -249,33 +261,33 @@ defined as a recursive function (on natural numbers) in HOL4:
 \end{alltt}
 \end{definition}
 
-By induction on the definition of Klop processes and SOS inference
+By induction on the definition of Klop processes,  and using the SOS inference
 rules ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we can  prove
 the following properties of Klop functions:
 \begin{proposition}{(Properties of Klop functions and processes)}
 \begin{enumerate}
-\item All Klop processes are stable:
+\item (All Klop processes are stable)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_PROP0}\hfill[KLOP_PROP0]
 \end{alltt}
-\item Any transition from a Klop process leads to a smaller Klop
-  process, and conversely:
+\item (Any transition from a Klop process leads to a smaller Klop
+  process, and conversely)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_PROP1}\hfill{[KLOP_PROP1]}
 \end{alltt}
-\item The weak transition version of the above property:
+\item (The weak version of the previous property)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_PROP1'}\hfill{[KLOP_PROP1']}
 \end{alltt}
-\item All Klop processes are distinct according to strong equivalence:
+\item (All Klop processes are distinct according to strong bisimilarity)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_PROP2}\hfill{[KLOP_PROP2]}
 \end{alltt}
-\item All Klop processes are distinct according to weak equivalence:
+\item (All Klop processes are distinct according to weak bisimilarity)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_PROP2'}\hfill{[KLOP_PROP2']}
 \end{alltt}
-\item Klop functions are one-one:
+\item (Klop functions are one-one)
 \begin{alltt}
 \HOLthm{CoarsestCongr.KLOP_ONE_ONE}\hfill{[KLOP_ONE_ONE]}
 \end{alltt}
@@ -301,9 +313,10 @@ appealing to a basic set-theory result.
 % completely falling into basic set theory:
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
-of elements in this type, $A$ is finite, $B$ is infinite, and all elements
-in $B$ are not equivalent, then there exists an element $k$ in $B$
-which is not equivalent with any element in $A$:
+of elements in this type, 
+if $A$ is finite, $B$ is infinite, and all elements
+in $B$ belong to distinct equivalence classes, then there exists an element $k$ in $B$
+which is not equivalent to any element in $A$:
 \begin{alltt}
 \HOLthm{CoarsestCongr.INFINITE_EXISTS_LEMMA}\hfill[INFINITE_EXISTS_LEMMA]
 \end{alltt}
@@ -361,7 +374,7 @@ of ``finite-state'':
 \end{definition}
 
 Among many properties of above definitions, we mainly rely on the
-following ``obvious'' property on weak transitions:
+following (trivial) property for weak transitions:
 \begin{proposition}
 If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
 \begin{alltt}
@@ -369,13 +382,15 @@ If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
 \end{alltt}
 \end{proposition}
 
-Using all the above results, now we can easily prove the following finite
+Using all the above results, now we can  prove the following finite
 version of ``Klop lemma'':
 \begin{lemma}{(Klop lemma,  finite version)}
 \label{lem:klop-lemma-finite}
-For any two finite-state CCS $p$ and $q$, there exists another process $k$, which
-is not weak equivalent to any derivative  of $p$
-and $q$ (i.e., processes reachable from $p$ and $q$ by means of transitions):
+For any two finite-state CCS $p$ and $q$, there is another process
+$k$, which is not weakly bisimilar 
+with
+ any weak derivative  of $p$
+and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.KLOP_LEMMA_FINITE}\hfill{[KLOP_LEMMA_FINITE]}
 \end{alltt}
