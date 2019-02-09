@@ -161,6 +161,13 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
 \newblock \href {https://doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
 
+\bibitem{melham1992hol}
+T.~F. Melham,
+  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}{{The
+  HOL pred_sets Library}}, Universiy of Cambridge Computer Lab (feb 1992).
+\newblock \href {https://doi.org/10.1.1.219.5390} {\path{doi:10.1.1.219.5390}}.
+\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}
+
 \bibitem{cleaveland1993concurrency}
 R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A
   semantics-based tool for the verification of concurrent systems, ACM
