@@ -255,8 +255,8 @@ the precongruence of rooted contraction,
 we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
 \begin{alltt}
-\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
+\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 
 Having removed the  constraints on sums, the result is

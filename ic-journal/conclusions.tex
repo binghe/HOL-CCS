@@ -46,8 +46,8 @@ to multi-variable equations/contractions. A key aspect could be using unguarded 
 CCS $\rightarrow$ CCS), then linking to contexts. For instance, an expression is weakly-guarded when each
 of its free variables, replaced by a hole, results in a weakly-guarded context:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{weakly_guarded1} \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{e} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
+\HOLConst{weakly_guarded1} \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{e} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}\hfill{[weakly_guarded1_def]}
 \end{alltt}
 
 Formalising other equivalences and preorders could also be considered,

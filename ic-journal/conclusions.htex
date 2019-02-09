@@ -46,7 +46,7 @@ to multi-variable equations/contractions. A key aspect could be using unguarded 
 CCS $\rightarrow$ CCS), then linking to contexts. For instance, an expression is weakly-guarded when each
 of its free variables, replaced by a hole, results in a weakly-guarded context:
 \begin{alltt}
-\HOLthm{Congruence.weakly_guarded1_def}
+\HOLthm[def]{Congruence.weakly_guarded1_def}\hfill{[weakly_guarded1_def]}
 \end{alltt}
 
 Formalising other equivalences and preorders could also be considered,

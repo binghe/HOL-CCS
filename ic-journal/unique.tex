@@ -159,8 +159,8 @@ For a system of rooted contractions, the meaning of
 ``solution for $\rcontr$'' and of \emph{a unique solution for $\rapprox$}
 is the expected one --- just replace in Def.~\ref{d:uniContra}  the preorder 
 $\contr$ with $\rcontr$, and the equivalence 
-$\approx$ with $\rapprox$ \DDS{ (note that  with $\rapprox$ one considers
-solutions with respect to  $\rcontr$).}
+$\approx$ with $\rapprox$ (note that with $\rapprox$ one considers
+solutions with respect to  $\rcontr$).
 %
 For this new relation, the analogous of Lemma~\ref{l:uptocon} and of
 Theorem~\ref{t:contraBisimulationU} can now be stated without constraints on the sum
@@ -194,21 +194,21 @@ A system of weakly-guarded contractions has a unique solution
 \end{theorem} 
 
 \begin{proof}
-\hl{Suppose $\til P$ and $\til Q$ are two such solutions: $\til P \rcontr
+Suppose $\til P$ and $\til Q$ are two such solutions: $\til P \rcontr
 C[{\til P}]$ and $\til Q \rcontr C[{\til Q}]$ (thus also $\til P \wb
-C[{\til P}]$ and $\til Q \wb C[{\til Q}]$).} We first follow the same steps as in the proof of
+C[{\til P}]$ and $\til Q \wb C[{\til Q}]$). We first follow the same steps as in the proof of
 Theorem~\ref{t:contraBisimulationU} to show that the following
 relation is bisimulation 
-\DDS{ (using 
+(using 
 Lemma~\ref{l:ruptocon}
-in place of  Lemma~\ref{l:uptocon}):}
+in place of  Lemma~\ref{l:uptocon}):
 \begin{equation}
 \label{eq:R2}
 \R \DSdefi \{ 
 (R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
 $\qct$} \} \enspace.
 \end{equation}
-\DDS{The property that $\R$ is a bisimulation  proves  $\til P$ and $\til Q$ bisimilar, i.e.,
+The property that $\R$ is a bisimulation  proves  $\til P$ and $\til Q$ bisimilar, i.e.,
   $\til P \wb \til Q$.  To further prove
 $\til P \rapprox \til Q$, we  appeal to
 Lemma~\ref{l:obsCongrByWeakBisim}. Thus it remains to show that, for 
@@ -218,5 +218,5 @@ $P'\ \R\ Q'$ (and  the converse direction).  The prove for this
 part is routine,  using 
 Lemma 3.13 of \cite{Mil89},  reported as 
 Lemma~\ref{lem:313} in Section~\ref{ss:part2} (the lemma is  also needed 
-in  Milner's  proof of ``unique solution of equations for $\sim$'').}
+in  Milner's  proof of ``unique solution of equations for $\sim$'').
 \end{proof}
