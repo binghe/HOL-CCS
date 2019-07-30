@@ -20,10 +20,6 @@ val _ = temp_loose_equality ();
 (* Type abbreviations *)
 val _ = type_abbrev_pp ("simulation", “:('a, 'b) CCS -> ('a, 'b) CCS -> bool”);
 
-(* Use LIST_REL to build list_simulation from simulation, e.g. `LIST_REL STRONG_EQUIV` *)
-val _ = type_abbrev ("list_simulation",
-                    ``:('a, 'b) CCS list -> ('a, 'b) CCS list -> bool``);
-
 val STRONG_SIM_def = Define
    `STRONG_SIM (R :('a, 'b) simulation) =
     !E E'. R E E' ==> !u E1. TRANS E u E1 ==> ?E2. TRANS E' u E2 /\ R E1 E2`;

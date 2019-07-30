@@ -6,7 +6,8 @@ REL_FILES = Holmakefile CCSScript.sml *Lib.sig *Lib.sml *Conv.sig *Conv.sml toke
 	CoarsestCongrScript.sml ExampleScript.sml \
 	CongruenceScript.sml TraceScript.sml \
 	ExpansionScript.sml ContractionScript.sml \
-	BisimulationUptoScript.sml UniqueSolutionsScript.sml
+	BisimulationUptoScript.sml UniqueSolutionsScript.sml \
+        MultivariateScript.sml
 
 all:
 	Holmake
