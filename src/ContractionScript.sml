@@ -146,16 +146,17 @@ val EXPANSION_IMP_CONTRACTION = store_thm (
    one `efficient` path; Q could also have other paths, that are slower than
    any path in P.
  *)
-val (contracts_rules, contracts_coind, contracts_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+CoInductive contracts :
+    !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!l.
          (!E1. TRANS E  (label l) E1 ==>
-                ?E2. TRANS E' (label l) E2 /\ $contracts E1 E2) /\
+               ?E2. TRANS E' (label l) E2 /\ $contracts E1 E2) /\
          (!E2. TRANS E' (label l) E2 ==>
-                ?E1. WEAK_TRANS E (label l) E1 /\ WEAK_EQUIV E1 E2)) /\
+               ?E1. WEAK_TRANS E (label l) E1 /\ WEAK_EQUIV E1 E2)) /\
        (!E1. TRANS E  tau E1 ==> $contracts E1 E' \/ ?E2. TRANS E' tau E2 /\ $contracts E1 E2) /\
        (!E2. TRANS E' tau E2 ==> ?E1. EPS E E1 /\ WEAK_EQUIV E1 E2)
-      ==> $contracts E E')`;
+      ==> $contracts E E'
+End
 
 val _ = set_fixity "contracts" (Infix (NONASSOC, 450));
 

@@ -251,16 +251,17 @@ val EXPANSION_IMP_WEAK_BISIM = store_thm (
  * it means "P is at least as fast as Q", or more generally "Q uses at least as much
  * resources as P".
  *)
-val (expands_rules, expands_coind, expands_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+CoInductive expands :
+    !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!l.
          (!E1. TRANS E  (label l) E1 ==>
-                ?E2. TRANS E' (label l) E2 /\ $expands E1 E2) /\
+               ?E2. TRANS E' (label l) E2 /\ $expands E1 E2) /\
          (!E2. TRANS E' (label l) E2 ==>
-                ?E1. WEAK_TRANS E (label l) E1 /\ $expands E1 E2)) /\
+               ?E1. WEAK_TRANS E (label l) E1 /\ $expands E1 E2)) /\
        (!E1. TRANS E  tau E1 ==> $expands E1 E' \/ ?E2. TRANS E' tau E2 /\ $expands E1 E2) /\
        (!E2. TRANS E' tau E2 ==> ?E1. WEAK_TRANS E tau E1 /\ $expands E1 E2)
-      ==> $expands E E')`;
+      ==> $expands E E'
+End
 
 val _ = set_fixity "expands" (Infixl 500);
 val _ = Unicode.unicode_version { u = UTF8.chr 0x2AB0 ^ UTF8.chr 0x1D49, tmnm = "expands" };

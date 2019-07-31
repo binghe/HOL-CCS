@@ -148,19 +148,21 @@ val STRONG_EQUIV = new_definition ("STRONG_EQUIV",
    2. STRONG_EQUIV_cases is the same as PROPERTY_STAR
    3. STRONG_EQUIV_coind is new (the co-inductive principle)
  *) (* NEW *)
-val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+CoInductive STRONG_EQUIV :
+    !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!u.
          (!E1. TRANS E u E1 ==>
-               (?E2. TRANS E' u E2 /\ STRONG_EQUIV E1 E2)) /\
+               ?E2. TRANS E' u E2 /\ STRONG_EQUIV E1 E2) /\
          (!E2. TRANS E' u E2 ==>
-               (?E1. TRANS E u E1 /\ STRONG_EQUIV E1 E2))) ==> STRONG_EQUIV E E')`;
+               ?E1. TRANS E u E1 /\ STRONG_EQUIV E1 E2))
+       ==> STRONG_EQUIV E E'
+End
 
 val _ = add_rule { block_style = (AroundEachPhrase, (PP.CONSISTENT, 0)),
                    fixity = Infix (NONASSOC, 450),
                    paren_style = OnlyIfNecessary,
                    pp_elements = [HardSpace 1, TOK (UTF8.chr 0x223C), BreakSpace (1,0)],
-                   term_name = "STRONG_EQUIV" }
+                   term_name = "STRONG_EQUIV" };
 
 val _ = TeX_notation { hol = UTF8.chr 0x223C,
                        TeX = ("\\HOLTokenStrongEQ", 1) };

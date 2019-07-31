@@ -385,8 +385,8 @@ val CCS_COND_CLAUSES = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-val _ = type_abbrev ("transition",
-                    ``:('a, 'b) CCS -> 'b Action -> ('a, 'b) CCS -> bool``);
+val _ = type_abbrev_pp ("transition",
+      ``:('a, 'b) CCS -> 'b Action -> ('a, 'b) CCS -> bool``);
 
 (* Inductive definition of the transition relation TRANS for CCS.
    TRANS: CCS -> Action -> CCS -> bool
@@ -394,7 +394,7 @@ val _ = type_abbrev ("transition",
    NOTE: noticed that, the theorem TRANS_ind is never needed, thus even we define
    TRANS co-inductively (i.e. by Hol_coreln), the whole formalization still works.
  *)
-val (TRANS_rules, TRANS_ind, TRANS_cases) = Hol_reln `
+Inductive TRANS :
     (!E u.                           TRANS (prefix u E) u E) /\         (* PREFIX *)
     (!E u E1 E'.    TRANS E u E1 ==> TRANS (sum E E') u E1) /\          (* SUM1 *)
     (!E u E1 E'.    TRANS E u E1 ==> TRANS (sum E' E) u E1) /\          (* SUM2 *)
@@ -408,7 +408,8 @@ val (TRANS_rules, TRANS_ind, TRANS_cases) = Hol_reln `
     (!E u E' rf.    TRANS E u E'
                 ==> TRANS (relab E rf) (relabel rf u) (relab E' rf)) /\ (* RELABELING *)
     (!E u X E1.     TRANS (CCS_Subst E (rec X E) X) u E1
-                ==> TRANS (rec X E) u E1) `;                            (* REC *)
+                ==> TRANS (rec X E) u E1)                               (* REC *)
+End
 
 val _ =
     add_rule { term_name = "TRANS", fixity = Infix (NONASSOC, 450),

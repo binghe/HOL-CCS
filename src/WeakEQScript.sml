@@ -671,16 +671,17 @@ val OBS_EQUIV = new_definition ("OBS_EQUIV",
    2. WEAK_EQUIV_cases is the same as WEAK_PROPERTY_STAR
    3. WEAK_EQUIV_coind is new (the co-inductive principle)
  *)
-val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+CoInductive WEAK_EQUIV :
+    !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!l.
          (!E1. TRANS E  (label l) E1 ==>
-               (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
+               ?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2) /\
          (!E2. TRANS E' (label l) E2 ==>
-               (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
+               ?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2)) /\
        (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
        (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
-      ==> WEAK_EQUIV E E')`;
+      ==> WEAK_EQUIV E E'
+End
 
 val _ = add_rule { block_style = (AroundEachPhrase, (PP.CONSISTENT, 0)),
                    fixity = Infix (NONASSOC, 450),
