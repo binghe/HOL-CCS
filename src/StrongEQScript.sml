@@ -20,40 +20,23 @@ val _ = temp_loose_equality ();
 (* Type abbreviations *)
 val _ = type_abbrev_pp ("simulation", “:('a, 'b) CCS -> ('a, 'b) CCS -> bool”);
 
-val STRONG_SIM_def = Define
-   `STRONG_SIM (R :('a, 'b) simulation) =
-    !E E'. R E E' ==> !u E1. TRANS E u E1 ==> ?E2. TRANS E' u E2 /\ R E1 E2`;
-
+(* new definition based on relationTheory.BISIM *)
 val STRONG_BISIM_def = Define
-   `STRONG_BISIM (R :('a, 'b) simulation) = STRONG_SIM R /\ STRONG_SIM (inv R)`;
+   `STRONG_BISIM (R :('a, 'b) simulation) = BISIM TRANS R`;
 
-val STRONG_BISIM = store_thm ("STRONG_BISIM",
-  ``STRONG_BISIM (Bsm :('a, 'b) simulation) =
+(* original definition of STRONG_BISIM, now becomes a theorem *)
+Theorem STRONG_BISIM :
+    STRONG_BISIM (Bsm :('a, 'b) simulation) =
     !E E'. Bsm E E' ==>
         !u.
            (!E1. TRANS E u E1 ==>
                  ?E2. TRANS E' u E2 /\ Bsm E1 E2) /\
            (!E2. TRANS E' u E2 ==>
-                 ?E1. TRANS E u E1 /\ Bsm E1 E2)``,
-    Rev EQ_TAC
- >- ( REWRITE_TAC [STRONG_BISIM_def, STRONG_SIM_def, inv_DEF] >> METIS_TAC [] )
- >> REWRITE_TAC [STRONG_BISIM_def]
- >> rpt STRIP_TAC (* 2 sub-goals here *)
- >| [ (* goal 1 (of 2) *)
-      qpat_x_assum `STRONG_SIM Bsm`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [STRONG_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2` >> ASM_REWRITE_TAC [],
-      (* goal 2 (of 2) *)
-      Q.ABBREV_TAC `Bsm' = inv Bsm` \\
-      `Bsm' E' E` by PROVE_TAC [inv_DEF] \\
-      qpat_x_assum `STRONG_SIM Bsm'`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [STRONG_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2'` >> ASM_REWRITE_TAC [] \\
-      Q.UNABBREV_TAC `Bsm'` \\
-      POP_ASSUM (MP_TAC o BETA_RULE o (REWRITE_RULE [inv_DEF])) \\
-      REWRITE_TAC [] ]);
+                 ?E1. TRANS E u E1 /\ Bsm E1 E2)
+Proof
+    RW_TAC std_ss [STRONG_BISIM_def, BISIM_def]
+ >> METIS_TAC []
+QED
 
 (* The identity relation is a strong bisimulation. *)
 val IDENTITY_STRONG_BISIM = store_thm (
@@ -205,66 +188,53 @@ val STRONG_EQUIV = store_thm ((* NEW *)
       HO_MATCH_MP_TAC STRONG_EQUIV_coind \\ (* co-induction used here! *)
       METIS_TAC [STRONG_BISIM] ]);
 
-val STRONG_BISIM_SUBSET_STRONG_EQUIV = store_thm ((* NEW *)
+(* connection with relationTheory.BISIM_REL *)
+Theorem STRONG_EQUIV_IS_BISIM_REL :
+    STRONG_EQUIV = BISIM_REL TRANS
+Proof
+    RW_TAC std_ss [FUN_EQ_THM, relationTheory.BISIM_REL_def,
+                   STRONG_EQUIV, STRONG_BISIM_def]
+ >> EQ_TAC >> RW_TAC std_ss []
+ >| [ Q.EXISTS_TAC `Bsm` >> art [],
+      Q.EXISTS_TAC `R` >> art [] ]
+QED
+
+Theorem STRONG_EQUIV_equivalence :
+    equivalence STRONG_EQUIV
+Proof
+    REWRITE_TAC [STRONG_EQUIV_IS_BISIM_REL,
+                 relationTheory.BISIM_REL_IS_EQUIV_REL]
+QED
+
+Theorem STRONG_EQUIV_REFL :
+    !E. STRONG_EQUIV E E
+Proof    
+    PROVE_TAC [REWRITE_RULE [equivalence_def, reflexive_def]
+                            STRONG_EQUIV_equivalence]
+QED
+
+Theorem STRONG_EQUIV_SYM :
+    !E E'. STRONG_EQUIV E E' ==> STRONG_EQUIV E' E
+Proof
+    PROVE_TAC [REWRITE_RULE [equivalence_def, symmetric_def]
+                            STRONG_EQUIV_equivalence]
+QED
+
+Theorem STRONG_EQUIV_TRANS :
+    !E E' E''. STRONG_EQUIV E E' /\ STRONG_EQUIV E' E'' ==> STRONG_EQUIV E E''
+Proof
+    PROVE_TAC [REWRITE_RULE [equivalence_def, transitive_def]
+                            STRONG_EQUIV_equivalence]
+QED
+
+val STRONG_BISIM_SUBSET_STRONG_EQUIV = store_thm (
    "STRONG_BISIM_SUBSET_STRONG_EQUIV",
   ``!Bsm. STRONG_BISIM Bsm ==> Bsm RSUBSET STRONG_EQUIV``,
     PROVE_TAC [RSUBSET, STRONG_EQUIV]);
 
-(* Strong equivalence is a reflexive relation. *)
-val STRONG_EQUIV_REFL = store_thm (
-   "STRONG_EQUIV_REFL", ``!E. STRONG_EQUIV E E``,
-    GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_EQUIV]
- >> Q.EXISTS_TAC `Id`
- >> REWRITE_TAC [IDENTITY_STRONG_BISIM]);
-
-(* Strong equivalence is a symmetric relation. *)
-val STRONG_EQUIV_SYM = store_thm (
-   "STRONG_EQUIV_SYM",
-  ``!E E'. STRONG_EQUIV E E' ==> STRONG_EQUIV E' E``,
-    REPEAT GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_EQUIV]
- >> REPEAT STRIP_TAC
- >> Q.EXISTS_TAC `inv Bsm`
- >> CONJ_TAC >- ( REWRITE_TAC [inv_DEF] >> BETA_TAC >> art [] )
- >> IMP_RES_TAC CONVERSE_STRONG_BISIM);
-
 (* Syntactic equivalence implies strong equivalence. *)
 val EQUAL_IMP_STRONG_EQUIV = store_thm (
    "EQUAL_IMP_STRONG_EQUIV", ``!E E'. (E = E') ==> STRONG_EQUIV E E'``,
-    REPEAT STRIP_TAC
- >> PURE_ASM_REWRITE_TAC [STRONG_EQUIV_REFL]);
-
-(* Strong equivalence is a transitive relation. *)
-val STRONG_EQUIV_TRANS = store_thm (
-   "STRONG_EQUIV_TRANS",
-  ``!E E' E''. STRONG_EQUIV E E' /\ STRONG_EQUIV E' E'' ==> STRONG_EQUIV E E''``,
-    rpt GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_EQUIV]
- >> rpt STRIP_TAC
- >> Q.EXISTS_TAC `Bsm' O Bsm`
- >> CONJ_TAC (* 2 sub-goals here *)
- >| [ REWRITE_TAC [O_DEF] >> BETA_TAC \\
-      Q.EXISTS_TAC `E'` >> art [],
-      IMP_RES_TAC COMP_STRONG_BISIM ]);
-
-val STRONG_EQUIV_equivalence = store_thm ((* NEW *)
-   "STRONG_EQUIV_equivalence", ``equivalence STRONG_EQUIV``,
-    REWRITE_TAC [equivalence_def]
- >> REPEAT STRIP_TAC (* 3 sub-goals here *)
- >| [ (* goal 1 (of 3) *)
-      REWRITE_TAC [reflexive_def, STRONG_EQUIV_REFL],
-      (* goal 2 (of 3) *)
-      REWRITE_TAC [symmetric_def] \\
-      REPEAT GEN_TAC \\
-      EQ_TAC >> REWRITE_TAC [STRONG_EQUIV_SYM],
-      (* goal 3 (of 3) *)
-      REWRITE_TAC [transitive_def, STRONG_EQUIV_TRANS] ]);
-
-(* Syntactic equivalence implies strong equivalence. *)
-val EQUAL_IMP_STRONG_EQUIV = store_thm (
-   "EQUAL_IMP_STRONG_EQUIV",
-      ``!E E'. (E = E') ==> STRONG_EQUIV E E'``,
     REPEAT STRIP_TAC
  >> PURE_ASM_REWRITE_TAC [STRONG_EQUIV_REFL]);
 
