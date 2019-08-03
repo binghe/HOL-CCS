@@ -79,7 +79,7 @@ val OH_CONTEXT_combin = store_thm (
       FULL_SIMP_TAC std_ss [OH_CONTEXT7],
       FULL_SIMP_TAC std_ss [OH_CONTEXT8] ]);
 
-(* multi-hole (or non-hole) contexts. *)
+(* Multi-hole (or non-hole) contexts (as unvariate lambda functions) *)
 val (CONTEXT_rules, CONTEXT_ind, CONTEXT_cases) = Hol_reln `
     (        CONTEXT (\t. t)) /\                               (* CONTEXT1 *)
     (!p.     CONTEXT (\t. p)) /\                               (* CONTEXT2 *)

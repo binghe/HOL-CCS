@@ -1,12 +1,13 @@
 (*
  * Copyright 1991-1995  University of Cambridge (Author: Monica Nesi)
- * Copyright 2016-2017  University of Bologna   (Author: Chun Tian)
+ * Copyright 2016-2017  University of Bologna, Italy (Author: Chun Tian)
+ * Copyright 2018-2019  Fondazione Bruno Kessler, Italy (Author: Chun Tian)
  *)
 
 open HolKernel Parse boolLib bossLib;
 
 open pred_setTheory pairTheory relationTheory listTheory;
-open CCSLib CCSTheory;
+open CCSLib CCSTheory bisimulationTheory;
 
 val _ = new_theory "StrongEQ";
 val _ = temp_loose_equality ();
@@ -39,115 +40,44 @@ Proof
 QED
 
 (* The identity relation is a strong bisimulation. *)
-val IDENTITY_STRONG_BISIM = store_thm (
-   "IDENTITY_STRONG_BISIM",
-  ``STRONG_BISIM Id``,
-    PURE_ONCE_REWRITE_TAC [STRONG_BISIM]
- >> REPEAT STRIP_TAC (* 2 sub-goals *)
- >| [ (* goal 1 *)
-      ASSUME_TAC (REWRITE_RULE [ASSUME ``E:('a, 'b) CCS = E'``]
-                               (ASSUME ``TRANS E u E1``)) \\
-      EXISTS_TAC ``E1:('a, 'b) CCS`` \\
-      ASM_REWRITE_TAC [] ,
-      (* goal 2 *)
-      PURE_ONCE_ASM_REWRITE_TAC [] \\
-      EXISTS_TAC ``E2:('a, 'b) CCS`` \\
-      ASM_REWRITE_TAC [] ]);
+Theorem IDENTITY_STRONG_BISIM :
+    STRONG_BISIM Id
+Proof
+    REWRITE_TAC [STRONG_BISIM_def, BISIM_ID]
+QED
 
 (* The converse of a strong bisimulation is a strong bisimulation. *)
-val CONVERSE_STRONG_BISIM = store_thm (
-   "CONVERSE_STRONG_BISIM",
-  ``!Bsm. STRONG_BISIM Bsm ==> STRONG_BISIM (inv Bsm)``,
-    GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_BISIM]
- >> REWRITE_TAC [inv_DEF] >> BETA_TAC
- >> rpt STRIP_TAC (* 2 sub-goals here *)
- >> RES_TAC (* enrich assumptions *)
- >| [ EXISTS_TAC ``E1':('a, 'b) CCS``,
-      EXISTS_TAC ``E2':('a, 'b) CCS`` ]
- >> art []);
+Theorem CONVERSE_STRONG_BISIM :
+    !Bsm. STRONG_BISIM Bsm ==> STRONG_BISIM (inv Bsm)
+Proof
+    REWRITE_TAC [STRONG_BISIM_def, BISIM_INV]
+QED
 
 (* The composition of two strong bisimulations is a strong bisimulation. *)
-val COMP_STRONG_BISIM = store_thm (
-   "COMP_STRONG_BISIM",
-  ``!Bsm1 Bsm2. STRONG_BISIM Bsm1 /\ STRONG_BISIM Bsm2 ==> STRONG_BISIM (Bsm2 O Bsm1)``,
-    rpt GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_BISIM]
- >> REWRITE_TAC [O_DEF] >> BETA_TAC
- >> rpt STRIP_TAC (* 2 sub-goals here *)
- >| [ (* goal 1 (of 2) *)
-      IMP_RES_TAC
-        (MP (SPECL [``E :('a, 'b) CCS``, ``y :('a, 'b) CCS``]
-            (ASSUME
-             ``!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-               Bsm1 E E' ==>
-               (!u.
-                (!E1. TRANS E u E1 ==> (?E2. TRANS E' u E2 /\ Bsm1 E1 E2)) /\
-                (!E2. TRANS E' u E2 ==> (?E1. TRANS E u E1 /\ Bsm1 E1 E2)))``))
-          (ASSUME ``(Bsm1 :('a, 'b) simulation) E y``)) \\
-      IMP_RES_TAC
-        (MP (SPECL [``y :('a, 'b) CCS``, ``E' :('a, 'b) CCS``]
-            (ASSUME
-             ``!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-               Bsm2 E E' ==>
-               (!u.
-                (!E1. TRANS E u E1 ==> (?E2. TRANS E' u E2 /\ Bsm2 E1 E2)) /\
-                (!E2. TRANS E' u E2 ==> (?E1. TRANS E u E1 /\ Bsm2 E1 E2)))``))
-          (ASSUME ``(Bsm2 :('a, 'b) simulation) y E'``)) \\
-      EXISTS_TAC ``E2' :('a, 'b) CCS`` >> art [] \\
-      EXISTS_TAC ``E2 :('a, 'b) CCS`` >> art [],
-      (* goal 2 (of 2) *)
-      IMP_RES_TAC
-        (MP (SPECL [``y :('a, 'b) CCS``, ``E' :('a, 'b) CCS``]
-            (ASSUME
-             ``!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-               Bsm2 E E' ==>
-               (!u.
-                (!E1. TRANS E u E1 ==> (?E2. TRANS E' u E2 /\ Bsm2 E1 E2)) /\
-                (!E2. TRANS E' u E2 ==> (?E1. TRANS E u E1 /\ Bsm2 E1 E2)))``))
-          (ASSUME ``(Bsm2 :('a, 'b) simulation) y E'``)) \\
-      IMP_RES_TAC
-        (MP (SPECL [``E :('a, 'b) CCS``, ``y :('a, 'b) CCS``]
-            (ASSUME
-             ``!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-               Bsm1 E E' ==>
-               (!u.
-                (!E1. TRANS E u E1 ==> (?E2. TRANS E' u E2 /\ Bsm1 E1 E2)) /\
-                (!E2. TRANS E' u E2 ==> (?E1. TRANS E u E1 /\ Bsm1 E1 E2)))``))
-          (ASSUME ``(Bsm1 :('a, 'b) simulation) E y``)) \\
-      EXISTS_TAC ``E1' :('a, 'b) CCS`` >> art [] \\
-      EXISTS_TAC ``E1 :('a, 'b) CCS`` >> art [] ]);
+Theorem COMP_STRONG_BISIM :
+    !Bsm1 Bsm2. STRONG_BISIM Bsm1 /\ STRONG_BISIM Bsm2 ==>
+                STRONG_BISIM (Bsm2 O Bsm1)
+Proof
+    REWRITE_TAC [STRONG_BISIM_def, BISIM_O]
+QED
 
 (* The union of two strong bisimulations is a strong bisimulation. *)
-val UNION_STRONG_BISIM = store_thm (
-   "UNION_STRONG_BISIM",
-  ``!Bsm1 Bsm2. STRONG_BISIM Bsm1 /\ STRONG_BISIM Bsm2 ==>
-                STRONG_BISIM (Bsm1 RUNION Bsm2)``,
-    rpt GEN_TAC
- >> PURE_ONCE_REWRITE_TAC [STRONG_BISIM]
- >> REWRITE_TAC [RUNION] >> BETA_TAC
- >> rpt STRIP_TAC (* 4 sub-goals here *)
- >> RES_TAC
- >| [ EXISTS_TAC ``E2 :('a, 'b) CCS``,
-      EXISTS_TAC ``E1 :('a, 'b) CCS``,
-      EXISTS_TAC ``E2 :('a, 'b) CCS``,
-      EXISTS_TAC ``E1 :('a, 'b) CCS``]
- >> art []);
+Theorem UNION_STRONG_BISIM :
+    !Bsm1 Bsm2. STRONG_BISIM Bsm1 /\ STRONG_BISIM Bsm2 ==>
+                STRONG_BISIM (Bsm1 RUNION Bsm2)
+Proof
+    REWRITE_TAC [STRONG_BISIM_def, BISIM_RUNION]
+QED
 
 (* Define the strong equivalence relation for CCS processes.
 
   Two states E and E' are bisimilar (or bisimulation equivalent, denoted E ~ E',
   if there exists a bisimulation R such that (E, E') IN R.
 
-  Old definition:
-val STRONG_EQUIV = new_definition ("STRONG_EQUIV",
-  ``STRONG_EQUIV E E' = ?Bsm. Bsm E E' /\ STRONG_BISIM Bsm``);
-
-  Obsevations on new definition:
    1. STRONG_EQUIV_cases ==> STRONG_EQUIV_rules (by EQ_IMP_LR)
    2. STRONG_EQUIV_cases is the same as PROPERTY_STAR
    3. STRONG_EQUIV_coind is new (the co-inductive principle)
- *) (* NEW *)
+ *)
 CoInductive STRONG_EQUIV :
     !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!u.
@@ -190,12 +120,10 @@ val STRONG_EQUIV = store_thm ((* NEW *)
       HO_MATCH_MP_TAC STRONG_EQUIV_coind \\ (* co-induction used here! *)
       METIS_TAC [STRONG_BISIM] ]);
 
-(* connection with relationTheory.BISIM_REL *)
 Theorem STRONG_EQUIV_IS_BISIM_REL :
     STRONG_EQUIV = BISIM_REL TRANS
 Proof
-    RW_TAC std_ss [FUN_EQ_THM, relationTheory.BISIM_REL_def,
-                   STRONG_EQUIV, STRONG_BISIM_def]
+    RW_TAC std_ss [FUN_EQ_THM, BISIM_REL_def, STRONG_EQUIV, STRONG_BISIM_def]
  >> EQ_TAC >> RW_TAC std_ss []
  >| [ Q.EXISTS_TAC `Bsm` >> art [],
       Q.EXISTS_TAC `R` >> art [] ]
@@ -204,13 +132,12 @@ QED
 Theorem STRONG_EQUIV_equivalence :
     equivalence STRONG_EQUIV
 Proof
-    REWRITE_TAC [STRONG_EQUIV_IS_BISIM_REL,
-                 relationTheory.BISIM_REL_IS_EQUIV_REL]
+    REWRITE_TAC [STRONG_EQUIV_IS_BISIM_REL, BISIM_REL_IS_EQUIV_REL]
 QED
 
 Theorem STRONG_EQUIV_REFL :
     !E. STRONG_EQUIV E E
-Proof    
+Proof
     PROVE_TAC [REWRITE_RULE [equivalence_def, reflexive_def]
                             STRONG_EQUIV_equivalence]
 QED

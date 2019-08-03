@@ -1,12 +1,13 @@
 (*
  * Copyright 1991-1995  University of Cambridge (Author: Monica Nesi)
- * Copyright 2016-2017  University of Bologna   (Author: Chun Tian)
+ * Copyright 2016-2017  University of Bologna, Italy (Author: Chun Tian)
+ * Copyright 2018-2019  Fondazione Bruno Kessler, Italy (Author: Chun Tian)
  *)
 
 open HolKernel Parse boolLib bossLib;
 
 open pred_setTheory relationTheory listTheory IndDefRules;
-open CCSLib CCSTheory StrongEQTheory;
+open bisimulationTheory CCSLib CCSTheory StrongEQTheory;
 
 val _ = new_theory "WeakEQ";
 val _ = temp_loose_equality ();
@@ -385,16 +386,7 @@ val WEAK_SUM2 = store_thm ((* NEW *)
 (*                                                                            *)
 (******************************************************************************)
 
-val WEAK_SIM_def = Define
-   `WEAK_SIM (R: ('a, 'b) simulation) =
-    !E E'. R E E' ==>
-           (!l E1. TRANS E (label l) E1 ==> ?E2. WEAK_TRANS E' (label l) E2 /\ R E1 E2) /\
-           !E1. TRANS E tau E1 ==> ?E2. EPS E' E2 /\ R E1 E2`;
-
-val WEAK_BISIM_def = Define
-   `WEAK_BISIM (R :('a, 'b) simulation) = WEAK_SIM R /\ WEAK_SIM (inv R)`;
-
-val WEAK_BISIM = store_thm ("WEAK_BISIM",
+val WEAK_BISIM = new_definition ("WEAK_BISIM",
   ``WEAK_BISIM (Wbsm: ('a, 'b) simulation) =
     !E E'. Wbsm E E' ==>
        (!l.
@@ -403,42 +395,7 @@ val WEAK_BISIM = store_thm ("WEAK_BISIM",
          (!E2. TRANS E' (label l) E2 ==>
                 (?E1. WEAK_TRANS E  (label l) E1 /\ Wbsm E1 E2))) /\
        (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ Wbsm E1 E2)) /\
-       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ Wbsm E1 E2))``,
-    Rev EQ_TAC (* 2 sub-goals here *)
- >- ( REWRITE_TAC [WEAK_BISIM_def, WEAK_SIM_def, inv_DEF] >> METIS_TAC [] )
- >> REWRITE_TAC [WEAK_BISIM_def]
- >> rpt STRIP_TAC (* 4 sub-goals here *)
- >| [ (* goal 1 (of 4) *)
-      qpat_x_assum `WEAK_SIM Wbsm`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [WEAK_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2` >> ASM_REWRITE_TAC [],
-      (* goal 2 (of 4) *)
-      Q.ABBREV_TAC `Wbsm' = inv Wbsm` \\
-      `Wbsm' E' E` by PROVE_TAC [inv_DEF] \\
-      qpat_x_assum `WEAK_SIM Wbsm'`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [WEAK_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2'` >> ASM_REWRITE_TAC [] \\
-      Q.UNABBREV_TAC `Wbsm'` \\
-      POP_ASSUM K_TAC \\
-      POP_ASSUM (MP_TAC o BETA_RULE o (REWRITE_RULE [inv_DEF])) \\
-      REWRITE_TAC [],
-      (* goal 3 (of 4) *)
-      qpat_x_assum `WEAK_SIM Wbsm`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [WEAK_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2` >> ASM_REWRITE_TAC [],
-      (* goal 4 (of 4) *)
-      Q.ABBREV_TAC `Wbsm' = inv Wbsm` \\
-      `Wbsm' E' E` by PROVE_TAC [inv_DEF] \\
-      qpat_x_assum `WEAK_SIM Wbsm'`
-        (STRIP_ASSUME_TAC o (REWRITE_RULE [WEAK_SIM_def])) \\
-      RES_TAC \\
-      Q.EXISTS_TAC `E2'` >> ASM_REWRITE_TAC [] \\
-      Q.UNABBREV_TAC `Wbsm'` \\
-      POP_ASSUM (MP_TAC o BETA_RULE o (REWRITE_RULE [inv_DEF])) \\
-      REWRITE_TAC [] ]);
+       (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ Wbsm E1 E2))``);
 
 (* The identity relation is a weak bisimulation. *)
 val IDENTITY_WEAK_BISIM = store_thm ("IDENTITY_WEAK_BISIM",
@@ -570,7 +527,7 @@ val WEAK_TRANS_AUX_SYM = store_thm (
   ``!E' l E1.
         WEAK_TRANS E' (label l) E1 ==>
          !Wbsm E. WEAK_BISIM Wbsm /\ Wbsm E E' ==>
-          (?E2. WEAK_TRANS E(label l)E2 /\ Wbsm E2 E1)``,
+          (?E2. WEAK_TRANS E (label l) E2 /\ Wbsm E2 E1)``,
     rpt STRIP_TAC
  >> IMP_RES_TAC (GSYM INVERSE_REL)
  >> IMP_RES_TAC CONVERSE_WEAK_BISIM

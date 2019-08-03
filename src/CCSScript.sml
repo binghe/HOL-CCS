@@ -1,6 +1,7 @@
 (*
  * Copyright 1991-1995  University of Cambridge (Author: Monica Nesi)
- * Copyright 2016-2017  University of Bologna   (Author: Chun Tian)
+ * Copyright 2016-2017  University of Bologna, Italy (Author: Chun Tian)
+ * Copyright 2018-2019  Fondazione Bruno Kessler, Italy (Author: Chun Tian)
  *)
 
 open HolKernel Parse boolLib bossLib;
@@ -856,26 +857,6 @@ val IS_PROC_def = Define `
 
 val ALL_PROC_def = Define `
     ALL_PROC ES = EVERY IS_PROC ES`;
-
-(* The use of finite_mapTheory (to get rid of substitution orders) is
-   suggested by Konrad Slind. *)
-val CCS_Subst1_def = Define `
-   (CCS_Subst1 nil         (fm :'a |-> ('a, 'b) CCS) = nil) /\
-   (CCS_Subst1 (prefix u E) fm = prefix u (CCS_Subst1 E fm)) /\
-   (CCS_Subst1 (sum E1 E2)  fm = sum (CCS_Subst1 E1 fm)
-                                     (CCS_Subst1 E2 fm)) /\
-   (CCS_Subst1 (par E1 E2)  fm = par (CCS_Subst1 E1 fm)
-                                     (CCS_Subst1 E2 fm)) /\
-   (CCS_Subst1 (restr L E)  fm = restr L (CCS_Subst1 E fm)) /\
-   (CCS_Subst1 (relab E rf) fm = relab   (CCS_Subst1 E fm) rf) /\
-   (CCS_Subst1 (var Y)      fm = if (Y IN FDOM fm) then (FAPPLY fm Y)
-                                 else (var Y)) /\
-   (CCS_Subst1 (rec Y E)    fm = if (Y IN FDOM fm) then (rec Y E)
-                                 else (rec Y (CCS_Subst1 E fm)))`;
-
-(* :('a, 'b) CCS list -> ('a |-> ('a, 'b) CCS) -> ('a, 'b) CCS list *)
-val CCS_Subst2_def = Define `
-    CCS_Subst2 ES fm = MAP (\e. CCS_Subst1 e fm) ES`;
 
 val DELETE_ELEMENT_def = Define `
    (DELETE_ELEMENT e [] = []) /\
