@@ -3,6 +3,9 @@
 %% This version is for Elsevier's Information and Computation Journal submission.
 %% by Davide Sangiorgi and Chun Tian.
 
+%% Rebuttal cover letter
+\newif\ifrebuttal\rebuttaltrue
+
 \documentclass[3p,preprint]{elsarticle}
 
 \usepackage{lineno,hyperref}
@@ -99,13 +102,24 @@
 %	pdfkeywords={theorem proving, process calculi, coinduction, unique solution of equations, congruence}}
 
 \begin{document}
+
+\ifrebuttal
+\pagenumbering{roman}
+
+\input{response-letter}
+
+\newpage
+\setcounter{page}{0}
+\pagenumbering{arabic}
+\fi
+
 \begin{frontmatter}
 
 % title
 \title{Unique Solutions of Contractions, CCS, and their HOL
   Formalisation\tnoteref{mytitlenote}}
-\tnotetext[mytitlenote]{An extended version of the EXPRESS/SOS 2018
-  workshop paper \cite{EPTCS276.10}.}
+\tnotetext[mytitlenote]{This paper is the full version of our paper~\cite{EPTCS276.10}
+  submitted to EXPRESS/SOS 2018 workshop.}
 
 % authors
 \author[mymainaddress]{Chun Tian}%\fnref{myfootnote}

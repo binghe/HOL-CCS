@@ -1,0 +1,804 @@
+I have gone through the comments from the referees. Here are my remarks.
+
+My overall impressions:
+There are good chances that the paper will be
+accepted. However there is work to do. The criticism from the
+referees is fair.
+I have been amazed by the details of the comments (including small
+things): this is something that one sees very rarely. Obviously the
+referees were interested in the paper and read it very carefully.
+
+Here are the main things that i believe should be done.
+
+
+Referee 1:  this one is concerned about multi-variables. It is not
+necessary to do such extension, really. It would be sufficient a good
+explanation (a few lines, say) about why it is complicated/long.
+Something is said already, it should be expanded.
+
+
+There are then a lot of detailed comments, that i let you take care
+of.
+
+Referee 2: this  is the most positive one.
+He/she will be happy if here and there a few more
+explanations about HOL are added. It would not be necessary to do a lot.
+ However on this referee 3 asks
+more. So taking care of referee 3 will take care also of referee 2
+
+Referee 3 is the most critical. I am not sure how to accommodate
+all this. I think it will be ok if some more explanation is added to make
+the HOL script more clear (as for referee 2);  the referee would like
+also to see more explanation on what we can learn from the HOL
+script. I am not sure what to answer here.
+Think about it and let me know what you would propose.
+Concerning the many details comments the referee has, I have written
+below some proposal of answers to the main points (those that I have
+not commented are minor points, i let you take care of them).
+Below,  after my comments i have often  a  few words between square
+brackets: these are the words that I suggest to put in the
+accompanying letter to the revision in which we explain the
+modifications made (of course we will have to explain also the other
+modifications made).
+
+
+Detailed comments (of referee 3):
+
+> Abstract:
+>    There should be a remark that this is about weak bisimilarity. In general 'bisimilarity' is strong bisimilarity.
+
+I suggest to add, between brackets "(weak)" in the first line, before
+"bisimilarity"
+
+
+
+> L35: Regarding the sentence "as formally proving a previously known result gives us the chance to see
+>     what is really needed for establishing that result."
+>     Either omit this sentence or explain what technical insights one gains by doing this work
+
+
+i'd omit it.
+
+[We have omitted the sentence]
+
+
+> L43-48: This sentence is difficult to read and could be split into multiple sentences.
+
+A suggestion  of rephrasing:
+
+Such structural simililarities can be found, for instance,  in  the
+following cases: the  proofs that rooted bisimilarity and
+rooted contraction are, respectively, the coarsest congruence contained in weak bisimilarity and the coarsest
+45 precongruence contained in the contraction preorder; the proofs about unique solution of equations for weak
+bisimilarity that uses the contraction preorder as an auxiliary relation, and other unique solution results
+(e.g. the one for rooted in which the auxiliary relation is rooted
+contraction); the proofs about  various forms of enhancements
+of the bisimulation proof method (the ‘up-to’ techniques).
+
+
+[we have rephrased it]
+
+> L59: "shown in Fig. 1" is placed after "a Labeled Transition System", causing the belief that Figure 1 contains an LTS.
+>     But there is no LTS. Figure 1 contains the SOS of CCS.
+
+
+A rephrasing:
+
+.. then given by means of a Labeled Transition System (LTS) as Structural Operational
+Semantics (SOS) rules,
+and  shown in Fig. 1. The symmetric version of the two rules for parallel composition and the rule for sum
+are omitted.
+
+[we have rephrased it]
+
+
+> Semantics: The relabeling rule is not explained anywhere.
+
+add a short explanation (though it is a standard rule)
+
+
+> Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
+
+
+remove the side condition on the rule and add an explanation about it
+before the sentence "The operational semantics of CCS is then given by means..."
+
+[we have moved the side contidion to the main text where we explain
+the syntax]
+
+
+> Contexts: Does an i-holed context have exactly one hole []_i for each i? This question is not answered anywhere in the text.
+>     In the formalisation you only use contexts with one kind of hole []. This definition can be changed to only
+>     use one hole as well, with a clear indication that this hole can occur multiple times.
+
+Add a short explanation about what a context is.
+Do we need contexts with multiple holes? if not, then the []_i
+notation maybe is not needed, and we only need to say what C[P] is
+(not a tuple C[~P])
+
+
+
+> Definition 2.2: Superscript c is already used for contextual closure.
+>     Does \approx^c stand for the contextual closure of \approx, or is it something else?
+>     Since contextual closure is not used anywhere in the paper, it is best to remove it.
+>     Otherwise you need different notation for rooted bisimilarity.
+
+For contextual closure (that i guess is needed) we could use a
+different notation, for instance, using a superscript "con" instead of "c"
+
+
+> L91: What does 'reducing' mean?
+
+
+Rephrase the sentence thus:
+
+
+The above definition
+ brings up a proof technique for proving rooted bisimiarity
+results, starting from a given bisimulation.
+
+[we have rephrased the sentence]
+
+> L118: Why is the word 'actions' in bold font? It says 'ds' in the margin, what does that mean?
+
+that must have been a macro for my comments to be de-activated
+
+[we have corrected]
+
+> Definition 3.3: The definition of ‘sequential’ is awkward.  Moreover this definition calls for some examples since the definitions can be very confusing.
+
+make sure this is the def as in my paper. Then add a few examples, as
+in my paper
+
+[we have added some examples, and used Milner's original def of sequentiality]
+
+> Theorem 3.4: What are direct sums?
+
+do not use "direct sums". i remember i tried to remove all occurrences
+of this, but this one obviously escaped me. (make a search to make
+sure no more occurrences are there)
+
+[we have removed all usages of "direct sum" ]
+
+> L.127: I think it would be clearer to give two concrete solutions rather than saying that any process not using a is a solution.
+
+examples: \nil and b.\nil
+
+[Done]
+
+> L138: "Bisimilarity contraction ... some contraction R". This is not a grammatically correct sentence.
+
+Rewrite:
+
+Two processes $P$ and $Q$ are in the bisimilarity contraction, written
+$P ....$, if ...
+
+[we have rephrased the sentence]
+
+
+> L142: ".. are even required". The word 'even' suggests that this is a stronger requirement, but it is in fact weaker.
+
+
+I think "even" was the right word. However we can replace it with
+"indeed"
+
+[done]
+
+> L153: "As bisimilarity .. but sums." This is not a grammatically correct sentence.
+
+actually the sentence is very fine.
+However, you can remove it (see below)
+
+[we have  removed the sentence, including this statement with the
+statement after the example]
+
+> Example 3.7: this example shows strictness of the inclusion. But the sentence before the example suggests that this is
+>     going to show that the preorder is not preserved by sums.
+
+with the removal of the sentence above ,it is ok
+
+
+[having removed the sentence above now this should be ok. we have also
+rephrased the following sentence]
+
+Replace the sentence after the example with:
+
+
+In the same way as  bisimilarity,  both
+the expansion and the contraction preorders
+are
+preserved by all operators except  sum. The proofs are similar, see
+e.g. [refence to my contraction paper]
+
+> L157: Doesn’t this statement deserve a proof?
+
+we can say that we have added a reference
+
+[we have added a reference]
+
+> L163: P >= E[P] is spelled out earlier in Definition 3.2. Maybe spell out this one as well.
+
+ok, do it.
+
+> L165: If you define the notion of guardedness in Definition 3.3 on
+  expressions first, and only thereafter extend it to systems of
+  equations, then you could here simply reuse the definition on
+  expressions to get a definition of the notion for systems of
+  contractions. The advantage is that you are precise rather than
+  suggestive.
+
+
+Not sure i understand the referee.
+
+But we can reformulate the sentence better thus:
+
+The notions of guardedness (strongly and weakly guarded) for systems
+of equations in Def. 3.3  will also be used for systems of contactions.
+
+[we have rephrased the sentence]
+
+
+> L169: "The number of strong steps of which is is composed". Note that there is not a unique sequence; in fact, there may be many ways to reach R from C[\tilde{P}] with a weak \mu-trace.
+
+Replace "the transition" with "a transition"
+
+[we have replaced "the transition" with "a transition"]
+
+
+> L176: What does "applying the definition of >=_bis" mean?
+
+Replace
+"applying the definition of ...  on the transition ...., we infer"
+with "
+
+from $C[P] >= C"[~P]$ and the transition ...., applying the
+definition of ..., we infer ..."
+
+[we have rephrased the sentence]
+
+> Footnote: Why not just spell out this definition instead of making a
+  remark about it?  It would make the conclusion of the proof somewhat
+  easier to digest. If you decide to keep the footnote, change R^~ to
+  R'. The notation R^~ is used for tuples.
+
+the referee is correct. So either explain the notation somewhere, or
+change the sentence here. For the latter,
+also replace
+"There’s no typo here" with "Note that", and then "Same as in Lemma"
+with ", as in Lemma..."
+
+Moreover, yes, tilde is for tuples, you cannot use it for a single
+process.
+
+
+
+
+> L181: vis ?
+
+???
+
+I also do not know what vis means, change it.
+
+
+> L194: ‘the definition should not be recursive’?
+
+explain it better
+
+
+> Proof of Theorem 3.14: Why do you use context C instead of tuples of expressions E^~?
+>     If this is the case because you only use contexts with one kind of hole, then you should use the letter
+>     E instead of C.
+>     If P^~ is a solution then P_i >=^c E_i[P^~] for all i, but this quantification over i is missing.
+
+yes, there is something strange here, with C vs
+E notation and also with single vs tuples of contractions.
+
+
+> L223-225: Perhaps you want to reformulate this long sentence. It is hard to read.
+
+split the sentence
+
+> L228: what does convincible mean here?
+
+rephrase it
+
+
+> L230: single?
+
+explain
+
+
+> L238: without loss of generality?
+
+
+what do you want to say?
+
+> L245: now based on HOL’s option theory?
+
+explain
+
+> L249: What are ‘backquotes’?
+
+explain
+
+
+> Footnote 3: What are CCS literals?
+
+explain
+
+
+> L265: What does the turnstile mean? I would expect that structural operational rules are axioms of the theory, but the turnstile suggests to me that they are theorems.
+
+explain
+
+
+
+> General: in the lines 293-300 the trailing deadlock 0 is given,
+  while in the preliminaries you stated that it would be omitted. If
+  you decide to keep the deadlock, it should also be in bold font.
+
+make sure the same macro is used everywhere for the operators
+
+[corrected]
+
+> L296: I don’t understand fact (1).
+
+
+see if you explain it better (the fact that is says "optional" is confusing
+
+
+> L299: ‘Hence ... CCS_TRANS_CONV’ is not a grammatically correct sentence; there is a verb missing.
+
+Replace
+"transitions. Hence
+the usefulness of appealing to the new function CC"
+with
+
+"transitions, which shows
+the usefulness of appealing to the new function CC"
+
+[we have rephrased the sentence]
+
+
+> L316: Explain what is p.
+> Footnote 4: Do you mean ‘unguarded recursion’? How can relabelling operators cause infinite branching?
+
+explain
+
+
+
+> Footnote 6: Regarding the last sentence between parentheses. What do you mean by this?
+
+i also do not understand. explain it better, or remove
+
+> General: The same trick of applying the coinduction package to the definition of bisimulation is repeated twice.
+
+i do not understand what the referee means
+
+
+> L461: I think there is no need to include those 3 theorems. Wouldn’t it suffice to write that similar theorems are returned as for STRONG_EQUIV?
+
+
+see what you prefer (if you leave it, which is fine, just add a
+sentence about it, eg explaining the differences wrt the strong case)
+
+> L496-503: A similar remark can be made for STRONG_EQUIV. Why do you put it here?
+
+as above
+
+
+
+> L545: What does this statement mean?
+
+
+rephrase it thus:
+
+"These algebraic laws also hold for weak bisimilarity and rooted bisimilarity, as these are coarser than
+ strong bisimilarity. "
+
+
+[we have rephrased the sentence]
+
+
+> Up-to techniques: You mention four up-to techniques for weak bisimilarity and each of them are not powerful enough
+>     to prove the unique solution theorems. Why are they not powerful enough?
+
+i am not sure which line this is (maybe 651?) In this case just try to
+say what the problem is, shortly.
+
+> L580: ‘Surprisingly’ To me this is not really surprising. Why do you find it surprising?
+
+Replace
+"Also,
+surprisingly, a contraction does not imply weak bisimulation"
+
+with
+
+"Also,  although the contraction preorder is included in weak
+bisimilarity, surprisingly, a contraction does not imply weak bisimulation"
+
+Actually, this is indeed surprising. You may add a short explanation
+about why it does not hold
+
+
+[we have rephrased the sentence]
+
+
+> L606-619: I really see no added value in repeating Def. 4.2 in HOL syntax.
+
+Add, before the definition, a sentence saying that
+" to help a reader not familiar with the HOL syntax, below we also
+include the HOL formalisation statements"
+
+[we have added a line of explanation before the definition]
+
+> Def. 4.4: Shouldn’t there be double arrows? (twice)
+
+I would think so
+
+[corrected]
+
+> L700: This paragraph starts with a sentence in parentheses, which is not very desirable.
+>     Moreover this sentence does not seem to be connected to the next sentence.
+
+Remove brackets. Then begin the following sentence  with
+"The next result shows that for any relation..."
+
+[we have rephrased the sentence]
+
+
+> L701: Sentence does not end with a period.
+
+add colon
+
+> L704: What do you mean by "which itself may not be"?
+
+replace it with
+"(which need not be itself a precongruence)"
+
+[we have rephrased the sentence]
+
+
+> Figure 2: The \subseteq from SUM_EQUIV to Rooted bisimilarity makes the figure confusing; put a \supseteq
+
+
+do this
+
+
+> L723-L727: This sentence should be split into multiple sentences.
+
+
+A rephrase:
+
+The assumption in Milner’s result requires fn.... (where
+fn stands for free names), and is therefore strictly stronger than the
+assumption in our result above. Indeed, in our result we only look at the immediate
+weak derivatives for p and q,  and only requires that there is an
+input or output action
+that never appears as a label. Furthermore  such an action need not be the
+same for p and for q, as  an action a and its complementary a~
+are considered different actions.
+
+[we have rephrased the sentence]
+
+
+> L744-745: pure mathematics?
+
+remove the final part of the sentence, and just explain here what
+HOL’s pred_set is.
+
+[we have rephrased the sentence]
+
+
+
+> L749: "infinite such sub-processes" this construction does not seem right and could be avoided.
+
+
+I'd replace the sentence starting "in the worst case" with
+
+"(There could be infinitely many such sub-processes, even on finitely branching processes)."
+
+[we have rephrased the sentence]
+
+
+> L766: "By induction on the definition", don't you mean by induction on natural numbers?
+
+I would say
+'Following the inductive structure of the definition of Klop processes, and using the SOS inference..."
+
+[we have rephrased the sentence]
+
+
+> L831: `In above proof’ Which proof are your referring too? I only see a theorem.
+
+I'd say "In the proof of the above theorem"
+
+
+> L837: why do you also need the condition of sequentiality?
+
+maybe recall a counterexample to Milner's theorem without the
+sequentiality hypothesis
+
+> ’since one is tempted to overlook details’?
+
+replace this with
+"especially in cases in which  proofs are  similar to each other or
+when there is a long case analysis to be be carried out."
+
+
+[we have rephrased the sentence]
+
+
+
+==============
+
+One final comment: for all modifications you do, make sure that you
+highlight them (eg using a macro), so that i can find them easily
+
+Best wishes,
+Davide
+On 06/21/19 10:27, Chun Tian wrote:
+> Dear professor,
+>
+> yes, I've received the same email yesterday evening.  It's good to see that all three reviews are at the positive directions (maybe mostly because the workshop version is positive) but I did feel the same with the last reviewer, that for an I&C journal paper the scientific value in our work seems not that significant.
+>
+> Any way, the next submission deadline (Sep 13) is still far. I'll look forward to your comments (no hurry) and do whatever I can, to further improve this paper.  Even it's not accepted by the journal at the end, this is still a peer-reviewed paper, we can simply upload it to arXiv as a new version of the previous workshop paper. I think it still serves as a good documentation work for the HOL proof scripts that I wrote.
+>
+> Regards,
+>
+> Chun
+>
+> Il 21/06/19 10:17, Davide Sangiorgi ha scritto:
+>> Dear Chun,
+>>
+>> you probably have received the comments below.
+>> I will read them in the next few days and send you some comments about what to do. I believe we can manage, without dramatic changes.
+>>
+>> Best wishes,
+>> Davide
+>>
+>>
+>> -------- Forwarded Message --------
+>> Subject: SI:EXPRESS/SOS'18 notification for paper 1
+>> Resent-From: davide.sangiorgi@unibo.it
+>> Date: Thu, 20 Jun 2019 22:22:34 +0200
+>> From: SI:EXPRESS/SOS'18 <si-expresssos18@easychair.org>
+>> To: Davide Sangiorgi <davide.sangiorgi@unibo.it>
+>>
+>> Dear Davide,
+>>
+>> Referees have evaluated your paper entitled Unique Solutions of Contractions, CCS, and their HOL Formalisation submitted to the special issue of I&C dedicated to EXPRESS/SOS 2018. Their comments are enclosed. On the basis of these comments, a major revision is needed before your paper can be considered for publication. We would appreciate it if you could revise your paper by September 13.
+>>
+>> We look forward to receiving the revised version of your paper. In order to help the reviewers in their second review round, we kindly ask you to explain in a separate document how and where the reviewers' comments have been addressed by your changes to the text (overview of changes). Should you disagree with some of these comments, please explain why.
+>>
+>> Best Regards,
+>> Simone and Jorge.
+>>
+>> SUBMISSION: 1
+>> TITLE: Unique Solutions of Contractions, CCS, and their HOL Formalisation
+>>
+>>
+>> ----------------------- REVIEW 1 ---------------------
+>> SUBMISSION: 1
+>> TITLE: Unique Solutions of Contractions, CCS, and their HOL Formalisation
+>> AUTHORS: Chun Tian and Davide Sangiorgi
+>>
+>> ----------- Overall evaluation -----------
+>> SCORE: 1 (accept - minor revision)
+>> ----- TEXT:
+>> This paper describes a HOL formalisation of several notions in process theory: CCS and various kinds of bisimilarity, and in particular the unique-solutions technique. The latter was introduced by Milner, and recently revisited and refined by the second author.
+>>
+>> In general, these kinds of results are error-prone, especially those related to weak bisimilarity: there are multiple known mistakes in the literature. Therefore, formalisation is a worthwile effort. Moreover, the formalisation itself is quite readable. The paper itself documents this formalisation and is, for the most part, clear.
+>> The paper is an extended version of an EXPRESS/SOS paper. The extension consists of a more detailed report of the proofs - perhaps this is enough. I was disappointed though that multi-variable contexts are still not treated (I reviewed the EXPRESS/SOS paper as well and complained about that then). This means the current formalisation does *not* fully formalise the unique-solution method. The journal version would have been ideal to solve this issue. It is briefly discussed in the conclusion, but in fact, the first author's master thesis argues that it is possible: "With these new devices, it’s possible to formalize all “unique solution of equations” theorems with multi-variable equations, without touching existing formalization framework.". The current discussion should at the very least explain this (is the master thesis wrong? is this too hard, or too much work?), but hopefully it can just be done properly so that the paper fully covers the correctness of the unique-!
+>>  solution method.
+>> Detailed comments:
+>>
+>>  - overall the paper can use a bit of spell-checking and proofreading (e.g. there are some initials in the margin)
+>>
+>> The numbers below refer to line numbers as printed in the margin.  - 45: "about unique solution*s*"
+>>  - 84 "the weak one" rephrase
+>>  - 91 "bisimiarity"
+>>  - proof of thm 3.10: could there be some kind of picture to help? also, the "Hence," in the one-to-last line refers only to the property right before it, right? (about C[\tilde{Q}])
+>>  - 209: "their precongruences" precongruence closure?
+>>  - 216 "using Lemma 3.13 ... Section 4.9" perhaps just repeat the lemma before the theorem, as it's a bit hard to read Lemma 4.14 at this stage - 224: full stop and new sentence after "1972"
+>>  - 227 "considerable" -> "considerably"
+>>  - 228 "formal theories built in HOL is easily convincible" questionable grammar
+>>  - 238 how is this without loss of generality?
+>>  - 245 maybe more clear to just give the definition of \beta Action  - 250 & 300: perhaps explain what these (double) backquotes signify or just remove the sentence
+>>  - 277 "substutiion"
+>>  - 280 (around): put some of these equalities on a single line? enough space
+>>  - 316 and later, e.g. 323: is "p" a closed ccs term?
+>>  - 361 "Many lemmas ... contexts" this is a bit vague
+>>  - 374 "An highlight"
+>>  - 378 "is a" => "are"
+>>  - 385 "With *the* above"
+>>  - 386 "the definition" of what? (bisimilarity, but say that)
+>>  - 394 "since *the* Kananaskis-11 release"
+>>  - 396 "we call *the* Hol_coreln"
+>>  - 410 E and E' missing
+>>  - 436 "is defined upon weak transition" grammar
+>>  - 505 this is good: it is missing for strong bisimilarity, should be added there too (the two definitions are now not explicitly related)  - 580 "a contraction" ?
+>>  - section 4.6 header: "the formalisation of bisimulation up to bisimilarity", i would say; also since you're not using compatible/respectful functions
+>>  - 599 PRQ not so pretty spacing
+>>  - perhaps mention around here that naive weak bisimulation up to weak bisimilarity is unsound?
+>>  - 655 (around here): i'd say in the text above it that this is a different bisimulation game, not a different up-to technique
+>>  - 708 " closure of bisimilarity under such operator" not sure whether this is gramatically correct
+>>  - figure 2: I'm a bit confused since the other implication is missing.  - Overall, in section 4.7, it seems the claim in the beginning is only proved under certain hypotheses: the "free-action" property, or in the Glabbeek proof, finite processes. This is all very much hidden: and it should be said up-front what we are going to prove exactly under which assumptions.  - 740 "this proof" which?  - The beginning of section 4.8 is really confusing: what are "the two root processes"? What are we going to prove in this section, and why, what is the aim here? Again, under which assumptions are we going to work?  - 820 "bisimularity"
+>>  - Lemma 4.14 is nicely introduced, Thm 4.15 not.  - 898 full stop & new sentence after "many ways"
+>>  - 990-995 aren't some of the textbook proofs even wrong? (e.g. [2] in the proof for unique solutions makes use of weak bisimulation up to weak bisimilarity, if i remember correctly) - one could perhaps say this, it makes the point even stronger
+>>
+>>
+>>
+>> ----------------------- REVIEW 2 ---------------------
+>> SUBMISSION: 1
+>> TITLE: Unique Solutions of Contractions, CCS, and their HOL Formalisation
+>> AUTHORS: Chun Tian and Davide Sangiorgi
+>>
+>> ----------- Overall evaluation -----------
+>> SCORE: 1 (accept - minor revision)
+>> ----- TEXT:
+>> This paper presents a formalisation in HOL of the core classical theory of CCS, with a particular focus on unique (modulo a proper equivalence) solutions of equations, and of the more recent theory of contractions developed by one of the authors.
+>> The focus is on weak semantics, which is well-known to be quite delicate, which makes the results of the paper relevant and interesting.
+>> Notably, the HOL formalisation has allowed the authors to refine the theory of unique solutions of contractions. In detail, the authors rely on rooted contractions and prove that a system of weakly guarded contractions has a unique solution modulo rooted weak bisimilarity. Interestingly, no constraint on occurrences of summations is required.
+>>
+>> I found this work elegant and interesting, I propose acceptance with minor review.
+>> Some details:
+>>
+>> There are some typos. E.g., several times I read “bisimiarity” (the “l” is missed).
+>>
+>> There are side remarks that should be removed.
+>>
+>> The two sentences immediately before and after Example 3.7 are equivalent.
+>>
+>> The notion of “substitutivity property” should be introduced, now it’s used but not explained.
+>>
+>> I strongly believe that Section 4 is accessible only to people already familiar with HOL syntax. I suggest the authors to give some more details. Some examples. You assume the reader knows what Hol_reln is, but this not always the case. Then, you define the congruence in terms of the equivalence, but is the equivalence already defined somewhere?
+>>
+>> The argument at lines 387-389 is clear only after the lines 394-427 have been read.
+>>
+>> At lines 577 you write that proving properties for contraction is in general harder than proving properties for expansion. Could you explain why?
+>>
+>>
+>>
+>> ----------------------- REVIEW 3 ---------------------
+>> SUBMISSION: 1
+>> TITLE: Unique Solutions of Contractions, CCS, and their HOL Formalisation
+>> AUTHORS: Chun Tian and Davide Sangiorgi
+>>
+>> ----------- Overall evaluation -----------
+>> SCORE: 0 (accept - major revision)
+>> ----- TEXT:
+>> Summary:
+>>
+>> This paper presents a HOL formalisation of part of the theory of CCS. It formalises the syntax and operational semantics of CCS, strong and weak bisimilarity, and several well-known auxiliary techniques for establishing that CCS processes are bisimilar. The most notable contribution seems to be the formalisation (and modest extension) of results already obtained by the second author in an ACM TOCL paper (ref. [7]) pertaining regarding the uniqueness of solutions of contractions. The main addition with respect to the EXPRESS/SOS 2018 publication of the authors with the same title (ref. [1]), seems to be a HOL formalisation of the proof that rooted weak bisimilarity is the coarsest congruence contained in weak bisimilarity, and that rooted contraction is the coarsest precongruence contained in contraction. The HOL proof scripts are publicly available through a GitHub repository.
+>>
+>> Evaluation:
+>> The scientific contribution of the paper is, in my opinion, modest, at least in its current form. With the exception of the extension of the results in [7] to rooted contractions, the paper seems to merely consist of reformulations in HOL of well-known definitions and theorems with, here and there, some superficial comments about the proof scripts needed to prove the results (e.g., the coinduction package available for HOL simplifies the formalisation). Putting it bluntly, the current message of the paper seems to be that there are HOL proof scripts available in a GitHub repository. Perhaps there is something interesting and general to learn from this particular HOL formalisation, either about HOL or about CCS, but then this should be explained in much more detail.
+>>
+>> It does not help that the paper has many typos and ungrammatical sentences. Also, the article explains too little about HOL for a reader without prior exposure to HOL to fully appreciate the contents of Section 4 and, in particular, understand the meta-remarks about the formalisation.
+>>
+>> I do find it very useful that the theory of CCS is formalised in HOL, so that others can benefit from it when doing computer-assisted proofs of results pertaining to CCS, or about CCS processes. I think this is important work, and researchers should get due credit for this. Currently, the value is really in the availability of the HOL proof scripts, and not so much in the article they wrote about it.
+>>
+>> In conclusion, on the positive side, I think the authors did some important work formalising part of the theory of CCS in HOL, and on the negative side I have doubts about the scientific value of the article they wrote about it. I am therefore reluctant to support publication in Information and Computation at this stage. I suggest to ask the authors for a major revision in which they make the paper accessible for readers not familiar with HOL, comment in more detail on the HOL proof scripts and what can be learned from them, and take into account the detailed comments below.
+>>
+>> Detailed comments:
+>>
+>> Abstract:
+>>     There should be a remark that this is about weak bisimilarity. In general 'bisimilarity' is strong bisimilarity.
+>>     L18: Remove the word 'rather'
+>> L28: Hennessy Lemma -> Hennessy's Lemma
+>> L28: Deng Lemma -> Deng's lemma
+>> L28: Remove the word 'long'
+>> L28: proofs -> theorems
+>> L32: Add the word 'also' after 'the work is'
+>> L34: From the view of -> From the point of view of
+>> L35: Regarding the sentence "as formally proving a previously known result gives us the chance to see
+>>     what is really needed for establishing that result."
+>>     Either omit this sentence or explain what technical insights one gains by doing this work
+>> L43-48: This sentence is difficult to read and could be split into multiple sentences.
+>> L55-60: Remove "Given a deadlock 0"
+>> L58: the trailing 0 -> a trailing 0
+>> L59: "shown in Fig. 1" is placed after "a Labeled Transition System", causing the belief that Figure 1 contains an LTS.
+>>     But there is no LTS. Figure 1 contains the SOS of CCS.
+>> Semantics: The relabeling rule is not explained anywhere.
+>> Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
+>> L74: Add the word 'a' between 'are' and 'context'.
+>> Contexts: Does an i-holed context have exactly one hole []_i for each i? This question is not answered anywhere in the text.
+>>     In the formalisation you only use contexts with one kind of hole []. This definition can be changed to only
+>>     use one hole as well, with a clear indication that this hole can occur multiple times.
+>> L82: Remove the comma after Q'
+>> Definition 2.2: Superscript c is already used for contextual closure.
+>>     Does \approx^c stand for the contextual closure of \approx, or is it something else?
+>>     Since contextual closure is not used anywhere in the paper, it is best to remove it.
+>>     Otherwise you need different notation for rooted bisimilarity.
+>> L91: What does 'reducing' mean?
+>> L91: bisimiarity -> bisimilarity
+>> L92: bisimiarity -> bisimilarity
+>> L92: Add a colon after 'results'
+>> L118: Why is the word 'actions' in bold font? It says 'ds' in the margin, what does that mean?
+>> Definition 3.3: The definition of ‘sequential’ is awkward.  Moreover this definition calls for some examples since the definitions can be very confusing.
+>> Theorem 3.4: What are direct sums?
+>> L.127: I think it would be clearer to give two concrete solutions rather than saying that any process not using a is a solution.
+>> L138: "Bisimilarity contraction ... some contraction R". This is not a grammatically correct sentence.
+>> L142: ".. are even required". The word 'even' suggests that this is a stronger requirement, but it is in fact weaker.
+>> L143: Add the words "that is" after 'preorder'.
+>> L144: remove ‘that’
+>> L153: "As bisimilarity .. but sums." This is not a grammatically correct sentence.
+>> Example 3.7: this example shows strictness of the inclusion. But the sentence before the example suggests that this is
+>>     going to show that the preorder is not preserved by sums.
+>> L157: Doesn’t this statement deserve a proof?
+>> L163: P >= E[P] is spelled out earlier in Definition 3.2. Maybe spell out this one as well.
+>> L165: If you define the notion of guardedness in Definition 3.3 on expressions first, and only thereafter extend it to systems of equations, then you could here simply reuse the definition on expressions to get a definition of the notion for systems of contractions. The advantage is that you are precise rather than suggestive.
+>> L169: "The number of strong steps of which is is composed". Note that there is not a unique sequence; in fact, there may be many ways to reach R from C[\tilde{P}] with a weak \mu-trace.
+>> L176: What does "applying the definition of >=_bis" mean?
+>> Footnote: Why not just spell out this definition instead of making a remark about it?  It would make the conclusion of the proof somewhat easier to digest. If you decide to keep the footnote, change R^~ to R'. The notation R^~ is used for tuples.
+>> L181: vis ?
+>> L184: closes -> completes
+>> L194: ‘the definition should not be recursive’?
+>> Definition 3.11: Similar to the remark about Definition 2.2.
+>> Proof of Theorem 3.14: Why do you use context C instead of tuples of expressions E^~?
+>>     If this is the case because you only use contexts with one kind of hole, then you should use the letter
+>>     E instead of C.
+>>     If P^~ is a solution then P_i >=^c E_i[P^~] for all i, but this quantification over i is missing.
+>> L215: The prove -> The proof
+>> General: the word 'Logic' in "HOL Logic" is redundant.
+>> L223-225: Perhaps you want to reformulate this long sentence. It is hard to read.
+>> L227: considerable -> considerably
+>> L228: is -> are
+>> L228: what does convincible mean here?
+>> L230: single?
+>> L235: The sentence between parentheses is an important remark and should not be between parentheses.
+>> L238: without loss of generality?
+>> L239: similar to the comment about line 118, theorem-prover is bold and 'ds' is in the margin.
+>> L245: now based on HOL’s option theory?
+>> L249: What are ‘backquotes’?
+>> Footnote 3: What are CCS literals?
+>> L265: What does the turnstile mean? I would expect that structural operational rules are axioms of the theory, but the turnstile suggests to me that they are theorems.
+>> L275: we substitute rec A. P for all occurrences of the variable A in P.
+>> L279: substutiion -> substitution
+>> L289: these -> the, on the tenary -> of the ternary
+>> General: in the lines 293-300 the trailing deadlock 0 is given, while in the preliminaries you stated that it would be omitted. If you decide to keep the deadlock, it should also be in bold font.
+>> L296: I don’t understand fact (1).
+>> L299: ‘Hence ... CCS_TRANS_CONV’ is not a grammatically correct sentence; there is a verb missing.
+>> L316: Explain what is p.
+>> Footnote 4: Do you mean ‘unguarded recursion’? How can relabelling operators cause infinite branching?
+>> L362: tedious but long -> tedious and long
+>> L374: An highlight -> A highlight
+>> L378: relations on CCS process -> relation on CCS processes
+>> Footnote 5: Add the word 'respectively' between 'quantifiers' and 'in'.
+>> Footnote 6: Regarding the last sentence between parentheses. What do you mean by this?
+>> General: The same trick of applying the coinduction package to the definition of bisimulation is repeated twice.
+>> General: In the sections about the HOL formalisation you refer to weak bisimulation instead of bisimulation.
+>> L461: I think there is no need to include those 3 theorems. Wouldn’t it suffice to write that similar theorems are returned as for STRONG_EQUIV?
+>> L496-503: A similar remark can be made for STRONG_EQUIV. Why do you put it here?
+>> L523,524: Similar to the comment about line L28
+>> L545: What does this statement mean?
+>> Up-to techniques: You mention four up-to techniques for weak bisimilarity and each of them are not powerful enough
+>>     to prove the unique solution theorems. Why are they not powerful enough?
+>> L580: ‘Surprisingly’ To me this is not really surprising. Why do you find it surprising?
+>> L606-619: I really see no added value in repeating Def. 4.2 in HOL syntax.
+>> Def. 4.4: Shouldn’t there be double arrows? (twice)
+>> L700: This paragraph starts with a sentence in parentheses, which is not very desirable.
+>>     Moreover this sentence does not seem to be connected to the next sentence.
+>> L701: Sentence does not end with a period.
+>> L704: What do you mean by "which itself may not be"?
+>> Figure 2: The \subseteq from SUM_EQUIV to Rooted bisimilarity makes the figure confusing; put a \supseteq
+>> L723: is -> in
+>> L723-L727: This sentence should be split into multiple sentences.
+>> L744-745: pure mathematics?
+>> L746: Arbitrary -> Arbitrarily
+>> L749: "infinite such sub-processes" this construction does not seem right and could be avoided.
+>> L754: non-$\tau$ action $a$ -> $a\neq\tau$
+>> L766: "By induction on the definition", don't you mean by induction on natural numbers?
+>> L823: are -> is
+>> L831: `In above proof’ Which proof are your referring too? I only see a theorem.
+>> L837: Add the word 'a' between 'not' and 'congruence'
+>> L837: why do you also need the condition of sequentiality?
+>> L991: error-prune -> error-prone,
+>> ’since one is tempted to overlook details’?
+>> L1001: the trace equivalences -> trace-based equivalences
+>> L1006: in alphabetic order
+>> L1040: hol4 -> HOL4
+>>
+>>
+>
