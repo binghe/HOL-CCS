@@ -95,11 +95,11 @@
 \bibliographystyle{elsarticle-num}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-% PDF meta data (must be added manually, maybe removed by proceeding editor)
-%\hypersetup{pdftitle={Unique Solutions of Contractions, CCS, and their HOL Formalisation},
-%	pdfauthor={Chun Tian; Davide Sangiorgi},
-%	pdfsubject={Concurrency Theory},
-%	pdfkeywords={theorem proving, process calculi, coinduction, unique solution of equations, congruence}}
+% PDF meta data (must be added manually, may be removed by journal editors)
+\hypersetup{pdftitle={Unique Solutions of Contractions, CCS, and their HOL Formalisation},
+	pdfauthor={Chun Tian; Davide Sangiorgi},
+	pdfsubject={Concurrency Theory},
+	pdfkeywords={theorem proving, process calculi, coinduction, unique solution of equations, congruence}}
 
 \begin{document}
 
@@ -123,7 +123,7 @@
 
 % authors
 \author[mymainaddress]{Chun Tian}%\fnref{myfootnote}
-\address[mymainaddress]{Universit\`a di Trento and Fondazione Bruno
+\address[mymainaddress]{\hl{University of Trento} and Fondazione Bruno
   Kessler, Italy}
 \ead{chun.tian@unitn.it}
 %\fntext[myfootnote]{Part of this work was carried out when the first
@@ -131,17 +131,18 @@
 
 \author[mysecondaryaddress]{Davide Sangiorgi}
 \ead{davide.sangiorgi@unibo.it}
-\address[mysecondaryaddress]{Universit\`a di Bologna and INRIA, Italy}
+\address[mysecondaryaddress]{\hl{University of Bologna, Italy and INRIA, France}}
 
 \begin{abstract}
   The unique solution of contractions is a proof technique for
-  bisimilarity that overcomes certain syntactic constraints of
+  \hl{(weak)} bisimilarity that overcomes certain syntactic constraints of
   Milner's ``unique solution of equations'' technique.  The paper
   presents an overview of a rather comprehensive formalisation of the
   core of the theory of CCS in the HOL theorem prover (HOL4), with a
-  focus towards the theory of unique solutions of contractions.  (The
-  formalisation consists of about 20,000 lines of proof scripts in
-  Standard ML.)  Some refinements of the theory itself are obtained.
+  focus towards the theory of unique solutions of contractions.
+  % [Chun] I still found this sentence embarrassing:
+  % (The formalisation consists of about 20,000 lines of proof scripts in Standard ML.)
+  Some refinements of the theory itself are obtained.
   In particular we remove the constraints on summation,
   which must be weakly-guarded, by moving to \emph{rooted
   contraction}. We prove that 

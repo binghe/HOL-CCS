@@ -75,15 +75,29 @@ constraints on the occurrences of sums.
 
 Another benefit of the formalisation is 
 that we can take advantage of results about different 
-equivalences and preorders that share similar proof structures. 
-Examples are: the results that rooted bisimilarity and rooted contraction are,
-respectively, the coarsest congruence contained in weak bisimilarity 
-and the coarsest precongruence contained in the contraction preorder; 
-the result about unique solution of equations for weak bisimilarity that uses the
-contraction preorder as an auxiliary relation, and other unique solution results (e.g.~%
-the one for rooted in which
-the auxiliary relation is rooted contraction); various forms of enhancements of the bisimulation
-proof method (the `up-to' techniques).
+equivalences and preorders that share similar proof structures.
+%
+% Examples are: the results that rooted bisimilarity and rooted contraction are,
+% respectively, the coarsest congruence contained in weak bisimilarity 
+% and the coarsest precongruence contained in the contraction preorder; 
+% the result about unique solution of equations for weak bisimilarity that uses the
+% contraction preorder as an auxiliary relation, and other unique solution results (e.g.~%
+% the one for rooted in which
+% the auxiliary relation is rooted contraction); various forms of enhancements of the bisimulation
+% proof method (the `up-to' techniques).
+%
+% rephrased: (TODO: still hard to read --Chun)
+\hl{Such structural simililarities can be found, for instance, in the
+following cases: the proofs that rooted bisimilarity and rooted
+contraction are, respectively, the coarsest congruence contained in
+weak bisimilarity and the coarsest precongruence contained in the
+contraction preorder; the proofs about unique solution of equations
+for weak bisimilarity that uses the contraction preorder as an
+auxiliary relation, and other unique solution results (e.g. the one
+for rooted in which the auxiliary relation is rooted contraction); the
+proofs about various forms of enhancements of the bisimulation proof
+method (the `up-to' techniques).}
+%
 In these cases, moving between proofs there are only a few places in
 which the HOL proof scripts have to be modified.
 Then the successful termination of the proof gives us a guarantee that the proof is

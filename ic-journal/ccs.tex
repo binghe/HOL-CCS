@@ -21,10 +21,10 @@ P_1 + P_2 \; \midd % \; \mu . P\; \midd  \;
 \end{equation*}
 We sometimes omit the trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
 The operational semantics of CCS is then given by means of
-a Labeled Transition System (LTS), shown in Fig.~\ref{f:LTSCCS} as
-Structural Operational Semantics (SOS)
-rules (the symmetric version of the two rules for
-parallel composition and the rule for sum are omitted).
+a Labeled Transition System (LTS) \hl{expressed in Structural Operational
+Semantics (SOS) rules}, shown in Fig.~\ref{f:LTSCCS}.
+The symmetric version of the two \hl{SOS} rules for
+parallel composition and the rule for sum are omitted.
 A CCS expression uses only \emph{weakly guarded sums} if all occurrences of
 the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
 + \mu_n.P_n$, for some $n \geq 2$.

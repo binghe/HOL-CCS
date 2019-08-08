@@ -393,6 +393,8 @@ the equivalence already defined somewhere?
     general 'bisimilarity' is strong bisimilarity.
   \end{quote}
 
+  We have added "(weak)" before "bisimilarity", in the first line of abstract.
+
 \item \begin{quote}
     L18: Remove the word 'rather'
   \end{quote}
@@ -432,6 +434,8 @@ the equivalence already defined somewhere?
     L43-48: This sentence is difficult to read and could be split into multiple sentences.
   \end{quote}
 
+  We have rephrased it into multiple sentences.
+  
 \item \begin{quote}
     L55-60: Remove "Given a deadlock 0"
   \end{quote}
@@ -444,22 +448,36 @@ the equivalence already defined somewhere?
     L59: "shown in Fig. 1" is placed after "a Labeled Transition
     System", causing the belief that Figure 1 contains an LTS. 
     But there is no LTS. Figure 1 contains the SOS of CCS.
+  \end{quote}
 
+  We have rephrased it, saying Fig.1 represents an LTS expressed in SOS rules.
+
+\item \begin{quote}
     Semantics: The relabeling rule is not explained anywhere.
+  \end{quote}
 
+\item \begin{quote}
     Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
   \end{quote}
 
 \item \begin{quote}
     L74: Add the word 'a' between 'are' and 'context'.
-    Contexts: Does an i-holed context have exactly one hole $[]_i$ for each i? This question is not answered anywhere in the text.
-    In the formalisation you only use contexts with one kind of hole []. This definition can be changed to only
-    use one hole as well, with a clear indication that this hole can occur multiple times.
   \end{quote}
 
 \item \begin{quote}
+  Contexts: Does an $i$-holed context have exactly one hole $[]_i$ for
+  each $i$? This question is not answered anywhere in the text.
+
+  In the formalisation you only use contexts with one kind of hole $[]$. This definition can be changed to only
+  use one hole as well, with a clear indication that this hole can occur multiple times.
+\end{quote}
+
+\item \begin{quote}
     L82: Remove the comma after $Q'$
-Definition 2.2: Superscript $c$ is already used for contextual closure.
+  \end{quote}
+
+\item \begin{quote}
+    Definition 2.2: Superscript $c$ is already used for contextual closure.
     Does $\approx^c$ stand for the contextual closure of $\approx$, or is it something else?
     Since contextual closure is not used anywhere in the paper, it is best to remove it.
     Otherwise you need different notation for rooted bisimilarity.
@@ -819,6 +837,9 @@ Theorem 3.4: What are direct sums?
 \end{enumerate}
 
 \section*{Other changes}
+
+In this section, we listed other changes. All line numbers are based
+on the original review version of this paper.
 
 \begin{enumerate}
 \item TODO
