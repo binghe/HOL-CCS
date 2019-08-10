@@ -6,7 +6,7 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open pred_setTheory relationTheory optionTheory listTheory finite_mapTheory;
+open pred_setTheory relationTheory optionTheory listTheory;
 open CCSLib;
 
 val _ = new_theory "CCS";
@@ -917,7 +917,7 @@ val ALL_IDENTICAL_def = Define `
 
 (*
 You might define the sublist relation: (from Michael Norrish)
-Sublist [] l = T
+  Sublist [] l = T
   Sublist _ [] = F
   Sublist (h1::t1) (h2::t2) = if h1 = h2 then Sublist t1 t2 else Sublist (h1::t1) t2
 
@@ -925,10 +925,6 @@ And show that
 
   Sublist (DELETE_ELEMENT e l) l
 *)
-
-(* (size :(α, β) CCS -> num) *)
-val size_def = Define `
-    size (p :('a, 'b) CCS) = ^CCS_size_tm (\x. 0) (\x. 0) p`;
 
 (* (FN :('a, 'b) CCS -> 'a list -> 'b Label set) *)
 val FN_definition = `
@@ -963,9 +959,10 @@ val BN_definition = `
  *)
 local
     val tactic = (* the use of `($< LEX $<)` is learnt from Ramana Kumar *)
-        WF_REL_TAC `inv_image ($< LEX $<) (\x. (LENGTH (SND x), size (FST x)))`
-     >> rpt STRIP_TAC >- ( IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [] )
-     >> REWRITE_TAC [size_def, CCS_size_def]
+        WF_REL_TAC `inv_image ($< LEX $<)
+                              (\x. (LENGTH (SND x), ^CCS_size_tm (\x. 0) (\x. 0) (FST x)))`
+     >> rpt STRIP_TAC >- (IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [])
+     >> REWRITE_TAC [CCS_size_def]
      >> simp [];
 in
     val FN_def = TotalDefn.tDefine "FN" FN_definition tactic;
@@ -991,5 +988,3 @@ val FN_UNIV2 = store_thm ("FN_UNIV2",
 
 val _ = export_theory ();
 val _ = html_theory "CCS";
-
-(* last updated: Oct 24, 2017 *)

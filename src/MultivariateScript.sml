@@ -10,7 +10,7 @@ open HolKernel Parse boolLib bossLib;
 open listTheory finite_mapTheory;
 
 (* unused for now:
- pred_setTheory pairTheory sumTheory prim_recTheory arithmeticTheory combinTheory;
+ pred_setTheory pairTheory prim_recTheory arithmeticTheory combinTheory;
  *)
 
 open CCSLib CCSTheory StrongEQTheory WeakEQTheory ObsCongrTheory
@@ -43,8 +43,8 @@ val _ = new_theory "Multivariate";
     |              ...
     \ var (EL n Xs) = (EL n Es)
 
-   The `=` (at left) could be `STRONG_EQUIV`, `WEAK_EQUIV`, `OBS_CONGR` or even
-   `contracts`. (In case of `contracts` it's actually an inequation group.)
+   The `=` (at left) could be `STRONG_EQUIV`, `WEAK_EQUIV`, `OBS_CONGR`
+   or even `contracts`. (In the last case it's actually an inequation group.)
 
    Note that, it does NOT matter each `(EL i Es)` contains what variables:
    those free variables outside of X simply lead to no transition
@@ -88,9 +88,9 @@ val _ = new_theory "Multivariate";
 
    then, beside ``Ps = Qs`, we may also have:
 
-      `STRONG_EQL Ps Qs` (`LIST_REL STRONG_EQUIV Ps Qs`), or
-      `WEAL_EQL Ps Qs` (`LIST_REL WEAK_EQUIV Ps Qs`), or
-      `OBS_EQL Ps Qs` (`LIST_REL OBS_EQUIV Ps Qs`)   
+      `(LIST_REL STRONG_EQUIV) Ps Qs`, or
+      `(LIST_REL WEAK_EQUIV) Ps Qs`, or
+      `(LIST_REL OBS_EQUIV) Ps Qs`
 
    Ps (or Qs) is called an "unique" solution (up to the corresponding
    equivalence relation).
@@ -126,10 +126,10 @@ val _ = new_theory "Multivariate";
    thus it's possible that there exists two different CONTEXTs, say
    `e1` and `e2`, such that
 
-     e1 <> e2 /\ (e1 (var X) = E) /\ (e2 (var X) = E) /\ WG e1 /\ WG e2
+     e1 <> e2 /\ (e1 (var X) = e2 (var X) = E) /\ WG e1 /\ WG e2
 
    but none of them are really weakly guarded for all appearences of
-   (var X) in E.  Thus the `forall` quantifier is a MUST.
+   (var X) in E.
 
    NOTE 3: the "weak guardedness" of Es is always connected with Xs,
    as we don't need to care about those (free) variables in Es that
@@ -140,6 +140,8 @@ val _ = new_theory "Multivariate";
    definition of FV (the set/list of free variables), as the same
    variable may appear both free and bounded in different sub-term of
    the same CCS term.
+
+   -- Chun Tian, Aug 10, 2019
 *)
 
 val CCS_equation_def = Define
@@ -149,10 +151,11 @@ val CCS_equation_def = Define
 (* The use of finite_mapTheory to get rid of substitution orders was
    suggested by Konrad Slind (HOL mailing list on Oct 23, 2017):
 
-   "There are all kinds of issues with substitutions and applying them to term-like
-    structures. I would probably start by choosing finite maps (finite_mapTheory) as 
-    the representation for variable substitutions since they get rid of most if not all
-    the issues with ordering of replacements. The alistTheory provides a more 
+   "There are all kinds of issues with substitutions and applying them
+    to term-like structures. I would probably start by choosing finite
+    maps (finite_mapTheory) as the representation for variable
+    substitutions since they get rid of most if not all the issues
+    with ordering of replacements. The alistTheory provides a more
     computationally friendly version, and provides a formal connection
     back to fmaps.
 
@@ -201,11 +204,12 @@ Proof
     cheat
 QED
 
-val _ = overload_on ("STRONG_EQUIV", ``LIST_REL STRONG_EQUIV``);
-val _ = overload_on (  "WEAK_EQUIV", ``LIST_REL   WEAK_EQUIV``);
-val _ = overload_on (   "OBS_CONGR", ``LIST_REL    OBS_CONGR``);
+val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
+val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
+val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
+val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
-Theorem STRONG_UNIQUE_SOLUTION_MULTI :
+Theorem STRONG_UNIQUE_SOLUTION_FULL :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
                 CCS_solution Qs STRONG_EQUIV Es Xs ==>
@@ -215,7 +219,7 @@ Proof
 QED
 
 (* THE FINAL THEOREM *)
-Theorem UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS_MULTI :
+Theorem UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS_FULL :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
                 CCS_solution Qs OBS_contracts Es Xs ==>
