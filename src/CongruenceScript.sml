@@ -474,14 +474,6 @@ val CONTEXT_WG_combin = store_thm (
       MP_TAC (Q.SPECL [`rf`, `(\x. (c :('a, 'b) context) (e x))`] WG7) \\
       BETA_TAC >> RW_TAC std_ss [] ]);
 
-(* Weak guardness for general CCS expressions *)
-val weakly_guarded1_def = Define `
-    weakly_guarded1 E =
-        !X. X IN (FV E) ==> !e. CONTEXT e /\ (e (var X) = E) ==> WG e`;
-
-val weakly_guarded_def = Define `
-    weakly_guarded Es = EVERY weakly_guarded1 Es`;
-
 (******************************************************************************)
 (*                                                                            *)
 (*                     Strongly guarded (SG) expressions                      *)
