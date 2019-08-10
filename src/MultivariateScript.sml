@@ -7,7 +7,7 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open listTheory alistTheory;
+open listTheory finite_mapTheory;
 
 (* unused for now:
  pred_setTheory pairTheory sumTheory prim_recTheory arithmeticTheory combinTheory;
@@ -136,54 +136,87 @@ val _ = new_theory "Multivariate";
 
 *)
 
-(* The use of finite_mapTheory (or alistTheory) to get rid of substitution
-   orders was suggested by Konrad Slind.
+(* The use of finite_mapTheory to get rid of substitution orders was
+   suggested by Konrad Slind (HOL mailing list on Oct 23, 2017):
+
+   "There are all kinds of issues with substitutions and applying them to term-like
+    structures. I would probably start by choosing finite maps (finite_mapTheory) as 
+    the representation for variable substitutions since they get rid of most if not all
+    the issues with ordering of replacements. The alistTheory provides a more 
+    computationally friendly version, and provides a formal connection
+    back to fmaps.
+
+    Also see <holdir>/examples/unification/triangular/first-order 
+    for a unification case study."
  *)
 val CCS_SUBST_def = Define `
-   (CCS_SUBST (map :('a # ('a, 'b) CCS) list) nil = nil) /\
-   (CCS_SUBST map (prefix u E) = prefix u (CCS_SUBST map E)) /\
-   (CCS_SUBST map (sum E1 E2)  = sum (CCS_SUBST map E1)
-                                     (CCS_SUBST map E2)) /\
-   (CCS_SUBST map (par E1 E2)  = par (CCS_SUBST map E1)
-                                     (CCS_SUBST map E2)) /\
-   (CCS_SUBST map (restr L E)  = restr L (CCS_SUBST map E)) /\
-   (CCS_SUBST map (relab E rf) = relab (CCS_SUBST map E) rf) /\
-   (CCS_SUBST map (var Y)      = if (MEM Y (MAP FST map)) then THE (ALOOKUP map Y)
-                                 else (var Y)) /\
-   (CCS_SUBST map (rec Y E)    = if (MEM Y (MAP FST map)) then (rec Y E)
-                                 else (rec Y (CCS_SUBST map E)))`;
+   (CCS_SUBST (fm :'a |-> ('a, 'b) CCS) nil = nil) /\
+   (CCS_SUBST fm (prefix u E) = prefix u (CCS_SUBST fm E)) /\
+   (CCS_SUBST fm (sum E1 E2)  = sum (CCS_SUBST fm E1)
+                                    (CCS_SUBST fm E2)) /\
+   (CCS_SUBST fm (par E1 E2)  = par (CCS_SUBST fm E1)
+                                    (CCS_SUBST fm E2)) /\
+   (CCS_SUBST fm (restr L E)  = restr L (CCS_SUBST fm E)) /\
+   (CCS_SUBST fm (relab E rf) = relab (CCS_SUBST fm E) rf) /\
+   (CCS_SUBST fm (var Y)      = if Y IN FDOM fm then fm ' Y else (var Y)) /\
+   (CCS_SUBST fm (rec Y E)    = if Y IN FDOM fm then (rec Y E)
+                                else (rec Y (CCS_SUBST fm E)))`;
 
 val CCS_equation_def = Define
-   `CCS_equation (Es :('a, 'b) CCS list) (Xs :'a list) <=>
-      ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)`;
+   `CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+      ALL_DISTINCT Xs /\ (LENGTH Xs = LENGTH Es)`;
 
-(* solution of a CCS equation (group) up to R *)
+(* This is again inspired from Konrad Slind (HOL mailing list on Aug 7, 2019):
+   "See also examples/balanced_bst/balanced_mapTheory, which has a 'fromList' construct."
+ *)
+val fromList_def = Define
+   `fromList Xs Ps = FEMPTY |++ (ZIP (Xs,Ps))`;
+
+Theorem IN_fromList :
+    !X Xs Ps. X IN FDOM (fromLists Xs Ps) <=> MEM X Xs
+Proof
+    cheat
+QED
+
+(* A solution of the CCS equation (group) Es[Xs] upto R *)
 val CCS_solution_def = Define
-   `CCS_solution (R :('a, 'b) simulation) (Es :('a, 'b) CCS list) (Xs :'a list)
-                 (Ps :('a, 'b) CCS list) <=>
-      (LIST_REL R) Ps (MAP (CCS_SUBST (ZIP (Xs,Ps))) Es)`;
+   `CCS_solution (Ps :('a, 'b) CCS list)
+                 (R  :('a, 'b) simulation)
+                 (Es :('a, 'b) CCS list) (Xs :'a list) <=>
+      (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)`;
 
 val weakly_guarded_def = Define
-   `weakly_guarded Es Xs <=>
-      !E X. MEM E Es /\ MEM X Xs ==> !e. CONTEXT e /\ (e (var X) = E) ==> WG e`;
+   `weakly_guarded Xs = \E. EVERY (\x. WG (\t. CCS_Subst E t x)) Xs`;
 
-(*
-val STRONG_UNIQUE_SOLUTION = store_thm (
-   "STRONG_UNIQUE_SOLUTION",
-  ``!Es Xs. CCS_equation Es Xs /\ weakly_guarded Es Xs ==>
-           !Ps Qs. Ps IN (CCS_solution STRONG_EQUIV Es Xs) /\
-                   Qs IN (CCS_solution STRONG_EQUIV Es Xs) ==>
-                  (LIST_REL STRONG_EQUIV) Ps Qs``,
-    ...);
+Theorem weakly_guarded_alt :
+    !Xs Es. EVERY (weakly_guarded Xs) Es <=>
+            !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
+Proof
+    cheat
+QED
 
-val UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS = store_thm (
-   "UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS",
-  ``!Es Xs. CCS_equation Es Xs /\ weakly_guarded Es Xs ==>
-           !Ps Qs. Ps IN (CCS_solution OBS_contracts Es Xs) /\
-                   Qs IN (CCS_solution OBS_contracts Es Xs) ==>
-                  (LIST_REL OBS_CONGR) Ps Qs``,
-    ...);
- *)
+val _ = overload_on ("STRONG_EQUIV", ``LIST_REL STRONG_EQUIV``);
+val _ = overload_on (  "WEAK_EQUIV", ``LIST_REL   WEAK_EQUIV``);
+val _ = overload_on (   "OBS_CONGR", ``LIST_REL    OBS_CONGR``);
+
+Theorem STRONG_UNIQUE_SOLUTION_MULTI :
+    !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+            !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
+                    CCS_solution Qs STRONG_EQUIV Es Xs ==>
+                   (LIST_REL STRONG_EQUIV) Ps Qs
+Proof
+    cheat
+QED
+
+(* THE FINAL THEOREM *)
+Theorem UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS_MULTI :
+    !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+            !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
+                    CCS_solution Qs OBS_contracts Es Xs ==>
+                   (LIST_REL OBS_CONGR) Ps Qs
+Proof
+    cheat
+QED
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
