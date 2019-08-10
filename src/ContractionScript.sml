@@ -893,8 +893,8 @@ val contracts_SUBST_GCONTEXT = store_thm (
       MATCH_MP_TAC contracts_SUBST_RELAB >> ASM_REWRITE_TAC [] ]);
 
 val contracts_precongruence = store_thm (
-   "contracts_precongruence", ``precongruence1 $contracts``,
-    PROVE_TAC [precongruence1_def, contracts_PreOrder, contracts_SUBST_GCONTEXT]);
+   "contracts_precongruence", ``precongruence' $contracts``,
+    PROVE_TAC [precongruence'_def, contracts_PreOrder, contracts_SUBST_GCONTEXT]);
 
 (******************************************************************************)
 (*                                                                            *)

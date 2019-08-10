@@ -848,8 +848,8 @@ val expands_SUBST_GCONTEXT = store_thm (
       MATCH_MP_TAC expands_SUBST_RELAB >> ASM_REWRITE_TAC [] ]);
 
 val expands_precongruence = store_thm (
-   "expands_precongruence", ``precongruence1 $expands``,
-    PROVE_TAC [precongruence1_def, expands_PreOrder, expands_SUBST_GCONTEXT]);
+   "expands_precongruence", ``precongruence' $expands``,
+    PROVE_TAC [precongruence'_def, expands_PreOrder, expands_SUBST_GCONTEXT]);
 
 (******************************************************************************)
 (*                                                                            *)

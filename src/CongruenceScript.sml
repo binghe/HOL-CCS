@@ -301,8 +301,8 @@ val precongruence_def = Define `
         !x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* a special version of precongruence with only guarded sums *)
-val precongruence1_def = Define `
-    precongruence1 R = PreOrder R /\
+val precongruence'_def = Define `
+    precongruence' R = PreOrder R /\
         !x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* The definition of congruence for CCS, TODO: use precongruence *)
@@ -311,8 +311,8 @@ val congruence_def = Define `
         !x y ctx. CONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 (* a special version of congruence with only guarded sums *)
-val congruence1_def = Define `
-    congruence1 R = equivalence R /\
+val congruence'_def = Define `
+    congruence' R = equivalence R /\
         !x y ctx. GCONTEXT ctx ==> R x y ==> R (ctx x) (ctx y)`;
 
 val STRONG_EQUIV_congruence = store_thm (
@@ -321,8 +321,8 @@ val STRONG_EQUIV_congruence = store_thm (
  >> PROVE_TAC [STRONG_EQUIV_SUBST_CONTEXT]);
 
 val WEAK_EQUIV_congruence = store_thm (
-   "WEAK_EQUIV_congruence", ``congruence1 WEAK_EQUIV``,
-    REWRITE_TAC [congruence1_def, WEAK_EQUIV_equivalence]
+   "WEAK_EQUIV_congruence", ``congruence' WEAK_EQUIV``,
+    REWRITE_TAC [congruence'_def, WEAK_EQUIV_equivalence]
  >> PROVE_TAC [WEAK_EQUIV_SUBST_GCONTEXT]);
 
 val OBS_CONGR_congruence = store_thm (
