@@ -44,7 +44,7 @@ val STRONG_EQUIV_SUBST_REC = store_thm (
 val _ = type_abbrev_pp ("context", ``:('a, 'b) CCS -> ('a, 'b) CCS``);
 
 (* ONE HOLE CONTEXT for CCS *)
-val (OH_CONTEXT_rules, OH_CONTEXT_ind, OH_CONTEXT_cases) = Hol_reln `
+Inductive OH_CONTEXT :
     (                        OH_CONTEXT (\t. t)) /\              (* OH_CONTEXT1 *)
     (!a c.  OH_CONTEXT c ==> OH_CONTEXT (\t. prefix a (c t))) /\ (* OH_CONTEXT2 *)
     (!x c.  OH_CONTEXT c ==> OH_CONTEXT (\t. sum (c t) x)) /\    (* OH_CONTEXT3 *)
@@ -52,7 +52,8 @@ val (OH_CONTEXT_rules, OH_CONTEXT_ind, OH_CONTEXT_cases) = Hol_reln `
     (!x c.  OH_CONTEXT c ==> OH_CONTEXT (\t. par (c t) x)) /\    (* OH_CONTEXT5 *)
     (!x c.  OH_CONTEXT c ==> OH_CONTEXT (\t. par x (c t))) /\    (* OH_CONTEXT6 *)
     (!L c.  OH_CONTEXT c ==> OH_CONTEXT (\t. restr L (c t))) /\  (* OH_CONTEXT7 *)
-    (!rf c. OH_CONTEXT c ==> OH_CONTEXT (\t. relab (c t) rf)) `; (* OH_CONTEXT8 *)
+    (!rf c. OH_CONTEXT c ==> OH_CONTEXT (\t. relab (c t) rf))    (* OH_CONTEXT8 *)
+End
 
 val [OH_CONTEXT1, OH_CONTEXT2, OH_CONTEXT3, OH_CONTEXT4, OH_CONTEXT5, OH_CONTEXT6,
      OH_CONTEXT7, OH_CONTEXT8] =
@@ -80,7 +81,7 @@ val OH_CONTEXT_combin = store_thm (
       FULL_SIMP_TAC std_ss [OH_CONTEXT8] ]);
 
 (* Multi-hole (or non-hole) contexts (as unvariate lambda functions) *)
-val (CONTEXT_rules, CONTEXT_ind, CONTEXT_cases) = Hol_reln `
+Inductive CONTEXT :
     (        CONTEXT (\t. t)) /\                               (* CONTEXT1 *)
     (!p.     CONTEXT (\t. p)) /\                               (* CONTEXT2 *)
     (!a e.   CONTEXT e ==> CONTEXT (\t. prefix a (e t))) /\    (* CONTEXT3 *)
@@ -89,7 +90,8 @@ val (CONTEXT_rules, CONTEXT_ind, CONTEXT_cases) = Hol_reln `
     (!e1 e2. CONTEXT e1 /\ CONTEXT e2
                        ==> CONTEXT (\t. par (e1 t) (e2 t))) /\ (* CONTEXT5 *)
     (!L e.   CONTEXT e ==> CONTEXT (\t. restr L (e t))) /\     (* CONTEXT6 *)
-    (!rf e.  CONTEXT e ==> CONTEXT (\t. relab (e t) rf)) `;    (* CONTEXT7 *)
+    (!rf e.  CONTEXT e ==> CONTEXT (\t. relab (e t) rf))       (* CONTEXT7 *)
+End
 
 val [CONTEXT1, CONTEXT2, CONTEXT3, CONTEXT4, CONTEXT5, CONTEXT6, CONTEXT7] =
     map save_thm
@@ -198,7 +200,7 @@ val OBS_CONGR_SUBST_CONTEXT = store_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-val (GCONTEXT_rules, GCONTEXT_ind, GCONTEXT_cases) = Hol_reln `
+Inductive GCONTEXT :
     (        GCONTEXT (\t. t)) /\                                (* GCONTEXT1 *)
     (!p.     GCONTEXT (\t. p)) /\                                (* GCONTEXT2 *)
     (!a e.   GCONTEXT e ==> GCONTEXT (\t. prefix a (e t))) /\    (* GCONTEXT3 *)
@@ -209,7 +211,8 @@ val (GCONTEXT_rules, GCONTEXT_ind, GCONTEXT_cases) = Hol_reln `
     (!e1 e2. GCONTEXT e1 /\ GCONTEXT e2
                         ==> GCONTEXT (\t. par (e1 t) (e2 t))) /\ (* GCONTEXT5 *)
     (!L e.   GCONTEXT e ==> GCONTEXT (\t. restr L (e t))) /\     (* GCONTEXT6 *)
-    (!rf e.  GCONTEXT e ==> GCONTEXT (\t. relab (e t) rf)) `;    (* GCONTEXT7 *)
+    (!rf e.  GCONTEXT e ==> GCONTEXT (\t. relab (e t) rf))       (* GCONTEXT7 *)
+End
 
 val [GCONTEXT1, GCONTEXT2, GCONTEXT3, GCONTEXT4, GCONTEXT5,
      GCONTEXT6, GCONTEXT7] =
@@ -411,13 +414,14 @@ val CC_is_coarsest' = store_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-val (WG_rules, WG_ind, WG_cases) = Hol_reln `
-    (!p.                        WG (\t. p)) /\                   (* WG2 *)
-    (!a e.   CONTEXT e      ==> WG (\t. prefix a (e t))) /\      (* WG3 *)
-    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. sum (e1 t) (e2 t))) /\   (* WG4 *)
-    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. par (e1 t) (e2 t))) /\   (* WG5 *)
-    (!L e.   WG e           ==> WG (\t. restr L (e t))) /\       (* WG6 *)
-    (!rf e.  WG e           ==> WG (\t. relab (e t) rf)) `;      (* WG7 *)
+Inductive WG :
+    (!p.                        WG (\t. p)) /\                 (* WG2 *)
+    (!a e.   CONTEXT e      ==> WG (\t. prefix a (e t))) /\    (* WG3 *)
+    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. sum (e1 t) (e2 t))) /\ (* WG4 *)
+    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. par (e1 t) (e2 t))) /\ (* WG5 *)
+    (!L e.   WG e           ==> WG (\t. restr L (e t))) /\     (* WG6 *)
+    (!rf e.  WG e           ==> WG (\t. relab (e t) rf))       (* WG7 *)
+End
 
 val [WG2, WG3, WG4, WG5, WG6, WG7] =
     map save_thm
@@ -482,14 +486,15 @@ val CONTEXT_WG_combin = store_thm (
 
 (* X is guarded in E if each occurrence of X is within some subexpression of E of
    the form l.F *)
-val (SG_rules, SG_ind, SG_cases) = Hol_reln `
+Inductive SG :
     (!p.                        SG (\t. p)) /\                      (* SG1 *)
     (!l e.   CONTEXT e      ==> SG (\t. prefix (label l) (e t))) /\ (* SG2 *)
     (!a e.   SG e           ==> SG (\t. prefix a (e t))) /\         (* SG3 *)
     (!e1 e2. SG e1 /\ SG e2 ==> SG (\t. sum (e1 t) (e2 t))) /\      (* SG4 *)
     (!e1 e2. SG e1 /\ SG e2 ==> SG (\t. par (e1 t) (e2 t))) /\      (* SG5 *)
     (!L e.   SG e           ==> SG (\t. restr L (e t))) /\          (* SG6 *)
-    (!rf e.  SG e           ==> SG (\t. relab (e t) rf)) `;         (* SG7 *)
+    (!rf e.  SG e           ==> SG (\t. relab (e t) rf))            (* SG7 *)
+End
 
 val [SG1, SG2, SG3, SG4, SG5, SG6, SG7] =
     map save_thm
@@ -802,11 +807,12 @@ val SG11' = store_thm ("SG11'",
 
 (* X is sequential in E if every subexpression of E which contains X, apart from
    X itself, is of the form a.F or Sigma F_i *)
-val (SEQ_rules, SEQ_ind, SEQ_cases) = Hol_reln `
-    (                             SEQ (\t. t)) /\                  (* SEQ1 *)
-    (!p.                          SEQ (\t. p)) /\                  (* SEQ2 *)
-    (!a e.   SEQ e            ==> SEQ (\t. prefix a (e t))) /\     (* SEQ3 *)
-    (!e1 e2. SEQ e1 /\ SEQ e2 ==> SEQ (\t. sum (e1 t) (e2 t))) `;  (* SEQ4 *)
+Inductive SEQ :
+    (                             SEQ (\t. t)) /\              (* SEQ1 *)
+    (!p.                          SEQ (\t. p)) /\              (* SEQ2 *)
+    (!a e.   SEQ e            ==> SEQ (\t. prefix a (e t))) /\ (* SEQ3 *)
+    (!e1 e2. SEQ e1 /\ SEQ e2 ==> SEQ (\t. sum (e1 t) (e2 t))) (* SEQ4 *)
+End
 
 val [SEQ1, SEQ2, SEQ3, SEQ4] =
     map save_thm (combine (["SEQ1", "SEQ2", "SEQ3", "SEQ4"], CONJUNCTS SEQ_rules));
@@ -859,13 +865,14 @@ val OBS_CONGR_SUBST_SEQ = store_thm (
       IMP_RES_TAC OBS_CONGR_PRESD_BY_SUM ]);
 
 (* Sequential expression with guarded sums *)
-val (GSEQ_rules, GSEQ_ind, GSEQ_cases) = Hol_reln `
-    (                             GSEQ (\t. t)) /\                 (* GSEQ1 *)
-    (!p.                          GSEQ (\t. p)) /\                 (* GSEQ2 *)
-    (!a e.            GSEQ e  ==> GSEQ (\t. prefix a (e t))) /\    (* GSEQ3 *)
+Inductive GSEQ :
+    (                         GSEQ (\t. t)) /\                 (* GSEQ1 *)
+    (!p.                      GSEQ (\t. p)) /\                 (* GSEQ2 *)
+    (!a e.        GSEQ e  ==> GSEQ (\t. prefix a (e t))) /\    (* GSEQ3 *)
     (!a1 a2 e1 e2.
-           GSEQ e1 /\ GSEQ e2 ==> GSEQ (\t. sum (prefix a1 (e1 t)) (* GSEQ4 *)
-                                                (prefix a2 (e2 t))))`;
+       GSEQ e1 /\ GSEQ e2 ==> GSEQ (\t. sum (prefix a1 (e1 t)) (* GSEQ4 *)
+                                            (prefix a2 (e2 t))))
+End
 
 val [GSEQ1, GSEQ2, GSEQ3, GSEQ4] =
     map save_thm (combine (["GSEQ1", "GSEQ2", "GSEQ3", "GSEQ4"], CONJUNCTS GSEQ_rules));
