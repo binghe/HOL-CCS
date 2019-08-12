@@ -1136,10 +1136,10 @@ val STRONG_RELAB_PREFIX = store_thm (
 (* The unfolding law R1 for strong equivalence:
    |- ∀X E. rec X E ~ CCS_Subst E (rec X E) X:
  *)
-val STRONG_UNFOLDING = store_thm (
-   "STRONG_UNFOLDING",
-  ``!X E. STRONG_EQUIV (rec X E) (CCS_Subst E (rec X E) X)``,
-    REPEAT GEN_TAC
+Theorem STRONG_UNFOLDING :
+    !X E. STRONG_EQUIV (rec X E) (CCS_Subst E (rec X E) X)
+Proof
+    rpt GEN_TAC
  >> PURE_ONCE_REWRITE_TAC [STRONG_EQUIV]
  >> EXISTS_TAC
        ``\x y. (x = y) \/
@@ -1151,23 +1151,24 @@ val STRONG_UNFOLDING = store_thm (
       EXISTS_TAC ``E :('a, 'b) CCS`` >> REWRITE_TAC [],
       (* goal 2 (of 2) *)
       PURE_ONCE_REWRITE_TAC [STRONG_BISIM] >> BETA_TAC \\
-      REPEAT STRIP_TAC >| (* 4 sub-goals here *)
+      rpt STRIP_TAC >| (* 4 sub-goals here *)
       [ (* goal 2.1 (of 4) *)
         EXISTS_TAC ``E1 :('a, 'b) CCS`` \\
         REWRITE_TAC [REWRITE_RULE [ASSUME ``E :('a, 'b) CCS = E'``]
                                   (ASSUME ``TRANS E u E1``)],
         (* goal 2.2 (of 4) *)
-        EXISTS_TAC ``E2 :('a, 'b) CCS`` >> ASM_REWRITE_TAC [],
+        EXISTS_TAC ``E2 :('a, 'b) CCS`` >> art [],
         (* goal 2.3 (of 4) *)
         EXISTS_TAC ``E1 :('a, 'b) CCS`` \\
         ASSUME_TAC (REWRITE_RULE [ASSUME ``E = rec Y E''``]
                                  (ASSUME ``TRANS E u E1``)) \\
-        IMP_RES_TAC TRANS_REC >> ASM_REWRITE_TAC [],
+        IMP_RES_TAC TRANS_REC >> art [],
         (* goal 2.4 (of 4) *)
         EXISTS_TAC ``E2 :('a, 'b) CCS`` \\
         ASM_REWRITE_TAC
          [REWRITE_RULE [ASSUME ``E' = CCS_Subst E'' (rec Y E'') Y``]
-                 (ASSUME ``TRANS E' u E2``), TRANS_REC_EQ] ] ]);
+                       (ASSUME ``TRANS E' u E2``), TRANS_REC_EQ] ] ]
+QED
 
 (* Prove the theorem STRONG_PREF_REC_EQUIV:
    |- ∀u s v. u..rec s (v..u..var s) ~ rec s (u..v..var s):
@@ -1334,7 +1335,7 @@ val STRONG_REC_ACT2 = store_thm (
 
 (******************************************************************************)
 (*                                                                            *)
-(*      The strong laws for the parallel operator  in the general form        *)
+(*       The strong laws for the parallel operator in the general form        *)
 (*                                                                            *)
 (******************************************************************************)
 

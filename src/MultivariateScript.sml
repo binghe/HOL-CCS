@@ -13,20 +13,18 @@ open listTheory rich_listTheory finite_mapTheory;
  pred_setTheory pairTheory prim_recTheory arithmeticTheory combinTheory;
  *)
 
-open CCSLib CCSTheory StrongEQTheory WeakEQTheory ObsCongrTheory
-     ContractionTheory CongruenceTheory UniqueSolutionsTheory;
+open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory
+     ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
+     UniqueSolutionsTheory;
 
 (* unused for now:
-open StrongEQLib StrongLawsTheory;
-open WeakEQLib WeakLawsTheory;
-open ObsCongrLib ObsCongrLawsTheory;
-open BisimulationUptoTheory;
-open TraceTheory ExpansionTheory ;
+open StrongEQLib StrongLawsTheory WeakEQLib WeakLawsTheory;
+open ObsCongrLib ObsCongrLawsTheory TraceTheory ExpansionTheory;
  *)
 
 val _ = new_theory "Multivariate";
 
-(* DESIGN NOTES
+(* DESIGN NOTES:
 
 1. What's a multivariate CCS equation?
 
@@ -144,25 +142,26 @@ val _ = new_theory "Multivariate";
    -- Chun Tian, Aug 10, 2019
 *)
 
-val CCS_equation_def = Define
-   `CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
-      ALL_DISTINCT Xs /\ (LENGTH Xs = LENGTH Es)`;
+Definition CCS_equation_def :
+    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+        ALL_DISTINCT Xs /\ (LENGTH Xs = LENGTH Es)
+End
 
 (* The use of finite_mapTheory to get rid of substitution orders was
    suggested by Konrad Slind (HOL mailing list on Oct 23, 2017):
 
-   "There are all kinds of issues with substitutions and applying them
-    to term-like structures. I would probably start by choosing finite
-    maps (finite_mapTheory) as the representation for variable
-    substitutions since they get rid of most if not all the issues
-    with ordering of replacements. The alistTheory provides a more
-    computationally friendly version, and provides a formal connection
-    back to fmaps.
+  "There are all kinds of issues with substitutions and applying them
+   to term-like structures. I would probably start by choosing finite
+   maps (finite_mapTheory) as the representation for variable
+   substitutions since they get rid of most if not all the issues
+   with ordering of replacements. The alistTheory provides a more
+   computationally friendly version, and provides a formal connection
+   back to fmaps.
 
-    Also see <holdir>/examples/unification/triangular/first-order 
-    for a unification case study."
+   Also see <holdir>/examples/unification/triangular/first-order 
+   for a unification case study."
  *)
-val CCS_SUBST_def = Define `
+Definition CCS_SUBST_def :
    (CCS_SUBST (fm :'a |-> ('a, 'b) CCS) nil = nil) /\
    (CCS_SUBST fm (prefix u E) = prefix u (CCS_SUBST fm E)) /\
    (CCS_SUBST fm (sum E1 E2)  = sum (CCS_SUBST fm E1)
@@ -173,15 +172,17 @@ val CCS_SUBST_def = Define `
    (CCS_SUBST fm (relab E rf) = relab (CCS_SUBST fm E) rf) /\
    (CCS_SUBST fm (var Y)      = if Y IN FDOM fm then fm ' Y else (var Y)) /\
    (CCS_SUBST fm (rec Y E)    = if Y IN FDOM fm then (rec Y E)
-                                else (rec Y (CCS_SUBST fm E)))`;
+                                else (rec Y (CCS_SUBST fm E)))
+End
 
 val _ = overload_on ("CCS_Subst", ``\E fm. CCS_SUBST fm E``);
 
 (* This is again inspired from Konrad Slind (HOL mailing list on Aug 7, 2019):
    "See also examples/balanced_bst/balanced_mapTheory, which has a 'fromList' construct."
  *)
-val fromList_def = Define
-   `fromList Xs Ps = FEMPTY |++ ZIP (Xs,Ps)`;
+Definition fromList_def :
+    fromList Xs Ps = FEMPTY |++ ZIP (Xs,Ps)
+End
 
 Theorem IN_fromList :
     !X Xs Ps. X IN FDOM (fromList Xs Ps) <=> MEM X Xs
@@ -190,11 +191,12 @@ Proof
 QED
 
 (* A solution of the CCS equation (group) Es[Xs] up to R *)
-val CCS_solution_def = Define
-   `CCS_solution (Ps :('a, 'b) CCS list)
+Definition CCS_solution_def :
+    CCS_solution (Ps :('a, 'b) CCS list)
                  (R  :('a, 'b) simulation)
                  (Es :('a, 'b) CCS list) (Xs :'a list) <=>
-      (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)`;
+      (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
+End
 
 (* If needed, we can define a new WG (the original version with REC
 Inductive WG :
@@ -209,8 +211,9 @@ Inductive WG :
          ==> WG (\t. rec X (e t)))
 End *)
 
-val weakly_guarded_def = Define
-   `weakly_guarded Xs = \E. EVERY (\X. WG (\t. CCS_Subst E t X)) Xs`;
+Definition weakly_guarded_def :
+    weakly_guarded Xs = \E. EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
+End
 
 Theorem EVERY_weakly_guarded :
     !Xs Es. EVERY (weakly_guarded Xs) Es <=>
