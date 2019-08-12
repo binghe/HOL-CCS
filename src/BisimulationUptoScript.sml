@@ -1,6 +1,6 @@
 (* ========================================================================== *)
 (* FILE          : BisimulationUptoScript.sml                                 *)
-(* DESCRIPTION   : Bisimulation up to Strong, weak (2 versions) and OBS_CONGR *)
+(* DESCRIPTION   : Bisimulation up to Strong, Weak (2 versions) and OBS_CONGR *)
 (*                                                                            *)
 (* THESIS        : A Formalization of Unique Solutions of Equations in        *)
 (*                 Process Algebra                                            *)
@@ -16,7 +16,6 @@ open WeakEQTheory WeakEQLib WeakLawsTheory;
 open ObsCongrTheory ObsCongrLib ObsCongrLawsTheory;
 
 val _ = new_theory "BisimulationUpto";
-val _ = temp_loose_equality ();
 
 (******************************************************************************)
 (*                                                                            *)

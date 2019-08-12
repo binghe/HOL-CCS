@@ -23,19 +23,19 @@ val _ = temp_loose_equality ();
 val _ = Datatype `Label = name 'b | coname 'b`;
 
 (* Define structural induction on labels
-   |- ∀P. (∀s. P (name s)) ∧ (∀s. P (coname s)) ⇒ ∀L. P L
+   |- !P. (!s. P (name s)) /\ (!s. P (coname s)) ==> !L. P L
  *)
 val Label_induction = TypeBase.induction_of ``:'b Label``;
 
 (* The structural cases theorem for the type Label
-   |- ∀LL. (∃s. LL = name s) ∨ ∃s. LL = coname s
+   |- !LL. (?s. LL = name s) \/ ?s. LL = coname s
  *)
 val Label_nchotomy = TypeBase.nchotomy_of ``:'b Label``;
 
 (* The distinction and injectivity theorems for the type Label
-   |- ∀a' a. name a ≠ coname a'
-   |- (∀a a'. (name a = name a') ⇔ (a = a')) ∧
-       ∀a a'. (coname a = coname a') ⇔ (a = a')
+   |- !a' a. name a <> coname a'
+   |- (!a a'. (name a = name a') <=> (a = a')) /\
+       !a a'. (coname a = coname a') <=> (a = a')
  *)
 val Label_distinct = TypeBase.distinct_of ``:'b Label``;
 val Label_distinct' = save_thm ("Label_distinct'", GSYM Label_distinct);
@@ -64,20 +64,20 @@ val _ = overload_on ("In", ``\a. label (name a)``);
 val _ = overload_on ("Out", ``\a. label (coname a)``);
 
 (* Define structural induction on actions
-   |- ∀P. P tau ∧ (∀L. P (label L)) ⇒ ∀A. P A
+   |- !P. P tau /\ (!L. P (label L)) ==> !A. P A
  *)
 val Action_induction = save_thm (
    "Action_induction", INST_TYPE [``:'a`` |-> ``:'b Label``] option_induction);
 
 (* The structural cases theorem for the type Action
-   |- ∀AA. (AA = tau) ∨ ∃L. AA = label L
+   |- !AA. (AA = tau) \/ ?L. AA = label L
  *)
 val Action_nchotomy = save_thm (
    "Action_nchotomy", INST_TYPE [``:'a`` |-> ``:'b Label``] option_nchotomy);
 
 (* The distinction and injectivity theorems for the type Action
-   |- ∀a. tau ≠ label a
-   |- ∀a a'. (label a = label a') ⇔ (a = a')
+   |- !a. tau <> label a
+   |- !a a'. (label a = label a') <=> (a = a')
  *)
 val Action_distinct = save_thm (
    "Action_distinct", INST_TYPE [``:'a`` |-> ``:'b Label``] NOT_NONE_SOME);
@@ -88,7 +88,7 @@ val Action_distinct_label = save_thm (
 val Action_11 = save_thm (
    "Action_11", INST_TYPE [``:'a`` |-> ``:'b Label``] SOME_11);
 
-(* |- ∀A. A ≠ tau ⇒ ∃L. A = label L *)
+(* |- !A. A <> tau ==> ?L. A = label L *)
 val Action_no_tau_is_Label = save_thm (
    "Action_no_tau_is_Label",
     Q.GEN `A` (DISJ_IMP (Q.SPEC `A` Action_nchotomy)));
@@ -156,13 +156,13 @@ val EXISTS_Relabeling = store_thm ("EXISTS_Relabeling",
  >> REWRITE_TAC [COMPL_LAB_def]);
 
 (* Relabeling_TY_DEF =
-   |- ∃rep. TYPE_DEFINITION Is_Relabeling rep
+   |- ?rep. TYPE_DEFINITION Is_Relabeling rep
  *)
 val Relabeling_TY_DEF = new_type_definition ("Relabeling", EXISTS_Relabeling);
 
 (* Relabeling_ISO_DEF =
-   |- (∀a. ABS_Relabeling (REP_Relabeling a) = a) ∧
-       ∀r. Is_Relabeling r ⇔ (REP_Relabeling (ABS_Relabeling r) = r)
+   |- (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
+       !r. Is_Relabeling r <=> (REP_Relabeling (ABS_Relabeling r) = r)
  *)
 val Relabeling_ISO_DEF = define_new_type_bijections
                               { ABS  = "ABS_Relabeling",
@@ -171,18 +171,18 @@ val Relabeling_ISO_DEF = define_new_type_bijections
                                 tyax =  Relabeling_TY_DEF };
 
 (* ABS_Relabeling_one_one =
-   |- ∀r r'.
-      Is_Relabeling r ⇒ Is_Relabeling r' ⇒
-      ((ABS_Relabeling r = ABS_Relabeling r') ⇔ (r = r'))
+   |- !r r'.
+      Is_Relabeling r ==> Is_Relabeling r' ==>
+      ((ABS_Relabeling r = ABS_Relabeling r') <=> (r = r'))
 
    ABS_Relabeling_onto =
-   |- ∀a. ∃r. (a = ABS_Relabeling r) ∧ Is_Relabeling r
+   |- !a. ?r. (a = ABS_Relabeling r) /\ Is_Relabeling r
 
    REP_Relabeling_one_one =
-   |- ∀a a'. (REP_Relabeling a = REP_Relabeling a') ⇔ (a = a')
+   |- !a a'. (REP_Relabeling a = REP_Relabeling a') <=> (a = a')
 
    REP_Relabeling_onto =
-   |- ∀r. Is_Relabeling r ⇔ ∃a. r = REP_Relabeling a
+   |- !r. Is_Relabeling r <=> ?a. r = REP_Relabeling a
  *)
 val [ABS_Relabeling_one_one,
      ABS_Relabeling_onto,
@@ -269,8 +269,8 @@ val IS_RELABELING = store_thm (
 val RELAB_def = Define `
     RELAB (labl :('b Label # 'b Label) list) = ABS_Relabeling (Apply_Relab labl)`;
 
-(* |- ∀labl' labl.
-     (RELAB labl' = RELAB labl) ⇔ (Apply_Relab labl' = Apply_Relab labl)
+(* |- !labl' labl.
+     (RELAB labl' = RELAB labl) <=> (Apply_Relab labl' = Apply_Relab labl)
  *)
 val APPLY_RELAB_THM = save_thm (
    "APPLY_RELAB_THM",
@@ -375,12 +375,12 @@ val CCS_Subst_def = Define `
 
    Below are two typical cases by CCS_Subst: *)
 
-(* |- ∀X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
+(* |- !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
 val CCS_Subst_rec = save_thm (
    "CCS_Subst_rec", Q_GENL [`X`, `E`, `E'`]
                         (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
-(* |- ∀X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
+(* |- !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
 val CCS_Subst_var = save_thm (
    "CCS_Subst_var", Q_GENL [`X`, `E`]
                         (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
@@ -439,20 +439,20 @@ val [PREFIX, SUM1, SUM2, PAR1, PAR2, PAR3, RESTR, RELABELING, REC] =
                   CONJUNCTS TRANS_rules));
 
 (* The process nil has no transitions.
-   |- ∀u E. ¬TRANS nil u E
+   |- !u E. ~TRANS nil u E
  *)
 val NIL_NO_TRANS = save_thm ("NIL_NO_TRANS",
     Q_GENL [`u`, `E`]
            (REWRITE_RULE [CCS_distinct]
                          (SPECL [``nil``, ``u :'b Action``, ``E :('a, 'b) CCS``] TRANS_cases)));
 
-(* |- ∀u E. nil --u-> E ⇔ F *)
+(* |- !u E. nil --u-> E <=> F *)
 val NIL_NO_TRANS_EQF = save_thm (
    "NIL_NO_TRANS_EQF",
     Q_GENL [`u`, `E`] (EQF_INTRO (SPEC_ALL NIL_NO_TRANS)));
 
 (* Prove that if a process can do an action, then the process is not nil.
-   |- ∀E u E'. TRANS E u E' ⇒ E ≠ nil:
+   |- !E u E'. TRANS E u E' ==> E <> nil:
  *)
 val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL",
   ``!E u E'. TRANS E u E' ==> ~(E = nil)``,
@@ -486,7 +486,7 @@ val TRANS_PREFIX_EQ = save_thm (
       (SPECL [``prefix (u :'b Action) E``, ``u' :'b Action``, ``E' :('a, 'b) CCS``]
              TRANS_cases));
 
-(* |- ∀u E u' E'. u..E --u'-> E' ⇒ (u' = u) ∧ (E' = E) *)
+(* |- !u E u' E'. u..E --u'-> E' ==> (u' = u) /\ (E' = E) *)
 val TRANS_PREFIX = save_thm (
    "TRANS_PREFIX", EQ_IMP_LR TRANS_PREFIX_EQ);
 
@@ -496,6 +496,11 @@ val TRANS_PREFIX = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
+(* |- !D D' u D''.
+         D + D' --u-> D'' <=>
+         (?E E'. (D = E /\ D' = E') /\ E --u-> D'') \/
+          ?E E'. (D = E' /\ D' = E) /\ E --u-> D''
+ *)
 val SUM_cases_EQ = save_thm (
    "SUM_cases_EQ",
     Q_GENL [`D`, `D'`, `u`, `D''`]
@@ -586,7 +591,7 @@ val TRANS_SUM_NIL_EQ = store_thm (
       DISCH_TAC \\
       MATCH_MP_TAC SUM1 >> art [] ]);
 
-(* |- ∀E u E'. E + nil --u-> E' ⇒ E --u-> E' *)
+(* |- !E u E'. E + nil --u-> E' ==> E --u-> E' *)
 val TRANS_SUM_NIL = save_thm ("TRANS_SUM_NIL", EQ_IMP_LR TRANS_SUM_NIL_EQ);
 
 val TRANS_P_SUM_P_EQ = store_thm ("TRANS_P_SUM_P_EQ",
@@ -835,7 +840,7 @@ val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
 (******************************************************************************)
 (*                                                                            *)
-(*                     Variables and Names (Labels) in CCS                    *)
+(*               Variables ('a) and Names ('b) of ('a, 'b) CCS                *)
 (*                                                                            *)
 (******************************************************************************)
 
@@ -848,7 +853,7 @@ val FV_def = Define `
    (FV (restr L p)            = FV p) /\
    (FV (relab p rf)           = FV p) /\
    (FV (var X)                = {X}) /\
-   (FV (rec X p)              = (FV p) DIFF {X}) `;
+   (FV (rec X p)              = (FV p) DELETE X) `;
 
 (* ('a, 'b) CCS -> 'a set (set of bound variables) *)
 val BV_def = Define `
@@ -862,10 +867,10 @@ val BV_def = Define `
    (BV (rec X p)              = X INSERT (BV p)) `;
 
 val IS_PROC_def = Define `
-    IS_PROC E = (FV E = EMPTY)`;
+    IS_PROC E <=> (FV E = EMPTY)`;
 
 val ALL_PROC_def = Define `
-    ALL_PROC ES = EVERY IS_PROC ES`;
+    ALL_PROC Es <=> EVERY IS_PROC Es`;
 
 val DELETE_ELEMENT_def = Define `
    (DELETE_ELEMENT e [] = []) /\
@@ -943,7 +948,7 @@ val FN_definition = `
    (FN (sum p q) J            = (FN p J) UNION (FN q J)) /\
    (FN (par p q) J            = (FN p J) UNION (FN q J)) /\
    (FN (restr L p) J          = (FN p J) DIFF (L UNION (IMAGE COMPL_LAB L))) /\
-   (FN (relab p rf) J         = IMAGE (REP_Relabeling rf) (FN p J)) /\
+   (FN (relab p rf) J         = IMAGE (REP_Relabeling rf) (FN p J)) /\ (* here *)
    (FN (var X) J              = EMPTY) /\
    (FN (rec X p) J            = if (MEM X J) then
                                     FN (CCS_Subst p (rec X p) X) (DELETE_ELEMENT X J)
@@ -955,11 +960,11 @@ val BN_definition = `
    (BN (prefix u p) J         = BN p J) /\
    (BN (sum p q) J            = (BN p J) UNION (BN q J)) /\
    (BN (par p q) J            = (BN p J) UNION (BN q J)) /\
-   (BN (restr L p) J          = (BN p J) UNION L) /\    (* here! *)
+   (BN (restr L p) J          = (BN p J) UNION L) /\ (* here *)
    (BN (relab p rf) J         = BN p J) /\
    (BN (var X) J              = EMPTY) /\
    (BN (rec X p) J            = if (MEM X J) then
-                                    FN (CCS_Subst p (rec X p) X) (DELETE_ELEMENT X J)
+                                    BN (CCS_Subst p (rec X p) X) (DELETE_ELEMENT X J)
                                 else EMPTY)`;
 
 (* This is how we get the correct tactics (FN_tac):
@@ -967,15 +972,15 @@ val BN_definition = `
  - Defn.tgoal FN_defn;
  *)
 local
-    val tactic = (* the use of `($< LEX $<)` is learnt from Ramana Kumar *)
-        WF_REL_TAC `inv_image ($< LEX $<)
-                              (\x. (LENGTH (SND x), ^CCS_size_tm (\x. 0) (\x. 0) (FST x)))`
-     >> rpt STRIP_TAC >- (IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [])
-     >> REWRITE_TAC [CCS_size_def]
-     >> simp [];
+  val tactic = (* the use of `($< LEX $<)` is learnt from Ramana Kumar *)
+      WF_REL_TAC `inv_image ($< LEX $<)
+                            (\x. (LENGTH (SND x), ^CCS_size_tm (\x. 0) (\x. 0) (FST x)))`
+   >> rpt STRIP_TAC >- (IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [])
+   >> REWRITE_TAC [CCS_size_def]
+   >> simp [];
 in
-    val FN_def = TotalDefn.tDefine "FN" FN_definition tactic;
-    val BN_def = TotalDefn.tDefine "BN" BN_definition tactic;
+  val FN_def = TotalDefn.tDefine "FN" FN_definition tactic;
+  val BN_def = TotalDefn.tDefine "BN" BN_definition tactic;
 end;
 
 (* (free_names :('a, 'b) CCS -> 'b Label set) collects all visible labels in the prefix *)

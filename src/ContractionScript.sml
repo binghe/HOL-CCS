@@ -1741,7 +1741,7 @@ val OBS_contracts_IMP_C_contracts = store_thm (
  >> ASSUME_TAC OBS_contracts_precongruence
  >> `OBS_contracts RSUBSET $contracts`
         by PROVE_TAC [OBS_contracts_IMP_contracts, GSYM RSUBSET]
- >> MATCH_MP_TAC CC_is_coarsest' >> art []);
+ >> MATCH_MP_TAC PCC_is_coarsest >> art []);
 
 val SUM_contracts = new_definition ("SUM_contracts",
   ``SUM_contracts = (\p q. !r. (sum p r) contracts (sum q r))``);

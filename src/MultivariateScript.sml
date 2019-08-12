@@ -196,14 +196,28 @@ val CCS_solution_def = Define
                  (Es :('a, 'b) CCS list) (Xs :'a list) <=>
       (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)`;
 
+(* If needed, we can define a new WG (the original version with REC
+Inductive WG :
+    (!p.                        WG (\t. p)) /\                 (* WG2 *)
+    (!a e.   CONTEXT e      ==> WG (\t. prefix a (e t))) /\    (* WG3 *)
+    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. sum (e1 t) (e2 t))) /\ (* WG4 *)
+    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. par (e1 t) (e2 t))) /\ (* WG5 *)
+    (!L e.   WG e           ==> WG (\t. restr L (e t))) /\     (* WG6 *)
+    (!rf e.  WG e           ==> WG (\t. relab (e t) rf))       (* WG7 *)
+    (!X e.   WG e  /\
+             WG (\t. CCS_Subst (e t) (rec X (e t)) X)          (* WG8 *)
+         ==> WG (\t. rec X (e t)))
+End *)
+
 val weakly_guarded_def = Define
-   `weakly_guarded Xs = \E. EVERY (\x. WG (\t. CCS_Subst E t x)) Xs`;
+   `weakly_guarded Xs = \E. EVERY (\X. WG (\t. CCS_Subst E t X)) Xs`;
 
 Theorem EVERY_weakly_guarded :
     !Xs Es. EVERY (weakly_guarded Xs) Es <=>
             !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
 Proof
-    cheat
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+ >> METIS_TAC []
 QED
 
 Theorem weakly_guarded_var :
@@ -214,6 +228,75 @@ Proof
  >> DISCH_TAC >> CCONTR_TAC
  >> fs [weakly_guarded_def, EVERY_MEM]
  >> RES_TAC >> fs [CCS_Subst_def, NOT_WG0]
+QED
+
+(*
+Theorem WG_NOT_REC :
+    !e X. ~WG (\t. rec X (e t))
+Proof
+    rpt GEN_TAC >> ONCE_REWRITE_TAC [WG_cases]
+ >> fs [FUN_EQ_THM]
+ >> GEN_TAC
+ >> Cases_on `p` >> fs [FUN_EQ_THM]
+QED 
+ *)
+
+Theorem weakly_guarded_recur :
+    !Xs Y E. weakly_guarded Xs (rec Y E) ==> weakly_guarded Xs E
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+ >> RES_TAC
+ >> cheat
+QED
+
+Theorem weakly_guarded_sum :
+    !Xs E1 E2. weakly_guarded Xs (sum E1 E2) ==>
+               weakly_guarded Xs E1 /\ weakly_guarded Xs E2
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] (* 2 subgoals, same tactics *)
+ >> (RES_TAC >> fs [CCS_Subst_def] \\
+     Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
+     Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
+     Know `WG (\t. e1 t + e2 t)`
+     >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+         ASM_SIMP_TAC bool_ss []) \\
+     DISCH_TAC >> IMP_RES_TAC WG4_backward)
+QED
+
+Theorem weakly_guarded_par :
+    !Xs E1 E2. weakly_guarded Xs (par E1 E2) ==>
+               weakly_guarded Xs E1 /\ weakly_guarded Xs E2
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] (* 2 subgoals, same tactics *)
+ >> (RES_TAC >> fs [CCS_Subst_def] \\
+     Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
+     Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
+     Know `WG (\t. e1 t || e2 t)`
+     >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+         ASM_SIMP_TAC bool_ss []) \\
+     DISCH_TAC >> IMP_RES_TAC WG5_backward)
+QED
+
+Theorem weakly_guarded_restr :
+    !Xs L E. weakly_guarded Xs (restr L E) ==> weakly_guarded Xs E
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. restr L (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC WG6_backward
+QED
+
+Theorem weakly_guarded_relab :
+    !Xs E rf. weakly_guarded Xs (relab E rf) ==> weakly_guarded Xs E
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. relab (e t) rf)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC WG7_backward
 QED
 
 val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
@@ -229,11 +312,10 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 Theorem STRONG_UNIQUE_SOLUTION_LEMMA_FULL :
     !Xs. ALL_DISTINCT Xs ==>
          !E. weakly_guarded Xs E ==>
-             !Ps act P'. TRANS (CCS_SUBST (fromList Xs Ps) E) act P' ==>
-                         ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
-                              !Qs. TRANS (CCS_SUBST (fromList Xs Qs) E)
-                                         act
-                                         (CCS_SUBST (fromList Xs Qs) E')
+             !Ps a P'. TRANS (CCS_SUBST (fromList Xs Ps) E) a P' ==>
+                       ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
+                            !Qs. TRANS (CCS_SUBST (fromList Xs Qs) E) a
+                                       (CCS_SUBST (fromList Xs Qs) E')
 Proof
     GEN_TAC >> DISCH_TAC
  >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
@@ -244,95 +326,49 @@ Proof
      IMP_RES_TAC weakly_guarded_var \\
     `Y NOTIN FDOM (fromList Xs Ps)` by METIS_TAC [IN_fromList] \\
      fs [CCS_SUBST_def, VAR_NO_TRANS])
- >> 
-    cheat
+ (* Case 2: E = b.E' *)
+ >- (rename1 `weakly_guarded Xs (prefix b E)` \\
+     fs [CCS_SUBST_def, TRANS_PREFIX_EQ] \\
+     Q.EXISTS_TAC `E` >> REWRITE_TAC [])
+ (* Case 3: E = E1 + E2 *)
+ >- (IMP_RES_TAC weakly_guarded_sum \\
+     fs [CCS_SUBST_def, TRANS_SUM_EQ] \\ (* 2 subgoals, same tactics *)
+     RES_TAC >> Q.EXISTS_TAC `E''` >> fs [])
+ (* Case 4: E = E1 || E2 *)
+ >- (rename1 `weakly_guarded Xs (E1 || E2)` \\
+     IMP_RES_TAC weakly_guarded_par \\
+     fs [CCS_SUBST_def, TRANS_PAR_EQ] >| (* 3 subgoals *)
+     [ (* goal 1 (of 3) *)
+       RES_TAC >> Q.EXISTS_TAC `E' || E2` \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       GEN_TAC >> DISJ1_TAC \\
+       Q.EXISTS_TAC `CCS_Subst E' (fromList Xs Qs)` >> art [],
+       (* goal 2 (of 3) *)
+       RES_TAC >> Q.EXISTS_TAC `E1 || E''` \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       GEN_TAC >> DISJ2_TAC >> DISJ1_TAC \\
+       Q.EXISTS_TAC `CCS_Subst E'' (fromList Xs Qs)` >> art [],
+       (* goal 3 (of 3) *)
+       RES_TAC >> Q.EXISTS_TAC `E' || E''` \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       GEN_TAC >> NTAC 2 DISJ2_TAC \\
+       take [`CCS_Subst E' (fromList Xs Qs)`,
+             `CCS_Subst E'' (fromList Xs Qs)`] >> art [] \\
+       Q.EXISTS_TAC `l` >> art [] ])
+ (* Case 5: E = restr f E' *)
+ >- (IMP_RES_TAC weakly_guarded_restr \\
+     fs [CCS_SUBST_def, TRANS_RESTR_EQ] \\ (* 2 subgoals, same tactics *)
+     RES_TAC >> Q.EXISTS_TAC `restr f E'` \\
+     rfs [CCS_SUBST_def])
+ (* Case 5: E = relab E' R *)
+ >- (IMP_RES_TAC weakly_guarded_relab \\
+     fs [CCS_SUBST_def, TRANS_RELAB_EQ] \\
+     RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
+     ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+     GEN_TAC >> take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [])
+ (* Case 7: E = rec a E' (impossible case?) *)
+ >> cheat
 QED
-
-(*
-    Induct_on `WG` >> BETA_TAC
- >> COUNT_TAC (rpt STRIP_TAC) (* 6 sub-goals here *)
- >| [ (* goal 1 (of 6) *)
-      POP_ASSUM (STRIP_ASSUME_TAC o (ONCE_REWRITE_RULE [TRANS_cases])) \\
-      Q.EXISTS_TAC `\t. P'` >> BETA_TAC >> art [CONTEXT2] >| (* 10 or 11 sub-goals here *)
-      [ REWRITE_TAC [PREFIX],
-        MATCH_MP_TAC SUM1 >> art [],
-        MATCH_MP_TAC SUM2 >> art [],
-        MATCH_MP_TAC PAR1 >> art [],
-        MATCH_MP_TAC PAR2 >> art [],
-        MATCH_MP_TAC PAR3 >> Q.EXISTS_TAC `l` >> art [],
-        MATCH_MP_TAC RESTR >> Q.EXISTS_TAC `l` >> fs [],
-        MATCH_MP_TAC RESTR >> Q.EXISTS_TAC `l` >> fs [],
-        MATCH_MP_TAC RELABELING >> art [],
-        MATCH_MP_TAC REC >> art []
-     (* MATCH_MP_TAC LTS >> art [] *) ],
-      (* goal 2 (of 6) *)
-      IMP_RES_TAC TRANS_PREFIX >> art [] \\
-      Q.EXISTS_TAC `e` >> art [PREFIX],
-      (* goal 3 (of 6) *)
-      IMP_RES_TAC TRANS_SUM >| (* 2 sub-goals here *)
-      [ (* goal 3.1 (of 2) *)
-        RES_TAC \\
-        Q.EXISTS_TAC `E''` >> art [] \\
-        GEN_TAC >> MATCH_MP_TAC SUM1 >> art [],
-        (* goal 3.2 (of 2) *)
-        RES_TAC \\
-        Q.EXISTS_TAC `E''` >> art [] \\
-        GEN_TAC >> MATCH_MP_TAC SUM2 >> art [] ],
-      (* goal 4 (of 6) *)
-      IMP_RES_TAC TRANS_PAR >| (* 3 sub-goals here *)
-      [ (* goal 4.1 (of 3) *)
-        RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-        Q.EXISTS_TAC `\t. par (E'' t) (E' t)` \\
-        BETA_TAC >> REWRITE_TAC [] \\
-        CONJ_TAC >| (* 2 sub-goals here *)
-        [ (* goal 4.1.1 (of 2) *)
-          MATCH_MP_TAC CONTEXT5 >> art [] \\
-          IMP_RES_TAC WG_IS_CONTEXT,
-          (* goal 4.1.2 (of 2) *)
-          GEN_TAC >> MATCH_MP_TAC PAR1 >> art [] ],
-        (* goal 4.2 (of 3) *)
-        RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-        Q.EXISTS_TAC `\t. par (E t) (E'' t)` \\
-        BETA_TAC >> REWRITE_TAC [] \\
-        CONJ_TAC >| (* 2 sub-goals here *)
-        [ (* goal 4.2.1 (of 2) *)
-          MATCH_MP_TAC CONTEXT5 >> art [] \\
-          IMP_RES_TAC WG_IS_CONTEXT,
-          (* goal 4.2.2 (of 2) *)
-          GEN_TAC >> MATCH_MP_TAC PAR2 >> art [] ],
-        (* goal 4.3 (of 3) *)
-        RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-        Q.EXISTS_TAC `\t. par (E''' t) (E'' t)` \\
-        BETA_TAC >> REWRITE_TAC [] \\
-        CONJ_TAC >| (* 2 sub-goals here *)
-        [ (* goal 4.3.1 (of 2) *)
-          MATCH_MP_TAC CONTEXT5 >> art [],
-          (* goal 4.3.2 (of 2) *)
-          GEN_TAC >> MATCH_MP_TAC PAR3 \\
-          Q.EXISTS_TAC `l` >> art [] ] ],
-      (* goal 5 (of 6) *)
-      IMP_RES_TAC TRANS_RESTR >| (* 2 sub-goals here *)
-      [ (* goal 5.1 (of 2) *)
-        RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-        Q.EXISTS_TAC `\t. restr L (E' t)` >> BETA_TAC >> REWRITE_TAC [] \\
-        CONJ_TAC >- ( MATCH_MP_TAC CONTEXT6 >> art [] ) \\
-        GEN_TAC >> MATCH_MP_TAC RESTR \\
-        FULL_SIMP_TAC std_ss [] \\
-        PROVE_TAC [],
-        (* goal 5.2 (of 2) *)
-        RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-        Q.EXISTS_TAC `\t. restr L (E' t)` >> BETA_TAC >> REWRITE_TAC [] \\
-        CONJ_TAC >- ( MATCH_MP_TAC CONTEXT6 >> art [] ) \\
-        GEN_TAC >> MATCH_MP_TAC RESTR \\
-        Q.EXISTS_TAC `l` >> FULL_SIMP_TAC std_ss [Action_distinct_label] \\
-        PROVE_TAC [] ],
-      (* goal 6 (of 6) *)
-      IMP_RES_TAC TRANS_RELAB \\
-      RES_TAC >> FULL_SIMP_TAC std_ss [] \\
-      Q.EXISTS_TAC `\t. relab (E' t) rf` >> BETA_TAC >> REWRITE_TAC [] \\
-      CONJ_TAC >- ( MATCH_MP_TAC CONTEXT7 >> art [] ) \\
-      GEN_TAC >> MATCH_MP_TAC RELABELING >> art [] ]);
- *)
 
 Theorem STRONG_UNIQUE_SOLUTION_FULL :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>

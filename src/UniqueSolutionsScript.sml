@@ -42,19 +42,7 @@ val STRONG_UNIQUE_SOLUTION_LEMMA = store_thm (
     Induct_on `WG` >> BETA_TAC
  >> COUNT_TAC (rpt STRIP_TAC) (* 6 sub-goals here *)
  >| [ (* goal 1 (of 6) *)
-      POP_ASSUM (STRIP_ASSUME_TAC o (ONCE_REWRITE_RULE [TRANS_cases])) \\
-      Q.EXISTS_TAC `\t. P'` >> BETA_TAC >> art [CONTEXT2] >| (* 10 or 11 sub-goals here *)
-      [ REWRITE_TAC [PREFIX],
-        MATCH_MP_TAC SUM1 >> art [],
-        MATCH_MP_TAC SUM2 >> art [],
-        MATCH_MP_TAC PAR1 >> art [],
-        MATCH_MP_TAC PAR2 >> art [],
-        MATCH_MP_TAC PAR3 >> Q.EXISTS_TAC `l` >> art [],
-        MATCH_MP_TAC RESTR >> Q.EXISTS_TAC `l` >> fs [],
-        MATCH_MP_TAC RESTR >> Q.EXISTS_TAC `l` >> fs [],
-        MATCH_MP_TAC RELABELING >> art [],
-        MATCH_MP_TAC REC >> art []
-     (* MATCH_MP_TAC LTS >> art [] *) ],
+      Q.EXISTS_TAC `\t. P'` >> SIMP_TAC std_ss [CONTEXT2] >> art [],
       (* goal 2 (of 6) *)
       IMP_RES_TAC TRANS_PREFIX >> art [] \\
       Q.EXISTS_TAC `e` >> art [PREFIX],
