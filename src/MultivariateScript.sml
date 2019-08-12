@@ -199,7 +199,7 @@ val CCS_solution_def = Define
 val weakly_guarded_def = Define
    `weakly_guarded Xs = \E. EVERY (\x. WG (\t. CCS_Subst E t x)) Xs`;
 
-Theorem weakly_guarded_alt :
+Theorem EVERY_weakly_guarded :
     !Xs Es. EVERY (weakly_guarded Xs) Es <=>
             !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
 Proof
@@ -209,7 +209,11 @@ QED
 Theorem weakly_guarded_var :
     !Xs Y. weakly_guarded Xs (var Y) ==> ~MEM Y Xs
 Proof
-    cheat
+    rpt GEN_TAC
+ >> Suff `MEM Y Xs ==> ~weakly_guarded Xs (var Y)` >- METIS_TAC []
+ >> DISCH_TAC >> CCONTR_TAC
+ >> fs [weakly_guarded_def, EVERY_MEM]
+ >> RES_TAC >> fs [CCS_Subst_def, NOT_WG0]
 QED
 
 val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);

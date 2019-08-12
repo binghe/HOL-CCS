@@ -340,6 +340,15 @@ in
     val CCS_distinct' = save_thm ("CCS_distinct'", LIST_CONJ CCS_distinct_LIST);
 end
 
+Theorem CCS_distinct_exists :
+    !p :('a, 'b) CCS. ?q. q <> p
+Proof
+    GEN_TAC >> Cases_on `p` >> rpt STRIP_TAC
+ >- (Q.EXISTS_TAC `prefix a nil` >> REWRITE_TAC [CCS_distinct'])
+ >> Q.EXISTS_TAC `nil`
+ >> REWRITE_TAC [CCS_distinct]
+QED
+
 (* Prove that the constructors of the type CCS are one-to-one. *)
 val CCS_11 = TypeBase.one_one_of ``:('a, 'b) CCS``;
 

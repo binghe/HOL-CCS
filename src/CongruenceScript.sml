@@ -427,6 +427,17 @@ val [WG2, WG3, WG4, WG5, WG6, WG7] =
     map save_thm
         (combine (["WG2", "WG3", "WG4", "WG5", "WG6", "WG7"], CONJUNCTS WG_rules));
 
+Theorem NOT_WG0 :
+    ~WG (\t. t)
+Proof
+    ONCE_REWRITE_TAC [WG_cases] >> rpt STRIP_TAC (* 6 subgoals *)
+ >- (fs [FUN_EQ_THM] \\
+     STRIP_ASSUME_TAC (Q.SPEC `p` CCS_distinct_exists) >> METIS_TAC [])
+ >> fs [FUN_EQ_THM]
+ >> Q.PAT_X_ASSUM `!t. t = X` (ASSUME_TAC o (Q.SPEC `nil`))
+ >> fs [CCS_distinct]
+QED
+
 (** WG1 is derivable from WG3 *)
 val WG1 = store_thm ("WG1",
   ``!a :'b Action. WG (\t. prefix a t)``,
