@@ -590,6 +590,15 @@ Proof
       fs [FUN_EQ_THM] >> METIS_TAC [] ]
 QED
 
+Theorem WG8_backward :
+    !e X. WG (\t. rec X (e t)) ==> WG e
+Proof
+    rpt STRIP_TAC
+ >> MATCH_MP_TAC WG_CONST
+ >> MATCH_MP_TAC WG8_IMP_CONST
+ >> Q.EXISTS_TAC `X` >> art []
+QED
+
 (* Weakly guarded expressions are also expressions *)
 val WG_IS_CONTEXT = store_thm (
    "WG_IS_CONTEXT", ``!e. WG e ==> CONTEXT e``,
