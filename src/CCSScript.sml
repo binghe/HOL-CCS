@@ -6,7 +6,7 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open pred_setTheory relationTheory optionTheory listTheory;
+open pred_setTheory pred_setLib relationTheory optionTheory listTheory;
 open CCSLib;
 
 val _ = new_theory "CCS";
@@ -838,11 +838,9 @@ val TRANS_REC_EQ = store_thm ("TRANS_REC_EQ",
 
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
-(******************************************************************************)
-(*                                                                            *)
-(*               Variables ('a) and Names ('b) of ('a, 'b) CCS                *)
-(*                                                                            *)
-(******************************************************************************)
+(**********************************************************************)
+(* Free and bounded variables ('a)                                    *)
+(**********************************************************************)
 
 (* ('a, 'b) CCS -> 'a set (set of free variables) *)
 val FV_def = Define `
@@ -871,6 +869,21 @@ val IS_PROC_def = Define `
 
 val ALL_PROC_def = Define `
     ALL_PROC Es <=> EVERY IS_PROC Es`;
+
+val BV_REC = store_thm
+  ("BV_REC", ``!X E. X IN BV (rec X E)``,
+    RW_TAC std_ss [BV_def, IN_INSERT]);
+
+val BV_SUBSET = store_thm
+  ("BV_SUBSET",
+  ``!X E E'. (BV E) SUBSET (BV (rec X E)) /\
+             (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
+             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))``,
+    rpt GEN_TAC >> SET_TAC [BV_def]);
+
+(**********************************************************************)
+(* Free and bounded variables ('a)                                    *)
+(**********************************************************************)
 
 val DELETE_ELEMENT_def = Define `
    (DELETE_ELEMENT e [] = []) /\
