@@ -7,10 +7,10 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open listTheory rich_listTheory finite_mapTheory;
+open pred_setTheory pred_setLib listTheory alistTheory finite_mapTheory;
 
 (* unused for now:
- pred_setTheory pairTheory prim_recTheory arithmeticTheory combinTheory;
+ pairTheory prim_recTheory arithmeticTheory combinTheory;
  *)
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory
@@ -143,8 +143,8 @@ val _ = new_theory "Multivariate";
 *)
 
 Definition CCS_equation_def :
-    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
-        ALL_DISTINCT Xs /\ (LENGTH Xs = LENGTH Es)
+  CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+      ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)
 End
 
 (* The use of finite_mapTheory to get rid of substitution orders was
@@ -181,13 +181,17 @@ val _ = overload_on ("CCS_Subst", ``\E fm. CCS_SUBST fm E``);
    "See also examples/balanced_bst/balanced_mapTheory, which has a 'fromList' construct."
  *)
 Definition fromList_def :
-    fromList Xs Ps = FEMPTY |++ ZIP (Xs,Ps)
+    fromList Xs Ps = alist_to_fmap (ZIP (Xs,Ps))
 End
 
+val _ = overload_on ("|->", ``fromList``);
+val _ = set_fixity "|->"  (Infix(NONASSOC, 100));
+
 Theorem IN_fromList :
-    !X Xs Ps. X IN FDOM (fromList Xs Ps) <=> MEM X Xs
+    !X Xs Ps. (LENGTH Ps = LENGTH Xs) ==>
+              (X IN FDOM (fromList Xs Ps) <=> MEM X Xs)
 Proof
-    cheat
+    RW_TAC std_ss [fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
 QED
 
 (* A solution of the CCS equation (group) Es[Xs] up to R *)
@@ -211,16 +215,23 @@ Inductive WG :
          ==> WG (\t. rec X (e t)))
 End *)
 
+(* A list of variables Xs are weakly guarded in E iff:
+
+   1. Xs is DISJOINT with the set of all bound variables (BV) used by
+      recursion operators in E;
+   2. For each X in Xs, if all subterms (var X) were replaced by holes,
+      the resulting multi-hole context (\t. CCS_Subst E t X) is a WG.
+ *)
 Definition weakly_guarded_def :
-    weakly_guarded Xs = \E. EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
+    weakly_guarded Xs = \E. DISJOINT (BV E) (set Xs) /\
+                            EVERY (\X. WG (\t. CCS_Subst E t X)) Xs                            
 End
 
 Theorem EVERY_weakly_guarded :
-    !Xs Es. EVERY (weakly_guarded Xs) Es <=>
+    !Xs Es. EVERY (weakly_guarded Xs) Es ==>
             !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
 Proof
     RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
- >> METIS_TAC []
 QED
 
 Theorem weakly_guarded_var :
@@ -230,60 +241,76 @@ Proof
  >> Suff `MEM Y Xs ==> ~weakly_guarded Xs (var Y)` >- METIS_TAC []
  >> DISCH_TAC >> CCONTR_TAC
  >> fs [weakly_guarded_def, EVERY_MEM]
- >> RES_TAC >> fs [CCS_Subst_def, NOT_WG0]
+ >> RES_TAC >> fs [CCS_Subst_def, NO_WG0]
 QED
 
-(*
-Theorem WG_NOT_REC :
-    !e X. ~WG (\t. rec X (e t))
+Theorem weakly_guarded_rec :
+    !Xs Y E. weakly_guarded Xs (rec Y E) ==> ~MEM Y Xs /\ weakly_guarded Xs E
 Proof
-    rpt GEN_TAC >> ONCE_REWRITE_TAC [WG_cases]
- >> fs [FUN_EQ_THM]
- >> GEN_TAC
- >> Cases_on `p` >> fs [FUN_EQ_THM]
-QED 
- *)
-
-Theorem weakly_guarded_recur :
-    !Xs Y E. weakly_guarded Xs (rec Y E) ==> weakly_guarded Xs E
-Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+    rpt GEN_TAC >> DISCH_TAC >> STRONG_CONJ_TAC
+ >- (fs [weakly_guarded_def, EVERY_MEM] \\
+    `Y IN BV (rec Y E)` by PROVE_TAC [BV_REC] \\
+     CCONTR_TAC >> METIS_TAC [IN_DISJOINT])
+ >> DISCH_TAC
+ >> fs [weakly_guarded_def, EVERY_MEM]
+ >> rpt STRIP_TAC
+ >- (MATCH_MP_TAC SUBSET_DISJOINT \\
+     take [`BV (rec Y E)`, `set Xs`] >> art [BV_SUBSET, SUBSET_REFL])
  >> RES_TAC
- >> cheat
+ >> Cases_on `Y = X` >- fs []
+ >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. rec Y (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC std_ss [])
+ >> DISCH_TAC
+ >> IMP_RES_TAC WG8_IMP_CONST
+ >> IMP_RES_TAC WG_CONST
 QED
 
-Theorem weakly_guarded_sum :
-    !Xs E1 E2. weakly_guarded Xs (sum E1 E2) ==>
-               weakly_guarded Xs E1 /\ weakly_guarded Xs E2
-Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] (* 2 subgoals, same tactics *)
- >> (RES_TAC >> fs [CCS_Subst_def] \\
-     Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
-     Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
-     Know `WG (\t. e1 t + e2 t)`
-     >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
-         ASM_SIMP_TAC bool_ss []) \\
-     DISCH_TAC >> IMP_RES_TAC WG4_backward)
-QED
+local
+  val t1 =
+      MATCH_MP_TAC SUBSET_DISJOINT \\
+      take [`BV (E1 + E2)`, `set Xs`] >> art [BV_SUBSET, SUBSET_REFL];
+  val t2 =
+      RES_TAC >> fs [CCS_Subst_def] \\
+      Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
+      Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
+      Know `WG (\t. e1 t + e2 t)`
+      >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+          ASM_SIMP_TAC bool_ss []) \\
+      DISCH_TAC >> IMP_RES_TAC WG4_backward;
+in
+  val weakly_guarded_sum = store_thm
+    ("weakly_guarded_sum",
+    ``!Xs E1 E2. weakly_guarded Xs (sum E1 E2) ==>
+                 weakly_guarded Xs E1 /\ weakly_guarded Xs E2``,
+      RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] >| [t1, t2, t1, t2]);
+end;
 
-Theorem weakly_guarded_par :
-    !Xs E1 E2. weakly_guarded Xs (par E1 E2) ==>
-               weakly_guarded Xs E1 /\ weakly_guarded Xs E2
-Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] (* 2 subgoals, same tactics *)
- >> (RES_TAC >> fs [CCS_Subst_def] \\
-     Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
-     Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
-     Know `WG (\t. e1 t || e2 t)`
-     >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
-         ASM_SIMP_TAC bool_ss []) \\
-     DISCH_TAC >> IMP_RES_TAC WG5_backward)
-QED
+local
+  val t1 =
+      MATCH_MP_TAC SUBSET_DISJOINT \\
+      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSET, SUBSET_REFL];
+  val t2 =
+      RES_TAC >> fs [CCS_Subst_def] \\
+      Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
+      Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
+      Know `WG (\t. e1 t || e2 t)`
+      >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+          ASM_SIMP_TAC bool_ss []) \\
+      DISCH_TAC >> IMP_RES_TAC WG5_backward;
+in
+  val weakly_guarded_par = store_thm
+    ("weakly_guarded_par",
+    ``!Xs E1 E2. weakly_guarded Xs (par E1 E2) ==>
+                 weakly_guarded Xs E1 /\ weakly_guarded Xs E2``,
+      RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] >| [t1, t2, t1, t2]);
+end;
 
 Theorem weakly_guarded_restr :
     !Xs L E. weakly_guarded Xs (restr L E) ==> weakly_guarded Xs E
 Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def]
  >> RES_TAC >> fs [CCS_Subst_def]
  >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
  >> Know `WG (\t. restr L (e t))`
@@ -294,7 +321,7 @@ QED
 Theorem weakly_guarded_relab :
     !Xs E rf. weakly_guarded Xs (relab E rf) ==> weakly_guarded Xs E
 Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def]
  >> RES_TAC >> fs [CCS_Subst_def]
  >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
  >> Know `WG (\t. relab (e t) rf)`
@@ -309,18 +336,19 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
 (* Lemma 4.13 in Milner's book [1] (the full version):
 
-   If the variable X is weakly guarded in E, and E{P/X} --a-> P', then P' takes the form
-   E'{P/X} (for some expression E'), and moreover, for any Q, E{Q/X} --a-> E'{Q/X}.
- *)
+   If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P', then P' takes the form
+   E'{Ps/Xs} (for some expression E'), and moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
+ 
 Theorem STRONG_UNIQUE_SOLUTION_LEMMA_FULL :
-    !Xs. ALL_DISTINCT Xs ==>
-         !E. weakly_guarded Xs E ==>
-             !Ps a P'. TRANS (CCS_SUBST (fromList Xs Ps) E) a P' ==>
-                       ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
-                            !Qs. TRANS (CCS_SUBST (fromList Xs Qs) E) a
-                                       (CCS_SUBST (fromList Xs Qs) E')
+    !Xs E. weakly_guarded Xs E ==>
+           !Ps u P'. (LENGTH Ps = LENGTH Xs) /\
+                     TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
+                     ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
+                          !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                               TRANS (CCS_SUBST (fromList Xs Qs) E) u
+                                     (CCS_SUBST (fromList Xs Qs) E')
 Proof
-    GEN_TAC >> DISCH_TAC
+    GEN_TAC
  >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
@@ -336,7 +364,9 @@ Proof
  (* Case 3: E = E1 + E2 *)
  >- (IMP_RES_TAC weakly_guarded_sum \\
      fs [CCS_SUBST_def, TRANS_SUM_EQ] \\ (* 2 subgoals, same tactics *)
-     RES_TAC >> Q.EXISTS_TAC `E''` >> fs [])
+     RES_TAC >> fs [] >> Q.EXISTS_TAC `E''` >> fs [])
+
+
  (* Case 4: E = E1 || E2 *)
  >- (rename1 `weakly_guarded Xs (E1 || E2)` \\
      IMP_RES_TAC weakly_guarded_par \\
@@ -369,7 +399,9 @@ Proof
      RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
      ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
      GEN_TAC >> take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [])
- (* Case 7: E = rec a E' (impossible case?) *)
+ (* Case 7: E = rec Y E' *)
+ >> rename1 `weakly_guarded Xs (rec Y E)`
+ >> IMP_RES_TAC weakly_guarded_rec
  >> cheat
 QED
 
@@ -391,6 +423,7 @@ Theorem UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS_FULL :
 Proof
     cheat
 QED
+*)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
