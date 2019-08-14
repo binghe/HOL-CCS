@@ -896,14 +896,48 @@ Proof
     rpt GEN_TAC >> SET_TAC [BV_def]
 QED
 
-(* KEY result: if X is not a free variable of E, then E{E'/X} = E *)
-Theorem CCS_Subst_NOT_FV :
-    !X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)
-Proof
+val lemma1 = Q.prove (
+   `!X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* one left *)
  >> Cases_on `a = X` >- fs []
- >> RES_TAC >> ASM_SIMP_TAC std_ss []
+ >> RES_TAC >> ASM_SIMP_TAC std_ss []);
+
+val lemma2 = Q.prove (
+   `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)`,
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
+ >- (CCONTR_TAC >> fs [] \\
+     PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
+ >> Cases_on `X = a` >- fs []
+ >> DISJ1_TAC >> fs []);
+
+(* KEY result: X is not a free variable of E if and only if E{E'/X} = E *)
+Theorem CCS_Subst_NOT_FV :
+    !X E. X NOTIN (FV E) <=> !E'. (CCS_Subst E E' X = E)
+Proof
+    METIS_TAC [lemma1, lemma2]
+QED
+
+(* KEY result: if X is free in E, there exist different substitution results *)
+Theorem CCS_Subst_FV :
+    !X E. X IN (FV E) ==> ?t t'. CCS_Subst E t X <> CCS_Subst E t' X
+Proof
+    GEN_TAC
+ >> Induct_on `E` (* 8 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
+ >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
+ >- (RES_TAC >> take [`t`, `t'`] >> DISJ1_TAC >> art [])
+ >- (RES_TAC >> take [`t`, `t'`] >> DISJ2_TAC >> art [])
+ >- (RES_TAC >> take [`t`, `t'`] >> DISJ1_TAC >> art [])
+ >- (RES_TAC >> take [`t`, `t'`] >> DISJ2_TAC >> art [])
+QED
+
+(* KEY result: if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
+Theorem CCS_Subst_EQ :
+    !X E. (!t t'. CCS_Subst E t X <> CCS_Subst E t' X) ==> X NOTIN (FV E)
+Proof
+    METIS_TAC [CCS_Subst_FV]
 QED
 
 (**********************************************************************)

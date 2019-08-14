@@ -356,7 +356,20 @@ QED
 Theorem weakly_guarded_rec_NOT_FV :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
 Proof
-    cheat
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+ >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
+ >> RES_TAC
+ >> `Y <> x` by PROVE_TAC []
+ >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t x`
+ >> Know `WG (\t. rec Y (e t))` >- (Q.UNABBREV_TAC `e` >> fs [])
+ >> Q.PAT_X_ASSUM `WG (\t. P)` K_TAC (* clean up *)
+ >> DISCH_TAC
+ >> IMP_RES_TAC WG8_IMP_CONST
+ >> Q.UNABBREV_TAC `e` >> fs [CCS_const_def]
+ >> POP_ASSUM MP_TAC
+ >> SIMP_TAC std_ss []
+ >> PROVE_TAC [CCS_Subst_FV]
 QED
 
 (* ================================================================= *)
