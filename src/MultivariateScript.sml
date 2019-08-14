@@ -201,14 +201,8 @@ Theorem CCS_SUBST_NOT_FV :
            !Ps. (LENGTH Xs = LENGTH Ps) ==> (CCS_Subst E (Xs |-> Ps) = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >- RW_TAC std_ss [CCS_SUBST_def]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
- >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def,
+                   FDOM_alist_to_fmap, MAP_ZIP] (* one left *)
  >> Cases_on `MEM a Xs` >- fs []
  >> ASM_SIMP_TAC std_ss []
  >> Suff `DISJOINT (FV E) (set Xs)` >- METIS_TAC []

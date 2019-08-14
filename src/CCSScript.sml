@@ -901,14 +901,7 @@ Theorem CCS_Subst_NOT_FV :
     !X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >- RW_TAC std_ss [CCS_Subst_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >- RW_TAC set_ss [CCS_Subst_def, FV_def]
- >> RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* one left *)
  >> Cases_on `a = X` >- fs []
  >> RES_TAC >> ASM_SIMP_TAC std_ss []
 QED
