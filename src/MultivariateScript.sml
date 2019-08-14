@@ -367,9 +367,7 @@ Proof
  >> DISCH_TAC
  >> IMP_RES_TAC WG8_IMP_CONST
  >> Q.UNABBREV_TAC `e` >> fs [CCS_const_def]
- >> POP_ASSUM MP_TAC
- >> SIMP_TAC std_ss []
- >> PROVE_TAC [CCS_Subst_FV]
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_EQ_IMP))
 QED
 
 (* ================================================================= *)

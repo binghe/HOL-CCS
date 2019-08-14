@@ -919,24 +919,21 @@ Proof
     METIS_TAC [lemma1, lemma2]
 QED
 
-(* KEY result: if X is free in E, there exist different substitution results *)
-Theorem CCS_Subst_FV :
-    !X E. X IN (FV E) ==> ?t t'. CCS_Subst E t X <> CCS_Subst E t' X
-Proof
+val lemma3 = Q.prove (
+   `!X E. X IN (FV E) ==> ?t t'. CCS_Subst E t X <> CCS_Subst E t' X`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
  >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
  >- (RES_TAC >> take [`t`, `t'`] >> DISJ1_TAC >> art [])
  >- (RES_TAC >> take [`t`, `t'`] >> DISJ2_TAC >> art [])
  >- (RES_TAC >> take [`t`, `t'`] >> DISJ1_TAC >> art [])
- >- (RES_TAC >> take [`t`, `t'`] >> DISJ2_TAC >> art [])
-QED
+ >- (RES_TAC >> take [`t`, `t'`] >> DISJ2_TAC >> art []));
 
 (* KEY result: if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
-Theorem CCS_Subst_EQ :
-    !X E. (!t t'. CCS_Subst E t X <> CCS_Subst E t' X) ==> X NOTIN (FV E)
+Theorem CCS_Subst_EQ_IMP :
+    !X E. (!t t'. CCS_Subst E t X = CCS_Subst E t' X) ==> X NOTIN (FV E)
 Proof
-    METIS_TAC [CCS_Subst_FV]
+    METIS_TAC [lemma3]
 QED
 
 (**********************************************************************)
