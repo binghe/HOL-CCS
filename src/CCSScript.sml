@@ -905,7 +905,7 @@ val lemma1 = Q.prove (
 
 val lemma2 = Q.prove (
    `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)`,
-    GEN_TAC >> Induct_on `E`
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
  >- (CCONTR_TAC >> fs [] \\
      PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
@@ -923,8 +923,7 @@ QED
 Theorem CCS_Subst_FV :
     !X E. X IN (FV E) ==> ?t t'. CCS_Subst E t X <> CCS_Subst E t' X
 Proof
-    GEN_TAC
- >> Induct_on `E` (* 8 subgoals *)
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
  >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
  >- (RES_TAC >> take [`t`, `t'`] >> DISJ1_TAC >> art [])
@@ -944,10 +943,11 @@ QED
 (* Free and bounded variables ('a)                                    *)
 (**********************************************************************)
 
-val DELETE_ELEMENT_def = Define `
+Definition DELETE_ELEMENT_def :
    (DELETE_ELEMENT e [] = []) /\
    (DELETE_ELEMENT e (x :: l) =
-    if (e = x) then DELETE_ELEMENT e l else x :: DELETE_ELEMENT e l)`;
+       if (e = x) then DELETE_ELEMENT e l else x :: DELETE_ELEMENT e l)
+End
 
 val NOT_IN_DELETE_ELEMENT = store_thm (
    "NOT_IN_DELETE_ELEMENT",

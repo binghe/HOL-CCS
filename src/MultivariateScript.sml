@@ -198,7 +198,7 @@ QED
 (* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
 Theorem CCS_SUBST_NOT_FV :
     !Xs E. DISJOINT (FV E) (set Xs) ==>
-           !Ps. (LENGTH Xs = LENGTH Ps) ==> (CCS_Subst E (Xs |-> Ps) = E)
+           !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_Subst E (Xs |-> Ps) = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def,
@@ -395,8 +395,7 @@ Theorem strong_unique_solution_lemma : (* small-case = full version *)
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                                        (CCS_SUBST (fromList Xs Qs) E')
 Proof
-    GEN_TAC
- >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
+    GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
  (* Case 1: E = Y, a variable, still impossible *)
@@ -447,10 +446,8 @@ Proof
      GEN_TAC >> DISCH_TAC \\
      take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
- (* Case 7: E = rec Y E' *)
+ (* Case 7: E = rec Y E', the most difficult part! *)
  >> rename1 `weakly_guarded Xs (rec Y E)`
- >> Q.EXISTS_TAC `P'`
- (* below is not necessary:
  >> IMP_RES_TAC weakly_guarded_rec
  >> RES_TAC
  >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC (* clean up *)
@@ -464,11 +461,24 @@ Proof
  >> Know `CCS_Subst E (Xs |-> Ps) = E`
  >- (irule CCS_SUBST_NOT_FV >> art [])
  >> DISCH_THEN (fs o wrap)
-(*
+ (* the next two assumptions are not used *)
  >> `DISJOINT (BV E) (set Xs)` by PROVE_TAC [weakly_guarded_def]
  >> `DISJOINT (BV (rec Y E)) (set Xs)` by ASM_SET_TAC [BV_def]
- *)
- >> Q.EXISTS_TAC `P'` *)
+ (* KEY step: let E' = P' *)
+ >> Q.EXISTS_TAC `P'`
+ >> Suff `DISJOINT (FV P') (set Xs)`
+ >- (DISCH_TAC >> CONJ_TAC
+     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_NOT_FV >> art []) \\
+     rpt STRIP_TAC \\
+     Know `CCS_Subst (rec Y E) (Xs |-> Qs) = rec Y E`
+     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
+     Know `CCS_Subst P' (Xs |-> Qs) = P'`
+     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
+     ASM_REWRITE_TAC [])
+ (* DISJOINT (FV P') (set Xs) *)
+ >> MATCH_MP_TAC SUBSET_DISJOINT
+ >> take [`FV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL]
+ (* FV P' ⊆ FV (rec Y E) *)
  >> cheat
 QED
 
