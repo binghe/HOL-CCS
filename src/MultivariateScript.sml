@@ -24,7 +24,9 @@ open ObsCongrLib ObsCongrLawsTheory TraceTheory ExpansionTheory;
 
 val _ = new_theory "Multivariate";
 
-(* DESIGN NOTES:
+val set_ss = std_ss ++ PRED_SET_ss;
+
+(*                           -- DESIGN NOTES --
 
 1. What's a multivariate CCS equation?
 
@@ -139,11 +141,11 @@ val _ = new_theory "Multivariate";
    variable may appear both free and bounded in different sub-term of
    the same CCS term.
 
-   -- Chun Tian, Aug 10, 2019
+   -- Chun Tian, Aug 10, 2019 (Giardino di via Fermi, Trento, Italy)
 *)
 
 Definition CCS_equation_def :
-  CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
       ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)
 End
 
@@ -175,17 +177,16 @@ Definition CCS_SUBST_def :
                                 else (rec Y (CCS_SUBST fm E)))
 End
 
+(* The order of arguments is swapped: `CCS_Subst E fm` *)
 val _ = overload_on ("CCS_Subst", ``\E fm. CCS_SUBST fm E``);
 
-(* This is again inspired from Konrad Slind (HOL mailing list on Aug 7, 2019):
-   "See also examples/balanced_bst/balanced_mapTheory, which has a 'fromList' construct."
- *)
+(* From a key list and a value list (of same length) to a finite map *)
 Definition fromList_def :
     fromList Xs Ps = alist_to_fmap (ZIP (Xs,Ps))
 End
 
 val _ = overload_on ("|->", ``fromList``);
-val _ = set_fixity "|->"  (Infix(NONASSOC, 100));
+val _ = set_fixity "|->" (Infix(NONASSOC, 100));
 
 Theorem IN_fromList :
     !X Xs Ps. (LENGTH Ps = LENGTH Xs) ==>
@@ -194,25 +195,50 @@ Proof
     RW_TAC std_ss [fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
 QED
 
+(* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
+Theorem CCS_SUBST_NOT_FV :
+    !Xs E. DISJOINT (FV E) (set Xs) ==>
+           !Ps. (LENGTH Xs = LENGTH Ps) ==> (CCS_Subst E (Xs |-> Ps) = E)
+Proof
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >- RW_TAC std_ss [CCS_SUBST_def]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >- RW_TAC set_ss [CCS_SUBST_def, FV_def, fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def, FDOM_alist_to_fmap, MAP_ZIP]
+ >> Cases_on `MEM a Xs` >- fs []
+ >> ASM_SIMP_TAC std_ss []
+ >> Suff `DISJOINT (FV E) (set Xs)` >- METIS_TAC []
+ >> ASM_SET_TAC []
+QED
+
 (* A solution of the CCS equation (group) Es[Xs] up to R *)
 Definition CCS_solution_def :
     CCS_solution (Ps :('a, 'b) CCS list)
                  (R  :('a, 'b) simulation)
-                 (Es :('a, 'b) CCS list) (Xs :'a list) <=>
+                 (Es :('a, 'b) CCS list)
+                 (Xs :'a list) <=>
       (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
-(* If needed, we can define a new WG (the original version with REC
+(* ================================================================= *)
+(*   Weakly guarded equations                                        *)
+(* ================================================================= *)
+
+(* If needed, we can define a new WG (the original version with REC)
 Inductive WG :
-    (!p.                        WG (\t. p)) /\                 (* WG2 *)
-    (!a e.   CONTEXT e      ==> WG (\t. prefix a (e t))) /\    (* WG3 *)
-    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. sum (e1 t) (e2 t))) /\ (* WG4 *)
-    (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. par (e1 t) (e2 t))) /\ (* WG5 *)
-    (!L e.   WG e           ==> WG (\t. restr L (e t))) /\     (* WG6 *)
-    (!rf e.  WG e           ==> WG (\t. relab (e t) rf))       (* WG7 *)
-    (!X e.   WG e  /\
-             WG (\t. CCS_Subst (e t) (rec X (e t)) X)          (* WG8 *)
-         ==> WG (\t. rec X (e t)))
+   (!p.                        WG (\t. p)) /\                 (* WG2 *)
+   (!a e.   CONTEXT e      ==> WG (\t. prefix a (e t))) /\    (* WG3 *)
+   (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. sum (e1 t) (e2 t))) /\ (* WG4 *)
+   (!e1 e2. WG e1 /\ WG e2 ==> WG (\t. par (e1 t) (e2 t))) /\ (* WG5 *)
+   (!L e.   WG e           ==> WG (\t. restr L (e t))) /\     (* WG6 *)
+   (!rf e.  WG e           ==> WG (\t. relab (e t) rf))       (* WG7 *)
+   (!X e.   WG e  /\
+            WG (\t. CCS_Subst (e t) (rec X (e t)) X)          (* WG8 *)
+        ==> WG (\t. rec X (e t)))
 End *)
 
 (* A list of variables Xs are weakly guarded in E iff:
@@ -256,16 +282,16 @@ end;
 
 local
   val t1 =
-      MATCH_MP_TAC SUBSET_DISJOINT \\
-      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSET, SUBSET_REFL];
+     (MATCH_MP_TAC SUBSET_DISJOINT \\
+      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSET, SUBSET_REFL]);
   val t2 =
-      RES_TAC >> fs [CCS_Subst_def] \\
+     (RES_TAC >> fs [CCS_Subst_def] \\
       Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
       Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
       Know `WG (\t. e1 t || e2 t)`
       >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
           ASM_SIMP_TAC bool_ss []) \\
-      DISCH_TAC >> IMP_RES_TAC WG5_backward;
+      DISCH_TAC >> IMP_RES_TAC WG5_backward);
 in
   val weakly_guarded_par = store_thm
     ("weakly_guarded_par",
@@ -306,6 +332,9 @@ Proof
  >> RES_TAC >> fs [CCS_Subst_def, NO_WG0]
 QED
 
+(* This theorem is only possible with our special `weakly_guarded`:
+   those `var Y` left in E must not be wrongly treated as free variables.
+ *)
 Theorem weakly_guarded_rec :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==> ~MEM Y Xs /\ weakly_guarded Xs E
 Proof
@@ -329,6 +358,17 @@ Proof
  >> Q.EXISTS_TAC `Y` >> art []
 QED
 
+(* KEY result, c.f. WG8_IMP_CONST *)
+Theorem weakly_guarded_rec_NOT_FV :
+    !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
+Proof
+    cheat
+QED
+
+(* ================================================================= *)
+(*   Unique Solution of Equations                                    *)
+(* ================================================================= *)
+
 val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
 val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
@@ -339,7 +379,7 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
    If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P', then P' takes the form
    E'{Ps/Xs} (for some expression E'), and moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
  *)
-Theorem STRONG_UNIQUE_SOLUTION_LEMMA_FULL :
+Theorem strong_unique_solution_lemma : (* small-case = full version *)
     !Xs E. weakly_guarded Xs E ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
@@ -402,12 +442,30 @@ Proof
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  (* Case 7: E = rec Y E' *)
  >> rename1 `weakly_guarded Xs (rec Y E)`
+ >> Q.EXISTS_TAC `P'`
+ (* below is not necessary:
  >> IMP_RES_TAC weakly_guarded_rec
  >> RES_TAC
+ >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC (* clean up *)
+ >> IMP_RES_TAC weakly_guarded_rec_NOT_FV
+ >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
+ (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
+ >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
+ >- (irule CCS_SUBST_NOT_FV >> art [])
+ >> DISCH_THEN (fs o wrap)
+ (* simplify `CCS_Subst E (Ps |-> Qs)` *)
+ >> Know `CCS_Subst E (Xs |-> Ps) = E`
+ >- (irule CCS_SUBST_NOT_FV >> art [])
+ >> DISCH_THEN (fs o wrap)
+(*
+ >> `DISJOINT (BV E) (set Xs)` by PROVE_TAC [weakly_guarded_def]
+ >> `DISJOINT (BV (rec Y E)) (set Xs)` by ASM_SET_TAC [BV_def]
+ *)
+ >> Q.EXISTS_TAC `P'` *)
  >> cheat
 QED
 
-Theorem STRONG_UNIQUE_SOLUTION_FULL :
+Theorem strong_unique_solution :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
                 CCS_solution Qs STRONG_EQUIV Es Xs ==>
@@ -417,7 +475,7 @@ Proof
 QED
 
 (* THE FINAL THEOREM *)
-Theorem UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS_FULL :
+Theorem unique_solution_of_rooted_contractions :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
                 CCS_solution Qs OBS_contracts Es Xs ==>

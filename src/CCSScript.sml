@@ -10,7 +10,8 @@ open pred_setTheory pred_setLib relationTheory optionTheory listTheory;
 open CCSLib;
 
 val _ = new_theory "CCS";
-val _ = temp_loose_equality ();
+
+val set_ss = std_ss ++ PRED_SET_ss;
 
 (******************************************************************************)
 (*                                                                            *)
@@ -356,7 +357,7 @@ val CCS_11 = TypeBase.one_one_of ``:('a, 'b) CCS``;
    E' for an agent variable X.
 
    This works under the hypothesis that the Barendregt convention holds. *)
-val CCS_Subst_def = Define `
+Definition CCS_Subst_def :
    (CCS_Subst nil          E' X = nil) /\
    (CCS_Subst (prefix u E) E' X = prefix u (CCS_Subst E E' X)) /\
    (CCS_Subst (sum E1 E2)  E' X = sum (CCS_Subst E1 E' X)
@@ -367,7 +368,8 @@ val CCS_Subst_def = Define `
    (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
    (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
-                                             else (rec Y (CCS_Subst E E' X)))`;
+                                             else (rec Y (CCS_Subst E E' X)))
+End
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
    and bound, so there exist no free variables X in E to be replaced with E'.
@@ -511,8 +513,9 @@ val SUM_cases_EQ = save_thm (
 val SUM_cases = save_thm (
    "SUM_cases", EQ_IMP_LR SUM_cases_EQ);
 
-val TRANS_SUM_EQ = store_thm ("TRANS_SUM_EQ",
-  ``!E E' u E''. TRANS (sum E E') u E'' = TRANS E u E'' \/ TRANS E' u E''``,
+Theorem TRANS_SUM_EQ :
+    !E E' u E''. TRANS (sum E E') u E'' <=> TRANS E u E'' \/ TRANS E' u E''
+Proof
     rpt GEN_TAC
  >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
@@ -521,19 +524,20 @@ val TRANS_SUM_EQ = store_thm ("TRANS_SUM_EQ",
       (* goal 2 (of 2) *)
       STRIP_TAC >| (* 2 sub-goals here *)
       [ MATCH_MP_TAC SUM1 >> art [],
-        MATCH_MP_TAC SUM2 >> art [] ] ]);
+        MATCH_MP_TAC SUM2 >> art [] ] ]
+QED
 
 (* for CCS_TRANS_CONV *)
 val TRANS_SUM_EQ' = store_thm (
    "TRANS_SUM_EQ'",
-  ``!E1 E2 u E. TRANS (sum E1 E2) u E = TRANS E1 u E \/ TRANS E2 u E``,
+  ``!E1 E2 u E. TRANS (sum E1 E2) u E <=> TRANS E1 u E \/ TRANS E2 u E``,
     REWRITE_TAC [TRANS_SUM_EQ]);
 
 val TRANS_SUM = save_thm (
    "TRANS_SUM", EQ_IMP_LR TRANS_SUM_EQ);
 
 val TRANS_COMM_EQ = store_thm ("TRANS_COMM_EQ",
-  ``!E E' E'' u. TRANS (sum E E') u E'' = TRANS (sum E' E) u E''``,
+  ``!E E' E'' u. TRANS (sum E E') u E'' <=> TRANS (sum E' E) u E''``,
     rpt GEN_TAC
  >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
@@ -548,7 +552,7 @@ val TRANS_COMM_EQ = store_thm ("TRANS_COMM_EQ",
       art [] ]);
 
 val TRANS_ASSOC_EQ = store_thm ("TRANS_ASSOC_EQ",
-  ``!E E' E'' E1 u. TRANS (sum (sum E E') E'') u E1 = TRANS (sum E (sum E' E'')) u E1``,
+  ``!E E' E'' E1 u. TRANS (sum (sum E E') E'') u E1 <=> TRANS (sum E (sum E' E'')) u E1``,
     rpt GEN_TAC
  >> EQ_TAC
  >| [ (* goal 1 (of 2) *)
@@ -580,7 +584,7 @@ val TRANS_ASSOC_RL = save_thm (
 
 val TRANS_SUM_NIL_EQ = store_thm (
    "TRANS_SUM_NIL_EQ",
-  ``!E u E'. TRANS (sum E nil) u E' = TRANS E u E'``,
+  ``!E u E'. TRANS (sum E nil) u E' <=> TRANS E u E'``,
     rpt GEN_TAC
  >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
@@ -615,12 +619,13 @@ val PAR_cases = save_thm ("PAR_cases", EQ_IMP_LR PAR_cases_EQ);
 (* NOTE: the shape of this theorem can be easily got from above definition by replacing
          REWRITE_RULE to SIMP_RULE, however the inner existential variable (E1) has a
          different name. *)
-val TRANS_PAR_EQ = store_thm ("TRANS_PAR_EQ",
-  ``!E E' u E''. TRANS (par E E') u E'' =
+Theorem TRANS_PAR_EQ :
+    !E E' u E''. TRANS (par E E') u E'' <=>
                  (?E1. (E'' = par E1 E') /\ TRANS E u E1) \/
                  (?E1. (E'' = par E E1) /\ TRANS E' u E1) \/
                  (?E1 E2 l. (u = tau) /\ (E'' = par E1 E2) /\
-                            TRANS E (label l) E1 /\ TRANS E' (label (COMPL l)) E2)``,
+                            TRANS E (label l) E1 /\ TRANS E' (label (COMPL l)) E2)
+Proof
     rpt GEN_TAC
  >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* case 1 (LR) *)
@@ -643,7 +648,8 @@ val TRANS_PAR_EQ = store_thm ("TRANS_PAR_EQ",
    >| [ MATCH_MP_TAC PAR1 >> art [],
         MATCH_MP_TAC PAR2 >> art [],
         MATCH_MP_TAC PAR3 \\
-        Q.EXISTS_TAC `l` >> art [] ] ]);
+        Q.EXISTS_TAC `l` >> art [] ] ]
+QED
 
 val TRANS_PAR = save_thm ("TRANS_PAR", EQ_IMP_LR TRANS_PAR_EQ);
 
@@ -656,8 +662,8 @@ val TRANS_PAR_P_NIL = store_thm ("TRANS_PAR_P_NIL",
       IMP_RES_TAC NIL_NO_TRANS ]);
 
 val TRANS_PAR_NO_SYNCR = store_thm ("TRANS_PAR_NO_SYNCR",
-  ``!(l :'b Label) l'. ~(l = COMPL l') ==>
-           (!E E' E''. ~(TRANS (par (prefix (label l) E) (prefix (label l') E')) tau E''))``,
+  ``!(l :'b Label) l'. l <> COMPL l' ==>
+        !E E' E''. ~(TRANS (par (prefix (label l) E) (prefix (label l') E')) tau E'')``,
     rpt STRIP_TAC
  >> IMP_RES_TAC TRANS_PAR (* 3 sub-goals here *)
  >| [ IMP_RES_TAC TRANS_PREFIX >> IMP_RES_TAC Action_distinct,
@@ -678,11 +684,12 @@ val RESTR_cases_EQ = save_thm (
 val RESTR_cases = save_thm (
    "RESTR_cases", EQ_IMP_LR RESTR_cases_EQ);
 
-val TRANS_RESTR_EQ = store_thm ("TRANS_RESTR_EQ",
-  ``!E L u E'.
-     TRANS (restr L E) u E' =
-     (?E'' l. (E' = restr L E'') /\ TRANS E u E'' /\
-              ((u = tau) \/ ((u = label l) /\ ~(l IN L) /\ ~((COMPL l) IN L))))``,
+Theorem TRANS_RESTR_EQ :
+    !E L u E'.
+     TRANS (restr L E) u E' <=>
+     ?E'' l. (E' = restr L E'') /\ TRANS E u E'' /\
+             ((u = tau) \/ ((u = label l) /\ l NOTIN L /\ (COMPL l) NOTIN L))
+Proof
   let val a1 = ASSUME ``(u :'b Action) = tau``
       and a2 = ASSUME ``u = label (l :'b Label)``
       and a3 = ASSUME ``TRANS E'' u E'''``
@@ -710,7 +717,8 @@ val TRANS_RESTR_EQ = store_thm ("TRANS_RESTR_EQ",
         MATCH_MP_TAC RESTR \\
         Q.EXISTS_TAC `l` \\
         art [REWRITE_RULE [a2] a4] ] ]
-  end);
+  end
+QED
 
 val TRANS_RESTR = save_thm (
    "TRANS_RESTR", EQ_IMP_LR TRANS_RESTR_EQ);
@@ -790,10 +798,11 @@ val RELAB_cases_EQ = save_thm ("RELAB_cases_EQ",
 
 val RELAB_cases = save_thm ("RELAB_cases", EQ_IMP_LR RELAB_cases_EQ);
 
-val TRANS_RELAB_EQ = store_thm ("TRANS_RELAB_EQ",
-  ``!E rf u E'. TRANS (relab E rf) u E' =
-                (?u' E''. (u = relabel rf u') /\
-                          (E' = relab E'' rf) /\ TRANS E u' E'')``,
+Theorem TRANS_RELAB_EQ :
+    !E rf u E'. TRANS (relab E rf) u E' <=>
+                ?u' E''. (u = relabel rf u') /\
+                         (E' = relab E'' rf) /\ TRANS E u' E''
+Proof
     rpt GEN_TAC
  >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
@@ -804,7 +813,8 @@ val TRANS_RELAB_EQ = store_thm ("TRANS_RELAB_EQ",
       STRIP_TAC \\
       PURE_ONCE_ASM_REWRITE_TAC [] \\
       MATCH_MP_TAC RELABELING \\
-      PURE_ONCE_ASM_REWRITE_TAC [] ]);
+      PURE_ONCE_ASM_REWRITE_TAC [] ]
+QED
 
 val TRANS_RELAB = save_thm ("TRANS_RELAB", EQ_IMP_LR TRANS_RELAB_EQ);
 
@@ -825,8 +835,9 @@ val REC_cases_EQ = save_thm ("REC_cases_EQ",
 
 val REC_cases = save_thm ("REC_cases", EQ_IMP_LR REC_cases_EQ);
 
-val TRANS_REC_EQ = store_thm ("TRANS_REC_EQ",
-  ``!X E u E'. TRANS (rec X E) u E' = TRANS (CCS_Subst E (rec X E) X) u E'``,
+Theorem TRANS_REC_EQ :
+    !X E u E'. TRANS (rec X E) u E' <=> TRANS (CCS_Subst E (rec X E) X) u E'
+Proof
     rpt GEN_TAC
  >> EQ_TAC
  >| [ (* goal 1 (of 2) *)
@@ -834,7 +845,8 @@ val TRANS_REC_EQ = store_thm ("TRANS_REC_EQ",
       rpt STRIP_TAC \\
       PURE_ASM_REWRITE_TAC [],
       (* goal 2 (of 2) *)
-      PURE_ONCE_REWRITE_TAC [REC] ]);
+      PURE_ONCE_REWRITE_TAC [REC] ]
+QED
 
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
@@ -870,16 +882,36 @@ val IS_PROC_def = Define `
 val ALL_PROC_def = Define `
     ALL_PROC Es <=> EVERY IS_PROC Es`;
 
-val BV_REC = store_thm
-  ("BV_REC", ``!X E. X IN BV (rec X E)``,
-    RW_TAC std_ss [BV_def, IN_INSERT]);
+Theorem BV_REC :
+    !X E. X IN BV (rec X E)
+Proof
+    RW_TAC std_ss [BV_def, IN_INSERT]
+QED
 
-val BV_SUBSET = store_thm
-  ("BV_SUBSET",
-  ``!X E E'. (BV E) SUBSET (BV (rec X E)) /\
+Theorem BV_SUBSET :
+    !X E E'. (BV E) SUBSET (BV (rec X E)) /\
              (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
-             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))``,
-    rpt GEN_TAC >> SET_TAC [BV_def]);
+             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
+Proof
+    rpt GEN_TAC >> SET_TAC [BV_def]
+QED
+
+(* KEY result: if X is not a free variable of E, then E{E'/X} = E *)
+Theorem CCS_Subst_NOT_FV :
+    !X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)
+Proof
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >- RW_TAC std_ss [CCS_Subst_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >- RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >> Cases_on `a = X` >- fs []
+ >> RES_TAC >> ASM_SIMP_TAC std_ss []
+QED
 
 (**********************************************************************)
 (* Free and bounded variables ('a)                                    *)
