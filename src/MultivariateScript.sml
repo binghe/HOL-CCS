@@ -353,7 +353,7 @@ Proof
 QED
 
 (* KEY result, c.f. WG8_IMP_CONST *)
-Theorem weakly_guarded_rec_NOT_FV :
+Theorem weakly_guarded_recursion :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
 Proof
     RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
@@ -449,7 +449,7 @@ Proof
  >> IMP_RES_TAC weakly_guarded_rec
  >> RES_TAC
  >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC (* clean up *)
- >> IMP_RES_TAC weakly_guarded_rec_NOT_FV
+ >> IMP_RES_TAC weakly_guarded_recursion
  >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
  (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
  >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
