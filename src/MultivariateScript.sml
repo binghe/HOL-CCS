@@ -144,11 +144,6 @@ val set_ss = std_ss ++ PRED_SET_ss;
    -- Chun Tian, Aug 10, 2019 (Giardino di via Fermi, Trento, Italy)
 *)
 
-Definition CCS_equation_def :
-    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
-      ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)
-End
-
 (* The use of finite_mapTheory to get rid of substitution orders was
    suggested by Konrad Slind (HOL mailing list on Oct 23, 2017):
 
@@ -208,15 +203,6 @@ Proof
  >> Suff `DISJOINT (FV E) (set Xs)` >- METIS_TAC []
  >> ASM_SET_TAC []
 QED
-
-(* A solution of the CCS equation (group) Es[Xs] up to R *)
-Definition CCS_solution_def :
-    CCS_solution (Ps :('a, 'b) CCS list)
-                 (R  :('a, 'b) simulation)
-                 (Es :('a, 'b) CCS list)
-                 (Xs :'a list) <=>
-      (LIST_REL R) Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
-End
 
 (* ================================================================= *)
 (*   Weakly guarded equations                                        *)
@@ -384,15 +370,18 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
    If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P', then P' takes the form
    E'{Ps/Xs} (for some expression E'), and moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
  *)
-Theorem strong_unique_solution_lemma : (* small-case = full version *)
-    !Xs E. weakly_guarded Xs E ==>
-           !Ps. (LENGTH Ps = LENGTH Xs) ==>
+Theorem strong_unique_solution_lemma : (* full version *)
+    !Xs E. weakly_guarded Xs E /\ (FV E) SUBSET (set Xs) ==>
+           !Ps. (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Ps ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
                        ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
-                            !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                            !Qs. (LENGTH Qs = LENGTH Xs) /\ ALL_PROC Qs ==>
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                                        (CCS_SUBST (fromList Xs Qs) E')
 Proof
+    cheat
+QED
+(*
     GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
@@ -476,15 +465,31 @@ Proof
  (* DISJOINT (FV P') (set Xs) *)
  >> MATCH_MP_TAC SUBSET_DISJOINT
  >> take [`FV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL]
- (* FV P' ⊆ FV (rec Y E) *)
+ (* FV P' ⊆ FV (rec Y E), or there should be no free variable any more, i.e. both {} *)
  >> cheat
 QED
+*)
 
+(* NOTE: Es MUST contain free variables up to Xs *)
+Definition CCS_equation_def :
+    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+        ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs) /\
+        EVERY (\E. (FV E) SUBSET (set Xs)) Es
+End
+
+(* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
+Definition CCS_solution_def :
+    CCS_solution (Ps :('a, 'b) CCS list) R Es Xs <=>
+        ALL_PROC Ps /\
+        LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
+End
+
+(* THE STAGE THEOREM *)
 Theorem strong_unique_solution :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
                 CCS_solution Qs STRONG_EQUIV Es Xs ==>
-               (LIST_REL STRONG_EQUIV) Ps Qs
+                LIST_REL STRONG_EQUIV Ps Qs
 Proof
     cheat
 QED
@@ -494,7 +499,7 @@ Theorem unique_solution_of_rooted_contractions :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
                 CCS_solution Qs OBS_contracts Es Xs ==>
-               (LIST_REL OBS_CONGR) Ps Qs
+                LIST_REL OBS_CONGR Ps Qs
 Proof
     cheat
 QED

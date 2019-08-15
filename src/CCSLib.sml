@@ -44,7 +44,7 @@ fun wrap   a = [a];                             (* from util_prob *)
 val art      = ASM_REWRITE_TAC;
 val Rewr     = DISCH_THEN (REWRITE_TAC o wrap); (* from util_prob *)
 val Rewr'    = DISCH_THEN (ONCE_REWRITE_TAC o wrap);
-val Rev      = Tactical.REVERSE;                (* REVERSE has different meaning
+val Reverse  = Tactical.REVERSE;                (* REVERSE has different meaning
                                                    in rich_listTheory *)
 
 fun PRINT_TAC s gl =                            (* from cardinalTheory *)

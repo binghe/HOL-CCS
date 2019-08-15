@@ -123,7 +123,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
     rpt STRIP_TAC
  >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
  >> Q.EXISTS_TAC `\x y. (x = y) \/ (?G. CONTEXT G /\ (x = G P) /\ (y = G Q))`
- >> BETA_TAC >> Rev CONJ_TAC
+ >> BETA_TAC >> Reverse CONJ_TAC
  >- ( DISJ2_TAC >> Q.EXISTS_TAC `\x. x` >> BETA_TAC \\
       KILL_TAC >> RW_TAC std_ss [CONTEXT1] )
  >> REWRITE_TAC [STRONG_BISIM_UPTO]
@@ -249,7 +249,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 9.1.1 (of 2) *)
           Q.EXISTS_TAC `y || G' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `y || G' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -262,7 +262,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 9.1.2 (of 2) *)
           Q.EXISTS_TAC `G'' Q || G' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G'' P || G' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -280,7 +280,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 9.2.1 (of 2) *)
           Q.EXISTS_TAC `G Q || y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G P || y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -293,7 +293,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 9.2.2 (of 2) *)
           Q.EXISTS_TAC `G Q || G'' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G P || G'' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -313,7 +313,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 4 sub-goals here *)
         [ (* goal 9.3.1 (of 4) *)
           Q.EXISTS_TAC `y || y''` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `y || y''` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -321,7 +321,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 9.3.2 (of 4) *)
           Q.EXISTS_TAC `y || G'' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `y || G'' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -334,7 +334,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 9.3.3 (of 4) *)
           Q.EXISTS_TAC `G'' Q || y''` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `G'' P || y''` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -347,7 +347,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 9.3.4 (of 4) *)
           Q.EXISTS_TAC `G'' Q || G''' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `G'' P || G''' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -366,7 +366,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 10.1.1 (of 2) *)
           Q.EXISTS_TAC `y || G' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `y || G' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -379,7 +379,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 10.1.2 (of 2) *)
           Q.EXISTS_TAC `G'' Q || G' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G'' P || G' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -396,7 +396,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 10.2.1 (of 2) *)
           Q.EXISTS_TAC `G Q || y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G P || y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -409,7 +409,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 10.2.2 (of 2) *)
           Q.EXISTS_TAC `G Q || G'' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [STRONG_EQUIV_REFL] ) \\
           Q.EXISTS_TAC `G P || G'' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -428,7 +428,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         RW_TAC std_ss [] >| (* 4 sub-goals here *)
         [ (* goal 10.3.1 (of 4) *)
           Q.EXISTS_TAC `y'' || y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `y'' || y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -436,7 +436,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 10.3.2 (of 4) *)
           Q.EXISTS_TAC `G'' Q || y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `G'' P || y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -449,7 +449,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 10.3.3 (of 4) *)
           Q.EXISTS_TAC `y'' || G'' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `y'' || G'' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
@@ -462,7 +462,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           BETA_TAC >> REWRITE_TAC [],
           (* goal 10.3.4 (of 4) *)
           Q.EXISTS_TAC `G''' Q || G'' Q` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
                                 art [] ) \\
           Q.EXISTS_TAC `G''' P || G'' P` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR >> art [] ) \\
@@ -479,7 +479,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 11.1.1 (of 2) *)
           Q.EXISTS_TAC `restr L y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -487,7 +487,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 11.1.2 (of 2) *)
           Q.EXISTS_TAC `restr L (G' Q)` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L (G' P)` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -503,7 +503,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 11.2.1 (of 2) *)
           Q.EXISTS_TAC `restr L y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -511,7 +511,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 11.2.2 (of 2) *)
           Q.EXISTS_TAC `restr L (G' Q)` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L (G' P)` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -529,7 +529,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 12.1.1 (of 2) *)
           Q.EXISTS_TAC `restr L y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -537,7 +537,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 12.1.2 (of 2) *)
           Q.EXISTS_TAC `restr L (G' Q)` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L (G' P)` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -553,7 +553,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
         REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
         [ (* goal 12.2.1 (of 2) *)
           Q.EXISTS_TAC `restr L y` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L y` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -561,7 +561,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
           DISJ1_TAC >> REWRITE_TAC [],
           (* goal 12.2.2 (of 2) *)
           Q.EXISTS_TAC `restr L (G' Q)` \\
-          Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+          Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
                                 art [] ) \\
           Q.EXISTS_TAC `restr L (G' P)` \\
           CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
@@ -579,14 +579,14 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
       REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
       [ (* goal 13.1 (of 2) *)
         Q.EXISTS_TAC `relab y rf` \\
-        Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
+        Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
                               art [] ) \\
         Q.EXISTS_TAC `relab y rf` \\
         CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB >> art [] ) \\
         DISJ1_TAC >> REWRITE_TAC [],
         (* goal 13.2 (of 2) *)
         Q.EXISTS_TAC `relab (G' Q) rf` \\
-        Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
+        Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
                               art [] ) \\
         Q.EXISTS_TAC `relab (G' P) rf` \\
         CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB >> art [] ) \\
@@ -603,14 +603,14 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
       REWRITE_TAC [O_DEF] >> BETA_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
       [ (* goal 14.1 (of 2) *)
         Q.EXISTS_TAC `relab y rf` \\
-        Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
+        Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
                               art [] ) \\
         Q.EXISTS_TAC `relab y rf` \\
         CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB >> art [] ) \\
         DISJ1_TAC >> REWRITE_TAC [],
         (* goal 14.2 (of 2) *)
         Q.EXISTS_TAC `relab (G' Q) rf` \\
-        Rev CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
+        Reverse CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
                               art [] ) \\
         Q.EXISTS_TAC `relab (G' P) rf` \\
         CONJ_TAC >- ( MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB >> art [] ) \\
@@ -792,7 +792,7 @@ val WEAK_UNIQUE_SOLUTION = store_thm (
     rpt STRIP_TAC
  >> irule (REWRITE_RULE [RSUBSET] WEAK_BISIM_UPTO_ALT_THM)
  >> Q.EXISTS_TAC `\x y. ?H. GSEQ H /\ (x = H P) /\ (y = H Q)`
- >> BETA_TAC >> Rev CONJ_TAC
+ >> BETA_TAC >> Reverse CONJ_TAC
  >- ( Q.EXISTS_TAC `\t. t` >> BETA_TAC >> REWRITE_TAC [GSEQ1] )
  >> REWRITE_TAC [WEAK_BISIM_UPTO_ALT]
  >> Q.X_GEN_TAC `P'`
@@ -1042,7 +1042,7 @@ val OBS_UNIQUE_SOLUTION = store_thm (
     REPEAT STRIP_TAC
  >> irule OBS_CONGR_BY_WEAK_BISIM
  >> Q.EXISTS_TAC `\x y. ?H. SEQ H /\ WEAK_EQUIV x (H P) /\ WEAK_EQUIV y (H Q)`
- >> Rev CONJ_TAC (* 2 sub-goals here *)
+ >> Reverse CONJ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
       REWRITE_TAC [WEAK_BISIM] \\
       Q.X_GEN_TAC `P'` \\
@@ -1883,7 +1883,7 @@ val OBS_unfolding_lemma2 = store_thm (
         ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRANS (E Q) u (C' Q)``,
     HO_MATCH_MP_TAC WG_strongind
  >> BETA_TAC >> REWRITE_TAC [ETA_AX]
- >> Rev ( rpt STRIP_TAC
+ >> Reverse ( rpt STRIP_TAC
           >- ( Q.EXISTS_TAC `\t. P'` >> art [CONTEXT2] )
           >- ( IMP_RES_TAC TRANS_PREFIX \\
                Q.EXISTS_TAC `e` >> art [] \\

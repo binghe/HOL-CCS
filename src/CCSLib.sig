@@ -21,7 +21,7 @@ sig
   val art                       : thm list -> tactic
   val Rewr                      : tactic
   val Rewr'                     : tactic
-  val Rev                       : tactic -> tactic
+  val Reverse                   : tactic -> tactic
   val PRINT_TAC                 : string -> tactic
   val COUNT_TAC                 : tactic -> tactic
   val STRONG_CONJ_TAC           : tactic
