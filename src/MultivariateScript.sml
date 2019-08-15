@@ -339,7 +339,7 @@ Proof
 QED
 
 (* KEY result, c.f. WG8_IMP_CONST *)
-Theorem weakly_guarded_recursion :
+Theorem weakly_guarded_rec_imp_disjoint :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
 Proof
     RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
@@ -356,6 +356,84 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_EQ_IMP))
 QED
 
+
+(*
+val lemma = Q.prove (
+   `!X E E'. X IN (FV E) /\ ((FV E') SUBSET (FV E)) ==> FV (CCS_Subst E (rec X E') X) = (FV E) DELETE X`
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals *)
+ >- ASM_SET_TAC []
+ >> 
+
+val goal = `FV (CCS_Subst E (rec X E) X) = FV E DELETE X`; (* how? *)
+
+(*
+val lemma = Q.prove (
+   `!X E E'. (FV E = {X}) /\ (FV E' SUBSET FV E) ==> FV (CCS_Subst E (rec X E') X) = {}`,
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 7 subgoals *)
+ >- ASM_SET_TAC []
+ >- (rfs [] \\
+     Cases_on `X NOTIN (FV E)`
+     >- (`FV E = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
+     rfs [] >> `FV E = {X} /\ FV E'' SUBSET FV E` by ASM_SET_TAC [] >> fs [])
+ >- (rfs [] \\
+     Cases_on `X NOTIN (FV E')`
+     >- (`FV E' = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
+     rfs [] >> `FV E'' = FV E'` by ASM_SET_TAC [] >> fs [])
+ >- (rfs [] \\
+     Cases_on `X NOTIN (FV E)`
+     >- (`FV E = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
+     rfs [] >> `FV E'' = FV E` by ASM_SET_TAC [] >> fs [])
+ >- (rfs [] \\
+     Cases_on `X NOTIN (FV E')`
+     >- (`FV E' = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
+     rfs [] >> `FV E'' = FV E'` by ASM_SET_TAC [] >> fs [])
+ >- ASM_SET_TAC []
+ >> Cases_on `a NOTIN (FV E)`
+ >- (`FV E = {X} /\ (FV E' = FV E)` by ASM_SET_TAC [] >> ASM_SET_TAC [])
+ >> rfs []
+*)
+
+(* KEY result *)
+Theorem FV_EMPTY_EQ :
+    !X E. (FV (CCS_Subst E (rec X E) X) = {}) <=> (FV E = {} \/ FV E = {X})
+Proof
+    rpt GEN_TAC >> EQ_TAC
+ >- (cheat)
+ >> STRIP_TAC
+ >- (`X NOTIN (FV E)` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV])
+ >> cheat
+QED
+
+(* KEY result: any process (no free variable) transits to another process
+
+   Notice that, for general CCS terms, the set of FV doesn't decrease, i.e.
+
+   `!E u E'. TRANS E u E' ==> DISJOINT (FV E) (BV E) ==> (FV E')
+   SUBSET (FV E)` is false.
+
+HO_MATCH_MP_TAC TRANS_ind >> rpt STRIP_TAC cheat
+fs [FV_def, BV_def]
+ *)
+Theorem TRANS_PROC :
+    !E u E'. IS_PROC E /\ TRANS E u E' ==> IS_PROC E'
+Proof
+    Suff `!E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'`
+ >- METIS_TAC []
+ >> HO_MATCH_MP_TAC TRANS_ind
+ >> RW_TAC set_ss [FV_def, IS_PROC_def]
+ >> FIRST_X_ASSUM MATCH_MP_TAC
+ >> Reverse (Cases_on `X IN FV E`)
+ >- (`FV E = EMPTY` by ASM_SET_TAC [] \\
+      fs [CCS_Subst_NOT_FV])
+ >> `FV E = {X}` by ASM_SET_TAC []
+ >> POP_ASSUM MP_TAC >> KILL_TAC
+ >> METIS_TAC [FV_EMPTY_EQ]
+QED
+
+*)
+
 (* ================================================================= *)
 (*   Unique Solution of Equations                                    *)
 (* ================================================================= *)
@@ -367,21 +445,22 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
 (* Lemma 4.13 in Milner's book [1] (the full version):
 
-   If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P', then P' takes the form
-   E'{Ps/Xs} (for some expression E'), and moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
+   If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P',
+   then P' takes the form E'{Ps/Xs} (for some expression E'), and
+   moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
+
+   Additional requirements in the multivariate case (HOL):
+   - E contains free variables up to Xs
  *)
 Theorem strong_unique_solution_lemma : (* full version *)
     !Xs E. weakly_guarded Xs E /\ (FV E) SUBSET (set Xs) ==>
-           !Ps. (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Ps ==>
+           !Ps. (LENGTH Ps = LENGTH Xs) ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
                        ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
-                            !Qs. (LENGTH Qs = LENGTH Xs) /\ ALL_PROC Qs ==>
+                            !Qs. (LENGTH Qs = LENGTH Xs) ==>
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                                        (CCS_SUBST (fromList Xs Qs) E')
 Proof
-    cheat
-QED
-(*
     GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
@@ -396,25 +475,46 @@ QED
      Q.EXISTS_TAC `E` >> REWRITE_TAC [])
  (* Case 3: E = E1 + E2 *)
  >- (IMP_RES_TAC weakly_guarded_sum \\
-     fs [CCS_SUBST_def, TRANS_SUM_EQ] \\ (* 2 subgoals, same tactics *)
+     fs [CCS_SUBST_def, TRANS_SUM_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
      RES_TAC >> fs [] >> Q.EXISTS_TAC `E''` >> fs [])
  (* Case 4: E = E1 || E2 *)
  >- (rename1 `weakly_guarded Xs (E1 || E2)` \\
      IMP_RES_TAC weakly_guarded_par \\
-     fs [CCS_SUBST_def, TRANS_PAR_EQ] >| (* 3 subgoals *)
+     fs [CCS_SUBST_def, TRANS_PAR_EQ, FV_def] >| (* 3 subgoals *)
      [ (* goal 1 (of 3) *)
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E1) u P' ==> _`
+         (MP_TAC o (Q.SPEC `Ps`)) \\
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
+         K_TAC \\
+       RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E' || E2` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_Subst E' (fromList Xs Qs)` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
        (* goal 2 (of 3) *)
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E1) u P' ==> _`
+         K_TAC \\
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
+         (MP_TAC o (Q.SPEC `Ps`)) \\
+       RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E1 || E''` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ2_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_Subst E'' (fromList Xs Qs)` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
        (* goal 3 (of 3) *)
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E1) u P' ==> _`
+         (MP_TAC o (Q.SPEC `Ps`)) \\
+       Q.PAT_X_ASSUM
+         `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
+         (MP_TAC o (Q.SPEC `Ps`)) \\
+       RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E' || E''` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> NTAC 2 DISJ2_TAC \\
@@ -422,35 +522,34 @@ QED
              `CCS_Subst E'' (fromList Xs Qs)`, `l`] >> fs [] ])
  (* Case 5: E = restr f E' *)
  >- (IMP_RES_TAC weakly_guarded_restr \\
-     fs [CCS_SUBST_def, TRANS_RESTR_EQ] \\ (* 2 subgoals, same tactics *)
+     fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
      RES_TAC >> Q.EXISTS_TAC `restr f E'` \\
      rfs [CCS_SUBST_def])
- (* Case 5: E = relab E' R *)
+ (* Case 6: E = relab E' R *)
  >- (IMP_RES_TAC weakly_guarded_relab \\
-     fs [CCS_SUBST_def, TRANS_RELAB_EQ] \\
+     fs [CCS_SUBST_def, TRANS_RELAB_EQ, FV_def] \\
+     Q.PAT_X_ASSUM
+       `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==> _`
+       (MP_TAC o (Q.SPEC `Ps`)) \\
+     RW_TAC std_ss [] \\
      RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
      ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
      GEN_TAC >> DISCH_TAC \\
      take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
- (* Case 7: E = rec Y E', the most difficult part! *)
+ (* Case 7 (difficult): E = rec Y E' *)
  >> rename1 `weakly_guarded Xs (rec Y E)`
- >> IMP_RES_TAC weakly_guarded_rec
- >> RES_TAC
- >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC (* clean up *)
- >> IMP_RES_TAC weakly_guarded_recursion
+ >> Q.PAT_X_ASSUM `weakly_guarded Xs E /\ FV E SUBSET set Xs ==> _` K_TAC
+ >> IMP_RES_TAC weakly_guarded_rec_imp_disjoint
  >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
- (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
+ (* KEY step given by `FV (rec Y E) SUBSET set Xs` *)
+ >> `FV (rec Y E) = EMPTY` by ASM_SET_TAC []
+ (* simplify `CCS_Subst (rec Y E) (Xs |-> Ps)` *)
  >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
  >- (irule CCS_SUBST_NOT_FV >> art [])
- >> DISCH_THEN (fs o wrap)
- (* simplify `CCS_Subst E (Ps |-> Qs)` *)
- >> Know `CCS_Subst E (Xs |-> Ps) = E`
- >- (irule CCS_SUBST_NOT_FV >> art [])
- >> DISCH_THEN (fs o wrap)
- (* the next two assumptions are not used *)
- >> `DISJOINT (BV E) (set Xs)` by PROVE_TAC [weakly_guarded_def]
- >> `DISJOINT (BV (rec Y E)) (set Xs)` by ASM_SET_TAC [BV_def]
+ >> DISCH_THEN ((REV_FULL_SIMP_TAC bool_ss) o wrap)
+ >> `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def]
+
  (* KEY step: let E' = P' *)
  >> Q.EXISTS_TAC `P'`
  >> Suff `DISJOINT (FV P') (set Xs)`
@@ -468,7 +567,6 @@ QED
  (* FV P' ⊆ FV (rec Y E), or there should be no free variable any more, i.e. both {} *)
  >> cheat
 QED
-*)
 
 (* NOTE: Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :

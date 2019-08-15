@@ -934,45 +934,21 @@ Proof
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
 QED
 
-(*
-val lemma_prefix = Q.prove (
-   `!X E u E'. FV (CCS_Subst E (rec X (prefix u E')) X) =
-               FV (CCS_Subst E (rec X E') X)`,
-    GEN_TAC
- >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
- >- (RES_TAC >> fs []
- *)
-
-(* KEY result: any process (no free variable) transits to another process
-
-   Notice that, for general CCS terms, the set of FV doesn't decrease, i.e.
-
-   `!E u E'. TRANS E u E' ==> (FV E') SUBSET (FV E)` is false.
- *)
-Theorem TRANS_PROC :
-    !E u E'. IS_PROC E /\ TRANS E u E' ==> IS_PROC E'
+Theorem FV_PREFIX :
+    !X E u E'. FV (CCS_Subst E (rec X (prefix u E')) X) =
+               FV (CCS_Subst E (rec X E') X)
 Proof
-    Suff `!E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'`
- >- METIS_TAC []
- >> HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [FV_def, IS_PROC_def]
- >> FIRST_X_ASSUM MATCH_MP_TAC
- >> Reverse (Cases_on `X IN FV E`)
- >- (`FV E = EMPTY` by ASM_SET_TAC [] \\
-      fs [CCS_Subst_NOT_FV])
- >> `FV E = {X}` by ASM_SET_TAC []
- >> POP_ASSUM MP_TAC >> KILL_TAC
- (* goal: FV E = {X} ⇒ FV (CCS_Subst E (rec X E) X) = ∅
-    
-    This is possible, if E = (rec Y E') and E' has a subterm `var X`,
-    then X changes to a bound variable in (rec X E), which has no
-    free variable any more. -- Chun Tian
-  *)
- >> Q.SPEC_TAC (`E`, `E`)
- >> Induct_on `E` >> RW_TAC set_ss [FV_def] (* 7 subgoals *)
- >- fs [CCS_Subst_def, FV_def]
- >> cheat
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def]
+QED
+
+Theorem FV_SUM :
+    !X E E1 E2. FV (CCS_Subst E (rec X (E1 + E2)) X) =
+               (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
+ >> SET_TAC []
 QED
 
 (**********************************************************************)
