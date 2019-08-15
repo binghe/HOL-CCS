@@ -451,7 +451,7 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
    Additional requirements in the multivariate case (HOL):
    - E contains free variables up to Xs
- *)
+
 Theorem strong_unique_solution_lemma : (* full version *)
     !Xs E. weakly_guarded Xs E /\ (FV E) SUBSET (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
@@ -548,7 +548,17 @@ Proof
  >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
  >- (irule CCS_SUBST_NOT_FV >> art [])
  >> DISCH_THEN ((REV_FULL_SIMP_TAC bool_ss) o wrap)
- >> `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def]
+
+ >> Know `FV P' = EMPTY`
+ >- (IMP_RES_TAC weakly_guarded_rec \\
+     REV_FULL_SIMP_TAC bool_ss [TRANS_REC_EQ] \\
+    `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def] \\
+    `FV E DELETE Y = EMPTY` by PROVE_TAC [FV_def] \\
+
+     Q.PAT_X_ASSUM `TRANS (rec Y E) u P'` MP_TAC \\
+     Q.SPEC_TAC (`P'`, `P`) \\
+     Induct_on `P` >> RW_TAC std_ss [FV_def]
+
 
  (* KEY step: let E' = P' *)
  >> Q.EXISTS_TAC `P'`
@@ -567,6 +577,7 @@ Proof
  (* FV P' ⊆ FV (rec Y E), or there should be no free variable any more, i.e. both {} *)
  >> cheat
 QED
+*)
 
 (* NOTE: Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :

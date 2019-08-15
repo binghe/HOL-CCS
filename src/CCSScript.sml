@@ -6,8 +6,7 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open pred_setTheory pred_setLib relationTheory optionTheory listTheory;
-open CCSLib;
+open pred_setTheory pred_setLib relationTheory optionTheory listTheory CCSLib;
 
 val _ = new_theory "CCS";
 
@@ -1012,17 +1011,6 @@ val DELETE_ELEMENT_APPEND = store_thm (
 (* not used so far, learnt from Robert Beers *)
 val ALL_IDENTICAL_def = Define `
     ALL_IDENTICAL t = ?x. !y. MEM y t ==> (y = x)`;
-
-(*
-You might define the sublist relation: (from Michael Norrish)
-  Sublist [] l = T
-  Sublist _ [] = F
-  Sublist (h1::t1) (h2::t2) = if h1 = h2 then Sublist t1 t2 else Sublist (h1::t1) t2
-
-And show that
-
-  Sublist (DELETE_ELEMENT e l) l
-*)
 
 (* (FN :('a, 'b) CCS -> 'a list -> 'b Label set) *)
 val FN_definition = `
