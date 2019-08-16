@@ -164,11 +164,11 @@ val Relabeling_TY_DEF = new_type_definition ("Relabeling", EXISTS_Relabeling);
    |- (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
        !r. Is_Relabeling r <=> (REP_Relabeling (ABS_Relabeling r) = r)
  *)
-val Relabeling_ISO_DEF = define_new_type_bijections
-                              { ABS  = "ABS_Relabeling",
+val Relabeling_ISO_DEF =
+    define_new_type_bijections {ABS  = "ABS_Relabeling",
                                 REP  = "REP_Relabeling",
                                 name = "Relabeling_ISO_DEF",
-                                tyax =  Relabeling_TY_DEF };
+                                tyax =  Relabeling_TY_DEF};
 
 (* ABS_Relabeling_one_one =
    |- !r r'.
@@ -184,22 +184,20 @@ val Relabeling_ISO_DEF = define_new_type_bijections
    REP_Relabeling_onto =
    |- !r. Is_Relabeling r <=> ?a. r = REP_Relabeling a
  *)
-val [ABS_Relabeling_one_one,
-     ABS_Relabeling_onto,
-     REP_Relabeling_one_one,
-     REP_Relabeling_onto] =
+val [ABS_Relabeling_one_one, ABS_Relabeling_onto,
+     REP_Relabeling_one_one, REP_Relabeling_onto] =
     map (fn f => f Relabeling_ISO_DEF)
-        [prove_abs_fn_one_one,
-         prove_abs_fn_onto,
-         prove_rep_fn_one_one,
-         prove_rep_fn_onto];
+        [prove_abs_fn_one_one, prove_abs_fn_onto,
+         prove_rep_fn_one_one, prove_rep_fn_onto];
 
-val REP_Relabeling_THM = store_thm ("REP_Relabeling_THM",
-  ``!rf :'b Relabeling. Is_Relabeling (REP_Relabeling rf)``,
+Theorem REP_Relabeling_THM :
+    !rf :'b Relabeling. Is_Relabeling (REP_Relabeling rf)
+Proof
     GEN_TAC
  >> REWRITE_TAC [REP_Relabeling_onto]
- >> EXISTS_TAC ``rf :'b Relabeling``
- >> REWRITE_TAC []);
+ >> Q.EXISTS_TAC `rf`
+ >> REWRITE_TAC []
+QED
 
 (* Relabeling labels is extended to actions by renaming tau as tau. *)
 val relabel_def = Define `
@@ -287,14 +285,20 @@ val APPLY_RELAB_THM = save_thm (
 (******************************************************************************)
 
 (* Define the type of (pure) CCS agent expressions. *)
-val _ = Datatype `CCS = nil
-                      | var 'a
-                      | prefix ('b Action) CCS
-                      | sum CCS CCS
-                      | par CCS CCS
-                      | restr (('b Label) set) CCS
-                      | relab CCS ('b Relabeling)
-                      | rec 'a CCS `;
+val _ = Datatype `
+  CCS = nil
+      | var 'a (* recursion variables *)
+      | prefix ('b Action) CCS
+      | sum CCS CCS
+      | par CCS CCS
+      | restr (('b Label) set) CCS
+      | relab CCS ('b Relabeling)
+      | rec 'a CCS
+
+      | Var 'a (* equation variables, only used in MultivariateTheory *)
+      | User1
+      | User2
+`; (* End *)
 
 (* the ultimate version is only possible once HOL4 got a better Datatype package:
                       | summ (num -> CCS)
@@ -367,7 +371,7 @@ Definition CCS_Subst_def :
    (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
    (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
-                                             else (rec Y (CCS_Subst E E' X)))
+                                  else (rec Y (CCS_Subst E E' X)))
 End
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
@@ -850,9 +854,10 @@ QED
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
 (**********************************************************************)
-(*  Free and bounded variables of CCS expressions                     *)
+(*  Free and bounded variables of CCS expressions (old, disabled)     *)
 (**********************************************************************)
 
+(*
 (* ('a, 'b) CCS -> 'a set (set of bound variables) *)
 Definition BV_def :
    (BV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
@@ -1082,6 +1087,7 @@ val FN_UNIV2 = store_thm ("FN_UNIV2",
   ``!p q. free_names p UNION free_names q <> (UNIV :'b Label set) ==>
           ?a. a NOTIN free_names p /\ a NOTIN free_names q``,
     PROVE_TAC [EQ_UNIV, IN_UNION]);
+*)
 
 val _ = export_theory ();
 val _ = html_theory "CCS";
