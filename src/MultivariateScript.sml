@@ -286,7 +286,7 @@ val CCS_SUBST_EQ_IMP = Q.prove (
       Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists] ]);
 
 (* KEY result, c.f. WG8_IMP_CONST *)
-Theorem weakly_guarded_rec_imp_disjoint :
+Theorem weakly_guarded_rec :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
 Proof
     SRW_TAC [] [weakly_guarded_def, EVERY_MEM]
@@ -307,7 +307,8 @@ Theorem TRANS_FV :
     !E u E'. TRANS E u E' ==> FV E' SUBSET FV E
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [FV_def, IS_PROC_def]
+ >> RW_TAC set_ss [FV_def]
+
  >> FIRST_X_ASSUM MATCH_MP_TAC
  >> Reverse (Cases_on `X IN FV E`)
  >- (`FV E DELETE X = FV E` by PROVE_TAC [GSYM DELETE_NON_ELEMENT] \\
@@ -339,7 +340,7 @@ val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
    Additional requirements in the multivariate case (HOL):
    - E contains free variables up to Xs
-
+ *)
 Theorem strong_unique_solution_lemma : (* full version *)
     !Xs E. weakly_guarded Xs E /\ (FV E) SUBSET (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
@@ -349,14 +350,11 @@ Theorem strong_unique_solution_lemma : (* full version *)
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                                        (CCS_SUBST (fromList Xs Qs) E')
 Proof
-    GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
+    GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 9 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
- (* Case 1: E = Y, a variable, still impossible *)
- >- (rename1 `weakly_guarded Xs (var Y)` \\
-     IMP_RES_TAC weakly_guarded_var \\
-    `Y NOTIN FDOM (fromList Xs Ps)` by METIS_TAC [IN_fromList] \\
-     fs [CCS_SUBST_def, VAR_NO_TRANS])
+ (* Case 1: E = var Y (recursion variable), still impossible *)
+ >- fs [CCS_SUBST_def, VAR_NO_TRANS]
  (* Case 2: E = b.E' *)
  >- (rename1 `weakly_guarded Xs (prefix b E)` \\
      fs [CCS_SUBST_def, TRANS_PREFIX_EQ] \\
@@ -425,47 +423,13 @@ Proof
      GEN_TAC >> DISCH_TAC \\
      take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
- (* Case 7 (difficult): E = rec Y E' *)
- >> rename1 `weakly_guarded Xs (rec Y E)`
- >> Q.PAT_X_ASSUM `weakly_guarded Xs E /\ FV E SUBSET set Xs ==> _` K_TAC
- >> IMP_RES_TAC weakly_guarded_rec_imp_disjoint
- >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
- (* KEY step given by `FV (rec Y E) SUBSET set Xs` *)
- >> `FV (rec Y E) = EMPTY` by ASM_SET_TAC []
- (* simplify `CCS_Subst (rec Y E) (Xs |-> Ps)` *)
- >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
- >- (irule CCS_SUBST_NOT_FV >> art [])
- >> DISCH_THEN ((REV_FULL_SIMP_TAC bool_ss) o wrap)
-
- >> Know `FV P' = EMPTY`
- >- (IMP_RES_TAC weakly_guarded_rec \\
-     REV_FULL_SIMP_TAC bool_ss [TRANS_REC_EQ] \\
-    `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def] \\
-    `FV E DELETE Y = EMPTY` by PROVE_TAC [FV_def] \\
-
-     Q.PAT_X_ASSUM `TRANS (rec Y E) u P'` MP_TAC \\
-     Q.SPEC_TAC (`P'`, `P`) \\
-     Induct_on `P` >> RW_TAC std_ss [FV_def]
-
-
- (* KEY step: let E' = P' *)
- >> Q.EXISTS_TAC `P'`
- >> Suff `DISJOINT (FV P') (set Xs)`
- >- (DISCH_TAC >> CONJ_TAC
-     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_NOT_FV >> art []) \\
-     rpt STRIP_TAC \\
-     Know `CCS_Subst (rec Y E) (Xs |-> Qs) = rec Y E`
-     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
-     Know `CCS_Subst P' (Xs |-> Qs) = P'`
-     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
-     ASM_REWRITE_TAC [])
- (* DISJOINT (FV P') (set Xs) *)
- >> MATCH_MP_TAC SUBSET_DISJOINT
- >> take [`FV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL]
- (* FV P' ⊆ FV (rec Y E), or there should be no free variable any more, i.e. both {} *)
- >> cheat
+ (* Case 7: E = rec Y E' *)
+ >- (FULL_SIMP_TAC (srw_ss()) [CCS_SUBST_def, FV_def] \\
+     cheat)
+ (* Case 8: E = Var a (equation variable, impossible) *)
+ >> fs [weakly_guarded_def, EVERY_MEM, CCS_SUBST_def, FV_def]
+ >> RES_TAC >> fs [NO_WG0]
 QED
-*)
 
 (* NOTE: Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :
