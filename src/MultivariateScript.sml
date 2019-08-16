@@ -302,21 +302,28 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_SUBST_EQ_IMP))
 QED
 
-Theorem FV_SUBSET :
-    !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
-Proof
-    GEN_TAC
- >> Induct_on `E` >> RW_TAC set_ss [FV_def, CCS_Subst_def]
- >> ASM_SET_TAC []
-QED
+val FV_SUBSET = Q.prove ((* No.1 KEY lemma in this project *)
+   `!X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')`,
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [FV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []);
 
+(* KEY result !!! This is only possible after (Var X) is added into
+   CCS datatype as dedicated equation variables.
+   
+   NOTE: `TRANS E u E' ==> FV E' SUBSET FV E` doesn't hold, thus it
+   is necessary to have ``FV E SUBSET (set Xs)` in strong_unique_-
+   solution_lemma.
+ *)
 Theorem TRANS_PROC :
-    !E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'
+    !E u E'. TRANS E u E' /\ IS_PROC E ==> IS_PROC E'
 Proof
-    HO_MATCH_MP_TAC TRANS_ind
+    Suff `!E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'`
+ >- METIS_TAC []
+ >> HO_MATCH_MP_TAC TRANS_ind
  >> RW_TAC set_ss [FV_def, IS_PROC_def]
  >> FIRST_X_ASSUM MATCH_MP_TAC
- (* FV E = ∅ ⇒ FV (CCS_Subst E (rec X E) X) = ∅ *)
+ (* FV E = {} ==> FV (CCS_Subst E (rec X E) X) = {} *)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] FV_SUBSET)
  >> ASM_SET_TAC [FV_def]
 QED
@@ -324,11 +331,6 @@ QED
 (* ================================================================= *)
 (*   Unique Solution of Equations                                    *)
 (* ================================================================= *)
-
-val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
-val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
-val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
-val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
 (* Lemma 4.13 in Milner's book [1] (the full version):
 
@@ -427,11 +429,9 @@ Proof
     `CCS_SUBST (fromList Xs Ps) (rec a E) = rec a E`
        by METIS_TAC [CCS_SUBST_NOT_FV] >> fs [] \\
      Know `FV P' = EMPTY`
-     >- (`FV (rec a E) = EMPTY` by ASM_SET_TAC [] >> fs [] \\
-         IMP_RES_TAC (REWRITE_RULE [IS_PROC_def] TRANS_PROC)) \\
-     DISCH_TAC \\
-     Q.EXISTS_TAC `P'` \\
-     CONJ_TAC
+     >- (`FV (rec a E) = EMPTY` by ASM_SET_TAC [] \\
+         METIS_TAC [IS_PROC_def, TRANS_PROC]) >> DISCH_TAC \\
+     Q.EXISTS_TAC `P'` >> CONJ_TAC
      >- (`DISJOINT (FV P') (set Xs)` by ASM_SET_TAC [] \\
          `CCS_SUBST (fromList Xs Ps) P' = P'`
            by METIS_TAC [CCS_SUBST_NOT_FV] >> fs []) \\
@@ -456,6 +456,11 @@ Definition CCS_solution_def :
         ALL_PROC Ps /\
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
+
+val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
+val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
+val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
+val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
 (* THE STAGE THEOREM
 Theorem strong_unique_solution :
