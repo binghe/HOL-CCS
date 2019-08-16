@@ -105,7 +105,7 @@ val set_ss = std_ss ++ PRED_SET_ss;
 
    weakly_guarded Es Xs =
      !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
-  
+
    NOTE 1: using `!e. CONTEXT e /\ (e (var X) = E) ==> WG e` is wrong.
    It appears in the conclusion of our EXPRESS/SOS'18 paper. The problem
    is, it's possible that there's no such CONTEXT e at all, e.g.
@@ -155,7 +155,7 @@ val set_ss = std_ss ++ PRED_SET_ss;
    computationally friendly version, and provides a formal connection
    back to fmaps.
 
-   Also see <holdir>/examples/unification/triangular/first-order 
+   Also see <holdir>/examples/unification/triangular/first-order
    for a unification case study."
  *)
 Definition CCS_SUBST_def :
@@ -230,7 +230,7 @@ End *)
  *)
 Definition weakly_guarded_def :
     weakly_guarded Xs = \E. DISJOINT (BV E) (set Xs) /\
-                            EVERY (\X. WG (\t. CCS_Subst E t X)) Xs                            
+                            EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
 End
 
 Theorem EVERY_weakly_guarded :
@@ -356,83 +356,40 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_EQ_IMP))
 QED
 
+Definition weakly_guarded1_def :
+    weakly_guarded1 X E = weakly_guarded [X] E
+End
 
-(*
-val lemma = Q.prove (
-   `!X E E'. X IN (FV E) /\ ((FV E') SUBSET (FV E)) ==> FV (CCS_Subst E (rec X E') X) = (FV E) DELETE X`
-    GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals *)
- >- ASM_SET_TAC []
- >> 
-
-val goal = `FV (CCS_Subst E (rec X E) X) = FV E DELETE X`; (* how? *)
-
-(*
-val lemma = Q.prove (
-   `!X E E'. (FV E = {X}) /\ (FV E' SUBSET FV E) ==> FV (CCS_Subst E (rec X E') X) = {}`,
-    GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 7 subgoals *)
- >- ASM_SET_TAC []
- >- (rfs [] \\
-     Cases_on `X NOTIN (FV E)`
-     >- (`FV E = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
-     rfs [] >> `FV E = {X} /\ FV E'' SUBSET FV E` by ASM_SET_TAC [] >> fs [])
- >- (rfs [] \\
-     Cases_on `X NOTIN (FV E')`
-     >- (`FV E' = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
-     rfs [] >> `FV E'' = FV E'` by ASM_SET_TAC [] >> fs [])
- >- (rfs [] \\
-     Cases_on `X NOTIN (FV E)`
-     >- (`FV E = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
-     rfs [] >> `FV E'' = FV E` by ASM_SET_TAC [] >> fs [])
- >- (rfs [] \\
-     Cases_on `X NOTIN (FV E')`
-     >- (`FV E' = {}` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV]) \\
-     rfs [] >> `FV E'' = FV E'` by ASM_SET_TAC [] >> fs [])
- >- ASM_SET_TAC []
- >> Cases_on `a NOTIN (FV E)`
- >- (`FV E = {X} /\ (FV E' = FV E)` by ASM_SET_TAC [] >> ASM_SET_TAC [])
- >> rfs []
-*)
-
-(* KEY result *)
-Theorem FV_EMPTY_EQ :
-    !X E. (FV (CCS_Subst E (rec X E) X) = {}) <=> (FV E = {} \/ FV E = {X})
+Theorem weakly_guarded1 :
+    !X E. weakly_guarded1 X E <=> X NOTIN (BV E) /\ WG (\t. CCS_Subst E t X)
 Proof
-    rpt GEN_TAC >> EQ_TAC
- >- (cheat)
- >> STRIP_TAC
- >- (`X NOTIN (FV E)` by ASM_SET_TAC [] >> fs [CCS_Subst_NOT_FV])
- >> cheat
+    RW_TAC list_ss [weakly_guarded1_def, weakly_guarded_def,
+                    EVERY_MEM, Once DISJOINT_SYM]
+ >> SIMP_TAC set_ss [DISJOINT_ALT]
 QED
 
-(* KEY result: any process (no free variable) transits to another process
+(* I think what we're missing here is, when there's no free variables,
+   those bound variables (constants) must be weakly guarded, otherwise
+   the process seriously diverges and we can't say anything.
 
-   Notice that, for general CCS terms, the set of FV doesn't decrease, i.e.
-
-   `!E u E'. TRANS E u E' ==> DISJOINT (FV E) (BV E) ==> (FV E')
-   SUBSET (FV E)` is false.
-
-HO_MATCH_MP_TAC TRANS_ind >> rpt STRIP_TAC cheat
-fs [FV_def, BV_def]
- *)
 Theorem TRANS_PROC :
-    !E u E'. IS_PROC E /\ TRANS E u E' ==> IS_PROC E'
+    !E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'
 Proof
-    Suff `!E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'`
- >- METIS_TAC []
- >> HO_MATCH_MP_TAC TRANS_ind
+    HO_MATCH_MP_TAC TRANS_ind
  >> RW_TAC set_ss [FV_def, IS_PROC_def]
  >> FIRST_X_ASSUM MATCH_MP_TAC
  >> Reverse (Cases_on `X IN FV E`)
- >- (`FV E = EMPTY` by ASM_SET_TAC [] \\
-      fs [CCS_Subst_NOT_FV])
- >> `FV E = {X}` by ASM_SET_TAC []
+ >- (`FV E DELETE X = FV E` by PROVE_TAC [GSYM DELETE_NON_ELEMENT] \\
+     fs [CCS_Subst_NOT_FV])
+ >> `FV E = {X}` by PROVE_TAC [DELETE_EQ_SING]
  >> POP_ASSUM MP_TAC >> KILL_TAC
- >> METIS_TAC [FV_EMPTY_EQ]
+ (* FV E = {X} ==> FV (CCS_Subst E (rec X E) X) = {} *)
+ >> Suff `FV (CCS_Subst E (rec X E) X) <> EMPTY ==> FV E <> {X}`
+ >- METIS_TAC []
+ >> RW_TAC std_ss [GSYM MEMBER_NOT_EMPTY]
+ >> cheat
 QED
-
-*)
+ *)
 
 (* ================================================================= *)
 (*   Unique Solution of Equations                                    *)
