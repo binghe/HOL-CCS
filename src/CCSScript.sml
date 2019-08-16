@@ -922,21 +922,6 @@ Proof
     METIS_TAC [lemma1, lemma2]
 QED
 
-(* KEY result: if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
-Theorem CCS_Subst_EQ_IMP :
-    !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (FV E)
-Proof
-    Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
- >- METIS_TAC []
- >> GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
- >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
- >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
-      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
-      RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
-      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
-QED
-
 Theorem FV_PREFIX :
     !X E u E'. FV (CCS_Subst E (rec X (prefix u E')) X) =
                FV (CCS_Subst E (rec X E') X)
