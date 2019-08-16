@@ -402,8 +402,8 @@ val _ = type_abbrev_pp ("transition",
 (* Inductive definition of the transition relation TRANS for CCS.
    TRANS: CCS -> Action -> CCS -> bool
 
-   NOTE: noticed that, the theorem TRANS_ind is never needed, thus even we define
-   TRANS co-inductively (i.e. by Hol_coreln), the whole formalization still works.
+   NOTE: the theorem TRANS_ind is never used, thus even we define `TRANS`
+   co-inductively (i.e. by CoInductive), the whole formalization still builds.
  *)
 Inductive TRANS :
     (!E u.                           TRANS (prefix u E) u E) /\         (* PREFIX *)
@@ -850,30 +850,32 @@ QED
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
 (**********************************************************************)
-(* Free and bounded variables ('a)                                    *)
+(*  Free and bounded variables of CCS expressions                     *)
 (**********************************************************************)
 
-(* ('a, 'b) CCS -> 'a set (set of free variables) *)
-val FV_def = Define `
-   (FV (nil :('a, 'b) CCS)    = (EMPTY :'a set)) /\
-   (FV (prefix u p)           = FV p) /\
-   (FV (sum p q)              = (FV p) UNION (FV q)) /\
-   (FV (par p q)              = (FV p) UNION (FV q)) /\
-   (FV (restr L p)            = FV p) /\
-   (FV (relab p rf)           = FV p) /\
-   (FV (var X)                = {X}) /\
-   (FV (rec X p)              = (FV p) DELETE X) `;
-
 (* ('a, 'b) CCS -> 'a set (set of bound variables) *)
-val BV_def = Define `
-   (BV (nil :('a, 'b) CCS)    = (EMPTY :'a set)) /\
-   (BV (prefix u p)           = BV p) /\
-   (BV (sum p q)              = (BV p) UNION (BV q)) /\
-   (BV (par p q)              = (BV p) UNION (BV q)) /\
-   (BV (restr L p)            = BV p) /\
-   (BV (relab p rf)           = BV p) /\
-   (BV (var X)                = EMPTY) /\
-   (BV (rec X p)              = X INSERT (BV p)) `;
+Definition BV_def :
+   (BV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (BV (prefix u p)        = BV p) /\
+   (BV (sum p q)           = (BV p) UNION (BV q)) /\
+   (BV (par p q)           = (BV p) UNION (BV q)) /\
+   (BV (restr L p)         = BV p) /\
+   (BV (relab p rf)        = BV p) /\
+   (BV (var X)             = EMPTY) /\
+   (BV (rec X p)           = X INSERT (BV p))
+End
+
+(* ('a, 'b) CCS -> 'a set (set of free variables) *)
+Definition FV_def :
+   (FV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (FV (prefix u p)        = FV p) /\
+   (FV (sum p q)           = (FV p) UNION (FV q)) /\
+   (FV (par p q)           = (FV p) UNION (FV q)) /\
+   (FV (restr L p)         = FV p) /\
+   (FV (relab p rf)        = FV p) /\
+   (FV (var X)             = {X}) /\
+   (FV (rec X p)           = (FV p) DELETE X)
+End
 
 val IS_PROC_def = Define `
     IS_PROC E <=> (FV E = EMPTY)`;
@@ -943,6 +945,15 @@ QED
 
 Theorem FV_SUM :
     !X E E1 E2. FV (CCS_Subst E (rec X (E1 + E2)) X) =
+               (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
+ >> SET_TAC []
+QED
+
+Theorem FV_PAR :
+    !X E E1 E2. FV (CCS_Subst E (rec X (E1 || E2)) X) =
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`
