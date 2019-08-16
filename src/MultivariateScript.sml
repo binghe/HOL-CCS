@@ -302,26 +302,24 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_SUBST_EQ_IMP))
 QED
 
-(*
-Theorem TRANS_FV :
-    !E u E'. TRANS E u E' ==> FV E' SUBSET FV E
+Theorem FV_SUBSET :
+    !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
+Proof
+    GEN_TAC
+ >> Induct_on `E` >> RW_TAC set_ss [FV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
+QED
+
+Theorem TRANS_PROC :
+    !E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [FV_def]
-
+ >> RW_TAC set_ss [FV_def, IS_PROC_def]
  >> FIRST_X_ASSUM MATCH_MP_TAC
- >> Reverse (Cases_on `X IN FV E`)
- >- (`FV E DELETE X = FV E` by PROVE_TAC [GSYM DELETE_NON_ELEMENT] \\
-     fs [CCS_Subst_NOT_FV])
- >> `FV E = {X}` by PROVE_TAC [DELETE_EQ_SING]
- >> POP_ASSUM MP_TAC >> KILL_TAC
- (* FV E = {X} ==> FV (CCS_Subst E (rec X E) X) = {} *)
- >> Suff `FV (CCS_Subst E (rec X E) X) <> EMPTY ==> FV E <> {X}`
- >- METIS_TAC []
- >> RW_TAC std_ss [GSYM MEMBER_NOT_EMPTY]
- >> cheat
+ (* FV E = ∅ ⇒ FV (CCS_Subst E (rec X E) X) = ∅ *)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] FV_SUBSET)
+ >> ASM_SET_TAC [FV_def]
 QED
- *)
 
 (* ================================================================= *)
 (*   Unique Solution of Equations                                    *)
@@ -424,8 +422,22 @@ Proof
      take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  (* Case 7: E = rec Y E' *)
- >- (FULL_SIMP_TAC (srw_ss()) [CCS_SUBST_def, FV_def] \\
-     cheat)
+ >- (IMP_RES_TAC weakly_guarded_rec \\
+    `DISJOINT (FV (rec a E)) (set Xs)` by PROVE_TAC [FV_def] \\
+    `CCS_SUBST (fromList Xs Ps) (rec a E) = rec a E`
+       by METIS_TAC [CCS_SUBST_NOT_FV] >> fs [] \\
+     Know `FV P' = EMPTY`
+     >- (`FV (rec a E) = EMPTY` by ASM_SET_TAC [] >> fs [] \\
+         IMP_RES_TAC (REWRITE_RULE [IS_PROC_def] TRANS_PROC)) \\
+     DISCH_TAC \\
+     Q.EXISTS_TAC `P'` \\
+     CONJ_TAC
+     >- (`DISJOINT (FV P') (set Xs)` by ASM_SET_TAC [] \\
+         `CCS_SUBST (fromList Xs Ps) P' = P'`
+           by METIS_TAC [CCS_SUBST_NOT_FV] >> fs []) \\
+     rpt STRIP_TAC \\
+    `DISJOINT (FV P') (set Xs)` by ASM_SET_TAC [] \\
+     METIS_TAC [CCS_SUBST_NOT_FV])
  (* Case 8: E = Var a (equation variable, impossible) *)
  >> fs [weakly_guarded_def, EVERY_MEM, CCS_SUBST_def, FV_def]
  >> RES_TAC >> fs [NO_WG0]
@@ -445,7 +457,7 @@ Definition CCS_solution_def :
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
-(* THE STAGE THEOREM *)
+(* THE STAGE THEOREM
 Theorem strong_unique_solution :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
@@ -454,8 +466,9 @@ Theorem strong_unique_solution :
 Proof
     cheat
 QED
+*)
 
-(* THE FINAL THEOREM *)
+(* THE FINAL THEOREM
 Theorem unique_solution_of_rooted_contractions :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
@@ -464,6 +477,7 @@ Theorem unique_solution_of_rooted_contractions :
 Proof
     cheat
 QED
+*)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";

@@ -368,7 +368,8 @@ Definition CCS_Subst_def :
    (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
    (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
-                                  else (rec Y (CCS_Subst E E' X)))
+                                  else (rec Y (CCS_Subst E E' X))) /\
+   (CCS_Subst (Var Y)      E' X = Var Y)
 End
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
@@ -920,6 +921,21 @@ Theorem CCS_Subst_NOT_FV :
     !X E. X NOTIN (FV E) <=> !E'. (CCS_Subst E E' X = E)
 Proof
     METIS_TAC [lemma1, lemma2]
+QED
+
+(* KEY result: if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
+Theorem CCS_Subst_EQ_IMP :
+    !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (FV E)
+Proof
+    Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
+ >- METIS_TAC []
+ >> GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
+ >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
+ >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
 QED
 
 Theorem FV_PREFIX :
