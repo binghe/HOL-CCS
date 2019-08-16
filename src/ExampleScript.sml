@@ -28,7 +28,6 @@ val _ = temp_loose_equality ();
 val _ = disable_tyabbrev_printing "transition";
 val _ = disable_tyabbrev_printing "context";
 val _ = disable_tyabbrev_printing "simulation";
-val _ = disable_tyabbrev_printing "list_simulation";
 
 (******************************************************************************)
 (*                                                                            *)
