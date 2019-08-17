@@ -2217,7 +2217,7 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS = store_thm (
 
 (******************************************************************************)
 (*                                                                            *)
-(*      7. Unique solutions of rooted contractions (for EXPRESS/SOS 2018)     *)
+(*      7. Unique solutions of rooted contractions (EXPRESS/SOS 2018)         *)
 (*                                                                            *)
 (******************************************************************************)
 

@@ -212,7 +212,7 @@ val ALL_PROC_def = Define `
 (* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
 Theorem CCS_SUBST_NOT_FV :
     !Xs E. DISJOINT (FV E) (set Xs) ==>
-           !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_Subst E (Xs |-> Ps) = E)
+           !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (Xs |-> Ps) E = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def,
@@ -378,7 +378,7 @@ Proof
        RES_TAC >> Q.EXISTS_TAC `E' || E2` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ1_TAC \\
-       Q.EXISTS_TAC `CCS_Subst E' (fromList Xs Qs)` >> REWRITE_TAC [] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
        (* goal 2 (of 3) *)
        Q.PAT_X_ASSUM
@@ -391,7 +391,7 @@ Proof
        RES_TAC >> Q.EXISTS_TAC `E1 || E''` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ2_TAC >> DISJ1_TAC \\
-       Q.EXISTS_TAC `CCS_Subst E'' (fromList Xs Qs)` >> REWRITE_TAC [] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E''` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
        (* goal 3 (of 3) *)
        Q.PAT_X_ASSUM
@@ -404,8 +404,8 @@ Proof
        RES_TAC >> Q.EXISTS_TAC `E' || E''` \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> NTAC 2 DISJ2_TAC \\
-       take [`CCS_Subst E' (fromList Xs Qs)`,
-             `CCS_Subst E'' (fromList Xs Qs)`, `l`] >> fs [] ])
+       take [`CCS_SUBST (fromList Xs Qs) E'`,
+             `CCS_SUBST (fromList Xs Qs) E''`, `l`] >> fs [] ])
  (* Case 5: E = restr f E' *)
  >- (IMP_RES_TAC weakly_guarded_restr \\
      fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
@@ -421,7 +421,7 @@ Proof
      RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
      ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
      GEN_TAC >> DISCH_TAC \\
-     take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
+     take [`u'`, `CCS_SUBST (fromList Xs Qs) E'`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  (* Case 7: E = rec Y E' *)
  >- (IMP_RES_TAC weakly_guarded_rec \\
@@ -452,7 +452,7 @@ End
 
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
 Definition CCS_solution_def :
-    CCS_solution (Ps :('a, 'b) CCS list) R Es Xs <=>
+    CCS_solution Xs Es R Ps <=>
         ALL_PROC Ps /\
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
@@ -462,22 +462,42 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
-(* THE STAGE THEOREM *)
+(* THE STAGE THEOREM:
+   Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
+   then:
+        If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then P ~ Q.
+
+   strong_unique_solution_lemma is used to prove this result.
+ *)
 Theorem strong_unique_solution :
-    !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
-                CCS_solution Qs STRONG_EQUIV Es Xs ==>
-                LIST_REL STRONG_EQUIV Ps Qs
+    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+        !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
+                Qs IN (CCS_solution Xs Es STRONG_EQUIV)
+            ==> LIST_REL STRONG_EQUIV Ps Qs
 Proof
+    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
+ >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
+                    LIST_REL_EL_EQN]
+ >> Q.PAT_X_ASSUM `!n. n < LENGTH Ps => _` (MP_TAC o (Q.SPEC `n`))
+ >> Q.PAT_X_ASSUM `!n. n < LENGTH Qs => _` (MP_TAC o (Q.SPEC `n`))
+ >> RW_TAC std_ss [EL_MAP]
+ >> Q.ABBREV_TAC `P = EL n Ps`
+ >> Q.ABBREV_TAC `Q = EL n Qs`
+ >> Q.ABBREV_TAC `E = EL n Es`
+ >> `MEM E Es` by METIS_TAC [MEM_EL]
+ >> Q.PAT_X_ASSUM `!E. MEM E Es ==> FV E SUBSET set Xs` (MP_TAC o (Q.SPEC `E`))
+ >> Q.PAT_X_ASSUM `!e. MEM e Es ==> _` (MP_TAC o (Q.SPEC `E`))
+ >> RW_TAC std_ss [] (* stage work *)
+ >> 
     cheat
 QED
 
 (* THE FINAL THEOREM *)
 Theorem unique_solution_of_rooted_contractions :
-    !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
-                CCS_solution Qs OBS_contracts Es Xs ==>
-                LIST_REL OBS_CONGR Ps Qs
+    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+        !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
+                Qs IN (CCS_solution Xs Es OBS_contracts)
+            ==> LIST_REL OBS_CONGR Ps Qs
 Proof
     cheat
 QED

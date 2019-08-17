@@ -850,5 +850,248 @@ QED
 
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
+(**********************************************************************)
+(*  Free and bound (recursion) variables (not used so far)            *)
+(**********************************************************************)
+
+(* ('a, 'b) CCS -> 'a set (set of bound variables) *)
+Definition bv_def :
+   (bv (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (bv (prefix u p)        = bv p) /\
+   (bv (sum p q)           = (bv p) UNION (bv q)) /\
+   (bv (par p q)           = (bv p) UNION (bv q)) /\
+   (bv (restr L p)         = bv p) /\
+   (bv (relab p rf)        = bv p) /\
+   (bv (var X)             = EMPTY) /\
+   (bv (Var X)             = EMPTY) /\
+   (bv (rec X p)           = X INSERT (bv p))
+End
+
+(* ('a, 'b) CCS -> 'a set (set of free variables) *)
+Definition fv_def :
+   (fv (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (fv (prefix u p)        = fv p) /\
+   (fv (sum p q)           = (fv p) UNION (fv q)) /\
+   (fv (par p q)           = (fv p) UNION (fv q)) /\
+   (fv (restr L p)         = fv p) /\
+   (fv (relab p rf)        = fv p) /\
+   (fv (var X)             = {X}) /\
+   (fv (Var X)             = EMPTY) /\
+   (fv (rec X p)           = (fv p) DELETE X)
+End
+
+Theorem fv_subset :
+    !X E E'. fv (CCS_Subst E E' X) SUBSET (fv E) UNION (fv E')
+Proof
+    GEN_TAC
+ >> Induct_on `E` >> RW_TAC set_ss [fv_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
+QED
+
+Theorem bv_rec :
+    !X E. X IN bv (rec X E)
+Proof
+    RW_TAC std_ss [bv_def, IN_INSERT]
+QED
+
+Theorem bv_subset :
+    !X E E'. (bv E) SUBSET (bv (rec X E)) /\
+             (bv E) SUBSET (bv (sum E E')) /\ (bv E') SUBSET (bv (sum E E')) /\
+             (bv E) SUBSET (bv (par E E')) /\ (bv E') SUBSET (bv (par E E'))
+Proof
+    rpt GEN_TAC >> SET_TAC [bv_def]
+QED
+
+
+val lemma1 = Q.prove (
+   `!X E. X NOTIN (fv E) ==> !E'. (CCS_Subst E E' X = E)`,
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* one left *)
+ >> Cases_on `a = X` >- fs []
+ >> RES_TAC >> ASM_SIMP_TAC std_ss []);
+
+val lemma2 = Q.prove (
+   `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (fv E)`,
+    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 2 goals left *)
+ >- (CCONTR_TAC >> fs [] \\
+     PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
+ >> Cases_on `X = a` >- fs []
+ >> DISJ1_TAC >> fs []);
+
+(* X is not a free variable of E if and only if E{E'/X} = E *)
+Theorem CCS_Subst_not_fv :
+    !X E. X NOTIN (fv E) <=> !E'. (CCS_Subst E E' X = E)
+Proof
+    METIS_TAC [lemma1, lemma2]
+QED
+
+(* if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
+Theorem CCS_Subst_imp_not_fv :
+    !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (fv E)
+Proof
+    Suff `!X E. X IN (fv E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
+ >- METIS_TAC []
+ >> GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 5 subgoals left *)
+ >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
+ >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
+      RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
+QED
+
+Theorem fv_prefix :
+    !X E u E'. fv (CCS_Subst E (rec X (prefix u E')) X) =
+               fv (CCS_Subst E (rec X E') X)
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def]
+QED
+
+Theorem fv_sum :
+    !X E E1 E2. fv (CCS_Subst E (rec X (E1 + E2)) X) =
+               (fv (CCS_Subst E (rec X E1) X)) UNION (fv (CCS_Subst E (rec X E2) X))
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 4 subgoals *)
+ >> SET_TAC []
+QED
+
+Theorem fv_par :
+    !X E E1 E2. fv (CCS_Subst E (rec X (E1 || E2)) X) =
+               (fv (CCS_Subst E (rec X E1) X)) UNION (fv (CCS_Subst E (rec X E2) X))
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 4 subgoals *)
+ >> SET_TAC []
+QED
+
+(**********************************************************************)
+(* Free and restricted labels (sorts) ('a)                            *)
+(**********************************************************************)
+
+Definition DELETE_ELEMENT :
+   (DELETE_ELEMENT e [] = []) /\
+   (DELETE_ELEMENT e (x :: l) =
+       if (e = x) then DELETE_ELEMENT e l else x :: DELETE_ELEMENT e l)
+End
+
+val NOT_IN_DELETE_ELEMENT = store_thm (
+   "NOT_IN_DELETE_ELEMENT",
+  ``!e L. ~MEM e (DELETE_ELEMENT e L)``,
+    GEN_TAC >> Induct_on `L`
+ >- REWRITE_TAC [DELETE_ELEMENT, MEM]
+ >> GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT]
+ >> Cases_on `e = h` >> fs []);
+
+val DELETE_ELEMENT_FILTER = store_thm (
+   "DELETE_ELEMENT_FILTER",
+  ``!e L. DELETE_ELEMENT e L = FILTER ((<>) e) L``,
+    GEN_TAC >> Induct_on `L`
+ >- REWRITE_TAC [DELETE_ELEMENT, FILTER]
+ >> GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT, FILTER]
+ >> Cases_on `e = h` >> fs []);
+
+val LENGTH_DELETE_ELEMENT_LEQ = store_thm (
+   "LENGTH_DELETE_ELEMENT_LEQ",
+  ``!e L. LENGTH (DELETE_ELEMENT e L) <= LENGTH L``,
+    rpt GEN_TAC
+ >> REWRITE_TAC [DELETE_ELEMENT_FILTER]
+ >> MP_TAC (Q.SPECL [`\y. e <> y`, `\y. T`] LENGTH_FILTER_LEQ_MONO)
+ >> BETA_TAC >> simp []);
+
+val LENGTH_DELETE_ELEMENT_LE = store_thm (
+   "LENGTH_DELETE_ELEMENT_LE",
+  ``!e L. MEM e L ==> LENGTH (DELETE_ELEMENT e L) < LENGTH L``,
+    rpt GEN_TAC >> Induct_on `L`
+ >- REWRITE_TAC [MEM]
+ >> GEN_TAC >> REWRITE_TAC [MEM, DELETE_ELEMENT]
+ >> Cases_on `e = h` >> fs []
+ >> MP_TAC (Q.SPECL [`h`, `L`] LENGTH_DELETE_ELEMENT_LEQ)
+ >> KILL_TAC >> RW_TAC arith_ss []);
+
+val EVERY_DELETE_ELEMENT = store_thm (
+   "EVERY_DELETE_ELEMENT",
+  ``!e L P. P e /\ EVERY P (DELETE_ELEMENT e L) ==> EVERY P L``,
+    GEN_TAC >> Induct_on `L`
+ >- RW_TAC std_ss [DELETE_ELEMENT]
+ >> rpt GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT]
+ >> Cases_on `e = h` >> fs []);
+
+val DELETE_ELEMENT_APPEND = store_thm (
+   "DELETE_ELEMENT_APPEND",
+  ``!a L L'. DELETE_ELEMENT a (L ++ L') = DELETE_ELEMENT a L ++ DELETE_ELEMENT a L'``,
+    REWRITE_TAC [DELETE_ELEMENT_FILTER]
+ >> REWRITE_TAC [GSYM FILTER_APPEND_DISTRIB]);
+
+(* not used so far, learnt from Robert Beers *)
+Definition ALL_IDENTICAL :
+    ALL_IDENTICAL t = ?x. !y. MEM y t ==> (y = x)
+End
+
+(* The following definitions are not used nor confirmed to be correct:
+
+(* (FN :('a, 'b) CCS -> 'a list -> 'b Label set) *)
+val FN_definition = `
+   (FN (nil :('a, 'b) CCS) J  = (EMPTY :'b Label set)) /\
+   (FN (prefix (label l) p) J = l INSERT (FN p J)) /\   (* here! *)
+   (FN (prefix tau p) J       = FN p J) /\
+   (FN (sum p q) J            = (FN p J) UNION (FN q J)) /\
+   (FN (par p q) J            = (FN p J) UNION (FN q J)) /\
+   (FN (restr L p) J          = (FN p J) DIFF (L UNION (IMAGE COMPL_LAB L))) /\
+   (FN (relab p rf) J         = IMAGE (REP_Relabeling rf) (FN p J)) /\ (* here *)
+   (FN (var X) J              = EMPTY) /\
+   (FN (rec X p) J            = if (MEM X J) then
+                                    FN (CCS_Subst p (rec X p) X) (DELETE_ELEMENT X J)
+                                else EMPTY)`;
+
+(* (BN :('a, 'b) CCS -> 'a list -> 'b Label set) *)
+val BN_definition = `
+   (BN (nil :('a, 'b) CCS) J  = (EMPTY :'b Label set)) /\
+   (BN (prefix u p) J         = BN p J) /\
+   (BN (sum p q) J            = (BN p J) UNION (BN q J)) /\
+   (BN (par p q) J            = (BN p J) UNION (BN q J)) /\
+   (BN (restr L p) J          = (BN p J) UNION L) /\ (* here *)
+   (BN (relab p rf) J         = BN p J) /\
+   (BN (var X) J              = EMPTY) /\
+   (BN (rec X p) J            = if (MEM X J) then
+                                    BN (CCS_Subst p (rec X p) X) (DELETE_ELEMENT X J)
+                                else EMPTY)`;
+
+(* This is how we get the correct tactics (FN_tac):
+ - val FN_defn = Hol_defn "FN" FN_definition;
+ - Defn.tgoal FN_defn;
+ *)
+local
+  val tactic = (* the use of `($< LEX $<)` is learnt from Ramana Kumar *)
+      WF_REL_TAC `inv_image ($< LEX $<)
+                            (\x. (LENGTH (SND x), ^CCS_size_tm (\x. 0) (\x. 0) (FST x)))`
+   >> rpt STRIP_TAC >- (IMP_RES_TAC LENGTH_DELETE_ELEMENT_LE >> art [])
+   >> REWRITE_TAC [CCS_size_def]
+   >> simp [];
+in
+  val FN_def = TotalDefn.tDefine "FN" FN_definition tactic;
+  val BN_def = TotalDefn.tDefine "BN" BN_definition tactic;
+end;
+
+(* (free_names :('a, 'b) CCS -> 'b Label set) collects all visible labels in the prefix *)
+val free_names_def = Define ` (* also called "sorts" by Robin Milner *)
+    free_names p = FN p (SET_TO_LIST (BV p))`;
+
+(* (bound_names :('a, 'b) CCS -> 'b Label set) collects all visible labels in the restr *)
+val bound_names_def = Define `
+    bound_names p = BN p (SET_TO_LIST (BV p))`;
+
+val FN_UNIV1 = store_thm ("FN_UNIV1",
+  ``!p. free_names p <> (UNIV :'b Label set) ==> ?a. a NOTIN free_names p``,
+    PROVE_TAC [EQ_UNIV]);
+
+val FN_UNIV2 = store_thm ("FN_UNIV2",
+  ``!p q. free_names p UNION free_names q <> (UNIV :'b Label set) ==>
+          ?a. a NOTIN free_names p /\ a NOTIN free_names q``,
+    PROVE_TAC [EQ_UNIV, IN_UNION]);
+*)
+
 val _ = export_theory ();
 val _ = html_theory "CCS";
