@@ -298,7 +298,7 @@ Proof
  >> Q.PAT_X_ASSUM `WG (\t. P)` K_TAC (* clean up *)
  >> DISCH_TAC
  >> IMP_RES_TAC WG8_IMP_CONST
- >> Q.UNABBREV_TAC `e` >> fs [CCS_const_def]
+ >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_SUBST_EQ_IMP))
 QED
 
@@ -501,6 +501,12 @@ Theorem unique_solution_of_rooted_contractions :
 Proof
     cheat
 QED
+
+Definition context_def :
+  context Xs =
+     \E. EVERY (\X. CONTEXT (\t. CCS_SUBST (FEMPTY |+ (X,t)) E)) Xs
+End
+
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";

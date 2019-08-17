@@ -448,30 +448,30 @@ Proof
  >> fs [CCS_distinct]
 QED
 
-Definition CCS_const_def :
-    CCS_const (e :('a, 'b) context) = !t1 t2. e t1 = e t2
+Definition IS_CONST_def :
+    IS_CONST (e :('a, 'b) context) = !t1 t2. e t1 = e t2
 End
 
 Theorem WG_CONST :
-    !e. CCS_const e ==> WG e
+    !e. IS_CONST e ==> WG e
 Proof
-    RW_TAC std_ss [CCS_const_def]
+    RW_TAC std_ss [IS_CONST_def]
  >> Know `e = (\t. e nil)` >- fs [FUN_EQ_THM]
  >> Rewr' >> REWRITE_TAC [WG2]
 QED
 
 Theorem NO_WG8 :
-    !e X. ~CCS_const e ==> ~WG (\t. rec X (e t))
+    !e X. ~IS_CONST e ==> ~WG (\t. rec X (e t))
 Proof
     rpt GEN_TAC >> ONCE_REWRITE_TAC [WG_cases]
- >> fs [FUN_EQ_THM, CCS_const_def]
+ >> fs [FUN_EQ_THM, IS_CONST_def]
  >> rpt STRIP_TAC
  >> Cases_on `p` >> fs [FUN_EQ_THM]
  >> METIS_TAC []
 QED
 
 Theorem WG8_IMP_CONST :
-    !e X. WG (\t. rec X (e t)) ==> CCS_const e
+    !e X. WG (\t. rec X (e t)) ==> IS_CONST e
 Proof
     METIS_TAC [NO_WG8]
 QED
