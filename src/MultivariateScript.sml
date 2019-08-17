@@ -462,7 +462,7 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
-(* THE STAGE THEOREM
+(* THE STAGE THEOREM *)
 Theorem strong_unique_solution :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps STRONG_EQUIV Es Xs /\
@@ -471,9 +471,8 @@ Theorem strong_unique_solution :
 Proof
     cheat
 QED
-*)
 
-(* THE FINAL THEOREM
+(* THE FINAL THEOREM *)
 Theorem unique_solution_of_rooted_contractions :
     !Es Xs. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. CCS_solution Ps OBS_contracts Es Xs /\
@@ -482,7 +481,6 @@ Theorem unique_solution_of_rooted_contractions :
 Proof
     cheat
 QED
-*)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";

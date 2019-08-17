@@ -380,13 +380,15 @@ End
 
 (* |- !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
 val CCS_Subst_rec = save_thm (
-   "CCS_Subst_rec", Q_GENL [`X`, `E`, `E'`]
-                        (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
+   "CCS_Subst_rec",
+    Q_GENL [`X`, `E`, `E'`]
+           (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
 (* |- !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
 val CCS_Subst_var = save_thm (
-   "CCS_Subst_var", Q_GENL [`X`, `E`]
-                        (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
+   "CCS_Subst_var",
+    Q_GENL [`X`, `E`]
+           (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
 
 (* |- !t1 t2. ((T => t1 | t2) = t1) /\ ((F => t1 | t2) = t2) *)
 val CCS_COND_CLAUSES = save_thm (
@@ -403,9 +405,6 @@ val _ = type_abbrev_pp ("transition",
 
 (* Inductive definition of the transition relation TRANS for CCS.
    TRANS: CCS -> Action -> CCS -> bool
-
-   NOTE: the theorem TRANS_ind is never used, thus even we define `TRANS`
-   co-inductively (i.e. by CoInductive), the whole formalization still builds.
  *)
 Inductive TRANS :
     (!E u.                           TRANS (prefix u E) u E) /\         (* PREFIX *)
@@ -426,8 +425,8 @@ End
 
 val _ =
     add_rule { term_name = "TRANS", fixity = Infix (NONASSOC, 450),
-        pp_elements = [ BreakSpace(1,0), TOK "--", HardSpace 0, TM, HardSpace 0, TOK "->",
-                        BreakSpace(1,0) ],
+        pp_elements = [ BreakSpace(1,0), TOK "--", HardSpace 0, TM, HardSpace 0,
+                        TOK "->", BreakSpace(1,0) ],
         paren_style = OnlyIfNecessary,
         block_style = (AroundEachPhrase, (PP.CONSISTENT, 0)) };
 
