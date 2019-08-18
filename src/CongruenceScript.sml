@@ -449,8 +449,15 @@ Proof
 QED
 
 Definition IS_CONST_def :
-    IS_CONST (e :('a, 'b) context) = !t1 t2. e t1 = e t2
+    IS_CONST (e :('a, 'b) context) <=> !t1 t2. e t1 = e t2
 End
+
+Theorem IS_CONST_alt :
+    !e. IS_CONST e <=> ?p. !t. (e t = p)
+Proof
+    RW_TAC std_ss [IS_CONST_def]
+ >> METIS_TAC []
+QED
 
 Theorem WG_CONST :
     !e. IS_CONST e ==> WG e

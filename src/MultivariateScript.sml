@@ -483,6 +483,36 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
+(* Proposition 4.12 of [Mil89], c.f. StrongLawsTheory.STRONG_UNFOLDING
+
+   Let Es and Fs contain (free, equation) variable Es at most. Let
+   As = Es{As/Xs}, Bs = Es{Bs/Xs} and Es ~ Fs. Then As ~ Bs.
+
+Theorem strong_equiv_presd_by_rec :
+    !Xs Es Fs As Bs. CCS_equation Xs Es /\ CCS_equation Xs Fs /\
+                     CCS_solution Xs Es (=) As /\
+                     CCS_solution Xs Fs (=) Bs /\
+                     LIST_REL STRONG_EQUIV Es Fs
+                 ==> LIST_REL STRONG_EQUIV As Bs
+Proof
+   cheat
+QED
+ *)
+
+(* Proposition 4.12 of [Mil89], the univariate version (unconfirmed):
+
+   Let P and Q contain (free, recursion) variable X at most.
+   Let A = P{A/X} (or `rec X P`), B = Q{B/X} (or `rec X Q`) and E ~ F.
+   Then A ~ B.
+
+Theorem STRONG_EQUIV_PRESD_BY_REC :
+    !X P Q. (FV P) SUBSET {X} /\ (FV Q) SUBSET {X} /\
+            STRONG_EQUIV P Q ==> STRONG_EQUIV (rec X P) (rec X Q)
+Proof
+   cheat
+QED
+ *)
+
 (* THE STAGE THEOREM:
    Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
    then:
@@ -520,6 +550,21 @@ Theorem unique_solution_of_rooted_contractions :
                 Qs IN (CCS_solution Xs Es OBS_contracts)
             ==> LIST_REL OBS_CONGR Ps Qs
 Proof
+ (* same steps as in "strong_unique_solution" until "stage work" *)
+    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
+ >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
+                    LIST_REL_EL_EQN]
+ >> Q.PAT_X_ASSUM `!n. n < LENGTH Ps => _` (MP_TAC o (Q.SPEC `n`))
+ >> Q.PAT_X_ASSUM `!n. n < LENGTH Qs => _` (MP_TAC o (Q.SPEC `n`))
+ >> RW_TAC std_ss [EL_MAP]
+ >> Q.ABBREV_TAC `P = EL n Ps`
+ >> Q.ABBREV_TAC `Q = EL n Qs`
+ >> Q.ABBREV_TAC `E = EL n Es`
+ >> `MEM E Es` by METIS_TAC [MEM_EL]
+ >> Q.PAT_X_ASSUM `!E. MEM E Es ==> EV E SUBSET set Xs` (MP_TAC o (Q.SPEC `E`))
+ >> Q.PAT_X_ASSUM `!e. MEM e Es ==> _` (MP_TAC o (Q.SPEC `E`))
+ >> RW_TAC std_ss [] (* stage work *)
+ >>
     cheat
 QED
 
