@@ -320,10 +320,6 @@ QED
 
 (* KEY result !!! This is only possible after (Var X) is added into
    CCS datatype as dedicated equation variables.
-   
-   NOTE: `TRANS E u E' ==> EV E' SUBSET EV E` doesn't hold, thus it
-   is necessary to have ``EV E SUBSET (set Xs)` in strong_unique_-
-   solution_lemma.
  *)
 Theorem TRANS_PROC :
     !E u E'. TRANS E u E' /\ IS_PROC E ==> IS_PROC E'

@@ -456,21 +456,11 @@ val NIL_NO_TRANS_EQF = save_thm (
 (* Prove that if a process can do an action, then the process is not nil.
    |- !E u E'. TRANS E u E' ==> E <> nil:
  *)
-val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL",
-  ``!E u E'. TRANS E u E' ==> ~(E = nil)``,
-    rpt GEN_TAC
- >> ONCE_REWRITE_TAC [TRANS_cases]
- >> rpt STRIP_TAC
- >> PROVE_TAC [CCS_distinct']);
+val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL'",
+  ``!E u E'. TRANS E u E' ==> E <> nil``,
+    PROVE_TAC [NIL_NO_TRANS]);
 
-(* Above proof could be easier using TRANS_ind for the only time in this project
-val TRANS_IMP_NO_NIL' = store_thm ("TRANS_IMP_NO_NIL'",
-  ``!E u E'. TRANS E u E' ==> ~(E = nil)``,
-    HO_MATCH_MP_TAC TRANS_ind
- >> REWRITE_TAC [CCS_distinct']);
- *)
-
-(* An recursion variable has no transitions.
+(* An recursion variable has no transition.
    |- !X u E. ~TRANS (var X) u E
  *)
 val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
@@ -478,7 +468,7 @@ val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
            (REWRITE_RULE [CCS_distinct', CCS_11]
                          (Q.SPECL [`var X`, `u`, `E`] TRANS_cases)));
 
-(* An equation variable has no transitions.
+(* An equation variable has no transition.
    |- !X u E. ~TRANS (Var X) u E
  *)
 val EVAR_NO_TRANS = save_thm
@@ -507,16 +497,16 @@ val TRANS_PREFIX = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-(* |- !D D' u D''.
-         D + D' --u-> D'' <=>
-         (?E E'. (D = E /\ D' = E') /\ E --u-> D'') \/
-          ?E E'. (D = E' /\ D' = E) /\ E --u-> D''
+(* |- !P P' u P''.
+         P + P' --u-> P'' <=>
+         (?E E'. (P = E /\ P' = E') /\ E --u-> P'') \/
+          ?E E'. (P = E' /\ P' = E) /\ E --u-> P''
  *)
 val SUM_cases_EQ = save_thm (
    "SUM_cases_EQ",
-    Q_GENL [`D`, `D'`, `u`, `D''`]
+    Q_GENL [`P`, `P'`, `u`, `P''`]
          (REWRITE_RULE [CCS_distinct', CCS_11]
-                       (SPECL [``sum D D'``, ``u :'b Action``, ``D'' :('a, 'b) CCS``]
+                       (SPECL [``sum P P'``, ``u :'b Action``, ``P'' :('a, 'b) CCS``]
                               TRANS_cases)));
 
 val SUM_cases = save_thm (
@@ -980,7 +970,7 @@ Proof
 QED
 
 (* if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
-Theorem CCS_Subst_IMP_NOT_FV :
+Theorem CCS_Subst_IMP_NO_FV :
     !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (FV E)
 Proof
     Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
