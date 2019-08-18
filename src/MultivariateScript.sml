@@ -253,6 +253,12 @@ Definition weakly_guarded_def :
                             EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
 End
 
+(* `context` is similar, but ... *)
+Definition context_def :
+    context Xs = \E. (* DISJOINT (BV E) (set Xs) /\ *)
+                     EVERY (\X. CONTEXT (\t. CCS_Subst E t X)) Xs
+End
+
 Theorem EVERY_weakly_guarded :
     !Xs Es. EVERY (weakly_guarded Xs) Es ==>
             !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
@@ -510,7 +516,7 @@ End
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
 Definition CCS_solution_def :
     CCS_solution Xs Es R Ps <=>
-        ALL_PROC Ps /\
+     (* ALL_PROC Ps /\ *)
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
@@ -540,8 +546,6 @@ QED
    Let P and Q contain (free, recursion) variable X at most.
    Let A = P{A/X} (or `rec X P`), B = Q{B/X} (or `rec X Q`) and E ~ F.
    Then A ~ B.
-
-   NOTE: FV (instead of `EV`) is used here.
 
 Theorem STRONG_EQUIV_PRESD_BY_REC :
     !X P Q. (FV P) SUBSET {X} /\ (FV Q) SUBSET {X} /\
@@ -626,10 +630,6 @@ Proof
  >>
     cheat
 QED
-
-Definition context_def :
-  context Xs = \E. EVERY (\X. CONTEXT (\t. CCS_Subst E t X)) Xs
-End
 
 
 
