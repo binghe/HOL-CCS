@@ -350,33 +350,32 @@ QED
    those `var Y` left in E must not be wrongly treated as free variables.
  *)
 Theorem weakly_guarded_rec :
-    !Xs Y E. weakly_guarded Xs (rec Y E) ==> ~MEM Y Xs /\ weakly_guarded Xs E
+    !Xs Y E. weakly_guarded Xs (rec Y E) ==>
+             ~MEM Y Xs /\ DISJOINT (FV E) (set Xs) /\ weakly_guarded Xs E
 Proof
+ (* Part I *)
     rpt GEN_TAC >> DISCH_TAC >> STRONG_CONJ_TAC
  >- (fs [weakly_guarded_def, EVERY_MEM] \\
     `Y IN BV (rec Y E)` by PROVE_TAC [BV_REC] \\
      CCONTR_TAC >> METIS_TAC [IN_DISJOINT])
  >> DISCH_TAC
+ (* Part II (not used) *)
+ >> Reverse CONJ_TAC
+ >- (fs [weakly_guarded_def, EVERY_MEM] \\
+     rpt STRIP_TAC
+     >- (MATCH_MP_TAC SUBSET_DISJOINT \\
+         take [`BV (rec Y E)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]) \\
+     RES_TAC \\
+     Cases_on `Y = X` >- fs [] \\
+     fs [CCS_Subst_def] \\
+     Q.ABBREV_TAC `e = \t. CCS_Subst E t X` \\
+     Know `WG (\t. rec Y (e t))`
+     >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC std_ss []) \\
+     DISCH_TAC \\
+     MATCH_MP_TAC WG8_backward \\
+     Q.EXISTS_TAC `Y` >> art [])
+ (* Part III, c.f. WG8_IMP_CONST *)
  >> fs [weakly_guarded_def, EVERY_MEM]
- >> rpt STRIP_TAC
- >- (MATCH_MP_TAC SUBSET_DISJOINT \\
-     take [`BV (rec Y E)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL])
- >> RES_TAC
- >> Cases_on `Y = X` >- fs []
- >> fs [CCS_Subst_def]
- >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
- >> Know `WG (\t. rec Y (e t))`
- >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC std_ss [])
- >> DISCH_TAC
- >> MATCH_MP_TAC WG8_backward
- >> Q.EXISTS_TAC `Y` >> art []
-QED
-
-(* KEY result, c.f. WG8_IMP_CONST *)
-Theorem weakly_guarded_rec_imp_disjoint :
-    !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
-Proof
-    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
  >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
  >> RES_TAC
  >> `Y <> x` by PROVE_TAC []
@@ -488,7 +487,7 @@ Proof
  (* Case 7 (difficult): E = rec Y E' *)
  >> rename1 `weakly_guarded Xs (rec Y E)`
  >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC
- >> IMP_RES_TAC weakly_guarded_rec_imp_disjoint
+ >> IMP_RES_TAC weakly_guarded_rec
  >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
  (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
  >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
