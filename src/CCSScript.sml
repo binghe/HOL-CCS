@@ -272,7 +272,7 @@ val RELAB_def = Define `
  *)
 val APPLY_RELAB_THM = save_thm (
    "APPLY_RELAB_THM",
-    Q_GENL [`labl'`, `labl`]
+    Q.GENL [`labl'`, `labl`]
       (REWRITE_RULE [GSYM RELAB_def]
         (MATCH_MP (MATCH_MP ABS_Relabeling_one_one
                             (Q.SPEC `labl` IS_RELABELING))
@@ -381,13 +381,13 @@ End
 (* |- !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
 val CCS_Subst_rec = save_thm (
    "CCS_Subst_rec",
-    Q_GENL [`X`, `E`, `E'`]
+    Q.GENL [`X`, `E`, `E'`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
 (* |- !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
 val CCS_Subst_var = save_thm (
    "CCS_Subst_var",
-    Q_GENL [`X`, `E`]
+    Q.GENL [`X`, `E`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
 
 (* |- !t1 t2. ((T => t1 | t2) = t1) /\ ((F => t1 | t2) = t2) *)
@@ -444,14 +444,14 @@ val [PREFIX, SUM1, SUM2, PAR1, PAR2, PAR3, RESTR, RELABELING, REC] =
    |- !u E. ~TRANS nil u E
  *)
 val NIL_NO_TRANS = save_thm ("NIL_NO_TRANS",
-    Q_GENL [`u`, `E`]
+    Q.GENL [`u`, `E`]
            (REWRITE_RULE [CCS_distinct]
                          (SPECL [``nil``, ``u :'b Action``, ``E :('a, 'b) CCS``] TRANS_cases)));
 
 (* |- !u E. nil --u-> E <=> F *)
 val NIL_NO_TRANS_EQF = save_thm (
    "NIL_NO_TRANS_EQF",
-    Q_GENL [`u`, `E`] (EQF_INTRO (SPEC_ALL NIL_NO_TRANS)));
+    Q.GENL [`u`, `E`] (EQF_INTRO (SPEC_ALL NIL_NO_TRANS)));
 
 (* Prove that if a process can do an action, then the process is not nil.
    |- !E u E'. TRANS E u E' ==> E <> nil:
@@ -464,7 +464,7 @@ val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL'",
    |- !X u E. ~TRANS (var X) u E
  *)
 val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
-    Q_GENL [`X`, `u`, `E`]
+    Q.GENL [`X`, `u`, `E`]
            (REWRITE_RULE [CCS_distinct', CCS_11]
                          (Q.SPECL [`var X`, `u`, `E`] TRANS_cases)));
 
@@ -473,14 +473,14 @@ val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
  *)
 val EVAR_NO_TRANS = save_thm
   ("EVAR_NO_TRANS",
-    Q_GENL [`X`, `u`, `E`]
+    Q.GENL [`X`, `u`, `E`]
            (REWRITE_RULE [CCS_distinct', CCS_11]
                          (Q.SPECL [`Var X`, `u`, `E`] TRANS_cases)));
 
 (* |- !u E u' E'. TRANS (prefix u E) u' E' = (u' = u) /\ (E' = E) *)
 val TRANS_PREFIX_EQ = save_thm (
    "TRANS_PREFIX_EQ",
-  ((Q_GENL [`u`, `E`, `u'`, `E'`]) o
+  ((Q.GENL [`u`, `E`, `u'`, `E'`]) o
    (ONCE_REWRITE_RHS_RULE [EQ_SYM_EQ]) o
    SPEC_ALL o
    (REWRITE_RULE [CCS_distinct', CCS_11]))
@@ -504,7 +504,7 @@ val TRANS_PREFIX = save_thm (
  *)
 val SUM_cases_EQ = save_thm (
    "SUM_cases_EQ",
-    Q_GENL [`P`, `P'`, `u`, `P''`]
+    Q.GENL [`P`, `P'`, `u`, `P''`]
          (REWRITE_RULE [CCS_distinct', CCS_11]
                        (SPECL [``sum P P'``, ``u :'b Action``, ``P'' :('a, 'b) CCS``]
                               TRANS_cases)));
@@ -609,7 +609,7 @@ val TRANS_P_SUM_P_EQ = store_thm ("TRANS_P_SUM_P_EQ",
 val TRANS_P_SUM_P = save_thm ("TRANS_P_SUM_P", EQ_IMP_LR TRANS_P_SUM_P_EQ);
 
 val PAR_cases_EQ = save_thm ("PAR_cases_EQ",
-    Q_GENL [`D`, `D'`, `u`, `D''`]
+    Q.GENL [`D`, `D'`, `u`, `D''`]
         (REWRITE_RULE [CCS_distinct', CCS_11]
                       (Q.SPECL [`par D D'`, `u`, `D''`] TRANS_cases)));
 
@@ -676,7 +676,7 @@ val TRANS_PAR_NO_SYNCR = store_thm ("TRANS_PAR_NO_SYNCR",
 
 val RESTR_cases_EQ = save_thm (
    "RESTR_cases_EQ",
-    Q_GENL [`D'`, `u`, `L`, `D`]
+    Q.GENL [`D'`, `u`, `L`, `D`]
            (REWRITE_RULE [CCS_distinct', CCS_11, Action_distinct, Action_11]
                          (Q.SPECL [`restr L D`, `u`, `D'`] TRANS_cases)));
 
@@ -792,7 +792,7 @@ val RESTR_LABEL_NO_TRANS = store_thm ("RESTR_LABEL_NO_TRANS",
               (ASSUME ``(COMPL (l :'b Label)) IN L``)) ] ]);
 
 val RELAB_cases_EQ = save_thm ("RELAB_cases_EQ",
-    Q_GENL [`E`, `rf`]
+    Q.GENL [`E`, `rf`]
            (REWRITE_RULE [CCS_distinct', CCS_11] (SPEC ``relab E rf`` TRANS_cases)));
 
 val RELAB_cases = save_thm ("RELAB_cases", EQ_IMP_LR RELAB_cases_EQ);
@@ -818,7 +818,7 @@ QED
 val TRANS_RELAB = save_thm ("TRANS_RELAB", EQ_IMP_LR TRANS_RELAB_EQ);
 
 val TRANS_RELAB_labl = save_thm ("TRANS_RELAB_labl",
-    Q_GENL [`E`, `labl`] (Q.SPECL [`E`, `RELAB labl`] TRANS_RELAB));
+    Q.GENL [`E`, `labl`] (Q.SPECL [`E`, `RELAB labl`] TRANS_RELAB));
 
 val RELAB_NIL_NO_TRANS = store_thm ("RELAB_NIL_NO_TRANS",
   ``!(rf :'b Relabeling) u E. ~(TRANS (relab nil rf) u E)``,
@@ -827,7 +827,7 @@ val RELAB_NIL_NO_TRANS = store_thm ("RELAB_NIL_NO_TRANS",
  >> IMP_RES_TAC NIL_NO_TRANS);
 
 val REC_cases_EQ = save_thm ("REC_cases_EQ",
-    Q_GENL [`X`, `E`, `u`, `E''`]
+    Q.GENL [`X`, `E`, `u`, `E''`]
          (Q.SPECL [`u`, `E''`]
                   (REWRITE_RULE [CCS_distinct', CCS_11]
                                 (SPEC ``rec X E`` TRANS_cases))));

@@ -719,7 +719,7 @@ val contracts_PRESD_BY_PAR = store_thm (
 (* |- ∀E E'. E contracts E' ⇒ ∀E''. (E || E'') contracts (E' || E'') *)
 val contracts_SUBST_PAR_R = save_thm (
    "contracts_SUBST_PAR_R",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
       (DISCH ``E contracts E'``
         (Q.GEN `E''`
            (MATCH_MP contracts_PRESD_BY_PAR
@@ -729,7 +729,7 @@ val contracts_SUBST_PAR_R = save_thm (
 (* |- ∀E E'. E contracts E' ⇒ ∀E''. (E'' || E) contracts (E'' || E') *)
 val contracts_SUBST_PAR_L = save_thm (
    "contracts_SUBST_PAR_L",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
       (DISCH ``E contracts E'``
         (Q.GEN `E''`
            (MATCH_MP contracts_PRESD_BY_PAR
@@ -1384,7 +1384,7 @@ val OBS_contracts_PRESD_BY_SUM = store_thm (
 (* |- !E E'. OBS_contracts E E' ==> !E''. OBS_contracts (sum E'' E) (sum E'' E') *)
 val OBS_contracts_SUBST_SUM_L = save_thm (
    "OBS_contracts_SUBST_SUM_L",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
        (DISCH ``OBS_contracts E E'``
         (Q.GEN `E''`
          (MATCH_MP OBS_contracts_PRESD_BY_SUM
@@ -1394,7 +1394,7 @@ val OBS_contracts_SUBST_SUM_L = save_thm (
 (* |- !E E'. OBS_contracts E E' ==> !E''. OBS_contracts (sum E E'') (sum E' E'') *)
 val OBS_contracts_SUBST_SUM_R = save_thm (
    "OBS_contracts_SUBST_SUM_R",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
        (DISCH ``OBS_contracts E E'``
         (Q.GEN `E''`
          (MATCH_MP OBS_contracts_PRESD_BY_SUM
@@ -1520,7 +1520,7 @@ val OBS_contracts_PRESD_BY_PAR = store_thm (
 (* |- !E E'. OBS_contracts E E' ==> !E''. OBS_contracts (par E'' E) (par E'' E') *)
 val OBS_contracts_SUBST_PAR_L = save_thm (
    "OBS_contracts_SUBST_PAR_L",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
        (DISCH ``OBS_contracts E E'``
         (Q.GEN `E''`
          (MATCH_MP OBS_contracts_PRESD_BY_PAR
@@ -1530,7 +1530,7 @@ val OBS_contracts_SUBST_PAR_L = save_thm (
 (* |- !E E'. OBS_contracts E E' ==> !E''. OBS_contracts (par E E'') (par E' E'') *)
 val OBS_contracts_SUBST_PAR_R = save_thm (
    "OBS_contracts_SUBST_PAR_R",
-    Q_GENL [`E`, `E'`]
+    Q.GENL [`E`, `E'`]
        (DISCH ``OBS_contracts E E'``
         (Q.GEN `E''`
          (MATCH_MP OBS_contracts_PRESD_BY_PAR
