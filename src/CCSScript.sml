@@ -23,18 +23,18 @@ val set_ss = std_ss ++ PRED_SET_ss;
 val _ = Datatype `Label = name 'b | coname 'b`;
 
 (* Define structural induction on labels
-   |- !P. (!s. P (name s)) /\ (!s. P (coname s)) ==> !L. P L
+   !P. (!s. P (name s)) /\ (!s. P (coname s)) ==> !L. P L
  *)
 val Label_induction = TypeBase.induction_of ``:'b Label``;
 
 (* The structural cases theorem for the type Label
-   |- !LL. (?s. LL = name s) \/ ?s. LL = coname s
+   !LL. (?s. LL = name s) \/ ?s. LL = coname s
  *)
 val Label_nchotomy = TypeBase.nchotomy_of ``:'b Label``;
 
 (* The distinction and injectivity theorems for the type Label
-   |- !a' a. name a <> coname a'
-   |- (!a a'. (name a = name a') <=> (a = a')) /\
+   !a' a. name a <> coname a'
+   (!a a'. (name a = name a') <=> (a = a')) /\
        !a a'. (coname a = coname a') <=> (a = a')
  *)
 val Label_distinct = TypeBase.distinct_of ``:'b Label``;
@@ -64,20 +64,20 @@ val _ = overload_on ("In", ``\a. label (name a)``);
 val _ = overload_on ("Out", ``\a. label (coname a)``);
 
 (* Define structural induction on actions
-   |- !P. P tau /\ (!L. P (label L)) ==> !A. P A
+   !P. P tau /\ (!L. P (label L)) ==> !A. P A
  *)
 val Action_induction = save_thm (
    "Action_induction", INST_TYPE [``:'a`` |-> ``:'b Label``] option_induction);
 
 (* The structural cases theorem for the type Action
-   |- !AA. (AA = tau) \/ ?L. AA = label L
+   !AA. (AA = tau) \/ ?L. AA = label L
  *)
 val Action_nchotomy = save_thm (
    "Action_nchotomy", INST_TYPE [``:'a`` |-> ``:'b Label``] option_nchotomy);
 
 (* The distinction and injectivity theorems for the type Action
-   |- !a. tau <> label a
-   |- !a a'. (label a = label a') <=> (a = a')
+   !a. tau <> label a
+   !a a'. (label a = label a') <=> (a = a')
  *)
 val Action_distinct = save_thm (
    "Action_distinct", INST_TYPE [``:'a`` |-> ``:'b Label``] NOT_NONE_SOME);
@@ -88,7 +88,7 @@ val Action_distinct_label = save_thm (
 val Action_11 = save_thm (
    "Action_11", INST_TYPE [``:'a`` |-> ``:'b Label``] SOME_11);
 
-(* |- !A. A <> tau ==> ?L. A = label L *)
+(* !A. A <> tau ==> ?L. A = label L *)
 val Action_no_tau_is_Label = save_thm (
    "Action_no_tau_is_Label",
     Q.GEN `A` (DISJ_IMP (Q.SPEC `A` Action_nchotomy)));
@@ -156,12 +156,12 @@ val EXISTS_Relabeling = store_thm ("EXISTS_Relabeling",
  >> REWRITE_TAC [COMPL_LAB_def]);
 
 (* Relabeling_TY_DEF =
-   |- ?rep. TYPE_DEFINITION Is_Relabeling rep
+   ?rep. TYPE_DEFINITION Is_Relabeling rep
  *)
 val Relabeling_TY_DEF = new_type_definition ("Relabeling", EXISTS_Relabeling);
 
 (* Relabeling_ISO_DEF =
-   |- (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
+   (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
        !r. Is_Relabeling r <=> (REP_Relabeling (ABS_Relabeling r) = r)
  *)
 val Relabeling_ISO_DEF =
@@ -171,18 +171,18 @@ val Relabeling_ISO_DEF =
                                 tyax =  Relabeling_TY_DEF};
 
 (* ABS_Relabeling_one_one =
-   |- !r r'.
+   !r r'.
       Is_Relabeling r ==> Is_Relabeling r' ==>
       ((ABS_Relabeling r = ABS_Relabeling r') <=> (r = r'))
 
    ABS_Relabeling_onto =
-   |- !a. ?r. (a = ABS_Relabeling r) /\ Is_Relabeling r
+   !a. ?r. (a = ABS_Relabeling r) /\ Is_Relabeling r
 
    REP_Relabeling_one_one =
-   |- !a a'. (REP_Relabeling a = REP_Relabeling a') <=> (a = a')
+   !a a'. (REP_Relabeling a = REP_Relabeling a') <=> (a = a')
 
    REP_Relabeling_onto =
-   |- !r. Is_Relabeling r <=> ?a. r = REP_Relabeling a
+   !r. Is_Relabeling r <=> ?a. r = REP_Relabeling a
  *)
 val [ABS_Relabeling_one_one, ABS_Relabeling_onto,
      REP_Relabeling_one_one, REP_Relabeling_onto] =
@@ -267,7 +267,7 @@ val IS_RELABELING = store_thm (
 val RELAB_def = Define `
     RELAB (labl :('b Label # 'b Label) list) = ABS_Relabeling (Apply_Relab labl)`;
 
-(* |- !labl' labl.
+(* !labl' labl.
      (RELAB labl' = RELAB labl) <=> (Apply_Relab labl' = Apply_Relab labl)
  *)
 val APPLY_RELAB_THM = save_thm (
@@ -294,7 +294,6 @@ val _ = Datatype `
       | restr (('b Label) set) CCS
       | relab CCS ('b Relabeling)
       | rec 'a CCS
-      | Var 'a (* equation variables *)
 
  (* the ultimate version is only possible once HOL4 got a better Datatype package:
       | summ (num -> CCS)
@@ -368,8 +367,7 @@ Definition CCS_Subst_def :
    (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
    (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
-                                  else (rec Y (CCS_Subst E E' X))) /\
-   (CCS_Subst (Var Y)      E' X = Var Y)
+                                  else (rec Y (CCS_Subst E E' X)))
 End
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
@@ -378,19 +376,19 @@ End
 
    Below are two typical cases by CCS_Subst: *)
 
-(* |- !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
+(* !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
 val CCS_Subst_rec = save_thm (
    "CCS_Subst_rec",
     Q.GENL [`X`, `E`, `E'`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
-(* |- !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
+(* !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
 val CCS_Subst_var = save_thm (
    "CCS_Subst_var",
     Q.GENL [`X`, `E`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
 
-(* |- !t1 t2. ((T => t1 | t2) = t1) /\ ((F => t1 | t2) = t2) *)
+(* !t1 t2. ((T => t1 | t2) = t1) /\ ((F => t1 | t2) = t2) *)
 val CCS_COND_CLAUSES = save_thm (
    "CCS_COND_CLAUSES", INST_TYPE [``:'a`` |-> ``:('a, 'b) CCS``] COND_CLAUSES);
 
@@ -441,43 +439,34 @@ val [PREFIX, SUM1, SUM2, PAR1, PAR2, PAR3, RESTR, RELABELING, REC] =
                   CONJUNCTS TRANS_rules));
 
 (* The process nil has no transitions.
-   |- !u E. ~TRANS nil u E
+   !u E. ~TRANS nil u E
  *)
 val NIL_NO_TRANS = save_thm ("NIL_NO_TRANS",
     Q.GENL [`u`, `E`]
            (REWRITE_RULE [CCS_distinct]
                          (SPECL [``nil``, ``u :'b Action``, ``E :('a, 'b) CCS``] TRANS_cases)));
 
-(* |- !u E. nil --u-> E <=> F *)
+(* !u E. nil --u-> E <=> F *)
 val NIL_NO_TRANS_EQF = save_thm (
    "NIL_NO_TRANS_EQF",
     Q.GENL [`u`, `E`] (EQF_INTRO (SPEC_ALL NIL_NO_TRANS)));
 
 (* Prove that if a process can do an action, then the process is not nil.
-   |- !E u E'. TRANS E u E' ==> E <> nil:
+   !E u E'. TRANS E u E' ==> E <> nil:
  *)
 val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL'",
   ``!E u E'. TRANS E u E' ==> E <> nil``,
     PROVE_TAC [NIL_NO_TRANS]);
 
 (* An recursion variable has no transition.
-   |- !X u E. ~TRANS (var X) u E
+   !X u E. ~TRANS (var X) u E
  *)
 val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
     Q.GENL [`X`, `u`, `E`]
            (REWRITE_RULE [CCS_distinct', CCS_11]
                          (Q.SPECL [`var X`, `u`, `E`] TRANS_cases)));
 
-(* An equation variable has no transition.
-   |- !X u E. ~TRANS (Var X) u E
- *)
-val EVAR_NO_TRANS = save_thm
-  ("EVAR_NO_TRANS",
-    Q.GENL [`X`, `u`, `E`]
-           (REWRITE_RULE [CCS_distinct', CCS_11]
-                         (Q.SPECL [`Var X`, `u`, `E`] TRANS_cases)));
-
-(* |- !u E u' E'. TRANS (prefix u E) u' E' = (u' = u) /\ (E' = E) *)
+(* !u E u' E'. TRANS (prefix u E) u' E' = (u' = u) /\ (E' = E) *)
 val TRANS_PREFIX_EQ = save_thm (
    "TRANS_PREFIX_EQ",
   ((Q.GENL [`u`, `E`, `u'`, `E'`]) o
@@ -487,7 +476,7 @@ val TRANS_PREFIX_EQ = save_thm (
       (SPECL [``prefix (u :'b Action) E``, ``u' :'b Action``, ``E' :('a, 'b) CCS``]
              TRANS_cases));
 
-(* |- !u E u' E'. u..E --u'-> E' ==> (u' = u) /\ (E' = E) *)
+(* !u E u' E'. u..E --u'-> E' ==> (u' = u) /\ (E' = E) *)
 val TRANS_PREFIX = save_thm (
    "TRANS_PREFIX", EQ_IMP_LR TRANS_PREFIX_EQ);
 
@@ -497,7 +486,7 @@ val TRANS_PREFIX = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-(* |- !P P' u P''.
+(* !P P' u P''.
          P + P' --u-> P'' <=>
          (?E E'. (P = E /\ P' = E') /\ E --u-> P'') \/
           ?E E'. (P = E' /\ P' = E) /\ E --u-> P''
@@ -594,7 +583,7 @@ val TRANS_SUM_NIL_EQ = store_thm (
       DISCH_TAC \\
       MATCH_MP_TAC SUM1 >> art [] ]);
 
-(* |- !E u E'. E + nil --u-> E' ==> E --u-> E' *)
+(* !E u E'. E + nil --u-> E' ==> E --u-> E' *)
 val TRANS_SUM_NIL = save_thm ("TRANS_SUM_NIL", EQ_IMP_LR TRANS_SUM_NIL_EQ);
 
 val TRANS_P_SUM_P_EQ = store_thm ("TRANS_P_SUM_P_EQ",
@@ -606,12 +595,13 @@ val TRANS_P_SUM_P_EQ = store_thm ("TRANS_P_SUM_P_EQ",
       DISCH_TAC \\
       MATCH_MP_TAC SUM1 >> art [] ]);
 
-val TRANS_P_SUM_P = save_thm ("TRANS_P_SUM_P", EQ_IMP_LR TRANS_P_SUM_P_EQ);
+val TRANS_P_SUM_P = save_thm
+  ("TRANS_P_SUM_P", EQ_IMP_LR TRANS_P_SUM_P_EQ);
 
 val PAR_cases_EQ = save_thm ("PAR_cases_EQ",
-    Q.GENL [`D`, `D'`, `u`, `D''`]
+    Q.GENL [`P`, `P'`, `u`, `P''`]
         (REWRITE_RULE [CCS_distinct', CCS_11]
-                      (Q.SPECL [`par D D'`, `u`, `D''`] TRANS_cases)));
+                      (Q.SPECL [`par P P'`, `u`, `P''`] TRANS_cases)));
 
 val PAR_cases = save_thm ("PAR_cases", EQ_IMP_LR PAR_cases_EQ);
 
@@ -862,7 +852,7 @@ Definition FV_def :
    (FV (restr L p)         = FV p) /\
    (FV (relab p rf)        = FV p) /\
    (FV (var X)             = {X}) /\
-   (FV (Var X)             = EMPTY) /\
+(* (FV (Var X)             = EMPTY) /\ *)
    (FV (rec X p)           = (FV p) DELETE X)
 End
 
@@ -875,12 +865,16 @@ Definition BV_def :
    (BV (restr L p)         = BV p) /\
    (BV (relab p rf)        = BV p) /\
    (BV (var X)             = EMPTY) /\
-   (BV (Var X)             = EMPTY) /\
+(* (BV (Var X)             = EMPTY) /\ *)
    (BV (rec X p)           = X INSERT (BV p))
 End
 
-Definition IS_CLOSE :
-   IS_CLOSE E <=> (FV E = EMPTY)
+Definition IS_PROC_def :
+    IS_PROC E <=> (FV E = EMPTY)
+End
+
+Definition ALL_PROC_def :
+    ALL_PROC Es <=> EVERY IS_PROC Es
 End
 
 Theorem FV_SUBSET :
@@ -930,6 +924,28 @@ Proof
  >> MATCH_MP_TAC SUBSET_TRANS
  >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
  >> fs [BV_SUBSET_REC]
+QED
+
+Theorem TRANS_FV :
+    !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
+Proof
+    HO_MATCH_MP_TAC TRANS_ind
+ >> RW_TAC set_ss [BV_def, FV_def]
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
+ >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
+ >> Q.ABBREV_TAC `B = BV (CCS_Subst E (rec X E) X)`
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `A UNION B` >> art []
+ >> ASM_SET_TAC []
 QED
 
 Theorem BV_REC :

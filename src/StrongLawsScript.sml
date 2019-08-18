@@ -210,15 +210,13 @@ val STRONG_LEFT_SUM_MID_IDEMP = save_thm (
                   STRONG_SUM_ASSOC_R))))
         (SPECL [``E' :('a, 'b) CCS``, ``sum E E''``] STRONG_SUM_MID_IDEMP)));
 
-(* Unused recursion/equation variables have the same behavior as `nil` *)
+(* Unused recursion variables have the same behavior as `nil` *)
 Theorem STRONG_EQUIV_NIL_VAR :
-    !X. STRONG_EQUIV nil (var X) /\ STRONG_EQUIV nil (Var X)
+    !X. STRONG_EQUIV nil (var X)
 Proof
-    GEN_TAC >> CONJ_TAC
- >- (ONCE_REWRITE_TAC [PROPERTY_STAR] \\
-     RW_TAC std_ss [NIL_NO_TRANS, VAR_NO_TRANS])
+    GEN_TAC
  >> ONCE_REWRITE_TAC [PROPERTY_STAR]
- >> RW_TAC std_ss [NIL_NO_TRANS, EVAR_NO_TRANS]
+ >> RW_TAC std_ss [NIL_NO_TRANS, VAR_NO_TRANS]
 QED
 
 (******************************************************************************)
