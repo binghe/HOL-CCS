@@ -137,7 +137,7 @@ val set_ss = std_ss ++ PRED_SET_ss;
    as they will be never substituted as an equation variable, instead
    they just function like a nil (with no further transition).  In
    this way, we eliminated the needs of using possibly-wrong
-   definition of FV (the set/list of free variables), as the same
+   definition of EV (the set of equation variables), as the same
    variable may appear both free and bounded in different sub-term of
    the same CCS term.
 
@@ -177,7 +177,7 @@ val _ = overload_on ("CCS_Subst", ``\E fm. CCS_SUBST fm E``);
 
 (* From a key list and a value list (of same length) to a finite map *)
 Definition fromList_def :
-    fromList Xs Ps = alist_to_fmap (ZIP (Xs,Ps))
+    fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = alist_to_fmap (ZIP (Xs,Ps))
 End
 
 val _ = overload_on ("|->", ``fromList``);
@@ -191,31 +191,31 @@ Proof
 QED
 
 (* ('a, 'b) CCS -> 'a set (set of free variables) *)
-Definition FV_def :
-   (FV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
-   (FV (prefix u p)        = FV p) /\
-   (FV (sum p q)           = (FV p) UNION (FV q)) /\
-   (FV (par p q)           = (FV p) UNION (FV q)) /\
-   (FV (restr L p)         = FV p) /\
-   (FV (relab p rf)        = FV p) /\
-   (FV (var X)             = EMPTY) /\
-   (FV (rec X p)           = FV p) /\
-   (FV (Var X)             = {X})
+Definition EV_def :
+   (EV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (EV (prefix u p)        = EV p) /\
+   (EV (sum p q)           = (EV p) UNION (EV q)) /\
+   (EV (par p q)           = (EV p) UNION (EV q)) /\
+   (EV (restr L p)         = EV p) /\
+   (EV (relab p rf)        = EV p) /\
+   (EV (var X)             = EMPTY) /\
+   (EV (rec X p)           = EV p) /\
+   (EV (Var X)             = {X})
 End
 
 val IS_PROC_def = Define `
-    IS_PROC E <=> (FV E = EMPTY)`;
+    IS_PROC E <=> (EV E = EMPTY)`;
 
 val ALL_PROC_def = Define `
     ALL_PROC Es <=> EVERY IS_PROC Es`;
 
 (* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
-Theorem CCS_SUBST_NOT_FV :
-    !Xs E. DISJOINT (FV E) (set Xs) ==>
+Theorem CCS_SUBST_NOT_EV :
+    !Xs E. DISJOINT (EV E) (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (Xs |-> Ps) E = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [Once CCS_SUBST_def, FV_def, Once fromList_def,
+ >> RW_TAC set_ss [Once CCS_SUBST_def, EV_def, Once fromList_def,
                    FDOM_alist_to_fmap, MAP_ZIP]
 QED
 
@@ -273,12 +273,12 @@ QED
 (* KEY result: if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
 val CCS_SUBST_EQ_IMP = Q.prove (
    `!X E. (!E1 E2. CCS_SUBST (FEMPTY |+ (X,E1)) E =
-                   CCS_SUBST (FEMPTY |+ (X,E2)) E) ==> X NOTIN (FV E)`,
-    Suff `!X E. X IN (FV E) ==>
+                   CCS_SUBST (FEMPTY |+ (X,E2)) E) ==> X NOTIN (EV E)`,
+    Suff `!X E. X IN (EV E) ==>
                 ?E1 E2. CCS_SUBST (FEMPTY |+ (X,E1)) E <>
                         CCS_SUBST (FEMPTY |+ (X,E2)) E` >- METIS_TAC []
  >> GEN_TAC >> Induct_on `E` (* 9 subgoals *)
- >> SRW_TAC [] [CCS_SUBST_def, FV_def] (* 5 subgoals left *)
+ >> SRW_TAC [] [CCS_SUBST_def, EV_def] (* 5 subgoals left *)
  >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
       RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
@@ -287,7 +287,7 @@ val CCS_SUBST_EQ_IMP = Q.prove (
 
 (* KEY result, c.f. WG8_IMP_CONST *)
 Theorem weakly_guarded_rec :
-    !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
+    !Xs Y E. weakly_guarded Xs (rec Y E) ==> DISJOINT (EV E) (set Xs)
 Proof
     SRW_TAC [] [weakly_guarded_def, EVERY_MEM]
  >> CCONTR_TAC >> fs [IN_DISJOINT]
@@ -302,17 +302,27 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_SUBST_EQ_IMP))
 QED
 
-val FV_SUBSET = Q.prove ((* No.1 KEY lemma in this project *)
-   `!X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')`,
+Theorem EV_SUBSET :
+    !X E E'. EV (CCS_Subst E E' X) SUBSET (EV E) UNION (EV E')
+Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [FV_def, CCS_Subst_def]
- >> ASM_SET_TAC []);
+ >> RW_TAC set_ss [EV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
+QED
+
+Theorem EV_SUBSET_REC :
+    !X E. EV (CCS_Subst E (rec X E) X) SUBSET (EV E)
+Proof
+    rpt GEN_TAC
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] EV_SUBSET)
+ >> fs [EV_def]
+QED
 
 (* KEY result !!! This is only possible after (Var X) is added into
    CCS datatype as dedicated equation variables.
    
-   NOTE: `TRANS E u E' ==> FV E' SUBSET FV E` doesn't hold, thus it
-   is necessary to have ``FV E SUBSET (set Xs)` in strong_unique_-
+   NOTE: `TRANS E u E' ==> EV E' SUBSET EV E` doesn't hold, thus it
+   is necessary to have ``EV E SUBSET (set Xs)` in strong_unique_-
    solution_lemma.
  *)
 Theorem TRANS_PROC :
@@ -321,11 +331,27 @@ Proof
     Suff `!E u E'. TRANS E u E' ==> IS_PROC E ==> IS_PROC E'`
  >- METIS_TAC []
  >> HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [FV_def, IS_PROC_def]
+ >> RW_TAC set_ss [EV_def, IS_PROC_def]
  >> FIRST_X_ASSUM MATCH_MP_TAC
- (* FV E = {} ==> FV (CCS_Subst E (rec X E) X) = {} *)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] FV_SUBSET)
- >> ASM_SET_TAC [FV_def]
+ (* EV E = {} ==> EV (CCS_Subst E (rec X E) X) = {} *)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] EV_SUBSET)
+ >> ASM_SET_TAC [EV_def]
+QED
+
+Theorem TRANS_EV :
+    !E u E'. TRANS E u E' ==> EV E' SUBSET EV E
+Proof
+    HO_MATCH_MP_TAC TRANS_ind
+ >> RW_TAC set_ss [EV_def]
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `EV (CCS_Subst E (rec X E) X)`
+ >> ASM_SET_TAC [EV_SUBSET_REC]
 QED
 
 (* ================================================================= *)
@@ -337,12 +363,9 @@ QED
    If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P',
    then P' takes the form E'{Ps/Xs} (for some expression E'), and
    moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
-
-   Additional requirements in the multivariate case (HOL):
-   - E contains free variables up to Xs
  *)
 Theorem strong_unique_solution_lemma : (* full version *)
-    !Xs E. weakly_guarded Xs E /\ (FV E) SUBSET (set Xs) ==>
+    !Xs E. weakly_guarded Xs E ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
                        ?E'. (P' = CCS_SUBST (fromList Xs Ps) E') /\
@@ -361,12 +384,12 @@ Proof
      Q.EXISTS_TAC `E` >> REWRITE_TAC [])
  (* Case 3: E = E1 + E2 *)
  >- (IMP_RES_TAC weakly_guarded_sum \\
-     fs [CCS_SUBST_def, TRANS_SUM_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
+     fs [CCS_SUBST_def, TRANS_SUM_EQ, EV_def] \\ (* 2 subgoals, same tactics *)
      RES_TAC >> fs [] >> Q.EXISTS_TAC `E''` >> fs [])
  (* Case 4: E = E1 || E2 *)
  >- (rename1 `weakly_guarded Xs (E1 || E2)` \\
      IMP_RES_TAC weakly_guarded_par \\
-     fs [CCS_SUBST_def, TRANS_PAR_EQ, FV_def] >| (* 3 subgoals *)
+     fs [CCS_SUBST_def, TRANS_PAR_EQ, EV_def] >| (* 3 subgoals *)
      [ (* goal 1 (of 3) *)
        Q.PAT_X_ASSUM
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E1) u P' ==> _`
@@ -408,12 +431,12 @@ Proof
              `CCS_SUBST (fromList Xs Qs) E''`, `l`] >> fs [] ])
  (* Case 5: E = restr f E' *)
  >- (IMP_RES_TAC weakly_guarded_restr \\
-     fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
+     fs [CCS_SUBST_def, TRANS_RESTR_EQ, EV_def] \\ (* 2 subgoals, same tactics *)
      RES_TAC >> Q.EXISTS_TAC `restr f E'` \\
      rfs [CCS_SUBST_def])
  (* Case 6: E = relab E' R *)
  >- (IMP_RES_TAC weakly_guarded_relab \\
-     fs [CCS_SUBST_def, TRANS_RELAB_EQ, FV_def] \\
+     fs [CCS_SUBST_def, TRANS_RELAB_EQ, EV_def] \\
      Q.PAT_X_ASSUM
        `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==> _`
        (MP_TAC o (Q.SPEC `Ps`)) \\
@@ -425,29 +448,31 @@ Proof
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  (* Case 7: E = rec Y E' *)
  >- (IMP_RES_TAC weakly_guarded_rec \\
-    `DISJOINT (FV (rec a E)) (set Xs)` by PROVE_TAC [FV_def] \\
+    `DISJOINT (EV (rec a E)) (set Xs)` by PROVE_TAC [EV_def] \\
     `CCS_SUBST (fromList Xs Ps) (rec a E) = rec a E`
-       by METIS_TAC [CCS_SUBST_NOT_FV] >> fs [] \\
-     Know `FV P' = EMPTY`
-     >- (`FV (rec a E) = EMPTY` by ASM_SET_TAC [] \\
-         METIS_TAC [IS_PROC_def, TRANS_PROC]) >> DISCH_TAC \\
+       by METIS_TAC [CCS_SUBST_NOT_EV] >> fs [] \\
+    `EV P' SUBSET EV (rec a E)` by PROVE_TAC [TRANS_EV] \\
+    `DISJOINT (EV P') (set Xs)` by ASM_SET_TAC [] \\
      Q.EXISTS_TAC `P'` >> CONJ_TAC
-     >- (`DISJOINT (FV P') (set Xs)` by ASM_SET_TAC [] \\
+     >- (`DISJOINT (EV P') (set Xs)` by ASM_SET_TAC [] \\
          `CCS_SUBST (fromList Xs Ps) P' = P'`
-           by METIS_TAC [CCS_SUBST_NOT_FV] >> fs []) \\
+           by METIS_TAC [CCS_SUBST_NOT_EV] >> fs []) \\
      rpt STRIP_TAC \\
-    `DISJOINT (FV P') (set Xs)` by ASM_SET_TAC [] \\
-     METIS_TAC [CCS_SUBST_NOT_FV])
+     METIS_TAC [CCS_SUBST_NOT_EV])
  (* Case 8: E = Var a (equation variable, impossible) *)
- >> fs [weakly_guarded_def, EVERY_MEM, CCS_SUBST_def, FV_def]
- >> RES_TAC >> fs [NO_WG0]
+ >> fs [weakly_guarded_def, EVERY_MEM, CCS_SUBST_def, EV_def]
+ >> Cases_on `MEM a Xs`
+ >- (RES_TAC >> fs [NO_WG0])
+ >> MP_TAC (Q.SPECL [`a`, `Xs`, `Ps`] IN_fromList)
+ >> RW_TAC std_ss [] >> fs []
+ >> PROVE_TAC [EVAR_NO_TRANS]
 QED
 
 (* NOTE: Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :
     CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
         ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs) /\
-        EVERY (\E. (FV E) SUBSET (set Xs)) Es
+        EVERY (\E. (EV E) SUBSET (set Xs)) Es
 End
 
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
@@ -485,7 +510,7 @@ Proof
  >> Q.ABBREV_TAC `Q = EL n Qs`
  >> Q.ABBREV_TAC `E = EL n Es`
  >> `MEM E Es` by METIS_TAC [MEM_EL]
- >> Q.PAT_X_ASSUM `!E. MEM E Es ==> FV E SUBSET set Xs` (MP_TAC o (Q.SPEC `E`))
+ >> Q.PAT_X_ASSUM `!E. MEM E Es ==> EV E SUBSET set Xs` (MP_TAC o (Q.SPEC `E`))
  >> Q.PAT_X_ASSUM `!e. MEM e Es ==> _` (MP_TAC o (Q.SPEC `E`))
  >> RW_TAC std_ss [] (* stage work *)
  >> 

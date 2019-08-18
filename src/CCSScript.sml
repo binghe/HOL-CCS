@@ -470,13 +470,22 @@ val TRANS_IMP_NO_NIL' = store_thm ("TRANS_IMP_NO_NIL'",
  >> REWRITE_TAC [CCS_distinct']);
  *)
 
-(* An agent variable has no transitions.
-   |- !X u E'. ~TRANS (var X) u E'
+(* An recursion variable has no transitions.
+   |- !X u E. ~TRANS (var X) u E
  *)
 val VAR_NO_TRANS = save_thm ("VAR_NO_TRANS",
     Q_GENL [`X`, `u`, `E`]
            (REWRITE_RULE [CCS_distinct', CCS_11]
                          (Q.SPECL [`var X`, `u`, `E`] TRANS_cases)));
+
+(* An equation variable has no transitions.
+   |- !X u E. ~TRANS (Var X) u E
+ *)
+val EVAR_NO_TRANS = save_thm
+  ("EVAR_NO_TRANS",
+    Q_GENL [`X`, `u`, `E`]
+           (REWRITE_RULE [CCS_distinct', CCS_11]
+                         (Q.SPECL [`Var X`, `u`, `E`] TRANS_cases)));
 
 (* |- !u E u' E'. TRANS (prefix u E) u' E' = (u' = u) /\ (E' = E) *)
 val TRANS_PREFIX_EQ = save_thm (
@@ -854,86 +863,130 @@ val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 (*  Free and bound (recursion) variables (not used so far)            *)
 (**********************************************************************)
 
-(* ('a, 'b) CCS -> 'a set (set of bound variables) *)
-Definition bv_def :
-   (bv (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
-   (bv (prefix u p)        = bv p) /\
-   (bv (sum p q)           = (bv p) UNION (bv q)) /\
-   (bv (par p q)           = (bv p) UNION (bv q)) /\
-   (bv (restr L p)         = bv p) /\
-   (bv (relab p rf)        = bv p) /\
-   (bv (var X)             = EMPTY) /\
-   (bv (Var X)             = EMPTY) /\
-   (bv (rec X p)           = X INSERT (bv p))
-End
-
 (* ('a, 'b) CCS -> 'a set (set of free variables) *)
-Definition fv_def :
-   (fv (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
-   (fv (prefix u p)        = fv p) /\
-   (fv (sum p q)           = (fv p) UNION (fv q)) /\
-   (fv (par p q)           = (fv p) UNION (fv q)) /\
-   (fv (restr L p)         = fv p) /\
-   (fv (relab p rf)        = fv p) /\
-   (fv (var X)             = {X}) /\
-   (fv (Var X)             = EMPTY) /\
-   (fv (rec X p)           = (fv p) DELETE X)
+Definition FV_def :
+   (FV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (FV (prefix u p)        = FV p) /\
+   (FV (sum p q)           = (FV p) UNION (FV q)) /\
+   (FV (par p q)           = (FV p) UNION (FV q)) /\
+   (FV (restr L p)         = FV p) /\
+   (FV (relab p rf)        = FV p) /\
+   (FV (var X)             = {X}) /\
+   (FV (Var X)             = EMPTY) /\
+   (FV (rec X p)           = (FV p) DELETE X)
 End
 
-Theorem fv_subset :
-    !X E E'. fv (CCS_Subst E E' X) SUBSET (fv E) UNION (fv E')
+(* ('a, 'b) CCS -> 'a set (set of bound variables) *)
+Definition BV_def :
+   (BV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (BV (prefix u p)        = BV p) /\
+   (BV (sum p q)           = (BV p) UNION (BV q)) /\
+   (BV (par p q)           = (BV p) UNION (BV q)) /\
+   (BV (restr L p)         = BV p) /\
+   (BV (relab p rf)        = BV p) /\
+   (BV (var X)             = EMPTY) /\
+   (BV (Var X)             = EMPTY) /\
+   (BV (rec X p)           = X INSERT (BV p))
+End
+
+Definition IS_CLOSE :
+   IS_CLOSE E <=> (FV E = EMPTY)
+End
+
+Theorem FV_SUBSET :
+    !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
 Proof
-    GEN_TAC
- >> Induct_on `E` >> RW_TAC set_ss [fv_def, CCS_Subst_def]
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [FV_def, CCS_Subst_def]
  >> ASM_SET_TAC []
 QED
 
-Theorem bv_rec :
-    !X E. X IN bv (rec X E)
+Theorem FV_SUBSET_REC :
+    !X E. FV (CCS_Subst E (rec X E) X) SUBSET (FV E)
 Proof
-    RW_TAC std_ss [bv_def, IN_INSERT]
+    rpt GEN_TAC
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] FV_SUBSET)
+ >> ASM_SET_TAC [FV_def]
 QED
 
-Theorem bv_subset :
-    !X E E'. (bv E) SUBSET (bv (rec X E)) /\
-             (bv E) SUBSET (bv (sum E E')) /\ (bv E') SUBSET (bv (sum E E')) /\
-             (bv E) SUBSET (bv (par E E')) /\ (bv E') SUBSET (bv (par E E'))
+Theorem BV_SUBSET :
+    !X E E'. BV (CCS_Subst E E' X) SUBSET (BV E) UNION (BV E')
 Proof
-    rpt GEN_TAC >> SET_TAC [bv_def]
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC set_ss [BV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
 QED
 
+Theorem BV_SUBSET_REC :
+    !X E. BV (CCS_Subst E (rec X E) X) SUBSET (X INSERT (BV E))
+Proof
+    rpt GEN_TAC
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] BV_SUBSET)
+ >> ASM_SET_TAC [BV_def]
+QED
+
+(* TRANS_FV doesn't hold; c.f. MultivariateTheory.TRANS_EV *)
+Theorem TRANS_BV :
+    !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
+Proof
+    HO_MATCH_MP_TAC TRANS_ind
+ >> RW_TAC set_ss [BV_def]
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >- ASM_SET_TAC []
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
+ >> fs [BV_SUBSET_REC]
+QED
+
+Theorem BV_REC :
+    !X E. X IN BV (rec X E)
+Proof
+    RW_TAC std_ss [BV_def, IN_INSERT]
+QED
+
+Theorem BV_SUBSETS :
+    !X E E'. (BV E) SUBSET (BV (rec X E)) /\
+             (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
+             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
+Proof
+    rpt GEN_TAC >> SET_TAC [BV_def]
+QED
 
 val lemma1 = Q.prove (
-   `!X E. X NOTIN (fv E) ==> !E'. (CCS_Subst E E' X = E)`,
+   `!X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* one left *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* one left *)
  >> Cases_on `a = X` >- fs []
  >> RES_TAC >> ASM_SIMP_TAC std_ss []);
 
 val lemma2 = Q.prove (
-   `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (fv E)`,
+   `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 2 goals left *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
  >- (CCONTR_TAC >> fs [] \\
      PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
  >> Cases_on `X = a` >- fs []
  >> DISJ1_TAC >> fs []);
 
 (* X is not a free variable of E if and only if E{E'/X} = E *)
-Theorem CCS_Subst_not_fv :
-    !X E. X NOTIN (fv E) <=> !E'. (CCS_Subst E E' X = E)
+Theorem CCS_Subst_not_FV :
+    !X E. X NOTIN (FV E) <=> !E'. (CCS_Subst E E' X = E)
 Proof
     METIS_TAC [lemma1, lemma2]
 QED
 
 (* if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
-Theorem CCS_Subst_imp_not_fv :
-    !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (fv E)
+Theorem CCS_Subst_IMP_NOT_FV :
+    !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (FV E)
 Proof
-    Suff `!X E. X IN (fv E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
+    Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
  >- METIS_TAC []
  >> GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 5 subgoals left *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
  >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
  >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
@@ -941,29 +994,29 @@ Proof
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
 QED
 
-Theorem fv_prefix :
-    !X E u E'. fv (CCS_Subst E (rec X (prefix u E')) X) =
-               fv (CCS_Subst E (rec X E') X)
+Theorem FV_PREF :
+    !X E u E'. FV (CCS_Subst E (rec X (prefix u E')) X) =
+               FV (CCS_Subst E (rec X E') X)
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, fv_def]
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def]
 QED
 
-Theorem fv_sum :
-    !X E E1 E2. fv (CCS_Subst E (rec X (E1 + E2)) X) =
-               (fv (CCS_Subst E (rec X E1) X)) UNION (fv (CCS_Subst E (rec X E2) X))
+Theorem FV_SUM :
+    !X E E1 E2. FV (CCS_Subst E (rec X (E1 + E2)) X) =
+               (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 4 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
 QED
 
-Theorem fv_par :
-    !X E E1 E2. fv (CCS_Subst E (rec X (E1 || E2)) X) =
-               (fv (CCS_Subst E (rec X E1) X)) UNION (fv (CCS_Subst E (rec X E2) X))
+Theorem FV_PAR :
+    !X E E1 E2. FV (CCS_Subst E (rec X (E1 || E2)) X) =
+               (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, fv_def] (* 4 subgoals *)
+ >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
 QED
 
