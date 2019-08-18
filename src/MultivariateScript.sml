@@ -192,6 +192,14 @@ End
 (* The order of arguments is swapped: `CCS_Subst E map` *)
 val _ = overload_on ("CCS_Subst", ``\E map. CCS_SUBST map E``);
 
+(* The connection with univariate CCS_Subst *)
+Theorem CCS_Subst_alt :
+    !X E E'. CCS_Subst E E' X = CCS_SUBST [(X,E')] E
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> SRW_TAC [] [CCS_SUBST_def, CCS_Subst_def]
+QED
+
 (* From a key list and a value list (of same length) to a finite map *)
 Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = ZIP (Xs,Ps)
