@@ -1,8 +1,8 @@
 (* ========================================================================== *)
 (* FILE          : MultivariateScript.sml                                     *)
-(* DESCRIPTION   : Multivariate CCS Theory and Unique Solution of Equations   *)
+(* DESCRIPTION   : Unique Solution of Equations (Multivariate version)        *)
 (*                                                                            *)
-(* AUTHOR        : (c) 2019 Chun Tian, Fondazione Bruno Kessler, Italy        *)
+(* COPYRIGHT     : (c) 2019 Chun Tian, Fondazione Bruno Kessler, Italy        *)
 (* ========================================================================== *)
 
 open HolKernel Parse boolLib bossLib;
@@ -144,7 +144,7 @@ val set_ss = std_ss ++ PRED_SET_ss;
    -- Chun Tian, Aug 10, 2019 (Giardino di via Fermi, Trento, Italy)
 *)
 
-(* The use of finite_mapTheory to get rid of substitution orders was
+(* The use of alistTheory to get rid of substitution orders was
    suggested by Konrad Slind (HOL mailing list on Oct 23, 2017):
 
   "There are all kinds of issues with substitutions and applying them
@@ -191,6 +191,23 @@ Proof
     SRW_TAC [] [fromList_def, MAP_ZIP]
 QED
 
+Theorem ALOOKUP_fromList :
+    !Xs Ps n. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+              n < LENGTH Xs ==>
+              THE (ALOOKUP (fromList Xs Ps) (EL n Xs)) = EL n Ps
+Proof
+    RW_TAC std_ss [fromList_def]
+ >> Q.ABBREV_TAC `ls = ZIP (Xs,Ps)`
+ >> Know `EL n Xs = FST (EL n ls)`
+ >- (Q.UNABBREV_TAC `ls` >> rw [EL_ZIP])
+ >> Rewr'
+ >> Know `ALOOKUP ls (FST (EL n ls)) = SOME (SND (EL n ls))`
+ >- (MATCH_MP_TAC ALOOKUP_ALL_DISTINCT_EL \\
+     Q.UNABBREV_TAC `ls` >> fs [MAP_ZIP, LENGTH_ZIP])
+ >> Rewr'
+ >> Q.UNABBREV_TAC `ls` >> fs [EL_ZIP]
+QED
+
 (* `EV :('a, 'b) CCS -> 'a set` is the set of equation variables *)
 Definition EV_def :
    (EV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
@@ -204,11 +221,13 @@ Definition EV_def :
    (EV (Var X)             = {X}) (* here *)
 End
 
-val IS_PROC_def = Define `
-    IS_PROC E <=> (EV E = EMPTY)`;
+Definition IS_PROC_def :
+    IS_PROC E <=> (EV E = EMPTY)
+End
 
-val ALL_PROC_def = Define `
-    ALL_PROC Es <=> EVERY IS_PROC Es`;
+Definition ALL_PROC_def :
+    ALL_PROC Es <=> EVERY IS_PROC Es
+End
 
 (* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
 Theorem CCS_SUBST_NOT_EV :
@@ -321,7 +340,7 @@ Proof
  >> fs [EV_def]
 QED
 
-(* KEY result !!! This is only possible after (Var X) is added into
+(* KEY result!!! This is only possible after (Var X) is added into
    CCS datatype as dedicated equation variables.
  *)
 Theorem TRANS_PROC :
@@ -565,11 +584,15 @@ Proof
  >- (DISJ2_TAC >> Q.EXISTS_TAC `Var X` \\
      unset [`X`, `P`, `Q`] \\
      SRW_TAC [] [CCS_SUBST_def, EV_def, MEM_EL, IN_fromList] (* 5 subgoals *)
-     >- cheat
-     >> cheat)
+     >- (Q.EXISTS_TAC `n` >> art [])
+     >- (MATCH_MP_TAC EQ_SYM \\
+         MATCH_MP_TAC ALOOKUP_fromList >> art [])
+     >- METIS_TAC []
+     >- (MATCH_MP_TAC EQ_SYM \\
+         MATCH_MP_TAC ALOOKUP_fromList >> art [])
+     >> METIS_TAC [])
  >> REWRITE_TAC [STRONG_BISIM_UPTO]
- >> Q.X_GEN_TAC `P'`
- >> Q.X_GEN_TAC `Q'`
+ >> fix [`P'`, `Q'`]
  >> BETA_TAC >> STRIP_TAC (* 2 sub-goals here *)
  >- cheat
  >> 
