@@ -233,7 +233,7 @@ Proof
 QED
 
 (* KEY result: if Xs is disjoint with free variables of E, then E{_/Xs} = E *)
-Theorem CCS_SUBST_NOT_FV :
+Theorem CCS_SUBST_ELIM :
     !Xs E. DISJOINT (FV E) (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (fromList Xs Ps) E = E)
 Proof
@@ -254,7 +254,146 @@ Definition context_def :
                      EVERY (\X. CONTEXT (\t. CCS_Subst E t X)) Xs
 End
 
+Theorem context_prefix_rule :
+    !Xs u E. context Xs E ==> context Xs (prefix u E)
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. prefix u (e t))`
+ >- (MATCH_MP_TAC CONTEXT3 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
+QED
 
+Theorem context_prefix :
+    !Xs u E. context Xs (prefix u E) ==> context Xs E
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. prefix u (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC CONTEXT3_backward
+QED
+
+local
+  val t1 =
+     (MATCH_MP_TAC SUBSET_DISJOINT \\
+      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]);
+  val t2 =
+     (RES_TAC >> fs [CCS_Subst_def] \\
+      Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
+      Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X` \\
+      Know `CONTEXT (\t. e1 t || e2 t)`
+      >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+          ASM_SIMP_TAC bool_ss []) \\
+      DISCH_TAC >> IMP_RES_TAC CONTEXT5_backward);
+in
+  val context_par = store_thm
+    ("context_par",
+    ``!Xs E1 E2. context Xs (par E1 E2) ==> context Xs E1 /\ context Xs E2``,
+      RW_TAC std_ss [context_def, EVERY_MEM] >| [t1, t2, t1, t2]);
+end;
+
+Theorem context_par_rule :
+    !Xs E1 E2. context Xs E1 /\ context Xs E2 ==> context Xs (par E1 E2)
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >- ASM_SET_TAC []
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X`
+ >> Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X`
+ >> Know `CONTEXT (\t. e1 t) /\ CONTEXT (\t. e2 t)`
+ >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+     ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `CONTEXT (\t. e1 t || e2 t)`
+ >- (MATCH_MP_TAC CONTEXT5 >> art [])
+ >> unset [`e1`, `e2`] >> SIMP_TAC std_ss []
+QED
+
+Theorem context_restr_rule :
+    !Xs L E. context Xs E ==> context Xs (restr L E)
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. e t)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `CONTEXT (\t. restr L (e t))`
+ >- (MATCH_MP_TAC CONTEXT6 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
+QED
+
+Theorem context_restr :
+    !Xs L E. context Xs (restr L E) ==> context Xs E
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. restr L (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC CONTEXT6_backward
+QED
+
+Theorem context_relab_rule :
+    !Xs E rf. context Xs E ==> context Xs (relab E rf)
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. e t)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `CONTEXT (\t. relab (e t) rf)`
+ >- (MATCH_MP_TAC CONTEXT7 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
+QED
+
+Theorem context_relab :
+    !Xs E rf. context Xs (relab E rf) ==> context Xs E
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. relab (e t) rf)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC CONTEXT7_backward
+QED
+
+(* `~MEM Y Xs` doesn't hold. Also, "context_var" doesn't hold *)
+Theorem context_rec :
+    !Xs Y E. context Xs (rec Y E) ==> DISJOINT (FV E) (set Xs) /\ context Xs E
+Proof
+    rpt GEN_TAC >> DISCH_TAC
+ (* Part II (not used) *)
+ >> Reverse CONJ_TAC
+ >- (fs [context_def, EVERY_MEM, BV_def] \\
+     rpt STRIP_TAC \\
+     RES_TAC \\
+     Cases_on `Y = X` >- fs [] \\
+     fs [CCS_Subst_def] \\
+     Q.ABBREV_TAC `e = \t. CCS_Subst E t X` \\
+     Know `CONTEXT (\t. rec Y (e t))`
+     >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC std_ss []) \\
+     DISCH_TAC \\
+     MATCH_MP_TAC CONTEXT8_backward \\
+     Q.EXISTS_TAC `Y` >> art [])
+ (* Part I, c.f. WG8_IMP_CONST *)
+ >> fs [context_def, EVERY_MEM]
+ >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
+ >> RES_TAC
+ >> `Y <> x` by PROVE_TAC []
+ >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t x`
+ >> Know `CONTEXT (\t. rec Y (e t))` >- (Q.UNABBREV_TAC `e` >> fs [])
+ >> Q.PAT_X_ASSUM `CONTEXT (\t. P)` K_TAC (* cleanup *)
+ >> DISCH_TAC
+ >> IMP_RES_TAC CONTEXT8_IMP_CONST
+ >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
+QED
 
 (* ================================================================= *)
 (*   Weakly guarded equations                                        *)
@@ -272,11 +411,30 @@ Definition weakly_guarded_def :
                             EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
 End
 
+Theorem weakly_guarded_imp_context :
+    !Xs E. weakly_guarded Xs E ==> context Xs E
+Proof
+    RW_TAC std_ss [weakly_guarded_def, context_def, EVERY_MEM]
+ >> MATCH_MP_TAC WG_IMP_CONTEXT
+ >> FIRST_X_ASSUM MATCH_MP_TAC >> art []
+QED
+
 Theorem EVERY_weakly_guarded :
     !Xs Es. EVERY (weakly_guarded Xs) Es ==>
             !E X. MEM E Es /\ MEM X Xs ==> WG (\t. CCS_Subst E t X)
 Proof
     RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
+QED
+
+Theorem weakly_guarded_prefix :
+    !Xs u E. weakly_guarded Xs (prefix u E) ==> context Xs E
+Proof
+    RW_TAC std_ss [weakly_guarded_def, context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. prefix u (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC WG3_backward
 QED
 
 local
@@ -403,12 +561,12 @@ QED
    If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P',
    then P' takes the form E'{Ps/Xs} (for some context E'), and
    moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
-
+ *)
 Theorem strong_unique_solution_lemma : (* full version *)
     !Xs E. weakly_guarded Xs E ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
-                       ?E'. context E' /\
+                       ?E'. context Xs E' /\
                             (P' = CCS_SUBST (fromList Xs Ps) E') /\
                             !Qs. (LENGTH Qs = LENGTH Xs) ==>
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
@@ -425,7 +583,8 @@ Proof
  (* Case 2: E = b.E' *)
  >- (rename1 `weakly_guarded Xs (prefix b E)` \\
      fs [CCS_SUBST_def, TRANS_PREFIX_EQ] \\
-     Q.EXISTS_TAC `E` >> REWRITE_TAC [])
+     Q.EXISTS_TAC `E` >> REWRITE_TAC [] \\
+     IMP_RES_TAC weakly_guarded_prefix) (* for `context Xs E` *)
  (* Case 3: E = E1 + E2 *)
  >- (IMP_RES_TAC weakly_guarded_sum \\
      fs [CCS_SUBST_def, TRANS_SUM_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
@@ -443,6 +602,9 @@ Proof
          K_TAC \\
        RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E' || E2` \\
+       CONJ_TAC (* context Xs (E' || E2) *)
+       >- (MATCH_MP_TAC context_par_rule >> art [] \\
+           MATCH_MP_TAC weakly_guarded_imp_context >> art []) \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_Subst E' (fromList Xs Qs)` >> REWRITE_TAC [] \\
@@ -456,6 +618,9 @@ Proof
          (MP_TAC o (Q.SPEC `Ps`)) \\
        RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E1 || E''` \\
+       CONJ_TAC (* context Xs (E1 || E'') *)
+       >- (MATCH_MP_TAC context_par_rule >> art [] \\
+           MATCH_MP_TAC weakly_guarded_imp_context >> art []) \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ2_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_Subst E'' (fromList Xs Qs)` >> REWRITE_TAC [] \\
@@ -469,6 +634,8 @@ Proof
          (MP_TAC o (Q.SPEC `Ps`)) \\
        RW_TAC std_ss [] \\
        RES_TAC >> Q.EXISTS_TAC `E' || E''` \\
+       CONJ_TAC (* context Xs (E' || E'') *)
+       >- (MATCH_MP_TAC context_par_rule >> art []) \\
        ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
        GEN_TAC >> DISCH_TAC >> NTAC 2 DISJ2_TAC \\
        take [`CCS_Subst E' (fromList Xs Qs)`,
@@ -477,7 +644,8 @@ Proof
  >- (IMP_RES_TAC weakly_guarded_restr \\
      fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
      RES_TAC >> Q.EXISTS_TAC `restr f E'` \\
-     rfs [CCS_SUBST_def])
+     rfs [CCS_SUBST_def] \\
+     MATCH_MP_TAC context_restr_rule >> art [])
  (* Case 6: E = relab E' R *)
  >- (IMP_RES_TAC weakly_guarded_relab \\
      fs [CCS_SUBST_def, TRANS_RELAB_EQ, FV_def] \\
@@ -486,39 +654,49 @@ Proof
        (MP_TAC o (Q.SPEC `Ps`)) \\
      RW_TAC std_ss [] \\
      RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
+     CONJ_TAC (* `context Xs (relab E' R)` *)
+     >- (MATCH_MP_TAC context_relab_rule >> art []) \\
      ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
      GEN_TAC >> DISCH_TAC \\
      take [`u'`, `CCS_Subst E' (fromList Xs Qs)`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  (* Case 7 (difficult): E = rec Y E' *)
  >> rename1 `weakly_guarded Xs (rec Y E)`
- >> Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` K_TAC
  >> IMP_RES_TAC weakly_guarded_rec
  >> `DISJOINT (FV (rec Y E)) (set Xs)` by ASM_SET_TAC [FV_def]
  (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
  >> Know `CCS_Subst (rec Y E) (Xs |-> Ps) = rec Y E`
- >- (irule CCS_SUBST_NOT_FV >> art [])
+ >- (irule CCS_SUBST_ELIM >> art [])
  >> DISCH_THEN (fs o wrap)
  >> `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def]
  (* KEY step: let E' = P' *)
  >> Q.EXISTS_TAC `P'`
- >> Suff `DISJOINT (FV P') (set Xs)`
- >- (DISCH_TAC >> CONJ_TAC
-     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_NOT_FV >> art []) \\
+ >> Know `DISJOINT (FV P') (set Xs)`
+ >- (MATCH_MP_TAC SUBSET_DISJOINT \\
+     take [`FV (rec Y E) UNION BV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL] \\
+     CONJ_TAC >- ASM_SET_TAC [] \\
+     MATCH_MP_TAC TRANS_FV \\
+     Q.EXISTS_TAC `u` >> art [])
+ >> DISCH_TAC
+ >> Reverse CONJ_TAC
+ >- (CONJ_TAC
+     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_ELIM >> art []) \\
      rpt STRIP_TAC \\
      Know `CCS_Subst (rec Y E) (Xs |-> Qs) = rec Y E`
-     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
+     >- (irule CCS_SUBST_ELIM >> art []) >> Rewr' \\
      Know `CCS_Subst P' (Xs |-> Qs) = P'`
-     >- (irule CCS_SUBST_NOT_FV >> art []) >> Rewr' \\
+     >- (irule CCS_SUBST_ELIM >> art []) >> Rewr' \\
      ASM_REWRITE_TAC [])
- (* DISJOINT (FV P') (set Xs) *)
- >> MATCH_MP_TAC SUBSET_DISJOINT
- >> take [`FV (rec Y E) UNION BV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL]
- >> CONJ_TAC >- ASM_SET_TAC []
- >> MATCH_MP_TAC TRANS_FV
- >> Q.EXISTS_TAC `u` >> art []
+ (* context Xs P' *)
+ >> RW_TAC std_ss [context_def]
+ >- (`BV P' SUBSET (BV (rec Y E))` by METIS_TAC [TRANS_BV] \\
+     ASM_SET_TAC [])
+ >> RW_TAC std_ss [EVERY_MEM]
+ >> Suff `!t. CCS_Subst P' t X = P'`
+ >- (Rewr' >> REWRITE_TAC [CONTEXT2])
+ >> REWRITE_TAC [GSYM CCS_Subst_ELIM]
+ >> ASM_SET_TAC []
 QED
-*)
 
 (* NOTE: Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :
@@ -627,7 +805,7 @@ Proof
      >- (`DISJOINT (FV (var Y)) (set Xs)` by ASM_SET_TAC [FV_def] \\
          `(CCS_SUBST (fromList Xs Ps) (var Y) = var Y) /\
           (CCS_SUBST (fromList Xs Qs) (var Y) = var Y)`
-            by METIS_TAC [CCS_SUBST_NOT_FV] \\
+            by METIS_TAC [CCS_SUBST_ELIM] \\
          RW_TAC std_ss [VAR_NO_TRANS]) \\
      fs [MEM_EL] >> rename1 `i < LENGTH Xs` \\
      Know `!Zs. (LENGTH Zs = LENGTH Xs) ==>
@@ -695,7 +873,7 @@ Proof
  >- (POP_ASSUM K_TAC \\ (* IH is not used here *)
      Q.X_GEN_TAC `Y` >> DISCH_TAC \\
      cheat)
- >> 
+ >>
     cheat
 QED
 *)

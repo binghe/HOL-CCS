@@ -979,7 +979,7 @@ val lemma2 = Q.prove (
  >> DISJ1_TAC >> fs []);
 
 (* X is not a free variable of E if and only if E{E'/X} = E *)
-Theorem CCS_Subst_not_FV :
+Theorem CCS_Subst_ELIM :
     !X E. X NOTIN (FV E) <=> !E'. (CCS_Subst E E' X = E)
 Proof
     METIS_TAC [lemma1, lemma2]

@@ -65,7 +65,7 @@ val STRONG_UNIQUE_SOLUTION_LEMMA = store_thm (
         CONJ_TAC >| (* 2 sub-goals here *)
         [ (* goal 4.1.1 (of 2) *)
           MATCH_MP_TAC CONTEXT5 >> art [] \\
-          IMP_RES_TAC WG_IS_CONTEXT,
+          IMP_RES_TAC WG_IMP_CONTEXT,
           (* goal 4.1.2 (of 2) *)
           GEN_TAC >> MATCH_MP_TAC PAR1 >> art [] ],
         (* goal 4.2 (of 3) *)
@@ -75,7 +75,7 @@ val STRONG_UNIQUE_SOLUTION_LEMMA = store_thm (
         CONJ_TAC >| (* 2 sub-goals here *)
         [ (* goal 4.2.1 (of 2) *)
           MATCH_MP_TAC CONTEXT5 >> art [] \\
-          IMP_RES_TAC WG_IS_CONTEXT,
+          IMP_RES_TAC WG_IMP_CONTEXT,
           (* goal 4.2.2 (of 2) *)
           GEN_TAC >> MATCH_MP_TAC PAR2 >> art [] ],
         (* goal 4.3 (of 3) *)
@@ -1327,14 +1327,14 @@ val unfolding_lemma2 = store_thm (
         RES_TAC \\
         Q.EXISTS_TAC `\t. par (C' t) (E' t)` >> BETA_TAC \\
         CONJ_TAC >- ( MATCH_MP_TAC GCONTEXT5 >> art [] \\
-                      MATCH_MP_TAC WGS_IS_GCONTEXT >> art [] ) \\
+                      MATCH_MP_TAC WGS_IMP_GCONTEXT >> art [] ) \\
         FULL_SIMP_TAC std_ss [] \\
         GEN_TAC >> MATCH_MP_TAC PAR1 >> art [],
         (* goal 4.2 (of 3) *)
         RES_TAC \\
         Q.EXISTS_TAC `\t. par (E t) (C' t)` >> BETA_TAC \\
         CONJ_TAC >- ( MATCH_MP_TAC GCONTEXT5 >> art [] \\
-                      MATCH_MP_TAC WGS_IS_GCONTEXT >> art [] ) \\
+                      MATCH_MP_TAC WGS_IMP_GCONTEXT >> art [] ) \\
         FULL_SIMP_TAC std_ss [] \\
         GEN_TAC >> MATCH_MP_TAC PAR2 >> art [],
         (* goal 4.3 (of 3) *)
@@ -1414,7 +1414,7 @@ val unfolding_lemma4 = store_thm (
         (MP_TAC o (Q.SPECL [`[] :'b Action list`, `P'`, `(E :('a, 'b) context) P`])) \\
       RW_TAC std_ss [] >> art [] \\
       Q.EXISTS_TAC `C' o E` \\
-      CONJ_TAC >- ( IMP_RES_TAC WGS_IS_GCONTEXT >> MATCH_MP_TAC GCONTEXT_combin \\
+      CONJ_TAC >- ( IMP_RES_TAC WGS_IMP_GCONTEXT >> MATCH_MP_TAC GCONTEXT_combin \\
                     art [] ) \\
       CONJ_TAC >- ( KILL_TAC >> REWRITE_TAC [o_DEF] >> RW_TAC std_ss [] ) \\
       GEN_TAC >> REWRITE_TAC [FUNPOW, o_DEF] >> BETA_TAC \\
@@ -1455,7 +1455,7 @@ val UNIQUE_SOLUTION_OF_CONTRACTIONS_LEMMA = store_thm (
                      (WEAK_EQUIV O EPS) (C Q) (C' Q))``,
     NTAC 5 STRIP_TAC
  (* Part 1: construct C'' which is a GCONTEXT *)
- >> IMP_RES_TAC WGS_IS_GCONTEXT
+ >> IMP_RES_TAC WGS_IMP_GCONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. GCONTEXT (C'' n)`
  >- ( Q.UNABBREV_TAC `C''` >> BETA_TAC \\
@@ -1531,7 +1531,7 @@ val UNIQUE_SOLUTION_OF_CONTRACTIONS = store_thm (
  >> Q.EXISTS_TAC `\R S. ?C. GCONTEXT C /\ WEAK_EQUIV R (C P) /\ WEAK_EQUIV S (C Q)`
  >> BETA_TAC >> CONJ_TAC
  >- ( Q.EXISTS_TAC `E` \\
-      CONJ_TAC >- IMP_RES_TAC WGS_IS_GCONTEXT \\
+      CONJ_TAC >- IMP_RES_TAC WGS_IMP_GCONTEXT \\
       IMP_RES_TAC contracts_IMP_WEAK_EQUIV \\
       art [] )
  >> REWRITE_TAC [WEAK_BISIM]
@@ -1665,7 +1665,7 @@ val UNIQUE_SOLUTION_OF_EXPANSIONS_LEMMA = store_thm (
                      (WEAK_EQUIV O EPS) (C Q) (C' Q))``,
     NTAC 5 STRIP_TAC
  (* Part 1: construct C'' which is a GCONTEXT *)
- >> IMP_RES_TAC WGS_IS_GCONTEXT
+ >> IMP_RES_TAC WGS_IMP_GCONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. GCONTEXT (C'' n)`
  >- ( Q.UNABBREV_TAC `C''` >> BETA_TAC \\
@@ -1741,7 +1741,7 @@ val UNIQUE_SOLUTION_OF_EXPANSIONS = store_thm (
  >> Q.EXISTS_TAC `\R S. ?C. GCONTEXT C /\ WEAK_EQUIV R (C P) /\ WEAK_EQUIV S (C Q)`
  >> BETA_TAC >> CONJ_TAC
  >- ( Q.EXISTS_TAC `E` \\
-      CONJ_TAC >- IMP_RES_TAC WGS_IS_GCONTEXT \\
+      CONJ_TAC >- IMP_RES_TAC WGS_IMP_GCONTEXT \\
       IMP_RES_TAC expands_IMP_WEAK_EQUIV \\
       art [] )
  >> REWRITE_TAC [WEAK_BISIM]
@@ -1912,14 +1912,14 @@ val OBS_unfolding_lemma2 = store_thm (
         RES_TAC \\
         Q.EXISTS_TAC `\t. par (C' t) (E' t)` >> BETA_TAC \\
         CONJ_TAC >- ( MATCH_MP_TAC CONTEXT5 >> art [] \\
-                      MATCH_MP_TAC WG_IS_CONTEXT >> art [] ) \\
+                      MATCH_MP_TAC WG_IMP_CONTEXT >> art [] ) \\
         FULL_SIMP_TAC std_ss [] \\
         GEN_TAC >> MATCH_MP_TAC PAR1 >> art [],
         (* goal 3.2 (of 3) *)
         RES_TAC \\
         Q.EXISTS_TAC `\t. par (E t) (C' t)` >> BETA_TAC \\
         CONJ_TAC >- ( MATCH_MP_TAC CONTEXT5 >> art [] \\
-                      MATCH_MP_TAC WG_IS_CONTEXT >> art [] ) \\
+                      MATCH_MP_TAC WG_IMP_CONTEXT >> art [] ) \\
         FULL_SIMP_TAC std_ss [] \\
         GEN_TAC >> MATCH_MP_TAC PAR2 >> art [],
         (* goal 3.3 (of 3) *)
@@ -2005,7 +2005,7 @@ val OBS_unfolding_lemma4 = store_thm (
         (MP_TAC o (Q.SPECL [`[] :'b Action list`, `P'`, `(E :('a, 'b) context) P`])) \\
       RW_TAC std_ss [] >> art [] \\
       Q.EXISTS_TAC `C' o E` \\
-      CONJ_TAC >- ( IMP_RES_TAC WG_IS_CONTEXT >> MATCH_MP_TAC CONTEXT_combin \\
+      CONJ_TAC >- ( IMP_RES_TAC WG_IMP_CONTEXT >> MATCH_MP_TAC CONTEXT_combin \\
                     art [] ) \\
       CONJ_TAC >- ( KILL_TAC >> REWRITE_TAC [o_DEF] >> RW_TAC std_ss [] ) \\
       GEN_TAC >> REWRITE_TAC [FUNPOW, o_DEF] >> BETA_TAC \\
@@ -2042,7 +2042,7 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
                      (WEAK_EQUIV O EPS) (C Q) (C' Q))``,
     NTAC 5 STRIP_TAC
  (* Part 1: construct C'' which is a CONTEXT *)
- >> IMP_RES_TAC WG_IS_CONTEXT
+ >> IMP_RES_TAC WG_IMP_CONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. CONTEXT (C'' n)`
  >- ( Q.UNABBREV_TAC `C''` >> BETA_TAC \\
@@ -2114,7 +2114,7 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS = store_thm (
  >> Q.EXISTS_TAC `\R S. ?C. CONTEXT C /\ WEAK_EQUIV R (C P) /\ WEAK_EQUIV S (C Q)`
  >> BETA_TAC >> CONJ_TAC
  >- ( Q.EXISTS_TAC `E` \\
-      CONJ_TAC >- IMP_RES_TAC WG_IS_CONTEXT \\
+      CONJ_TAC >- IMP_RES_TAC WG_IMP_CONTEXT \\
       IMP_RES_TAC OBS_contracts_IMP_WEAK_EQUIV \\
       art [] )
  >> REWRITE_TAC [WEAK_BISIM]
