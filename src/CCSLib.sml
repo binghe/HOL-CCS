@@ -29,6 +29,7 @@ val Rewr     = DISCH_THEN (REWRITE_TAC o wrap); (* from util_prob *)
 val Rewr'    = DISCH_THEN (ONCE_REWRITE_TAC o wrap);
 val Reverse  = Tactical.REVERSE;                (* REVERSE is a theorem
                                                    in rich_listTheory *)
+val POP_ORW  = POP_ASSUM (fn thm => ONCE_REWRITE_TAC [thm]);
 
 fun PRINT_TAC s gl =                            (* from cardinalTheory *)
   (print ("** " ^ s ^ "\n"); ALL_TAC gl);
