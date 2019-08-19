@@ -8,7 +8,7 @@ EXTRA_CLEANS = heap munge.exe selftest.exe \
 
 ifdef POLY
 HOLHEAP = heap
-OBJNAMES = finite_mapTheory llistTheory
+OBJNAMES = alistTheory bisimulationTheory
 OBJS = $(patsubst %,$(dprot $(SIGOBJ)/%.uo),$(OBJNAMES))
 
 all: $(HOLHEAP)
