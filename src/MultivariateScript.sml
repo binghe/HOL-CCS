@@ -200,7 +200,7 @@ Proof
  >> SRW_TAC [] [CCS_SUBST_def, CCS_Subst_def]
 QED
 
-(* From a key list and a value list (of same length) to a finite map *)
+(* from a key list and a value list (of same length) to an alist *)
 Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = ZIP (Xs,Ps)
 End
@@ -836,7 +836,8 @@ Proof
        Q.EXISTS_TAC `E2` >> RW_TAC std_ss [O_DEF] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [],
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
+       cheat (* context Xs E' *),
        (* goal 2 (of 2) *)
       `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
          by METIS_TAC [EL_MAP] \\
@@ -858,7 +859,8 @@ Proof
        Q.EXISTS_TAC `E1` >> RW_TAC std_ss [O_DEF] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] ])
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
+       cheat (* context ... *) ])
  (* Case 2: E = prefix u G *)
  >- cheat
  (* Case 3: E = G + G' *)
@@ -869,12 +871,25 @@ Proof
  >- cheat
  (* Case 6: E = relab f G *)
  >- cheat
- (* Case 7: E = rec Y G *)
- >- (POP_ASSUM K_TAC \\ (* IH is not used here *)
-     Q.X_GEN_TAC `Y` >> DISCH_TAC \\
-     cheat)
- >>
-    cheat
+ (* Case 7: E = rec Y G (`context` is essential here) *)
+ >> POP_ASSUM K_TAC (* IH is not used here, removed *)
+ >> Q.X_GEN_TAC `Y` >> DISCH_TAC
+ >> IMP_RES_TAC context_rec
+ >> `DISJOINT (FV (rec Y G)) (set Xs)` by ASM_SET_TAC [FV_def]
+ >> `(CCS_SUBST (fromList Xs Ps) (rec Y G) = rec Y G) /\
+     (CCS_SUBST (fromList Xs Qs) (rec Y G) = rec Y G)`
+        by METIS_TAC [CCS_SUBST_ELIM] >> NTAC 2 POP_ORW
+ >> rpt STRIP_TAC (* 2 subgoals *)
+ >| [ (* goal 1 (of 2) *)
+      Q.EXISTS_TAC `E1` >> art [O_DEF] \\
+      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
+      (* goal 2 (of 2) *)
+      Q.EXISTS_TAC `E2` >> art [O_DEF] \\
+      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
 QED
 *)
 
