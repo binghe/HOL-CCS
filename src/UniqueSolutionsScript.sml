@@ -130,21 +130,18 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
  >> Q.X_GEN_TAC `P'`
  >> Q.X_GEN_TAC `Q'`
  >> BETA_TAC >> STRIP_TAC (* 2 sub-goals here *)
- >- ( art [] >> rpt STRIP_TAC >| (* 2 sub-goals here *)
-      [ (* goal 1 (of 2) *)
-        Q.EXISTS_TAC `E1` >> art [] \\
-        REWRITE_TAC [O_DEF] \\
-        Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-        Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-        BETA_TAC >> DISJ1_TAC >> RW_TAC std_ss [],
-        (* goal 2 (of 2) *)
-        Q.EXISTS_TAC `E2` >> art [] \\
-        REWRITE_TAC [O_DEF] \\
-        Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-        Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-        BETA_TAC >> DISJ1_TAC >> RW_TAC std_ss [] ] )
- >> art []
- >> NTAC 2 (POP_ASSUM K_TAC)
+ >- (POP_ASSUM MP_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
+     [ (* goal 1 (of 2) *)
+       Q.EXISTS_TAC `E1` >> art [O_DEF] \\
+       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
+       (* goal 2 (of 2) *)
+       Q.EXISTS_TAC `E2` >> art [O_DEF] \\
+       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ])
+ >> NTAC 2 POP_ORW
  >> POP_ASSUM MP_TAC
  >> Q.SPEC_TAC (`G`, `G`)
  >> COUNT_TAC (Induct_on `CONTEXT` >> BETA_TAC >> rpt STRIP_TAC) (* 14 sub-goals here *)

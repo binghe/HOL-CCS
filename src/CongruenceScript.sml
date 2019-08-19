@@ -26,14 +26,7 @@ val _ = temp_loose_equality ();
 (*                                                                            *)
 (******************************************************************************)
 
-(*
-val STRONG_EQUIV_SUBST_REC = store_thm (
-   "STRONG_EQUIV_SUBST_REC",
-  ``!E E' X A B. ({X} = FV E) /\ ({X} = FV E') /\ STRONG_EQUIV E E' ==>
-    STRONG_EQUIV (rec A (CCS_Subst E  (var A) X))
-                 (rec B (CCS_Subst E' (var B) X))``,
-    cheat);
- *)
+(* moved to MultivariateScript.sml *)
 
 (******************************************************************************)
 (*                                                                            *)
