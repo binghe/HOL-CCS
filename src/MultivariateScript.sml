@@ -157,23 +157,7 @@ val set_ss = std_ss ++ PRED_SET_ss;
 
    Also see <holdir>/examples/unification/triangular/first-order
    for a unification case study."
-
-Definition CCS_SUBST_def :
-   (CCS_SUBST (map :('a, ('a, 'b) CCS) alist) nil = nil) /\
-   (CCS_SUBST map (prefix u E) = prefix u (CCS_SUBST map E)) /\
-   (CCS_SUBST map (sum E1 E2)  = sum (CCS_SUBST map E1)
-                                    (CCS_SUBST map E2)) /\
-   (CCS_SUBST map (par E1 E2)  = par (CCS_SUBST map E1)
-                                    (CCS_SUBST map E2)) /\
-   (CCS_SUBST map (restr L E)  = restr L (CCS_SUBST map E)) /\
-   (CCS_SUBST map (relab E rf) = relab (CCS_SUBST map E) rf) /\
-   (CCS_SUBST map (var X)      = var X) /\
-   (CCS_SUBST map (rec X E)    = (rec X (CCS_SUBST map E))) /\
-   (CCS_SUBST map (Var X)      = if MEM X (MAP FST map)
-                                 then THE (ALOOKUP map X) else (Var X))
-End
-*)
-
+ *)
 Definition CCS_SUBST_def :
    (CCS_SUBST (map :('a, ('a, 'b) CCS) alist) nil = nil) /\
    (CCS_SUBST map (prefix u E) = prefix u (CCS_SUBST map E)) /\
@@ -192,7 +176,7 @@ End
 (* The order of arguments is swapped: `CCS_Subst E map` *)
 val _ = overload_on ("CCS_Subst", ``\E map. CCS_SUBST map E``);
 
-(* The connection with univariate CCS_Subst *)
+(* CCS_Subst can be expressed in CCS_SUBST *)
 Theorem CCS_Subst_alt :
     !X E E'. CCS_Subst E E' X = CCS_SUBST [(X,E')] E
 Proof
@@ -708,6 +692,7 @@ End
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
 Definition CCS_solution_def :
     CCS_solution Xs Es R Ps <=>
+     (* ALL_PROC Ps /\ *)
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
@@ -752,7 +737,7 @@ QED
         If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then P ~ Q.
 
    strong_unique_solution_lemma is repeatedly used in each subgoal.
-
+ *)
 Theorem strong_unique_solution :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
@@ -837,7 +822,10 @@ Proof
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
        DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       cheat (* context Xs E' *),
+       (* context Xs E', looks true but proof is hard. *)
+       fs [context_def, BV_def, EVERY_MEM] \\
+       cheat (* weakly_guarded_def *)
+       ,
        (* goal 2 (of 2) *)
       `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
          by METIS_TAC [EL_MAP] \\
@@ -891,7 +879,77 @@ Proof
       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
 QED
-*)
+
+Theorem unique_solution_of_obs_contractions_lemma :
+    !Xs Ps Qs. (?Es. CCS_equation Xs Es /\
+                     EVERY (weakly_guarded Xs) Es /\
+                     Ps IN (CCS_solution Xs Es OBS_contracts) /\
+                     Qs IN (CCS_solution Xs Es OBS_contracts)) ==>
+       !C. context Xs C ==>
+           (!l R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) (label l) R ==>
+                  ?C'. context Xs C' /\
+                       R contracts (CCS_SUBST (fromList Xs Ps) C') /\
+                       (WEAK_EQUIV O (\x y. WEAK_TRANS x (label l) y))
+                         (CCS_SUBST (fromList Xs Qs) C)
+                         (CCS_SUBST (fromList Xs Qs) C')) /\
+           (!R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) tau R ==>
+                ?C'. context Xs C' /\
+                     R contracts (CCS_SUBST (fromList Xs Ps) C') /\
+                     (WEAK_EQUIV O EPS) (CCS_SUBST (fromList Xs Qs) C)
+                                        (CCS_SUBST (fromList Xs Qs) C'))
+Proof
+    cheat
+QED
+
+(* Shared lemma for unique_solution_of_obs_contractions and 
+   unique_solution_of_rooted_contractions.
+ *)
+val lemma = Q.prove (
+   `CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
+    CCS_solution Xs Es OBS_contracts Ps /\
+    CCS_solution Xs Es OBS_contracts Qs ==>
+    WEAK_BISIM (\R S. ?C. context Xs C /\
+                          WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
+                          WEAK_EQUIV S (CCS_SUBST (fromList Xs Qs) C))`,
+    cheat);
+
+Theorem unique_solution_of_obs_contractions :
+    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+        !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
+                Qs IN (CCS_solution Xs Es OBS_contracts)
+            ==> LIST_REL WEAK_EQUIV Ps Qs
+Proof
+    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
+ >> RW_TAC list_ss [CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
+ >> REWRITE_TAC [WEAK_EQUIV]
+ >> Q.EXISTS_TAC `\R S. ?C. context Xs C /\
+                            WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
+                            WEAK_EQUIV S (CCS_SUBST (fromList Xs Qs) C)`
+ >> BETA_TAC >> CONJ_TAC
+ >- (Q.EXISTS_TAC `EL n Es` \\
+     CONJ_TAC (* context Xs (EL n Es) *)
+     >- (MATCH_MP_TAC weakly_guarded_imp_context \\
+         FIRST_X_ASSUM MATCH_MP_TAC \\
+         REWRITE_TAC [MEM_EL] \\
+         Q.EXISTS_TAC `n` >> art []) \\
+     CONJ_TAC (* 2 subgoals, same initial tactic *) \\
+     MATCH_MP_TAC OBS_contracts_IMP_WEAK_EQUIV >|
+     [ (* goal 1 (of 2) *)
+       Q.PAT_X_ASSUM `!n. n < LENGTH Ps ==> X` (MP_TAC o (Q.SPEC `n`)) \\
+       RW_TAC std_ss [] >> POP_ASSUM MP_TAC \\
+       Know `EL n (MAP (CCS_SUBST (fromList Xs Ps)) Es) =
+             CCS_SUBST (fromList Xs Ps) (EL n Es)`
+       >- (MATCH_MP_TAC EL_MAP >> fs []) >> Rewr,
+       (* goal 2 (of 2) *)
+       Q.PAT_X_ASSUM `!n. n < LENGTH Qs ==> X` (MP_TAC o (Q.SPEC `n`)) \\
+       RW_TAC std_ss [] >> POP_ASSUM MP_TAC \\
+       Know `EL n (MAP (CCS_SUBST (fromList Xs Qs)) Es) =
+             CCS_SUBST (fromList Xs Qs) (EL n Es)`
+       >- (MATCH_MP_TAC EL_MAP >> fs []) >> Rewr ])
+ >> POP_ASSUM K_TAC (* `n` is useless *)
+ >> MATCH_MP_TAC lemma
+ >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
+QED
 
 (* THE FINAL THEOREM *)
 Theorem unique_solution_of_rooted_contractions :
@@ -900,7 +958,50 @@ Theorem unique_solution_of_rooted_contractions :
                 Qs IN (CCS_solution Xs Es OBS_contracts)
             ==> LIST_REL OBS_CONGR Ps Qs
 Proof
-    cheat
+    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
+ >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
+ >> irule OBS_CONGR_BY_WEAK_BISIM
+ >> Q.EXISTS_TAC `\R S. ?C. context Xs C /\
+                            WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
+                            WEAK_EQUIV S (CCS_SUBST (fromList Xs Qs) C)`
+ >> BETA_TAC >> CONJ_TAC
+ >- (Q.ABBREV_TAC `P = EL n Ps` \\
+     Q.ABBREV_TAC `Q = EL n Qs` \\
+     Q.ABBREV_TAC `E = EL n Es` \\
+     Know `weakly_guarded Xs E`
+     >- (Q.UNABBREV_TAC `E` >> FIRST_X_ASSUM MATCH_MP_TAC \\
+         REWRITE_TAC [MEM_EL] >> Q.EXISTS_TAC `n` >> art []) \\
+     rpt STRIP_TAC >| (* 2 subgoals *)
+     [ (* goal 1 (of 2) *)
+      `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` by METIS_TAC [EL_MAP] \\
+       IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
+       Q.PAT_X_ASSUM `weakly_guarded Xs E`
+         (MP_TAC o (Q.SPEC `Ps`) o (MATCH_MP strong_unique_solution_lemma)) \\
+       RW_TAC std_ss [] >> RES_TAC \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) >> RW_TAC std_ss [] \\
+      `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
+       Q.PAT_X_ASSUM `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` K_TAC \\
+       IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
+       Q.EXISTS_TAC `E1'` >> art [] \\
+       Q.EXISTS_TAC `E'` >> art [] \\
+       MATCH_MP_TAC contracts_IMP_WEAK_EQUIV >> art [],
+       (* goal 2 (of 2) *)
+      `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
+       IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
+       Q.PAT_X_ASSUM `weakly_guarded Xs E`
+         (MP_TAC o (Q.SPEC `Qs`) o (MATCH_MP strong_unique_solution_lemma)) \\
+       RW_TAC std_ss [] >> RES_TAC \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
+      `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` by METIS_TAC [EL_MAP] \\
+       Q.PAT_X_ASSUM `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` K_TAC \\
+       IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
+       rename1 `WEAK_TRANS P u E1'` \\
+       Q.EXISTS_TAC `E1'` >> art [] \\
+       Q.EXISTS_TAC `E'` >> art [] \\
+       MATCH_MP_TAC contracts_IMP_WEAK_EQUIV >> art [] ])
+ >> POP_ASSUM K_TAC (* `n` is useless *)
+ >> MATCH_MP_TAC lemma
+ >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
 val _ = export_theory ();

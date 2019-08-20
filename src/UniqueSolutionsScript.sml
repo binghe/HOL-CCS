@@ -2101,6 +2101,9 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
       IMP_RES_TAC OBS_contracts_EPS' \\
       Q.EXISTS_TAC `E1` >> art [] ]);
 
+(* Shared lemma for UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS and
+   UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS
+ *)
 val lemma = Q.prove (
    `WG E /\ OBS_contracts P (E P) /\ OBS_contracts Q (E Q) ==>
     WEAK_BISIM (\R S. ?C. CONTEXT C /\
@@ -2220,7 +2223,7 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS = store_thm (
 (******************************************************************************)
 
 (* This is a stronger version of previous theorem: conclusion is `OBS_CONGR P Q`
- * OBS_CONGR_BY_WEAK_BISIM and STRONG_UNIQUE_SOLUTION_LEMMA must be used here.
+   OBS_CONGR_BY_WEAK_BISIM and STRONG_UNIQUE_SOLUTION_LEMMA must be used here.
  *)
 val UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS = store_thm (
    "UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS",
@@ -2229,25 +2232,23 @@ val UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS = store_thm (
  >> irule OBS_CONGR_BY_WEAK_BISIM
  >> Q.EXISTS_TAC `\R S. ?C. CONTEXT C /\ WEAK_EQUIV R (C P) /\ WEAK_EQUIV S (C Q)`
  >> BETA_TAC >> CONJ_TAC
- >- ( rpt STRIP_TAC >|
-      [ (* goal 1 (of 2) *)
-        rpt STRIP_TAC \\
-        IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
-        IMP_RES_TAC STRONG_UNIQUE_SOLUTION_LEMMA \\
-        POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
-        IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
-        Q.EXISTS_TAC `E1'` >> art [] \\
-        Q.EXISTS_TAC `E'` >> art [] \\
-        FULL_SIMP_TAC std_ss [contracts_IMP_WEAK_EQUIV],
-        (* goal 2 (of 2) *)
-        rpt STRIP_TAC \\
-        IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
-        IMP_RES_TAC STRONG_UNIQUE_SOLUTION_LEMMA \\
-        POP_ASSUM (ASSUME_TAC o (Q.SPEC `P`)) \\
-        IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
-        Q.EXISTS_TAC `E1'` >> art [] \\
-        Q.EXISTS_TAC `E'` >> art [] \\
-        FULL_SIMP_TAC std_ss [contracts_IMP_WEAK_EQUIV] ] )
+ >- (rpt STRIP_TAC >| (* 2 subgoals *)
+     [ (* goal 1 (of 2) *)
+       IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
+       IMP_RES_TAC STRONG_UNIQUE_SOLUTION_LEMMA \\
+       POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
+       IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
+       Q.EXISTS_TAC `E1'` >> art [] \\
+       Q.EXISTS_TAC `E'` >> art [] \\
+       fs [contracts_IMP_WEAK_EQUIV],
+       (* goal 2 (of 2) *)
+       IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
+       IMP_RES_TAC STRONG_UNIQUE_SOLUTION_LEMMA \\
+       POP_ASSUM (ASSUME_TAC o (Q.SPEC `P`)) \\
+       IMP_RES_TAC OBS_contracts_TRANS_RIGHT \\
+       Q.EXISTS_TAC `E1'` >> art [] \\
+       Q.EXISTS_TAC `E'` >> art [] \\
+       fs [contracts_IMP_WEAK_EQUIV] ])
  >> MATCH_MP_TAC lemma >> art []);
 
 (* A simple way to prove the original UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS *)
