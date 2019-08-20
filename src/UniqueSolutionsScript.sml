@@ -2102,8 +2102,7 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
       Q.EXISTS_TAC `E1` >> art [] ]);
 
 (* Shared lemma for UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS and
-   UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS
- *)
+   UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS *)
 val shared_lemma = Q.prove (
    `WG E /\ OBS_contracts P (E P) /\ OBS_contracts Q (E Q) ==>
     WEAK_BISIM (\R S. ?C. CONTEXT C /\

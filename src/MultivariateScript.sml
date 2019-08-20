@@ -879,6 +879,8 @@ Proof
       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
 QED
 
+(* Lemma 3.9 of [2], full/multivariate version of 
+   UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
 Theorem unique_solution_of_obs_contractions_lemma :
     !Xs Es Ps Qs. CCS_equation Xs Es /\
                   EVERY (weakly_guarded Xs) Es /\
@@ -897,6 +899,16 @@ Theorem unique_solution_of_obs_contractions_lemma :
                      (WEAK_EQUIV O EPS) (CCS_SUBST (fromList Xs Qs) C)
                                         (CCS_SUBST (fromList Xs Qs) C'))
 Proof
+    NTAC 7 STRIP_TAC (* up to `context Xs C` *)
+ >> Know `EVERY (context Xs) Es`
+ >- (fs [EVERY_MEM] >> rpt STRIP_TAC \\
+     MATCH_MP_TAC weakly_guarded_imp_context \\
+     FIRST_X_ASSUM MATCH_MP_TAC >> art [])
+ >> DISCH_TAC
+ >> Q.ABBREV_TAC `E = \ps. MAP (CCS_SUBST (fromList Xs ps)) Es`
+ >> Q.ABBREV_TAC
+      `C'' = \n ps. CCS_SUBST (fromList Xs (FUNPOW E n ps)) C`
+ >> 
     cheat
 QED
 
@@ -1091,6 +1103,12 @@ Proof
  >> MATCH_MP_TAC shared_lemma
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
+
+(* Bibliography:
+ *
+ * [1] Milner, R.: Communication and concurrency. (1989).
+ * [2] Sangiorgi, D.: Equations, contractions, and unique solutions. ACM SIGPLAN Notices. (2015).
+ *)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
