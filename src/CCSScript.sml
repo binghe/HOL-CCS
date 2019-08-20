@@ -370,6 +370,25 @@ Definition CCS_Subst_def :
                                   else (rec Y (CCS_Subst E E' X)))
 End
 
+val [CCS_Subst_nil,
+     CCS_Subst_prefix,
+     CCS_Subst_sum,
+     CCS_Subst_par,
+     CCS_Subst_restr,
+     CCS_Subst_relab,
+     CCS_Subst_var,
+     CCS_Subst_rec] =
+    map save_thm
+        (combine (["CCS_Subst_nil",
+                   "CCS_Subst_prefix",
+                   "CCS_Subst_sum",
+                   "CCS_Subst_par",
+                   "CCS_Subst_restr",
+                   "CCS_Subst_relab",
+                   "CCS_Subst_var",
+                   "CCS_Subst_rec"],
+                  CONJUNCTS CCS_Subst_def));
+
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
    and bound, so there exist no free variables X in E to be replaced with E'.
    Hence, the term rec Y E is returned.
@@ -377,14 +396,14 @@ End
    Below are two typical cases by CCS_Subst: *)
 
 (* !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
-val CCS_Subst_rec = save_thm (
-   "CCS_Subst_rec",
+val CCS_Subst_rec_fix = save_thm (
+   "CCS_Subst_rec_fix",
     Q.GENL [`X`, `E`, `E'`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
 (* !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
-val CCS_Subst_var = save_thm (
-   "CCS_Subst_var",
+val CCS_Subst_var_fix = save_thm (
+   "CCS_Subst_var_fix",
     Q.GENL [`X`, `E`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
 
@@ -840,7 +859,9 @@ QED
 val TRANS_REC = save_thm ("TRANS_REC", EQ_IMP_LR TRANS_REC_EQ);
 
 (**********************************************************************)
-(*  Free and bound (recursion) variables (not used so far)            *)
+(*                                                                    *)
+(*              Free and bound (recursion) variables                  *)
+(*                                                                    *)
 (**********************************************************************)
 
 (* ('a, 'b) CCS -> 'a set (set of free variables) *)
@@ -909,7 +930,6 @@ Proof
  >> ASM_SET_TAC [BV_def]
 QED
 
-(* TRANS_FV doesn't hold; c.f. MultivariateTheory.TRANS_EV *)
 Theorem TRANS_BV :
     !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
 Proof
@@ -1089,8 +1109,6 @@ Definition ALL_IDENTICAL :
     ALL_IDENTICAL t = ?x. !y. MEM y t ==> (y = x)
 End
 
-(* The following definitions are not used nor confirmed to be correct:
-
 (* (FN :('a, 'b) CCS -> 'a list -> 'b Label set) *)
 val FN_definition = `
    (FN (nil :('a, 'b) CCS) J  = (EMPTY :'b Label set)) /\
@@ -1150,7 +1168,6 @@ val FN_UNIV2 = store_thm ("FN_UNIV2",
   ``!p q. free_names p UNION free_names q <> (UNIV :'b Label set) ==>
           ?a. a NOTIN free_names p /\ a NOTIN free_names q``,
     PROVE_TAC [EQ_UNIV, IN_UNION]);
-*)
 
 val _ = export_theory ();
 val _ = html_theory "CCS";

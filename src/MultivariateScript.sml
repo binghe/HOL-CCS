@@ -9,17 +9,8 @@ open HolKernel Parse boolLib bossLib;
 
 open relationTheory pred_setTheory pred_setLib listTheory alistTheory;
 
-(* unused for now:
- pairTheory prim_recTheory arithmeticTheory combinTheory;
- *)
-
-open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory
+open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
      ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory;
-
-(* unused for now:
-open StrongEQLib WeakEQLib WeakLawsTheory;
-open ObsCongrLib ObsCongrLawsTheory TraceTheory ExpansionTheory;
- *)
 
 val _ = new_theory "Multivariate";
 
@@ -172,6 +163,25 @@ Definition CCS_SUBST_def :
                                  then (rec X (CCS_SUBST (ADELKEY X map) E))
                                  else (rec X (CCS_SUBST map E)))
 End
+
+val [CCS_SUBST_nil,
+     CCS_SUBST_prefix,
+     CCS_SUBST_sum,
+     CCS_SUBST_par,
+     CCS_SUBST_restr,
+     CCS_SUBST_relab,
+     CCS_SUBST_var,
+     CCS_SUBST_rec] =
+    map save_thm
+        (combine (["CCS_SUBST_nil",
+                   "CCS_SUBST_prefix",
+                   "CCS_SUBST_sum",
+                   "CCS_SUBST_par",
+                   "CCS_SUBST_restr",
+                   "CCS_SUBST_relab",
+                   "CCS_SUBST_var",
+                   "CCS_SUBST_rec"],
+                  CONJUNCTS CCS_SUBST_def));
 
 (* The order of arguments is swapped: `CCS_Subst E map` *)
 (* val _ = overload_on ("CCS_Subst", ``\E map. CCS_SUBST map E``); *)
@@ -713,7 +723,7 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
-(* Proposition 4.12 of [Mil89], c.f. StrongLawsTheory.STRONG_UNFOLDING
+(* Proposition 4.12 of [1], c.f. StrongLawsTheory.STRONG_UNFOLDING
 
    Let Es and Fs contain (free, equation) variable Es at most. Let
    As = Es{As/Xs}, Bs = Es{Bs/Xs} and Es ~ Fs. Then As ~ Bs.
@@ -729,7 +739,7 @@ Proof
 QED
  *)
 
-(* Proposition 4.12 of [Mil89], the univariate version (unconfirmed):
+(* Proposition 4.12 of [1], the univariate version (unconfirmed):
 
    Let P and Q contain (free, recursion) variable X at most.
    Let A = P{A/X} (or `rec X P`), B = Q{B/X} (or `rec X Q`) and E ~ F.
@@ -894,7 +904,7 @@ Proof
       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
 QED
 
-(* Lemma 3.9 of [2], full/multivariate version of 
+(* Lemma 3.9 of [2], full/multivariate version of
    UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
 Theorem unique_solution_of_obs_contractions_lemma :
     !Xs Es Ps Qs. CCS_equation Xs Es /\
@@ -924,11 +934,11 @@ Proof
  >> Q.ABBREV_TAC `C'' = \n. CCS_SUBST (fromList Xs (FUNPOW E n Es)) C`
  >> Know `!n. context Xs (C'' n)`
  >- (cheat)
- >> 
+ >>
     cheat
 QED
 
-(* Shared lemma for unique_solution_of_obs_contractions and 
+(* Shared lemma for unique_solution_of_obs_contractions and
    unique_solution_of_rooted_contractions. *)
 val shared_lemma = Q.prove (
    `CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
@@ -1122,8 +1132,10 @@ QED
 
 (* Bibliography:
  *
- * [1] Milner, R.: Communication and concurrency. (1989).
- * [2] Sangiorgi, D.: Equations, contractions, and unique solutions. ACM SIGPLAN Notices. (2015).
+ * [1] Milner, R.: Communication and Concurrency. Prentice Hall International
+ *     Series in Computer Science (1989).
+ * [2] Sangiorgi, D.: Equations, Contractions, and Unique Solutions.
+ *     ACM Transactions on Computational Logic (TOCL). 18, 4:1–30 (2017).
  *)
 
 val _ = export_theory ();
