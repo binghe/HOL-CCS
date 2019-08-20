@@ -183,25 +183,24 @@ val [CCS_SUBST_nil,
                    "CCS_SUBST_rec"],
                   CONJUNCTS CCS_SUBST_def));
 
-(* The order of arguments is swapped: `CCS_Subst E map` *)
-(* val _ = overload_on ("CCS_Subst", ``\E map. CCS_SUBST map E``); *)
+val _ = overload_on ("CCS_Subst", ``CCS_SUBST``);
 
-Theorem CCS_SUBST_EMPTY_MAP[simp] :
+Theorem CCS_SUBST_EMPTY[simp] :
     !E. CCS_SUBST [] E = E
 Proof
     Induct_on `E` >> SRW_TAC [] [CCS_SUBST_def]
 QED
 
 (* CCS_Subst can be expressed in CCS_SUBST *)
-Theorem CCS_Subst_alt :
-    !X E E'. CCS_Subst E E' X = CCS_SUBST [(X,E')] E
+Theorem CCS_SUBST_SING[simp] :
+    !X E E'. CCS_SUBST [(X,E')] E = CCS_Subst E E' X
 Proof
     GEN_TAC >> Induct_on `E`
  >> SRW_TAC [] [CCS_SUBST_def, CCS_Subst_def]
  >> Know `ADELKEY X [(X,E')] = []`
  >- RW_TAC list_ss [ADELKEY_def]
  >> Rewr'
- >> REWRITE_TAC [CCS_SUBST_EMPTY_MAP]
+ >> REWRITE_TAC [CCS_SUBST_EMPTY]
 QED
 
 (* from a key list and a value list (of same length) to an alist *)
@@ -367,11 +366,11 @@ QED
 
 (* `~MEM Y Xs` doesn't hold. Also, "context_var" doesn't hold *)
 Theorem context_rec :
-    !Xs Y E. context Xs (rec Y E) ==> DISJOINT (FV E) (set Xs) /\ context Xs E
+    !Xs Y E. context Xs (rec Y E) ==>
+             context Xs E /\ DISJOINT (FV E) (set Xs)
 Proof
     rpt GEN_TAC >> DISCH_TAC
- (* Part II (not used) *)
- >> Reverse CONJ_TAC
+ >> CONJ_TAC
  >- (fs [context_def, EVERY_MEM, BV_def] \\
      rpt STRIP_TAC \\
      RES_TAC \\
@@ -383,7 +382,6 @@ Proof
      DISCH_TAC \\
      MATCH_MP_TAC CONTEXT8_backward \\
      Q.EXISTS_TAC `Y` >> art [])
- (* Part I, c.f. WG8_IMP_CONST *)
  >> fs [context_def, EVERY_MEM]
  >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
  >> RES_TAC

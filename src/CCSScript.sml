@@ -624,9 +624,9 @@ val PAR_cases_EQ = save_thm ("PAR_cases_EQ",
 
 val PAR_cases = save_thm ("PAR_cases", EQ_IMP_LR PAR_cases_EQ);
 
-(* NOTE: the shape of this theorem can be easily got from above definition by replacing
-         REWRITE_RULE to SIMP_RULE, however the inner existential variable (E1) has a
-         different name. *)
+(* NOTE: the shape of this theorem can be easily derived from above definition
+   by replacing REWRITE_RULE with SIMP_RULE, however the inner existential
+   variable (E1) has a different name. *)
 Theorem TRANS_PAR_EQ :
     !E E' u E''. TRANS (par E E') u E'' <=>
                  (?E1. (E'' = par E1 E') /\ TRANS E u E1) \/
@@ -634,8 +634,7 @@ Theorem TRANS_PAR_EQ :
                  (?E1 E2 l. (u = tau) /\ (E'' = par E1 E2) /\
                             TRANS E (label l) E1 /\ TRANS E' (label (COMPL l)) E2)
 Proof
-    rpt GEN_TAC
- >> EQ_TAC (* 2 sub-goals here *)
+    rpt GEN_TAC >> EQ_TAC (* 2 sub-goals here *)
  >| [ (* case 1 (LR) *)
       STRIP_TAC \\
       IMP_RES_TAC PAR_cases >| (* 3 sub-goals here *)
@@ -643,16 +642,13 @@ Proof
         DISJ1_TAC \\
         Q.EXISTS_TAC `E1` >> art [],
         (* goal 1.2 *)
-        DISJ2_TAC \\
-        DISJ1_TAC \\
+        DISJ2_TAC >> DISJ1_TAC \\
         Q.EXISTS_TAC `E1` >> art [],
         (* goal 1.3 *)
-        DISJ2_TAC \\
-        DISJ2_TAC \\
+        DISJ2_TAC >> DISJ2_TAC \\
         take [`E1`, `E2`, `l`] >> art [] ],
       (* case 2 (RL) *)
-      STRIP_TAC (* 3 sub-goals here, but they share the first and last steps *)
-   >> art []
+      STRIP_TAC >> art [] (* 3 sub-goals, same initial tactics *)
    >| [ MATCH_MP_TAC PAR1 >> art [],
         MATCH_MP_TAC PAR2 >> art [],
         MATCH_MP_TAC PAR3 \\
@@ -685,9 +681,9 @@ val TRANS_PAR_NO_SYNCR = store_thm ("TRANS_PAR_NO_SYNCR",
 
 val RESTR_cases_EQ = save_thm (
    "RESTR_cases_EQ",
-    Q.GENL [`D'`, `u`, `L`, `D`]
+    Q.GENL [`P'`, `u`, `L`, `P`]
            (REWRITE_RULE [CCS_distinct', CCS_11, Action_distinct, Action_11]
-                         (Q.SPECL [`restr L D`, `u`, `D'`] TRANS_cases)));
+                         (Q.SPECL [`restr L P`, `u`, `P'`] TRANS_cases)));
 
 val RESTR_cases = save_thm (
    "RESTR_cases", EQ_IMP_LR RESTR_cases_EQ);
@@ -708,20 +704,17 @@ Proof
     [ (* case 1 (LR) *)
       STRIP_TAC \\
       IMP_RES_TAC RESTR_cases \\ (* two sub-goals here, first two steps are shared *)
-      Q.EXISTS_TAC `E'''` \\
-      Q.EXISTS_TAC `l` >|
+      take [`E'''`, `l`] >|
       [ (* goal 1.1 *)
         art [REWRITE_RULE [a1] a3],
         (* goal 1.2 *)
         art [REWRITE_RULE [a2] a3] ],
       (* case 2 (RL) *)
-      STRIP_TAC >| (* two sub-goals here *)
+      STRIP_TAC >> art [] >| (* two sub-goals here *)
       [ (* sub-goal 2.1 *)
-        art [] \\
         MATCH_MP_TAC RESTR \\
         art [REWRITE_RULE [a1] a4],
         (* sub-goal 2.2 *)
-        art [] \\
         MATCH_MP_TAC RESTR \\
         Q.EXISTS_TAC `l` \\
         art [REWRITE_RULE [a2] a4] ] ]
@@ -934,13 +927,13 @@ Theorem TRANS_BV :
     !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [BV_def]
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
+ >> RW_TAC set_ss [BV_def] (* 7 subgoals *)
+ >- ASM_SET_TAC [] (* 1 *)
+ >- ASM_SET_TAC [] (* 2 *)
+ >- ASM_SET_TAC [] (* 3 *)
+ >- ASM_SET_TAC [] (* 4 *)
+ >- ASM_SET_TAC [] (* 5 *)
+ >- ASM_SET_TAC [] (* 6 *)
  >> MATCH_MP_TAC SUBSET_TRANS
  >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
  >> fs [BV_SUBSET_REC]
@@ -950,15 +943,15 @@ Theorem TRANS_FV :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [BV_def, FV_def]
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
- >- ASM_SET_TAC []
+ >> RW_TAC set_ss [BV_def, FV_def] (* 9 subgoals *)
+ >- ASM_SET_TAC [] (* 1 *)
+ >- ASM_SET_TAC [] (* 2 *)
+ >- ASM_SET_TAC [] (* 3 *)
+ >- ASM_SET_TAC [] (* 4 *)
+ >- ASM_SET_TAC [] (* 5 *)
+ >- ASM_SET_TAC [] (* 6 *)
+ >- ASM_SET_TAC [] (* 7 *)
+ >- ASM_SET_TAC [] (* 8 *)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
  >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
@@ -1047,64 +1040,74 @@ Proof
 QED
 
 (**********************************************************************)
-(* Free and restricted labels (sorts) ('a)                            *)
+(*                                                                    *)
+(*                Free and bound names (sorts) ('b)                   *)
+(*                                                                    *)
 (**********************************************************************)
 
+(* To be moved to rich_listTheory *)
 Definition DELETE_ELEMENT :
    (DELETE_ELEMENT e [] = []) /\
-   (DELETE_ELEMENT e (x :: l) =
-       if (e = x) then DELETE_ELEMENT e l else x :: DELETE_ELEMENT e l)
+   (DELETE_ELEMENT e (x :: l) = if (e = x) then DELETE_ELEMENT e l
+                                else x :: DELETE_ELEMENT e l)
 End
 
-val NOT_IN_DELETE_ELEMENT = store_thm (
-   "NOT_IN_DELETE_ELEMENT",
-  ``!e L. ~MEM e (DELETE_ELEMENT e L)``,
+Theorem NOT_IN_DELETE_ELEMENT :
+    !e L. ~MEM e (DELETE_ELEMENT e L)
+Proof
     GEN_TAC >> Induct_on `L`
  >- REWRITE_TAC [DELETE_ELEMENT, MEM]
  >> GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT]
- >> Cases_on `e = h` >> fs []);
+ >> Cases_on `e = h` >> fs []
+QED
 
-val DELETE_ELEMENT_FILTER = store_thm (
-   "DELETE_ELEMENT_FILTER",
-  ``!e L. DELETE_ELEMENT e L = FILTER ((<>) e) L``,
+Theorem DELETE_ELEMENT_FILTER :
+    !e L. DELETE_ELEMENT e L = FILTER ((<>) e) L
+Proof
     GEN_TAC >> Induct_on `L`
  >- REWRITE_TAC [DELETE_ELEMENT, FILTER]
  >> GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT, FILTER]
- >> Cases_on `e = h` >> fs []);
+ >> Cases_on `e = h` >> fs []
+QED
 
-val LENGTH_DELETE_ELEMENT_LEQ = store_thm (
-   "LENGTH_DELETE_ELEMENT_LEQ",
-  ``!e L. LENGTH (DELETE_ELEMENT e L) <= LENGTH L``,
+Theorem LENGTH_DELETE_ELEMENT_LEQ :
+    !e L. LENGTH (DELETE_ELEMENT e L) <= LENGTH L
+Proof
     rpt GEN_TAC
  >> REWRITE_TAC [DELETE_ELEMENT_FILTER]
  >> MP_TAC (Q.SPECL [`\y. e <> y`, `\y. T`] LENGTH_FILTER_LEQ_MONO)
- >> BETA_TAC >> simp []);
+ >> BETA_TAC >> simp []
+QED
 
-val LENGTH_DELETE_ELEMENT_LE = store_thm (
-   "LENGTH_DELETE_ELEMENT_LE",
-  ``!e L. MEM e L ==> LENGTH (DELETE_ELEMENT e L) < LENGTH L``,
+Theorem LENGTH_DELETE_ELEMENT_LE :
+    !e L. MEM e L ==> LENGTH (DELETE_ELEMENT e L) < LENGTH L
+Proof
     rpt GEN_TAC >> Induct_on `L`
  >- REWRITE_TAC [MEM]
  >> GEN_TAC >> REWRITE_TAC [MEM, DELETE_ELEMENT]
  >> Cases_on `e = h` >> fs []
  >> MP_TAC (Q.SPECL [`h`, `L`] LENGTH_DELETE_ELEMENT_LEQ)
- >> KILL_TAC >> RW_TAC arith_ss []);
+ >> KILL_TAC >> RW_TAC arith_ss []
+QED
 
-val EVERY_DELETE_ELEMENT = store_thm (
-   "EVERY_DELETE_ELEMENT",
-  ``!e L P. P e /\ EVERY P (DELETE_ELEMENT e L) ==> EVERY P L``,
+Theorem EVERY_DELETE_ELEMENT :
+    !e L P. P e /\ EVERY P (DELETE_ELEMENT e L) ==> EVERY P L
+Proof
     GEN_TAC >> Induct_on `L`
  >- RW_TAC std_ss [DELETE_ELEMENT]
  >> rpt GEN_TAC >> REWRITE_TAC [DELETE_ELEMENT]
- >> Cases_on `e = h` >> fs []);
+ >> Cases_on `e = h` >> fs []
+QED
 
-val DELETE_ELEMENT_APPEND = store_thm (
-   "DELETE_ELEMENT_APPEND",
-  ``!a L L'. DELETE_ELEMENT a (L ++ L') = DELETE_ELEMENT a L ++ DELETE_ELEMENT a L'``,
+Theorem DELETE_ELEMENT_APPEND :
+    !a L L'. DELETE_ELEMENT a (L ++ L') =
+             DELETE_ELEMENT a L ++ DELETE_ELEMENT a L'
+Proof
     REWRITE_TAC [DELETE_ELEMENT_FILTER]
- >> REWRITE_TAC [GSYM FILTER_APPEND_DISTRIB]);
+ >> REWRITE_TAC [GSYM FILTER_APPEND_DISTRIB]
+QED
 
-(* not used so far, learnt from Robert Beers *)
+(* Learnt from Robert Beers (not used so far) *)
 Definition ALL_IDENTICAL :
     ALL_IDENTICAL t = ?x. !y. MEM y t ==> (y = x)
 End
@@ -1152,13 +1155,15 @@ in
   val BN_def = TotalDefn.tDefine "BN" BN_definition tactic;
 end;
 
-(* (free_names :('a, 'b) CCS -> 'b Label set) collects all visible labels in the prefix *)
-val free_names_def = Define ` (* also called "sorts" by Robin Milner *)
-    free_names p = FN p (SET_TO_LIST (BV p))`;
+(* (free_names :('a, 'b) CCS -> 'b Label set) collects all visible
+   labels (also called "sorts") as the prefix, w.r.t relabeling operators. *)
+val free_names_def = Define
+   `free_names p = FN p (SET_TO_LIST (BV p))`;
 
-(* (bound_names :('a, 'b) CCS -> 'b Label set) collects all visible labels in the restr *)
-val bound_names_def = Define `
-    bound_names p = BN p (SET_TO_LIST (BV p))`;
+(* (bound_names :('a, 'b) CCS -> 'b Label set) collects all visible
+   labels by the restriction operator. *)
+val bound_names_def = Define
+   `bound_names p = BN p (SET_TO_LIST (BV p))`;
 
 val FN_UNIV1 = store_thm ("FN_UNIV1",
   ``!p. free_names p <> (UNIV :'b Label set) ==> ?a. a NOTIN free_names p``,
