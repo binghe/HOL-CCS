@@ -904,7 +904,7 @@ QED
 (* Shared lemma for unique_solution_of_obs_contractions and 
    unique_solution_of_rooted_contractions.
  *)
-val lemma = Q.prove (
+val shared_lemma = Q.prove (
    `CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
     CCS_solution Xs Es OBS_contracts Ps /\
     CCS_solution Xs Es OBS_contracts Qs
@@ -951,7 +951,7 @@ Proof
              CCS_SUBST (fromList Xs Qs) (EL n Es)`
        >- (MATCH_MP_TAC EL_MAP >> fs []) >> Rewr ])
  >> POP_ASSUM K_TAC (* `n` is useless *)
- >> MATCH_MP_TAC lemma
+ >> MATCH_MP_TAC shared_lemma
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
@@ -1005,7 +1005,7 @@ Proof
        Q.EXISTS_TAC `E'` >> art [] \\
        MATCH_MP_TAC contracts_IMP_WEAK_EQUIV >> art [] ])
  >> POP_ASSUM K_TAC (* `n` is useless *)
- >> MATCH_MP_TAC lemma
+ >> MATCH_MP_TAC shared_lemma
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
