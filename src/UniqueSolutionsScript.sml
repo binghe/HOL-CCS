@@ -2144,7 +2144,8 @@ val lemma = Q.prove (
            ?C'. CONTEXT C' /\ R contracts (C' Q) /\
                 (WEAK_EQUIV O (\x y. WEAK_TRANS x (label l) y)) (C P) (C' P)`
         by METIS_TAC [] \\
-      qpat_x_assum `(?E. WG E /\ OBS_contracts Q (E Q) /\ OBS_contracts P (E P)) ==> X` K_TAC \\
+      qpat_x_assum
+        `(?E. WG E /\ OBS_contracts Q (E Q) /\ OBS_contracts P (E P)) ==> X` K_TAC \\
       RES_TAC \\
       POP_ASSUM MP_TAC >> REWRITE_TAC [O_DEF] >> BETA_TAC >> STRIP_TAC \\
       qpat_x_assum `WEAK_EQUIV E' (C P)`
@@ -2167,7 +2168,8 @@ val lemma = Q.prove (
       `!R. WEAK_TRANS (C P) tau R ==>
            ?C'. CONTEXT C' /\ R contracts (C' P) /\
                 (WEAK_EQUIV O EPS) (C Q) (C' Q)` by METIS_TAC [] \\
-      qpat_x_assum `(?E. WG E /\ OBS_contracts P (E P) /\ OBS_contracts Q (E Q)) ==> X` K_TAC \\
+      qpat_x_assum
+        `(?E. WG E /\ OBS_contracts P (E P) /\ OBS_contracts Q (E Q)) ==> X` K_TAC \\
       RES_TAC \\
       POP_ASSUM MP_TAC >> REWRITE_TAC [O_DEF] >> BETA_TAC >> STRIP_TAC \\
       qpat_x_assum `WEAK_EQUIV E'' (C Q)`
@@ -2190,7 +2192,8 @@ val lemma = Q.prove (
       `!R. WEAK_TRANS (C Q) tau R ==>
            ?C'. CONTEXT C' /\ R contracts (C' Q) /\
                 (WEAK_EQUIV O EPS) (C P) (C' P)` by METIS_TAC [] \\
-      qpat_x_assum `(?E. WG E /\ OBS_contracts Q (E Q) /\ OBS_contracts P (E P)) ==> X` K_TAC \\
+      qpat_x_assum
+        `(?E. WG E /\ OBS_contracts Q (E Q) /\ OBS_contracts P (E P)) ==> X` K_TAC \\
       RES_TAC \\
       POP_ASSUM MP_TAC >> REWRITE_TAC [O_DEF] >> BETA_TAC >> STRIP_TAC \\
       qpat_x_assum `WEAK_EQUIV E' (C P)`
@@ -2206,7 +2209,8 @@ val lemma = Q.prove (
 
 val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS = store_thm (
    "UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS",
-  ``!E. WG E ==> !P Q. OBS_contracts P (E P) /\ OBS_contracts Q (E Q) ==> WEAK_EQUIV P Q``,
+  ``!E. WG E ==>
+       !P Q. OBS_contracts P (E P) /\ OBS_contracts Q (E Q) ==> WEAK_EQUIV P Q``,
     rpt STRIP_TAC
  >> REWRITE_TAC [WEAK_EQUIV]
  >> Q.EXISTS_TAC `\R S. ?C. CONTEXT C /\ WEAK_EQUIV R (C P) /\ WEAK_EQUIV S (C Q)`

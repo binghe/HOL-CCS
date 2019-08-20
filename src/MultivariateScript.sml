@@ -822,7 +822,7 @@ Proof
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
        DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       (* context Xs E', looks true but proof is hard. *)
+       (* context Xs E', looks true but a proof is hard. *)
        fs [context_def, BV_def, EVERY_MEM] \\
        cheat (* weakly_guarded_def *)
        ,
@@ -859,7 +859,7 @@ Proof
  >- cheat
  (* Case 6: E = relab f G *)
  >- cheat
- (* Case 7: E = rec Y G (`context` is essential here) *)
+ (* Case 7: E = rec Y G (done, `context Xs` is essential here) *)
  >> POP_ASSUM K_TAC (* IH is not used here, removed *)
  >> Q.X_GEN_TAC `Y` >> DISCH_TAC
  >> IMP_RES_TAC context_rec
@@ -907,10 +907,14 @@ QED
 val lemma = Q.prove (
    `CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
     CCS_solution Xs Es OBS_contracts Ps /\
-    CCS_solution Xs Es OBS_contracts Qs ==>
+    CCS_solution Xs Es OBS_contracts Qs
+   ==>
     WEAK_BISIM (\R S. ?C. context Xs C /\
                           WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
                           WEAK_EQUIV S (CCS_SUBST (fromList Xs Qs) C))`,
+ (* proof *)
+    RW_TAC list_ss [CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
+ >> 
     cheat);
 
 Theorem unique_solution_of_obs_contractions :
@@ -951,7 +955,7 @@ Proof
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
-(* THE FINAL THEOREM *)
+(* THE FINAL THEOREM (it additionally uses "strong_unique_solution_lemma") *)
 Theorem unique_solution_of_rooted_contractions :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
@@ -959,7 +963,8 @@ Theorem unique_solution_of_rooted_contractions :
             ==> LIST_REL OBS_CONGR Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
- >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
+ >> RW_TAC list_ss (* `std_ss` is not enough here *)
+           [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
  >> irule OBS_CONGR_BY_WEAK_BISIM
  >> Q.EXISTS_TAC `\R S. ?C. context Xs C /\
                             WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
