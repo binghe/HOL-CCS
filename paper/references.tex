@@ -19,6 +19,7 @@
 \input{HOLExpansion}
 \input{HOLContraction}
 \input{HOLUniqueSolutions}
+\input{HOLMultivariate}
 \tableofcontents
 \cleardoublepage
 \HOLpagestyle
@@ -28,7 +29,7 @@
 \index{CCS Theory@\textbf  {CCS Theory}}
 \begin{flushleft}
 \textbf{Built:} \HOLCCSDate \\[2pt]
-\textbf{Parent Theories:} llist, finite_map
+\textbf{Parent Theories:} bisimulation, alist
 \end{flushleft}
 % ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -336,6 +337,29 @@
 % .....................................
 
 \HOLUniqueSolutionsTheorems
+
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+\section{Multivariate Theory}
+\index{Multivariate Theory@\textbf  {Multivariate Theory}}
+\begin{flushleft}
+\textbf{Built:} \HOLMultivariateDate \\[2pt]
+\textbf{Parent Theories:} UniqueSolutions
+\end{flushleft}
+% ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+% No datatypes
+
+\subsection{Definitions}
+\index{Multivariate Theory@\textbf  {Multivariate Theory}!Definitions}
+% .....................................
+
+\HOLMultivariateDefinitions
+
+\subsection{Theorems}
+\index{Multivariate Theory@\textbf  {Multivariate Theory}!Theorems}
+% .....................................
+
+\HOLMultivariateTheorems
 \HOLindex
 
 \end{document}

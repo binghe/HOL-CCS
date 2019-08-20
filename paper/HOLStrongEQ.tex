@@ -1,36 +1,16 @@
-\newcommand{\HOLStrongEQDate}{07 Febbraio 2019}
-\newcommand{\HOLStrongEQTime}{20:44}
+\newcommand{\HOLStrongEQDate}{19 Agosto 2019}
+\newcommand{\HOLStrongEQTime}{20:56}
 \begin{SaveVerbatim}{HOLStrongEQDefinitionsSTRONGXXBISIMXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{STRONG_BISIM} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{STRONG_SIM} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_SIM} (\HOLConst{relinv} \HOLBoundVar{R})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{STRONG_BISIM} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{BISIM} \HOLConst{TRANS} \HOLBoundVar{R}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQDefinitionsSTRONGXXBISIMXXdef}{\UseVerbatim{HOLStrongEQDefinitionsSTRONGXXBISIMXXdef}}
 \begin{SaveVerbatim}{HOLStrongEQDefinitionsSTRONGXXEQUIVXXdef}
-\HOLTokenTurnstile{} \HOLConst{STRONG_EQUIV} \HOLSymConst{=}
-   (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}}.
-            \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-                \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-                    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
-                         \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-                         \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-                    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
-                        \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
-                        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}})
+\HOLTokenTurnstile{} \HOLConst{STRONG_EQUIV} \HOLSymConst{=} \HOLConst{BISIM_REL} \HOLConst{TRANS}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQDefinitionsSTRONGXXEQUIVXXdef}{\UseVerbatim{HOLStrongEQDefinitionsSTRONGXXEQUIVXXdef}}
-\begin{SaveVerbatim}{HOLStrongEQDefinitionsSTRONGXXSIMXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-       \HOLConst{STRONG_SIM} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-           \HOLBoundVar{R} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
-\end{SaveVerbatim}
-\newcommand{\HOLStrongEQDefinitionsSTRONGXXSIMXXdef}{\UseVerbatim{HOLStrongEQDefinitionsSTRONGXXSIMXXdef}}
 \newcommand{\HOLStrongEQDefinitions}{
 \HOLDfnTag{StrongEQ}{STRONG_BISIM_def}\HOLStrongEQDefinitionsSTRONGXXBISIMXXdef
 \HOLDfnTag{StrongEQ}{STRONG_EQUIV_def}\HOLStrongEQDefinitionsSTRONGXXEQUIVXXdef
-\HOLDfnTag{StrongEQ}{STRONG_SIM_def}\HOLStrongEQDefinitionsSTRONGXXSIMXXdef
 }
 \begin{SaveVerbatim}{HOLStrongEQTheoremsCOMPXXSTRONGXXBISIM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Bsm\sb{\mathrm{1}}} \HOLBoundVar{Bsm\sb{\mathrm{2}}}.
@@ -51,11 +31,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsIDENTITYXXSTRONGXXBISIM}{\UseVerbatim{HOLStrongEQTheoremsIDENTITYXXSTRONGXXBISIM}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsPROPERTYXXSTAR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-       \HOLConst{STRONG_EQUIV} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
+       \HOLConst{STRONG_EQUIV} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsPROPERTYXXSTAR}{\UseVerbatim{HOLStrongEQTheoremsPROPERTYXXSTAR}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsPROPERTYXXSTARXXLEFT}
@@ -91,23 +71,23 @@
 \begin{SaveVerbatim}{HOLStrongEQTheoremsSTRONGXXEQUIVXXcases}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
        \HOLConst{STRONG_EQUIV} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+           (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsSTRONGXXEQUIVXXcases}{\UseVerbatim{HOLStrongEQTheoremsSTRONGXXEQUIVXXcases}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsSTRONGXXEQUIVXXcoind}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}}.
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{BISIM\HOLTokenUnderscore{}REL\sp{\prime}}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}.
-            \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}.
-                     \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
-                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}.
-                    \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
-                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{STRONG\HOLTokenUnderscore{}EQUIV\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}
+            \HOLBoundVar{BISIM\HOLTokenUnderscore{}REL\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+                (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}.
+                     \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+                     \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{BISIM\HOLTokenUnderscore{}REL\sp{\prime}} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}}.
+                    \HOLBoundVar{a\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{a\sb{\mathrm{0}}} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{BISIM\HOLTokenUnderscore{}REL\sp{\prime}} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}. \HOLBoundVar{BISIM\HOLTokenUnderscore{}REL\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{a\sb{\mathrm{0}}} \HOLBoundVar{a\sb{\mathrm{1}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsSTRONGXXEQUIVXXcoind}{\UseVerbatim{HOLStrongEQTheoremsSTRONGXXEQUIVXXcoind}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsSTRONGXXEQUIVXXequivalence}
@@ -135,11 +115,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsSTRONGXXEQUIVXXREFL}{\UseVerbatim{HOLStrongEQTheoremsSTRONGXXEQUIVXXREFL}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsSTRONGXXEQUIVXXrules}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{STRONG_EQUIV} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{p} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{q} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{q} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{p} \HOLTokenTransBegin\HOLBoundVar{l}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{STRONG_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{STRONG_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongEQTheoremsSTRONGXXEQUIVXXrules}{\UseVerbatim{HOLStrongEQTheoremsSTRONGXXEQUIVXXrules}}
 \begin{SaveVerbatim}{HOLStrongEQTheoremsSTRONGXXEQUIVXXSUBSTXXPARXXL}

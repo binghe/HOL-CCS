@@ -1,5 +1,5 @@
-\newcommand{\HOLStrongLawsDate}{07 Febbraio 2019}
-\newcommand{\HOLStrongLawsTime}{20:44}
+\newcommand{\HOLStrongLawsDate}{19 Agosto 2019}
+\newcommand{\HOLStrongLawsTime}{20:56}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsALLXXSYNCXXdef}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
         \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
@@ -63,7 +63,7 @@
        \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXBASE}}
-\begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXdefXXcompute}
+\begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXcompute}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
         \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
         \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
@@ -78,7 +78,7 @@
        \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))))
          (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
-\newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXdefXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXdefXXcompute}}
+\newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXINDUCT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
        \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
@@ -104,7 +104,7 @@
            (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{k}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}))
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ}}
-\begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXCOMPXXdefXXcompute}
+\begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXCOMPXXcompute}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
         \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
@@ -113,8 +113,8 @@
        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
 \end{SaveVerbatim}
-\newcommand{\HOLStrongLawsTheoremsCCSXXCOMPXXdefXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXCOMPXXdefXXcompute}}
-\begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXSIGMAXXdefXXcompute}
+\newcommand{\HOLStrongLawsTheoremsCCSXXCOMPXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXCOMPXXcompute}}
+\begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
         \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
@@ -123,7 +123,7 @@
        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
 \end{SaveVerbatim}
-\newcommand{\HOLStrongLawsTheoremsCCSXXSIGMAXXdefXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXSIGMAXXdefXXcompute}}
+\newcommand{\HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsCOMPXXBASE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}
 \end{SaveVerbatim}
@@ -152,6 +152,10 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{f} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}. \HOLBoundVar{k} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{f} \HOLBoundVar{k} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSIGMAXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsSIGMAXXTRANSXXTHMXXEQ}}
+\begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLConst{STRONG_EQUIV} \HOLConst{nil} (\HOLConst{var} \HOLBoundVar{X})
+\end{SaveVerbatim}
+\newcommand{\HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXEXPANSIONXXLAW}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} (\HOLBoundVar{f} \HOLBoundVar{i})) \HOLSymConst{\HOLTokenConj{}}
@@ -312,7 +316,7 @@
        \HOLKeyword{else} \HOLConst{nil}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXBASE}}
-\begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXdefXXcompute}
+\begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXcompute}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
         \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
@@ -342,7 +346,7 @@
          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
 \end{SaveVerbatim}
-\newcommand{\HOLStrongLawsTheoremsSYNCXXdefXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXdefXXcompute}}
+\newcommand{\HOLStrongLawsTheoremsSYNCXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXINDUCT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=}
@@ -374,12 +378,12 @@
 \newcommand{\HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ}}
 \newcommand{\HOLStrongLawsTheorems}{
 \HOLThmTag{StrongLaws}{ALL_SYNC_BASE}\HOLStrongLawsTheoremsALLXXSYNCXXBASE
-\HOLThmTag{StrongLaws}{ALL_SYNC_def_compute}\HOLStrongLawsTheoremsALLXXSYNCXXdefXXcompute
+\HOLThmTag{StrongLaws}{ALL_SYNC_compute}\HOLStrongLawsTheoremsALLXXSYNCXXcompute
 \HOLThmTag{StrongLaws}{ALL_SYNC_INDUCT}\HOLStrongLawsTheoremsALLXXSYNCXXINDUCT
 \HOLThmTag{StrongLaws}{ALL_SYNC_TRANS_THM}\HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHM
 \HOLThmTag{StrongLaws}{ALL_SYNC_TRANS_THM_EQ}\HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ
-\HOLThmTag{StrongLaws}{CCS_COMP_def_compute}\HOLStrongLawsTheoremsCCSXXCOMPXXdefXXcompute
-\HOLThmTag{StrongLaws}{CCS_SIGMA_def_compute}\HOLStrongLawsTheoremsCCSXXSIGMAXXdefXXcompute
+\HOLThmTag{StrongLaws}{CCS_COMP_compute}\HOLStrongLawsTheoremsCCSXXCOMPXXcompute
+\HOLThmTag{StrongLaws}{CCS_SIGMA_compute}\HOLStrongLawsTheoremsCCSXXSIGMAXXcompute
 \HOLThmTag{StrongLaws}{COMP_BASE}\HOLStrongLawsTheoremsCOMPXXBASE
 \HOLThmTag{StrongLaws}{COMP_INDUCT}\HOLStrongLawsTheoremsCOMPXXINDUCT
 \HOLThmTag{StrongLaws}{PREF_IS_PREFIX}\HOLStrongLawsTheoremsPREFXXISXXPREFIX
@@ -387,6 +391,7 @@
 \HOLThmTag{StrongLaws}{SIGMA_INDUCT}\HOLStrongLawsTheoremsSIGMAXXINDUCT
 \HOLThmTag{StrongLaws}{SIGMA_TRANS_THM}\HOLStrongLawsTheoremsSIGMAXXTRANSXXTHM
 \HOLThmTag{StrongLaws}{SIGMA_TRANS_THM_EQ}\HOLStrongLawsTheoremsSIGMAXXTRANSXXTHMXXEQ
+\HOLThmTag{StrongLaws}{STRONG_EQUIV_NIL_VAR}\HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR
 \HOLThmTag{StrongLaws}{STRONG_EXPANSION_LAW}\HOLStrongLawsTheoremsSTRONGXXEXPANSIONXXLAW
 \HOLThmTag{StrongLaws}{STRONG_LEFT_SUM_MID_IDEMP}\HOLStrongLawsTheoremsSTRONGXXLEFTXXSUMXXMIDXXIDEMP
 \HOLThmTag{StrongLaws}{STRONG_PAR_ASSOC}\HOLStrongLawsTheoremsSTRONGXXPARXXASSOC
@@ -417,7 +422,7 @@
 \HOLThmTag{StrongLaws}{STRONG_SUM_MID_IDEMP}\HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP
 \HOLThmTag{StrongLaws}{STRONG_UNFOLDING}\HOLStrongLawsTheoremsSTRONGXXUNFOLDING
 \HOLThmTag{StrongLaws}{SYNC_BASE}\HOLStrongLawsTheoremsSYNCXXBASE
-\HOLThmTag{StrongLaws}{SYNC_def_compute}\HOLStrongLawsTheoremsSYNCXXdefXXcompute
+\HOLThmTag{StrongLaws}{SYNC_compute}\HOLStrongLawsTheoremsSYNCXXcompute
 \HOLThmTag{StrongLaws}{SYNC_INDUCT}\HOLStrongLawsTheoremsSYNCXXINDUCT
 \HOLThmTag{StrongLaws}{SYNC_TRANS_THM}\HOLStrongLawsTheoremsSYNCXXTRANSXXTHM
 \HOLThmTag{StrongLaws}{SYNC_TRANS_THM_EQ}\HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ
