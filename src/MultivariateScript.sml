@@ -275,10 +275,10 @@ QED
  *)
 Theorem CCS_SUBST_REDUCE :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
-                EVERY (\E. FV E SUBSET (set Xs)) Ps ==>
+                EVERY (\e. FV e SUBSET (set Xs)) Ps ==>
          !E E'. DISJOINT (BV E) (set (X::Xs)) /\
-                (CCS_SUBST (fromList Xs Ps) E = E') ==>
-                (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
+               (CCS_SUBST (fromList Xs Ps) E = E') ==>
+               (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
 Proof
     rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `E`
@@ -295,7 +295,59 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-(* `ALL_DISTINCT Xs` is not necessary but makes the proof easier *)
+(* CCS_SUBST_REDUCE in another form *)
+val lemma1 = Q.prove (
+   `!E map X P. map <> [] /\
+                ~MEM (FST (HD map)) (MAP FST (TL map)) /\ ALL_DISTINCT (MAP FST (TL map)) /\
+                EVERY (\e. FV e SUBSET (set (MAP FST (TL map)))) (MAP SND (TL map)) /\
+                DISJOINT (BV E) (set (MAP FST map)) ==>
+               (CCS_SUBST map E =
+                CCS_Subst (CCS_SUBST (TL map) E) (SND (HD map)) (FST (HD map)))`,
+    rpt GEN_TAC
+ >> Cases_on `map` >- SRW_TAC [] []
+ >> RW_TAC std_ss [HD, TL]
+ >> Cases_on `h` >> fs []
+ >> rename1 `X NOTIN (BV E)`
+ >> Q.ABBREV_TAC `Xs = FST (UNZIP t)`
+ >> Q.ABBREV_TAC `Ps = SND (UNZIP t)`
+ >> Know `t = ZIP (Xs,Ps)` >- (unset [`Xs`, `Ps`] >> fs [])
+ >> Know `LENGTH Ps = LENGTH Xs` >- (unset [`Xs`, `Ps`] >> fs [])
+ >> RW_TAC std_ss []
+ >> Know `(MAP FST (ZIP (Xs,Ps))) = Xs` >- PROVE_TAC [MAP_ZIP]
+ >> DISCH_THEN (fs o wrap)
+ >> Know `(MAP SND (ZIP (Xs,Ps))) = Ps` >- PROVE_TAC [MAP_ZIP]
+ >> DISCH_THEN (fs o wrap)
+ >> MP_TAC (REWRITE_RULE [fromList_def] (Q.SPECL [`X`,`Xs`,`r`,`Ps`] CCS_SUBST_REDUCE))
+ >> RW_TAC std_ss []
+ >> POP_ASSUM (MP_TAC o (REWRITE_RULE [ZIP, LIST_TO_SET]) o (Q.SPEC `E`))
+ >> `DISJOINT (BV E) (X INSERT (set Xs))` by ASM_SET_TAC []
+ >> RW_TAC std_ss []);
+
+val lemma2 = Q.prove (
+   `!E map. ALL_DISTINCT (MAP FST map) /\
+            EVERY (\e. FV e SUBSET (set (MAP FST map))) (MAP SND map) /\
+            DISJOINT (BV E) (set (MAP FST map)) ==>
+           (CCS_SUBST map E = FOLDL (\e l. CCS_Subst e (SND l) (FST l)) E map)`,
+    GEN_TAC
+ >> Induct_on `map` >> SRW_TAC [] []
+ >> 
+ cheat);
+
+(* lemma2 in another form *)
+Theorem CCS_SUBST_FOLDL :
+    !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+              EVERY (\e. FV e SUBSET (set Xs)) Ps /\
+              DISJOINT (BV E) (set Xs) ==>
+             (CCS_SUBST (fromList Xs Ps) E =
+              FOLDL (\e (x,y). CCS_Subst e y x) E (ZIP (Xs,Ps)))
+Proof
+    cheat
+QED
+
+(* `ALL_DISTINCT Xs` is not necessary but makes the proof (much) easier;
+   `DISJOINT (BV E) (set Xs)` is also not necessary but without it
+    the proof (mostly dependent lemmas) cannot complete.
+ *)
 Theorem CCS_SUBST_self[simp] :
     !E Xs. ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==>
            (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
@@ -999,7 +1051,7 @@ Proof
       `C'' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
  >> Know `!n. context Xs (C'' n)`
  >- (cheat)
- >> 
+ >>
     cheat
 QED
 
