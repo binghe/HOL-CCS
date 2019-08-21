@@ -212,8 +212,9 @@ End
 val _ = overload_on ("|->", ``fromList``);
 val _ = set_fixity "|->" (Infix(NONASSOC, 100));
 
-Theorem fromList_EMPTY[simp] :
-    fromList [] [] = []
+Theorem fromList[simp] :
+    (fromList [] [] = []) /\
+    (!x xs y ys. fromList (x::xs) (y::ys) = (x,y)::fromList xs ys)
 Proof
     RW_TAC list_ss [fromList_def]
 QED
@@ -256,49 +257,57 @@ Proof
  >> METIS_TAC []
 QED
 
+(* TODO: move to alistTheory *)
+Theorem ADELKEY[simp] :
+    (!(x :'a). ADELKEY x ([] :('a # 'b) list) = []) /\
+    (!(x :'a) (y :'b) t. ~MEM x (MAP FST t) ==> (ADELKEY x ((x,y)::t) = t))
+Proof
+    RW_TAC list_ss [ADELKEY_unchanged, MAP, ADELKEY_def]
+ >> RW_TAC list_ss [FILTER_EQ_ID, EVERY_MEM]
+ >> fs [MEM_MAP] >> METIS_TAC []
+QED
+
 (* `EVERY (\E. FV E SUBSET (set Xs)) Ps` (Ps contain variables up to Xs)
    guarentees that after previous levels of substitution there's no new
-   free variable in E', including X.
+   free variable in E', including X. (P may contains X, however.)
 
    This can be weaken to `EVERY (\E. X NOTIN (FV E)) Ps` but not useful.
  *)
 Theorem CCS_SUBST_REDUCE :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
                 EVERY (\E. FV E SUBSET (set Xs)) Ps ==>
-       !E E'. (CCS_SUBST (fromList Xs Ps) E = E') ==>
-              (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
+         !E E'. DISJOINT (BV E) (set (X::Xs)) /\
+                (CCS_SUBST (fromList Xs Ps) E = E') ==>
+                (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
 Proof
     rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `E`
- >> SRW_TAC [] [CCS_SUBST_def, IN_fromList]
- >> fs [CCS_Subst_def, EVERY_MEM] (* 4 subgoals left *)
- >- (`X <> a` by METIS_TAC [] \\
-     Know `ALOOKUP (fromList (X::Xs) (P::Ps)) a =
-           ALOOKUP (fromList Xs Ps) a`
-     >- (ASM_SIMP_TAC list_ss [ALOOKUP_def, fromList_def]) >> Rewr' \\
-     `?n. n < LENGTH Xs /\ a = EL n Xs` by PROVE_TAC [MEM_EL] \\
-     Know `THE (ALOOKUP (fromList Xs Ps) a) = EL n Ps`
-     >- (POP_ORW >> MATCH_MP_TAC ALOOKUP_fromList >> art []) >> Rewr' \\
-     MATCH_MP_TAC EQ_SYM \\
-     MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_ELIM) \\
-    `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL] \\
-    `FV (EL n Ps) SUBSET (set Xs)` by PROVE_TAC [] \\
-     ASM_SET_TAC [])
- >> cheat
+ >> SRW_TAC [] [CCS_SUBST_def, IN_fromList, BV_def]
+ >> fs [CCS_Subst_def, EVERY_MEM] (* 3 subgoals left *)
+ >> `?n. n < LENGTH Xs /\ a = EL n Xs` by PROVE_TAC [MEM_EL]
+ >> Know `THE (ALOOKUP (fromList Xs Ps) a) = EL n Ps`
+ >- (POP_ORW >> MATCH_MP_TAC ALOOKUP_fromList >> art [])
+ >> Rewr'
+ >> MATCH_MP_TAC EQ_SYM
+ >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_ELIM)
+ >> `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL]
+ >> `FV (EL n Ps) SUBSET (set Xs)` by PROVE_TAC []
+ >> ASM_SET_TAC []
 QED
 
 (* `ALL_DISTINCT Xs` is not necessary but makes the proof easier *)
-Theorem CCS_SUBST_self :
-    !E Xs. ALL_DISTINCT Xs ==> (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
+Theorem CCS_SUBST_self[simp] :
+    !E Xs. ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==>
+           (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
 Proof
     GEN_TAC >> Induct_on `Xs` >> SRW_TAC [][]
- >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs ==> X` MP_TAC
+ >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==> _` MP_TAC
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_REDUCE)
  >> `LENGTH (MAP var Xs) = LENGTH Xs` by PROVE_TAC [LENGTH_MAP]
  >> Know `EVERY (\E. FV E SUBSET (set Xs)) (MAP var Xs)`
  >- (RW_TAC std_ss [EVERY_MEM, MEM_MAP] >> ASM_SET_TAC [FV_def])
- >> RW_TAC std_ss [CCS_Subst_self]
+ >> SRW_TAC [] []
 QED
 
 (* ================================================================= *)
