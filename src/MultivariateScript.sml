@@ -10,7 +10,8 @@ open HolKernel Parse boolLib bossLib;
 open relationTheory pred_setTheory pred_setLib listTheory alistTheory;
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
-     ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory;
+     ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
+     UniqueSolutionsTheory;
 
 val _ = new_theory "Multivariate";
 
@@ -211,9 +212,14 @@ End
 val _ = overload_on ("|->", ``fromList``);
 val _ = set_fixity "|->" (Infix(NONASSOC, 100));
 
+Theorem fromList_EMPTY[simp] :
+    fromList [] [] = []
+Proof
+    RW_TAC list_ss [fromList_def]
+QED
+
 Theorem IN_fromList :
-    !X Xs Ps. (LENGTH Ps = LENGTH Xs) ==>
-              (MEM X (MAP FST (fromList Xs Ps)) <=> MEM X Xs)
+    !Xs Ps. (LENGTH Ps = LENGTH Xs) ==> (MAP FST (fromList Xs Ps) = Xs)
 Proof
     SRW_TAC [] [fromList_def, MAP_ZIP]
 QED
@@ -236,7 +242,10 @@ Proof
 QED
 
 (* KEY result: if Xs is disjoint with free (and bound) variables of E,
-   then E{? / Xs} = E *)
+   then E{? / Xs} = E
+
+   TODO: how to remove the unnecessary `DISJOINT (BV E) (set Xs)`?
+ *)
 Theorem CCS_SUBST_ELIM :
     !Xs E. DISJOINT (FV E) (set Xs) /\ DISJOINT (BV E) (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (fromList Xs Ps) E = E)
@@ -245,6 +254,51 @@ Proof
  >> RW_TAC set_ss [Once CCS_SUBST_def, BV_def, FV_def, IN_fromList, MAP_ZIP]
  >> `DISJOINT (FV E) (set Xs)` by ASM_SET_TAC []
  >> METIS_TAC []
+QED
+
+(* `EVERY (\E. FV E SUBSET (set Xs)) Ps` (Ps contain variables up to Xs)
+   guarentees that after previous levels of substitution there's no new
+   free variable in E', including X.
+
+   This can be weaken to `EVERY (\E. X NOTIN (FV E)) Ps` but not useful.
+ *)
+Theorem CCS_SUBST_REDUCE :
+    !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+                EVERY (\E. FV E SUBSET (set Xs)) Ps ==>
+       !E E'. (CCS_SUBST (fromList Xs Ps) E = E') ==>
+              (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `E`
+ >> SRW_TAC [] [CCS_SUBST_def, IN_fromList]
+ >> fs [CCS_Subst_def, EVERY_MEM] (* 4 subgoals left *)
+ >- (`X <> a` by METIS_TAC [] \\
+     Know `ALOOKUP (fromList (X::Xs) (P::Ps)) a =
+           ALOOKUP (fromList Xs Ps) a`
+     >- (ASM_SIMP_TAC list_ss [ALOOKUP_def, fromList_def]) >> Rewr' \\
+     `?n. n < LENGTH Xs /\ a = EL n Xs` by PROVE_TAC [MEM_EL] \\
+     Know `THE (ALOOKUP (fromList Xs Ps) a) = EL n Ps`
+     >- (POP_ORW >> MATCH_MP_TAC ALOOKUP_fromList >> art []) >> Rewr' \\
+     MATCH_MP_TAC EQ_SYM \\
+     MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_ELIM) \\
+    `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL] \\
+    `FV (EL n Ps) SUBSET (set Xs)` by PROVE_TAC [] \\
+     ASM_SET_TAC [])
+ >> cheat
+QED
+
+(* `ALL_DISTINCT Xs` is not necessary but makes the proof easier *)
+Theorem CCS_SUBST_self :
+    !E Xs. ALL_DISTINCT Xs ==> (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
+Proof
+    GEN_TAC >> Induct_on `Xs` >> SRW_TAC [][]
+ >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs ==> X` MP_TAC
+ >> RW_TAC std_ss []
+ >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_REDUCE)
+ >> `LENGTH (MAP var Xs) = LENGTH Xs` by PROVE_TAC [LENGTH_MAP]
+ >> Know `EVERY (\E. FV E SUBSET (set Xs)) (MAP var Xs)`
+ >- (RW_TAC std_ss [EVERY_MEM, MEM_MAP] >> ASM_SET_TAC [FV_def])
+ >> RW_TAC std_ss [CCS_Subst_self]
 QED
 
 (* ================================================================= *)
@@ -757,7 +811,7 @@ QED
         If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then P ~ Q.
 
    strong_unique_solution_lemma is repeatedly used in each subgoal.
- *)
+
 Theorem strong_unique_solution :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
@@ -901,6 +955,7 @@ Proof
       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
 QED
+ *)
 
 (* Lemma 3.9 of [2], full/multivariate version of
    UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
@@ -928,11 +983,14 @@ Proof
      MATCH_MP_TAC weakly_guarded_imp_context \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  >> DISCH_TAC
+ (* E = Es[.] *)
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- >> Q.ABBREV_TAC `C'' = \n. CCS_SUBST (fromList Xs (FUNPOW E n Es)) C`
+ (* C'' n = C o (FUNPOW E n) = \Xs. C[Es[..[..Es[Xs]]]]  *)
+ >> Q.ABBREV_TAC
+      `C'' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
  >> Know `!n. context Xs (C'' n)`
  >- (cheat)
- >>
+ >> 
     cheat
 QED
 

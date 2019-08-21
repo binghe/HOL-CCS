@@ -1285,13 +1285,15 @@ val unfolding_lemma1 = store_thm (
  >> PROVE_TAC [contracts_SUBST_GCONTEXT, contracts_TRANS]);
 
 (* This can be merged to HOL's arithmeticTheory *)
-val FUNPOW_SUC_alt = Q.prove (
-   `!f n. FUNPOW f (SUC n) = (FUNPOW f n) o f`,
-    REPEAT GEN_TAC
+Theorem FUNPOW_SUC_alt :
+    !f n. FUNPOW f (SUC n) = (FUNPOW f n) o f
+Proof
+    rpt GEN_TAC
  >> REWRITE_TAC [FUN_EQ_THM, o_DEF] >> BETA_TAC
  >> GEN_TAC
  >> `FUNPOW f (n + 1) x = FUNPOW f n (FUNPOW f 1 x)` by PROVE_TAC [FUNPOW_ADD]
- >> FULL_SIMP_TAC arith_ss [FUNPOW_1, ADD1]);
+ >> FULL_SIMP_TAC arith_ss [FUNPOW_1, ADD1]
+QED
 
 (* A single transition from WGS E[P] will not touch the variable P *)
 val unfolding_lemma2 = store_thm (

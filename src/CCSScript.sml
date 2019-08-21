@@ -397,15 +397,21 @@ val [CCS_Subst_nil,
 
 (* !X E E'. CCS_Subst (rec X E) E' X = rec X E (1st fixed point of CCS_Subst) *)
 val CCS_Subst_rec_fix = save_thm (
-   "CCS_Subst_rec_fix",
+   "CCS_Subst_rec_fix[simp]",
     Q.GENL [`X`, `E`, `E'`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (rec X E) E' X``));
 
 (* !X E. CCS_Subst (var X) E X = E             (2nd fixed point of CCS_Subst) *)
 val CCS_Subst_var_fix = save_thm (
-   "CCS_Subst_var_fix",
+   "CCS_Subst_var_fix[simp]",
     Q.GENL [`X`, `E`]
            (REWRITE_CONV [CCS_Subst_def] ``CCS_Subst (var X) E X``));
+
+Theorem CCS_Subst_self[simp] :                    (* (3rd fixed point of CCS_Subst) *)
+    !X E. CCS_Subst E (var X) X = E
+Proof
+    GEN_TAC >> Induct_on `E` >> RW_TAC std_ss [CCS_Subst_def]
+QED
 
 (* !t1 t2. ((T => t1 | t2) = t1) /\ ((F => t1 | t2) = t2) *)
 val CCS_COND_CLAUSES = save_thm (
