@@ -8,6 +8,7 @@
 open HolKernel Parse boolLib bossLib;
 
 open relationTheory pred_setTheory pred_setLib listTheory alistTheory;
+open arithmeticTheory; (* FUNPOW *)
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
      ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
@@ -1010,15 +1011,15 @@ Proof
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
        DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
        cheat (* context ... *) ])
- (* Case 2: E = prefix u G *)
+ (* Case 2: E = prefix u G (very easy) *)
  >- cheat
- (* Case 3: E = G + G' *)
+ (* Case 3: E = G + G' (easy) *)
  >- cheat
- (* Case 4: E = G || G' *)
+ (* Case 4: E = G || G' (easy) *)
  >- cheat
- (* Case 5: E = restr f G *)
+ (* Case 5: E = restr f G (very easy) *)
  >- cheat
- (* Case 6: E = relab f G *)
+ (* Case 6: E = relab f G (very easy) *)
  >- cheat
  (* Case 7: E = rec Y G (done, `context Xs` is essential here) *)
  >> POP_ASSUM K_TAC (* IH is not used here, removed *)
@@ -1071,13 +1072,30 @@ Proof
  >> DISCH_TAC
  (* E = Es[.] *)
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Know `E (MAP var Xs) = Es`
+ >- (Q.UNABBREV_TAC `E` >> BETA_TAC \\
+     RW_TAC list_ss [] \\
+     MATCH_MP_TAC LIST_EQ >> RW_TAC list_ss [LENGTH_MAP, EL_MAP] \\
+     MATCH_MP_TAC CCS_SUBST_self \\
+     fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def, MEM_EL] \\
+     METIS_TAC [])
+ >> DISCH_TAC
  (* C'' n = C o (FUNPOW E n) = \Xs. C[Es[..[..Es[Xs]]]]  *)
  >> Q.ABBREV_TAC
       `C'' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
+ >> Know `C'' 0 = C`
+ >- (Q.UNABBREV_TAC `C''` >> SIMP_TAC std_ss [FUNPOW_0] \\
+     MATCH_MP_TAC CCS_SUBST_self \\
+     PROVE_TAC [context_def, CCS_equation_def])
+ >> DISCH_TAC
+ (* so far so good *)
  >> Know `!n. context Xs (C'' n)`
- >- (cheat)
- >>
-    cheat
+ >- (Induct_on `n` >- art [] \\
+     Q.UNABBREV_TAC `C''` >> fs [FUNPOW_SUC_alt] \\
+     (* context Xs (CCS_SUBST (Xs |-> FUNPOW E n Es) C) *)
+     
+     cheat)
+ >> DISCH_TAC >> cheat
 QED
 
 (* Shared lemma for unique_solution_of_obs_contractions and
