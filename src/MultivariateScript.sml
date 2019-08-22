@@ -184,8 +184,6 @@ val [CCS_SUBST_nil,
                    "CCS_SUBST_rec"],
                   CONJUNCTS CCS_SUBST_def));
 
-val _ = overload_on ("CCS_Subst", ``CCS_SUBST``);
-
 Theorem CCS_SUBST_EMPTY[simp] :
     !E. CCS_SUBST [] E = E
 Proof
@@ -267,15 +265,10 @@ Proof
  >> fs [MEM_MAP] >> METIS_TAC []
 QED
 
-(* `EVERY (\E. FV E SUBSET (set Xs)) Ps` (Ps contain variables up to Xs)
-   guarentees that after previous levels of substitution there's no new
-   free variable in E', including X. (P may contains X, however.)
-
-   This can be weaken to `EVERY (\E. X NOTIN (FV E)) Ps` but not useful.
- *)
+(* CCS_SUBST_REDUCE leads to CCS_SUBST_FOLDR *)
 Theorem CCS_SUBST_REDUCE :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
-                EVERY (\e. FV e SUBSET (set Xs)) Ps ==>
+                EVERY (\e. X NOTIN (FV e)) Ps ==>
          !E E'. DISJOINT (BV E) (set (X::Xs)) /\
                (CCS_SUBST (fromList Xs Ps) E = E') ==>
                (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
@@ -283,7 +276,7 @@ Proof
     rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `E`
  >> SRW_TAC [] [CCS_SUBST_def, IN_fromList, BV_def]
- >> fs [CCS_Subst_def, EVERY_MEM] (* 3 subgoals left *)
+ >> fs [CCS_Subst_def, EVERY_MEM]
  >> `?n. n < LENGTH Xs /\ a = EL n Xs` by PROVE_TAC [MEM_EL]
  >> Know `THE (ALOOKUP (fromList Xs Ps) a) = EL n Ps`
  >- (POP_ORW >> MATCH_MP_TAC ALOOKUP_fromList >> art [])
@@ -291,18 +284,17 @@ Proof
  >> MATCH_MP_TAC EQ_SYM
  >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_ELIM)
  >> `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL]
- >> `FV (EL n Ps) SUBSET (set Xs)` by PROVE_TAC []
- >> ASM_SET_TAC []
+ >> METIS_TAC []
 QED
 
 (* CCS_SUBST_REDUCE in another form *)
 val lemma1 = Q.prove (
-   `!E map X P. map <> [] /\
-                ~MEM (FST (HD map)) (MAP FST (TL map)) /\ ALL_DISTINCT (MAP FST (TL map)) /\
-                EVERY (\e. FV e SUBSET (set (MAP FST (TL map)))) (MAP SND (TL map)) /\
-                DISJOINT (BV E) (set (MAP FST map)) ==>
-               (CCS_SUBST map E =
-                CCS_Subst (CCS_SUBST (TL map) E) (SND (HD map)) (FST (HD map)))`,
+   `!E map. map <> [] /\
+            ~MEM (FST (HD map)) (MAP FST (TL map)) /\ ALL_DISTINCT (MAP FST (TL map)) /\
+            EVERY (\e. (FST (HD map)) NOTIN (FV e)) (MAP SND (TL map)) /\
+            DISJOINT (BV E) (set (MAP FST map)) ==>
+           (CCS_SUBST map E =
+            CCS_Subst (CCS_SUBST (TL map) E) (SND (HD map)) (FST (HD map)))`,
     rpt GEN_TAC
  >> Cases_on `map` >- SRW_TAC [] []
  >> RW_TAC std_ss [HD, TL]
@@ -323,26 +315,59 @@ val lemma1 = Q.prove (
  >> `DISJOINT (BV E) (X INSERT (set Xs))` by ASM_SET_TAC []
  >> RW_TAC std_ss []);
 
+(* Let map = ZIP(Xs,Ps), to convert CCS_SUBST to a folding of CCS_Subst, each P
+   of Ps must contains free variables up to the corresponding X of Xs.
+ *)
 val lemma2 = Q.prove (
    `!E map. ALL_DISTINCT (MAP FST map) /\
-            EVERY (\e. FV e SUBSET (set (MAP FST map))) (MAP SND map) /\
+            EVERY (\(x,p). FV p SUBSET {x}) map /\
             DISJOINT (BV E) (set (MAP FST map)) ==>
-           (CCS_SUBST map E = FOLDL (\e l. CCS_Subst e (SND l) (FST l)) E map)`,
+           (CCS_SUBST map E = FOLDR (\l e. CCS_Subst e (SND l) (FST l)) E map)`,
     GEN_TAC
- >> Induct_on `map` >> SRW_TAC [] []
- >> 
- cheat);
+ >> Induct_on `map` >- SRW_TAC [] []
+ >> rpt STRIP_TAC >> fs [MAP]
+ >> MP_TAC (Q.SPECL [`E`, `h::map`] lemma1) >> fs []
+ >> Cases_on `h` >> fs []
+ >> rename1 `X NOTIN (BV E)`
+ >> rename1 `FV P SUBSET {X}`
+ >> Know `EVERY (\e. X NOTIN (FV e)) (MAP SND map)`
+ >- (fs [EVERY_MEM] >> RW_TAC std_ss [] \\
+     fs [MEM_MAP] \\
+    `X <> FST y` by METIS_TAC [] \\
+     CCONTR_TAC >> fs [] >> RES_TAC \\
+     Cases_on `y` >> fs [] >> ASM_SET_TAC [])
+ >> RW_TAC std_ss []);
 
 (* lemma2 in another form *)
-Theorem CCS_SUBST_FOLDL :
+Theorem CCS_SUBST_FOLDR :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
-              EVERY (\e. FV e SUBSET (set Xs)) Ps /\
+              EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) /\
               DISJOINT (BV E) (set Xs) ==>
              (CCS_SUBST (fromList Xs Ps) E =
-              FOLDL (\e (x,y). CCS_Subst e y x) E (ZIP (Xs,Ps)))
+              FOLDR (\(x,y) e. CCS_Subst e y x) E (ZIP (Xs,Ps)))
 Proof
-    cheat
+    RW_TAC std_ss []
+ >> MP_TAC (Q.SPECL [`E`, `ZIP (Xs,Ps)`] lemma2)
+ >> RW_TAC std_ss [MAP_ZIP, fromList_def]
+ >> KILL_TAC
+ >> Suff `(\l e. CCS_Subst e (SND l) (FST l)) = (\(x,y) e. CCS_Subst e y x)`
+ >- SIMP_TAC std_ss []
+ >> rw [FUN_EQ_THM]
+ >> Cases_on `l` >> rw []
 QED
+
+(* A FOLDL-like version of CCS_SUBST_REDUCE
+Theorem CCS_SUBST_REDUCE' :
+    !E X P Xs Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+                  EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) /\
+                  DISJOINT (BV E) (set (X::Xs)) ==>
+                 (CCS_SUBST (fromList (X::Xs) (P::Ps)) E =
+                  CCS_SUBST (fromList Xs Ps) (CCS_Subst E P X))
+Proof
+    NTAC 3 GEN_TAC
+ >> Induct_on `Xs` >> SRW_TAC [][]
+QED
+ *)
 
 (* `ALL_DISTINCT Xs` is not necessary but makes the proof (much) easier;
    `DISJOINT (BV E) (set Xs)` is also not necessary but without it
@@ -357,9 +382,9 @@ Proof
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_REDUCE)
  >> `LENGTH (MAP var Xs) = LENGTH Xs` by PROVE_TAC [LENGTH_MAP]
- >> Know `EVERY (\E. FV E SUBSET (set Xs)) (MAP var Xs)`
+ >> Know `EVERY (\e. h NOTIN FV e) (MAP var Xs)`
  >- (RW_TAC std_ss [EVERY_MEM, MEM_MAP] >> ASM_SET_TAC [FV_def])
- >> SRW_TAC [] []
+ >> fs []
 QED
 
 (* ================================================================= *)
