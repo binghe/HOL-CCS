@@ -872,7 +872,6 @@ Definition FV_def :
    (FV (restr L p)         = FV p) /\
    (FV (relab p rf)        = FV p) /\
    (FV (var X)             = {X}) /\
-(* (FV (Var X)             = EMPTY) /\ *)
    (FV (rec X p)           = (FV p) DELETE X)
 End
 
@@ -885,7 +884,6 @@ Definition BV_def :
    (BV (restr L p)         = BV p) /\
    (BV (relab p rf)        = BV p) /\
    (BV (var X)             = EMPTY) /\
-(* (BV (Var X)             = EMPTY) /\ *)
    (BV (rec X p)           = X INSERT (BV p))
 End
 
