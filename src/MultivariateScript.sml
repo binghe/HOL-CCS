@@ -8,7 +8,7 @@
 open HolKernel Parse boolLib bossLib;
 
 open relationTheory pred_setTheory pred_setLib listTheory finite_mapTheory;
-open arithmeticTheory; (* for FUNPOW *)
+open combinTheory arithmeticTheory; (* o_DEF, FUNPOW, ... *)
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
      ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
@@ -1500,7 +1500,7 @@ Proof
 QED
  *)
 
-(* requires OBS_contracts_subst_context *)
+(* dependency: OBS_contracts_subst_context *)
 val CCS_unfolding_lemma1 = Q.prove (
    `!Xs Es E C C' Ps.
         CCS_equation Xs Es /\ EVERY (context Xs) Es /\
@@ -1526,16 +1526,29 @@ val CCS_unfolding_lemma1 = Q.prove (
 *)
 
 val CCS_unfolding_lemma4 = Q.prove (
-   `!Xs Es Ps E C C' n xs P'.
-        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
-        CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
+   `!Xs Es E C C'.
+        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\ context Xs C /\
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
-        (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) /\
-        TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\ (LENGTH xs <= n) ==>
-        ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
-             !Qs. (LENGTH Qs = LENGTH Xs) ==>
-                  TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
-                        (CCS_SUBST (fromList Xs Qs) C'')`,
+        (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) ==>
+        !n xs Ps P'.
+           CCS_solution Xs Es OBS_contracts Ps /\
+           TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\ (LENGTH xs <= n) ==>
+           ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
+                 !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                      TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
+                            (CCS_SUBST (fromList Xs Qs) C'')`,
+ (* proof *)
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `n`
+ >- (rpt STRIP_TAC \\
+     Know `C' 0 = C`
+     >- (ASM_SIMP_TAC std_ss [FUNPOW_0] \\
+         MATCH_MP_TAC CCS_SUBST_self \\
+         PROVE_TAC [context_def, CCS_equation_def]) \\
+     DISCH_THEN (fs o wrap) >> fs [TRACE_NIL] \\
+     Q.EXISTS_TAC `C` >> art [])
+ >> rpt STRIP_TAC
+ >> 
     cheat);
 
 (* Lemma 3.9 of [2], full/multivariate version of
@@ -1574,11 +1587,6 @@ Proof
      MATCH_MP_TAC CCS_SUBST_self \\
      fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def, MEM_EL] \\
      METIS_TAC []) >> DISCH_TAC
- >> Know `C' 0 = C`
- >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
-     MATCH_MP_TAC CCS_SUBST_self \\
-     PROVE_TAC [context_def, CCS_equation_def])
- >> DISCH_TAC
   *)
  (* applying context_combin *)
  >> Know `!n. context Xs (C' n)`
@@ -1618,8 +1626,8 @@ Proof
                   !Qs. (LENGTH Qs = LENGTH Xs) ==>
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
-      >- (MATCH_MP_TAC CCS_unfolding_lemma4 \\
-          take [`Es`, `E`, `C`] >> unset [`E`, `C'`] >> art []) \\
+      >- (irule CCS_unfolding_lemma4 >> art [] \\
+          take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
       RW_TAC std_ss [] \\
@@ -1648,8 +1656,8 @@ Proof
                   !Qs. (LENGTH Qs = LENGTH Xs) ==>
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
-      >- (MATCH_MP_TAC CCS_unfolding_lemma4 \\
-          take [`Es`, `E`, `C`] >> unset [`E`, `C'`] >> art []) \\
+      >- (irule CCS_unfolding_lemma4 >> art [] \\
+          take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
       RW_TAC std_ss [] \\
