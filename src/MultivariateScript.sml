@@ -702,6 +702,188 @@ Proof
  >> DISCH_THEN (fs o wrap)
 QED
 
+(* c.f. STRONG_EQUIV_SUBST_CONTEXT *)
+Theorem STRONG_EQUIV_subst_context :
+    !Xs Ps Qs. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+               LIST_REL STRONG_EQUIV Ps Qs ==>
+        !E. context Xs E ==>
+            STRONG_EQUIV (CCS_SUBST (fromList Xs Ps) E)
+                         (CCS_SUBST (fromList Xs Qs) E)
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `E` >> RW_TAC set_ss [CCS_SUBST_def] (* 14 subgoals *)
+ >- REWRITE_TAC [STRONG_EQUIV_REFL]
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     fs [FDOM_fromList, MEM_EL, LIST_REL_EL_EQN] \\
+     rw [fromList_FAPPLY_EL])
+ (* impossible case *)
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     METIS_TAC [FDOM_fromList])
+ (* impossible case *)
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     METIS_TAC [FDOM_fromList])
+ (* 10 cases left *)
+ >- REWRITE_TAC [STRONG_EQUIV_REFL]
+ (* 9 cases left *)
+ >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PREFIX \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_prefix)
+ (* 8 cases left *)
+ >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_SUM \\
+     IMP_RES_TAC context_sum \\
+     RES_TAC >> art [])
+ (* 7 cases left *)
+ >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR \\
+     IMP_RES_TAC context_par \\
+     RES_TAC >> art [])
+ (* 6 cases left *)
+ >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_RESTR \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_restr)
+ (* 5 cases left *)
+ >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_RELAB \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_relab)
+ (* 4 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     REWRITE_TAC [STRONG_EQUIV_REFL])
+ (* 3 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     Know `CCS_SUBST (fromList Xs Qs) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     REWRITE_TAC [STRONG_EQUIV_REFL])
+ (* 2 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST (fromList Xs Ps) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     REWRITE_TAC [STRONG_EQUIV_REFL])
+ >> (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST (fromList Xs Ps) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     Know `CCS_SUBST (fromList Xs Qs) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     REWRITE_TAC [STRONG_EQUIV_REFL])
+QED
+
+(* c.f. OBS_contracts_SUBST_CONTEXT *)
+Theorem OBS_contracts_subst_context :
+    !Xs Ps Qs. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+               LIST_REL OBS_contracts Ps Qs ==>
+        !E. context Xs E ==>
+            OBS_contracts (CCS_SUBST (fromList Xs Ps) E)
+                          (CCS_SUBST (fromList Xs Qs) E)
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `E` >> RW_TAC set_ss [CCS_SUBST_def] (* 14 subgoals *)
+ >- REWRITE_TAC [OBS_contracts_REFL]
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     fs [FDOM_fromList, MEM_EL, LIST_REL_EL_EQN] \\
+     rw [fromList_FAPPLY_EL])
+ (* impossible case *)
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     METIS_TAC [FDOM_fromList])
+ (* impossible case *)
+ >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+     METIS_TAC [FDOM_fromList])
+ (* 10 cases left *)
+ >- REWRITE_TAC [OBS_contracts_REFL]
+ (* 9 cases left *)
+ >- (MATCH_MP_TAC OBS_contracts_SUBST_PREFIX \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_prefix)
+ (* 8 cases left *)
+ >- (MATCH_MP_TAC OBS_contracts_PRESD_BY_SUM \\
+     IMP_RES_TAC context_sum \\
+     RES_TAC >> art [])
+ (* 7 cases left *)
+ >- (MATCH_MP_TAC OBS_contracts_PRESD_BY_PAR \\
+     IMP_RES_TAC context_par \\
+     RES_TAC >> art [])
+ (* 6 cases left *)
+ >- (MATCH_MP_TAC OBS_contracts_SUBST_RESTR \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_restr)
+ (* 5 cases left *)
+ >- (MATCH_MP_TAC OBS_contracts_SUBST_RELAB \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     IMP_RES_TAC context_relab)
+ (* 4 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     REWRITE_TAC [OBS_contracts_REFL])
+ (* 3 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     Know `CCS_SUBST (fromList Xs Qs) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     REWRITE_TAC [OBS_contracts_REFL])
+ (* 2 cases left *)
+ >- (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST (fromList Xs Ps) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC []) >> Rewr' \\
+     REWRITE_TAC [OBS_contracts_REFL])
+ >> (IMP_RES_TAC context_rec \\
+    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `CCS_SUBST (fromList Xs Ps) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     Know `CCS_SUBST (fromList Xs Qs) E = E`
+     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+        `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
+     REWRITE_TAC [OBS_contracts_REFL])
+QED
+
 (* ================================================================= *)
 (*   Weakly guarded equations                                        *)
 (* ================================================================= *)
@@ -1223,7 +1405,21 @@ val CCS_unfolding_lemma1 = Q.prove (
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
     ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
                           (CCS_SUBST (fromList Xs Ps) (C' n))`,
+    rpt STRIP_TAC
+ >> 
     cheat);
+(*
+    rpt STRIP_TAC
+ >> REWRITE_TAC [o_DEF]
+ >> BETA_TAC
+ >> irule OBS_contracts_SUBST_CONTEXT >> art []
+ >> Q.SPEC_TAC (`n`, `n`)
+ >> Induct >- REWRITE_TAC [FUNPOW, OBS_contracts_REFL]
+ >> REWRITE_TAC [FUNPOW_SUC]
+ >> Q.ABBREV_TAC `Q = FUNPOW E n P`
+ >> `OBS_contracts (E P) (E Q)` by PROVE_TAC [OBS_contracts_SUBST_CONTEXT]
+ >> IMP_RES_TAC OBS_contracts_TRANS);
+*)
 
 val CCS_unfolding_lemma4 = Q.prove (
    `!Xs Es Ps E C C' n xs P'.
