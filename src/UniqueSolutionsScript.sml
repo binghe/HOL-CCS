@@ -123,8 +123,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
  >- ( DISJ2_TAC >> Q.EXISTS_TAC `\x. x` >> BETA_TAC \\
       KILL_TAC >> RW_TAC std_ss [CONTEXT1] )
  >> REWRITE_TAC [STRONG_BISIM_UPTO]
- >> Q.X_GEN_TAC `P'`
- >> Q.X_GEN_TAC `Q'`
+ >> fix [`P'`, `Q'`]
  >> BETA_TAC >> STRIP_TAC (* 2 sub-goals here *)
  >- (POP_ASSUM MP_TAC >> RW_TAC std_ss [] >| (* 2 sub-goals here *)
      [ (* goal 1 (of 2) *)
@@ -137,6 +136,7 @@ val STRONG_UNIQUE_SOLUTION = store_thm (
        Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
        Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
        BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ])
+ (* preparing for induction *)
  >> NTAC 2 POP_ORW
  >> POP_ASSUM MP_TAC
  >> Q.SPEC_TAC (`G`, `G`)
@@ -736,12 +736,12 @@ val WEAK_UNIQUE_SOLUTION_LEMMA_EPS = store_thm (
  >> `EPS (G Q) (H Q) /\ EPS (H Q) (H'' Q)` by PROVE_TAC [ONE_TAU]
  >> IMP_RES_TAC EPS_TRANS);
 
-val GSEQ_EPS_lemma = store_thm (
-   "GSEQ_EPS_lemma",
-  ``!E P Q R H. SG E /\ GSEQ E /\ WEAK_EQUIV P (E P) /\ WEAK_EQUIV Q (E Q) /\ GSEQ H /\
+val GSEQ_EPS_lemma = Q.prove (
+   `!E P Q R H. SG E /\ GSEQ E /\ WEAK_EQUIV P (E P) /\ WEAK_EQUIV Q (E Q) /\ GSEQ H /\
                 (R = \x y. ?H. GSEQ H /\ (x = H P) /\ (y = H Q))
     ==> (!P'. EPS (H P) P' ==> ?Q'. EPS (H Q) Q' /\ (WEAK_EQUIV O R O WEAK_EQUIV) P' Q') /\
-        (!Q'. EPS (H Q) Q' ==> ?P'. EPS (H P) P' /\ (WEAK_EQUIV O R O WEAK_EQUIV) P' Q')``,
+        (!Q'. EPS (H Q) Q' ==> ?P'. EPS (H P) P' /\ (WEAK_EQUIV O R O WEAK_EQUIV) P' Q')`,
+ (* proof *)
     rpt GEN_TAC >> STRIP_TAC
  >> `WEAK_EQUIV (H P) ((H o E) P) /\ WEAK_EQUIV (H Q) ((H o E) Q)`
                                 by PROVE_TAC [WEAK_EQUIV_SUBST_GSEQ, o_DEF]
@@ -749,27 +749,36 @@ val GSEQ_EPS_lemma = store_thm (
  >> rpt STRIP_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
       IMP_RES_TAC (Q.SPECL [`H P`, `(H o E) P`] WEAK_EQUIV_EPS) \\
-      IMP_RES_TAC (Q.SPEC `H o E` WEAK_UNIQUE_SOLUTION_LEMMA_EPS) \\
-      NTAC 4 (POP_ASSUM K_TAC) \\
+      MP_TAC (Q.SPEC `(H :('a, 'b) context) o E` WEAK_UNIQUE_SOLUTION_LEMMA_EPS) \\
+      RW_TAC bool_ss [] >> POP_ASSUM (MP_TAC o (Q.SPECL [`P`, `E2`])) \\
+      RW_TAC bool_ss [] \\
       POP_ASSUM (ASSUME_TAC o BETA_RULE o (Q.SPEC `Q`)) \\
-      IMP_RES_TAC (Q.SPECL [`H Q`, `(H o E) Q`] WEAK_EQUIV_EPS') \\
-      NTAC 2 (POP_ASSUM K_TAC) \\
+      MP_TAC (Q.SPECL [`(H :('a, 'b) context) Q`,
+                       `((H :('a, 'b) context) o (E :('a, 'b) context)) Q`]
+                      WEAK_EQUIV_EPS') >> RW_TAC bool_ss [] \\
+      POP_ASSUM (MP_TAC o (Q.SPEC `(H' :('a, 'b) context) Q`)) \\
+      RW_TAC bool_ss [] \\
       Q.EXISTS_TAC `E1` >> art [] \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
-      `WEAK_EQUIV (H' Q) E1` by PROVE_TAC [WEAK_EQUIV_SYM] \\
+     `WEAK_EQUIV (H' Q) E1` by PROVE_TAC [WEAK_EQUIV_SYM] \\
       Q.EXISTS_TAC `H' Q` >> art [] \\
-      Q.EXISTS_TAC `E2` >> art [] \\
+      Q.EXISTS_TAC `H' P` >> art [] \\
       Q.EXISTS_TAC `H'` >> art [],
       (* goal 2 (of 2) *)
       IMP_RES_TAC (Q.SPECL [`H Q`, `(H o E) Q`] WEAK_EQUIV_EPS) \\
-      IMP_RES_TAC (Q.SPEC `H o E` WEAK_UNIQUE_SOLUTION_LEMMA_EPS) \\
-      NTAC 4 (POP_ASSUM K_TAC) \\
+      MP_TAC (Q.SPEC `(H :('a, 'b) context) o E` WEAK_UNIQUE_SOLUTION_LEMMA_EPS) \\
+      RW_TAC bool_ss [] >> POP_ASSUM (MP_TAC o (Q.SPECL [`Q`, `E2`])) \\
+      RW_TAC bool_ss [] \\
       POP_ASSUM (ASSUME_TAC o BETA_RULE o (Q.SPEC `P`)) \\
-      IMP_RES_TAC (Q.SPECL [`H P`, `(H o E) P`] WEAK_EQUIV_EPS') \\
-      Q.EXISTS_TAC `E1'` >> art [] \\
+      MP_TAC (Q.SPECL [`(H :('a, 'b) context) P`,
+                       `((H :('a, 'b) context) o (E :('a, 'b) context)) P`]
+                      WEAK_EQUIV_EPS') >> RW_TAC bool_ss [] \\
+      POP_ASSUM (MP_TAC o (Q.SPEC `(H' :('a, 'b) context) P`)) \\
+      RW_TAC bool_ss [] \\
+      Q.EXISTS_TAC `E1` >> art [] \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
-      `WEAK_EQUIV E2 Q'` by PROVE_TAC [WEAK_EQUIV_SYM] \\
-      Q.EXISTS_TAC `E2` >> art [] \\
+     `WEAK_EQUIV (H' Q) Q'` by PROVE_TAC [WEAK_EQUIV_SYM] \\
+      Q.EXISTS_TAC `H' Q` >> art [] \\
       Q.EXISTS_TAC `H' P` >> art [] \\
       Q.EXISTS_TAC `H'` >> art [] ]);
 
@@ -785,11 +794,11 @@ val WEAK_UNIQUE_SOLUTION = store_thm (
     rpt STRIP_TAC
  >> irule (REWRITE_RULE [RSUBSET] WEAK_BISIM_UPTO_ALT_THM)
  >> Q.EXISTS_TAC `\x y. ?H. GSEQ H /\ (x = H P) /\ (y = H Q)`
- >> BETA_TAC >> Reverse CONJ_TAC
- >- ( Q.EXISTS_TAC `\t. t` >> BETA_TAC >> REWRITE_TAC [GSEQ1] )
+ >> BETA_TAC
+ >> Reverse CONJ_TAC
+ >- (Q.EXISTS_TAC `\t. t` >> BETA_TAC >> REWRITE_TAC [GSEQ1])
  >> REWRITE_TAC [WEAK_BISIM_UPTO_ALT]
- >> Q.X_GEN_TAC `P'`
- >> Q.X_GEN_TAC `Q'`
+ >> fix [`P'`, `Q'`]
  >> BETA_TAC >> STRIP_TAC >> art []
  >> NTAC 2 (POP_ASSUM K_TAC)
  >> Q.ABBREV_TAC `R = \x y. ?H. GSEQ H /\ (x = H P) /\ (y = H Q)`
@@ -1038,8 +1047,7 @@ val OBS_UNIQUE_SOLUTION = store_thm (
  >> Reverse CONJ_TAC (* 2 sub-goals here *)
  >| [ (* goal 1 (of 2) *)
       REWRITE_TAC [WEAK_BISIM] \\
-      Q.X_GEN_TAC `P'` \\
-      Q.X_GEN_TAC `Q'` \\
+      fix [`P'`, `Q'`] \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (BETA_RULE)) \\
       STRIP_TAC \\
       Q.ABBREV_TAC `R = \x y. ?H. SEQ H /\ WEAK_EQUIV x (H P) /\ WEAK_EQUIV y (H Q)` \\
