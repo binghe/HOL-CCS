@@ -1213,7 +1213,8 @@ Proof
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
          (MP_TAC o (Q.SPEC `Ps`)) \\
        RW_TAC std_ss [] \\
-       RES_TAC >> Q.EXISTS_TAC `E1 || E''` \\
+       RES_TAC >> rename1 `context Xs E''` \\ (* fixes for stdknl *)
+       Q.EXISTS_TAC `E1 || E''` \\
        CONJ_TAC (* context Xs (E1 || E'') *)
        >- (MATCH_MP_TAC context_par_rule >> art [] \\
            MATCH_MP_TAC weakly_guarded_imp_context >> art []) \\

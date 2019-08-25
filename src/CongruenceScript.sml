@@ -144,13 +144,13 @@ Proof
                (ONCE_REWRITE_RULE [CONTEXT_cases]))
  >> fs [FUN_EQ_THM] (* 3 subgoals left *)
  >| [ (* goal 1 (of 3) *)
-      POP_ASSUM (MP_TAC o (Q.SPEC `nil`)) \\
-      rw [],
+      POP_ASSUM (MP_TAC o (Q.SPEC `nil`)) >> rw [],
       (* goal 2 (of 3) *)
       Cases_on `p` (* 8 sub-goals here *)
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (u = o') /\ (e t = C')` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 3 (of 3) *)
@@ -173,6 +173,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (e' t = C0)` \\
          `(e = \t. C') /\ (e' = \t. C0)` by PROVE_TAC [] \\
           ASM_REWRITE_TAC [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
@@ -197,6 +198,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (e' t = C0)` \\
          `(e = \t. C') /\ (e' = \t. C0)` by PROVE_TAC [] \\
           ASM_REWRITE_TAC [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
@@ -221,6 +223,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (L = f) /\ (e t = C')` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 3 (of 3) *)
@@ -245,6 +248,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (rf = R)` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 3 (of 3) *)
@@ -636,6 +640,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (u = o') /\ (e t = C')` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [CONTEXT2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 2 (of 2) *)
@@ -655,6 +660,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (e' t = C0)` \\
          `(e = \t. C') /\ (e' = \t. C0)` by PROVE_TAC [] \\
           ASM_REWRITE_TAC [WG2])
       >> PROVE_TAC [CCS_distinct],
@@ -684,6 +690,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (e' t = C0)` \\
          `(e = \t. C') /\ (e' = \t. C0)` by PROVE_TAC [] \\
           ASM_REWRITE_TAC [WG2])
       >> PROVE_TAC [CCS_distinct],
@@ -705,6 +712,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (L = f) /\ (e t = C')` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [WG2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 2 (of 2) *)
@@ -726,6 +734,7 @@ Proof
       >- PROVE_TAC [CCS_distinct]
       >- PROVE_TAC [CCS_distinct]
       >- (FULL_SIMP_TAC std_ss [CCS_11] \\
+          rename1 `!t. (e t = C') /\ (rf = R)` \\
          `(e = \t. C')` by PROVE_TAC [] >> art [WG2])
       >> PROVE_TAC [CCS_distinct],
       (* goal 2 (of 2) *)
