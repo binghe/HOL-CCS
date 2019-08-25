@@ -7,8 +7,8 @@
 
 open HolKernel Parse boolLib bossLib;
 
-open relationTheory pred_setTheory pred_setLib listTheory arithmeticTheory;
-open finite_mapTheory;
+open relationTheory pred_setTheory pred_setLib listTheory finite_mapTheory;
+open arithmeticTheory; (* for FUNPOW *)
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
      ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
@@ -1226,7 +1226,7 @@ val CCS_unfolding_lemma4 = Q.prove (
 
 (* Lemma 3.9 of [2], full/multivariate version of
    UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
-Theorem unique_solution_of_obs_contractions_lemma :
+Theorem unique_solution_of_rooted_contractions_lemma :
     !Xs Es Ps Qs. CCS_equation Xs Es /\
                   EVERY (weakly_guarded Xs) Es /\
                   CCS_solution Xs Es OBS_contracts Ps /\
@@ -1366,7 +1366,7 @@ val shared_lemma = Q.prove (
         (MP_TAC o (Q.SPECL [`l`, `E1`]) o (MATCH_MP WEAK_EQUIV_TRANS_label)) \\
       RW_TAC std_ss [] \\
       MP_TAC (Q.SPECL [`Xs`, `Es`, `Ps`, `Qs`]
-                      unique_solution_of_obs_contractions_lemma) >> RW_TAC std_ss [] \\
+                      unique_solution_of_rooted_contractions_lemma) >> RW_TAC std_ss [] \\
       POP_ASSUM (MP_TAC o (Q.SPEC `C`)) >> RW_TAC std_ss [] \\
       POP_ASSUM K_TAC (* !R. EPS _ R ==> _ *) \\
       POP_ASSUM (MP_TAC o (Q.SPECL [`l`, `E2`])) >> RW_TAC std_ss [] \\
@@ -1384,7 +1384,7 @@ val shared_lemma = Q.prove (
         (MP_TAC o (Q.SPECL [`l`, `E2`]) o (MATCH_MP WEAK_EQUIV_TRANS_label)) \\
       RW_TAC std_ss [] \\
       MP_TAC (Q.SPECL [`Xs`, `Es`, `Qs`, `Ps`]
-                      unique_solution_of_obs_contractions_lemma) >> RW_TAC std_ss [] \\
+                      unique_solution_of_rooted_contractions_lemma) >> RW_TAC std_ss [] \\
       POP_ASSUM (MP_TAC o (Q.SPEC `C`)) >> RW_TAC std_ss [] \\
       POP_ASSUM K_TAC (* !R. EPS _ R ==> _ *) \\
       POP_ASSUM (MP_TAC o (Q.SPECL [`l`, `E2'`])) >> RW_TAC std_ss [] \\
@@ -1407,7 +1407,7 @@ val shared_lemma = Q.prove (
           Q.EXISTS_TAC `C` >> art []) \\
       Q.PAT_X_ASSUM `EPS _ E2` K_TAC \\
       MP_TAC (Q.SPECL [`Xs`, `Es`, `Ps`, `Qs`]
-                      unique_solution_of_obs_contractions_lemma) >> RW_TAC std_ss [] \\
+                      unique_solution_of_rooted_contractions_lemma) >> RW_TAC std_ss [] \\
       POP_ASSUM (MP_TAC o (Q.SPEC `C`)) >> RW_TAC std_ss [] \\
       Q.PAT_X_ASSUM `!l R. WEAK_TRANS _ (label l) R => _` K_TAC \\
       POP_ASSUM (MP_TAC o (Q.SPEC `E2`)) >> RW_TAC std_ss [] \\
@@ -1429,7 +1429,7 @@ val shared_lemma = Q.prove (
           Q.EXISTS_TAC `C` >> art []) \\
       Q.PAT_X_ASSUM `EPS _ E2'` K_TAC \\
       MP_TAC (Q.SPECL [`Xs`, `Es`, `Qs`, `Ps`]
-                      unique_solution_of_obs_contractions_lemma) >> RW_TAC std_ss [] \\
+                      unique_solution_of_rooted_contractions_lemma) >> RW_TAC std_ss [] \\
       POP_ASSUM (MP_TAC o (Q.SPEC `C`)) >> RW_TAC std_ss [] \\
       Q.PAT_X_ASSUM `!l R. WEAK_TRANS _ (label l) R => _` K_TAC \\
       POP_ASSUM (MP_TAC o (Q.SPEC `E2'`)) >> RW_TAC std_ss [] \\
