@@ -1464,16 +1464,10 @@ val UNIQUE_SOLUTION_OF_CONTRACTIONS_LEMMA = store_thm (
  >> IMP_RES_TAC WGS_IMP_GCONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. GCONTEXT (C'' n)`
- >- (GEN_TAC >> Q.UNABBREV_TAC `C''` >> BETA_TAC \\
-     MATCH_MP_TAC GCONTEXT_combin >> art [] \\
-     Q.SPEC_TAC (`n`, `n`) \\
-     Induct_on `n`
-     >- (Suff `FUNPOW E 0 = \t. t` >- rw [GCONTEXT1] \\
-         rw [FUN_EQ_THM, FUNPOW_0]) \\
-     Know `FUNPOW E (SUC n) = E o (FUNPOW E n)` 
-     >- rw [o_DEF, FUN_EQ_THM, FUNPOW_SUC] >> Rewr' \\
-     MATCH_MP_TAC GCONTEXT_combin >> art [])
- >> DISCH_TAC
+ >- (Q.UNABBREV_TAC `C''` >> BETA_TAC \\
+     Induct_on `n` >- art [o_DEF, FUNPOW, ETA_THM] \\
+     REWRITE_TAC [FUNPOW_SUC_LEFT, o_ASSOC] \\
+     MATCH_MP_TAC GCONTEXT_combin >> art []) >> DISCH_TAC
  (* Part 2: property of C'' on P and Q *)
  >> `!n. (C P) contracts (C'' n P)`
         by (Q.UNABBREV_TAC `C''` >> BETA_TAC >> PROVE_TAC [unfolding_lemma1])
@@ -1675,16 +1669,10 @@ val UNIQUE_SOLUTION_OF_EXPANSIONS_LEMMA = store_thm (
  >> IMP_RES_TAC WGS_IMP_GCONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. GCONTEXT (C'' n)`
- >- (GEN_TAC >> Q.UNABBREV_TAC `C''` >> BETA_TAC \\
-     MATCH_MP_TAC GCONTEXT_combin >> art [] \\
-     Q.SPEC_TAC (`n`, `n`) \\
-     Induct_on `n`
-     >- (Suff `FUNPOW E 0 = \t. t` >- rw [GCONTEXT1] \\
-         rw [FUN_EQ_THM, FUNPOW_0]) \\
-     Know `FUNPOW E (SUC n) = E o (FUNPOW E n)` 
-     >- rw [o_DEF, FUN_EQ_THM, FUNPOW_SUC] >> Rewr' \\
-     MATCH_MP_TAC GCONTEXT_combin >> art [])
- >> DISCH_TAC
+ >- (Q.UNABBREV_TAC `C''` >> BETA_TAC \\
+     Induct_on `n` >- art [o_DEF, FUNPOW, ETA_THM] \\
+     REWRITE_TAC [FUNPOW_SUC_LEFT, o_ASSOC] \\
+     MATCH_MP_TAC GCONTEXT_combin >> art []) >> DISCH_TAC
  (* Part 2: property of C'' on P and Q *)
  >> `!n. (C P) expands (C'' n P)`
         by (Q.UNABBREV_TAC `C''` >> BETA_TAC >> PROVE_TAC [unfolding_lemma1'])
@@ -2053,16 +2041,10 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
  >> IMP_RES_TAC WG_IMP_CONTEXT
  >> Q.ABBREV_TAC `C'' = \n. C o (FUNPOW E n)`
  >> Know `!n. CONTEXT (C'' n)`
- >- (GEN_TAC >> Q.UNABBREV_TAC `C''` >> BETA_TAC \\
-     MATCH_MP_TAC CONTEXT_combin >> art [] \\
-     Q.SPEC_TAC (`n`, `n`) \\
-     Induct_on `n`
-     >- (Suff `FUNPOW E 0 = \t. t` >- rw [CONTEXT1] \\
-         rw [FUN_EQ_THM, FUNPOW_0]) \\
-     Know `FUNPOW E (SUC n) = E o (FUNPOW E n)` 
-     >- rw [o_DEF, FUN_EQ_THM, FUNPOW_SUC] >> Rewr' \\
-     MATCH_MP_TAC CONTEXT_combin >> art [])
- >> DISCH_TAC
+ >- (Q.UNABBREV_TAC `C''` >> BETA_TAC \\
+     Induct_on `n` >- art [o_DEF, FUNPOW, ETA_THM] \\
+     REWRITE_TAC [FUNPOW_SUC_LEFT, o_ASSOC] \\
+     MATCH_MP_TAC CONTEXT_combin >> art []) >> DISCH_TAC
  (* Part 2: property of C'' on P and Q *)
  >> `!n. OBS_contracts (C P) (C'' n P)`
         by (Q.UNABBREV_TAC `C''` >> BETA_TAC >> PROVE_TAC [OBS_unfolding_lemma1])

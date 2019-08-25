@@ -1628,7 +1628,7 @@ val OBS_contracts_precongruence = store_thm (
 val OBS_contracts_AND_TRACE_tau = store_thm (
    "OBS_contracts_AND_TRACE_tau",
   ``!E E'. OBS_contracts E E' ==>
-        !xs l E1. TRACE E xs E1 /\ NO_LABEL xs ==>
+        !xs E1. TRACE E xs E1 /\ NO_LABEL xs ==>
             ?xs' E2. TRACE E' xs' E2 /\ E1 contracts E2 /\
                      (LENGTH xs' <= LENGTH xs) /\ NO_LABEL xs'``,
     rpt STRIP_TAC
@@ -1644,8 +1644,7 @@ val OBS_contracts_AND_TRACE_tau = store_thm (
                               (ASSUME ``u contracts E2``)))
  >> RW_TAC std_ss []
  >> take [`tau :: xs'`, `E2'`] >> art []
- >> CONJ_TAC
- >- ( MATCH_MP_TAC TRACE_rule1 >> Q.EXISTS_TAC `E2` >> art [] )
+ >> CONJ_TAC >- (MATCH_MP_TAC TRACE_rule1 >> Q.EXISTS_TAC `E2` >> art [])
  >> RW_TAC arith_ss [LENGTH]
  >> REWRITE_TAC [NO_LABEL_cases] >> art []);
 

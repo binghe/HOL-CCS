@@ -1019,6 +1019,15 @@ Definition CCS_solution_def :
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
+Theorem CCS_solution_LENGTH :
+    !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
+                (LENGTH Ps = LENGTH Xs)
+Proof
+    RW_TAC list_ss [CCS_equation_def, CCS_solution_def]
+ >> IMP_RES_TAC LIST_REL_LENGTH
+ >> fs [LENGTH_MAP]
+QED
+
 val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
 val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
@@ -1217,11 +1226,16 @@ val CCS_unfolding_lemma1 = Q.prove (
     cheat);
 
 val CCS_unfolding_lemma4 = Q.prove (
-   `!C E n xs P' P. CONTEXT C /\ WG E /\
-        TRACE ((C o FUNPOW E n) P) xs P' /\ (LENGTH xs <= n) ==>
-        ?C'. CONTEXT C' /\
-             (P' = C' P) /\
-             !Q. TRACE ((C o FUNPOW E n) Q) xs (C' Q)`,
+   `!Xs Es Ps E C C' n xs P'.
+        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
+        CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
+        (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
+        (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) /\
+        TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\ (LENGTH xs <= n) ==>
+        ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
+             !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                  TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
+                        (CCS_SUBST (fromList Xs Qs) C'')`,
     cheat);
 
 (* Lemma 3.9 of [2], full/multivariate version of
@@ -1250,8 +1264,9 @@ Proof
      MATCH_MP_TAC weakly_guarded_imp_context \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  >> DISCH_TAC
- (* E = Es[.] *)
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
+ (* useless assumptions:
  >> Know `E (MAP var Xs) = Es`
  >- (Q.UNABBREV_TAC `E` >> BETA_TAC \\
      RW_TAC list_ss [] \\
@@ -1259,15 +1274,13 @@ Proof
      MATCH_MP_TAC CCS_SUBST_self \\
      fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def, MEM_EL] \\
      METIS_TAC []) >> DISCH_TAC
- (* C' n = C o (FUNPOW E n) = \Xs. C[Es[..[..Es[Xs]]]]  *)
- >> Q.ABBREV_TAC
-      `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
  >> Know `C' 0 = C`
  >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
      MATCH_MP_TAC CCS_SUBST_self \\
      PROVE_TAC [context_def, CCS_equation_def])
  >> DISCH_TAC
- (* Hard result. FUNPOW_SUC_alt is useless here *)
+  *)
+ (* applying context_combin *)
  >> Know `!n. context Xs (C' n)`
  >- (GEN_TAC >> Q.UNABBREV_TAC `C'` >> BETA_TAC \\
      MATCH_MP_TAC context_combin >> fs [CCS_equation_def] \\
@@ -1280,8 +1293,6 @@ Proof
      RW_TAC list_ss [EVERY_MEM, MEM_MAP] \\
      MATCH_MP_TAC context_combin >> fs [EVERY_MEM])
  >> DISCH_TAC
- >> cheat
- (* TODO
  >> Know `!n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
                             (CCS_SUBST (fromList Xs Ps) (C' n))`
  >- (MATCH_MP_TAC CCS_unfolding_lemma1 \\
@@ -1292,7 +1303,7 @@ Proof
  >- (MATCH_MP_TAC CCS_unfolding_lemma1 \\
      take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
  >> DISCH_TAC
- >> rpt STRIP_TAC (* 2 subgoals *)
+ >> rpt STRIP_TAC (* 2 subgoals (not symmetric!) *)
  >| [ (* goal 1 (of 2) *)
       IMP_RES_TAC WEAK_TRANS_AND_TRACE \\
       FULL_SIMP_TAC std_ss [Action_distinct_label] \\
@@ -1303,45 +1314,55 @@ Proof
                  (MATCH_MP OBS_contracts_AND_TRACE_label)) \\
       RW_TAC std_ss [] \\
       Q.ABBREV_TAC `n = LENGTH us` \\
-(* TODO *)
-      Know `?C''. CONTEXT C'' /\ (E2 = C'' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs' (C'' Q)`
-      >- ( MATCH_MP_TAC CCS_unfolding_lemma4 >> art [] ) \\
-
-      STRIP_TAC >> POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
-      `OBS_contracts (C Q) ((C o FUNPOW E n) Q)` by PROVE_TAC [] \\
-      FULL_SIMP_TAC std_ss [] \\ (* to replace E2 *)
+      Know `?C''. context Xs C'' /\ (E2 = CCS_SUBST (fromList Xs Ps) C'') /\
+                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
+                             (CCS_SUBST (fromList Xs Qs) C'')`
+      >- (MATCH_MP_TAC CCS_unfolding_lemma4 \\
+          take [`Es`, `E`, `C`] >> unset [`E`, `C'`] >> art []) \\
+      STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
+     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
+      RW_TAC std_ss [] \\
+     `OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
+                    (CCS_SUBST (fromList Xs Qs) (C' n))` by PROVE_TAC [] \\
       Q.EXISTS_TAC `C''` >> art [] \\
-      Know `WEAK_TRANS (C (FUNPOW E n Q)) (label l) (C'' Q)`
-      >- ( REWRITE_TAC [WEAK_TRANS_AND_TRACE, Action_distinct_label] \\
-           Q.EXISTS_TAC `xs'` >> art [] \\
-           MATCH_MP_TAC UNIQUE_LABEL_NOT_NULL \\
-           Q.EXISTS_TAC `label l` >> art [] ) >> DISCH_TAC \\
+      Know `WEAK_TRANS (CCS_SUBST (fromList Xs Qs) (C' n)) (label l)
+                       (CCS_SUBST (fromList Xs Qs) C'')`
+      >- (REWRITE_TAC [WEAK_TRANS_AND_TRACE, Action_distinct_label] \\
+          Q.EXISTS_TAC `xs'` >> art [] \\
+          MATCH_MP_TAC UNIQUE_LABEL_NOT_NULL \\
+          Q.EXISTS_TAC `label l` >> art []) >> DISCH_TAC \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
       IMP_RES_TAC OBS_contracts_WEAK_TRANS_label' \\
       Q.EXISTS_TAC `E1` >> art [],
-
       (* goal 2 (of 2) *)
-      IMP_RES_TAC WEAK_TRANS_AND_TRACE \\
-      FULL_SIMP_TAC std_ss [] \\
-      `OBS_contracts (C P) (C'' (LENGTH us) P)` by PROVE_TAC [] \\
-      POP_ASSUM (IMP_RES_TAC o (MATCH_MP OBS_contracts_AND_TRACE_tau)) \\ (* diff here *)
-      NTAC 4 (POP_ASSUM K_TAC) \\
+      IMP_RES_TAC WEAK_TRANS_AND_TRACE >> fs [] \\
+     `OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
+                    (CCS_SUBST (fromList Xs Ps) (C' (LENGTH us)))`
+        by PROVE_TAC [] \\
+      POP_ASSUM (MP_TAC o (Q.SPECL [`us`, `R`]) o
+                 (MATCH_MP OBS_contracts_AND_TRACE_tau)) \\
+      RW_TAC std_ss [] \\
       Q.ABBREV_TAC `n = LENGTH us` \\
-      Q.UNABBREV_TAC `C''` \\
-      qpat_x_assum `TRACE X xs' E2` (ASSUME_TAC o BETA_RULE) \\
-      Know `?C'. CONTEXT C' /\ (E2 = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs' (C' Q)`
-      >- ( MATCH_MP_TAC CCS_unfolding_lemma4 >> art [] ) \\
-      STRIP_TAC >> POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
-      `OBS_contracts (C Q) ((C o FUNPOW E n) Q)` by PROVE_TAC [] \\
-      FULL_SIMP_TAC std_ss [] \\ (* to replace E2 *)
-      Q.EXISTS_TAC `C'` >> art [] \\
-      Know `EPS (C (FUNPOW E n Q)) (C' Q)` (* diff here *)
-      >- ( REWRITE_TAC [EPS_AND_TRACE] \\
-           Q.EXISTS_TAC `xs'` >> art [] ) >> DISCH_TAC \\
+      Know `?C''. context Xs C'' /\ (E2 = CCS_SUBST (fromList Xs Ps) C'') /\
+                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
+                             (CCS_SUBST (fromList Xs Qs) C'')`
+      >- (MATCH_MP_TAC CCS_unfolding_lemma4 \\
+          take [`Es`, `E`, `C`] >> unset [`E`, `C'`] >> art []) \\
+      STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
+     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
+      RW_TAC std_ss [] \\
+     `OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
+                    (CCS_SUBST (fromList Xs Qs) (C' n))` by PROVE_TAC [] \\
+      Q.EXISTS_TAC `C''` >> art [] \\
+      Know `EPS (CCS_SUBST (fromList Xs Qs) (C' n))
+                (CCS_SUBST (fromList Xs Qs) C'')`
+      >- (REWRITE_TAC [EPS_AND_TRACE] \\
+          Q.EXISTS_TAC `xs'` >> art []) >> DISCH_TAC \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
       IMP_RES_TAC OBS_contracts_EPS' \\
       Q.EXISTS_TAC `E1` >> art [] ]
- *)
 QED
 
 (* Shared lemma for unique_solution_of_obs_contractions and
@@ -1444,6 +1465,7 @@ val shared_lemma = Q.prove (
       PROVE_TAC [WEAK_EQUIV_TRANS] ]
 QED
 
+(* Theorem 3.10 of [2], full version *)
 Theorem unique_solution_of_obs_contractions :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
