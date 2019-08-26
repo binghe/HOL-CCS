@@ -450,14 +450,14 @@ QED
 
    NOTE: `context Xs C` implies `DISJOINT (BV C) (set Xs)`, which is not
    really necessary but makes the proof (much) easier. *)
-Theorem CCS_SUBST_nested :
-    !Xs Ps Es. ALL_DISTINCT Xs /\
+val CCS_SUBST_nested_lemma = Q.prove (
+   `!Xs Ps Es. ALL_DISTINCT Xs /\
               (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
         !C. DISJOINT (BV C) (set Xs) ==>
             (CCS_SUBST (fromList Xs Ps)
                        (CCS_SUBST (fromList Xs Es) C) =
-             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
-Proof
+             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)`,
+ (* proof *)
     rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `C` (* 8 subgoals *)
  >- RW_TAC std_ss [CCS_SUBST_nil]
@@ -480,7 +480,16 @@ Proof
  >> `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
        by PROVE_TAC [LENGTH_MAP]
  >> RW_TAC list_ss [CCS_SUBST_rec, FDOM_fromList, LENGTH_MAP]
- >> ASM_SET_TAC []
+ >> ASM_SET_TAC []);
+
+Theorem CCS_SUBST_nested :
+    !Xs Ps Es C.
+        ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) /\
+        DISJOINT (BV C) (set Xs) ==>
+       (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
+        CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+Proof
+    rpt STRIP_TAC >> irule CCS_SUBST_nested_lemma >> art []
 QED
 
 (* ========================================================================== *)
@@ -1375,34 +1384,76 @@ Proof
  >> fs [LENGTH_MAP]
 QED
 
+Theorem OBS_contracts_trans :
+    !(Ps :('a, 'b) CCS list) Qs Rs.
+          LIST_REL OBS_contracts Ps Qs /\ LIST_REL OBS_contracts Qs Rs
+      ==> LIST_REL OBS_contracts Ps Rs
+Proof
+    rpt STRIP_TAC
+ >> MATCH_MP_TAC LIST_REL_trans
+ >> Q.EXISTS_TAC `Qs` >> RW_TAC std_ss []
+ >> MATCH_MP_TAC OBS_contracts_TRANS
+ >> Q.EXISTS_TAC `EL n Qs` >> art []
+QED
+
 (* USC unfolding lemmas for unique_solution_of_rooted_contractions_lemma
   "USC" := "Unique Solution of (Rooted) Contractions".
 
    Lemma 1,4 are directly used; Lemma 2,3 are further lemmas of Lemma 4.
 *)
-val USC_unfolding_lemma1 = Q.prove (
-   `!Xs Es E C C' Ps.
+Theorem USC_unfolding_lemma1 :
+    !Xs Es E C C' Ps.
         CCS_equation Xs Es /\ EVERY (context Xs) Es /\
         CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
-    ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                          (CCS_SUBST (fromList Xs Ps) (C' n))`,
-    rpt STRIP_TAC
- >> 
-    cheat);
-(*
-    rpt STRIP_TAC
- >> REWRITE_TAC [o_DEF]
- >> BETA_TAC
- >> irule OBS_contracts_SUBST_CONTEXT >> art []
+        ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
+                              (CCS_SUBST (fromList Xs Ps) (C' n))
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
+ (* re-define C' (and E) back to abbreviations *)
+ >> Q.PAT_X_ASSUM `C' = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ >> Q.PAT_X_ASSUM `E  = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ >> Q.ABBREV_TAC  `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Q.X_GEN_TAC `n` >> BETA_TAC
+ (* applying CCS_SUBST_nested *)
+ >> MP_TAC (Q.SPECL [`Xs`, `Ps`, `FUNPOW E n (MAP var Xs)`, `C`] CCS_SUBST_nested)
+ >> Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
+ >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\
+     REWRITE_TAC [FUNPOW_SUC] \\
+     Q.ABBREV_TAC `E' = FUNPOW E i (MAP var Xs)` \\
+     Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP])
+ >> DISCH_TAC
+ >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
+ >> `ALL_DISTINCT Xs` by PROVE_TAC [CCS_equation_def]
+ >> `LENGTH Ps = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH]
+ >> RW_TAC std_ss []
+ >> POP_ASSUM K_TAC (* useless after rewriting *)
+ (* applying OBS_contracts_subst_context *)
+ >> irule OBS_contracts_subst_context >> art []
+ >> fs [CCS_solution_def]
  >> Q.SPEC_TAC (`n`, `n`)
- >> Induct >- REWRITE_TAC [FUNPOW, OBS_contracts_REFL]
- >> REWRITE_TAC [FUNPOW_SUC]
- >> Q.ABBREV_TAC `Q = FUNPOW E n P`
- >> `OBS_contracts (E P) (E Q)` by PROVE_TAC [OBS_contracts_SUBST_CONTEXT]
- >> IMP_RES_TAC OBS_contracts_TRANS);
-*)
+ >> Induct_on `n`
+ >- (REWRITE_TAC [FUNPOW_0] \\
+     Suff `MAP (CCS_SUBST (fromList Xs Ps)) (MAP var Xs) = Ps`
+     >- (Rewr' >> RW_TAC list_ss [LIST_REL_EL_EQN, OBS_contracts_REFL]) \\
+     MATCH_MP_TAC LIST_EQ \\
+     STRONG_CONJ_TAC >- ASM_SIMP_TAC list_ss [LENGTH_MAP] >> Rewr' \\
+     RW_TAC list_ss [EL_MAP, CCS_SUBST_def, FDOM_fromList,
+                     fromList_FAPPLY_EL] \\
+     METIS_TAC [MEM_EL])
+ >> MATCH_MP_TAC OBS_contracts_trans
+ >> Q.EXISTS_TAC `MAP (CCS_SUBST (fromList Xs Ps)) (FUNPOW E n (MAP var Xs))`
+ >> ASM_REWRITE_TAC []
+ (* applying CCS_SUBST_nested AGAIN *)
+ >> 
+ (* applying OBS_contracts_subst_context AGAIN *)
+    cheat
+QED
+
+val USC_unfolding_lemma2 = ();
+val USC_unfolding_lemma3 = ();
 
 val USC_unfolding_lemma4 = Q.prove (
    `!Xs Es E C C'.
