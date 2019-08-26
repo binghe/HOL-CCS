@@ -203,6 +203,7 @@ Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = FEMPTY |++ ZIP (Xs,Ps)
 End
 
+(* clear_overloads_on ("fromList"); *)
 val _ = overload_on ("|->", ``fromList``);
 val _ = set_fixity "|->" (Infix(NONASSOC, 100));
 
@@ -270,7 +271,7 @@ QED
 
 (* KEY result: if Xs is disjoint with free (and bound) variables of E,
    then E{? / Xs} = E *)
-Theorem CCS_SUBST_ELIM :
+Theorem CCS_SUBST_elim :
     !Xs E. DISJOINT (FV E) (set Xs) /\ DISJOINT (BV E) (set Xs) ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (fromList Xs Ps) E = E)
 Proof
@@ -280,8 +281,8 @@ Proof
  >> METIS_TAC []
 QED
 
-(* more general then CCS_SUBST_ELIM *)
-Theorem CCS_SUBST_ELIM' :
+(* more general then CCS_SUBST_elim *)
+Theorem CCS_SUBST_elim' :
     !fm E. DISJOINT (FV E) (FDOM fm) /\ DISJOINT (BV E) (FDOM fm) ==>
           (CCS_SUBST fm E = E)
 Proof
@@ -302,8 +303,8 @@ Proof
 QED
  *)
 
-(* CCS_SUBST_REDUCE leads to CCS_SUBST_FOLDR *)
-Theorem CCS_SUBST_REDUCE :
+(* CCS_SUBST_reduce leads to CCS_SUBST_FOLDR *)
+Theorem CCS_SUBST_reduce :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
                 EVERY (\e. X NOTIN (FV e)) Ps ==>
          !E E'. DISJOINT (BV E) (set (X::Xs)) /\
@@ -325,7 +326,7 @@ Proof
  >> METIS_TAC []
 QED
 
-(* CCS_SUBST_REDUCE in another form *)
+(* CCS_SUBST_reduce in another form *)
 val lemma1 = Q.prove (
    `!E E' map. map <> [] /\
           ~MEM (FST (HD map)) (MAP FST (TL map)) /\ ALL_DISTINCT (MAP FST (TL map)) /\
@@ -348,7 +349,7 @@ val lemma1 = Q.prove (
  >> DISCH_THEN (fs o wrap)
  >> Know `(MAP SND (ZIP (Xs,Ps))) = Ps` >- PROVE_TAC [MAP_ZIP]
  >> DISCH_THEN (fs o wrap)
- >> MP_TAC (REWRITE_RULE [fromList_def] (Q.SPECL [`X`,`Xs`,`r`,`Ps`] CCS_SUBST_REDUCE))
+ >> MP_TAC (REWRITE_RULE [fromList_def] (Q.SPECL [`X`,`Xs`,`r`,`Ps`] CCS_SUBST_reduce))
  >> RW_TAC std_ss []
  >> POP_ASSUM (MP_TAC o (REWRITE_RULE [ZIP, LIST_TO_SET]) o (Q.SPEC `E`))
  >> `DISJOINT (BV E) (X INSERT (set Xs))` by ASM_SET_TAC []
@@ -379,7 +380,7 @@ val lemma2 = Q.prove (
      Cases_on `y` >> fs [] >> ASM_SET_TAC [])
  >> RW_TAC std_ss []);
 
-(* lemma2 in another form *)
+(* lemma2 in another form; this is less general than CCS_SUBST_reduce *)
 Theorem CCS_SUBST_FOLDR :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
               EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) /\
@@ -397,8 +398,8 @@ Proof
  >> Cases_on `l` >> rw []
 QED
 
-(* A FOLDL-like version of CCS_SUBST_REDUCE
-Theorem CCS_SUBST_REDUCE' :
+(* A FOLDL-like version of CCS_SUBST_reduce
+Theorem CCS_SUBST_reduce' :
     !E X P Xs Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
                   EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) /\
                   DISJOINT (BV E) (set (X::Xs)) ==>
@@ -422,20 +423,11 @@ Proof
  >> SRW_TAC [] [CCS_SUBST_EMPTY, fromList_EMPTY]
  >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==> _` MP_TAC
  >> RW_TAC std_ss []
- >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_REDUCE)
+ >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_reduce)
  >> `LENGTH (MAP var Xs) = LENGTH Xs` by PROVE_TAC [LENGTH_MAP]
  >> Suff `EVERY (\e. h NOTIN FV e) (MAP var Xs)` >- fs []
  >> RW_TAC std_ss [EVERY_MEM, MEM_MAP]
  >> ASM_SET_TAC [FV_def]
-QED
-
-(* TODO: KEY result *)
-Theorem CCS_SUBST_composed :
-    !Xs Ps Es C. (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
-                 (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
-                  CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
-Proof
-    cheat
 QED
 
 (* ================================================================= *)
@@ -703,11 +695,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -716,11 +708,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [STRONG_EQUIV_REFL])
@@ -728,10 +720,10 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -739,10 +731,10 @@ Proof
  >> (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [STRONG_EQUIV_REFL])
@@ -794,11 +786,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -807,11 +799,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [OBS_CONGR_REFL])
@@ -819,10 +811,10 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -830,10 +822,10 @@ Proof
  >> (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [OBS_CONGR_REFL])
@@ -885,11 +877,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -898,11 +890,11 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [OBS_contracts_REFL])
@@ -910,10 +902,10 @@ Proof
  >- (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST ((fromList Xs Qs) \\ a) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
          ASM_SET_TAC []) >> Rewr' \\
@@ -921,10 +913,10 @@ Proof
  >> (IMP_RES_TAC context_rec \\
     `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) E = E`
-     >- (MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
         `LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
      REWRITE_TAC [OBS_contracts_REFL])
@@ -979,7 +971,7 @@ Proof
      Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
      rename1 `MEM X Xs` \\
      Suff `CCS_SUBST ((fromList Xs Es) \\ X) C' = C'` >- fs [] \\
-     MATCH_MP_TAC CCS_SUBST_ELIM' \\
+     MATCH_MP_TAC CCS_SUBST_elim' \\
      ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
      ASM_SET_TAC [context_def])
  (* goal 8 (of 8): not hard *)
@@ -988,7 +980,7 @@ Proof
  >> IMP_RES_TAC context_rec
  >> Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss []
  >> Know `CCS_SUBST (fromList Xs Es) C' = C'`
- >- (irule CCS_SUBST_ELIM >> fs [context_def])
+ >- (irule CCS_SUBST_elim >> fs [context_def])
  >> DISCH_THEN (fs o wrap)
 QED
 
@@ -1001,6 +993,41 @@ Proof
  >> Q.PAT_X_ASSUM `!x y z. R x y /\ R y z ==> R x z` MATCH_MP_TAC
  >> Q.EXISTS_TAC `EL n y`
  >> CONJ_TAC >> FIRST_X_ASSUM MATCH_MP_TAC >> art []
+QED
+
+(* KEY result *)
+Theorem CCS_SUBST_nested :
+    !Xs Ps Es. ALL_DISTINCT Xs /\
+               (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
+        !C. context Xs C ==>
+            (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
+             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `C` (* 8 subgoals *)
+ >- RW_TAC std_ss [CCS_SUBST_nil]
+ >- (RW_TAC std_ss [CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
+     fs [MEM_EL] >> rename1 `X = EL n Xs` \\
+    `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
+       by PROVE_TAC [LENGTH_MAP] \\
+     ASM_SIMP_TAC std_ss [fromList_FAPPLY_EL, EL_MAP])
+ >- (RW_TAC std_ss [CCS_SUBST_prefix] \\
+     IMP_RES_TAC context_prefix >> RES_TAC)
+ >- (RW_TAC std_ss [CCS_SUBST_sum] \\
+     FIRST_X_ASSUM MATCH_MP_TAC >> IMP_RES_TAC context_sum)
+ >- (RW_TAC std_ss [CCS_SUBST_par] \\
+     FIRST_X_ASSUM MATCH_MP_TAC >> IMP_RES_TAC context_par)
+ >- (RW_TAC std_ss [CCS_SUBST_restr] \\
+     IMP_RES_TAC context_restr >> RES_TAC)
+ >- (RW_TAC std_ss [CCS_SUBST_relab] \\
+     IMP_RES_TAC context_relab >> RES_TAC)
+ (* The last goal is hard *)
+ >> rpt STRIP_TAC
+ >> IMP_RES_TAC context_rec
+ >> `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
+       by PROVE_TAC [LENGTH_MAP]
+ >> RW_TAC list_ss [CCS_SUBST_rec, FDOM_fromList, LENGTH_MAP]
+ >> fs [context_def, BV_def]
 QED
 
 (* ================================================================= *)
@@ -1276,7 +1303,7 @@ Proof
  >> `DISJOINT (BV (rec Y E)) (set Xs)` by PROVE_TAC [weakly_guarded_def]
  (* simplify `CCS_Subst (rec Y E) (Ps |-> Qs)` *)
  >> Know `CCS_SUBST (fromList Xs Ps) (rec Y E) = rec Y E`
- >- (irule CCS_SUBST_ELIM >> art [])
+ >- (irule CCS_SUBST_elim >> art [])
  >> DISCH_THEN (fs o wrap)
  (* KEY step: let E' = P' *)
  >> Q.EXISTS_TAC `P'`
@@ -1293,12 +1320,12 @@ Proof
      Q.EXISTS_TAC `u` >> art []) >> DISCH_TAC
  >> Reverse CONJ_TAC
  >- (CONJ_TAC
-     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_ELIM >> art []) \\
+     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_elim >> art []) \\
      rpt STRIP_TAC \\
      Know `CCS_SUBST (fromList Xs Qs) (rec Y E) = rec Y E`
-     >- (irule CCS_SUBST_ELIM >> art []) >> Rewr' \\
+     >- (irule CCS_SUBST_elim >> art []) >> Rewr' \\
      Know `CCS_SUBST (fromList Xs Qs) P' = P'`
-     >- (irule CCS_SUBST_ELIM >> art []) >> Rewr' >> art [])
+     >- (irule CCS_SUBST_elim >> art []) >> Rewr' >> art [])
  (* context Xs P' *)
  >> RW_TAC std_ss [context_def, EVERY_MEM]
  >> Suff `!t. CCS_Subst P' t X = P'`
@@ -1416,7 +1443,7 @@ Proof
          `DISJOINT (BV (var Y)) (set Xs)` by ASM_SET_TAC [BV_def] \\
          `(CCS_SUBST (fromList Xs Ps) (var Y) = var Y) /\
           (CCS_SUBST (fromList Xs Qs) (var Y) = var Y)`
-            by METIS_TAC [CCS_SUBST_ELIM] \\
+            by METIS_TAC [CCS_SUBST_elim] \\
          RW_TAC std_ss [VAR_NO_TRANS]) \\
      fs [MEM_EL] >> rename1 `i < LENGTH Xs` \\
      Know `!Zs. (LENGTH Zs = LENGTH Xs) ==>
@@ -1493,7 +1520,7 @@ Proof
  >> `DISJOINT (BV (rec Y G)) (set Xs)` by ASM_SET_TAC [context_def]
  >> `(CCS_SUBST (fromList Xs Ps) (rec Y G) = rec Y G) /\
      (CCS_SUBST (fromList Xs Qs) (rec Y G) = rec Y G)`
-        by METIS_TAC [CCS_SUBST_ELIM] >> NTAC 2 POP_ORW
+        by METIS_TAC [CCS_SUBST_elim] >> NTAC 2 POP_ORW
  >> rpt STRIP_TAC (* 2 subgoals *)
  >| [ (* goal 1 (of 2) *)
       Q.EXISTS_TAC `E1` >> art [O_DEF] \\
@@ -1548,8 +1575,8 @@ val USC_unfolding_lemma4 = Q.prove (
            ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
-                            (CCS_SUBST (fromList Xs Qs) C'')`,
- (* proof *)
+                            (CCS_SUBST (fromList Xs Qs) C'')`, cheat);
+ (* proof
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
  (* re-define C' and E back to abbreviations *)
@@ -1573,9 +1600,9 @@ val USC_unfolding_lemma4 = Q.prove (
  (* TODO: the (sub)proof below is wrong. *)
  >- (Q.PAT_X_ASSUM `!xs Ps P'. _ ==> _` K_TAC \\
      Q.UNABBREV_TAC `C'` >> BETA_TAC \\
-  (* applying CCS_SUBST_composed *)
+  (* applying CCS_SUBST_nested *)
      MP_TAC (Q.SPECL [`Xs`, `Ps`, `(FUNPOW E (SUC n) (MAP var Xs))`, `C`]
-                     CCS_SUBST_composed) \\
+                     CCS_SUBST_nested) \\
      Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
      >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\    
          REWRITE_TAC [FUNPOW_SUC] \\
@@ -1583,7 +1610,7 @@ val USC_unfolding_lemma4 = Q.prove (
          Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP]) \\
      RW_TAC bool_ss [] \\
      MP_TAC (Q.SPECL [`Xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`,
-                      `(FUNPOW E n (MAP var Xs))`, `C`] CCS_SUBST_composed) \\
+                      `(FUNPOW E n (MAP var Xs))`, `C`] CCS_SUBST_nested) \\
      Know `!Ys. (LENGTH Ys = LENGTH Xs) ==> (LENGTH (E Ys) = LENGTH Xs)`
      >- (rpt STRIP_TAC \\
          Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
@@ -1598,7 +1625,7 @@ val USC_unfolding_lemma4 = Q.prove (
      rpt STRIP_TAC \\
      Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
      Q.UNABBREV_TAC `E` >> fs [EL_MAP] \\
-     MP_TAC (Q.SPECL [`Xs`, `Ps`, `Es`, `EL x E'`] CCS_SUBST_composed) \\
+     MP_TAC (Q.SPECL [`Xs`, `Ps`, `Es`, `EL x E'`] CCS_SUBST_nested) \\
      RW_TAC bool_ss [] >> POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM) \\
      Suff `CCS_SUBST (fromList Xs E') (EL x Es) =
            CCS_SUBST (fromList Xs Es) (EL x E')` >- Rewr \\
@@ -1647,7 +1674,7 @@ val USC_unfolding_lemma4 = Q.prove (
          FIRST_X_ASSUM MATCH_MP_TAC >> art []) \\
      CONJ_TAC (* composed CCS_SUBST *)
      >- (Q.UNABBREV_TAC `E` >> fs [] \\
-         MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC CCS_SUBST_composed >> art []) \\
+         MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC CCS_SUBST_nested >> art []) \\
      NTAC 2 STRIP_TAC \\
 
      Q.PAT_X_ASSUM `!Qs. (LENGTH Qs = LENGTH Xs) ==> _`
@@ -1677,6 +1704,7 @@ val USC_unfolding_lemma4 = Q.prove (
  *)
  >>
     cheat);
+*)
 
 (* Lemma 3.9 of [2], full/multivariate version of
    UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
