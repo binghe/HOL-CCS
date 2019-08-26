@@ -1,6 +1,6 @@
 (* ========================================================================== *)
 (* FILE          : MultivariateScript.sml                                     *)
-(* DESCRIPTION   : Unique Solution of Equations (Multivariate version)        *)
+(* DESCRIPTION   : Unique Solution of CCS Equations (Multivariate Version)    *)
 (*                                                                            *)
 (* COPYRIGHT     : (c) 2019 Chun Tian, Fondazione Bruno Kessler, Italy        *)
 (* ========================================================================== *)
@@ -8,13 +8,25 @@
 open HolKernel Parse boolLib bossLib;
 
 open relationTheory pred_setTheory pred_setLib listTheory finite_mapTheory;
-open combinTheory arithmeticTheory; (* o_DEF, FUNPOW, ... *)
+
+open combinTheory arithmeticTheory; (* for o_DEF and FUNPOW *)
 
 open CCSLib CCSTheory StrongEQTheory StrongLawsTheory WeakEQTheory TraceTheory
      ObsCongrTheory ContractionTheory CongruenceTheory BisimulationUptoTheory
      UniqueSolutionsTheory;
 
 val _ = new_theory "Multivariate";
+
+(* ========================================================================== *)
+(*                             TABLE OF CONTENTS                              *)
+(* -------------------------------------------------------------------------- *)
+(*  Prologue:    Design Notes . . . . . . . . . . . . . . . . . . . . . . . . *)
+(*  Section I:   Multivariate variable substitution . . . . . . . . . . . . . *)
+(*  Section II:  Multivariate CCS contexts. . . . . . . . . . . . . . . . . . *)
+(*  Section III: Weakly-guarded contexts. . . . . . . . . . . . . . . . . . . *)
+(*  Section IV:  Unique Solution of Equations/Contractions. . . . . . . . . . *)
+(*  Appendix:    Bibliography and some left work. . . . . . . . . . . . . . . *)
+(* ========================================================================== *)
 
 val set_ss = list_ss ++ PRED_SET_ss;
 
@@ -23,10 +35,10 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
-(* hide all other possible definitions of `fromList` - a common name *)
+(* hide all other possible definitions of `fromList` -- this is a common name *)
 val _ = hide "fromList";
 
-(*                           -- DESIGN NOTES --
+(*                         -- DESIGN NOTES --
 
 1. What's a multivariate CCS equation?
 
@@ -143,6 +155,10 @@ val _ = hide "fromList";
 
    -- Chun Tian, Aug 10, 2019 (Giardino di via Fermi, Trento, Italy)
 *)
+
+(* ========================================================================== *)
+(*  Section I: Multivariate Variable Substitution                             *)
+(* ========================================================================== *)
 
 (* The use of alistTheory/finite_mapTheory to get rid of substitution
    orders was suggested by Konrad Slind: (HOL-info, Oct 23, 2017):
@@ -430,9 +446,46 @@ Proof
  >> ASM_SET_TAC [FV_def]
 QED
 
-(* ================================================================= *)
-(*   Multivariate CCS contexts                                       *)
-(* ================================================================= *)
+(* KEY result.
+
+   NOTE: `context Xs C` implies `DISJOINT (BV C) (set Xs)`, which is not
+   really necessary but makes the proof (much) easier. *)
+Theorem CCS_SUBST_nested :
+    !Xs Ps Es. ALL_DISTINCT Xs /\
+              (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
+        !C. DISJOINT (BV C) (set Xs) ==>
+            (CCS_SUBST (fromList Xs Ps)
+                       (CCS_SUBST (fromList Xs Es) C) =
+             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+Proof
+    rpt GEN_TAC >> STRIP_TAC
+ >> Induct_on `C` (* 8 subgoals *)
+ >- RW_TAC std_ss [CCS_SUBST_nil]
+ >- (RW_TAC set_ss [BV_def, CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
+     fs [MEM_EL] >> rename1 `X = EL n Xs` \\
+    `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
+       by PROVE_TAC [LENGTH_MAP] \\
+     ASM_SIMP_TAC std_ss [fromList_FAPPLY_EL, EL_MAP])
+ >- RW_TAC std_ss [BV_def, CCS_SUBST_prefix]
+ >- (RW_TAC std_ss [BV_def, CCS_SUBST_sum] \\
+     FIRST_X_ASSUM MATCH_MP_TAC >> ASM_SET_TAC [])
+ >- (RW_TAC std_ss [BV_def, CCS_SUBST_par] \\
+     FIRST_X_ASSUM MATCH_MP_TAC >> ASM_SET_TAC [])
+ >- RW_TAC std_ss [BV_def, CCS_SUBST_restr]
+ >- RW_TAC std_ss [BV_def, CCS_SUBST_relab]
+ (* The last goal is hard *)
+ >> RW_TAC std_ss [BV_def]
+ >> `DISJOINT (BV C') (set Xs)` by ASM_SET_TAC [SUBSET_DISJOINT]
+ >> RES_TAC
+ >> `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
+       by PROVE_TAC [LENGTH_MAP]
+ >> RW_TAC list_ss [CCS_SUBST_rec, FDOM_fromList, LENGTH_MAP]
+ >> ASM_SET_TAC []
+QED
+
+(* ========================================================================== *)
+(*  Section II: Multivariate CCS contexts                                     *)
+(* ========================================================================== *)
 
 Definition context_def :
     context Xs = \E. DISJOINT (BV E) (set Xs) /\
@@ -995,44 +1048,9 @@ Proof
  >> CONJ_TAC >> FIRST_X_ASSUM MATCH_MP_TAC >> art []
 QED
 
-(* KEY result *)
-Theorem CCS_SUBST_nested :
-    !Xs Ps Es. ALL_DISTINCT Xs /\
-               (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
-        !C. context Xs C ==>
-            (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
-             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
-Proof
-    rpt GEN_TAC >> STRIP_TAC
- >> Induct_on `C` (* 8 subgoals *)
- >- RW_TAC std_ss [CCS_SUBST_nil]
- >- (RW_TAC std_ss [CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
-     fs [MEM_EL] >> rename1 `X = EL n Xs` \\
-    `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
-       by PROVE_TAC [LENGTH_MAP] \\
-     ASM_SIMP_TAC std_ss [fromList_FAPPLY_EL, EL_MAP])
- >- (RW_TAC std_ss [CCS_SUBST_prefix] \\
-     IMP_RES_TAC context_prefix >> RES_TAC)
- >- (RW_TAC std_ss [CCS_SUBST_sum] \\
-     FIRST_X_ASSUM MATCH_MP_TAC >> IMP_RES_TAC context_sum)
- >- (RW_TAC std_ss [CCS_SUBST_par] \\
-     FIRST_X_ASSUM MATCH_MP_TAC >> IMP_RES_TAC context_par)
- >- (RW_TAC std_ss [CCS_SUBST_restr] \\
-     IMP_RES_TAC context_restr >> RES_TAC)
- >- (RW_TAC std_ss [CCS_SUBST_relab] \\
-     IMP_RES_TAC context_relab >> RES_TAC)
- (* The last goal is hard *)
- >> rpt STRIP_TAC
- >> IMP_RES_TAC context_rec
- >> `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
-       by PROVE_TAC [LENGTH_MAP]
- >> RW_TAC list_ss [CCS_SUBST_rec, FDOM_fromList, LENGTH_MAP]
- >> fs [context_def, BV_def]
-QED
-
-(* ================================================================= *)
-(*   Weakly guarded equations                                        *)
-(* ================================================================= *)
+(* ========================================================================== *)
+(*  Section III: Weakly guarded equations                                     *)
+(* ========================================================================== *)
 
 (* A list of variables Xs are weakly guarded in E iff:
 
@@ -1187,9 +1205,9 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
 QED
 
-(* ================================================================= *)
-(*   Unique Solution of Equations                                    *)
-(* ================================================================= *)
+(* ========================================================================== *)
+(*  Section IV: Unique Solution of Equations/Contractions                     *)
+(* ========================================================================== *)
 
 (* Lemma 4.13 in Milner's book [1] (the full version):
 
@@ -1356,184 +1374,6 @@ Proof
  >> IMP_RES_TAC LIST_REL_LENGTH
  >> fs [LENGTH_MAP]
 QED
-
-(* Proposition 4.12 of [1], c.f. StrongLawsTheory.STRONG_UNFOLDING
-
-   Let Es and Fs contain (free, equation) variable Es at most. Let
-   As = Es{As/Xs}, Bs = Es{Bs/Xs} and Es ~ Fs. Then As ~ Bs.
-
-Theorem strong_equiv_presd_by_rec :
-    !Xs Es Fs As Bs.
-        CCS_equation Xs Es /\ CCS_equation Xs Fs /\
-        CCS_solution Xs Es (=) As /\
-        CCS_solution Xs Fs (=) Bs /\ STRONG_EQUIV Es Fs ==> STRONG_EQUIV As Bs
-Proof
-   cheat
-QED
- *)
-
-(* Proposition 4.12 of [1], the univariate version (unconfirmed):
-
-   Let P and Q contain (free, recursion) variable X at most.
-   Let A = P{A/X} (or `rec X P`), B = Q{B/X} (or `rec X Q`) and E ~ F.
-   Then A ~ B.
-
-Theorem STRONG_EQUIV_PRESD_BY_REC :
-    !X P Q. (FV P) SUBSET {X} /\ (FV Q) SUBSET {X} /\
-            STRONG_EQUIV P Q ==> STRONG_EQUIV (rec X P) (rec X Q)
-Proof
-   cheat
-QED
- *)
-
-(* THE STAGE THEOREM:
-   Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
-   then:
-        If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then Ps ~ Qs.
-
-Theorem strong_unique_solution :
-    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
-                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
-Proof
-    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
- >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
-                    LIST_REL_EL_EQN]
- >> Q.ABBREV_TAC `P = EL n Ps`
- >> Q.ABBREV_TAC `Q = EL n Qs`
- >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
- >> Q.EXISTS_TAC `\x y. (x = y) \/
-                        (?G. context Xs G /\
-                             (x = CCS_SUBST (fromList Xs Ps) G) /\
-                             (y = CCS_SUBST (fromList Xs Qs) G))`
- >> BETA_TAC >> Reverse CONJ_TAC
- >- (DISJ2_TAC >> Q.EXISTS_TAC `var (EL n Xs)` \\
-     unset [`P`, `Q`] \\
-     SRW_TAC [] [CCS_SUBST_def, FV_def, MEM_EL, FDOM_fromList] (* 5 subgoals *)
-     >- cheat
-     >- (MATCH_MP_TAC EQ_SYM \\
-         MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
-     >- METIS_TAC []
-     >- (MATCH_MP_TAC EQ_SYM \\
-         MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
-     >> METIS_TAC [])
- >> REWRITE_TAC [STRONG_BISIM_UPTO]
- >> fix [`P'`, `Q'`]
- >> BETA_TAC >> STRIP_TAC (* 2 subgoals here *)
- >- (POP_ASSUM MP_TAC >> RW_TAC std_ss [] >| (* 2 subgoals here *)
-     [ (* goal 1 (of 2) *)
-       Q.EXISTS_TAC `E1` >> art [O_DEF] \\
-       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
-       (* goal 2 (of 2) *)
-       Q.EXISTS_TAC `E2` >> art [O_DEF] \\
-       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ])
- >> NTAC 2 POP_ORW
-(* >> POP_ASSUM MP_TAC (* `FV G SUBSET set Xs` *) *)
- >> Induct_on `G` (* 8 subgoals *)
- (* Case 0: E = nil, impossible *)
- >- RW_TAC std_ss [CCS_SUBST_def, NIL_NO_TRANS]
- (* Case 1: E = var Y *)
- >- (Q.X_GEN_TAC `Y` \\
-     Reverse (Cases_on `Y IN set Xs`)
-     >- (`DISJOINT (FV (var Y)) (set Xs)` by ASM_SET_TAC [FV_def] \\
-         `DISJOINT (BV (var Y)) (set Xs)` by ASM_SET_TAC [BV_def] \\
-         `(CCS_SUBST (fromList Xs Ps) (var Y) = var Y) /\
-          (CCS_SUBST (fromList Xs Qs) (var Y) = var Y)`
-            by METIS_TAC [CCS_SUBST_elim] \\
-         RW_TAC std_ss [VAR_NO_TRANS]) \\
-     fs [MEM_EL] >> rename1 `i < LENGTH Xs` \\
-     Know `!Zs. (LENGTH Zs = LENGTH Xs) ==>
-                (CCS_SUBST (fromList Xs Zs) (var (EL i Xs)) = EL i Zs)`
-     >- (RW_TAC std_ss [CCS_SUBST_def, fromList_FAPPLY_EL, FDOM_fromList] \\
-         METIS_TAC [MEM_EL]) >> DISCH_TAC \\
-    `(CCS_SUBST (fromList Xs Ps) (var (EL i Xs)) = EL i Ps) /\
-     (CCS_SUBST (fromList Xs Qs) (var (EL i Xs)) = EL i Qs)` by PROVE_TAC [] \\
-  (* applying strong_unique_solution_lemma *)
-     RW_TAC std_ss [] >| (* 2 subgoals (symmetric) *)
-     [ (* goal 1 (of 2) *)
-      `STRONG_EQUIV (EL i Ps) (CCS_SUBST (fromList Xs Ps) (EL i Es))`
-         by METIS_TAC [EL_MAP] \\
-       IMP_RES_TAC PROPERTY_STAR_LEFT \\
-      `weakly_guarded Xs (EL i Es)` by PROVE_TAC [] \\
-       Q.ABBREV_TAC `E = EL i Es` \\
-      `?E'. (E2 = CCS_SUBST (fromList Xs Ps) E') /\
-            !Qs. (LENGTH Qs = LENGTH Xs) ==>
-                 TRANS (CCS_SUBST (fromList Xs Qs) E) u
-                       (CCS_SUBST (fromList Xs Qs) E')`
-         by METIS_TAC [Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma] \\
-       POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) >> RW_TAC std_ss [] \\
-      `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) E)`
-         by METIS_TAC [EL_MAP] \\
-      `?E2. TRANS (EL i Qs) u E2 /\
-            STRONG_EQUIV (CCS_SUBST (fromList Xs Qs) E') E2`
-         by METIS_TAC [PROPERTY_STAR_RIGHT, STRONG_EQUIV_SYM] \\
-       Q.EXISTS_TAC `E2` >> RW_TAC std_ss [O_DEF] \\
-       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
-       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       (* context Xs E', looks true but a proof is hard. *)
-       fs [context_def, BV_def, EVERY_MEM] \\
-       cheat (* weakly_guarded_def *)
-       ,
-       (* goal 2 (of 2) *)
-      `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
-         by METIS_TAC [EL_MAP] \\
-       Q.ABBREV_TAC `E = EL i Es` \\
-      `?E2'. TRANS (CCS_SUBST (fromList Xs Qs) E) u E2' /\ STRONG_EQUIV E2' E2`
-          by METIS_TAC [PROPERTY_STAR_LEFT, STRONG_EQUIV_SYM] \\
-      `weakly_guarded Xs E` by PROVE_TAC [] \\
-      `?E'. (E2' = CCS_SUBST (fromList Xs Qs) E') /\
-            !Ps. (LENGTH Ps = LENGTH Xs) ==>
-                 TRANS (CCS_SUBST (fromList Xs Ps) E) u
-                       (CCS_SUBST (fromList Xs Ps) E')`
-         by METIS_TAC [Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma] \\
-       POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
-      `STRONG_EQUIV (EL i Ps) (CCS_SUBST (fromList Xs Ps) E)`
-         by METIS_TAC [EL_MAP] \\
-      `?E1. TRANS (EL i Ps) u E1 /\
-            STRONG_EQUIV E1 (CCS_SUBST (fromList Xs Ps) E')`
-         by METIS_TAC [PROPERTY_STAR_RIGHT] \\
-       Q.EXISTS_TAC `E1` >> RW_TAC std_ss [O_DEF] \\
-       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
-       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       cheat (* context ... *) ])
- (* Case 2: E = prefix u G (very easy) *)
- >- cheat
- (* Case 3: E = G + G' (easy) *)
- >- cheat
- (* Case 4: E = G || G' (easy) *)
- >- cheat
- (* Case 5: E = restr f G (very easy) *)
- >- cheat
- (* Case 6: E = relab f G (very easy) *)
- >- cheat
- (* Case 7: E = rec Y G (done, `context Xs` is essential here) *)
- >> POP_ASSUM K_TAC (* IH is not used here, removed *)
- >> Q.X_GEN_TAC `Y` >> DISCH_TAC
- >> IMP_RES_TAC context_rec
- >> `DISJOINT (FV (rec Y G)) (set Xs)` by ASM_SET_TAC [FV_def]
- >> `DISJOINT (BV (rec Y G)) (set Xs)` by ASM_SET_TAC [context_def]
- >> `(CCS_SUBST (fromList Xs Ps) (rec Y G) = rec Y G) /\
-     (CCS_SUBST (fromList Xs Qs) (rec Y G) = rec Y G)`
-        by METIS_TAC [CCS_SUBST_elim] >> NTAC 2 POP_ORW
- >> rpt STRIP_TAC (* 2 subgoals *)
- >| [ (* goal 1 (of 2) *)
-      Q.EXISTS_TAC `E1` >> art [O_DEF] \\
-      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
-      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
-      (* goal 2 (of 2) *)
-      Q.EXISTS_TAC `E2` >> art [O_DEF] \\
-      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
-      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
-QED
- *)
 
 (* USC unfolding lemmas for unique_solution_of_rooted_contractions_lemma
   "USC" := "Unique Solution of (Rooted) Contractions".
@@ -2021,6 +1861,7 @@ Proof
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
+(* ========================================================================== *)
 (* Bibliography:
 
  [1] Milner, R.: Communication and Concurrency. Prentice Hall International
@@ -2028,8 +1869,189 @@ QED
  [2] Sangiorgi, D.: Equations, Contractions, and Unique Solutions.
      ACM Transactions on Computational Logic (TOCL). 18, 4:1–30 (2017).
  [3] Tian, C., Sangiorgi, D.: Unique Solutions of Contractions, CCS, and
-     their HOL Formalisation. Presented at the EXPRESSSOS August 24 (2018).
+     their HOL Formalisation. Presented at the EXPRESSSOS August 24 (2018).   *)
+(* ========================================================================== *)
+
+(* BELOW ARE OPTIONAL TODO WORK *)
+
+(* Proposition 4.12 of [1], c.f. StrongLawsTheory.STRONG_UNFOLDING
+
+   Let Es and Fs contain (free, equation) variable Es at most. Let
+   As = Es{As/Xs}, Bs = Es{Bs/Xs} and Es ~ Fs. Then As ~ Bs.
+
+Theorem strong_equiv_presd_by_rec :
+    !Xs Es Fs As Bs.
+        CCS_equation Xs Es /\ CCS_equation Xs Fs /\
+        CCS_solution Xs Es (=) As /\
+        CCS_solution Xs Fs (=) Bs /\ STRONG_EQUIV Es Fs ==> STRONG_EQUIV As Bs
+Proof
+   cheat
+QED
+ *)
+
+(* Proposition 4.12 of [1], the univariate version (unconfirmed):
+
+   Let P and Q contain (free, recursion) variable X at most.
+   Let A = P{A/X} (or `rec X P`), B = Q{B/X} (or `rec X Q`) and E ~ F.
+   Then A ~ B.
+
+Theorem STRONG_EQUIV_PRESD_BY_REC :
+    !X P Q. (FV P) SUBSET {X} /\ (FV Q) SUBSET {X} /\
+            STRONG_EQUIV P Q ==> STRONG_EQUIV (rec X P) (rec X Q)
+Proof
+   cheat
+QED
+ *)
+
+(* THE STAGE THEOREM:
+   Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
+   then:
+        If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then Ps ~ Qs.
+
+Theorem strong_unique_solution :
+    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
+        !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
+                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
+Proof
+    rpt GEN_TAC >> REWRITE_TAC [IN_APP]
+ >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
+                    LIST_REL_EL_EQN]
+ >> Q.ABBREV_TAC `P = EL n Ps`
+ >> Q.ABBREV_TAC `Q = EL n Qs`
+ >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
+ >> Q.EXISTS_TAC `\x y. (x = y) \/
+                        (?G. context Xs G /\
+                             (x = CCS_SUBST (fromList Xs Ps) G) /\
+                             (y = CCS_SUBST (fromList Xs Qs) G))`
+ >> BETA_TAC >> Reverse CONJ_TAC
+ >- (DISJ2_TAC >> Q.EXISTS_TAC `var (EL n Xs)` \\
+     unset [`P`, `Q`] \\
+     SRW_TAC [] [CCS_SUBST_def, FV_def, MEM_EL, FDOM_fromList] (* 5 subgoals *)
+     >- cheat
+     >- (MATCH_MP_TAC EQ_SYM \\
+         MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
+     >- METIS_TAC []
+     >- (MATCH_MP_TAC EQ_SYM \\
+         MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
+     >> METIS_TAC [])
+ >> REWRITE_TAC [STRONG_BISIM_UPTO]
+ >> fix [`P'`, `Q'`]
+ >> BETA_TAC >> STRIP_TAC (* 2 subgoals here *)
+ >- (POP_ASSUM MP_TAC >> RW_TAC std_ss [] >| (* 2 subgoals here *)
+     [ (* goal 1 (of 2) *)
+       Q.EXISTS_TAC `E1` >> art [O_DEF] \\
+       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+       Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
+       (* goal 2 (of 2) *)
+       Q.EXISTS_TAC `E2` >> art [O_DEF] \\
+       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+       Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+       BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ])
+ >> NTAC 2 POP_ORW
+(* >> POP_ASSUM MP_TAC (* `FV G SUBSET set Xs` *) *)
+ >> Induct_on `G` (* 8 subgoals *)
+ (* Case 0: E = nil, impossible *)
+ >- RW_TAC std_ss [CCS_SUBST_def, NIL_NO_TRANS]
+ (* Case 1: E = var Y *)
+ >- (Q.X_GEN_TAC `Y` \\
+     Reverse (Cases_on `Y IN set Xs`)
+     >- (`DISJOINT (FV (var Y)) (set Xs)` by ASM_SET_TAC [FV_def] \\
+         `DISJOINT (BV (var Y)) (set Xs)` by ASM_SET_TAC [BV_def] \\
+         `(CCS_SUBST (fromList Xs Ps) (var Y) = var Y) /\
+          (CCS_SUBST (fromList Xs Qs) (var Y) = var Y)`
+            by METIS_TAC [CCS_SUBST_elim] \\
+         RW_TAC std_ss [VAR_NO_TRANS]) \\
+     fs [MEM_EL] >> rename1 `i < LENGTH Xs` \\
+     Know `!Zs. (LENGTH Zs = LENGTH Xs) ==>
+                (CCS_SUBST (fromList Xs Zs) (var (EL i Xs)) = EL i Zs)`
+     >- (RW_TAC std_ss [CCS_SUBST_def, fromList_FAPPLY_EL, FDOM_fromList] \\
+         METIS_TAC [MEM_EL]) >> DISCH_TAC \\
+    `(CCS_SUBST (fromList Xs Ps) (var (EL i Xs)) = EL i Ps) /\
+     (CCS_SUBST (fromList Xs Qs) (var (EL i Xs)) = EL i Qs)` by PROVE_TAC [] \\
+  (* applying strong_unique_solution_lemma *)
+     RW_TAC std_ss [] >| (* 2 subgoals (symmetric) *)
+     [ (* goal 1 (of 2) *)
+      `STRONG_EQUIV (EL i Ps) (CCS_SUBST (fromList Xs Ps) (EL i Es))`
+         by METIS_TAC [EL_MAP] \\
+       IMP_RES_TAC PROPERTY_STAR_LEFT \\
+      `weakly_guarded Xs (EL i Es)` by PROVE_TAC [] \\
+       Q.ABBREV_TAC `E = EL i Es` \\
+      `?E'. (E2 = CCS_SUBST (fromList Xs Ps) E') /\
+            !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                 TRANS (CCS_SUBST (fromList Xs Qs) E) u
+                       (CCS_SUBST (fromList Xs Qs) E')`
+         by METIS_TAC [Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma] \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) >> RW_TAC std_ss [] \\
+      `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) E)`
+         by METIS_TAC [EL_MAP] \\
+      `?E2. TRANS (EL i Qs) u E2 /\
+            STRONG_EQUIV (CCS_SUBST (fromList Xs Qs) E') E2`
+         by METIS_TAC [PROPERTY_STAR_RIGHT, STRONG_EQUIV_SYM] \\
+       Q.EXISTS_TAC `E2` >> RW_TAC std_ss [O_DEF] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
+       (* context Xs E', looks true but a proof is hard. *)
+       fs [context_def, BV_def, EVERY_MEM] \\
+       cheat (* weakly_guarded_def *)
+       ,
+       (* goal 2 (of 2) *)
+      `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
+         by METIS_TAC [EL_MAP] \\
+       Q.ABBREV_TAC `E = EL i Es` \\
+      `?E2'. TRANS (CCS_SUBST (fromList Xs Qs) E) u E2' /\ STRONG_EQUIV E2' E2`
+          by METIS_TAC [PROPERTY_STAR_LEFT, STRONG_EQUIV_SYM] \\
+      `weakly_guarded Xs E` by PROVE_TAC [] \\
+      `?E'. (E2' = CCS_SUBST (fromList Xs Qs) E') /\
+            !Ps. (LENGTH Ps = LENGTH Xs) ==>
+                 TRANS (CCS_SUBST (fromList Xs Ps) E) u
+                       (CCS_SUBST (fromList Xs Ps) E')`
+         by METIS_TAC [Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma] \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
+      `STRONG_EQUIV (EL i Ps) (CCS_SUBST (fromList Xs Ps) E)`
+         by METIS_TAC [EL_MAP] \\
+      `?E1. TRANS (EL i Ps) u E1 /\
+            STRONG_EQUIV E1 (CCS_SUBST (fromList Xs Ps) E')`
+         by METIS_TAC [PROPERTY_STAR_RIGHT] \\
+       Q.EXISTS_TAC `E1` >> RW_TAC std_ss [O_DEF] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
+       Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
+       cheat (* context ... *) ])
+ (* Case 2: E = prefix u G (very easy) *)
+ >- cheat
+ (* Case 3: E = G + G' (easy) *)
+ >- cheat
+ (* Case 4: E = G || G' (easy) *)
+ >- cheat
+ (* Case 5: E = restr f G (very easy) *)
+ >- cheat
+ (* Case 6: E = relab f G (very easy) *)
+ >- cheat
+ (* Case 7: E = rec Y G (done, `context Xs` is essential here) *)
+ >> POP_ASSUM K_TAC (* IH is not used here, removed *)
+ >> Q.X_GEN_TAC `Y` >> DISCH_TAC
+ >> IMP_RES_TAC context_rec
+ >> `DISJOINT (FV (rec Y G)) (set Xs)` by ASM_SET_TAC [FV_def]
+ >> `DISJOINT (BV (rec Y G)) (set Xs)` by ASM_SET_TAC [context_def]
+ >> `(CCS_SUBST (fromList Xs Ps) (rec Y G) = rec Y G) /\
+     (CCS_SUBST (fromList Xs Qs) (rec Y G) = rec Y G)`
+        by METIS_TAC [CCS_SUBST_elim] >> NTAC 2 POP_ORW
+ >> rpt STRIP_TAC (* 2 subgoals *)
+ >| [ (* goal 1 (of 2) *)
+      Q.EXISTS_TAC `E1` >> art [O_DEF] \\
+      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+      Q.EXISTS_TAC `E1` >> art [STRONG_EQUIV_REFL] \\
+      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [],
+      (* goal 2 (of 2) *)
+      Q.EXISTS_TAC `E2` >> art [O_DEF] \\
+      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+      Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
+      BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ]
+QED
  *)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
+val _ = print_theory_to_file "-" "MultivariateTheory.lst";
