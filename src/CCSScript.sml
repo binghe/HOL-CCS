@@ -1051,9 +1051,9 @@ QED
 
 (* To be moved to rich_listTheory *)
 Definition DELETE_ELEMENT :
-   (DELETE_ELEMENT e [] = []) /\
-   (DELETE_ELEMENT e (x :: l) = if (e = x) then DELETE_ELEMENT e l
-                                else x :: DELETE_ELEMENT e l)
+    (DELETE_ELEMENT e [] = []) /\
+    (DELETE_ELEMENT e (x :: l) = if (e = x) then DELETE_ELEMENT e l
+                                 else x :: DELETE_ELEMENT e l)
 End
 
 Theorem NOT_IN_DELETE_ELEMENT :

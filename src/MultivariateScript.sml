@@ -23,6 +23,9 @@ val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
 val _ = overload_on (    "OBS_CONGR", ``LIST_REL     OBS_CONGR``);
 val _ = overload_on ("OBS_contracts", ``LIST_REL OBS_contracts``);
 
+(* hide all other possible definitions of `fromList` - a common name *)
+val _ = hide "fromList";
+
 (*                           -- DESIGN NOTES --
 
 1. What's a multivariate CCS equation?
@@ -424,6 +427,15 @@ Proof
  >> Suff `EVERY (\e. h NOTIN FV e) (MAP var Xs)` >- fs []
  >> RW_TAC std_ss [EVERY_MEM, MEM_MAP]
  >> ASM_SET_TAC [FV_def]
+QED
+
+(* TODO: KEY result *)
+Theorem CCS_SUBST_composed :
+    !Xs Ps Es C. (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
+                 (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
+                  CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+Proof
+    cheat
 QED
 
 (* ================================================================= *)
@@ -1324,11 +1336,10 @@ QED
    As = Es{As/Xs}, Bs = Es{Bs/Xs} and Es ~ Fs. Then As ~ Bs.
 
 Theorem strong_equiv_presd_by_rec :
-    !Xs Es Fs As Bs. CCS_equation Xs Es /\ CCS_equation Xs Fs /\
-                     CCS_solution Xs Es (=) As /\
-                     CCS_solution Xs Fs (=) Bs /\
-                     LIST_REL STRONG_EQUIV Es Fs
-                 ==> LIST_REL STRONG_EQUIV As Bs
+    !Xs Es Fs As Bs.
+        CCS_equation Xs Es /\ CCS_equation Xs Fs /\
+        CCS_solution Xs Es (=) As /\
+        CCS_solution Xs Fs (=) Bs /\ STRONG_EQUIV Es Fs ==> STRONG_EQUIV As Bs
 Proof
    cheat
 QED
@@ -1351,15 +1362,12 @@ QED
 (* THE STAGE THEOREM:
    Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
    then:
-        If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then P ~ Q.
-
-   strong_unique_solution_lemma is repeatedly used in each subgoal.
+        If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then Ps ~ Qs.
 
 Theorem strong_unique_solution :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
-                Qs IN (CCS_solution Xs Es STRONG_EQUIV)
-            ==> LIST_REL STRONG_EQUIV Ps Qs
+                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
@@ -1500,8 +1508,12 @@ Proof
 QED
  *)
 
-(* dependency: OBS_contracts_subst_context *)
-val CCS_unfolding_lemma1 = Q.prove (
+(* USC unfolding lemmas for unique_solution_of_rooted_contractions_lemma
+  "USC" := "Unique Solution of (Rooted) Contractions".
+
+   Lemma 1,4 are directly used; Lemma 2,3 are further lemmas of Lemma 4.
+*)
+val USC_unfolding_lemma1 = Q.prove (
    `!Xs Es E C C' Ps.
         CCS_equation Xs Es /\ EVERY (context Xs) Es /\
         CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
@@ -1525,13 +1537,13 @@ val CCS_unfolding_lemma1 = Q.prove (
  >> IMP_RES_TAC OBS_contracts_TRANS);
 *)
 
-val CCS_unfolding_lemma4 = Q.prove (
+val USC_unfolding_lemma4 = Q.prove (
    `!Xs Es E C C'.
         CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\ context Xs C /\
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) ==>
         !n xs Ps P'.
-           CCS_solution Xs Es OBS_contracts Ps /\
+           (LENGTH Ps = LENGTH Xs) /\
            TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\ (LENGTH xs <= n) ==>
            ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
@@ -1539,16 +1551,131 @@ val CCS_unfolding_lemma4 = Q.prove (
                             (CCS_SUBST (fromList Xs Qs) C'')`,
  (* proof *)
     rpt GEN_TAC >> STRIP_TAC
+ >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
+ (* re-define C' and E back to abbreviations *)
+ >> Q.PAT_X_ASSUM `C' = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ >> Q.PAT_X_ASSUM `E = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
  >> Induct_on `n`
  >- (rpt STRIP_TAC \\
-     Know `C' 0 = C`
-     >- (ASM_SIMP_TAC std_ss [FUNPOW_0] \\
-         MATCH_MP_TAC CCS_SUBST_self \\
-         PROVE_TAC [context_def, CCS_equation_def]) \\
+     Know `C' 0 = C` >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
+                         MATCH_MP_TAC CCS_SUBST_self \\
+                         PROVE_TAC [context_def, CCS_equation_def]) \\
      DISCH_THEN (fs o wrap) >> fs [TRACE_NIL] \\
      Q.EXISTS_TAC `C` >> art [])
  >> rpt STRIP_TAC
- >> 
+ >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC
+ (* like "(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)" *)
+ >> Know `CCS_SUBST (fromList Xs Ps) (C' (SUC n)) =
+          CCS_SUBST (fromList Xs (E Ps))
+            (CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)`
+ (* TODO: the (sub)proof below is wrong. *)
+ >- (Q.PAT_X_ASSUM `!xs Ps P'. _ ==> _` K_TAC \\
+     Q.UNABBREV_TAC `C'` >> BETA_TAC \\
+  (* applying CCS_SUBST_composed *)
+     MP_TAC (Q.SPECL [`Xs`, `Ps`, `(FUNPOW E (SUC n) (MAP var Xs))`, `C`]
+                     CCS_SUBST_composed) \\
+     Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
+     >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\    
+         REWRITE_TAC [FUNPOW_SUC] \\
+         Q.ABBREV_TAC `E' = FUNPOW E i (MAP var Xs)` \\
+         Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP]) \\
+     RW_TAC bool_ss [] \\
+     MP_TAC (Q.SPECL [`Xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`,
+                      `(FUNPOW E n (MAP var Xs))`, `C`] CCS_SUBST_composed) \\
+     Know `!Ys. (LENGTH Ys = LENGTH Xs) ==> (LENGTH (E Ys) = LENGTH Xs)`
+     >- (rpt STRIP_TAC \\
+         Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
+     RW_TAC bool_ss [] \\
+     Suff `MAP (CCS_SUBST (fromList Xs Ps)) (FUNPOW E (SUC n) (MAP var Xs)) =
+           MAP (CCS_SUBST (fromList Xs (E Ps))) (FUNPOW E n (MAP var Xs))` >- Rewr \\
+     REWRITE_TAC [FUNPOW_SUC] \\
+     Q.PAT_X_ASSUM `CCS_SUBST (fromList Xs Ps) _ = _` K_TAC \\
+     Q.PAT_X_ASSUM `CCS_SUBST (fromList Xs (E Ps)) _ = _` K_TAC \\
+     MATCH_MP_TAC LIST_EQ \\
+     ASM_SIMP_TAC list_ss [LENGTH_MAP, EL_MAP] \\
+     rpt STRIP_TAC \\
+     Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
+     Q.UNABBREV_TAC `E` >> fs [EL_MAP] \\
+     MP_TAC (Q.SPECL [`Xs`, `Ps`, `Es`, `EL x E'`] CCS_SUBST_composed) \\
+     RW_TAC bool_ss [] >> POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM) \\
+     Suff `CCS_SUBST (fromList Xs E') (EL x Es) =
+           CCS_SUBST (fromList Xs Es) (EL x E')` >- Rewr \\
+     Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es` \\
+     Q.UNABBREV_TAC `E'` \\
+  (* A slightly simplified goal - `Ps` now disappeared:
+
+     CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) (EL x Es) =
+     CCS_SUBST (fromList Xs Es) (EL x (FUNPOW E n (MAP var Xs)))
+   *)
+     Q.PAT_X_ASSUM `LENGTH xs <= SUC n` K_TAC \\
+     Q.SPEC_TAC (`n`, `n`) >> Induct_on `n`
+     >- (ASM_SIMP_TAC list_ss [FUNPOW_0, EL_MAP] \\
+         Q.ABBREV_TAC `X = EL x Xs` \\
+        `MEM X Xs` by PROVE_TAC [MEM_EL] \\
+         Q.ABBREV_TAC `P = EL x Es` \\
+        `MEM P Es` by PROVE_TAC [MEM_EL] \\
+         Know `CCS_SUBST (fromList Xs (MAP var Xs)) P = P`
+         >- (MATCH_MP_TAC CCS_SUBST_self \\
+             fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def]) >> Rewr' \\
+         MATCH_MP_TAC EQ_SYM \\
+         unset [`X`, `P`] \\
+         ASM_SIMP_TAC list_ss [CCS_SUBST_def, FDOM_fromList, fromList_FAPPLY_EL]) \\
+     cheat)
+
+ >> Rewr' >> DISCH_TAC
+ >> IMP_RES_TAC TRACE_cases2
+ >> Cases_on `xs`
+ >- (FULL_SIMP_TAC bool_ss [NULL] \\
+    `LENGTH (epsilon :'b Action list) <= n` by FULL_SIMP_TAC arith_ss [LENGTH] \\
+     Know `!Ys. (LENGTH Ys = LENGTH Xs) ==> (LENGTH (E Ys) = LENGTH Xs)`
+     >- (rpt STRIP_TAC \\
+         Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
+     DISCH_TAC \\
+     Q.PAT_X_ASSUM `!xs Ps P'. _ ==> _`
+        (MP_TAC o (Q.SPECL [`[] :'b Action list`,
+                            `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`, `P'`])) \\
+     Q.UNABBREV_TAC `C'` >> BETA_TAC \\
+     Q.PAT_ASSUM `_ = P'` (ONCE_REWRITE_TAC o wrap) \\
+     RW_TAC bool_ss [] \\
+
+     Q.EXISTS_TAC `CCS_SUBST (fromList Xs Es) C''`  \\
+     CONJ_TAC (* context Xs (CCS_SUBST (Xs |-> Es) C'') *)
+     >- (MATCH_MP_TAC context_combin >> fs [EVERY_MEM] \\
+         rpt STRIP_TAC >> MATCH_MP_TAC weakly_guarded_imp_context \\
+         FIRST_X_ASSUM MATCH_MP_TAC >> art []) \\
+     CONJ_TAC (* composed CCS_SUBST *)
+     >- (Q.UNABBREV_TAC `E` >> fs [] \\
+         MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC CCS_SUBST_composed >> art []) \\
+     NTAC 2 STRIP_TAC \\
+
+     Q.PAT_X_ASSUM `!Qs. (LENGTH Qs = LENGTH Xs) ==> _`
+        (MP_TAC o (Q.SPEC `Qs`)) >> BETA_TAC \\
+     RW_TAC bool_ss [] \\
+     cheat)
+(*
+
+ >> FULL_SIMP_TAC list_ss []
+ >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
+ >> Q.ABBREV_TAC `xs = FRONT (h::t)`
+ >> Q.ABBREV_TAC `x = LAST (h::t)`
+ >> Q.PAT_X_ASSUM `!xs P'' P'''. X ==> X'`
+        (MP_TAC o (Q.SPECL [`xs`, `u`, `(E :('a, 'b) context) P`]))
+ >> RW_TAC std_ss []
+ >> MP_TAC (Q.SPECL [`C'`, `E`] OBS_unfolding_lemma3)
+ >> RW_TAC bool_ss []
+ >> POP_ASSUM (MP_TAC o (Q.SPECL [`P`, `x`, `P'`]))
+ >> RW_TAC bool_ss []
+ >> Q.EXISTS_TAC `C''` >> art []
+ >> GEN_TAC >> ONCE_REWRITE_TAC [TRACE_cases2]
+ >> REWRITE_TAC [NULL]
+ >> Q.EXISTS_TAC `C' (E Q)`
+ >> Q.UNABBREV_TAC `x` >> art []
+ >> REWRITE_TAC [FUNPOW]
+ >> Q.UNABBREV_TAC `xs` >> art []);
+ *)
+ >>
     cheat);
 
 (* Lemma 3.9 of [2], full/multivariate version of
@@ -1558,18 +1685,18 @@ Theorem unique_solution_of_rooted_contractions_lemma :
                   EVERY (weakly_guarded Xs) Es /\
                   CCS_solution Xs Es OBS_contracts Ps /\
                   CCS_solution Xs Es OBS_contracts Qs ==>
-       !C. context Xs C ==>
-           (!l R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) (label l) R ==>
-                  ?C'. context Xs C' /\
-                       R contracts (CCS_SUBST (fromList Xs Ps) C') /\
-                       (WEAK_EQUIV O (\x y. WEAK_TRANS x (label l) y))
-                         (CCS_SUBST (fromList Xs Qs) C)
-                         (CCS_SUBST (fromList Xs Qs) C')) /\
-           (!R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) tau R ==>
-                ?C'. context Xs C' /\
-                     R contracts (CCS_SUBST (fromList Xs Ps) C') /\
-                     (WEAK_EQUIV O EPS) (CCS_SUBST (fromList Xs Qs) C)
-                                        (CCS_SUBST (fromList Xs Qs) C'))
+        !C. context Xs C ==>
+            (!l R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) (label l) R ==>
+                   ?C'. context Xs C' /\
+                        R contracts (CCS_SUBST (fromList Xs Ps) C') /\
+                        (WEAK_EQUIV O (\x y. WEAK_TRANS x (label l) y))
+                          (CCS_SUBST (fromList Xs Qs) C)
+                          (CCS_SUBST (fromList Xs Qs) C')) /\
+            (!R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) tau R ==>
+                 ?C'. context Xs C' /\
+                      R contracts (CCS_SUBST (fromList Xs Ps) C') /\
+                      (WEAK_EQUIV O EPS) (CCS_SUBST (fromList Xs Qs) C)
+                                         (CCS_SUBST (fromList Xs Qs) C'))
 Proof
     NTAC 7 STRIP_TAC (* up to `context Xs C` *)
  >> Know `EVERY (context Xs) Es`
@@ -1603,14 +1730,16 @@ Proof
  >> DISCH_TAC
  >> Know `!n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
                             (CCS_SUBST (fromList Xs Ps) (C' n))`
- >- (MATCH_MP_TAC CCS_unfolding_lemma1 \\
+ >- (MATCH_MP_TAC USC_unfolding_lemma1 \\
      take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
  >> DISCH_TAC
  >> Know `!n. OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
                             (CCS_SUBST (fromList Xs Qs) (C' n))`
- >- (MATCH_MP_TAC CCS_unfolding_lemma1 \\
+ >- (MATCH_MP_TAC USC_unfolding_lemma1 \\
      take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
  >> DISCH_TAC
+ >> `(LENGTH Ps = LENGTH Xs) /\ (LENGTH Qs = LENGTH Xs)`
+      by PROVE_TAC [CCS_solution_LENGTH]
  >> rpt STRIP_TAC (* 2 subgoals (not symmetric!) *)
  >| [ (* goal 1 (of 2) *)
       IMP_RES_TAC WEAK_TRANS_AND_TRACE \\
@@ -1626,7 +1755,7 @@ Proof
                   !Qs. (LENGTH Qs = LENGTH Xs) ==>
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
-      >- (irule CCS_unfolding_lemma4 >> art [] \\
+      >- (irule USC_unfolding_lemma4 >> art [] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
@@ -1656,7 +1785,7 @@ Proof
                   !Qs. (LENGTH Qs = LENGTH Xs) ==>
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
-      >- (irule CCS_unfolding_lemma4 >> art [] \\
+      >- (irule USC_unfolding_lemma4 >> art [] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
@@ -1684,8 +1813,7 @@ val shared_lemma = Q.prove (
                           WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
                           WEAK_EQUIV S (CCS_SUBST (fromList Xs Qs) C))`,
  (* proof *)
-    rpt STRIP_TAC
- >> REWRITE_TAC [WEAK_BISIM]
+    rpt STRIP_TAC >> REWRITE_TAC [WEAK_BISIM]
  >> BETA_TAC >> rpt STRIP_TAC (* 4 sub-goals here *)
  (* compatible with symbols in UniqueSolutionsTheory.shared_lemma *)
  >> rename1 `WEAK_EQUIV E'' (CCS_SUBST (fromList Xs Qs) C)`
@@ -1777,8 +1905,7 @@ QED
 Theorem unique_solution_of_obs_contractions :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
-                Qs IN (CCS_solution Xs Es OBS_contracts)
-            ==> LIST_REL WEAK_EQUIV Ps Qs
+                Qs IN (CCS_solution Xs Es OBS_contracts) ==> WEAK_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss [CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
@@ -1812,12 +1939,11 @@ Proof
  >> fs [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
 QED
 
-(* THE FINAL THEOREM (it additionally uses "strong_unique_solution_lemma") *)
+(* THE FINAL THEOREM (Theorem 3.13 of [3], full version) *)
 Theorem unique_solution_of_rooted_contractions :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
-                Qs IN (CCS_solution Xs Es OBS_contracts)
-            ==> LIST_REL OBS_CONGR Ps Qs
+                Qs IN (CCS_solution Xs Es OBS_contracts) ==> OBS_CONGR Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss (* `std_ss` is not enough here *)
@@ -1868,11 +1994,13 @@ Proof
 QED
 
 (* Bibliography:
- *
- * [1] Milner, R.: Communication and Concurrency. Prentice Hall International
- *     Series in Computer Science (1989).
- * [2] Sangiorgi, D.: Equations, Contractions, and Unique Solutions.
- *     ACM Transactions on Computational Logic (TOCL). 18, 4:1–30 (2017).
+
+ [1] Milner, R.: Communication and Concurrency. Prentice Hall International
+     Series in Computer Science (1989).
+ [2] Sangiorgi, D.: Equations, Contractions, and Unique Solutions.
+     ACM Transactions on Computational Logic (TOCL). 18, 4:1–30 (2017).
+ [3] Tian, C., Sangiorgi, D.: Unique Solutions of Contractions, CCS, and
+     their HOL Formalisation. Presented at the EXPRESSSOS August 24 (2018).
  *)
 
 val _ = export_theory ();
