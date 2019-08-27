@@ -1859,10 +1859,10 @@ val UNIQUE_SOLUTION_OF_EXPANSIONS' = store_thm (
 (******************************************************************************)
 
 (* NOTE: the lemma works for any precongruence relation *)
-val OBS_unfolding_lemma1 = store_thm (
-   "OBS_unfolding_lemma1",
-  ``!E C P. CONTEXT E /\ CONTEXT C /\ OBS_contracts P (E P) ==>
-        !n. OBS_contracts (C P) ((C o (FUNPOW E n)) P)``,
+Theorem OBS_unfolding_lemma1 :
+    !E C P. CONTEXT E /\ CONTEXT C /\ OBS_contracts P (E P) ==>
+        !n. OBS_contracts (C P) ((C o (FUNPOW E n)) P)
+Proof
     rpt STRIP_TAC
  >> REWRITE_TAC [o_DEF]
  >> BETA_TAC
@@ -1872,20 +1872,22 @@ val OBS_unfolding_lemma1 = store_thm (
  >> REWRITE_TAC [FUNPOW_SUC]
  >> Q.ABBREV_TAC `Q = FUNPOW E n P`
  >> `OBS_contracts (E P) (E Q)` by PROVE_TAC [OBS_contracts_SUBST_CONTEXT]
- >> IMP_RES_TAC OBS_contracts_TRANS);
+ >> IMP_RES_TAC OBS_contracts_TRANS
+QED
 
 (* A single transition from WG E[P] will not touch the variable P *)
-val OBS_unfolding_lemma2 = store_thm (
-   "OBS_unfolding_lemma2",
-  ``!E. WG E ==> !P u P'. TRANS (E P) u P' ==>
-        ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRANS (E Q) u (C' Q)``,
+Theorem OBS_unfolding_lemma2 :
+    !E. WG E ==>
+       !P u P'. TRANS (E P) u P' ==>
+               ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRANS (E Q) u (C' Q)
+Proof
     HO_MATCH_MP_TAC WG_strongind
  >> BETA_TAC >> REWRITE_TAC [ETA_AX]
- >> Reverse ( rpt STRIP_TAC
-          >- ( Q.EXISTS_TAC `\t. P'` >> art [CONTEXT2] )
-          >- ( IMP_RES_TAC TRANS_PREFIX \\
-               Q.EXISTS_TAC `e` >> art [] \\
-               GEN_TAC >> REWRITE_TAC [PREFIX] ) ) (* 4 sub-goals left *)
+ >> Reverse (rpt STRIP_TAC
+             >- (Q.EXISTS_TAC `\t. P'` >> art [CONTEXT2])
+             >- (IMP_RES_TAC TRANS_PREFIX \\
+                 Q.EXISTS_TAC `e` >> art [] \\
+                 GEN_TAC >> REWRITE_TAC [PREFIX])) (* 4 goals left *)
  >| [ (* goal 1 (of 4) *)
       IMP_RES_TAC TRANS_RELAB >> RES_TAC \\
       Q.EXISTS_TAC `\t. relab (C' t) rf` >> BETA_TAC \\
@@ -1957,14 +1959,15 @@ val OBS_unfolding_lemma2 = store_thm (
              Q.EXISTS_TAC `C'` >> art [] \\
              GEN_TAC >> MATCH_MP_TAC SUM2 >> art [] ) \\
         RES_TAC >> Q.EXISTS_TAC `C'` >> art [] \\
-        GEN_TAC >> MATCH_MP_TAC SUM2 >> art [] ] ]);
+        GEN_TAC >> MATCH_MP_TAC SUM2 >> art [] ] ]
+QED
 
 (* In this proof, we combine C and E into a single WG and call previous lemma *)
-val OBS_unfolding_lemma3 = store_thm (
-   "OBS_unfolding_lemma3",
-  ``!C E. CONTEXT C /\ WG E ==>
-        !P x P'. TRANS (C (E P)) x P' ==>
-                 ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRANS (C (E Q)) x (C' Q)``,
+Theorem OBS_unfolding_lemma3 :
+    !C E. CONTEXT C /\ WG E ==>
+          !P x P'. TRANS (C (E P)) x P' ==>
+                   ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRANS (C (E Q)) x (C' Q)
+Proof
     rpt STRIP_TAC
  >> IMP_RES_TAC CONTEXT_WG_combin
  >> Know `C (E P) = (C o E) P` >- SIMP_TAC std_ss [o_DEF]
@@ -1977,13 +1980,14 @@ val OBS_unfolding_lemma3 = store_thm (
  >> GEN_TAC >> POP_ASSUM MP_TAC
  >> KILL_TAC
  >> REWRITE_TAC [o_DEF] >> BETA_TAC
- >> RW_TAC std_ss []);
+ >> RW_TAC std_ss []
+QED
 
-val OBS_unfolding_lemma4 = store_thm (
-   "OBS_unfolding_lemma4",
-  ``!C E n xs P' P. CONTEXT C /\ WG E /\
+Theorem OBS_unfolding_lemma4 :
+    !C E n xs P' P. CONTEXT C /\ WG E /\
         TRACE ((C o FUNPOW E n) P) xs P' /\ (LENGTH xs <= n) ==>
-        ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs (C' Q)``,
+        ?C'. CONTEXT C' /\ (P' = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs (C' Q)
+Proof
     NTAC 2 GEN_TAC
  >> Induct_on `n`
  >- (REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> rpt STRIP_TAC \\
@@ -2027,7 +2031,8 @@ val OBS_unfolding_lemma4 = store_thm (
  >> Q.EXISTS_TAC `C' (E Q)`
  >> Q.UNABBREV_TAC `x` >> art []
  >> REWRITE_TAC [FUNPOW]
- >> Q.UNABBREV_TAC `xs` >> art []);
+ >> Q.UNABBREV_TAC `xs` >> art []
+QED
 
 (* Lemma 3.9 of [2] *)
 val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
