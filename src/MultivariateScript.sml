@@ -1446,10 +1446,35 @@ Proof
  >> MATCH_MP_TAC OBS_contracts_trans
  >> Q.EXISTS_TAC `MAP (CCS_SUBST (fromList Xs Ps)) (FUNPOW E n (MAP var Xs))`
  >> ASM_REWRITE_TAC []
+ >> POP_ASSUM K_TAC (* already used assumption *)
+ >> RW_TAC list_ss [LIST_REL_EL_EQN, EL_MAP]
+ >> rename1 `i < LENGTH Xs`
+ (* stage work *)
+ >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* not FUNPOW_SUC *)
+ >> Know `!n. FUNPOW E n (E (MAP var Xs)) =
+              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs)))) (FUNPOW E n (MAP var Xs))`
+ >- cheat
+ >> Rewr'
+ >> RW_TAC list_ss [EL_MAP]
  (* applying CCS_SUBST_nested AGAIN *)
- >> 
+ >> MP_TAC (Q.SPECL [`Xs`, `Ps`,
+                     `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) (MAP var Xs)`,
+                     `EL i (FUNPOW E n (MAP var Xs))`] CCS_SUBST_nested)
+ >> `LENGTH (E (MAP var Xs)) = LENGTH Xs` by METIS_TAC [FUNPOW_1]
+ >> `context Xs (EL i (FUNPOW E n (MAP var Xs)))` by cheat 
+ >> `DISJOINT (BV (EL i (FUNPOW E n (MAP var Xs)))) (set Xs)`
+        by PROVE_TAC [context_def]
+ >> RW_TAC bool_ss []
+ >> POP_ASSUM K_TAC (* already used assumption *)
  (* applying OBS_contracts_subst_context AGAIN *)
-    cheat
+ >> irule OBS_contracts_subst_context >> art []
+ >> Q.UNABBREV_TAC `E` >> fs []
+ >> Know `MAP (CCS_SUBST (fromList Xs (MAP var Xs))) Es = Es`
+ >- (RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
+     MATCH_MP_TAC CCS_SUBST_self >> art [] \\
+    `MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
+     fs [EVERY_MEM, context_def])
+ >> Rewr' >> art []
 QED
 
 val USC_unfolding_lemma2 = ();
