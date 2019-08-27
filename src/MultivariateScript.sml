@@ -987,12 +987,12 @@ QED
 (* KEY result: multivariate version of CongruenceTheory.CONTEXT_combin *)
 Theorem context_combin :
     !Xs Es C. ALL_DISTINCT Xs /\ context Xs C /\
-              EVERY (context Xs) Es /\ (LENGTH Xs = LENGTH Es) ==>
+              EVERY (context Xs) Es /\ (LENGTH Es = LENGTH Xs) ==>
               context Xs (CCS_SUBST (fromList Xs Es) C)
 Proof
     Suff `!Xs. ALL_DISTINCT Xs ==>
                !Es C. context Xs C ==>
-                      EVERY (context Xs) Es /\ (LENGTH Xs = LENGTH Es) ==>
+                      EVERY (context Xs) Es /\ (LENGTH Es = LENGTH Xs) ==>
                       context Xs (CCS_SUBST (fromList Xs Es) C)` >- METIS_TAC []
  >> NTAC 3 STRIP_TAC
  >> Induct_on `C` >> RW_TAC std_ss [CCS_SUBST_def] (* 8 subgoals *)
@@ -1452,7 +1452,8 @@ Proof
  (* stage work *)
  >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* FUNPOW_SUC doesn't work *)
  >> Suff `!n. FUNPOW E n (E (MAP var Xs)) =
-              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs)))) (FUNPOW E n (MAP var Xs))` >-
+              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs))))
+                  (FUNPOW E n (MAP var Xs))` >-
   ( Rewr'
  >> RW_TAC list_ss [EL_MAP]
  (* applying CCS_SUBST_nested AGAIN *)
@@ -1460,7 +1461,23 @@ Proof
                      `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) (MAP var Xs)`,
                      `EL i (FUNPOW E n (MAP var Xs))`] CCS_SUBST_nested)
  >> `LENGTH (E (MAP var Xs)) = LENGTH Xs` by METIS_TAC [FUNPOW_1]
- >> `context Xs (EL i (FUNPOW E n (MAP var Xs)))` by cheat 
+ >> Know `!n. EVERY (context Xs) (FUNPOW E n (MAP var Xs))`
+ >- (Induct_on `n`
+     >- (RW_TAC list_ss [EVERY_MEM, FUNPOW_0, EL_MAP, context_var, MEM_EL] \\
+         fs [EL_MAP, context_var]) \\
+     rw [FUNPOW_SUC] \\
+     Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
+     Q.UNABBREV_TAC `E` \\
+     RW_TAC list_ss [EVERY_MEM, EL_MAP, MEM_MAP] \\
+     MATCH_MP_TAC context_combin >> art [] \\
+     CONJ_TAC >- fs [EVERY_MEM] \\
+     Q.UNABBREV_TAC `E'` >> art [])
+ >> DISCH_THEN (ASSUME_TAC o (Q.SPEC `n`))
+ >> Know `context Xs (EL i (FUNPOW E n (MAP var Xs)))`
+ >- (fs [EVERY_MEM, MEM_EL] \\
+     POP_ASSUM MATCH_MP_TAC \\
+     Q.EXISTS_TAC `i` >> art [])
+ >> DISCH_TAC
  >> `DISJOINT (BV (EL i (FUNPOW E n (MAP var Xs)))) (set Xs)`
         by PROVE_TAC [context_def]
  >> RW_TAC bool_ss []
@@ -1492,8 +1509,7 @@ Proof
  >> MATCH_MP_TAC EQ_SYM
  >> MATCH_MP_TAC CCS_SUBST_nested >> art [LENGTH_MAP]
  >> Reverse CONJ_TAC
- >- (`MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
-     fs [EVERY_MEM, context_def])
+ >- (`MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] >> fs [EVERY_MEM, context_def])
  >> Q.UNABBREV_TAC `E'`
  >> Q.ABBREV_TAC `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
  (* the last goal by induction *)
