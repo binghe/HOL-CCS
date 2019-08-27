@@ -1,4 +1,4 @@
-(* ========================================================================== *)
+(* ==================================================-*- Mode: SML-CM; -*- == *)
 (* FILE          : MultivariateScript.sml                                     *)
 (* DESCRIPTION   : Unique Solution of CCS Equations (Multivariate Version)    *)
 (*                                                                            *)
@@ -28,7 +28,7 @@ val _ = new_theory "Multivariate";
 (*  Appendix:    Bibliography and some left work. . . . . . . . . . . . . . . *)
 (* ========================================================================== *)
 
-val set_ss = list_ss ++ PRED_SET_ss;
+val lset_ss = list_ss ++ PRED_SET_ss; (* list + pred_set *)
 
 val _ = overload_on ( "STRONG_EQUIV", ``LIST_REL  STRONG_EQUIV``);
 val _ = overload_on (   "WEAK_EQUIV", ``LIST_REL    WEAK_EQUIV``);
@@ -292,7 +292,7 @@ Theorem CCS_SUBST_elim :
            !Ps. (LENGTH Ps = LENGTH Xs) ==> (CCS_SUBST (fromList Xs Ps) E = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [Once CCS_SUBST_def, BV_def, FV_def, FDOM_fromList, MAP_ZIP]
+ >> RW_TAC lset_ss [Once CCS_SUBST_def, BV_def, FV_def, FDOM_fromList, MAP_ZIP]
  >> `DISJOINT (FV E) (set Xs)` by ASM_SET_TAC []
  >> METIS_TAC []
 QED
@@ -303,7 +303,7 @@ Theorem CCS_SUBST_elim' :
           (CCS_SUBST fm E = E)
 Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [Once CCS_SUBST_def, BV_def, FV_def]
+ >> RW_TAC lset_ss [Once CCS_SUBST_def, BV_def, FV_def]
  >> `DISJOINT (FV E) (FDOM fm)` by ASM_SET_TAC []
  >> METIS_TAC []
 QED
@@ -461,7 +461,7 @@ val CCS_SUBST_nested_lemma = Q.prove (
     rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `C` (* 8 subgoals *)
  >- RW_TAC std_ss [CCS_SUBST_nil]
- >- (RW_TAC set_ss [BV_def, CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
+ >- (RW_TAC lset_ss [BV_def, CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
      fs [MEM_EL] >> rename1 `X = EL n Xs` \\
     `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
        by PROVE_TAC [LENGTH_MAP] \\
@@ -655,7 +655,7 @@ QED
 Theorem context_var :
     !Xs Y. context Xs (var Y)
 Proof
-    RW_TAC set_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
+    RW_TAC lset_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
  >> Cases_on `Y = X`
  >> fs [CONTEXT_rules]
 QED
@@ -720,7 +720,7 @@ Theorem STRONG_EQUIV_subst_context :
                          (CCS_SUBST (fromList Xs Qs) E)
 Proof
     rpt GEN_TAC >> STRIP_TAC
- >> Induct_on `E` >> RW_TAC set_ss [CCS_SUBST_def] (* 14 subgoals *)
+ >> Induct_on `E` >> RW_TAC lset_ss [CCS_SUBST_def] (* 14 subgoals *)
  >- REWRITE_TAC [STRONG_EQUIV_REFL]
  >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
      fs [FDOM_fromList, MEM_EL, LIST_REL_EL_EQN] \\
@@ -811,7 +811,7 @@ Theorem OBS_CONGR_subst_context :
                       (CCS_SUBST (fromList Xs Qs) E)
 Proof
     rpt GEN_TAC >> STRIP_TAC
- >> Induct_on `E` >> RW_TAC set_ss [CCS_SUBST_def] (* 14 subgoals *)
+ >> Induct_on `E` >> RW_TAC lset_ss [CCS_SUBST_def] (* 14 subgoals *)
  >- REWRITE_TAC [OBS_CONGR_REFL]
  >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
      fs [FDOM_fromList, MEM_EL, LIST_REL_EL_EQN] \\
@@ -902,7 +902,7 @@ Theorem OBS_contracts_subst_context :
                           (CCS_SUBST (fromList Xs Qs) E)
 Proof
     rpt GEN_TAC >> STRIP_TAC
- >> Induct_on `E` >> RW_TAC set_ss [CCS_SUBST_def] (* 14 subgoals *)
+ >> Induct_on `E` >> RW_TAC lset_ss [CCS_SUBST_def] (* 14 subgoals *)
  >- REWRITE_TAC [OBS_contracts_REFL]
  >- (`LENGTH Qs = LENGTH Xs` by METIS_TAC [LIST_REL_LENGTH] \\
      fs [FDOM_fromList, MEM_EL, LIST_REL_EL_EQN] \\
@@ -1679,15 +1679,6 @@ Proof
  >> DISCH_TAC
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
  >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
- (* useless assumptions:
- >> Know `E (MAP var Xs) = Es`
- >- (Q.UNABBREV_TAC `E` >> BETA_TAC \\
-     RW_TAC list_ss [] \\
-     MATCH_MP_TAC LIST_EQ >> RW_TAC list_ss [LENGTH_MAP, EL_MAP] \\
-     MATCH_MP_TAC CCS_SUBST_self \\
-     fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def, MEM_EL] \\
-     METIS_TAC []) >> DISCH_TAC
-  *)
  (* applying context_combin *)
  >> Know `!n. context Xs (C' n)`
  >- (GEN_TAC >> Q.UNABBREV_TAC `C'` >> BETA_TAC \\
