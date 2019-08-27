@@ -337,7 +337,7 @@ Proof
  >> MATCH_MP_TAC EQ_SYM
  >> Know `(fromList Xs Ps) ' a = EL n Ps`
  >- (POP_ORW >> MATCH_MP_TAC fromList_FAPPLY_EL >> art []) >> Rewr'
- >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_ELIM)
+ >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_elim)
  >> `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL]
  >> METIS_TAC []
 QED
@@ -508,17 +508,6 @@ Proof
                    DISJOINT_EMPTY, CONTEXT2]
 QED
 
-Theorem context_prefix_rule :
-    !Xs u E. context Xs E ==> context Xs (prefix u E)
-Proof
-    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
- >> RES_TAC >> fs [CCS_Subst_def]
- >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
- >> Know `CONTEXT (\t. prefix u (e t))`
- >- (MATCH_MP_TAC CONTEXT3 >> art [])
- >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
-QED
-
 Theorem context_prefix :
     !Xs u E. context Xs (prefix u E) ==> context Xs E
 Proof
@@ -528,6 +517,17 @@ Proof
  >> Know `CONTEXT (\t. prefix u (e t))`
  >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
  >> DISCH_TAC >> IMP_RES_TAC CONTEXT3_backward
+QED
+
+Theorem context_prefix_rule :
+    !Xs u E. context Xs E ==> context Xs (prefix u E)
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. prefix u (e t))`
+ >- (MATCH_MP_TAC CONTEXT3 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
 QED
 
 local
@@ -602,6 +602,17 @@ Proof
  >> unset [`e1`, `e2`] >> SIMP_TAC std_ss []
 QED
 
+Theorem context_restr :
+    !Xs L E. context Xs (restr L E) ==> context Xs E
+Proof
+    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `CONTEXT (\t. restr L (e t))`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC >> IMP_RES_TAC CONTEXT6_backward
+QED
+
 Theorem context_restr_rule :
     !Xs L E. context Xs E ==> context Xs (restr L E)
 Proof
@@ -616,15 +627,15 @@ Proof
  >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
 QED
 
-Theorem context_restr :
-    !Xs L E. context Xs (restr L E) ==> context Xs E
+Theorem context_relab :
+    !Xs E rf. context Xs (relab E rf) ==> context Xs E
 Proof
     RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
  >> RES_TAC >> fs [CCS_Subst_def]
  >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
- >> Know `CONTEXT (\t. restr L (e t))`
+ >> Know `CONTEXT (\t. relab (e t) rf)`
  >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
- >> DISCH_TAC >> IMP_RES_TAC CONTEXT6_backward
+ >> DISCH_TAC >> IMP_RES_TAC CONTEXT7_backward
 QED
 
 Theorem context_relab_rule :
@@ -641,23 +652,11 @@ Proof
  >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
 QED
 
-Theorem context_relab :
-    !Xs E rf. context Xs (relab E rf) ==> context Xs E
-Proof
-    RW_TAC std_ss [context_def, EVERY_MEM, BV_def]
- >> RES_TAC >> fs [CCS_Subst_def]
- >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
- >> Know `CONTEXT (\t. relab (e t) rf)`
- >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
- >> DISCH_TAC >> IMP_RES_TAC CONTEXT7_backward
-QED
-
 Theorem context_var :
     !Xs Y. context Xs (var Y)
 Proof
     RW_TAC lset_ss [context_def, EVERY_MEM, BV_def, CCS_Subst_def]
- >> Cases_on `Y = X`
- >> fs [CONTEXT_rules]
+ >> Cases_on `Y = X` >> fs [CONTEXT_rules]
 QED
 
 (* `~MEM Y Xs` doesn't hold. *)
@@ -1088,6 +1087,13 @@ Proof
     RW_TAC std_ss [weakly_guarded_def, EVERY_MEM]
 QED
 
+Theorem weakly_guarded_nil :
+    !Xs. weakly_guarded Xs nil
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def,
+                   DISJOINT_EMPTY, WG2]
+QED
+
 Theorem weakly_guarded_prefix :
     !Xs u E. weakly_guarded Xs (prefix u E) ==> context Xs E
 Proof
@@ -1097,6 +1103,17 @@ Proof
  >> Know `WG (\t. prefix u (e t))`
  >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
  >> DISCH_TAC >> IMP_RES_TAC WG3_backward
+QED
+
+Theorem weakly_guarded_prefix_rule :
+    !Xs u E. context Xs E ==> weakly_guarded Xs (prefix u E)
+Proof
+    RW_TAC std_ss [weakly_guarded_def, context_def, EVERY_MEM, BV_def]
+ >> RES_TAC >> rw [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. prefix u (CCS_Subst E t X)) = WG (\t. prefix u (e t))`
+ >- (Q.UNABBREV_TAC `e` >> rw []) >> Rewr'
+ >> MATCH_MP_TAC WG3 >> art []
 QED
 
 local
@@ -1119,6 +1136,24 @@ in
       RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] >| [t1, t2, t1, t2]);
 end;
 
+Theorem weakly_guarded_sum_rule :
+    !Xs E1 E2. weakly_guarded Xs E1 /\ weakly_guarded Xs E2 ==>
+               weakly_guarded Xs (sum E1 E2)
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >- ASM_SET_TAC []
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X`
+ >> Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X`
+ >> Know `WG (\t. e1 t) /\ WG (\t. e2 t)`
+ >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+     ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `WG (\t. e1 t + e2 t)`
+ >- (MATCH_MP_TAC WG4 >> art [])
+ >> unset [`e1`, `e2`] >> SIMP_TAC std_ss []
+QED
+
 local
   val t1 =
      (MATCH_MP_TAC SUBSET_DISJOINT \\
@@ -1139,6 +1174,24 @@ in
       RW_TAC std_ss [weakly_guarded_def, EVERY_MEM] >| [t1, t2, t1, t2]);
 end;
 
+Theorem weakly_guarded_par_rule :
+    !Xs E1 E2. weakly_guarded Xs E1 /\ weakly_guarded Xs E2 ==>
+               weakly_guarded Xs (par E1 E2)
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >- ASM_SET_TAC []
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X`
+ >> Q.ABBREV_TAC `e2 = \t. CCS_Subst E2 t X`
+ >> Know `WG (\t. e1 t) /\ WG (\t. e2 t)`
+ >- (Q.UNABBREV_TAC `e1` >> Q.UNABBREV_TAC `e2` \\
+     ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `WG (\t. e1 t || e2 t)`
+ >- (MATCH_MP_TAC WG5 >> art [])
+ >> unset [`e1`, `e2`] >> SIMP_TAC std_ss []
+QED
+
 Theorem weakly_guarded_restr :
     !Xs L E. weakly_guarded Xs (restr L E) ==> weakly_guarded Xs E
 Proof
@@ -1148,6 +1201,20 @@ Proof
  >> Know `WG (\t. restr L (e t))`
  >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
  >> DISCH_TAC >> IMP_RES_TAC WG6_backward
+QED
+
+Theorem weakly_guarded_restr_rule :
+    !Xs L E. weakly_guarded Xs E ==> weakly_guarded Xs (restr L E)
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. e t)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `WG (\t. restr L (e t))`
+ >- (MATCH_MP_TAC WG6 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
 QED
 
 Theorem weakly_guarded_relab :
@@ -1161,6 +1228,20 @@ Proof
  >> DISCH_TAC >> IMP_RES_TAC WG7_backward
 QED
 
+Theorem weakly_guarded_relab_rule :
+    !Xs E rf. weakly_guarded Xs E ==> weakly_guarded Xs (relab E rf)
+Proof
+    RW_TAC std_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >> RES_TAC
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t X`
+ >> Know `WG (\t. e t)`
+ >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC bool_ss [])
+ >> DISCH_TAC
+ >> Know `WG (\t. relab (e t) rf)`
+ >- (MATCH_MP_TAC WG7 >> art [])
+ >> Q.UNABBREV_TAC `e` >> SIMP_TAC std_ss []
+QED
+
 Theorem weakly_guarded_var :
     !Xs Y. weakly_guarded Xs (var Y) ==> ~MEM Y Xs
 Proof
@@ -1169,6 +1250,13 @@ Proof
  >> DISCH_TAC >> CCONTR_TAC
  >> fs [weakly_guarded_def, EVERY_MEM]
  >> RES_TAC >> fs [CCS_Subst_def, NO_WG0]
+QED
+
+Theorem weakly_guarded_var_rule :
+    !Xs Y. ~MEM Y Xs ==> weakly_guarded Xs (var Y)
+Proof
+    RW_TAC lset_ss [weakly_guarded_def, EVERY_MEM, BV_def, CCS_Subst_def]
+ >> Cases_on `Y = X` >> fs [WG_rules]
 QED
 
 (* This theorem is only possible with our special `weakly_guarded`:
@@ -1212,6 +1300,98 @@ Proof
  >> IMP_RES_TAC WG8_IMP_CONST
  >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
+QED
+
+Theorem weakly_guarded_rec_rule :
+    !Xs Y E. ~MEM Y Xs /\ DISJOINT (FV E) (set Xs) /\ DISJOINT (BV E) (set Xs)
+         ==> weakly_guarded Xs (rec Y E)   
+Proof
+    RW_TAC std_ss [weakly_guarded_def, BV_def]
+ >- ASM_SET_TAC []
+ >> RW_TAC list_ss [EVERY_MEM, CCS_Subst_def]
+ >> `Y <> X` by METIS_TAC [] >> fs []
+ >> Know `!t. CCS_Subst E t X = E`
+ >- (GEN_TAC >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_elim) \\
+     ASM_SET_TAC [])
+ >> Rewr' >> REWRITE_TAC [WG2]
+QED
+
+(* c.f. CONTEXT_WG_combin *)
+Theorem weakly_guarded_combin :
+    !Xs Es C. ALL_DISTINCT Xs /\ context Xs C /\
+              EVERY (weakly_guarded Xs) Es /\ (LENGTH Es = LENGTH Xs) ==>
+              weakly_guarded Xs (CCS_SUBST (fromList Xs Es) C)
+Proof
+    Suff `!Xs. ALL_DISTINCT Xs ==>
+               !Es C. context Xs C ==>
+                      EVERY (weakly_guarded Xs) Es /\ (LENGTH Es = LENGTH Xs) ==>
+                      weakly_guarded Xs (CCS_SUBST (fromList Xs Es) C)`
+ >- METIS_TAC []
+ >> NTAC 3 STRIP_TAC (* up to `!C.` *)
+ >> Induct_on `C` >> RW_TAC std_ss [CCS_SUBST_def] (* 10 subgoals *)
+ (* goal 1 (of 10): easy *)
+ >- REWRITE_TAC [weakly_guarded_nil]
+ (* goal 2 (of 10): not easy *)
+ >- (Know `FDOM (fromList Xs Es) = set Xs`
+     >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap) \\
+     fs [EVERY_MEM, MEM_EL] \\
+     Know `(fromList Xs Es) ' (EL n Xs) = EL n Es`
+     >- (MATCH_MP_TAC fromList_FAPPLY_EL >> art []) >> Rewr' \\
+     FIRST_X_ASSUM MATCH_MP_TAC \\
+     Q.EXISTS_TAC `n` >> art [])
+ (* goal 3 (of 10): not hard *)
+ >- (Know `FDOM (fromList Xs Es) = set Xs`
+     >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap) \\
+     MATCH_MP_TAC weakly_guarded_var_rule >> art [])
+ (* goal 4 (of 10): not hard *)
+ >- (IMP_RES_TAC context_prefix \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     MATCH_MP_TAC weakly_guarded_prefix_rule \\
+     MATCH_MP_TAC weakly_guarded_imp_context >> art [])
+ (* goal 5 (of 10): easy *)
+ >- (IMP_RES_TAC context_sum \\
+     Q.PAT_X_ASSUM `context Xs C'' ==> _` MP_TAC \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     MATCH_MP_TAC weakly_guarded_sum_rule >> art [])
+ (* goal 6 (of 10): easy *)
+ >- (IMP_RES_TAC context_par \\
+     Q.PAT_X_ASSUM `context Xs C'' ==> _` MP_TAC \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     MATCH_MP_TAC weakly_guarded_par_rule >> art [])
+ (* goal 7 (of 10): easy *)
+ >- (IMP_RES_TAC context_restr \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     MATCH_MP_TAC weakly_guarded_restr_rule >> art [])
+ (* goal 8 (of 10): easy *)
+ >- (IMP_RES_TAC context_relab \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     MATCH_MP_TAC weakly_guarded_relab_rule >> art [])
+ (* goal 9 (of 10): hard, impossible *)
+ >- (Know `FDOM (fromList Xs Es) = set Xs`
+     >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap) \\
+     IMP_RES_TAC context_rec \\
+     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     rename1 `MEM X Xs` \\
+     Know `CCS_SUBST ((fromList Xs Es) \\ X) C' = C'`
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
+         ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
+         ASM_SET_TAC [context_def]) >> Rewr' \\
+     Know `CCS_SUBST (fromList Xs Es) C' = C'`
+     >- (MATCH_MP_TAC CCS_SUBST_elim' \\
+         ASM_SIMP_TAC std_ss [FDOM_fromList] \\
+         fs [BV_def, context_def]) >> DISCH_THEN (fs o wrap) \\
+     fs [BV_def, context_def])
+ (* goal 10 (of 10): not easy *)
+ >> Know `FDOM (fromList Xs Es) = set Xs`
+ >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap)
+ >> IMP_RES_TAC context_rec
+ >> Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss []
+ >> Know `CCS_SUBST (fromList Xs Es) C' = C'`
+ >- (irule CCS_SUBST_elim >> fs [context_def])
+ >> DISCH_THEN (fs o wrap)
+ >> rename1 `~MEM Y Xs`
+ >> MATCH_MP_TAC weakly_guarded_rec_rule >> art []
+ >> fs [context_def]
 QED
 
 (* ========================================================================== *)
@@ -1357,7 +1537,7 @@ Proof
  >> RW_TAC std_ss [context_def, EVERY_MEM]
  >> Suff `!t. CCS_Subst P' t X = P'`
  >- (Rewr' >> REWRITE_TAC [CONTEXT2])
- >> REWRITE_TAC [GSYM CCS_Subst_ELIM]
+ >> REWRITE_TAC [GSYM CCS_Subst_elim]
  >> ASM_SET_TAC []
 QED
 
@@ -1403,12 +1583,12 @@ QED
 *)
 Theorem USC_unfolding_lemma1 :
     !Xs Es E C C' Ps.
-        CCS_equation Xs Es /\ EVERY (context Xs) Es /\
-        CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
-        (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
-        (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
-        ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                              (CCS_SUBST (fromList Xs Ps) (C' n))
+           CCS_equation Xs Es /\ EVERY (context Xs) Es /\
+           CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
+          (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
+          (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
+      ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
+                            (CCS_SUBST (fromList Xs Ps) (C' n))
 Proof
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
@@ -1453,44 +1633,41 @@ Proof
  >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* FUNPOW_SUC doesn't work *)
  >> Suff `!n. FUNPOW E n (E (MAP var Xs)) =
               MAP (CCS_SUBST (fromList Xs (E (MAP var Xs))))
-                  (FUNPOW E n (MAP var Xs))` >-
-  ( Rewr'
- >> RW_TAC list_ss [EL_MAP]
- (* applying CCS_SUBST_nested AGAIN *)
- >> MP_TAC (Q.SPECL [`Xs`, `Ps`,
-                     `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) (MAP var Xs)`,
-                     `EL i (FUNPOW E n (MAP var Xs))`] CCS_SUBST_nested)
- >> `LENGTH (E (MAP var Xs)) = LENGTH Xs` by METIS_TAC [FUNPOW_1]
- >> Know `!n. EVERY (context Xs) (FUNPOW E n (MAP var Xs))`
- >- (Induct_on `n`
-     >- (RW_TAC list_ss [EVERY_MEM, FUNPOW_0, EL_MAP, context_var, MEM_EL] \\
-         fs [EL_MAP, context_var]) \\
-     rw [FUNPOW_SUC] \\
-     Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
-     Q.UNABBREV_TAC `E` \\
-     RW_TAC list_ss [EVERY_MEM, EL_MAP, MEM_MAP] \\
-     MATCH_MP_TAC context_combin >> art [] \\
-     CONJ_TAC >- fs [EVERY_MEM] \\
-     Q.UNABBREV_TAC `E'` >> art [])
- >> DISCH_THEN (ASSUME_TAC o (Q.SPEC `n`))
- >> Know `context Xs (EL i (FUNPOW E n (MAP var Xs)))`
- >- (fs [EVERY_MEM, MEM_EL] \\
-     POP_ASSUM MATCH_MP_TAC \\
-     Q.EXISTS_TAC `i` >> art [])
- >> DISCH_TAC
- >> `DISJOINT (BV (EL i (FUNPOW E n (MAP var Xs)))) (set Xs)`
-        by PROVE_TAC [context_def]
- >> RW_TAC bool_ss []
- >> POP_ASSUM K_TAC (* already used assumption *)
- (* applying OBS_contracts_subst_context AGAIN *)
- >> irule OBS_contracts_subst_context >> art []
- >> Q.UNABBREV_TAC `E` >> fs []
- >> Know `MAP (CCS_SUBST (fromList Xs (MAP var Xs))) Es = Es`
- >- (RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
-     MATCH_MP_TAC CCS_SUBST_self >> art [] \\
-    `MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
-     fs [EVERY_MEM, context_def]) >> Rewr' >> art []
-  )
+                  (FUNPOW E n (MAP var Xs))`
+ >- (Rewr' >> RW_TAC list_ss [EL_MAP] \\
+  (* applying CCS_SUBST_nested AGAIN *)
+     MP_TAC (Q.SPECL [`Xs`, `Ps`,
+                      `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) (MAP var Xs)`,
+                      `EL i (FUNPOW E n (MAP var Xs))`] CCS_SUBST_nested) \\
+    `LENGTH (E (MAP var Xs)) = LENGTH Xs` by METIS_TAC [FUNPOW_1] \\
+     Know `!n. EVERY (context Xs) (FUNPOW E n (MAP var Xs))`
+     >- (Induct_on `n`
+         >- (RW_TAC list_ss [EVERY_MEM, FUNPOW_0, EL_MAP, context_var, MEM_EL] \\
+             fs [EL_MAP, context_var]) \\
+         rw [FUNPOW_SUC] \\
+         Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
+         Q.UNABBREV_TAC `E` \\
+         RW_TAC list_ss [EVERY_MEM, EL_MAP, MEM_MAP] \\
+         MATCH_MP_TAC context_combin >> art [] \\
+         CONJ_TAC >- fs [EVERY_MEM] \\
+         Q.UNABBREV_TAC `E'` >> art []) \\
+     DISCH_THEN (ASSUME_TAC o (Q.SPEC `n`)) \\
+     Know `context Xs (EL i (FUNPOW E n (MAP var Xs)))`
+     >- (fs [EVERY_MEM, MEM_EL] \\
+         POP_ASSUM MATCH_MP_TAC \\
+         Q.EXISTS_TAC `i` >> art []) >> DISCH_TAC \\
+    `DISJOINT (BV (EL i (FUNPOW E n (MAP var Xs)))) (set Xs)`
+        by PROVE_TAC [context_def] \\
+     RW_TAC bool_ss [] \\
+     POP_ASSUM K_TAC (* already used assumption *) \\
+  (* applying OBS_contracts_subst_context AGAIN *)
+     irule OBS_contracts_subst_context >> art [] \\
+     Q.UNABBREV_TAC `E` >> fs [] \\
+     Know `MAP (CCS_SUBST (fromList Xs (MAP var Xs))) Es = Es`
+     >- (RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
+         MATCH_MP_TAC CCS_SUBST_self >> art [] \\
+        `MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
+         fs [EVERY_MEM, context_def]) >> Rewr' >> art [])
  (* now the last difficult part! *)
  >> Induct_on `n`
  >- (REWRITE_TAC [FUNPOW_0] \\
@@ -1522,11 +1699,37 @@ Proof
  >> rw [LENGTH_MAP]
 QED
 
-val USC_unfolding_lemma2 = ();
-val USC_unfolding_lemma3 = ();
+Theorem USC_unfolding_lemma2 :
+    !Xs E. weakly_guarded Xs E ==>
+        !Ps u P'. (LENGTH Ps = LENGTH Xs) /\
+                  TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
+            ?C'. context Xs C' /\
+                (P' = CCS_SUBST (fromList Xs Ps) C') /\
+                !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                     TRANS (CCS_SUBST (fromList Xs Qs) E) u
+                           (CCS_SUBST (fromList Xs Qs) C')
+Proof
+    cheat
+QED
 
-val USC_unfolding_lemma4 = Q.prove (
-   `!Xs Es E C C'.
+Theorem USC_unfolding_lemma3 :
+    !Xs C Es. context Xs C /\ EVERY (weakly_guarded Xs) Es ==>
+        !Ps x P'. TRANS (CCS_SUBST
+                          (fromList Xs
+                            (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C) x P' ==>
+                 ?C'. context Xs C' /\
+                     (P' = CCS_SUBST (fromList Xs Ps) C') /\
+                     !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                          TRANS (CCS_SUBST
+                                  (fromList Xs
+                                    (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C) x
+                                (CCS_SUBST (fromList Xs Qs) C')
+Proof
+    cheat
+QED
+
+Theorem USC_unfolding_lemma4 :
+    !Xs Es E C C'.
         CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\ context Xs C /\
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) ==>
@@ -1536,8 +1739,11 @@ val USC_unfolding_lemma4 = Q.prove (
            ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
-                            (CCS_SUBST (fromList Xs Qs) C'')`, cheat);
- (* proof
+                            (CCS_SUBST (fromList Xs Qs) C'')
+Proof
+    cheat
+QED
+ (*
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
  (* re-define C' and E back to abbreviations *)
