@@ -1450,11 +1450,10 @@ Proof
  >> RW_TAC list_ss [LIST_REL_EL_EQN, EL_MAP]
  >> rename1 `i < LENGTH Xs`
  (* stage work *)
- >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* not FUNPOW_SUC *)
- >> Know `!n. FUNPOW E n (E (MAP var Xs)) =
-              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs)))) (FUNPOW E n (MAP var Xs))`
- >- cheat
- >> Rewr'
+ >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* FUNPOW_SUC doesn't work *)
+ >> Suff `!n. FUNPOW E n (E (MAP var Xs)) =
+              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs)))) (FUNPOW E n (MAP var Xs))` >-
+  ( Rewr'
  >> RW_TAC list_ss [EL_MAP]
  (* applying CCS_SUBST_nested AGAIN *)
  >> MP_TAC (Q.SPECL [`Xs`, `Ps`,
@@ -1473,8 +1472,38 @@ Proof
  >- (RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
      MATCH_MP_TAC CCS_SUBST_self >> art [] \\
     `MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
+     fs [EVERY_MEM, context_def]) >> Rewr' >> art []
+  )
+ (* now the last difficult part! *)
+ >> Induct_on `n`
+ >- (REWRITE_TAC [FUNPOW_0] \\
+     Q.ABBREV_TAC `EX = E (MAP var Xs)` \\
+     RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP]
+     >- (unset [`EX`, `E`] >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
+    `x < LENGTH (MAP var Xs) /\ x < LENGTH Xs` by METIS_TAC [LENGTH_MAP] \\
+    `LENGTH EX = LENGTH Xs` by METIS_TAC [LENGTH_MAP] \\
+    `MEM (EL x Xs) Xs` by PROVE_TAC [MEM_EL] \\
+     ASM_SIMP_TAC list_ss [EL_MAP, CCS_SUBST_def, FDOM_fromList,
+                           fromList_FAPPLY_EL])
+ >> REWRITE_TAC [FUNPOW_SUC] >> POP_ORW
+ >> Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)`
+ >> Q.UNABBREV_TAC `E` >> BETA_TAC
+ >> RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP]
+ >> MATCH_MP_TAC EQ_SYM
+ >> MATCH_MP_TAC CCS_SUBST_nested >> art [LENGTH_MAP]
+ >> Reverse CONJ_TAC
+ >- (`MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
      fs [EVERY_MEM, context_def])
- >> Rewr' >> art []
+ >> Q.UNABBREV_TAC `E'`
+ >> Q.ABBREV_TAC `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ (* the last goal by induction *)
+ >> Q.SPEC_TAC (`n`, `n`)
+ >> Induct_on `n`
+ >- rw [FUNPOW_0, LENGTH_MAP]
+ >> REWRITE_TAC [FUNPOW_SUC]
+ >> Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)`
+ >> Q.UNABBREV_TAC `E` >> BETA_TAC
+ >> rw [LENGTH_MAP]
 QED
 
 val USC_unfolding_lemma2 = ();
