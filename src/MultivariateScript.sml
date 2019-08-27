@@ -1304,7 +1304,7 @@ QED
 
 Theorem weakly_guarded_rec_rule :
     !Xs Y E. ~MEM Y Xs /\ DISJOINT (FV E) (set Xs) /\ DISJOINT (BV E) (set Xs)
-         ==> weakly_guarded Xs (rec Y E)   
+         ==> weakly_guarded Xs (rec Y E)
 Proof
     RW_TAC std_ss [weakly_guarded_def, BV_def]
  >- ASM_SET_TAC []
@@ -1315,6 +1315,28 @@ Proof
      ASM_SET_TAC [])
  >> Rewr' >> REWRITE_TAC [WG2]
 QED
+
+(* a collection of all (forward) rules of `weakly_guarded` *)
+val weakly_guarded_rules = save_thm
+  ("weakly_guarded_rules",
+    LIST_CONJ [weakly_guarded_nil,
+               weakly_guarded_var,
+               weakly_guarded_prefix_rule,
+               weakly_guarded_sum_rule,
+               weakly_guarded_par_rule,
+               weakly_guarded_restr_rule,
+               weakly_guarded_relab_rule,
+               weakly_guarded_rec_rule]);
+
+(* a collection of all backward rules of `weakly_guarded` *)
+val weakly_guarded_backward_rules = save_thm
+  ("weakly_guarded_backward_rules",
+    LIST_CONJ [weakly_guarded_prefix_rule,
+               weakly_guarded_sum,
+               weakly_guarded_par,
+               weakly_guarded_restr,
+               weakly_guarded_relab,
+               weakly_guarded_rec]);
 
 (* c.f. CONTEXT_WG_combin *)
 Theorem weakly_guarded_combin :
@@ -1771,7 +1793,7 @@ QED
      MP_TAC (Q.SPECL [`Xs`, `Ps`, `(FUNPOW E (SUC n) (MAP var Xs))`, `C`]
                      CCS_SUBST_nested) \\
      Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
-     >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\    
+     >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\
          REWRITE_TAC [FUNPOW_SUC] \\
          Q.ABBREV_TAC `E' = FUNPOW E i (MAP var Xs)` \\
          Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP]) \\
