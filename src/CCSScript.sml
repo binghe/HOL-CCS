@@ -961,7 +961,7 @@ Proof
     RW_TAC std_ss [BV_def, IN_INSERT]
 QED
 
-Theorem BV_SUBSETS :
+Theorem BV_SUBSET_rules :
     !X E E'. (BV E) SUBSET (BV (rec X E)) /\
              (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
              (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))

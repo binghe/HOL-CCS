@@ -598,7 +598,7 @@ QED
 local
   val t1 =
      (MATCH_MP_TAC SUBSET_DISJOINT \\
-      take [`BV (E1 + E2)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]);
+      take [`BV (E1 + E2)`, `set Xs`] >> art [BV_SUBSET_rules, SUBSET_REFL]);
   val t2 =
      (RES_TAC >> fs [CCS_Subst_def] \\
       Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
@@ -644,7 +644,7 @@ QED
 local
   val t1 =
      (MATCH_MP_TAC SUBSET_DISJOINT \\
-      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]);
+      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSET_rules, SUBSET_REFL]);
   val t2 =
      (RES_TAC >> fs [CCS_Subst_def] \\
       Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
@@ -1222,7 +1222,7 @@ QED
 local
   val t1 =
       MATCH_MP_TAC SUBSET_DISJOINT \\
-      take [`BV (E1 + E2)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL];
+      take [`BV (E1 + E2)`, `set Xs`] >> art [BV_SUBSET_rules, SUBSET_REFL];
   val t2 =
       RES_TAC >> fs [CCS_Subst_def] \\
       Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
@@ -1270,7 +1270,7 @@ QED
 local
   val t1 =
      (MATCH_MP_TAC SUBSET_DISJOINT \\
-      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]);
+      take [`BV (E1 || E2)`, `set Xs`] >> art [BV_SUBSET_rules, SUBSET_REFL]);
   val t2 =
      (RES_TAC >> fs [CCS_Subst_def] \\
       Q.ABBREV_TAC `e1 = \t. CCS_Subst E1 t X` \\
@@ -1418,7 +1418,7 @@ Proof
  >- (fs [weakly_guarded_def, EVERY_MEM] \\
      rpt STRIP_TAC
      >- (MATCH_MP_TAC SUBSET_DISJOINT \\
-         take [`BV (rec Y E)`, `set Xs`] >> art [BV_SUBSETS, SUBSET_REFL]) \\
+         take [`BV (rec Y E)`, `set Xs`] >> art [BV_SUBSET_rules, SUBSET_REFL]) \\
      RES_TAC \\
      Cases_on `Y = X` >- fs [] \\
      fs [CCS_Subst_def] \\
