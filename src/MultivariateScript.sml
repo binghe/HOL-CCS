@@ -1775,8 +1775,7 @@ Theorem strong_unique_solution :
                 Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
- >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
-                    LIST_REL_EL_EQN]
+ >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
  >> Q.ABBREV_TAC `P = EL n Ps`
  >> Q.ABBREV_TAC `Q = EL n Qs`
  >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
@@ -1813,8 +1812,7 @@ Proof
  (* Case 0: E = nil, impossible *)
  >- RW_TAC std_ss [CCS_SUBST_def, NIL_NO_TRANS]
  (* Case 1: E = var Y *)
- >- (Q.X_GEN_TAC `Y` \\
-     Reverse (Cases_on `Y IN set Xs`)
+ >- (Q.X_GEN_TAC `Y` >> Reverse (Cases_on `Y IN set Xs`)
      >- (`DISJOINT (FV (var Y)) (set Xs)` by ASM_SET_TAC [FV_def] \\
          `DISJOINT (BV (var Y)) (set Xs)` by ASM_SET_TAC [BV_def] \\
          `(CCS_SUBST (fromList Xs Ps) (var Y) = var Y) /\
@@ -1959,7 +1957,8 @@ Proof
  (* Case 4: E = G || G' (not easy) *)
  >- cheat
  (* Case 5: E = restr f G (not easy) *)
- >- (GEN_TAC >> DISCH_THEN (ASSUME_TAC o (REWRITE_RULE [context_restr_rewrite])) \\
+ >- (GEN_TAC \\
+     DISCH_THEN (ASSUME_TAC o (REWRITE_RULE [context_restr_rewrite])) \\
      Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC \\
      RW_TAC std_ss [CCS_SUBST_restr, TRANS_RESTR_EQ] >| (* 4 subgoals *)
      [ (* goal 1 (of 4) *)
@@ -2061,7 +2060,62 @@ Proof
          CONJ_TAC >- (MATCH_MP_TAC context_restr_rule >> art []) \\
          REWRITE_TAC [CCS_SUBST_restr] ] ])
  (* Case 6: E = relab f G (not hard) *)
- >- cheat
+ >- (GEN_TAC \\
+     DISCH_THEN (ASSUME_TAC o (REWRITE_RULE [context_relab_rewrite])) \\
+     Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC \\
+     RW_TAC std_ss [CCS_SUBST_relab, TRANS_RELAB_EQ] >| (* 2 subgoals *)
+     [ (* goal 1 (of 2) *)
+       Q.PAT_X_ASSUM `!u. (!E1. TRANS (CCS_SUBST (fromList Xs Ps) G) u E1 ==> _) /\ _`
+         (MP_TAC o (Q.SPEC `u'`)) >> RW_TAC bool_ss [] \\
+       Q.PAT_X_ASSUM
+         `!E2. TRANS (CCS_SUBST (fromList Xs Qs) G) u' E2 ==> _` K_TAC \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `E''`)) >> RW_TAC std_ss [O_DEF] >|
+       [ (* goal 1.1 (of 2) *)
+         Q.EXISTS_TAC `relab E2 R` \\
+         CONJ_TAC >- (take [`u'`, `E2`] >> art []) \\
+         Q.EXISTS_TAC `relab E2 R` >> REWRITE_TAC [STRONG_EQUIV_REFL] \\
+        `STRONG_EQUIV E'' E2` by PROVE_TAC [STRONG_EQUIV_TRANS] \\
+        `STRONG_EQUIV (relab E'' R) (relab E2 R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab E2 R` >> art [],
+         (* goal 1.2 (of 2) *)
+         Q.EXISTS_TAC `relab E2 R` \\
+         CONJ_TAC >- (take [`u'`, `E2`] >> art []) \\
+        `STRONG_EQUIV (relab (CCS_SUBST (fromList Xs Qs) G') R) (relab E2 R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab (CCS_SUBST (fromList Xs Qs) G') R` >> art [] \\
+        `STRONG_EQUIV (relab E'' R) (relab (CCS_SUBST (fromList Xs Ps) G') R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab (CCS_SUBST (fromList Xs Ps) G') R` >> art [] \\
+         DISJ2_TAC >> Q.EXISTS_TAC `relab G' R` \\
+         CONJ_TAC >- (MATCH_MP_TAC context_relab_rule >> art []) \\
+         REWRITE_TAC [CCS_SUBST_relab] ],
+       (* goal 2 (of 2) *)
+       Q.PAT_X_ASSUM `!u. (!E1. TRANS (CCS_SUBST (fromList Xs Ps) G) u E1 ==> _) /\ _`
+         (MP_TAC o (Q.SPEC `u'`)) >> RW_TAC bool_ss [] \\
+       Q.PAT_X_ASSUM
+         `!E1. TRANS (CCS_SUBST (fromList Xs Ps) G) u' E1 ==> _` K_TAC \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `E''`)) >> RW_TAC std_ss [O_DEF] >|
+       [ (* goal 2.1 (of 2) *)
+         Q.EXISTS_TAC `relab E1 R` \\
+         CONJ_TAC >- (take [`u'`, `E1`] >> art []) \\
+         Q.EXISTS_TAC `relab E'' R` >> REWRITE_TAC [STRONG_EQUIV_REFL] \\
+        `STRONG_EQUIV E1 E''` by PROVE_TAC [STRONG_EQUIV_TRANS] \\
+        `STRONG_EQUIV (relab E1 R) (relab E'' R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab E'' R` >> art [],
+         (* goal 2.2 (of 2) *)
+         Q.EXISTS_TAC `relab E1 R` \\
+         CONJ_TAC >- (take [`u'`, `E1`] >> art []) \\
+        `STRONG_EQUIV (relab (CCS_SUBST (fromList Xs Qs) G') R) (relab E'' R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab (CCS_SUBST (fromList Xs Qs) G') R` >> art [] \\
+        `STRONG_EQUIV (relab E1 R) (relab (CCS_SUBST (fromList Xs Ps) G') R)`
+             by PROVE_TAC [STRONG_EQUIV_SUBST_RELAB] \\
+         Q.EXISTS_TAC `relab (CCS_SUBST (fromList Xs Ps) G') R` >> art [] \\
+         DISJ2_TAC >> Q.EXISTS_TAC `relab G' R` \\
+         CONJ_TAC >- (MATCH_MP_TAC context_relab_rule >> art []) \\
+         REWRITE_TAC [CCS_SUBST_relab] ] ])
  (* Case 7: E = rec Y G (done, `context Xs` is essential here) *)
  >> POP_ASSUM K_TAC (* IH is not used here, removed *)
  >> Q.X_GEN_TAC `Y` >> DISCH_TAC
