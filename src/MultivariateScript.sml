@@ -1,4 +1,4 @@
-(* ==================================================-*- Mode: SML-CM; -*- == *)
+(* ========================================================================== *)
 (* FILE          : MultivariateScript.sml                                     *)
 (* DESCRIPTION   : Unique Solution of CCS Equations (Multivariate Version)    *)
 (*                                                                            *)
@@ -500,13 +500,13 @@ QED
    If, instead of just substituting one (free) variable of E, we
    substitute more of them, can we say that:
 
-   [CCS_SUBST_FV_SUBSET]
+   [FV_SUBST_SUBSET]
    |- !Xs Ps E. FV (CCS_SUBST (Xs |-> Ps) E) SUBSET
                 (FV E) UNION BIGUNION (IMAGE FV (set Ps))`
 
    and
 
-   [CCS_SUBST_BV_SUBSET]
+   [BV_SUBST_SUBSET]
    |- !Xs Ps E. BV (CCS_SUBST (Xs |-> Ps) E) SUBSET
                 (BV E) UNION BIGUNION (IMAGE BV (set Ps))` hold?
  *)
@@ -518,7 +518,7 @@ QED
    or `weakly_guarded Xs E`) to make the proof even more easier --
    this eliminated a hard case where induction on Xs is required.
  *)
-Theorem CCS_SUBST_BV_SUBSET :
+Theorem BV_SUBST_SUBSET :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
               DISJOINT (BV E) (set Xs) ==>
               BV (CCS_SUBST (fromList Xs Ps) E) SUBSET
@@ -533,7 +533,7 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-Theorem CCS_SUBST_FV_SUBSET :
+Theorem FV_SUBST_SUBSET :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
               DISJOINT (BV E) (set Xs) ==>
               FV (CCS_SUBST (fromList Xs Ps) E) SUBSET
@@ -2206,10 +2206,10 @@ Proof
  (* applying CCS_SUBST_[FV|BV]_SUBSET *)
  >> Know `BV P SUBSET (BV E) UNION (BIGUNION (IMAGE BV (set Ps)))`
  >- (Q.UNABBREV_TAC `P` \\
-     MATCH_MP_TAC CCS_SUBST_BV_SUBSET >> art []) >> DISCH_TAC
+     MATCH_MP_TAC BV_SUBST_SUBSET >> art []) >> DISCH_TAC
  >> Know `FV P SUBSET (FV E) UNION (BIGUNION (IMAGE FV (set Ps)))`
  >- (Q.UNABBREV_TAC `P` \\
-     MATCH_MP_TAC CCS_SUBST_FV_SUBSET >> art []) >> DISCH_TAC
+     MATCH_MP_TAC FV_SUBST_SUBSET >> art []) >> DISCH_TAC
  >> fs [ALL_PROC_def, EVERY_MEM, IS_PROC_def]
  (* more cleanups before the final magic *)
  >> NTAC 2 (Q.PAT_X_ASSUM `weakly_guarded _ _` K_TAC) (* used *)
