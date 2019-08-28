@@ -2135,25 +2135,50 @@ Proof
     rec a (CCS_SUBST (Xs |-> Ps) E) --u-> P'
 
     I think this is only possible if each (BV P) and (FV P) in Ps
-    is also disjoint with (set Xs)
+    is also disjoint with (set Xs), i.e. `ALL_PROC Xs Ps` must hold.
   *)
  >> cheat
 QED
 
 Theorem USC_unfolding_lemma3 :
-    !Xs C Es. context Xs C /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps x P'. TRANS (CCS_SUBST
-                          (fromList Xs
-                            (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C) x P' ==>
-                 ?C'. context Xs C' /\
-                     (P' = CCS_SUBST (fromList Xs Ps) C') /\
-                     !Qs. (LENGTH Qs = LENGTH Xs) ==>
-                          TRANS (CCS_SUBST
-                                  (fromList Xs
-                                    (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C) x
-                                (CCS_SUBST (fromList Xs Qs) C')
+    !Xs C Es. ALL_DISTINCT Xs /\ context Xs C /\ (LENGTH Es = LENGTH Xs) /\
+              EVERY (weakly_guarded Xs) Es ==>
+       !Ps x P'. (LENGTH Ps = LENGTH Xs) /\
+                 TRANS (CCS_SUBST
+                         (fromList Xs
+                           (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C) x P' ==>
+          ?C'. context Xs C' /\
+               (P' = CCS_SUBST (fromList Xs Ps) C') /\
+             !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                  TRANS (CCS_SUBST (fromList Xs
+                                     (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C) x
+                        (CCS_SUBST (fromList Xs Qs) C')
 Proof
-    cheat
+    rpt STRIP_TAC
+ >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
+ >> Know `weakly_guarded Xs (CCS_SUBST (fromList Xs Es) C)`
+ >- (MATCH_MP_TAC weakly_guarded_combin >> art []) >> DISCH_TAC
+ (* applying CCS_SUBST_nested *)
+ >> Know `CCS_SUBST (fromList Xs (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C =
+          CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C)`
+ >- (MATCH_MP_TAC EQ_SYM \\
+     MATCH_MP_TAC CCS_SUBST_nested >> art [])
+ >> DISCH_THEN (fs o wrap)
+ >> Q.ABBREV_TAC `C' = CCS_SUBST (fromList Xs Es) C`
+ (* applying USC_unfolding_lemma2 *)
+ >> MP_TAC (Q.SPECL [`Xs`, `C'`] USC_unfolding_lemma2)
+ >> RW_TAC std_ss []
+ >> POP_ASSUM (MP_TAC o (Q.SPECL [`Ps`, `x`, `P'`]))
+ >> RW_TAC std_ss []
+ >> Q.EXISTS_TAC `C''` >> RW_TAC std_ss []
+ >> Q.PAT_X_ASSUM `!Qs. LENGTH Qs = LENGTH Xs ==> _` (MP_TAC o (Q.SPEC `Qs`))
+ >> RW_TAC std_ss []
+ (* applying CCS_SUBST_nested AGAIN *)
+ >> Suff `CCS_SUBST (fromList Xs (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C =
+          CCS_SUBST (fromList Xs Qs) C'` >- rw []
+ >> Q.UNABBREV_TAC `C'`
+ >> MATCH_MP_TAC EQ_SYM
+ >> MATCH_MP_TAC CCS_SUBST_nested >> art []
 QED
 
 Theorem USC_unfolding_lemma4 :
