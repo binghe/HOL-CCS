@@ -1526,13 +1526,53 @@ QED
 (*  Section IV: Unique Solution of Equations                                  *)
 (* ========================================================================== *)
 
-(* Lemma 4.13 in Milner's book [1] (the full version):
+(* NOTE: each E in Es MUST contain free variables up to Xs *)
+Definition CCS_equation_def :
+    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
+        ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs) /\
+        EVERY (\E. (FV E) SUBSET (set Xs)) Es
+End
 
-   If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P',
+(* The requirement `DISJOINT (BV E) (set Xs)` is reasonable and
+   makes things easier. *)
+Definition IS_PROC_def :
+    IS_PROC Xs P <=> (FV P = EMPTY) /\ DISJOINT (BV P) (set Xs)
+End
+
+Definition ALL_PROC_def :
+    ALL_PROC Xs Ps <=> EVERY (IS_PROC Xs) Ps
+End
+
+(* A solution Ps of the CCS equation (group) Es[Xs] up to R,
+   `ALL_PROC` is now required to complete unique-solution proofs. *)
+Definition CCS_solution_def :
+    CCS_solution Xs Es R Ps <=>
+        ALL_PROC Xs Ps /\
+        LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
+End
+
+Theorem CCS_solution_length :
+    !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
+                 (LENGTH Ps = LENGTH Xs)
+Proof
+    RW_TAC list_ss [CCS_equation_def, CCS_solution_def]
+ >> IMP_RES_TAC LIST_REL_LENGTH
+ >> fs [LENGTH_MAP]
+QED
+
+(* Lemma 4.13 of [1] (the full version):
+
+  "If the variable X is weakly guarded in E, and E{Ps/Xs} --u-> P',
    then P' takes the form E'{Ps/Xs} (for some context E'), and
-   moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}.
+   moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}."
+
+   This lemma is used in proving both "strong_unique_solution"
+   and "unique_solution_of_rooted_contractions" theorems (but
+   not "unique_solution_of_obs_contractions" of Sangiorgi).
+
+   c.f. STRONG_UNIQUE_SOLUTION_LEMMA (the uni-variate version)
  *)
-Theorem strong_unique_solution_lemma : (* full version *)
+Theorem strong_unique_solution_lemma :
     !Xs E. weakly_guarded Xs E ==>
            !Ps. (LENGTH Ps = LENGTH Xs) ==>
                 !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
@@ -1669,40 +1709,6 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-(* NOTE: each E in Es MUST contain free variables up to Xs *)
-Definition CCS_equation_def :
-    CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
-        ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs) /\
-        EVERY (\E. (FV E) SUBSET (set Xs)) Es
-End
-
-(* The requirement `DISJOINT (BV E) (set Xs)` is reasonable and
-   makes things easier. *)
-Definition IS_PROC_def :
-    IS_PROC Xs P <=> (FV P = EMPTY) /\ DISJOINT (BV P) (set Xs)
-End
-
-Definition ALL_PROC_def :
-    ALL_PROC Xs Ps <=> EVERY (IS_PROC Xs) Ps
-End
-
-(* A solution Ps of the CCS equation (group) Es[Xs] up to R,
-   `ALL_PROC` is now required to complete unique-solution proofs. *)
-Definition CCS_solution_def :
-    CCS_solution Xs Es R Ps <=>
-        ALL_PROC Xs Ps /\
-        LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
-End
-
-Theorem CCS_solution_length :
-    !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
-                (LENGTH Ps = LENGTH Xs)
-Proof
-    RW_TAC list_ss [CCS_equation_def, CCS_solution_def]
- >> IMP_RES_TAC LIST_REL_LENGTH
- >> fs [LENGTH_MAP]
-QED
-
 (* THE STAGE THEOREM:
    Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
    then:
@@ -1728,7 +1734,7 @@ Proof
  >- (DISJ2_TAC >> Q.EXISTS_TAC `var (EL n Xs)` \\
      unset [`P`, `Q`] \\
      SRW_TAC [] [CCS_SUBST_def, FV_def, MEM_EL, FDOM_fromList] (* 5 subgoals *)
-     >- cheat
+     >- REWRITE_TAC [context_var]
      >- (MATCH_MP_TAC EQ_SYM \\
          MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
      >- METIS_TAC []
@@ -1794,7 +1800,6 @@ Proof
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
        DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
        (* context Xs E', looks true but a proof is hard. *)
-       MATCH_MP_TAC disjoint_imp_context \\
        cheat,
        (* goal 2 (of 2) *)
       `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
@@ -1863,6 +1868,9 @@ QED
 (*  Section V: Unique Solution of (Rooted) Contractions                       *)
 (* ========================================================================== *)
 
+(* Transitivity is a property of equivalence but OBS_contracts is PreOrder,
+   thus this lemma doesn't derive from LIST_REL_equivalence.
+ *)
 Theorem OBS_contracts_trans :
     !(Ps :('a, 'b) CCS list) Qs Rs.
           LIST_REL OBS_contracts Ps Qs /\ LIST_REL OBS_contracts Qs Rs
@@ -1994,8 +2002,7 @@ Proof
  >- rw [FUNPOW_0, LENGTH_MAP]
  >> REWRITE_TAC [FUNPOW_SUC]
  >> Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)`
- >> Q.UNABBREV_TAC `E` >> BETA_TAC
- >> rw [LENGTH_MAP]
+ >> Q.UNABBREV_TAC `E` >> rw [LENGTH_MAP]
 QED
 
 Theorem USC_unfolding_lemma2 :
