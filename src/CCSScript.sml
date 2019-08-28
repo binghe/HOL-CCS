@@ -885,14 +885,6 @@ Definition BV_def :
    (BV (rec X p)           = X INSERT (BV p))
 End
 
-Definition IS_PROC_def :
-    IS_PROC E <=> (FV E = EMPTY)
-End
-
-Definition ALL_PROC_def :
-    ALL_PROC Es <=> EVERY IS_PROC Es
-End
-
 Theorem FV_SUBSET :
     !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
 Proof

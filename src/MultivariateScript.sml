@@ -1676,10 +1676,20 @@ Definition CCS_equation_def :
         EVERY (\E. (FV E) SUBSET (set Xs)) Es
 End
 
+(* The requirement `DISJOINT (BV E) (set Xs)` is reasonable and
+   makes things easier. *)
+Definition IS_PROC_def :
+    IS_PROC Xs P <=> (FV P = EMPTY) /\ DISJOINT (BV P) (set Xs)
+End
+
+Definition ALL_PROC_def :
+    ALL_PROC Xs Ps <=> EVERY (IS_PROC Xs) Ps
+End
+
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
 Definition CCS_solution_def :
     CCS_solution Xs Es R Ps <=>
-     (* ALL_PROC Ps /\ *)
+        ALL_PROC Xs Ps /\
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
