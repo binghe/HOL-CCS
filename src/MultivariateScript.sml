@@ -2730,7 +2730,7 @@ QED
 
  [3] Tian, C., Sangiorgi, D.: Unique Solutions of Contractions, CCS, and
      their HOL Formalisation. Presented at the EXPRESS/SOS, August 24 (2018).
-     DOI: 10.4204/EPTCS.276.10
+     DOI: 10.4204/EPTCS.276.10                                                *)
 (* ========================================================================== *)
 
 (* Some unfinished work: *)
