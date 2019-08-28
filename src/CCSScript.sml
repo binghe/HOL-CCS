@@ -10,7 +10,7 @@ open pred_setTheory pred_setLib relationTheory optionTheory listTheory CCSLib;
 
 val _ = new_theory "CCS";
 
-val set_ss = std_ss ++ PRED_SET_ss;
+val lset_ss = std_ss ++ PRED_SET_ss;
 
 (******************************************************************************)
 (*                                                                            *)
@@ -889,7 +889,7 @@ Theorem FV_SUBSET :
     !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [FV_def, CCS_Subst_def]
+ >> RW_TAC lset_ss [FV_def, CCS_Subst_def]
  >> ASM_SET_TAC []
 QED
 
@@ -905,7 +905,7 @@ Theorem BV_SUBSET :
     !X E E'. BV (CCS_Subst E E' X) SUBSET (BV E) UNION (BV E')
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [BV_def, CCS_Subst_def]
+ >> RW_TAC lset_ss [BV_def, CCS_Subst_def]
  >> ASM_SET_TAC []
 QED
 
@@ -921,7 +921,7 @@ Theorem TRANS_BV :
     !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [BV_def] (* 7 subgoals *)
+ >> RW_TAC lset_ss [BV_def] (* 7 subgoals *)
  >- ASM_SET_TAC [] (* 1 *)
  >- ASM_SET_TAC [] (* 2 *)
  >- ASM_SET_TAC [] (* 3 *)
@@ -937,7 +937,7 @@ Theorem TRANS_FV :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
 Proof
     HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC set_ss [BV_def, FV_def] (* 9 subgoals *)
+ >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
  >- ASM_SET_TAC [] (* 1 *)
  >- ASM_SET_TAC [] (* 2 *)
  >- ASM_SET_TAC [] (* 3 *)
@@ -972,14 +972,14 @@ QED
 val lemma1 = Q.prove (
    `!X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* one left *)
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* one left *)
  >> Cases_on `a = X` >- fs []
  >> RES_TAC >> ASM_SIMP_TAC std_ss []);
 
 val lemma2 = Q.prove (
    `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)`,
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
  >- (CCONTR_TAC >> fs [] \\
      PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
  >> Cases_on `X = a` >- fs []
@@ -999,7 +999,7 @@ Proof
     Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
  >- METIS_TAC []
  >> GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 5 subgoals left *)
  >- (Q.EXISTS_TAC `nil` >> METIS_TAC [CCS_distinct_exists])
  >| [ RES_TAC >> take [`E1`, `E2`] >> DISJ1_TAC >> art [],
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [],
@@ -1012,7 +1012,7 @@ Theorem FV_PREF :
                FV (CCS_Subst E (rec X E') X)
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def]
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def]
 QED
 
 Theorem FV_SUM :
@@ -1020,7 +1020,7 @@ Theorem FV_SUM :
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
 QED
 
@@ -1029,7 +1029,7 @@ Theorem FV_PAR :
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`
- >> RW_TAC set_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
 QED
 

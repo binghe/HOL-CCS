@@ -220,9 +220,8 @@ Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = FEMPTY |++ ZIP (Xs,Ps)
 End
 
-(* clear_overloads_on ("fromList"); *)
 val _ = overload_on ("|->", ``fromList``);
-val _ = set_fixity "|->" (Infix(NONASSOC, 100));
+val _ = set_fixity "|->" (Infix (NONASSOC, 100));
 
 Theorem fromList_EMPTY :
     fromList [] [] = FEMPTY
@@ -447,19 +446,25 @@ Proof
  >> ASM_SET_TAC [FV_def]
 QED
 
-(* KEY result.
-
-   NOTE: `context Xs C` implies `DISJOINT (BV C) (set Xs)`, which is not
-   really necessary but makes the proof (much) easier. *)
-val CCS_SUBST_nested_lemma = Q.prove (
+(* KEY result. `DISJOINT (BV C) (set Xs)` (usually from `context Xs C`)
+   is not really necessary but makes the proof (much) easier.
+ *)
+Theorem CCS_SUBST_nested :
+    !Xs Ps Es C.
+        ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) /\
+        DISJOINT (BV C) (set Xs) ==>
+       (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
+        CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+Proof
+    Suff (* rewriting for induction *)
    `!Xs Ps Es. ALL_DISTINCT Xs /\
               (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) ==>
         !C. DISJOINT (BV C) (set Xs) ==>
             (CCS_SUBST (fromList Xs Ps)
                        (CCS_SUBST (fromList Xs Es) C) =
-             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)`,
- (* proof *)
-    rpt GEN_TAC >> STRIP_TAC
+             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)`
+ >- METIS_TAC []
+ >> rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `C` (* 8 subgoals *)
  >- RW_TAC std_ss [CCS_SUBST_nil]
  >- (RW_TAC lset_ss [BV_def, CCS_SUBST_var, FDOM_fromList, LENGTH_MAP] \\
@@ -481,16 +486,66 @@ val CCS_SUBST_nested_lemma = Q.prove (
  >> `LENGTH (MAP (CCS_SUBST (fromList Xs Ps)) Es) = LENGTH Xs`
        by PROVE_TAC [LENGTH_MAP]
  >> RW_TAC list_ss [CCS_SUBST_rec, FDOM_fromList, LENGTH_MAP]
- >> ASM_SET_TAC []);
+ >> ASM_SET_TAC []
+QED
 
-Theorem CCS_SUBST_nested :
-    !Xs Ps Es C.
-        ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) /\
-        DISJOINT (BV C) (set Xs) ==>
-       (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
-        CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+(* Now consider a (non-trivial) generalization of FV_SUBSET and BV_SUBSET:
+
+   [FV_SUBSET]  Theorem      
+      ⊢ ∀X E E'. FV (CCS_Subst E E' X) ⊆ FV E ∪ FV E'
+
+   [BV_SUBSET]  Theorem
+      ⊢ ∀X E E'. BV (CCS_Subst E E' X) ⊆ BV E ∪ BV E'
+
+   If, instead of just substituting one (free) variable of E, we
+   substitute more of them, can we say that:
+
+   [CCS_SUBST_FV_SUBSET]
+   |- !Xs Ps E. FV (CCS_SUBST (Xs |-> Ps) E) SUBSET
+                (FV E) UNION BIGUNION (IMAGE FV (set Ps))`
+
+   and
+
+   [CCS_SUBST_BV_SUBSET]
+   |- !Xs Ps E. BV (CCS_SUBST (Xs |-> Ps) E) SUBSET
+                (BV E) UNION BIGUNION (IMAGE BV (set Ps))` hold?
+ *)
+
+(* `ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs)` is not really necessary
+   but makes the proof (much) easier.
+
+   Further added `DISJOINT (BV E) (set Xs)` (usually from `context Xs E`
+   or `weakly_guarded Xs E`) to make the proof even more easier --
+   this eliminated a hard case where induction on Xs is required.
+ *)
+Theorem CCS_SUBST_BV_SUBSET :
+    !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+              DISJOINT (BV E) (set Xs) ==>
+              BV (CCS_SUBST (fromList Xs Ps) E) SUBSET
+                 (BV E) UNION BIGUNION (IMAGE BV (set Ps))
 Proof
-    rpt STRIP_TAC >> irule CCS_SUBST_nested_lemma >> art []
+    NTAC 2 GEN_TAC
+ >> Induct_on `E`
+ >> RW_TAC lset_ss [CCS_SUBST_def, BV_def, FDOM_fromList] (* 6 subgoals *)
+ >- (fs [MEM_EL, fromList_FAPPLY_EL] \\
+    `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL] >> ASM_SET_TAC [])
+ (* 5 subgoals left ... *)
+ >> ASM_SET_TAC []
+QED
+
+Theorem CCS_SUBST_FV_SUBSET :
+    !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+              DISJOINT (BV E) (set Xs) ==>
+              FV (CCS_SUBST (fromList Xs Ps) E) SUBSET
+                 (FV E) UNION BIGUNION (IMAGE FV (set Ps))
+Proof
+    NTAC 2 GEN_TAC
+ >> Induct_on `E`
+ >> RW_TAC lset_ss [CCS_SUBST_def, FV_def, BV_def, FDOM_fromList] (* 6 subgoals *)
+ >- (fs [MEM_EL, fromList_FAPPLY_EL] \\
+    `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL] >> ASM_SET_TAC [])
+ (* 5 subgoals left ... *)
+ >> ASM_SET_TAC [] 
 QED
 
 (* ========================================================================== *)
@@ -1892,10 +1947,10 @@ Theorem USC_unfolding_lemma1 :
     !Xs Es E C C' Ps.
            CCS_equation Xs Es /\ EVERY (context Xs) Es /\
            CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
-          (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
-          (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
-      ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                            (CCS_SUBST (fromList Xs Ps) (C' n))
+           (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
+           (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
+       ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
+                             (CCS_SUBST (fromList Xs Ps) (C' n))
 Proof
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
@@ -2005,9 +2060,11 @@ Proof
  >> Q.UNABBREV_TAC `E` >> rw [LENGTH_MAP]
 QED
 
+(* `ALL_PROC Xs Ps` is added to handle the last difficulity *)
 Theorem USC_unfolding_lemma2 :
-    !Xs E. weakly_guarded Xs E ==>
-        !Ps u P'. (LENGTH Ps = LENGTH Xs) /\
+    !Xs. ALL_DISTINCT Xs ==>
+      !E. weakly_guarded Xs E ==>
+        !Ps u P'. (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Xs Ps /\
                   TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==>
             ?C'. context Xs C' /\
                  (P' = CCS_SUBST (fromList Xs Ps) C') /\
@@ -2015,7 +2072,8 @@ Theorem USC_unfolding_lemma2 :
                       TRANS (CCS_SUBST (fromList Xs Qs) E) u
                             (CCS_SUBST (fromList Xs Qs) C')
 Proof
-    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
+    NTAC 2 STRIP_TAC (* up to `!E` *)
+ >> Induct_on `E` (* 8 subgoals *)
  >- RW_TAC std_ss [CCS_SUBST_nil, NIL_NO_TRANS]
  (* 7 subgoals left *)
  >- (GEN_TAC >> DISCH_TAC \\
@@ -2130,31 +2188,56 @@ Proof
      Know `CCS_SUBST (fromList Xs Qs) E = E`
      >- (irule CCS_SUBST_elim >> fs [weakly_guarded_def]) \\
      NTAC 2 (DISCH_THEN (fs o wrap)))
- (* DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs), given
+ (* cleanups and renames before the final battle *)
+ >> rename1 `~MEM Y Xs`
+ >> Q.PAT_X_ASSUM `!Ps u P'. LENGTH Ps = LENGTH Xs /\ _ ==> _` K_TAC
+ (* hard goal: DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs)
 
-    rec a (CCS_SUBST (Xs |-> Ps) E) --u-> P'
+    given: rec Y (CCS_SUBST (Xs |-> Ps) E) --u-> P' /\ ~MEM Y Xs
 
     I think this is only possible if each (BV P) and (FV P) in Ps
     is also disjoint with (set Xs), i.e. `ALL_PROC Xs Ps` must hold.
   *)
- >> cheat
+ >> Q.ABBREV_TAC `P = CCS_SUBST (fromList Xs Ps) E`
+ >> IMP_RES_TAC TRANS_FV
+ >> IMP_RES_TAC TRANS_BV
+ >> fs [FV_def, BV_def]
+ >> `DISJOINT (BV E) (set Xs)` by PROVE_TAC [weakly_guarded_def]
+ (* applying CCS_SUBST_[FV|BV]_SUBSET *)
+ >> Know `BV P SUBSET (BV E) UNION (BIGUNION (IMAGE BV (set Ps)))`
+ >- (Q.UNABBREV_TAC `P` \\
+     MATCH_MP_TAC CCS_SUBST_BV_SUBSET >> art []) >> DISCH_TAC
+ >> Know `FV P SUBSET (FV E) UNION (BIGUNION (IMAGE FV (set Ps)))`
+ >- (Q.UNABBREV_TAC `P` \\
+     MATCH_MP_TAC CCS_SUBST_FV_SUBSET >> art []) >> DISCH_TAC
+ >> fs [ALL_PROC_def, EVERY_MEM, IS_PROC_def]
+ (* more cleanups before the final magic *)
+ >> NTAC 2 (Q.PAT_X_ASSUM `weakly_guarded _ _` K_TAC) (* used *)
+ >> Q.PAT_X_ASSUM `TRANS (rec Y P) u P'`       K_TAC  (* useless *)
+ >> Q.PAT_X_ASSUM `LENGTH Ps = LENGTH Xs`      K_TAC  (* useless *)
+ (* the final magic *)
+ >> ASM_SET_TAC []
 QED
 
+(* Needed by lemma3. It depends on lemma2 and repeated applications of
+   the (celebrated) CCS_SUBST_nested.
+ *)
 Theorem USC_unfolding_lemma3 :
     !Xs C Es. ALL_DISTINCT Xs /\ context Xs C /\ (LENGTH Es = LENGTH Xs) /\
               EVERY (weakly_guarded Xs) Es ==>
-       !Ps x P'. (LENGTH Ps = LENGTH Xs) /\
+       !Ps x P'. (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Xs Ps /\
                  TRANS (CCS_SUBST
                          (fromList Xs
                            (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C) x P' ==>
           ?C'. context Xs C' /\
                (P' = CCS_SUBST (fromList Xs Ps) C') /\
-             !Qs. (LENGTH Qs = LENGTH Xs) ==>
-                  TRANS (CCS_SUBST (fromList Xs
-                                     (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C) x
-                        (CCS_SUBST (fromList Xs Qs) C')
+               !Qs. (LENGTH Qs = LENGTH Xs) ==>
+                    TRANS (CCS_SUBST (fromList Xs
+                                       (MAP (CCS_SUBST (fromList Xs Qs)) Es)) C) x
+                          (CCS_SUBST (fromList Xs Qs) C')
 Proof
     rpt STRIP_TAC
+ (* `context Xs C` can be replaced with just this one. *)
  >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
  >> Know `weakly_guarded Xs (CCS_SUBST (fromList Xs Es) C)`
  >- (MATCH_MP_TAC weakly_guarded_combin >> art []) >> DISCH_TAC
@@ -2166,8 +2249,8 @@ Proof
  >> DISCH_THEN (fs o wrap)
  >> Q.ABBREV_TAC `C' = CCS_SUBST (fromList Xs Es) C`
  (* applying USC_unfolding_lemma2 *)
- >> MP_TAC (Q.SPECL [`Xs`, `C'`] USC_unfolding_lemma2)
- >> RW_TAC std_ss []
+ >> MP_TAC (Q.SPEC `Xs` USC_unfolding_lemma2) >> RW_TAC bool_ss []
+ >> POP_ASSUM (MP_TAC o (Q.SPEC `C'`)) >> RW_TAC bool_ss []
  >> POP_ASSUM (MP_TAC o (Q.SPECL [`Ps`, `x`, `P'`]))
  >> RW_TAC std_ss []
  >> Q.EXISTS_TAC `C''` >> RW_TAC std_ss []
@@ -2187,7 +2270,7 @@ Theorem USC_unfolding_lemma4 :
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) ==>
         !n xs Ps P'.
-           (LENGTH Ps = LENGTH Xs) /\
+           (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Xs Ps /\
            TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\
            (LENGTH xs <= n) ==>
            ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
@@ -2396,6 +2479,7 @@ Proof
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
       >- (irule USC_unfolding_lemma4 >> art [] \\
+          CONJ_TAC >- fs [CCS_solution_def] \\ (* ALL_PROC is used here *)
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
@@ -2426,6 +2510,7 @@ Proof
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
       >- (irule USC_unfolding_lemma4 >> art [] \\
+          CONJ_TAC >- fs [CCS_solution_def] \\ (* ALL_PROC is used here *)
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
@@ -2644,7 +2729,7 @@ QED
      their HOL Formalisation. Presented at the EXPRESSSOS August 24 (2018).   *)
 (* ========================================================================== *)
 
-(* BELOW ARE OPTIONAL TODO WORK *)
+(* Some unfinished work: *)
 
 (* Proposition 4.12 of [1], c.f. StrongLawsTheory.STRONG_UNFOLDING
 
@@ -2674,6 +2759,8 @@ Proof
    cheat
 QED
  *)
+
+(* clear_overloads_on ("fromList"); *)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
