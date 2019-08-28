@@ -1669,7 +1669,7 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-(* NOTE: Es MUST contain free variables up to Xs *)
+(* NOTE: each E in Es MUST contain free variables up to Xs *)
 Definition CCS_equation_def :
     CCS_equation (Xs :'a list) (Es :('a, 'b) CCS list) <=>
         ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs) /\
@@ -1686,14 +1686,15 @@ Definition ALL_PROC_def :
     ALL_PROC Xs Ps <=> EVERY (IS_PROC Xs) Ps
 End
 
-(* A solution Ps of the CCS equation (group) Es[Xs] up to R *)
+(* A solution Ps of the CCS equation (group) Es[Xs] up to R,
+   `ALL_PROC` is now required to complete unique-solution proofs. *)
 Definition CCS_solution_def :
     CCS_solution Xs Es R Ps <=>
         ALL_PROC Xs Ps /\
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
-Theorem CCS_solution_LENGTH :
+Theorem CCS_solution_length :
     !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
                 (LENGTH Ps = LENGTH Xs)
 Proof
@@ -1905,7 +1906,7 @@ Proof
  >> DISCH_TAC
  >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
  >> `ALL_DISTINCT Xs` by PROVE_TAC [CCS_equation_def]
- >> `LENGTH Ps = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH]
+ >> `LENGTH Ps = LENGTH Xs` by PROVE_TAC [CCS_solution_length]
  >> RW_TAC std_ss []
  >> POP_ASSUM K_TAC (* useless after rewriting *)
  (* applying OBS_contracts_subst_context *)
@@ -2346,7 +2347,7 @@ Proof
      take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
  >> DISCH_TAC
  >> `(LENGTH Ps = LENGTH Xs) /\ (LENGTH Qs = LENGTH Xs)`
-      by PROVE_TAC [CCS_solution_LENGTH]
+      by PROVE_TAC [CCS_solution_length]
  >> rpt STRIP_TAC (* 2 subgoals (not symmetric!) *)
  >| [ (* goal 1 (of 2) *)
       IMP_RES_TAC WEAK_TRANS_AND_TRACE \\
@@ -2365,7 +2366,7 @@ Proof
       >- (irule USC_unfolding_lemma4 >> art [] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
-     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
+     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
       RW_TAC std_ss [] \\
      `OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
                     (CCS_SUBST (fromList Xs Qs) (C' n))` by PROVE_TAC [] \\
@@ -2395,7 +2396,7 @@ Proof
       >- (irule USC_unfolding_lemma4 >> art [] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
-     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_LENGTH] \\
+     `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
       RW_TAC std_ss [] \\
      `OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
                     (CCS_SUBST (fromList Xs Qs) (C' n))` by PROVE_TAC [] \\
