@@ -1772,8 +1772,7 @@ QED
 Theorem strong_unique_solution :
     !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
         !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
-                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==>
-                STRONG_EQUIV Ps Qs
+                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, EVERY_MEM,
@@ -1839,7 +1838,7 @@ Proof
        IMP_RES_TAC PROPERTY_STAR_LEFT \\
       `weakly_guarded Xs (EL i Es)` by PROVE_TAC [] \\
        Q.ABBREV_TAC `E = EL i Es` \\
-      `?E'. (E2 = CCS_SUBST (fromList Xs Ps) E') /\
+      `?E'. context Xs E' /\ (E2 = CCS_SUBST (fromList Xs Ps) E') /\
             !Qs. (LENGTH Qs = LENGTH Xs) ==>
                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                        (CCS_SUBST (fromList Xs Qs) E')`
@@ -1853,9 +1852,7 @@ Proof
        Q.EXISTS_TAC `E2` >> RW_TAC std_ss [O_DEF] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       (* context Xs E', looks true but a proof is hard. *)
-       cheat,
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> art [],
        (* goal 2 (of 2) *)
       `STRONG_EQUIV (EL i Qs) (CCS_SUBST (fromList Xs Qs) (EL i Es))`
          by METIS_TAC [EL_MAP] \\
@@ -1864,7 +1861,7 @@ Proof
       `?E2'. TRANS (CCS_SUBST (fromList Xs Qs) E) u E2' /\ STRONG_EQUIV E2' E2`
           by METIS_TAC [PROPERTY_STAR_LEFT, STRONG_EQUIV_SYM] \\
       `weakly_guarded Xs E` by PROVE_TAC [] \\
-      `?E'. (E2' = CCS_SUBST (fromList Xs Qs) E') /\
+      `?E'. context Xs E' /\ (E2' = CCS_SUBST (fromList Xs Qs) E') /\
             !Ps. (LENGTH Ps = LENGTH Xs) ==>
                  TRANS (CCS_SUBST (fromList Xs Ps) E) u
                        (CCS_SUBST (fromList Xs Ps) E')`
@@ -1878,9 +1875,7 @@ Proof
        Q.EXISTS_TAC `E1` >> RW_TAC std_ss [O_DEF] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> art [] \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) E'` >> art [] \\
-       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> REWRITE_TAC [] \\
-       (* context Xs E' *)
-       cheat ])
+       DISJ2_TAC >> Q.EXISTS_TAC `E'` >> art [] ])
  (* Case 2: E = prefix u G (not easy) *)
  >- (RW_TAC std_ss [context_prefix_rewrite, CCS_SUBST_prefix, TRANS_PREFIX_EQ] \\
      Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC >> RW_TAC bool_ss [] \\
@@ -2270,17 +2265,13 @@ Theorem USC_unfolding_lemma4 :
         (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
         (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) ==>
         !n xs Ps P'.
-           (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Xs Ps /\
-           TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' /\
-           (LENGTH xs <= n) ==>
+           (LENGTH Ps = LENGTH Xs) /\ ALL_PROC Xs Ps /\ LENGTH xs <= n /\
+           TRACE (CCS_SUBST (fromList Xs Ps) (C' n)) xs P' ==>
            ?C''. context Xs C'' /\ (P' = CCS_SUBST (fromList Xs Ps) C'') /\
                  !Qs. (LENGTH Qs = LENGTH Xs) ==>
                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs
                             (CCS_SUBST (fromList Xs Qs) C'')
 Proof
-    cheat
-QED
- (*
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
  (* re-define C' and E back to abbreviations *)
@@ -2293,10 +2284,14 @@ QED
      Know `C' 0 = C` >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
                          MATCH_MP_TAC CCS_SUBST_self \\
                          PROVE_TAC [context_def, CCS_equation_def]) \\
-     DISCH_THEN (fs o wrap) >> fs [TRACE_NIL] \\
+     DISCH_THEN (fs o wrap) >> rfs [TRACE_NIL] \\
      Q.EXISTS_TAC `C` >> art [])
  >> rpt STRIP_TAC
+ (* stage work *)
  >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC
+
+ >> cheat
+ (*
  (* like "(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)" *)
  >> Know `CCS_SUBST (fromList Xs Ps) (C' (SUC n)) =
           CCS_SUBST (fromList Xs (E Ps))
@@ -2385,7 +2380,6 @@ QED
         (MP_TAC o (Q.SPEC `Qs`)) >> BETA_TAC \\
      RW_TAC bool_ss [] \\
      cheat)
-(*
 
  >> FULL_SIMP_TAC list_ss []
  >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
@@ -2406,12 +2400,11 @@ QED
  >> REWRITE_TAC [FUNPOW]
  >> Q.UNABBREV_TAC `xs` >> art []);
  *)
- >>
-    cheat);
-*)
+QED
 
-(* Lemma 3.9 of [2], full/multivariate version of
-   UniqueSolutionsTheory.UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA *)
+(* Lemma 3.9 of [2], the full (multivariate) version
+   c.f. UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA
+ *)
 Theorem unique_solution_of_rooted_contractions_lemma :
     !Xs Es Ps Qs. CCS_equation Xs Es /\
                   EVERY (weakly_guarded Xs) Es /\
