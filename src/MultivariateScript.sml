@@ -1697,12 +1697,12 @@ Proof
        (* goal 3 (of 3) *)
        Q.PAT_X_ASSUM
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E1) u P' ==> _`
-         (MP_TAC o (Q.SPEC `Ps`)) \\
+         (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`label l`, `E1'`])) \\
+       RW_TAC std_ss [] \\       
        Q.PAT_X_ASSUM
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
-         (MP_TAC o (Q.SPEC `Ps`)) \\
-       RW_TAC std_ss [] \\
-       POP_ASSUM (MP_TAC o (Q.SPECL [`label l`, `E1'`])) \\
+         (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPECL [`label (COMPL l)`, `E2'`])) \\
        RW_TAC std_ss [] \\
        Q.EXISTS_TAC `E' || E''` \\
