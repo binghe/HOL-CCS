@@ -200,7 +200,7 @@ val [CCS_SUBST_nil,   CCS_SUBST_prefix, CCS_SUBST_sum, CCS_SUBST_par,
                    "CCS_SUBST_var",   "CCS_SUBST_rec"],
                   CONJUNCTS CCS_SUBST_def));
 
-Theorem CCS_SUBST_EMPTY :
+Theorem CCS_SUBST_FEMPTY :
     !E. CCS_SUBST FEMPTY E = E
 Proof
     Induct_on `E` >> SRW_TAC [] [CCS_SUBST_def]
@@ -212,7 +212,7 @@ Theorem CCS_SUBST_SING :
 Proof
     GEN_TAC >> Induct_on `E`
  >> SRW_TAC [] [CCS_SUBST_def, CCS_Subst_def]
- >> REWRITE_TAC [CCS_SUBST_EMPTY]
+ >> REWRITE_TAC [CCS_SUBST_FEMPTY]
 QED
 
 (* from a key list and a value list (of same length) to an alist *)
@@ -381,7 +381,7 @@ val lemma2 = Q.prove (
            (CCS_SUBST (FEMPTY |++ map) E = FOLDR (\l e. CCS_Subst e (SND l) (FST l)) E map)`,
  (* proof *)
     GEN_TAC >> Induct_on `map`
- >- SRW_TAC [] [FUPDATE_LIST_THM, CCS_SUBST_EMPTY]
+ >- SRW_TAC [] [FUPDATE_LIST_THM, CCS_SUBST_FEMPTY]
  >> rpt STRIP_TAC >> fs [MAP]
  >> MP_TAC (Q.SPECL [`E`, `CCS_SUBST (FEMPTY |++ map) E`,
                      `h::map`] lemma1) >> fs []
@@ -436,7 +436,7 @@ Theorem CCS_SUBST_self :
            (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
 Proof
     GEN_TAC >> Induct_on `Xs`
- >> SRW_TAC [] [CCS_SUBST_EMPTY, fromList_EMPTY]
+ >> SRW_TAC [] [CCS_SUBST_FEMPTY, fromList_EMPTY]
  >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==> _` MP_TAC
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_reduce)
@@ -500,13 +500,13 @@ QED
    If, instead of just substituting one (free) variable of E, we
    substitute more of them, can we say that:
 
-   [FV_SUBST_SUBSET]
+   [FV_SUBSET_BIGUNION]
    |- !Xs Ps E. FV (CCS_SUBST (Xs |-> Ps) E) SUBSET
                 (FV E) UNION BIGUNION (IMAGE FV (set Ps))`
 
    and
 
-   [BV_SUBST_SUBSET]
+   [BV_SUBSET_BIGUNION]
    |- !Xs Ps E. BV (CCS_SUBST (Xs |-> Ps) E) SUBSET
                 (BV E) UNION BIGUNION (IMAGE BV (set Ps))` hold?
  *)
@@ -518,7 +518,7 @@ QED
    or `weakly_guarded Xs E`) to make the proof even more easier --
    this eliminated a hard case where induction on Xs is required.
  *)
-Theorem BV_SUBST_SUBSET :
+Theorem BV_SUBSET_BIGUNION :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
               DISJOINT (BV E) (set Xs) ==>
               BV (CCS_SUBST (fromList Xs Ps) E) SUBSET
@@ -533,7 +533,7 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-Theorem FV_SUBST_SUBSET :
+Theorem FV_SUBSET_BIGUNION :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
               DISJOINT (BV E) (set Xs) ==>
               FV (CCS_SUBST (fromList Xs Ps) E) SUBSET
@@ -1606,6 +1606,8 @@ Definition CCS_solution_def :
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
 End
 
+(* Each solution contains the same number of CCS processes as the
+   variables - this is derived from LIST_REL's properties *)
 Theorem CCS_solution_length :
     !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
                  (LENGTH Ps = LENGTH Xs)
@@ -1622,10 +1624,9 @@ QED
    moreover, for any Qs, E{Qs/Xs} --u-> E'{Qs/Xs}."
 
    This lemma is used in proving both "strong_unique_solution"
-   and "unique_solution_of_rooted_contractions" theorems (but
-   not "unique_solution_of_obs_contractions" of Sangiorgi).
+   and "unique_solution_of_rooted_contractions" theorems.
 
-   c.f. STRONG_UNIQUE_SOLUTION_LEMMA (the uni-variate version)
+   c.f. STRONG_UNIQUE_SOLUTION_LEMMA (the univariate version)
  *)
 Theorem strong_unique_solution_lemma :
     !Xs E. weakly_guarded Xs E ==>
@@ -2425,10 +2426,10 @@ Proof
  (* applying CCS_SUBST_[FV|BV]_SUBSET *)
  >> Know `BV P SUBSET (BV E) UNION (BIGUNION (IMAGE BV (set Ps)))`
  >- (Q.UNABBREV_TAC `P` \\
-     MATCH_MP_TAC BV_SUBST_SUBSET >> art []) >> DISCH_TAC
+     MATCH_MP_TAC BV_SUBSET_BIGUNION >> art []) >> DISCH_TAC
  >> Know `FV P SUBSET (FV E) UNION (BIGUNION (IMAGE FV (set Ps)))`
  >- (Q.UNABBREV_TAC `P` \\
-     MATCH_MP_TAC FV_SUBST_SUBSET >> art []) >> DISCH_TAC
+     MATCH_MP_TAC FV_SUBSET_BIGUNION >> art []) >> DISCH_TAC
  >> fs [ALL_PROC_def, EVERY_MEM, IS_PROC_def]
  (* more cleanups before the final magic *)
  >> NTAC 2 (Q.PAT_X_ASSUM `weakly_guarded _ _` K_TAC) (* used *)
@@ -2572,7 +2573,6 @@ Proof
          MATCH_MP_TAC EQ_SYM \\
          unset [`X`, `P`] \\
          ASM_SIMP_TAC list_ss [CCS_SUBST_def, FDOM_fromList, fromList_FAPPLY_EL]) \\
-     cheat)
 
  >> Rewr' >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
