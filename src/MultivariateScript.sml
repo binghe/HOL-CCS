@@ -492,10 +492,10 @@ QED
 (* Now consider a (non-trivial) generalization of FV_SUBSET and BV_SUBSET:
 
    [FV_SUBSET]  Theorem      
-      ⊢ ∀X E E'. FV (CCS_Subst E E' X) ⊆ FV E ∪ FV E'
+      ⊢ !X E E'. FV (CCS_Subst E E' X) SUBSET FV E UNION FV E'
 
    [BV_SUBSET]  Theorem
-      ⊢ ∀X E E'. BV (CCS_Subst E E' X) ⊆ BV E ∪ BV E'
+      ⊢ !X E E'. BV (CCS_Subst E E' X) SUBSET BV E UNION BV E'
 
    If, instead of just substituting one (free) variable of E, we
    substitute more of them, can we say that:
@@ -1638,7 +1638,8 @@ Theorem strong_unique_solution_lemma :
                                  TRANS (CCS_SUBST (fromList Xs Qs) E) u
                                        (CCS_SUBST (fromList Xs Qs) E')
 Proof
-    GEN_TAC >> Induct_on `E` >> rpt STRIP_TAC (* 8 subgoals *)
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC std_ss [FV_def] (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- fs [CCS_SUBST_def, NIL_NO_TRANS]
  (* Case 1: E = Y, a variable, still impossible *)
@@ -1649,8 +1650,8 @@ Proof
  (* Case 2: E = b.E' *)
  >- (rename1 `weakly_guarded Xs (prefix b E)` \\
      fs [CCS_SUBST_def, TRANS_PREFIX_EQ] \\
-     Q.EXISTS_TAC `E` >> REWRITE_TAC [] \\
-     IMP_RES_TAC weakly_guarded_prefix) (* for `context Xs E` *)
+     Q.EXISTS_TAC `E` >> art [] \\
+     IMP_RES_TAC weakly_guarded_prefix)
  (* Case 3: E = E1 + E2 *)
  >- (IMP_RES_TAC weakly_guarded_sum \\
      fs [CCS_SUBST_def, TRANS_SUM_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
@@ -1665,13 +1666,13 @@ Proof
          (MP_TAC o (Q.SPEC `Ps`)) \\
        Q.PAT_X_ASSUM
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
-         K_TAC \\
-       RW_TAC std_ss [] \\
-       RES_TAC >> Q.EXISTS_TAC `E' || E2` \\
+         K_TAC >> RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`u`, `E1'`])) >> RW_TAC std_ss [] \\
+       Q.EXISTS_TAC `E' || E2` \\
        CONJ_TAC (* context Xs (E' || E2) *)
        >- (MATCH_MP_TAC context_par_rule >> art [] \\
            MATCH_MP_TAC weakly_guarded_imp_context >> art []) \\
-       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def, FV_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E'` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
@@ -1683,12 +1684,13 @@ Proof
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
          (MP_TAC o (Q.SPEC `Ps`)) \\
        RW_TAC std_ss [] \\
-       RES_TAC >> rename1 `context Xs E''` \\ (* fixes for stdknl *)
+       POP_ASSUM (MP_TAC o (Q.SPECL [`u`, `E1'`])) >> RW_TAC std_ss [] \\
+       rename1 `context Xs E''` \\ (* fixes for stdknl *)
        Q.EXISTS_TAC `E1 || E''` \\
        CONJ_TAC (* context Xs (E1 || E'') *)
        >- (MATCH_MP_TAC context_par_rule >> art [] \\
            MATCH_MP_TAC weakly_guarded_imp_context >> art []) \\
-       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def, FV_def] \\
        GEN_TAC >> DISCH_TAC >> DISJ2_TAC >> DISJ1_TAC \\
        Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) E''` >> REWRITE_TAC [] \\
        FIRST_X_ASSUM MATCH_MP_TAC >> art [],
@@ -1700,30 +1702,42 @@ Proof
          `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E2) u P' ==> _`
          (MP_TAC o (Q.SPEC `Ps`)) \\
        RW_TAC std_ss [] \\
-       RES_TAC >> Q.EXISTS_TAC `E' || E''` \\
-       CONJ_TAC (* context Xs (E' || E'') *)
-       >- (MATCH_MP_TAC context_par_rule >> art []) \\
-       ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`label l`, `E1'`])) \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`label (COMPL l)`, `E2'`])) \\
+       RW_TAC std_ss [] \\
+       Q.EXISTS_TAC `E' || E''` \\
+       CONJ_TAC >- (MATCH_MP_TAC context_par_rule >> art []) \\
+       ASM_SIMP_TAC std_ss [CCS_SUBST_def, FV_def] \\
        GEN_TAC >> DISCH_TAC >> NTAC 2 DISJ2_TAC \\
        take [`CCS_SUBST (fromList Xs Qs) E'`,
              `CCS_SUBST (fromList Xs Qs) E''`, `l`] >> fs [] ])
  (* Case 5: E = restr f E' *)
  >- (IMP_RES_TAC weakly_guarded_restr \\
-     fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] \\ (* 2 subgoals, same tactics *)
-     RES_TAC >> Q.EXISTS_TAC `restr f E'` \\
-     rfs [CCS_SUBST_def] \\
-     MATCH_MP_TAC context_restr_rule >> art [])
+     fs [CCS_SUBST_def, TRANS_RESTR_EQ, FV_def] >| (* 2 subgoals *)
+     [ (* goal 1 (of 2) *)
+       Q.PAT_X_ASSUM `!Ps. (LENGTH Ps = LENGTH Xs) ==> _` (MP_TAC o (Q.SPEC `Ps`)) \\
+       RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`tau`, `E''`])) >> RW_TAC std_ss [] \\
+       Q.EXISTS_TAC `restr f E'` \\
+       rfs [CCS_SUBST_def, FV_def] \\
+       MATCH_MP_TAC context_restr_rule >> art [],
+       (* goal 2 (of 2) *)
+       Q.PAT_X_ASSUM `!Ps. (LENGTH Ps = LENGTH Xs) ==> _` (MP_TAC o (Q.SPEC `Ps`)) \\
+       RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`label l`, `E''`])) >> RW_TAC std_ss [] \\
+       Q.EXISTS_TAC `restr f E'` \\
+       rfs [CCS_SUBST_def, FV_def] \\
+       MATCH_MP_TAC context_restr_rule >> art [] ])
  (* Case 6: E = relab E' R *)
  >- (IMP_RES_TAC weakly_guarded_relab \\
-     fs [CCS_SUBST_def, TRANS_RELAB_EQ, FV_def] \\
-     Q.PAT_X_ASSUM
-       `!Ps. _ ==> !u P'. TRANS (CCS_SUBST (fromList Xs Ps) E) u P' ==> _`
-       (MP_TAC o (Q.SPEC `Ps`)) \\
+     Q.PAT_X_ASSUM `weakly_guarded Xs E ==> _` MP_TAC \\
      RW_TAC std_ss [] \\
-     RES_TAC >> Q.EXISTS_TAC `relab E' R` \\
-     CONJ_TAC (* `context Xs (relab E' R)` *)
-     >- (MATCH_MP_TAC context_relab_rule >> art []) \\
-     ASM_SIMP_TAC std_ss [CCS_SUBST_def] \\
+     POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
+     fs [CCS_SUBST_def, TRANS_RELAB_EQ, FV_def] \\
+     POP_ASSUM (MP_TAC o (Q.SPECL [`u'`, `E''`])) >> RW_TAC std_ss [] \\
+     Q.EXISTS_TAC `relab E' R` \\
+     CONJ_TAC >- (MATCH_MP_TAC context_relab_rule >> art []) \\
+     ASM_SIMP_TAC std_ss [CCS_SUBST_def, FV_def] \\
      GEN_TAC >> DISCH_TAC \\
      take [`u'`, `CCS_SUBST (fromList Xs Qs) E'`] >> art [] \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
@@ -1749,20 +1763,20 @@ Proof
      take [`BV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL] \\
      MATCH_MP_TAC TRANS_BV \\
      Q.EXISTS_TAC `u` >> art []) >> DISCH_TAC
- >> Reverse CONJ_TAC
- >- (CONJ_TAC
-     >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_elim >> art []) \\
-     rpt STRIP_TAC \\
-     Know `CCS_SUBST (fromList Xs Qs) (rec Y E) = rec Y E`
-     >- (irule CCS_SUBST_elim >> art []) >> Rewr' \\
-     Know `CCS_SUBST (fromList Xs Qs) P' = P'`
-     >- (irule CCS_SUBST_elim >> art []) >> Rewr' >> art [])
- (* context Xs P' *)
- >> RW_TAC std_ss [context_def, EVERY_MEM]
- >> Suff `!t. CCS_Subst P' t X = P'`
- >- (Rewr' >> REWRITE_TAC [CONTEXT2])
- >> REWRITE_TAC [GSYM CCS_Subst_elim]
- >> ASM_SET_TAC []
+ >> CONJ_TAC (* context Xs P' *)
+ >- (RW_TAC std_ss [context_def, EVERY_MEM] \\
+     Suff `!t. CCS_Subst P' t X = P'`
+     >- (Rewr' >> REWRITE_TAC [CONTEXT2]) \\
+     REWRITE_TAC [GSYM CCS_Subst_elim] \\
+     ASM_SET_TAC [])
+ >> CONJ_TAC
+ >- (MATCH_MP_TAC EQ_SYM >> irule CCS_SUBST_elim >> art [])
+ >> rpt STRIP_TAC
+ >> Know `CCS_SUBST (fromList Xs Qs) (rec Y E) = rec Y E`
+ >- (irule CCS_SUBST_elim >> art []) >> Rewr'
+ >> Know `CCS_SUBST (fromList Xs Qs) P' = P'`
+ >- (irule CCS_SUBST_elim >> art [])
+ >> Rewr' >> art []
 QED
 
 (* THE STAGE THEOREM:
@@ -1781,7 +1795,7 @@ Proof
  >> Q.ABBREV_TAC `Q = EL n Qs`
  >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
  >> Q.EXISTS_TAC `\x y. (x = y) \/
-                        (?G. context Xs G /\
+                        (?G. context Xs G /\ (* FV G SUBSET (set Xs) *)
                              (x = CCS_SUBST (fromList Xs Ps) G) /\
                              (y = CCS_SUBST (fromList Xs Qs) G))`
  >> BETA_TAC >> Reverse CONJ_TAC
@@ -1789,6 +1803,7 @@ Proof
      unset [`P`, `Q`] \\
      SRW_TAC [] [CCS_SUBST_def, FV_def, MEM_EL, FDOM_fromList] (* 5 subgoals *)
      >- REWRITE_TAC [context_var]
+  (* >- (Q.EXISTS_TAC `n` >> art []) *)
      >- (MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
      >- METIS_TAC []
      >- (MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC fromList_FAPPLY_EL >> art [])
@@ -1808,7 +1823,7 @@ Proof
        Q.EXISTS_TAC `E2` >> art [STRONG_EQUIV_REFL] \\
        BETA_TAC >> DISJ1_TAC >> REWRITE_TAC [] ])
  >> NTAC 2 POP_ORW
-(* >> POP_ASSUM MP_TAC (* `FV G SUBSET set Xs` *) *)
+ >> POP_ASSUM MP_TAC >> Q.SPEC_TAC (`G`, `G`)
  >> Induct_on `G` (* 8 subgoals *)
  (* Case 0: E = nil, impossible *)
  >- RW_TAC std_ss [CCS_SUBST_def, NIL_NO_TRANS]
@@ -1828,7 +1843,7 @@ Proof
     `(CCS_SUBST (fromList Xs Ps) (var (EL i Xs)) = EL i Ps) /\
      (CCS_SUBST (fromList Xs Qs) (var (EL i Xs)) = EL i Qs)` by PROVE_TAC [] \\
   (* applying strong_unique_solution_lemma *)
-     RW_TAC std_ss [] >| (* 2 subgoals (symmetric) *)
+     RW_TAC std_ss [FV_def] >| (* 2 subgoals (symmetric) *)
      [ (* goal 1 (of 2) *)
       `STRONG_EQUIV (EL i Ps) (CCS_SUBST (fromList Xs Ps) (EL i Es))`
          by METIS_TAC [EL_MAP] \\
@@ -1885,7 +1900,7 @@ Proof
      RW_TAC std_ss [CCS_SUBST_def, TRANS_SUM_EQ] >| (* 4 subgoals *)
      [ (* goal 1 (of 4) *)
        Q.PAT_X_ASSUM `context Xs G' ==> _` K_TAC \\
-       Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC >> RW_TAC bool_ss [] \\
+       Q.PAT_X_ASSUM `context Xs G  ==> _` MP_TAC >> RW_TAC bool_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `u`)) >> RW_TAC bool_ss [] \\
        Q.PAT_X_ASSUM `!E2. TRANS (CCS_SUBST (fromList Xs Qs) G) u E2 ==> _` K_TAC \\
        POP_ASSUM (MP_TAC o (Q.SPEC `E1`)) >> RW_TAC std_ss [O_DEF] >|
@@ -1902,7 +1917,7 @@ Proof
          Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) G''` >> art [] \\
          DISJ2_TAC >> Q.EXISTS_TAC `G''` >> art [] ],
        (* goal 2 (of 4) *)
-       Q.PAT_X_ASSUM `context Xs G ==> _` K_TAC \\
+       Q.PAT_X_ASSUM `context Xs G  ==> _` K_TAC \\
        Q.PAT_X_ASSUM `context Xs G' ==> _` MP_TAC >> RW_TAC bool_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `u`)) >> RW_TAC bool_ss [] \\
        Q.PAT_X_ASSUM `!E2. TRANS (CCS_SUBST (fromList Xs Qs) G') u E2 ==> _` K_TAC \\
@@ -1921,7 +1936,7 @@ Proof
          DISJ2_TAC >> Q.EXISTS_TAC `G''` >> art [] ],
        (* goal 3 (of 4) *)
        Q.PAT_X_ASSUM `context Xs G' ==> _` K_TAC \\
-       Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC >> RW_TAC bool_ss [] \\
+       Q.PAT_X_ASSUM `context Xs G  ==> _` MP_TAC >> RW_TAC bool_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `u`)) >> RW_TAC bool_ss [] \\
        Q.PAT_X_ASSUM `!E1. TRANS (CCS_SUBST (fromList Xs Ps) G) u E1 ==> _` K_TAC \\
        POP_ASSUM (MP_TAC o (Q.SPEC `E2`)) >> RW_TAC std_ss [O_DEF] >|
@@ -1938,7 +1953,7 @@ Proof
          Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) G''` >> art [] \\
          DISJ2_TAC >> Q.EXISTS_TAC `G''` >> art [] ],
        (* goal 4 (of 4) *)
-       Q.PAT_X_ASSUM `context Xs G ==> _` K_TAC \\
+       Q.PAT_X_ASSUM `context Xs G  ==> _` K_TAC \\
        Q.PAT_X_ASSUM `context Xs G' ==> _` MP_TAC >> RW_TAC bool_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `u`)) >> RW_TAC bool_ss [] \\
        Q.PAT_X_ASSUM `!E1. TRANS (CCS_SUBST (fromList Xs Ps) G') u E1 ==> _` K_TAC \\
@@ -1955,8 +1970,30 @@ Proof
          Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) G''` >> art [] \\
          Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) G''` >> art [] \\
          DISJ2_TAC >> Q.EXISTS_TAC `G''` >> art [] ] ])
- (* Case 4: E = G || G' (not easy) *)
+ (* Case 4: E = G || G' (hard) *)
  >- cheat
+ (* strange ...
+ >- (DISCH_THEN (STRIP_ASSUME_TAC o (REWRITE_RULE [context_par_rewrite])) \\
+     RW_TAC std_ss [CCS_SUBST_def, TRANS_PAR_EQ] >| (* 6 subgoals! *)
+     [ (* goal 1 (of 6) *)
+       Q.PAT_X_ASSUM `context Xs G' ==> _` K_TAC \\
+       Q.PAT_X_ASSUM `context Xs G  ==> _` MP_TAC >> RW_TAC bool_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `u`)) >> RW_TAC bool_ss [] \\
+       Q.PAT_X_ASSUM `!E2. TRANS (CCS_SUBST (fromList Xs Qs) G) u E2 ==> _` K_TAC \\
+       Q.PAT_X_ASSUM `!E1. TRANS (CCS_SUBST (fromList Xs Ps) G) u E1 ==> _`
+          (MP_TAC o (Q.SPEC `E1'`)) >> RW_TAC std_ss [O_DEF] >|
+       [ (* goal 1.1 (of 2) *)
+         Q.EXISTS_TAC `E2 || (CCS_SUBST (fromList Xs Qs) G')` \\
+         CONJ_TAC >- (DISJ1_TAC >> Q.EXISTS_TAC `E2` >> art []) \\
+         Q.EXISTS_TAC `E2 || CCS_SUBST (Xs |-> Qs) G'` \\
+         REWRITE_TAC [STRONG_EQUIV_REFL] \\
+        `STRONG_EQUIV E1' E2` by PROVE_TAC [STRONG_EQUIV_TRANS] \\
+        `STRONG_EQUIV (E1' || (CCS_SUBST (fromList Xs Ps) G'))
+                      (E2  || (CCS_SUBST (fromList Xs Ps) G'))`
+            by PROVE_TAC [STRONG_EQUIV_SUBST_PAR_R] \\
+         Q.EXISTS_TAC `E2 || (CCS_SUBST (fromList Xs Ps) G')` >> art [] \\
+         DISJ2_TAC \\
+  *)
  (* Case 5: E = restr f G (not easy) *)
  >- (GEN_TAC \\
      DISCH_THEN (ASSUME_TAC o (REWRITE_RULE [context_restr_rewrite])) \\
@@ -2906,9 +2943,12 @@ Proof
      [ (* goal 1 (of 2) *)
       `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` by METIS_TAC [EL_MAP] \\
        IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
-       Q.PAT_X_ASSUM `weakly_guarded Xs E`
-         (MP_TAC o (Q.SPEC `Ps`) o (MATCH_MP strong_unique_solution_lemma)) \\
-       RW_TAC std_ss [] >> RES_TAC \\
+       MP_TAC (Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma) \\
+      `MEM E Es` by PROVE_TAC [MEM_EL] \\
+      `FV E SUBSET (set Xs)` by PROVE_TAC [] \\
+       RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`u`, `E2`])) >> RW_TAC std_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) >> RW_TAC std_ss [] \\
       `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
        Q.PAT_X_ASSUM `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` K_TAC \\
@@ -2919,9 +2959,13 @@ Proof
        (* goal 2 (of 2) *)
       `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
        IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
-       Q.PAT_X_ASSUM `weakly_guarded Xs E`
-         (MP_TAC o (Q.SPEC `Qs`) o (MATCH_MP strong_unique_solution_lemma)) \\
-       RW_TAC std_ss [] >> RES_TAC \\
+
+       MP_TAC (Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma) \\
+      `MEM E Es` by PROVE_TAC [MEM_EL] \\
+      `FV E SUBSET (set Xs)` by PROVE_TAC [] \\
+       RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) >> RW_TAC std_ss [] \\
+       POP_ASSUM (MP_TAC o (Q.SPECL [`u`, `E2'`])) >> RW_TAC std_ss [] \\
        POP_ASSUM (MP_TAC o (Q.SPEC `Ps`)) >> RW_TAC std_ss [] \\
       `OBS_contracts P (CCS_SUBST (fromList Xs Ps) E)` by METIS_TAC [EL_MAP] \\
        Q.PAT_X_ASSUM `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` K_TAC \\
