@@ -2451,6 +2451,8 @@ Proof
  >- (MATCH_MP_TAC FDOM_fromList >> art [])
  >> DISCH_THEN (fs o wrap)
  >> Q.EXISTS_TAC `P'`
+ (* TODO: check if `DISJOINT (BV P') (set Xs)` can be eliminated,
+    by eliminating it in all dependent lemmas. *)
  >> Suff `DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs)`
  >- (STRIP_TAC \\
      CONJ_TAC >- (MATCH_MP_TAC disjoint_imp_context >> art []) \\
@@ -2467,7 +2469,9 @@ Proof
  (* cleanups and renames before the final battle *)
  >> rename1 `~MEM Y Xs`
  >> Q.PAT_X_ASSUM `!Ps u P'. LENGTH Ps = LENGTH Xs /\ _ ==> _` K_TAC
- (* hard goal: DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs)
+ (* hard goal:
+
+    DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs)
 
     given: rec Y (CCS_SUBST (Xs |-> Ps) E) --u-> P' /\ ~MEM Y Xs
 
@@ -2540,7 +2544,7 @@ Proof
  >> MATCH_MP_TAC CCS_SUBST_nested >> art []
 QED
 
-(* This lemma is directly used in unique_solution_of_rooted_contractions_lemma *)
+(* This lemma is (directly) used in unique_solution_of_rooted_contractions_lemma *)
 Theorem USC_unfolding_lemma4 :
     !Xs Es E C C'.
         CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\ context Xs C /\
@@ -2556,25 +2560,51 @@ Theorem USC_unfolding_lemma4 :
 Proof
     rpt GEN_TAC >> STRIP_TAC
  >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
+ >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
  (* re-define C' and E back to abbreviations *)
  >> Q.PAT_X_ASSUM `C' = _` ((FULL_SIMP_TAC pure_ss) o wrap)
- >> Q.PAT_X_ASSUM `E = _` ((FULL_SIMP_TAC pure_ss) o wrap)
- >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
+ >> Q.PAT_X_ASSUM `E  = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ >> Q.ABBREV_TAC  `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Q.ABBREV_TAC  `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
+ >> Know `C' 0 = C`
+ >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
+     MATCH_MP_TAC CCS_SUBST_self \\
+     PROVE_TAC [context_def, CCS_equation_def]) >> DISCH_TAC
  (* kick-start: induction *)
- >> Induct_on `n`
- >- (rpt STRIP_TAC \\
-     Know `C' 0 = C` >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
-                         MATCH_MP_TAC CCS_SUBST_self \\
-                         PROVE_TAC [context_def, CCS_equation_def]) \\
-     DISCH_THEN (fs o wrap) >> rfs [TRACE_NIL] \\
-     Q.EXISTS_TAC `C` >> art [])
- >> rpt STRIP_TAC
+ >> Induct_on `n` >> rpt STRIP_TAC
+ >- (rfs [TRACE_NIL] >> Q.EXISTS_TAC `C` >> art [])
  (* stage work *)
  >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC
- >> Know `!n. CCS_SUBST (fromList Xs Ps) (C' (SUC n)) =
-              CCS_SUBST (fromList Xs (E Ps)) (C' n)`
+ >> Know `!i. CCS_SUBST (fromList Xs Ps) (C' (SUC i)) =
+              CCS_SUBST (fromList Xs (E Ps)) (C' i)`
  >- cheat
+ (*
+ >- (Q.X_GEN_TAC `m` >> Q.UNABBREV_TAC `C'` \\
+     SIMP_TAC std_ss [FUNPOW_SUC] \\
+     Q.ABBREV_TAC `A = FUNPOW E m (MAP var Xs)` \\
+     MP_TAC (Q.SPECL [`Xs`, `Ps`,
+                      `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) A`, `C`]
+                      CCS_SUBST_nested) \\
+    `LENGTH (E A) = LENGTH Xs` by cheat \\
+     RW_TAC std_ss [] \\
+     POP_ASSUM K_TAC \\
+     MP_TAC (Q.SPECL [`Xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`,
+                      `A`, `C`] CCS_SUBST_nested) \\
+    `LENGTH (E Ps) = LENGTH Xs` by cheat \\
+    `LENGTH A = LENGTH Xs` by cheat \\
+     RW_TAC std_ss [] \\
+     POP_ASSUM K_TAC \\
+     Suff `MAP (CCS_SUBST (fromList Xs Ps)) (E A) =
+           MAP (CCS_SUBST (fromList Xs (E Ps))) A` >- rw [] \\
+     RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
+     Q.UNABBREV_TAC `E` >> BETA_TAC \\
+    `x < LENGTH Es` by PROVE_TAC [] \\
+     ASM_SIMP_TAC list_ss [EL_MAP] \\
+     MP_TAC (Q.SPECL [`Xs`, `Ps`, `Es`, `EL x A`] CCS_SUBST_nested) \\
+    `DISJOINT (BV (EL x A)) (set Xs)` by cheat \\
+     RW_TAC std_ss [] \\
+     POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM) \\
+ *)
  >> Rewr' >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
