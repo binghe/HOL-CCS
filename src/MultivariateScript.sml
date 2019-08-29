@@ -1756,7 +1756,7 @@ Proof
  >- (MATCH_MP_TAC SUBSET_DISJOINT \\
      take [`FV (rec Y E) UNION BV (rec Y E)`, `set Xs`] >> art [SUBSET_REFL] \\
      CONJ_TAC >- ASM_SET_TAC [] \\
-     MATCH_MP_TAC TRANS_FV \\
+     MATCH_MP_TAC TRANS_FV_old \\
      Q.EXISTS_TAC `u` >> art []) >> DISCH_TAC
  >> Know `DISJOINT (BV P') (set Xs)`
  >- (MATCH_MP_TAC SUBSET_DISJOINT \\
@@ -2456,7 +2456,7 @@ Proof
     is also disjoint with (set Xs), i.e. `ALL_PROC Xs Ps` must hold.
   *)
  >> Q.ABBREV_TAC `P = CCS_SUBST (fromList Xs Ps) E`
- >> IMP_RES_TAC TRANS_FV
+ >> IMP_RES_TAC TRANS_FV_old
  >> IMP_RES_TAC TRANS_BV
  >> fs [FV_def, BV_def]
  >> `DISJOINT (BV E) (set Xs)` by PROVE_TAC [weakly_guarded_def]

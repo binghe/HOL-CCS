@@ -933,10 +933,10 @@ Proof
  >> fs [BV_SUBSET_REC]
 QED
 
-Theorem TRANS_FV :
+Theorem TRANS_FV_old :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
 Proof
-    HO_MATCH_MP_TAC TRANS_ind
+    HO_MATCH_MP_TAC TRANS_strongind
  >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
  >- ASM_SET_TAC [] (* 1 *)
  >- ASM_SET_TAC [] (* 2 *)
@@ -953,6 +953,53 @@ Proof
  >> MATCH_MP_TAC SUBSET_TRANS
  >> Q.EXISTS_TAC `A UNION B` >> art []
  >> ASM_SET_TAC []
+QED
+
+(* The magical proof of TRANS_FV : (by induction on `TRANS`)
+
+        FV E' ⊆ FV E DELETE X
+   ------------------------------------
+    0.  CCS_Subst E (rec X E) X --u-> E'
+    1.  FV E' ⊆ FV (CCS_Subst E (rec X E) X)
+    2.  FV (CCS_Subst E (rec X E) X) ⊆ FV E
+    3.  FV E' ⊆ FV E
+
+  It's possible that X is a free variable in E, and then
+ `CCS_Subst E (rec X E) X` changed X into a bound variable by
+  replacing every (free) `var X` in E with `rec X (...)`,
+  that's why `FV (CCS_Subst E (rec X E) X) ⊆ FV E`.
+
+  Is X in (BV E')? Yes, possible.
+
+  Is X in (FV E')? No. Because if it's in (FV E'), it must
+  be also in FV (CCS_Subst E (rec X E) X), but this should
+  be impossible as `CCS_Subst E (rec X E) X` as turned
+  all free X into bound X. Proven by induction on X.
+ *)
+Theorem NOTIN_FV :
+    !X E E'. X NOTIN FV (CCS_Subst E (rec X E') X)
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def]
+QED
+
+Theorem TRANS_FV :
+    !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E)
+Proof
+    HO_MATCH_MP_TAC TRANS_strongind
+ >> RW_TAC lset_ss [FV_def] (* 7 subgoals *)
+ >- ASM_SET_TAC [] (* 1 *)
+ >- ASM_SET_TAC [] (* 2 *)
+ >- ASM_SET_TAC [] (* 3 *)
+ >- ASM_SET_TAC [] (* 4 *)
+ >- ASM_SET_TAC [] (* 5 *)
+ >- ASM_SET_TAC [] (* 6 *)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
+ >> `FV E' SUBSET FV E` by PROVE_TAC [SUBSET_TRANS]
+ >> Suff `X NOTIN (FV E')` >- ASM_SET_TAC []
+ >> CCONTR_TAC >> fs [] (* reductio ad absurdum *)
+ >> `X IN FV (CCS_Subst E (rec X E) X)` by ASM_SET_TAC []
+ >> METIS_TAC [NOTIN_FV]
 QED
 
 Theorem BV_REC :
