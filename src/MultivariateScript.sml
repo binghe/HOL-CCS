@@ -1990,8 +1990,6 @@ Proof
          Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) G''` >> art [] \\
          DISJ2_TAC >> Q.EXISTS_TAC `G''` >> art [] ] ])
  (* Case 4: E = G || G' (hard) *)
- >- cheat
- (* strange ...
  >- (DISCH_THEN (STRIP_ASSUME_TAC o (REWRITE_RULE [context_par_rewrite])) \\
      RW_TAC std_ss [CCS_SUBST_def, TRANS_PAR_EQ] >| (* 6 subgoals! *)
      [ (* goal 1 (of 6) *)
@@ -2011,8 +2009,33 @@ Proof
                       (E2  || (CCS_SUBST (fromList Xs Ps) G'))`
             by PROVE_TAC [STRONG_EQUIV_SUBST_PAR_R] \\
          Q.EXISTS_TAC `E2 || (CCS_SUBST (fromList Xs Ps) G')` >> art [] \\
+         DISJ2_TAC >> Q.EXISTS_TAC `E2 || G'` \\
+         cheat,
+         (* goal 1.2 (of 2) *)
+         Q.EXISTS_TAC `E2 || (CCS_SUBST (fromList Xs Qs) G')` \\
+         CONJ_TAC >- (DISJ1_TAC >> Q.EXISTS_TAC `E2` >> art []) \\
+         Q.EXISTS_TAC `E2 || CCS_SUBST (Xs |-> Qs) G'` \\
+         REWRITE_TAC [STRONG_EQUIV_REFL] \\
+        `STRONG_EQUIV (E1' || (CCS_SUBST (fromList Xs Ps) G'))
+                      (par (CCS_SUBST (fromList Xs Ps) G'')
+                           (CCS_SUBST (fromList Xs Ps) G'))`
+            by PROVE_TAC [STRONG_EQUIV_SUBST_PAR_R] \\
+         Q.EXISTS_TAC `par (CCS_SUBST (fromList Xs Ps) G'')
+                           (CCS_SUBST (fromList Xs Ps) G')` >> art [] \\
          DISJ2_TAC \\
-  *)
+         Q.EXISTS_TAC `G'' || G'` >> REWRITE_TAC [CCS_SUBST_par] \\
+         CONJ_TAC >- art [context_par_rewrite] \\
+         cheat ],
+       (* goal 2 (of 6) *)
+       cheat,
+       (* goal 3 (of 6) *)
+       cheat,
+       (* goal 4 (of 6) *)
+       cheat,
+       (* goal 5 (of 6) *)
+       cheat,
+       (* goal 6 (of 6) *)
+       cheat ])
  (* Case 5: E = restr f G (not easy) *)
  >- (GEN_TAC \\
      DISCH_THEN (ASSUME_TAC o (REWRITE_RULE [context_restr_rewrite])) \\
@@ -2646,18 +2669,18 @@ Proof
  (* hard part *)
  >> FULL_SIMP_TAC list_ss []
  >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
- >> Q.ABBREV_TAC `xs = FRONT (h::t)`
- >> Q.ABBREV_TAC `x = LAST (h::t)`
- >> rename1 `TRANS P x P'`
- >> Q.PAT_X_ASSUM `!xs Ps P'. _ ==> ?C''. _`
-       (MP_TAC o
-        (Q.SPECL [`xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`, `P`]))
+ >> rename1 `TRANS P _ P'`
+ >> Q.ABBREV_TAC `us = FRONT (h::t)`
+ >> Q.ABBREV_TAC `u = LAST (h::t)`
+ >> Q.PAT_X_ASSUM `!us Ps P'. _ ==> ?C''. _`
+      (MP_TAC o
+       (Q.SPECL [`us`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`, `P`]))
  >> `LENGTH (E Ps) = LENGTH Xs` by cheat
  >> `ALL_PROC Xs (E Ps)` by cheat
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`Xs`, `C''`, `Es`] USC_unfolding_lemma3) (* here *)
  >> RW_TAC bool_ss []
- >> POP_ASSUM (MP_TAC o (Q.SPECL [`Ps`, `x`, `P'`]))
+ >> POP_ASSUM (MP_TAC o (Q.SPECL [`Ps`, `u`, `P'`]))
  >> RW_TAC bool_ss []
  >> Q.EXISTS_TAC `C'''` >> art []
  >> RW_TAC std_ss [Once TRACE_cases2, NULL]
@@ -2908,7 +2931,7 @@ Proof
          FIRST_X_ASSUM MATCH_MP_TAC \\
          REWRITE_TAC [MEM_EL] \\
          Q.EXISTS_TAC `n` >> art []) \\
-     CONJ_TAC (* 2 subgoals, same initial tactic *) \\
+     CONJ_TAC \\ (* 2 subgoals, same initial tactic *)
      MATCH_MP_TAC OBS_contracts_IMP_WEAK_EQUIV >|
      [ (* goal 1 (of 2) *)
        Q.PAT_X_ASSUM `!n. n < LENGTH Ps ==> X` (MP_TAC o (Q.SPEC `n`)) \\
@@ -2989,7 +3012,7 @@ Proof
 QED
 
 (* ========================================================================== *)
-(* Bibliography:
+(*   Bibliography:
 
  [1] Milner, R.: Communication and Concurrency. Prentice Hall International
      Series in Computer Science (1989).
