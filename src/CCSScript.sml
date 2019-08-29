@@ -873,18 +873,6 @@ Definition FV_def :
    (FV (rec X p)           = (FV p) DELETE X)
 End
 
-(* ('a, 'b) CCS -> 'a set (set of bound variables) *)
-Definition BV_def :
-   (BV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
-   (BV (prefix u p)        = BV p) /\
-   (BV (sum p q)           = (BV p) UNION (BV q)) /\
-   (BV (par p q)           = (BV p) UNION (BV q)) /\
-   (BV (restr L p)         = BV p) /\
-   (BV (relab p rf)        = BV p) /\
-   (BV (var X)             = EMPTY) /\
-   (BV (rec X p)           = X INSERT (BV p))
-End
-
 Theorem FV_SUBSET :
     !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
 Proof
@@ -899,60 +887,6 @@ Proof
     rpt GEN_TAC
  >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] FV_SUBSET)
  >> ASM_SET_TAC [FV_def]
-QED
-
-Theorem BV_SUBSET :
-    !X E E'. BV (CCS_Subst E E' X) SUBSET (BV E) UNION (BV E')
-Proof
-    GEN_TAC >> Induct_on `E`
- >> RW_TAC lset_ss [BV_def, CCS_Subst_def]
- >> ASM_SET_TAC []
-QED
-
-Theorem BV_SUBSET_REC :
-    !X E. BV (CCS_Subst E (rec X E) X) SUBSET (X INSERT (BV E))
-Proof
-    rpt GEN_TAC
- >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] BV_SUBSET)
- >> ASM_SET_TAC [BV_def]
-QED
-
-Theorem TRANS_BV :
-    !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
-Proof
-    HO_MATCH_MP_TAC TRANS_ind
- >> RW_TAC lset_ss [BV_def] (* 7 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
- >> MATCH_MP_TAC SUBSET_TRANS
- >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
- >> fs [BV_SUBSET_REC]
-QED
-
-Theorem TRANS_FV_old :
-    !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
-Proof
-    HO_MATCH_MP_TAC TRANS_strongind
- >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
- >- ASM_SET_TAC [] (* 7 *)
- >- ASM_SET_TAC [] (* 8 *)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
- >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
- >> Q.ABBREV_TAC `B = BV (CCS_Subst E (rec X E) X)`
- >> MATCH_MP_TAC SUBSET_TRANS
- >> Q.EXISTS_TAC `A UNION B` >> art []
- >> ASM_SET_TAC []
 QED
 
 (* The magical proof of TRANS_FV : (by induction on `TRANS`)
@@ -1000,20 +934,6 @@ Proof
  >> CCONTR_TAC >> fs [] (* reductio ad absurdum *)
  >> `X IN FV (CCS_Subst E (rec X E) X)` by ASM_SET_TAC []
  >> METIS_TAC [NOTIN_FV]
-QED
-
-Theorem BV_REC :
-    !X E. X IN BV (rec X E)
-Proof
-    RW_TAC std_ss [BV_def, IN_INSERT]
-QED
-
-Theorem BV_SUBSET_rules :
-    !X E E'. (BV E) SUBSET (BV (rec X E)) /\
-             (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
-             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
-Proof
-    rpt GEN_TAC >> SET_TAC [BV_def]
 QED
 
 val lemma1 = Q.prove (
@@ -1078,6 +998,86 @@ Proof
     GEN_TAC >> Induct_on `E`
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
+QED
+
+(* ('a, 'b) CCS -> 'a set (set of bound variables) *)
+Definition BV_def :
+   (BV (nil :('a, 'b) CCS) = (EMPTY :'a set)) /\
+   (BV (prefix u p)        = BV p) /\
+   (BV (sum p q)           = (BV p) UNION (BV q)) /\
+   (BV (par p q)           = (BV p) UNION (BV q)) /\
+   (BV (restr L p)         = BV p) /\
+   (BV (relab p rf)        = BV p) /\
+   (BV (var X)             = EMPTY) /\
+   (BV (rec X p)           = X INSERT (BV p))
+End
+
+Theorem BV_SUBSET :
+    !X E E'. BV (CCS_Subst E E' X) SUBSET (BV E) UNION (BV E')
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC lset_ss [BV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
+QED
+
+Theorem BV_SUBSET_REC :
+    !X E. BV (CCS_Subst E (rec X E) X) SUBSET (X INSERT (BV E))
+Proof
+    rpt GEN_TAC
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `rec X E`] BV_SUBSET)
+ >> ASM_SET_TAC [BV_def]
+QED
+
+Theorem TRANS_BV :
+    !E u E'. TRANS E u E' ==> BV E' SUBSET BV E
+Proof
+    HO_MATCH_MP_TAC TRANS_ind
+ >> RW_TAC lset_ss [BV_def] (* 7 subgoals *)
+ >- ASM_SET_TAC [] (* 1 *)
+ >- ASM_SET_TAC [] (* 2 *)
+ >- ASM_SET_TAC [] (* 3 *)
+ >- ASM_SET_TAC [] (* 4 *)
+ >- ASM_SET_TAC [] (* 5 *)
+ >- ASM_SET_TAC [] (* 6 *)
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
+ >> fs [BV_SUBSET_REC]
+QED
+
+Theorem TRANS_FV_old :
+    !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
+Proof
+    HO_MATCH_MP_TAC TRANS_strongind
+ >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
+ >- ASM_SET_TAC [] (* 1 *)
+ >- ASM_SET_TAC [] (* 2 *)
+ >- ASM_SET_TAC [] (* 3 *)
+ >- ASM_SET_TAC [] (* 4 *)
+ >- ASM_SET_TAC [] (* 5 *)
+ >- ASM_SET_TAC [] (* 6 *)
+ >- ASM_SET_TAC [] (* 7 *)
+ >- ASM_SET_TAC [] (* 8 *)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
+ >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
+ >> Q.ABBREV_TAC `B = BV (CCS_Subst E (rec X E) X)`
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `A UNION B` >> art []
+ >> ASM_SET_TAC []
+QED
+
+Theorem BV_REC :
+    !X E. X IN BV (rec X E)
+Proof
+    RW_TAC std_ss [BV_def, IN_INSERT]
+QED
+
+Theorem BV_SUBSET_rules :
+    !X E E'. (BV E) SUBSET (BV (rec X E)) /\
+             (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
+             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
+Proof
+    rpt GEN_TAC >> SET_TAC [BV_def]
 QED
 
 (**********************************************************************)
