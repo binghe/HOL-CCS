@@ -1589,7 +1589,10 @@ Definition CCS_equation_def :
 End
 
 (* The requirement `DISJOINT (BV E) (set Xs)` is reasonable and
-   makes things easier. *)
+   makes things easier.
+
+  `FV P = EMPTY` may be weaken to `DISJOINT (FV P) (set Xs)`
+ *)
 Definition IS_PROC_def :
     IS_PROC Xs P <=> (FV P = EMPTY) /\ DISJOINT (BV P) (set Xs)
 End
@@ -1597,6 +1600,22 @@ End
 Definition ALL_PROC_def :
     ALL_PROC Xs Ps <=> EVERY (IS_PROC Xs) Ps
 End
+
+(*
+Theorem ALL_PROC_SUBST :
+    !Xs Es Ps. EVERY (context Xs) Es /\
+               (LENGTH Es = LENGTH Xs) /\
+               (LENGTH Ps = LENGTH Xs) /\
+               ALL_PROC Xs Ps ==>
+               ALL_PROC Xs (MAP (CCS_SUBST (fromList Xs Ps)) Es)
+Proof
+    RW_TAC std_ss [EVERY_MEM, ALL_PROC_def, IS_PROC_def]
+ >- (Suff `MEM e Ps` >- METIS_TAC [] \\
+     fs [MEM_MAP, MEM_EL] \\
+     Q.EXISTS_TAC `n` >> fs [CCS_SUBST_def] \\
+     MATCH_MP_TAC fromList_FAPPLY_EL
+QED
+ *)
 
 (* A solution Ps of the CCS equation (group) Es[Xs] up to R,
    `ALL_PROC` is now required to complete unique-solution proofs. *)
@@ -2521,6 +2540,7 @@ Proof
  >> MATCH_MP_TAC CCS_SUBST_nested >> art []
 QED
 
+(* This lemma is directly used in unique_solution_of_rooted_contractions_lemma *)
 Theorem USC_unfolding_lemma4 :
     !Xs Es E C C'.
         CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\ context Xs C /\
@@ -2541,6 +2561,7 @@ Proof
  >> Q.PAT_X_ASSUM `E = _` ((FULL_SIMP_TAC pure_ss) o wrap)
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
  >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
+ (* kick-start: induction *)
  >> Induct_on `n`
  >- (rpt STRIP_TAC \\
      Know `C' 0 = C` >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
@@ -2551,66 +2572,9 @@ Proof
  >> rpt STRIP_TAC
  (* stage work *)
  >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC
-
- >> cheat
- (*
- (* like "(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)" *)
- >> Know `CCS_SUBST (fromList Xs Ps) (C' (SUC n)) =
-          CCS_SUBST (fromList Xs (E Ps))
-            (CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)`
- (* TODO: the (sub)proof below is wrong. *)
- >- (Q.PAT_X_ASSUM `!xs Ps P'. _ ==> _` K_TAC \\
-     Q.UNABBREV_TAC `C'` >> BETA_TAC \\
-  (* applying CCS_SUBST_nested *)
-     MP_TAC (Q.SPECL [`Xs`, `Ps`, `(FUNPOW E (SUC n) (MAP var Xs))`, `C`]
-                     CCS_SUBST_nested) \\
-     Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
-     >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\
-         REWRITE_TAC [FUNPOW_SUC] \\
-         Q.ABBREV_TAC `E' = FUNPOW E i (MAP var Xs)` \\
-         Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP]) \\
-     RW_TAC bool_ss [] \\
-     MP_TAC (Q.SPECL [`Xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`,
-                      `(FUNPOW E n (MAP var Xs))`, `C`] CCS_SUBST_nested) \\
-     Know `!Ys. (LENGTH Ys = LENGTH Xs) ==> (LENGTH (E Ys) = LENGTH Xs)`
-     >- (rpt STRIP_TAC \\
-         Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
-     RW_TAC bool_ss [] \\
-     Suff `MAP (CCS_SUBST (fromList Xs Ps)) (FUNPOW E (SUC n) (MAP var Xs)) =
-           MAP (CCS_SUBST (fromList Xs (E Ps))) (FUNPOW E n (MAP var Xs))` >- Rewr \\
-     REWRITE_TAC [FUNPOW_SUC] \\
-     Q.PAT_X_ASSUM `CCS_SUBST (fromList Xs Ps) _ = _` K_TAC \\
-     Q.PAT_X_ASSUM `CCS_SUBST (fromList Xs (E Ps)) _ = _` K_TAC \\
-     MATCH_MP_TAC LIST_EQ \\
-     ASM_SIMP_TAC list_ss [LENGTH_MAP, EL_MAP] \\
-     rpt STRIP_TAC \\
-     Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
-     Q.UNABBREV_TAC `E` >> fs [EL_MAP] \\
-     MP_TAC (Q.SPECL [`Xs`, `Ps`, `Es`, `EL x E'`] CCS_SUBST_nested) \\
-     RW_TAC bool_ss [] >> POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM) \\
-     Suff `CCS_SUBST (fromList Xs E') (EL x Es) =
-           CCS_SUBST (fromList Xs Es) (EL x E')` >- Rewr \\
-     Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es` \\
-     Q.UNABBREV_TAC `E'` \\
-  (* A slightly simplified goal - `Ps` now disappeared:
-
-     CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) (EL x Es) =
-     CCS_SUBST (fromList Xs Es) (EL x (FUNPOW E n (MAP var Xs)))
-   *)
-     Q.PAT_X_ASSUM `LENGTH xs <= SUC n` K_TAC \\
-     Q.SPEC_TAC (`n`, `n`) >> Induct_on `n`
-     >- (ASM_SIMP_TAC list_ss [FUNPOW_0, EL_MAP] \\
-         Q.ABBREV_TAC `X = EL x Xs` \\
-        `MEM X Xs` by PROVE_TAC [MEM_EL] \\
-         Q.ABBREV_TAC `P = EL x Es` \\
-        `MEM P Es` by PROVE_TAC [MEM_EL] \\
-         Know `CCS_SUBST (fromList Xs (MAP var Xs)) P = P`
-         >- (MATCH_MP_TAC CCS_SUBST_self \\
-             fs [CCS_equation_def, EVERY_MEM, weakly_guarded_def]) >> Rewr' \\
-         MATCH_MP_TAC EQ_SYM \\
-         unset [`X`, `P`] \\
-         ASM_SIMP_TAC list_ss [CCS_SUBST_def, FDOM_fromList, fromList_FAPPLY_EL]) \\
-
+ >> Know `!n. CCS_SUBST (fromList Xs Ps) (C' (SUC n)) =
+              CCS_SUBST (fromList Xs (E Ps)) (C' n)`
+ >- cheat
  >> Rewr' >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
@@ -2620,47 +2584,62 @@ Proof
      >- (rpt STRIP_TAC \\
          Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
      DISCH_TAC \\
+    `ALL_PROC Xs (E Ps)` by cheat \\
      Q.PAT_X_ASSUM `!xs Ps P'. _ ==> _`
         (MP_TAC o (Q.SPECL [`[] :'b Action list`,
                             `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`, `P'`])) \\
-     Q.UNABBREV_TAC `C'` >> BETA_TAC \\
      Q.PAT_ASSUM `_ = P'` (ONCE_REWRITE_TAC o wrap) \\
      RW_TAC bool_ss [] \\
-
      Q.EXISTS_TAC `CCS_SUBST (fromList Xs Es) C''`  \\
      CONJ_TAC (* context Xs (CCS_SUBST (Xs |-> Es) C'') *)
      >- (MATCH_MP_TAC context_combin >> fs [EVERY_MEM] \\
          rpt STRIP_TAC >> MATCH_MP_TAC weakly_guarded_imp_context \\
          FIRST_X_ASSUM MATCH_MP_TAC >> art []) \\
-     CONJ_TAC (* composed CCS_SUBST *)
-     >- (Q.UNABBREV_TAC `E` >> fs [] \\
-         MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC CCS_SUBST_nested >> art []) \\
-     NTAC 2 STRIP_TAC \\
-
+     CONJ_TAC (* CCS_SUBST_nested *)
+     >- (Q.PAT_X_ASSUM `CCS_SUBST (fromList Xs (E Ps)) (C' n) = _`
+            (ONCE_REWRITE_TAC o wrap) \\
+         Q.UNABBREV_TAC `E` >> BETA_TAC \\
+         MATCH_MP_TAC EQ_SYM >> MATCH_MP_TAC CCS_SUBST_nested \\
+         fs [context_def]) \\
+     rpt STRIP_TAC \\
      Q.PAT_X_ASSUM `!Qs. (LENGTH Qs = LENGTH Xs) ==> _`
-        (MP_TAC o (Q.SPEC `Qs`)) >> BETA_TAC \\
+        (MP_TAC o (Q.SPEC `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Qs`)) \\
      RW_TAC bool_ss [] \\
-     cheat)
-
+     Know `!n. CCS_SUBST (fromList Xs Qs) (C' (SUC n)) =
+               CCS_SUBST (fromList Xs (E Qs)) (C' n)`
+     >- cheat >> Rewr' \\
+     Suff `CCS_SUBST (fromList Xs Qs) (CCS_SUBST (fromList Xs Es) C'') =
+           CCS_SUBST (fromList Xs (E Qs)) C''` >- (Rewr' >> art []) \\
+     POP_ASSUM K_TAC \\
+     Q.UNABBREV_TAC `E` >> fs [] \\
+     MATCH_MP_TAC CCS_SUBST_nested >> fs [context_def])
+ (* hard part *)
  >> FULL_SIMP_TAC list_ss []
  >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
  >> Q.ABBREV_TAC `xs = FRONT (h::t)`
  >> Q.ABBREV_TAC `x = LAST (h::t)`
- >> Q.PAT_X_ASSUM `!xs P'' P'''. X ==> X'`
-        (MP_TAC o (Q.SPECL [`xs`, `u`, `(E :('a, 'b) context) P`]))
+ >> rename1 `TRANS P x P'`
+ >> Q.PAT_X_ASSUM `!xs Ps P'. _ ==> ?C''. _`
+       (MP_TAC o
+        (Q.SPECL [`xs`, `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) Ps`, `P`]))
+ >> `LENGTH (E Ps) = LENGTH Xs` by cheat
+ >> `ALL_PROC Xs (E Ps)` by cheat
  >> RW_TAC std_ss []
- >> MP_TAC (Q.SPECL [`C'`, `E`] OBS_unfolding_lemma3)
+ >> MP_TAC (Q.SPECL [`Xs`, `C''`, `Es`] USC_unfolding_lemma3) (* here *)
  >> RW_TAC bool_ss []
- >> POP_ASSUM (MP_TAC o (Q.SPECL [`P`, `x`, `P'`]))
+ >> POP_ASSUM (MP_TAC o (Q.SPECL [`Ps`, `x`, `P'`]))
  >> RW_TAC bool_ss []
- >> Q.EXISTS_TAC `C''` >> art []
- >> GEN_TAC >> ONCE_REWRITE_TAC [TRACE_cases2]
- >> REWRITE_TAC [NULL]
- >> Q.EXISTS_TAC `C' (E Q)`
- >> Q.UNABBREV_TAC `x` >> art []
- >> REWRITE_TAC [FUNPOW]
- >> Q.UNABBREV_TAC `xs` >> art []);
- *)
+ >> Q.EXISTS_TAC `C'''` >> art []
+ >> RW_TAC std_ss [Once TRACE_cases2, NULL]
+ >> Q.PAT_X_ASSUM `!Qs. (LENGTH Qs = LENGTH Xs) ==> _` (MP_TAC o (Q.SPEC `Qs`))
+ >> RW_TAC bool_ss []
+ >> Q.EXISTS_TAC `CCS_SUBST (fromList Xs (E Qs)) C''` >> art []
+ >> Know `!n. CCS_SUBST (fromList Xs Qs) (C' (SUC n)) =
+              CCS_SUBST (fromList Xs (E Qs)) (C' n)`
+ >- cheat >> Rewr'
+ >> FIRST_X_ASSUM MATCH_MP_TAC
+ (* LENGTH (E Qs) = LENGTH Xs *)
+ >> cheat
 QED
 
 (* Lemma 3.9 of [2], the full (multivariate) version
@@ -2733,7 +2712,7 @@ Proof
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
       >- (irule USC_unfolding_lemma4 >> art [] \\
-          CONJ_TAC >- fs [CCS_solution_def] \\ (* ALL_PROC is used here *)
+          CONJ_TAC >- fs [CCS_solution_def] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
@@ -2764,7 +2743,7 @@ Proof
                        TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
                              (CCS_SUBST (fromList Xs Qs) C'')`
       >- (irule USC_unfolding_lemma4 >> art [] \\
-          CONJ_TAC >- fs [CCS_solution_def] \\ (* ALL_PROC is used here *)
+          CONJ_TAC >- fs [CCS_solution_def] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
      `LENGTH Qs = LENGTH Xs` by PROVE_TAC [CCS_solution_length] \\
@@ -3025,7 +3004,9 @@ Proof
 QED
  *)
 
-(* clear_overloads_on ("fromList"); *)
+(* for development purposes only:
+ clear_overloads_on ("fromList");
+ *)
 
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
