@@ -132,7 +132,7 @@ Proof
               P'  ~ P   ~ E[Ps/Xs]              .
               |     |     |                     .
               u     u     u                     .
-              |     |     |                     .
+              |     |     |  (by lemma)         .
               E1  ~ E2' ~ E2 = E'[Ps/Xs] ........
         *)
       `STRONG_EQUIV P (CCS_SUBST (fromList Xs Ps) E)` by METIS_TAC [EL_MAP] \\
@@ -170,7 +170,7 @@ Proof
               Q'  ~ Q   ~ E[Qs/Xs]              .
               |     |     |                     .
               u     u     u                     .
-              |     |     |                     .
+              |     |     |   (by lemma)        .
               E2  ~ E1' ~ E1 = E'[Qs/Xs] ........
         *)
       `STRONG_EQUIV Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
