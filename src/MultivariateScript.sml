@@ -2745,8 +2745,17 @@ Proof
     `MEM E Es` by METIS_TAC [MEM_EL] \\
      PROVE_TAC []) >> DISCH_TAC
  >> Know `EVERY (\e. DISJOINT (BV e) (set Xs)) (E Ps)`
- >- cheat
- >> DISCH_TAC
+ >- (Q.UNABBREV_TAC `E` \\
+     RW_TAC lset_ss [EVERY_MEM, MEM_MAP, MEM_EL] \\
+     rename1 `i < LENGTH Xs` \\
+    `i < LENGTH Es` by PROVE_TAC [] \\
+     ASM_SIMP_TAC lset_ss [EL_MAP] \\
+     Q.ABBREV_TAC `E = EL i Es` \\
+     fs [ALL_PROC_def, EVERY_MEM, IS_PROC_def, weakly_guarded_def] \\
+    `MEM E Es` by PROVE_TAC [MEM_EL] \\         
+     Suff `(BV (CCS_SUBST (fromList Xs Ps) E)) SUBSET
+           (BV E) UNION (BIGUNION (IMAGE BV (set Ps)))` >- ASM_SET_TAC [] \\
+     MATCH_MP_TAC BV_SUBSET_BIGUNION >> METIS_TAC []) >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
  >- (FULL_SIMP_TAC bool_ss [NULL] \\

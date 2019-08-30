@@ -285,21 +285,14 @@ val APPLY_RELAB_THM = save_thm (
 (******************************************************************************)
 
 (* Define the type of (pure) CCS agent expressions. *)
-val _ = Datatype `
-  CCS = nil
-      | var 'a (* recursion variables *)
-      | prefix ('b Action) CCS
-      | sum CCS CCS
-      | par CCS CCS
-      | restr (('b Label) set) CCS
-      | relab CCS ('b Relabeling)
-      | rec 'a CCS
-
- (* the ultimate version is only possible once HOL4 got a better Datatype package:
-      | summ (num -> CCS)
-      | fix (num -> 'a) (num -> CCS) num
-  *)
-`; (* End *)
+val _ = Datatype `CCS = nil
+                      | var 'a
+                      | prefix ('b Action) CCS
+                      | sum CCS CCS
+                      | par CCS CCS
+                      | restr (('b Label) set) CCS
+                      | relab CCS ('b Relabeling)
+                      | rec 'a CCS `;
 
 (* compact representation for single-action restriction *)
 val _ = overload_on ("nu", ``\(n :'b) P. restr {name n} P``);
@@ -370,23 +363,13 @@ Definition CCS_Subst_def :
                                   else (rec Y (CCS_Subst E E' X)))
 End
 
-val [CCS_Subst_nil,
-     CCS_Subst_prefix,
-     CCS_Subst_sum,
-     CCS_Subst_par,
-     CCS_Subst_restr,
-     CCS_Subst_relab,
-     CCS_Subst_var,
-     CCS_Subst_rec] =
+val [CCS_Subst_nil,   CCS_Subst_prefix, CCS_Subst_sum, CCS_Subst_par,
+     CCS_Subst_restr, CCS_Subst_relab,  CCS_Subst_var, CCS_Subst_rec] =
     map save_thm
-        (combine (["CCS_Subst_nil",
-                   "CCS_Subst_prefix",
-                   "CCS_Subst_sum",
-                   "CCS_Subst_par",
-                   "CCS_Subst_restr",
-                   "CCS_Subst_relab",
-                   "CCS_Subst_var",
-                   "CCS_Subst_rec"],
+        (combine (["CCS_Subst_nil",   "CCS_Subst_prefix",
+                   "CCS_Subst_sum",   "CCS_Subst_par",
+                   "CCS_Subst_restr", "CCS_Subst_relab",
+                   "CCS_Subst_var",   "CCS_Subst_rec"],
                   CONJUNCTS CCS_Subst_def));
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
