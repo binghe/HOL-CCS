@@ -1080,6 +1080,22 @@ Proof
     rpt GEN_TAC >> SET_TAC [BV_def]
 QED
 
+Definition IS_PROC_def :
+    IS_PROC P <=> (FV P = EMPTY)
+End
+
+Definition ALL_PROC_def :
+    ALL_PROC Ps <=> EVERY IS_PROC Ps
+End
+
+Theorem TRANS_PROC :
+    !E u E'. TRANS E u E' /\ IS_PROC E ==> IS_PROC E'
+Proof
+    RW_TAC std_ss [IS_PROC_def]
+ >> `FV E' SUBSET FV E` by PROVE_TAC [TRANS_FV]
+ >> rfs []
+QED
+
 (**********************************************************************)
 (*                Free and bound names (sorts) ('b)                   *)
 (**********************************************************************)
