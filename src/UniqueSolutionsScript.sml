@@ -1405,7 +1405,7 @@ val unfolding_lemma4 = store_thm (
  >> rpt STRIP_TAC
  >> Q.PAT_X_ASSUM `TRACE X xs P'` MP_TAC
  >> Know `(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)`
- >- ( REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> RW_TAC std_ss [] )
+ >- (REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> RW_TAC std_ss [])
  >> Rewr >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
@@ -1424,7 +1424,7 @@ val unfolding_lemma4 = store_thm (
  >> Q.ABBREV_TAC `xs = FRONT (h::t)`
  >> Q.ABBREV_TAC `x = LAST (h::t)`
  >> Q.PAT_X_ASSUM `!xs P'' P'''. X ==> X'`
-        (MP_TAC o (Q.SPECL [`xs`, `u`, `(E :('a, 'b) context) P`]))
+      (MP_TAC o (Q.SPECL [`xs`, `u`, `(E :('a, 'b) context) P`]))
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`C'`, `E`] unfolding_lemma3)
  >> RW_TAC bool_ss []
