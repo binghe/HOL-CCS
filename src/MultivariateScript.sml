@@ -2710,6 +2710,15 @@ Proof
      (* stage work *)
      Q.UNABBREV_TAC `C'` >> fs [FUNPOW_SUC] \\
      Q.ABBREV_TAC `E' = E (FUNPOW E i (MAP var Xs))` \\
+     Know `CCS_SUBST (fromList Xs (E E')) C =
+           CCS_SUBST (fromList Xs Es) (CCS_SUBST (fromList Xs E') C)`
+     >- (ASM_SIMP_TAC std_ss [] \\
+         cheat) >> Rewr' \\
+     Q.ABBREV_TAC `E'' = CCS_SUBST (fromList Xs E') C` \\
+     Q.UNABBREV_TAC `E` >> BETA_TAC \\
+     MATCH_MP_TAC CCS_SUBST_nested >> art [] \\
+     Q.UNABBREV_TAC `E''` >> fs [] \\
+  (* applying BV_SUBSET_BIGUNION *)
      cheat)
  >> DISCH_TAC >> ASM_SIMP_TAC std_ss []
  >> DISCH_TAC
