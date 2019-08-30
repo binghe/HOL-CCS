@@ -537,9 +537,9 @@ QED
 (* `ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs)` is not really necessary
    but makes the proof (much) easier.
 
-   Further added `DISJOINT (BV E) (set Xs)` (usually from `context Xs E`
-   or `weakly_guarded Xs E`) to make the proof even more easier --
-   this eliminated a hard case where induction on Xs is required.
+  `DISJOINT (BV E) (set Xs)` (usually comes from `context Xs E`
+   or `weakly_guarded Xs E`) is also not necessary but makes the
+   proof even more easier.
  *)
 Theorem BV_SUBSET_BIGUNION :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
@@ -879,22 +879,16 @@ QED
 
 (* a collection of all (forward) rules of `context` *)
 val context_rules = save_thm
-  ("context_rules", LIST_CONJ [context_nil,
-                               context_var,
-                               context_prefix_rule,
-                               context_sum_rule,
-                               context_par_rule,
-                               context_restr_rule,
-                               context_relab_rule]);
+  ("context_rules",
+    LIST_CONJ [context_nil, context_var, context_prefix_rule,
+               context_sum_rule, context_par_rule,
+               context_restr_rule, context_relab_rule]);
 
 (* a collection of all backward rules of `context` *)
 val context_backward_rules = save_thm
-  ("context_backward_rules", LIST_CONJ [context_prefix_rule,
-                                        context_sum,
-                                        context_par,
-                                        context_restr,
-                                        context_relab,
-                                        context_rec]);
+  ("context_backward_rules",
+    LIST_CONJ [context_prefix, context_sum, context_par,
+               context_restr, context_relab, context_rec]);
 
 (* c.f. STRONG_EQUIV_SUBST_CONTEXT *)
 Theorem STRONG_EQUIV_subst_context :
@@ -2578,15 +2572,7 @@ Proof
  (* cleanups and renames before the final battle *)
  >> rename1 `~MEM Y Xs`
  >> Q.PAT_X_ASSUM `!Ps u P'. LENGTH Ps = LENGTH Xs /\ _ ==> _` K_TAC
- (* hard goal:
-
-    DISJOINT (FV P') (set Xs) /\ DISJOINT (BV P') (set Xs)
-
-    given: rec Y (CCS_SUBST (Xs |-> Ps) E) --u-> P' /\ ~MEM Y Xs
-
-    I think this is only possible if each (BV P) and (FV P) in Ps
-    is also disjoint with (set Xs), i.e. `ALL_PROC Ps` must hold.
-  *)
+ (* hard left goal *)
  >> Q.ABBREV_TAC `P = CCS_SUBST (fromList Xs Ps) E`
  >> IMP_RES_TAC TRANS_FV
  >> IMP_RES_TAC TRANS_BV
