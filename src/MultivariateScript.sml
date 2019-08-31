@@ -2096,7 +2096,8 @@ Proof
              DISJ2_TAC >> Q.EXISTS_TAC `y || G'` \\
              ASM_SIMP_TAC (srw_ss()) [context_par_rewrite,
                                       FV_def, CCS_SUBST_def, UNION_SUBSET] \\
-             cheat (* possible *)) \\
+             
+             cheat (* still impossible *)) \\
          Q.EXISTS_TAC `E2 || G'Q` \\
          CONJ_TAC >- (MATCH_MP_TAC PAR1 >> art []) \\
          SIMP_TAC std_ss [O_DEF] \\
@@ -2163,7 +2164,26 @@ Proof
            Q.EXISTS_TAC `E2' || E2''` \\
            CONJ_TAC >- (MATCH_MP_TAC PAR3 >> Q.EXISTS_TAC `l` >> art []) \\
            SIMP_TAC std_ss [O_DEF] \\
-           cheat, cheat, cheat, cheat ] ],
+           rename1 `STRONG_EQUIV y E2'` \\
+           rename1 `STRONG_EQUIV E2 x` \\
+           Q.EXISTS_TAC `y || x` \\
+           Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR >> art []) \\
+           Q.EXISTS_TAC `y || x` \\
+           CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR >> art []) \\
+           DISJ1_TAC >> REWRITE_TAC [],
+           (* goal 1.3.2 (of 4) *)
+           Q.EXISTS_TAC `E2' || E2''` \\
+           CONJ_TAC >- (MATCH_MP_TAC PAR3 >> Q.EXISTS_TAC `l` >> art []) \\
+           SIMP_TAC std_ss [O_DEF] \\
+           rename1 `STRONG_EQUIV E2 y` \\
+          `STRONG_EQUIV E2 E2''` by PROVE_TAC [STRONG_EQUIV_TRANS] \\
+           Q.EXISTS_TAC `CCS_SUBST (fromList Xs Qs) G'' || E2` \\
+           Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR >> art []) \\
+           Q.EXISTS_TAC `CCS_SUBST (fromList Xs Ps) G'' || E2''` \\
+           CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_PRESD_BY_PAR >> art []) \\
+           DISJ2_TAC \\
+           Q.EXISTS_TAC `G'' || y` \\
+           cheat, cheat, cheat ] ],
        (* goal 2 (of 2) *)
        cheat ])
  (* Case 5: E = restr f G (not easy) *)
