@@ -1071,6 +1071,44 @@ Definition ALL_PROC_def :
     ALL_PROC Ps <=> EVERY IS_PROC Ps
 End
 
+Theorem IS_PROC_EL :
+    !Ps n. ALL_PROC Ps /\ n < LENGTH Ps ==> IS_PROC (EL n Ps)
+Proof
+    RW_TAC list_ss [ALL_PROC_def, EVERY_MEM, MEM_EL]
+ >> FIRST_X_ASSUM MATCH_MP_TAC
+ >> Q.EXISTS_TAC `n` >> art []
+QED
+
+Theorem IS_PROC_prefix :
+    !P u. IS_PROC (prefix u P) <=> IS_PROC P
+Proof
+    RW_TAC std_ss [IS_PROC_def, FV_def]
+QED
+
+Theorem IS_PROC_sum :
+    !P Q. IS_PROC (sum P Q) <=> IS_PROC P /\ IS_PROC Q
+Proof
+    RW_TAC lset_ss [IS_PROC_def, FV_def]
+QED
+
+Theorem IS_PROC_par :
+    !P Q. IS_PROC (par P Q) <=> IS_PROC P /\ IS_PROC Q
+Proof
+    RW_TAC lset_ss [IS_PROC_def, FV_def]
+QED
+
+Theorem IS_PROC_restr :
+    !P L. IS_PROC (restr L P) <=> IS_PROC P
+Proof
+    RW_TAC lset_ss [IS_PROC_def, FV_def]
+QED
+
+Theorem IS_PROC_relab :
+    !P rf. IS_PROC (relab P rf) <=> IS_PROC P
+Proof
+    RW_TAC lset_ss [IS_PROC_def, FV_def]
+QED
+
 Theorem TRANS_PROC :
     !E u E'. TRANS E u E' /\ IS_PROC E ==> IS_PROC E'
 Proof
