@@ -1861,7 +1861,8 @@ Proof
  >- (irule CCS_SUBST_elim >> art []) >> Rewr' >> art []
 QED
 
-(* THE STAGE THEOREM (failed attempt):
+(* THE STAGE THEOREM (Proposition 4.14 of [1, p.103])
+
    Let the expression Es contain at most Xs, and let Xs be weakly guarded in Es,
    then:
         If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then Ps ~ Qs.
@@ -1876,8 +1877,9 @@ Proof
  >> Q.ABBREV_TAC `P = EL n Ps`
  >> Q.ABBREV_TAC `Q = EL n Qs`
  >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
- (* `FV G SUBSET (set Xs)` is necessary for the case of `par`,
-    `IS_PROC x /\ DISJOINT (BV x) (set Xs)` is added for the same case, they
+ (* 
+    `FV G SUBSET (set Xs)` is necessary for the case of `par`,
+    `IS_PROC x /\ DISJOINT (BV x) (set Xs)` is for the same case, they
      guarantee that `CCS_SUBST (Xs |-> Ps) x = x`.
   *)
  >> Q.EXISTS_TAC `\x y. IS_PROC x /\ DISJOINT (BV x) (set Xs) /\
@@ -2017,7 +2019,7 @@ Proof
        >- (MATCH_MP_TAC DISJOINT_BV_CCS_SUBST >> art [] \\
            fs [EVERY_MEM, context_def, MEM_EL]) \\
        DISJ2_TAC >> Q.EXISTS_TAC `E'` >> art [] ])
- (* Case 2: E = prefix u G (not easy) *)
+ (* Case 2: E = prefix u G (easy) *)
  >- (RW_TAC std_ss [FV_def, BV_def, context_prefix_rewrite, CCS_SUBST_prefix,
                     TRANS_PREFIX_EQ, IS_PROC_prefix] \\
      Q.PAT_X_ASSUM `context Xs G ==> _` MP_TAC >> RW_TAC bool_ss [] \\
@@ -2186,6 +2188,7 @@ Proof
          SIMP_TAC std_ss [O_DEF] \\
          Q.EXISTS_TAC `y || G'Q` \\
          Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_R >> art []) \\
+         rename1 `STRONG_EQUIV E1' x'` \\
          Q.EXISTS_TAC `x' || G'P` \\
          CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_R >> art []) \\
          fs [IS_PROC_par, BV_def, DISJOINT_UNION] \\
@@ -2230,6 +2233,7 @@ Proof
          SIMP_TAC std_ss [O_DEF] \\
          Q.EXISTS_TAC `GQ || y` \\
          Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_L >> art []) \\
+         rename1 `STRONG_EQUIV E1' x'` \\
          Q.EXISTS_TAC `GP || x'` \\
          CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_L >> art []) \\
          fs [IS_PROC_par, BV_def, DISJOINT_UNION] \\
@@ -2363,6 +2367,7 @@ Proof
          SIMP_TAC std_ss [O_DEF] \\
          Q.EXISTS_TAC `y || G'Q` \\
          Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_R >> art []) \\
+         rename1 `STRONG_EQUIV E1' x'` \\
          Q.EXISTS_TAC `x' || G'P` \\
          CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_R >> art []) \\
          fs [IS_PROC_par, BV_def, DISJOINT_UNION] \\
@@ -2405,6 +2410,7 @@ Proof
          SIMP_TAC std_ss [O_DEF] \\
          Q.EXISTS_TAC `GQ || y` \\
          Reverse CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_L >> art []) \\
+         rename1 `STRONG_EQUIV E1' x'` \\
          Q.EXISTS_TAC `GP || x'` \\
          CONJ_TAC >- (MATCH_MP_TAC STRONG_EQUIV_SUBST_PAR_L >> art []) \\
          fs [IS_PROC_par, BV_def, DISJOINT_UNION] \\

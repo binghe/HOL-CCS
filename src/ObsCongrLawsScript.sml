@@ -19,35 +19,35 @@ val _ = new_theory "ObsCongrLaws";
 (*                                                                            *)
 (******************************************************************************)
 
-(* Prove OBS_SUM_IDENT_R: !E. OBS_CONGR (sum E nil) E *)
+(* Prove OBS_SUM_IDENT_R: |- !E. OBS_CONGR (sum E nil) E *)
 val OBS_SUM_IDENT_R = save_thm (
    "OBS_SUM_IDENT_R",
     STRONG_IMP_OBS_CONGR_RULE STRONG_SUM_IDENT_R);
 
-(* Prove OBS_SUM_IDENT_L: !E. OBS_CONGR (sum nil E) E *)
+(* Prove OBS_SUM_IDENT_L: |- !E. OBS_CONGR (sum nil E) E *)
 val OBS_SUM_IDENT_L = save_thm (
    "OBS_SUM_IDENT_L",
     STRONG_IMP_OBS_CONGR_RULE STRONG_SUM_IDENT_L);
 
-(* Prove OBS_SUM_IDEMP: !E. OBS_CONGR (sum E E) E *)
+(* Prove OBS_SUM_IDEMP: |- !E. OBS_CONGR (sum E E) E *)
 val OBS_SUM_IDEMP = save_thm (
    "OBS_SUM_IDEMP",
     STRONG_IMP_OBS_CONGR_RULE STRONG_SUM_IDEMP);
 
-(* Prove OBS_SUM_COMM: !E E'. OBS_CONGR (sum E E') (sum E' E) *)
+(* Prove OBS_SUM_COMM: |- !E E'. OBS_CONGR (sum E E') (sum E' E) *)
 val OBS_SUM_COMM = save_thm (
    "OBS_SUM_COMM",
     STRONG_IMP_OBS_CONGR_RULE STRONG_SUM_COMM);
 
 (* Prove OBS_SUM_ASSOC_R:
-   !E E' E''. OBS_CONGR (sum (sum E E') E'') (sum E (sum E' E''))
+   |- !E E' E''. OBS_CONGR (sum (sum E E') E'') (sum E (sum E' E''))
  *)
 val OBS_SUM_ASSOC_R = save_thm (
    "OBS_SUM_ASSOC_R",
     STRONG_IMP_OBS_CONGR_RULE STRONG_SUM_ASSOC_R);
 
 (* Prove OBS_SUM_ASSOC_L:
-   !E E' E''. OBS_CONGR (sum E (sum E' E'')) (sum (sum E E') E'')
+   |- !E E' E''. OBS_CONGR (sum E (sum E' E'')) (sum (sum E E') E'')
  *)
 val OBS_SUM_ASSOC_L = save_thm (
    "OBS_SUM_ASSOC_L",
@@ -60,30 +60,30 @@ val OBS_SUM_ASSOC_L = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-(* Prove OBS_PAR_IDENT_R: !E. OBS_CONGR (par E nil) E *)
+(* Prove OBS_PAR_IDENT_R: |- !E. OBS_CONGR (par E nil) E *)
 val OBS_PAR_IDENT_R = save_thm (
    "OBS_PAR_IDENT_R",
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_IDENT_R);
 
-(* Prove OBS_PAR_IDENT_L: !E. OBS_CONGR (par nil E) E *)
+(* Prove OBS_PAR_IDENT_L: |- !E. OBS_CONGR (par nil E) E *)
 val OBS_PAR_IDENT_L = save_thm (
    "OBS_PAR_IDENT_L",
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_IDENT_L);
 
-(* Prove OBS_PAR_COMM: !E E'. OBS_CONGR (par E E') (par E' E) *)
+(* Prove OBS_PAR_COMM: |- !E E'. OBS_CONGR (par E E') (par E' E) *)
 val OBS_PAR_COMM = save_thm (
    "OBS_PAR_COMM",
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_COMM);
 
 (* Prove OBS_PAR_ASSOC:
-   !E E' E''. OBS_CONGR (par (par E E') E'') (par E (par E' E''))
+   |- !E E' E''. OBS_CONGR (par (par E E') E'') (par E (par E' E''))
  *)
 val OBS_PAR_ASSOC = save_thm (
    "OBS_PAR_ASSOC",
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_ASSOC);
 
 (* Prove OBS_PAR_PREF_TAU:
-   !u E E'.
+   |- !u E E'.
        OBS_CONGR (par (prefix u E) (prefix tau E'))
                  (sum (prefix u (par E (prefix tau E')))
                       (prefix tau (par (prefix u E) E')))
@@ -93,7 +93,7 @@ val OBS_PAR_PREF_TAU = save_thm (
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_PREF_TAU);
 
 (* Prove OBS_PAR_TAU_PREF:
-   !E u E'.
+   |- !E u E'.
        OBS_CONGR (par (prefix tau E) (prefix u E'))
                  (sum (prefix tau (par E (prefix u E')))
                       (prefix u (par (prefix tau E) E')))
@@ -103,7 +103,7 @@ val OBS_PAR_TAU_PREF = save_thm (
     STRONG_IMP_OBS_CONGR_RULE STRONG_PAR_TAU_PREF);
 
 (* Prove OBS_PAR_TAU_TAU:
-   !E E'.
+   |- !E E'.
        OBS_CONGR (par (prefix tau E) (prefix tau E'))
                  (sum (prefix tau (par E (prefix tau E')))
                       (prefix tau (par (prefix tau E) E')))
@@ -112,7 +112,7 @@ val OBS_PAR_TAU_TAU = save_thm (
    "OBS_PAR_TAU_TAU", Q.SPEC `tau` OBS_PAR_PREF_TAU);
 
 (* Prove OBS_PAR_PREF_NO_SYNCR:
-   !l l'.
+   |- !l l'.
        ~(l = COMPL l') ==>
        (!E E'.
          OBS_CONGR (par (prefix (label l) E) (prefix (label l') E'))
@@ -127,7 +127,7 @@ val OBS_PAR_PREF_NO_SYNCR = save_thm (
                       STRONG_PAR_PREF_NO_SYNCR);
 
 (* Prove OBS_PAR_PREF_SYNCR:
-   !l l'.
+   |- !l l'.
        (l = COMPL l') ==>
        (!E E'.
          OBS_CONGR (par (prefix (label l) E) (prefix (label l') E'))
@@ -144,7 +144,7 @@ val OBS_PAR_PREF_SYNCR = save_thm (
                       STRONG_PAR_PREF_SYNCR);
 
 (* The expansion law for observation congruence:
-  !f n f' m.
+  |- !f n f' m.
       (!i. i <= n ==> Is_Prefix (f i)) /\ (!j. j <= m ==> Is_Prefix (f' j))
    ==>
       OBS_CONGR
@@ -167,27 +167,27 @@ val OBS_EXPANSION_LAW = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-(* Prove OBS_RESTR_NIL: !L. OBS_CONGR (restr L nil) nil *)
+(* Prove OBS_RESTR_NIL: |- !L. OBS_CONGR (restr L nil) nil *)
 val OBS_RESTR_NIL = save_thm (
    "OBS_RESTR_NIL",
     STRONG_IMP_OBS_CONGR_RULE STRONG_RESTR_NIL);
 
 (* Prove OBS_RESTR_SUM:
-   !E E' L. OBS_CONGR (restr L (sum E E')) (sum (restr L E) (restr L E'))
+   |- !E E' L. OBS_CONGR (restr L (sum E E')) (sum (restr L E) (restr L E'))
  *)
 val OBS_RESTR_SUM = save_thm (
    "OBS_RESTR_SUM",
     STRONG_IMP_OBS_CONGR_RULE STRONG_RESTR_SUM);
 
 (* Prove OBS_RESTR_PREFIX_TAU:
-   !E L. OBS_CONGR (restr (prefix tau E) L) (prefix tau (restr E L))
+   |- !E L. OBS_CONGR (restr (prefix tau E) L) (prefix tau (restr E L))
  *)
 val OBS_RESTR_PREFIX_TAU = save_thm (
    "OBS_RESTR_PREFIX_TAU",
     STRONG_IMP_OBS_CONGR_RULE STRONG_RESTR_PREFIX_TAU);
 
 (* Prove OBS_RESTR_PR_LAB_NIL:
-   !l L.
+   |- !l L.
        l IN L \/ (COMPL l) IN L ==>
        (!E. OBS_CONGR (restr L (prefix (label l) E)) nil)
  *)
@@ -206,7 +206,7 @@ val OBS_RESTR_PR_LAB_NIL = save_thm (
                   STRONG_IMP_OBS_CONGR)));
 
 (* Prove OBS_RESTR_PREFIX_LABEL:
-   !l L.
+   |- !l L.
        ~l IN L /\ ~(COMPL l) IN L ==>
        (!E. OBS_CONGR (restr (prefix (label l) E) L) (prefix (label l) (restr E L)))
  *)
@@ -233,14 +233,14 @@ val OBS_RESTR_PREFIX_LABEL = save_thm (
 (******************************************************************************)
 
 (* The unfolding law:
-   OBS_UNFOLDING: !X E. OBS_CONGR (rec X E) (CCS_Subst E (rec X E) X)
+   OBS_UNFOLDING: |- !X E. OBS_CONGR (rec X E) (CCS_Subst E (rec X E) X)
  *)
 val OBS_UNFOLDING = save_thm (
    "OBS_UNFOLDING",
     STRONG_IMP_OBS_CONGR_RULE STRONG_UNFOLDING);
 
 (* Prove the theorem OBS_PREF_REC_EQUIV:
-   !u s v.
+   |- !u s v.
        OBS_CONGR
        (prefix u (rec s (prefix v (prefix u (var s)))))
        (rec s (prefix u (prefix v (var s))))
@@ -256,20 +256,20 @@ val OBS_PREF_REC_EQUIV = save_thm (
 (*                                                                            *)
 (******************************************************************************)
 
-(* Prove OBS_RELAB_NIL: !rf. OBS_CONGR (relab nil rf) nil *)
+(* Prove OBS_RELAB_NIL: |- !rf. OBS_CONGR (relab nil rf) nil *)
 val OBS_RELAB_NIL = save_thm (
    "OBS_RELAB_NIL",
     STRONG_IMP_OBS_CONGR_RULE STRONG_RELAB_NIL);
 
 (* Prove OBS_RELAB_SUM:
-   !E E' rf. OBS_CONGR (relab (sum E E') rf) (sum (relab E rf) (relab E' rf))
+   |- !E E' rf. OBS_CONGR (relab (sum E E') rf) (sum (relab E rf) (relab E' rf))
  *)
 val OBS_RELAB_SUM = save_thm (
    "OBS_RELAB_SUM",
     STRONG_IMP_OBS_CONGR_RULE STRONG_RELAB_SUM);
 
 (* Prove OBS_RELAB_PREFIX:
-   !u E labl.
+   |- !u E labl.
        OBS_CONGR (relab (prefix u E) (RELAB labl))
                  (prefix (relabel (RELAB labl) u) (relab E (RELAB labl)))
  *)
@@ -285,7 +285,7 @@ val OBS_RELAB_PREFIX = save_thm (
 (******************************************************************************)
 
 (* Prove TAU1:
-   !u E. OBS_CONGR (prefix u (prefix tau E)) (prefix u E)
+   |- !u E. OBS_CONGR (prefix u (prefix tau E)) (prefix u E)
  *)
 val TAU1 = store_thm ("TAU1",
   ``!(u :'b Action) E. OBS_CONGR (prefix u (prefix tau E)) (prefix u E)``,
@@ -308,13 +308,13 @@ val TAU1 = store_thm ("TAU1",
       ASM_REWRITE_TAC [EPS_REFL, PREFIX] ]);
 
 (* Prove WEAK_TAU1:
-   !u E. WEAK_EQUIV (prefix u (prefix tau E)) (prefix u E)
+   |- !u E. WEAK_EQUIV (prefix u (prefix tau E)) (prefix u E)
  *)
 val WEAK_TAU1 = save_thm ("WEAK_TAU1",
     OBS_CONGR_IMP_WEAK_EQUIV_RULE TAU1);
 
 (* Prove TAU2:
-   !E. OBS_CONGR (sum E (prefix tau E)) (prefix tau E)
+   |- !E. OBS_CONGR (sum E (prefix tau E)) (prefix tau E)
  *)
 val TAU2 = store_thm ("TAU2",
   ``!E. OBS_CONGR (sum E (prefix tau E)) (prefix tau E)``,
@@ -345,13 +345,13 @@ val TAU2 = store_thm ("TAU2",
       PURE_ONCE_ASM_REWRITE_TAC [] ]);
 
 (* Prove WEAK_TAU2:
-   !E. WEAK_EQUIV (sum E (prefix tau E)) (prefix tau E)
+   |- !E. WEAK_EQUIV (sum E (prefix tau E)) (prefix tau E)
  *)
 val WEAK_TAU2 = save_thm ("WEAK_TAU2",
     OBS_CONGR_IMP_WEAK_EQUIV_RULE TAU2);
 
 (* Prove TAU3:
-   !u E E'.
+   |- !u E E'.
        OBS_CONGR (sum (prefix u (sum E (prefix tau E'))) (prefix u E'))
                  (prefix u (sum E (prefix tau E')))
  *)
@@ -389,7 +389,7 @@ val TAU3 = store_thm ("TAU3",
       PURE_ONCE_ASM_REWRITE_TAC [] ]);
 
 (* Prove WEAK_TAU3:
-   !u E E'.
+   |- !u E E'.
        WEAK_EQUIV (sum (prefix u (sum E (prefix tau E'))) (prefix u E'))
                  (prefix u (sum E (prefix tau E')))
  *)
@@ -398,3 +398,5 @@ val WEAK_TAU3 = save_thm ("WEAK_TAU3",
 
 val _ = export_theory ();
 val _ = html_theory "ObsCongrLaws";
+
+(* last updated: Jun 20, 2017 *)
