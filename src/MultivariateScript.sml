@@ -2790,7 +2790,7 @@ QED
 
    Lemma 1,4 are directly used; Lemma 2,3 are further lemmas of Lemma 4.
 *)
-Theorem USC_unfolding_lemma1[local] :
+Theorem USC_unfolding_lemma1 :
     !Xs Es E C0 Ps.
            CCS_equation Xs Es /\ EVERY (context Xs) Es /\
            CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
