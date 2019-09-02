@@ -24,9 +24,9 @@ val _ = new_theory "Multivariate";
 (*  Section I:   Multivariate variable substitution . . . . . . . . . . L161  *)
 (*  Section II:  Multivariate CCS contexts. . . . . . . . . . . . . . . L634  *)
 (*  Section III: Weakly-guarded contexts. . . . . . . . . . . . . . . . L1239 *)
-(*  Section IV:  Unique Solution of Equations . . . . . . . . . . . . . L1660 *)
-(*  Section V:   Unique Solution of (Rooted) Contractions . . . . . . . L2760 *)
-(*  Appendix:    Bibliography and some unfinished work. . . . . . . . . L3583 *)
+(*  Section IV:  Unique Solution of Equations . . . . . . . . . . . . . L1664 *)
+(*  Section V:   Unique Solution of (Rooted) Contractions . . . . . . . L2764 *)
+(*  Appendix:    Bibliography and some unfinished work. . . . . . . . . L3458 *)
 (* ========================================================================== *)
 
 val lset_ss = list_ss ++ PRED_SET_ss; (* list + pred_set *)
