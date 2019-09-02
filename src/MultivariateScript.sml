@@ -3457,16 +3457,18 @@ QED
 
 (* Bibliography:
 
- [1] Milner, R.: Communication and Concurrency. Prentice Hall International
-     Series in Computer Science (1989).
+ [1] Milner, Robin. Communication and concurrency. Vol. 84. New York
+     etc.: Prentice hall, 1989.
 
- [2] Sangiorgi, D.: Equations, Contractions, and Unique Solutions.
-     ACM Transactions on Computational Logic (TOCL). 18, 4:1–30 (2017).
-     DOI: 10.1145/2971339
+ [2] Sangiorgi, Davide. "Equations, contractions, and unique
+     solutions." ACM Transactions on Computational Logic (TOCL) 18.1
+     (2017): 4. (DOI: 10.1145/2971339)
 
- [3] Tian, C., Sangiorgi, D.: Unique Solutions of Contractions, CCS, and
-     their HOL Formalisation. Presented at the EXPRESS/SOS, August 24 (2018).
-     DOI: 10.4204/EPTCS.276.10
+ [3] Tian, Chun, and Davide Sangiorgi. "Unique Solutions of
+     Contractions, CCS, and their HOL Formalisation." Combined 25th
+     International Workshop on Expressiveness in Concurrency and 15th
+     Workshop on Structural Operational Semantics (EXPRESS/SOS
+     2018). Vol. 276. No. 4. 2018. (DOI: 10.4204/EPTCS.276.10)
  *)
 
 (* Some unfinished work: *)
