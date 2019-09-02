@@ -3002,9 +3002,9 @@ Proof
      MATCH_MP_TAC FV_SUBSET_BIGUNION >> art []) >> DISCH_TAC
  >> FULL_SIMP_TAC bool_ss [ALL_PROC_def, EVERY_MEM, IS_PROC_def]
  (* more cleanups before the final magic *)
- >> Q.PAT_X_ASSUM `weakly_guarded _ _` K_TAC          (* used *)
- >> Q.PAT_X_ASSUM `TRANS (rec Y P) u P'`       K_TAC  (* useless *)
- >> Q.PAT_X_ASSUM `LENGTH Ps = LENGTH Xs`      K_TAC  (* useless *)
+ >> Q.PAT_X_ASSUM `weakly_guarded _ _`    K_TAC (* used *)
+ >> Q.PAT_X_ASSUM `TRANS (rec Y P) u P'`  K_TAC (* useless *)
+ >> Q.PAT_X_ASSUM `LENGTH Ps = LENGTH Xs` K_TAC (* useless *)
  >> CONJ_TAC (* DISJOINT (FV P') (set Xs) *)
  >- (Know `BIGUNION (IMAGE FV (set Ps)) = EMPTY`
      >- rw [NOT_IN_EMPTY, IN_BIGUNION_IMAGE, IMAGE_EQ_SING] \\
