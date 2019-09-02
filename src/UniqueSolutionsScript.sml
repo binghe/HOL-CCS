@@ -1333,18 +1333,13 @@ val unfolding_lemma4 = store_thm (
         ?C'. GCONTEXT C' /\ (P' = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs (C' Q)``,
     NTAC 2 GEN_TAC
  >> Induct_on `n`
- >- ( REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> rpt STRIP_TAC \\
-      Q.EXISTS_TAC `C` >> art [] \\
-      POP_ASSUM MP_TAC \\
-      SIMP_TAC arith_ss [] \\
-      REWRITE_TAC [GSYM NULL_LENGTH, NULL_EQ] \\
-      DISCH_TAC \\
-      FULL_SIMP_TAC std_ss [TRACE_NIL] )
+ >- (RW_TAC std_ss [o_DEF, FUNPOW_0] \\
+     Q.EXISTS_TAC `C` >> fs [TRACE_NIL])
  >> rpt STRIP_TAC
  >> Q.PAT_X_ASSUM `TRACE X xs P'` MP_TAC
- >> Know `(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)`
- >- (REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> RW_TAC std_ss [])
- >> Rewr >> DISCH_TAC
+ >> Know `!P. (C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)`
+ >- RW_TAC std_ss [o_DEF, FUNPOW] >> Rewr
+ >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
  >- (REV_FULL_SIMP_TAC std_ss [NULL] \\
@@ -1356,7 +1351,7 @@ val unfolding_lemma4 = store_thm (
      CONJ_TAC >- (IMP_RES_TAC WGS_IMP_GCONTEXT \\
                   MATCH_MP_TAC GCONTEXT_combin >> art []) \\
      CONJ_TAC >- (KILL_TAC >> REWRITE_TAC [o_DEF] >> RW_TAC std_ss []) \\
-     GEN_TAC >> REWRITE_TAC [FUNPOW, o_DEF] >> BETA_TAC >> art [])
+     GEN_TAC >> ASM_SIMP_TAC std_ss [o_DEF])
  >> FULL_SIMP_TAC list_ss []
  >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
  >> Q.ABBREV_TAC `xs = FRONT (h::t)`
@@ -1374,7 +1369,6 @@ val unfolding_lemma4 = store_thm (
  >> REWRITE_TAC [NULL]
  >> Q.EXISTS_TAC `C' (E Q)`
  >> Q.UNABBREV_TAC `x` >> art []
- >> REWRITE_TAC [FUNPOW]
  >> Q.UNABBREV_TAC `xs` >> art []);
 
 (* Lemma 3.9 of [2] *)
@@ -1915,18 +1909,13 @@ Theorem OBS_unfolding_lemma4 :
 Proof
     NTAC 2 GEN_TAC
  >> Induct_on `n`
- >- (REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> rpt STRIP_TAC \\
-     Q.EXISTS_TAC `C` >> art [] \\
-     POP_ASSUM MP_TAC \\
-     SIMP_TAC arith_ss [] \\
-     REWRITE_TAC [GSYM NULL_LENGTH, NULL_EQ] \\
-     DISCH_TAC \\
-     FULL_SIMP_TAC std_ss [TRACE_NIL])
+ >- (RW_TAC std_ss [o_DEF, FUNPOW_0] \\
+     Q.EXISTS_TAC `C` >> fs [TRACE_NIL])
  >> rpt STRIP_TAC
  >> Q.PAT_X_ASSUM `TRACE X xs P'` MP_TAC
- >> Know `(C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)`
- >- (REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> RW_TAC std_ss [])
- >> Rewr >> DISCH_TAC
+ >> Know `!P. (C o (FUNPOW E (SUC n))) P = (C o (FUNPOW E n)) (E P)`
+ >- RW_TAC std_ss [o_DEF, FUNPOW] >> Rewr
+ >> DISCH_TAC
  >> IMP_RES_TAC TRACE_cases2
  >> Cases_on `xs`
  >- (REV_FULL_SIMP_TAC std_ss [NULL] \\
@@ -1938,7 +1927,7 @@ Proof
      CONJ_TAC >- (IMP_RES_TAC WG_IMP_CONTEXT \\
                   MATCH_MP_TAC CONTEXT_combin >> art []) \\
      CONJ_TAC >- (KILL_TAC >> REWRITE_TAC [o_DEF] >> RW_TAC std_ss []) \\
-     GEN_TAC >> REWRITE_TAC [FUNPOW, o_DEF] >> BETA_TAC >> art [])
+     GEN_TAC >> ASM_SIMP_TAC std_ss [o_DEF])
  >> FULL_SIMP_TAC list_ss []
  >> `LENGTH (FRONT (h::t)) <= n` by PROVE_TAC [LENGTH_FRONT_CONS]
  >> Q.ABBREV_TAC `xs = FRONT (h::t)`
@@ -1955,7 +1944,6 @@ Proof
  >> REWRITE_TAC [NULL]
  >> Q.EXISTS_TAC `C' (E Q)`
  >> Q.UNABBREV_TAC `x` >> art []
- >> REWRITE_TAC [FUNPOW]
  >> Q.UNABBREV_TAC `xs` >> art []
 QED
 
@@ -1997,16 +1985,16 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
       Q.UNABBREV_TAC `C''` \\
       Q.PAT_X_ASSUM `TRACE X xs' E2` (ASSUME_TAC o BETA_RULE) \\
       Know `?C'. CONTEXT C' /\ (E2 = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs' (C' Q)`
-      >- ( MATCH_MP_TAC OBS_unfolding_lemma4 >> art [] ) \\
+      >- (MATCH_MP_TAC OBS_unfolding_lemma4 >> art []) \\
       STRIP_TAC >> POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
       `OBS_contracts (C Q) ((C o FUNPOW E n) Q)` by PROVE_TAC [] \\
       FULL_SIMP_TAC std_ss [] \\ (* to replace E2 *)
       Q.EXISTS_TAC `C'` >> art [] \\
       Know `WEAK_TRANS (C (FUNPOW E n Q)) (label l) (C' Q)`
-      >- ( REWRITE_TAC [WEAK_TRANS_AND_TRACE, Action_distinct_label] \\
-           Q.EXISTS_TAC `xs'` >> art [] \\
-           MATCH_MP_TAC UNIQUE_LABEL_NOT_NULL \\
-           Q.EXISTS_TAC `label l` >> art [] ) >> DISCH_TAC \\
+      >- (REWRITE_TAC [WEAK_TRANS_AND_TRACE, Action_distinct_label] \\
+          Q.EXISTS_TAC `xs'` >> art [] \\
+          MATCH_MP_TAC UNIQUE_LABEL_NOT_NULL \\
+          Q.EXISTS_TAC `label l` >> art []) >> DISCH_TAC \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
       IMP_RES_TAC OBS_contracts_WEAK_TRANS_label' \\
       Q.EXISTS_TAC `E1` >> art [],
@@ -2020,14 +2008,14 @@ val UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA = store_thm (
       Q.UNABBREV_TAC `C''` \\
       Q.PAT_X_ASSUM `TRACE X xs' E2` (ASSUME_TAC o BETA_RULE) \\
       Know `?C'. CONTEXT C' /\ (E2 = C' P) /\ !Q. TRACE ((C o FUNPOW E n) Q) xs' (C' Q)`
-      >- ( MATCH_MP_TAC OBS_unfolding_lemma4 >> art [] ) \\
+      >- (MATCH_MP_TAC OBS_unfolding_lemma4 >> art []) \\
       STRIP_TAC >> POP_ASSUM (ASSUME_TAC o (Q.SPEC `Q`)) \\
       `OBS_contracts (C Q) ((C o FUNPOW E n) Q)` by PROVE_TAC [] \\
       FULL_SIMP_TAC std_ss [] \\ (* to replace E2 *)
       Q.EXISTS_TAC `C'` >> art [] \\
       Know `EPS (C (FUNPOW E n Q)) (C' Q)` (* diff here *)
-      >- ( REWRITE_TAC [EPS_AND_TRACE] \\
-           Q.EXISTS_TAC `xs'` >> art [] ) >> DISCH_TAC \\
+      >- (REWRITE_TAC [EPS_AND_TRACE] \\
+          Q.EXISTS_TAC `xs'` >> art []) >> DISCH_TAC \\
       REWRITE_TAC [O_DEF] >> BETA_TAC \\
       IMP_RES_TAC OBS_contracts_EPS' \\
       Q.EXISTS_TAC `E1` >> art [] ]);
