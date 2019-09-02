@@ -1567,7 +1567,7 @@ QED
 val weakly_guarded_rules = save_thm
   ("weakly_guarded_rules",
     LIST_CONJ [weakly_guarded_nil,
-               weakly_guarded_var,
+               weakly_guarded_var_rule,
                weakly_guarded_prefix_rule,
                weakly_guarded_sum_rule,
                weakly_guarded_par_rule,
@@ -1578,7 +1578,8 @@ val weakly_guarded_rules = save_thm
 (* a collection of all backward rules of `weakly_guarded` *)
 val weakly_guarded_backward_rules = save_thm
   ("weakly_guarded_backward_rules",
-    LIST_CONJ [weakly_guarded_prefix_rule,
+    LIST_CONJ [weakly_guarded_var,
+               weakly_guarded_prefix,
                weakly_guarded_sum,
                weakly_guarded_par,
                weakly_guarded_restr,
