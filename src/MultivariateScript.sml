@@ -3463,7 +3463,6 @@ Proof
        (* goal 2 (of 2) *)
       `OBS_contracts Q (CCS_SUBST (fromList Xs Qs) E)` by METIS_TAC [EL_MAP] \\
        IMP_RES_TAC OBS_contracts_TRANS_LEFT \\
-
        MP_TAC (Q.SPECL [`Xs`, `E`] strong_unique_solution_lemma) \\
       `MEM E Es` by PROVE_TAC [MEM_EL] \\
       `FV E SUBSET (set Xs)` by PROVE_TAC [] \\
@@ -3485,8 +3484,7 @@ QED
 
 (* Bibliography:
 
- [1] Milner, Robin. Communication and concurrency. Vol. 84. New York
-     etc.: Prentice hall, 1989.
+ [1] Milner, Robin. Communication and concurrency. Prentice hall, 1989.
 
  [2] Sangiorgi, Davide. "Equations, contractions, and unique
      solutions." ACM Transactions on Computational Logic (TOCL) 18.1
