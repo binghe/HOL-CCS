@@ -1878,9 +1878,13 @@ Proof
  >> Q.ABBREV_TAC `Q = EL n Qs`
  >> irule (REWRITE_RULE [RSUBSET] STRONG_BISIM_UPTO_THM)
  (* 
-    `FV G SUBSET (set Xs)` is necessary for the case of `par`,
-    `IS_PROC x /\ DISJOINT (BV x) (set Xs)` is for the same case, they
-     guarantee that `CCS_SUBST (Xs |-> Ps) x = x`.
+    `FV G SUBSET (set Xs)` is necessary for the case of `par`;
+
+    `IS_PROC x /\ DISJOINT (BV x) (set Xs)` is for the same case: they
+     guarantee that `CCS_SUBST (Xs |-> Ps) x = x`. (This is not needed
+     when "CCS equations" are formalized as another type, e.g. in case
+     of STRONG_UNIQUE_SOLUTION where uni-variate equations are lambda-
+     functions of type CCS->CCS.)
   *)
  >> Q.EXISTS_TAC `\x y. IS_PROC x /\ DISJOINT (BV x) (set Xs) /\
                         IS_PROC y /\ DISJOINT (BV y) (set Xs) /\
@@ -2763,7 +2767,7 @@ QED
 (* Transitivity is a property of equivalence but OBS_contracts is PreOrder,
    thus this lemma doesn't derive from LIST_REL_equivalence.
  *)
-Theorem OBS_contracts_trans :
+Theorem OBS_contracts_transitive :
     !(Ps :('a, 'b) CCS list) Qs Rs.
           LIST_REL OBS_contracts Ps Qs /\ LIST_REL OBS_contracts Qs Rs
       ==> LIST_REL OBS_contracts Ps Rs
@@ -2775,126 +2779,50 @@ Proof
  >> Q.EXISTS_TAC `EL n Qs` >> art []
 QED
 
+Theorem OBS_contracts_reflexive :
+    !(Ps :('a, 'b) CCS list). LIST_REL OBS_contracts Ps Ps
+Proof
+    RW_TAC list_ss [LIST_REL_EL_EQN, OBS_contracts_REFL]
+QED
+
 (* USC unfolding lemmas for unique_solution_of_rooted_contractions_lemma
   "USC" := "Unique Solution of (Rooted) Contractions".
 
    Lemma 1,4 are directly used; Lemma 2,3 are further lemmas of Lemma 4.
 *)
 Theorem USC_unfolding_lemma1[local] :
-    !Xs Es E C C' Ps.
+    !Xs Es E C0 Ps.
            CCS_equation Xs Es /\ EVERY (context Xs) Es /\
            CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
            (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
-           (C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C)
-       ==> !n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                             (CCS_SUBST (fromList Xs Ps) (C' n))
+           (C0 = \Ys. (CCS_SUBST (fromList Xs Ys)) C)
+       ==> !n. OBS_contracts (C0 Ps) ((C0 o (FUNPOW E n)) Ps)
 Proof
-    rpt GEN_TAC >> STRIP_TAC
- >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)` by PROVE_TAC [CCS_equation_def]
- (* re-define C' (and E) back to abbreviations *)
- >> Q.PAT_X_ASSUM `C' = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+    rpt GEN_TAC >> STRIP_TAC (* up to `!n` *)
+ >> `ALL_DISTINCT Xs /\ (LENGTH Es = LENGTH Xs)`
+     by PROVE_TAC [CCS_equation_def]
+ >> Q.PAT_X_ASSUM `C0 = _` ((FULL_SIMP_TAC pure_ss) o wrap)
  >> Q.PAT_X_ASSUM `E  = _` ((FULL_SIMP_TAC pure_ss) o wrap)
+ (* re-define C0 and E as abbreviations *)
  >> Q.ABBREV_TAC  `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- >> Q.X_GEN_TAC `n` >> BETA_TAC
- (* applying CCS_SUBST_nested *)
- >> MP_TAC (Q.SPECL [`Xs`, `Ps`, `FUNPOW E n (MAP var Xs)`, `C`] CCS_SUBST_nested)
- >> Know `!i. LENGTH (FUNPOW E i (MAP var Xs)) = LENGTH Xs`
- >- (Induct_on `i` >- rw [FUNPOW_0, LENGTH_MAP] \\
-     REWRITE_TAC [FUNPOW_SUC] \\
-     Q.ABBREV_TAC `E' = FUNPOW E i (MAP var Xs)` \\
-     Q.UNABBREV_TAC `E` >> ASM_SIMP_TAC std_ss [LENGTH_MAP])
- >> DISCH_TAC
+ >> RW_TAC std_ss [o_DEF]
  >> `DISJOINT (BV C) (set Xs)` by PROVE_TAC [context_def]
  >> `ALL_DISTINCT Xs` by PROVE_TAC [CCS_equation_def]
  >> `LENGTH Ps = LENGTH Xs` by PROVE_TAC [CCS_solution_length]
- >> RW_TAC std_ss []
- >> POP_ASSUM K_TAC (* useless after rewriting *)
- (* applying OBS_contracts_subst_context *)
- >> irule OBS_contracts_subst_context >> art []
  >> fs [CCS_solution_def]
- >> Q.SPEC_TAC (`n`, `n`)
- >> Induct_on `n`
- >- (REWRITE_TAC [FUNPOW_0] \\
-     Suff `MAP (CCS_SUBST (fromList Xs Ps)) (MAP var Xs) = Ps`
-     >- (Rewr' >> RW_TAC list_ss [LIST_REL_EL_EQN, OBS_contracts_REFL]) \\
-     MATCH_MP_TAC LIST_EQ \\
-     STRONG_CONJ_TAC >- ASM_SIMP_TAC list_ss [LENGTH_MAP] >> Rewr' \\
-     RW_TAC list_ss [EL_MAP, CCS_SUBST_def, FDOM_fromList,
-                     fromList_FAPPLY_EL] \\
-     METIS_TAC [MEM_EL])
- >> MATCH_MP_TAC OBS_contracts_trans
- >> Q.EXISTS_TAC `MAP (CCS_SUBST (fromList Xs Ps)) (FUNPOW E n (MAP var Xs))`
- >> ASM_REWRITE_TAC []
- >> POP_ASSUM K_TAC (* already used assumption *)
- >> RW_TAC list_ss [LIST_REL_EL_EQN, EL_MAP]
- >> rename1 `i < LENGTH Xs`
- (* stage work *)
- >> SIMP_TAC std_ss [FUNPOW_SUC_LEFT, o_DEF] (* FUNPOW_SUC doesn't work *)
- >> Suff `!n. FUNPOW E n (E (MAP var Xs)) =
-              MAP (CCS_SUBST (fromList Xs (E (MAP var Xs))))
-                  (FUNPOW E n (MAP var Xs))`
- >- (Rewr' >> RW_TAC list_ss [EL_MAP] \\
-  (* applying CCS_SUBST_nested AGAIN *)
-     MP_TAC (Q.SPECL [`Xs`, `Ps`,
-                      `(E :('a, 'b) CCS list -> ('a, 'b) CCS list) (MAP var Xs)`,
-                      `EL i (FUNPOW E n (MAP var Xs))`] CCS_SUBST_nested) \\
-    `LENGTH (E (MAP var Xs)) = LENGTH Xs` by METIS_TAC [FUNPOW_1] \\
-     Know `!n. EVERY (context Xs) (FUNPOW E n (MAP var Xs))`
-     >- (Induct_on `n`
-         >- (RW_TAC list_ss [EVERY_MEM, FUNPOW_0, EL_MAP, context_var, MEM_EL] \\
-             fs [EL_MAP, context_var]) \\
-         rw [FUNPOW_SUC] \\
-         Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)` \\
-         Q.UNABBREV_TAC `E` \\
-         RW_TAC list_ss [EVERY_MEM, EL_MAP, MEM_MAP] \\
-         MATCH_MP_TAC context_combin >> art [] \\
-         CONJ_TAC >- fs [EVERY_MEM] \\
-         Q.UNABBREV_TAC `E'` >> art []) \\
-     DISCH_THEN (ASSUME_TAC o (Q.SPEC `n`)) \\
-     Know `context Xs (EL i (FUNPOW E n (MAP var Xs)))`
-     >- (fs [EVERY_MEM, MEM_EL] \\
-         POP_ASSUM MATCH_MP_TAC \\
-         Q.EXISTS_TAC `i` >> art []) >> DISCH_TAC \\
-    `DISJOINT (BV (EL i (FUNPOW E n (MAP var Xs)))) (set Xs)`
-        by PROVE_TAC [context_def] \\
-     RW_TAC bool_ss [] \\
-     POP_ASSUM K_TAC (* already used assumption *) \\
-  (* applying OBS_contracts_subst_context AGAIN *)
-     irule OBS_contracts_subst_context >> art [] \\
-     Q.UNABBREV_TAC `E` >> fs [] \\
-     Know `MAP (CCS_SUBST (fromList Xs (MAP var Xs))) Es = Es`
-     >- (RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP] \\
-         MATCH_MP_TAC CCS_SUBST_self >> art [] \\
-        `MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] \\
-         fs [EVERY_MEM, context_def]) >> Rewr' >> art [])
- (* now the last difficult part! *)
- >> Induct_on `n`
- >- (REWRITE_TAC [FUNPOW_0] \\
-     Q.ABBREV_TAC `EX = E (MAP var Xs)` \\
-     RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP]
-     >- (unset [`EX`, `E`] >> ASM_SIMP_TAC list_ss [LENGTH_MAP]) \\
-    `x < LENGTH (MAP var Xs) /\ x < LENGTH Xs` by METIS_TAC [LENGTH_MAP] \\
-    `LENGTH EX = LENGTH Xs` by METIS_TAC [LENGTH_MAP] \\
-    `MEM (EL x Xs) Xs` by PROVE_TAC [MEM_EL] \\
-     ASM_SIMP_TAC list_ss [EL_MAP, CCS_SUBST_def, FDOM_fromList,
-                           fromList_FAPPLY_EL])
- >> REWRITE_TAC [FUNPOW_SUC] >> POP_ORW
- >> Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)`
- >> Q.UNABBREV_TAC `E` >> BETA_TAC
- >> RW_TAC list_ss [LIST_EQ_REWRITE, EL_MAP]
- >> MATCH_MP_TAC EQ_SYM
- >> MATCH_MP_TAC CCS_SUBST_nested >> art [LENGTH_MAP]
- >> Reverse CONJ_TAC
- >- (`MEM (EL x Es) Es` by PROVE_TAC [MEM_EL] >> fs [EVERY_MEM, context_def])
- >> Q.UNABBREV_TAC `E'`
- >> Q.ABBREV_TAC `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- (* the last goal by induction *)
- >> Q.SPEC_TAC (`n`, `n`)
- >> Induct_on `n`
- >- rw [FUNPOW_0, LENGTH_MAP]
+ >> irule OBS_contracts_subst_context >> art []
+ (* applying induction *)
+ >> Induct_on `n` >- rw [FUNPOW_0, OBS_contracts_reflexive]
  >> REWRITE_TAC [FUNPOW_SUC]
- >> Q.ABBREV_TAC `E' = FUNPOW E n (MAP var Xs)`
- >> Q.UNABBREV_TAC `E` >> rw [LENGTH_MAP]
+ >> Q.ABBREV_TAC `Qs = FUNPOW E n Ps`
+ >> Know `OBS_contracts (E Ps) (E Qs)`
+ >- (Q.UNABBREV_TAC `E` >> BETA_TAC \\
+     RW_TAC list_ss [LIST_REL_EL_EQN, EL_MAP] \\
+     irule OBS_contracts_subst_context >> art [] \\
+    `MEM (EL n' Es) Es` by PROVE_TAC [MEM_EL] \\
+     fs [EVERY_MEM]) >> DISCH_TAC
+ >> MATCH_MP_TAC OBS_contracts_transitive
+ >> Q.EXISTS_TAC `E Ps` >> art []
 QED
 
 (* `ALL_PROC Ps` is added to handle the last difficulity;
@@ -3063,7 +2991,7 @@ Proof
  >> ASM_SET_TAC []
 QED
 
-(* Needed by lemma3. It depends on lemma2 and repeated applications of
+(* It depends on lemma2 and repeated applications of
    the (celebrated) CCS_SUBST_nested.
 
   `EVERY (\e. DISJOINT (BV e) (set Xs)) Ps` comes from lemma2.
@@ -3134,18 +3062,33 @@ Proof
  (* re-define C' and E back to abbreviations *)
  >> Q.PAT_X_ASSUM `C' = _` ((FULL_SIMP_TAC pure_ss) o wrap)
  >> Q.PAT_X_ASSUM `E  = _` ((FULL_SIMP_TAC pure_ss) o wrap)
- >> Q.ABBREV_TAC  `E  = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- >> Q.ABBREV_TAC  `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
- (* kick-start by induction *)
+ >> Q.ABBREV_TAC  `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
+ >> Q.ABBREV_TAC  `C0 = \Ys. (CCS_SUBST (fromList Xs Ys)) C`
+ >> Q.ABBREV_TAC  `CE = \n. (C0 o (FUNPOW E n)) (MAP var Xs)`
+ >> Know `(\n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C) = CE`
+ >- (Q.UNABBREV_TAC `CE` >> SIMP_TAC std_ss [FUN_EQ_THM] \\
+     GEN_TAC >> Q.UNABBREV_TAC `C0` >> SIMP_TAC std_ss [o_DEF]) >> Rewr'
+(* kick-start by induction *)
  >> Induct_on `n` >> rpt STRIP_TAC
- >- (fs [TRACE_NIL] >> rfs [] \\
-     Know `C' 0 = C`
-     >- (Q.UNABBREV_TAC `C'` >> SIMP_TAC std_ss [FUNPOW_0] \\
-         MATCH_MP_TAC CCS_SUBST_self \\
-         PROVE_TAC [context_def, CCS_equation_def]) >> DISCH_TAC \\
-     Q.EXISTS_TAC `C` >> fs [])
+ >- (Q.UNABBREV_TAC `CE` >> fs [TRACE_NIL, FUNPOW_0] \\
+     Q.EXISTS_TAC `C` >> art [] \\
+     Suff `C0 (MAP var Xs) = C` >- RW_TAC std_ss [] \\
+     Q.UNABBREV_TAC `C0` >> BETA_TAC \\
+     MATCH_MP_TAC CCS_SUBST_self \\
+     PROVE_TAC [context_def, CCS_equation_def])
+(* stage work *)
+
+ >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC >> BETA_TAC
+ >> Q.UNABBREV_TAC `C''` >> BETA_TAC
+ >> Know `!P. (C' o (FUNPOW E' (SUC n))) P = (C' o (FUNPOW E' n)) (E' P)`
+ >- (GEN_TAC >> REWRITE_TAC [o_DEF, FUNPOW] >> BETA_TAC >> RW_TAC std_ss [])
+ >> Rewr
  (* stage work *)
- >> Q.PAT_X_ASSUM `TRACE _ xs P'` MP_TAC
+ >> Know `CCS_SUBST (fromList Xs Ps) ((C' o FUNPOW E' n) (E' (MAP var Xs))) =
+          CCS_SUBST (fromList Xs (E' Ps)) ((C' o FUNPOW E' n) (MAP var Xs))`
+ 
+
+ >> DISCH_TAC
  >> Know `!i Qs. (LENGTH Qs = LENGTH Xs) ==>
                  CCS_SUBST (fromList Xs Qs) (C' (SUC i)) =
                  CCS_SUBST (fromList Xs (E Qs)) (C' i)`
@@ -3292,10 +3235,14 @@ Proof
      MATCH_MP_TAC weakly_guarded_imp_context \\
      FIRST_X_ASSUM MATCH_MP_TAC >> art [])
  >> DISCH_TAC
+ (* this turns Es into a chain-able function: E : Ys -> Ys *)
  >> Q.ABBREV_TAC `E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es`
- >> Q.ABBREV_TAC `C' = \n. CCS_SUBST (fromList Xs (FUNPOW E n (MAP var Xs))) C`
- (* applying context_combin *)
- >> Know `!n. context Xs (C' n)`
+ (* this turns C into a (toplevel) chain-able function: C0 : Ys -> Y *)
+ >> Q.ABBREV_TAC `C0 = \Ys. (CCS_SUBST (fromList Xs Ys)) C`
+ (* CE (was C') = C0 o (FUNPOW E n) : num -> Ys -> Y *)
+ >> Q.ABBREV_TAC `CE = \n. C0 o (FUNPOW E n)`
+ (* 
+ >> Know `!n. context Xs (CE n)`
  >- (GEN_TAC >> Q.UNABBREV_TAC `C'` >> BETA_TAC \\
      MATCH_MP_TAC context_combin >> fs [CCS_equation_def] \\
      Q.SPEC_TAC (`n`, `n`) \\
@@ -3307,16 +3254,13 @@ Proof
      RW_TAC list_ss [EVERY_MEM, MEM_MAP] \\
      MATCH_MP_TAC context_combin >> fs [EVERY_MEM])
  >> DISCH_TAC
- >> Know `!n. OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                            (CCS_SUBST (fromList Xs Ps) (C' n))`
- >- (MATCH_MP_TAC USC_unfolding_lemma1 \\
-     take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
+ *)
+ >> Know `!n. OBS_contracts (C0 Ps) (CE n Ps)`
+ >- (Q.UNABBREV_TAC `CE` >> BETA_TAC \\
+     MATCH_MP_TAC USC_unfolding_lemma1 \\
+     take [`Xs`, `Es`] >> unset [`E`, `C0`] >> art [])
  >> DISCH_TAC
- >> Know `!n. OBS_contracts (CCS_SUBST (fromList Xs Qs) C)
-                            (CCS_SUBST (fromList Xs Qs) (C' n))`
- >- (MATCH_MP_TAC USC_unfolding_lemma1 \\
-     take [`Es`, `E`] >> unset [`E`, `C'`] >> art [])
- >> DISCH_TAC
+ (* stage work *)
  >> `(LENGTH Ps = LENGTH Xs) /\ (LENGTH Qs = LENGTH Xs)`
       by PROVE_TAC [CCS_solution_length]
  >> fs [CCS_solution_def]
@@ -3324,17 +3268,16 @@ Proof
  >| [ (* goal 1 (of 2) *)
       IMP_RES_TAC WEAK_TRANS_AND_TRACE \\
       FULL_SIMP_TAC std_ss [Action_distinct_label] \\
-     `OBS_contracts (CCS_SUBST (fromList Xs Ps) C)
-                    (CCS_SUBST (fromList Xs Ps) (C' (LENGTH us)))`
-        by PROVE_TAC [] \\
+     `OBS_contracts (C0 Ps) (CE (LENGTH us) Ps)` by PROVE_TAC [] \\
       POP_ASSUM (MP_TAC o (Q.SPECL [`us`, `l`, `R`]) o
                  (MATCH_MP OBS_contracts_AND_TRACE_label)) \\
       RW_TAC std_ss [] \\
       Q.ABBREV_TAC `n = LENGTH us` \\
+
+   (* TODO *)
       Know `?C''. context Xs C'' /\ (E2 = CCS_SUBST (fromList Xs Ps) C'') /\
                   !Qs. (LENGTH Qs = LENGTH Xs) ==>
-                       TRACE (CCS_SUBST (fromList Xs Qs) (C' n)) xs'
-                             (CCS_SUBST (fromList Xs Qs) C'')`
+                       TRACE (CE n Qs) xs' (CCS_SUBST (fromList Xs Qs) C'')`
       >- (irule USC_unfolding_lemma4 >> art [] \\
           take [`C`, `E`, `Es`] >> unset [`E`, `C'`] >> art []) \\
       STRIP_TAC >> POP_ASSUM (MP_TAC o (Q.SPEC `Qs`)) \\
