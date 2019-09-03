@@ -1,0 +1,13 @@
+%%%% -*- Mode: LaTeX -*-
+
+\section{Multivariate extensions}
+
+(\hl{This section is new.})
+
+\begin{alltt}
+\HOLthm{Multivariate.strong_unique_solution_thm}\hfill{[strong_unique_solution_thm]}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm{Multivariate.unique_solution_of_rooted_contractions}\hfill{[unique_solution_of_rooted_contractions]}
+\end{alltt}

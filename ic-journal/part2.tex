@@ -81,7 +81,7 @@ Let $E$ be guarded and sequential expressions, and let $P \wb
 E\{P/X\}$,
 $Q \wb E\{Q/X\}$. Then $P \wb Q$.
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}\hfill{[WEAK_UNIQUE_SOLUTION]}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill{[WEAK_UNIQUE_SOLUTION]}
 \end{alltt}
 \end{theorem}
 
@@ -135,7 +135,7 @@ Let $E$ be guarded and sequential expressions, and let $P \rapprox
 E\{P/X\}$,
 $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}\hfill{[OBS_UNIQUE_SOLUTION]}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}\hfill{[OBS_UNIQUE_SOLUTION]}
 \end{alltt}
 \end{theorem}
 
@@ -280,7 +280,7 @@ non-$\tau$ weak transitions passing into $\mcontrBIS$ (from left to right):
 
 With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulationU}:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_CONTRACTIONS]}
 \end{alltt}
 
@@ -301,7 +301,7 @@ the precongruence of rooted contraction,
 we can use  weakly-guarded expressions,   without constraints on  sums;
 that is, \texttt{WG} in place of \texttt{WGS}):
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}
 \hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 

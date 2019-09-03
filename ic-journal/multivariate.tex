@@ -1,0 +1,19 @@
+%%%% -*- Mode: LaTeX -*-
+
+\section{Multivariate extensions}
+
+(\hl{This section is new.})
+
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
+   \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{STRONG_EQUIV} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
+   \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{STRONG_EQUIV} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs}\hfill{[strong_unique_solution_thm]}
+\end{alltt}
+
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
+   \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
+   \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenImp{}}
+   \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Qs}\hfill{[unique_solution_of_rooted_contractions]}
+\end{alltt}

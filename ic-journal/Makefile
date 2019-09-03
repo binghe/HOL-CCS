@@ -1,7 +1,7 @@
 MUNGE = ../src/munge.exe
 
 HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex conclusions.tex
-TEXFILES = main.tex intro.tex ccs.tex expansion.tex \
+TEXFILES = main.tex intro.tex ccs.tex expansion.tex multivariate.tex \
            contraction.tex unique.tex equa.tex formal.tex \
            related.tex conclusions.tex tokens.tex $(HTEXFILES)
 
@@ -16,6 +16,9 @@ tokens.tex: ../src/tokens.tex
 
 part2.tex: part2.htex $(MUNGE)
 	$(MUNGE) < part2.htex > part2.tex
+
+multivariate.tex: multivariate.htex $(MUNGE)
+	$(MUNGE) < multivariate.htex > multivariate.tex
 
 sos.tex: sos.htex $(MUNGE)
 	$(MUNGE) < sos.htex > sos.tex

@@ -119,7 +119,8 @@
 \title{Unique Solutions of Contractions, CCS, and their HOL
   Formalisation\tnoteref{mytitlenote}}
 \tnotetext[mytitlenote]{This paper is \hl{the full version of our}
-  EXPRESS/SOS 2018 workshop paper~\cite{EPTCS276.10}.}
+  EXPRESS/SOS 2018 workshop paper~\cite{EPTCS276.10}, \hl{plus the
+  multivariate extensions.}}
 
 % authors
 \author[mymainaddress]{Chun Tian}%\fnref{myfootnote}
@@ -140,9 +141,9 @@
   Milner's ``unique solution of equations'' technique.  The paper
   presents an overview of a rather comprehensive formalisation of the
   core of the theory of CCS in the HOL theorem prover (HOL4), with a
-  focus towards the theory of unique solutions of contractions.
-  % [Chun] I still found this sentence embarrassing:
-  % (The formalisation consists of about 20,000 lines of proof scripts in Standard ML.)
+  focus towards the theory of unique solutions of contractions\hl{---both
+  univariate and multivariate cases}.
+  The formalisation consists of about \hl{24,000 lines (or 1MB) of code in total.}
   Some refinements of the theory itself are obtained.
   In particular we remove the constraints on summation,
   which must be weakly-guarded, by moving to \emph{rooted
@@ -203,6 +204,7 @@ solution of equations \sep congruence
 \input{part2}
 
 % part 3
+\input{multivariate} % NEW
 \input{related}
 \input{conclusions}
 

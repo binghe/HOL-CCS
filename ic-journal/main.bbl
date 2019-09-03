@@ -189,6 +189,10 @@ J.~Parrow, J.~Bengtson, Formalising the pi-calculus using nominal logic,
 \newblock \href {https://doi.org/10.2168/LMCS-5(2:16)2009}
   {\path{doi:10.2168/LMCS-5(2:16)2009}}.
 
+\bibitem{bengtson2010formalising}
+J.~Bengtson, Formalising process calculi, Ph.D. thesis, Acta Universitatis
+  Upsaliensis (2010).
+
 \bibitem{melham1994mechanized}
 T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
   Theory of the Pi-Calculus in HOL}}, Nord. J. Comput. 1~(1) (1994) 50--76.
