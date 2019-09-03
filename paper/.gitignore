@@ -8,3 +8,5 @@
 *.pdf
 *.ilg
 *.ind
+*.out
+/references.tex
