@@ -301,10 +301,12 @@ val _ = Unicode.unicode_version { u = UnicodeChars.nu, tmnm = "nu" };
 val _ = TeX_notation { hol = "nu",
                        TeX = ("\\ensuremath{\\nu}", 1) };
 
+(* disabled: this "\mu" is conflict with the \mu action used in CCS papers
 val _ = overload_on ("mu", ``rec``);
 val _ = Unicode.unicode_version { u = UnicodeChars.mu, tmnm = "mu" };
 val _ = TeX_notation { hol = "mu",
                        TeX = ("\\ensuremath{\\mu}", 1) };
+ *)
 
 val _ = overload_on ("+", ``sum``); (* priority: 500 *)
 val _ = TeX_notation { hol = "+",

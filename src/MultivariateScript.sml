@@ -1699,7 +1699,7 @@ End
    (much) easier.
  *)
 Definition CCS_solution_def :
-    CCS_solution Xs Es R Ps <=>
+    CCS_solution R Xs Es Ps <=>
         ALL_PROC Ps /\
         EVERY (\e. DISJOINT (BV e) (set Xs)) Ps /\
         LIST_REL R Ps (MAP (CCS_SUBST (fromList Xs Ps)) Es)
@@ -1708,7 +1708,7 @@ End
 (* Each solution contains the same number of CCS processes as the
    variables - this is derived from LIST_REL's properties *)
 Theorem CCS_solution_length :
-    !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution Xs Es R Ps ==>
+    !Xs Es R Ps. CCS_equation Xs Es /\ CCS_solution R Xs Es Ps ==>
                  (LENGTH Ps = LENGTH Xs)
 Proof
     RW_TAC list_ss [CCS_equation_def, CCS_solution_def]
@@ -1892,10 +1892,11 @@ QED
    then:
         If Ps ~ E{Ps/Xs} and Qs ~ E{Qs/Xs} then Ps ~ Qs.
  *)
-Theorem strong_unique_solution :
-    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. Ps IN (CCS_solution Xs Es STRONG_EQUIV) /\
-                Qs IN (CCS_solution Xs Es STRONG_EQUIV) ==> STRONG_EQUIV Ps Qs
+Theorem strong_unique_solution_thm :
+    !Xs Es Ps Qs.
+        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
+        Ps IN (CCS_solution STRONG_EQUIV Xs Es) /\
+        Qs IN (CCS_solution STRONG_EQUIV Xs Es) ==> STRONG_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss [CCS_equation_def, CCS_solution_def, LIST_REL_EL_EQN]
@@ -2818,7 +2819,7 @@ QED
 Theorem USC_unfolding_lemma1 :
     !Xs Es E C0 Ps.
            CCS_equation Xs Es /\ EVERY (context Xs) Es /\
-           CCS_solution Xs Es OBS_contracts Ps /\ context Xs C /\
+           CCS_solution OBS_contracts Xs Es Ps /\ context Xs C /\
            (E = \Ys. MAP (CCS_SUBST (fromList Xs Ys)) Es) /\
            (C0 = \Ys. (CCS_SUBST (fromList Xs Ys)) C)
        ==> !n. OBS_contracts (C0 Ps) ((C0 o (FUNPOW E n)) Ps)
@@ -3186,8 +3187,8 @@ QED
 Theorem unique_solution_of_rooted_contractions_lemma :
     !Xs Es Ps Qs. CCS_equation Xs Es /\
                   EVERY (weakly_guarded Xs) Es /\
-                  CCS_solution Xs Es OBS_contracts Ps /\
-                  CCS_solution Xs Es OBS_contracts Qs ==>
+                  CCS_solution OBS_contracts Xs Es Ps /\
+                  CCS_solution OBS_contracts Xs Es Qs ==>
         !C. context Xs C ==>
             (!l R. WEAK_TRANS (CCS_SUBST (fromList Xs Ps) C) (label l) R ==>
                    ?C'. context Xs C' /\
@@ -3286,8 +3287,8 @@ QED
    unique_solution_of_rooted_contractions. *)
 val shared_lemma = Q.prove (
    `CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
-    CCS_solution Xs Es OBS_contracts Ps /\
-    CCS_solution Xs Es OBS_contracts Qs
+    CCS_solution OBS_contracts Xs Es Ps /\
+    CCS_solution OBS_contracts Xs Es Qs
    ==>
     WEAK_BISIM (\R S. ?C. context Xs C /\
                           WEAK_EQUIV R (CCS_SUBST (fromList Xs Ps) C) /\
@@ -3383,9 +3384,10 @@ QED
 
 (* Theorem 3.10 of [2], full version *)
 Theorem unique_solution_of_obs_contractions :
-    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
-                Qs IN (CCS_solution Xs Es OBS_contracts) ==> WEAK_EQUIV Ps Qs
+    !Xs Es Ps Qs.
+        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
+        Ps IN (CCS_solution OBS_contracts Xs Es) /\
+        Qs IN (CCS_solution OBS_contracts Xs Es) ==> WEAK_EQUIV Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss [CCS_solution_def, EVERY_MEM, LIST_REL_EL_EQN]
@@ -3421,9 +3423,10 @@ QED
 
 (* THE FINAL THEOREM (Theorem 3.13 of [3], full version) *)
 Theorem unique_solution_of_rooted_contractions :
-    !Xs Es. CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es ==>
-        !Ps Qs. Ps IN (CCS_solution Xs Es OBS_contracts) /\
-                Qs IN (CCS_solution Xs Es OBS_contracts) ==> OBS_CONGR Ps Qs
+    !Xs Es Ps Qs.
+        CCS_equation Xs Es /\ EVERY (weakly_guarded Xs) Es /\
+        Ps IN (CCS_solution OBS_contracts Xs Es) /\
+        Qs IN (CCS_solution OBS_contracts Xs Es) ==> OBS_CONGR Ps Qs
 Proof
     rpt GEN_TAC >> REWRITE_TAC [IN_APP]
  >> RW_TAC list_ss (* `std_ss` is not enough here *)
