@@ -1,5 +1,5 @@
 \newcommand{\HOLCongruenceDate}{03 Settembre 2019}
-\newcommand{\HOLCongruenceTime}{11:53}
+\newcommand{\HOLCongruenceTime}{13:27}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsCCXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
 \end{SaveVerbatim}
@@ -267,11 +267,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsCONTEXTSevenXXbackward}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTSevenXXbackward}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTEightXXbackward}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \HOLBoundVar{e}
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsCONTEXTEightXXbackward}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTEightXXbackward}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTEightXXIMPXXCONST}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_CONST} \HOLBoundVar{e}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_CONST} \HOLBoundVar{e}
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsCONTEXTEightXXIMPXXCONST}{\UseVerbatim{HOLCongruenceTheoremsCONTEXTEightXXIMPXXCONST}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsCONTEXTXXcases}
@@ -518,7 +518,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsISXXCONSTXXalt}{\UseVerbatim{HOLCongruenceTheoremsISXXCONSTXXalt}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsNOXXCONTEXTEight}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLSymConst{\HOLTokenNeg{}}\HOLConst{IS_CONST} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLSymConst{\HOLTokenNeg{}}\HOLConst{IS_CONST} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{CONTEXT} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t}))
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsNOXXCONTEXTEight}{\UseVerbatim{HOLCongruenceTheoremsNOXXCONTEXTEight}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsNOXXWGZero}
@@ -526,7 +526,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsNOXXWGZero}{\UseVerbatim{HOLCongruenceTheoremsNOXXWGZero}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsNOXXWGEight}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLSymConst{\HOLTokenNeg{}}\HOLConst{IS_CONST} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLSymConst{\HOLTokenNeg{}}\HOLConst{IS_CONST} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t}))
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsNOXXWGEight}{\UseVerbatim{HOLCongruenceTheoremsNOXXWGEight}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsOBSXXCONGRXXcongruence}
@@ -924,11 +924,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsWGSevenXXbackward}{\UseVerbatim{HOLCongruenceTheoremsWGSevenXXbackward}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsWGEightXXbackward}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsWGEightXXbackward}{\UseVerbatim{HOLCongruenceTheoremsWGEightXXbackward}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsWGEightXXIMPXXCONST}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_CONST} \HOLBoundVar{e}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e} \HOLBoundVar{X}. \HOLConst{WG} (\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{rec} \HOLBoundVar{X} (\HOLBoundVar{e} \HOLBoundVar{t})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_CONST} \HOLBoundVar{e}
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceTheoremsWGEightXXIMPXXCONST}{\UseVerbatim{HOLCongruenceTheoremsWGEightXXIMPXXCONST}}
 \begin{SaveVerbatim}{HOLCongruenceTheoremsWGXXcases}

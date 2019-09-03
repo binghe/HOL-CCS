@@ -1,5 +1,5 @@
 \newcommand{\HOLUniqueSolutionsDate}{03 Settembre 2019}
-\newcommand{\HOLUniqueSolutionsTime}{11:53}
+\newcommand{\HOLUniqueSolutionsTime}{14:26}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsFUNPOWXXSUCXXLEFT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{FUNPOW} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{FUNPOW} \HOLBoundVar{f} \HOLBoundVar{n} \HOLConst{\HOLTokenCompose} \HOLBoundVar{f}
 \end{SaveVerbatim}
@@ -40,10 +40,9 @@
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsOBSXXunfoldingXXlemmaFour}{\UseVerbatim{HOLUniqueSolutionsTheoremsOBSXXunfoldingXXlemmaFour}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsOBSXXUNIQUEXXSOLUTION}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
-           \HOLConst{OBS_CONGR} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsOBSXXUNIQUEXXSOLUTION}{\UseVerbatim{HOLUniqueSolutionsTheoremsOBSXXUNIQUEXXSOLUTION}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsOBSXXUNIQUEXXSOLUTIONXXLEMMA}
@@ -116,9 +115,9 @@
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsunfoldingXXlemmaFour}{\UseVerbatim{HOLUniqueSolutionsTheoremsunfoldingXXlemmaFour}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONS}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLConst{contracts} \HOLBoundVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLConst{contracts} \HOLBoundVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLConst{contracts} \HOLBoundVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONS}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONS}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONSXXLEMMA}
@@ -140,9 +139,8 @@
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONSXXLEMMA}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXCONTRACTIONSXXLEMMA}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONS}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLConst{expands} \HOLBoundVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLConst{expands} \HOLBoundVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{WGS} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLConst{expands} \HOLBoundVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLConst{expands} \HOLBoundVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONS}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONS}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONSYY}
@@ -170,21 +168,11 @@
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONSXXLEMMA}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONSXXLEMMA}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONS}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
-           \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
-           \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONS}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONS}}
-\begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSYY}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
-           \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
-           \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
-\end{SaveVerbatim}
-\newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSYY}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSYY}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSXXLEMMA}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q} \HOLBoundVar{E}.
        \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
@@ -204,19 +192,15 @@
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSXXLEMMA}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSXXLEMMA}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXROOTEDXXCONTRACTIONS}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
-           \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
-           \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{WG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{OBS_contracts} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_CONGR} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXROOTEDXXCONTRACTIONS}{\UseVerbatim{HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXROOTEDXXCONTRACTIONS}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsWEAKXXUNIQUEXXSOLUTION}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}.
-       \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}.
-           \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
-           \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{P} \HOLBoundVar{Q}.
+       \HOLConst{SG} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} (\HOLBoundVar{E} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{Q} (\HOLBoundVar{E} \HOLBoundVar{Q}) \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{WEAK_EQUIV} \HOLBoundVar{P} \HOLBoundVar{Q}
 \end{SaveVerbatim}
 \newcommand{\HOLUniqueSolutionsTheoremsWEAKXXUNIQUEXXSOLUTION}{\UseVerbatim{HOLUniqueSolutionsTheoremsWEAKXXUNIQUEXXSOLUTION}}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsWEAKXXUNIQUEXXSOLUTIONXXLEMMA}
@@ -260,7 +244,6 @@
 \HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_EXPANSIONS'}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONSYY
 \HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_EXPANSIONS_LEMMA}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXEXPANSIONSXXLEMMA
 \HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONS
-\HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS'}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSYY
 \HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_OBS_CONTRACTIONS_LEMMA}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXOBSXXCONTRACTIONSXXLEMMA
 \HOLThmTag{UniqueSolutions}{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}\HOLUniqueSolutionsTheoremsUNIQUEXXSOLUTIONXXOFXXROOTEDXXCONTRACTIONS
 \HOLThmTag{UniqueSolutions}{WEAK_UNIQUE_SOLUTION}\HOLUniqueSolutionsTheoremsWEAKXXUNIQUEXXSOLUTION

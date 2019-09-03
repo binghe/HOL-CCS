@@ -1,5 +1,5 @@
 \newcommand{\HOLObsCongrLawsDate}{03 Settembre 2019}
-\newcommand{\HOLObsCongrLawsTime}{11:53}
+\newcommand{\HOLObsCongrLawsTime}{13:27}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXEXPANSIONXXLAW}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} (\HOLBoundVar{f} \HOLBoundVar{i})) \HOLSymConst{\HOLTokenConj{}}
@@ -66,7 +66,8 @@
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXTAU}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXPREFXXRECXXEQUIV}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}. \HOLConst{OBS_CONGR} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}.
+       \HOLConst{OBS_CONGR} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXPREFXXRECXXEQUIV}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXPREFXXRECXXEQUIV}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXRELABXXNIL}
@@ -133,7 +134,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXR}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXSUMXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsOBSXXUNFOLDING}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{OBS_CONGR} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
 \end{SaveVerbatim}
 \newcommand{\HOLObsCongrLawsTheoremsOBSXXUNFOLDING}{\UseVerbatim{HOLObsCongrLawsTheoremsOBSXXUNFOLDING}}
 \begin{SaveVerbatim}{HOLObsCongrLawsTheoremsTAUOne}
