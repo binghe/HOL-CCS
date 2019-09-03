@@ -87,15 +87,15 @@ output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)}
 The transition semantics of CCS processes follows Structural
 Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
 \begin{alltt}
-\HOLthm{Example.PREFIX'}\hfill\texttt{[PREFIX]}
-\HOLthm{Example.SUM1'}\hfill\texttt{[SUM1]}
-\HOLthm{Example.SUM2'}\hfill\texttt{[SUM2]}
-\HOLthm{Example.PAR1'}\hfill\texttt{[PAR1]}
-\HOLthm{Example.PAR2'}\hfill\texttt{[PAR2]}
-\HOLthm{Example.PAR3'}\hfill\texttt{[PAR3]}
-\HOLthm{Example.RESTR'}\hfill\texttt{[RESTR]}
-\HOLthm{Example.RELABELING'}\hfill\texttt{[RELABELING]}
-\HOLthm{Example.REC'}\hfill\texttt{[REC]}
+\HOLthm{CCS.PREFIX}\hfill\texttt{[PREFIX]}
+\HOLthm{CCS.SUM1}\hfill\texttt{[SUM1]}
+\HOLthm{CCS.SUM2}\hfill\texttt{[SUM2]}
+\HOLthm{CCS.PAR1}\hfill\texttt{[PAR1]}
+\HOLthm{CCS.PAR2}\hfill\texttt{[PAR2]}
+\HOLthm{CCS.PAR3}\hfill\texttt{[PAR3]}
+\HOLthm{CCS.RESTR}\hfill\texttt{[RESTR]}
+\HOLthm{CCS.RELABELING}\hfill\texttt{[RELABELING]}
+\HOLthm{CCS.REC}\hfill\texttt{[REC]}
 \end{alltt}
 
 The last rule \texttt{REC} (Recursion)
