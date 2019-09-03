@@ -1,5 +1,5 @@
 \newcommand{\HOLUniqueSolutionsDate}{03 Settembre 2019}
-\newcommand{\HOLUniqueSolutionsTime}{10:28}
+\newcommand{\HOLUniqueSolutionsTime}{11:53}
 \begin{SaveVerbatim}{HOLUniqueSolutionsTheoremsFUNPOWXXSUCXXLEFT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{FUNPOW} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{FUNPOW} \HOLBoundVar{f} \HOLBoundVar{n} \HOLConst{\HOLTokenCompose} \HOLBoundVar{f}
 \end{SaveVerbatim}
@@ -127,13 +127,13 @@
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{C}.
            \HOLConst{GCONTEXT} \HOLBoundVar{C} \HOLSymConst{\HOLTokenImp{}}
            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{R}.
-                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                     \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{contracts} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
-                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
+                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
                       (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})) \HOLSymConst{\HOLTokenConj{}}
            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                    \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{contracts} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLBoundVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})
@@ -157,13 +157,13 @@
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{C}.
            \HOLConst{GCONTEXT} \HOLBoundVar{C} \HOLSymConst{\HOLTokenImp{}}
            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{R}.
-                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                     \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{expands} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
-                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
+                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
                       (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})) \HOLSymConst{\HOLTokenConj{}}
            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                    \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{expands} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLBoundVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})
@@ -191,13 +191,13 @@
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{C}.
            \HOLConst{CONTEXT} \HOLBoundVar{C} \HOLSymConst{\HOLTokenImp{}}
            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{R}.
-                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+                \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                 \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                     \HOLConst{CONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{contracts} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
-                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
+                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLBoundVar{Q})
                       (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})) \HOLSymConst{\HOLTokenConj{}}
            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+               \HOLBoundVar{C} \HOLBoundVar{P} \HOLTokenWeakTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
                \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                    \HOLConst{CONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLConst{contracts} \HOLBoundVar{C\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
                    (\HOLConst{WEAK_EQUIV} \HOLConst{O} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLBoundVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})

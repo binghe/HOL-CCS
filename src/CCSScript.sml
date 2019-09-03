@@ -464,12 +464,12 @@ val NIL_NO_TRANS_EQF = save_thm (
    "NIL_NO_TRANS_EQF",
     Q.GENL [`u`, `E`] (EQF_INTRO (SPEC_ALL NIL_NO_TRANS)));
 
-(* Prove that if a process can do an action, then the process is not nil.
-   !E u E'. TRANS E u E' ==> E <> nil:
- *)
-val TRANS_IMP_NO_NIL = store_thm ("TRANS_IMP_NO_NIL'",
-  ``!E u E'. TRANS E u E' ==> E <> nil``,
-    PROVE_TAC [NIL_NO_TRANS]);
+(* If a process can do an action, the process is not `nil`. *)
+Theorem TRANS_IMP_NO_NIL :
+    !E u E'. TRANS E u E' ==> E <> nil
+Proof
+    PROVE_TAC [NIL_NO_TRANS]
+QED
 
 (* An recursion variable has no transition.
    !X u E. ~TRANS (var X) u E
