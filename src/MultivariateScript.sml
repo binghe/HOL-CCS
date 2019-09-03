@@ -284,28 +284,25 @@ Proof
  >> METIS_TAC [ALL_DISTINCT_EL_IMP]
 QED
 
-(* KEY result: if Xs is disjoint with free (and bound) variables of E,
-   then E{? / Xs} = E *)
-Theorem CCS_SUBST_elim :
-    !Xs Ps E. DISJOINT (FV E) (set Xs) /\ DISJOINT (BV E) (set Xs) /\
-             (LENGTH Ps = LENGTH Xs) ==>
-             (CCS_SUBST (fromList Xs Ps) E = E)
-Proof
-    NTAC 2 GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC lset_ss [Once CCS_SUBST_def, BV_def, FV_def, FDOM_fromList, MAP_ZIP]
- >> `DISJOINT (FV E) (set Xs)` by ASM_SET_TAC []
- >> METIS_TAC []
-QED
-
 (* slightly more general then CCS_SUBST_elim *)
 Theorem CCS_SUBST_elim' :
-    !fm E. DISJOINT (FV E) (FDOM fm) /\ DISJOINT (BV E) (FDOM fm) ==>
-          (CCS_SUBST fm E = E)
+    !E fm. DISJOINT (FV E) (FDOM fm) ==> (CCS_SUBST fm E = E)
 Proof
-    GEN_TAC >> Induct_on `E` (* 8 subgoals *)
- >> RW_TAC lset_ss [Once CCS_SUBST_def, BV_def, FV_def]
- >> `DISJOINT (FV E) (FDOM fm)` by ASM_SET_TAC []
- >> METIS_TAC []
+    Induct_on `E` (* 8 subgoals *)
+ >> Reverse (RW_TAC lset_ss [Once CCS_SUBST_def, BV_def, FV_def])
+ >- (`DISJOINT (FV E) (FDOM fm)` by ASM_SET_TAC [] \\
+     METIS_TAC [])
+ >> FIRST_X_ASSUM MATCH_MP_TAC >> fs []
+ >> ASM_SET_TAC []
+QED
+
+(* KEY result: if Xs is disjoint with free variables of E, then E{? / Xs} = E *)
+Theorem CCS_SUBST_elim :
+    !Xs Ps E. DISJOINT (FV E) (set Xs) /\ (LENGTH Ps = LENGTH Xs) ==>
+             (CCS_SUBST (fromList Xs Ps) E = E)
+Proof
+    rpt STRIP_TAC
+ >> MATCH_MP_TAC CCS_SUBST_elim' >> fs [FDOM_fromList]
 QED
 
 (* CCS_SUBST_reduce leads to CCS_SUBST_FOLDR *)
