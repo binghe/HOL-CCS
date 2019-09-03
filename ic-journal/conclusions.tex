@@ -40,16 +40,6 @@ We think that the statements in the formalisation are easy to read and
 understand, as they are  close to the original statements found in
 standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
-For the future work, it would be worth extending
-to multi-variable equations/contractions. A key aspect could be using unguarded constants as free variables
-(\texttt{FV}) and defining guardedness directly on expressions of type CCS (instead of
-CCS $\rightarrow$ CCS), then linking to contexts. For instance, an expression is weakly-guarded when each
-of its free variables, replaced by a hole, results in a weakly-guarded context:
-\begin{alltt}
-\HOLConst{weakly_guarded1} \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{e} (\HOLConst{var} \HOLBoundVar{X}) \HOLSymConst{=} \HOLFreeVar{E}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \HOLBoundVar{e}\hfill{[weakly_guarded1_def]}
-\end{alltt}
-
 Formalising other equivalences and preorders could also be considered,
 notably the trace equivalences, as well as more refined process
 calculi such as value-passing CCS.

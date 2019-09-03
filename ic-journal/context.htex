@@ -19,13 +19,13 @@ expressions (or equations). Thus \emph{contexts} can be directly used in
 formulating the unique solution of equations theorems in
 single-variable cases. The precise definition is given inductively:
 \begin{alltt}
-\HOLthm[def]{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
+\HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
 \begin{alltt}
-\HOLthm[def]{Congruence.WG_rules}\hfill{[WG_rules]}
+\HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
 (Notice the differences between a weak guarded context and a normal
 one: $\lambda t. t$ is not weakly guarded as the variable is directly
@@ -34,7 +34,7 @@ guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
 
 A context is \emph{(strongly) guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
 \begin{alltt}
-\HOLthm[def]{Congruence.SG_rules}\hfill{[SG_rules]}
+\HOLthm{Congruence.SG_rules}\hfill{[SG_rules]}
 \end{alltt}
 
 A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
@@ -42,16 +42,16 @@ a hole, apart from the hole itself, is in forms of prefixes or sums:
 (c.f. Def.~\ref{def:guardness} and p.101,157 of \cite{Mil89} for
 the informal definitions.)
  \begin{alltt}
-\HOLthm[def]{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
+\HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
 
 In the same manner, we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
 contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
 \begin{alltt}
-\HOLthm[def]{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
+\HOLthm{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}
 \begin{alltt}
-\HOLthm[def]{Congruence.WGS_rules}\hfill{[WGS_rules]}
+\HOLthm{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
 Many lemmas have then to be proved for the

@@ -1,5 +1,5 @@
-\newcommand{\HOLWeakLawsDate}{19 Agosto 2019}
-\newcommand{\HOLWeakLawsTime}{20:56}
+\newcommand{\HOLWeakLawsDate}{03 Settembre 2019}
+\newcommand{\HOLWeakLawsTime}{10:27}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsTAUXXWEAK}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E}) \HOLBoundVar{E}
 \end{SaveVerbatim}
@@ -76,8 +76,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPARXXTAUXXTAU}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPREFXXRECXXEQUIV}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}.
-       \HOLConst{WEAK_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXPREFXXRECXXEQUIV}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXPREFXXRECXXEQUIV}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXRELABXXNIL}
@@ -144,7 +143,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXR}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXSUMXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXUNFOLDING}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXUNFOLDING}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXUNFOLDING}}
 \newcommand{\HOLWeakLawsTheorems}{

@@ -52,7 +52,7 @@ itself may not be) is contained in the composition closure of $R$
 (hence the closure is the coarsest one):
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
-\HOLthm[nosp]{Congruence.CC_is_coarsest'}\hfill{[CC_is_coarsest']}
+\HOLthm[nosp]{Congruence.PCC_is_coarsest}\hfill{[PCC_is_coarsest]}
 \end{alltt}
 
 Given the central role of the  

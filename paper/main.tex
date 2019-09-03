@@ -1,9 +1,20 @@
 \documentclass[11pt, twoside]{article}
 \usepackage{holtex}
 
+%% Font related packages
+\usepackage[T1]{fontenc} % This is necessary for the correct copy-pasting of 8-bit characters from PDF
+\usepackage{lmodern} % Latin Modern fonts  are slightly better than CM-Super (default) but almost identical
+\usepackage[utf8]{inputenc} % Set input file encoding to UTF-8 (default in XeTeX)
+
+%% More compact texts (less pages with the same font size), USE ONLY IF NECESSARY
+\usepackage{newtxtext}
+
 \makeindex
 
 \begin{document}
+
+%%% TODO: keep this when re-generating this file.
+\input{tokens}
 
 \input{HOLCCS}
 \input{HOLStrongEQ}

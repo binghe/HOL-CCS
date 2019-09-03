@@ -1,5 +1,5 @@
-\newcommand{\HOLStrongLawsDate}{19 Agosto 2019}
-\newcommand{\HOLStrongLawsTime}{20:56}
+\newcommand{\HOLStrongLawsDate}{03 Settembre 2019}
+\newcommand{\HOLStrongLawsTime}{10:27}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsALLXXSYNCXXdef}
 \HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
         \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
@@ -227,12 +227,11 @@
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXTAU}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}.
-       \HOLConst{STRONG_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
-         (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+       \HOLConst{STRONG_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s} \HOLBoundVar{u}. \HOLConst{STRONG_EQUIV} (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s} \HOLBoundVar{u}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRELABXXNIL}
@@ -304,7 +303,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXUNFOLDING}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) (\HOLConst{CCS_Subst} \HOLBoundVar{E} (\HOLConst{\ensuremath{\mu}} \HOLBoundVar{X} \HOLBoundVar{E}) \HOLBoundVar{X})
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXUNFOLDING}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXUNFOLDING}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXBASE}

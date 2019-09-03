@@ -11,35 +11,35 @@ C.~Tian, D.~Sangiorgi, {Unique Solutions of Contractions, CCS, and their HOL
   25th International Workshop on} Expressiveness in Concurrency {\rm and 15th
   Workshop on} Structural Operational Semantics, {\rm Beijing, China, September
   3, 2018}, Vol. 276 of Electronic Proceedings in Theoretical Computer Science,
-  Open Publishing Association, 2018, pp. 122--139 (2018).
+  Open Publishing Association, 2018, pp. 122--139.
 \newblock \href {https://doi.org/10.4204/EPTCS.276.10}
   {\path{doi:10.4204/EPTCS.276.10}}.
 
 \bibitem{Mil89}
 R.~Milner, Communication and concurrency, {PHI} Series in computer science,
-  Prentice-Hall, 1989 (1989).
+  Prentice-Hall, 1989.
 
 \bibitem{BaeBOOK}
 J.~C.~M. Baeten, T.~Basten, M.~A. Reniers, Process Algebra: Equational Theories
-  of Communicating Processes, Cambridge University Press, 2010 (2010).
+  of Communicating Processes, Cambridge University Press, 2010.
 \newblock \href {https://doi.org/10.1017/CBO9781139195003}
   {\path{doi:10.1017/CBO9781139195003}}.
 
 \bibitem{theoryAndPractice}
 A.~W. Roscoe,
   \href{http://www.cs.ox.ac.uk/people/bill.roscoe/publications/68b.pdf}{The
-  theory and practice of concurrency}, {Prentice Hall}, 1998 (1998).
+  theory and practice of concurrency}, {Prentice Hall}, 1998.
 \newline\urlprefix\url{http://www.cs.ox.ac.uk/people/bill.roscoe/publications/68b.pdf}
 
 \bibitem{RosUnder10}
-A.~W. Roscoe, Understanding Concurrent Systems, Springer, 2010 (2010).
+A.~W. Roscoe, Understanding Concurrent Systems, Springer, 2010.
 \newblock \href {https://doi.org/10.1007/978-1-84882-258-0}
   {\path{doi:10.1007/978-1-84882-258-0}}.
 
 \bibitem{sangiorgi2015equations}
 D.~Sangiorgi, \href{https://hal.inria.fr/hal-01089205}{Equations, contractions,
   and unique solutions}, in: ACM SIGPLAN Notices, Vol.~50, ACM, 2015, pp.
-  421--432 (2015).
+  421--432.
 \newblock \href {https://doi.org/10.1145/2676726.2676965}
   {\path{doi:10.1145/2676726.2676965}}.
 \newline\urlprefix\url{https://hal.inria.fr/hal-01089205}
@@ -47,7 +47,7 @@ D.~Sangiorgi, \href{https://hal.inria.fr/hal-01089205}{Equations, contractions,
 \bibitem{sangiorgi2017equations}
 D.~Sangiorgi, \href{https://hal.inria.fr/hal-01647063}{Equations, contractions,
   and unique solutions}, ACM Transactions on Computational Logic (TOCL) 18
-  (2017) 4 (2017).
+  (2017) 4.
 \newblock \href {https://doi.org/10.1145/2971339} {\path{doi:10.1145/2971339}}.
 \newline\urlprefix\url{https://hal.inria.fr/hal-01647063}
 
@@ -61,33 +61,33 @@ M.~Nesi, \href{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}{{A
 D.~Sangiorgi, R.~Milner,
   \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
   problem of “weak bisimulation up to”}, in: International Conference on
-  Concurrency Theory, Springer, 1992, pp. 32--46 (1992).
+  Concurrency Theory, Springer, 1992, pp. 32--46.
 \newblock \href {https://doi.org/10.1007/BFb0084781}
   {\path{doi:10.1007/BFb0084781}}.
 \newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}
 
 \bibitem{Gorrieri:2015jt}
 R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
-  Systems and CCS, Springer, Cham, 2015 (Sep. 2015).
+  Systems and CCS, Springer, Cham, 2015.
 \newblock \href {https://doi.org/10.1007/978-3-319-21491-7}
   {\path{doi:10.1007/978-3-319-21491-7}}.
 
 \bibitem{van2005characterisation}
 R.~J. van Glabbeek, A characterisation of weak bisimulation congruence, in:
   Processes, Terms and Cycles: Steps on the Road to Infinity, Springer, 2005,
-  pp. 26--39 (2005).
+  pp. 26--39.
 \newblock \href {https://doi.org/10.1007/11601548_4}
   {\path{doi:10.1007/11601548_4}}.
 
 \bibitem{Sangiorgi:2011ut}
 D.~Sangiorgi, Introduction to Bisimulation and Coinduction, Cambridge
-  University Press, 2011 (Oct. 2011).
+  University Press, 2011.
 \newblock \href {https://doi.org/10.1017/CBO9780511777110}
   {\path{doi:10.1017/CBO9780511777110}}.
 
 \bibitem{arun1992efficiency}
 S.~Arun-Kumar, M.~Hennessy, An efficiency preorder for processes, Acta
-  Informatica 29~(8) (1992) 737--760 (1992).
+  Informatica 29~(8) (1992) 737--760.
 \newblock \href {https://doi.org/10.1007/BF01191894}
   {\path{doi:10.1007/BF01191894}}.
 
@@ -95,7 +95,7 @@ S.~Arun-Kumar, M.~Hennessy, An efficiency preorder for processes, Acta
 K.~Slind, M.~Norrish,
   \href{http://ts.data61.csiro.au/publications/nicta_full_text/1482.pdf}{A
   brief overview of hol4}, in: International Conference on Theorem Proving in
-  Higher Order Logics, Springer, 2008, pp. 28--32 (2008).
+  Higher Order Logics, Springer, 2008, pp. 28--32.
 \newblock \href {https://doi.org/10.1007/978-3-540-71067-7_6}
   {\path{doi:10.1007/978-3-540-71067-7_6}}.
 \newline\urlprefix\url{http://ts.data61.csiro.au/publications/nicta_full_text/1482.pdf}
@@ -115,7 +115,7 @@ C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
 \bibitem{gordon1979edinburgh}
 M.~J.~C. Gordon, A.~J. Milner, C.~P. Wadsworth, Edinburgh {LCF}: A Mechanised
   Logic of Computation, Vol.~78 of Lecture Notes in Computer Science, Springer,
-  Berlin Heidelberg, 1979 (1979).
+  Berlin Heidelberg, 1979.
 \newblock \href {https://doi.org/10.1007/3-540-09724-4}
   {\path{doi:10.1007/3-540-09724-4}}.
 
@@ -127,24 +127,24 @@ R.~Milner, \href{http://www.dtic.mil/dtic/tr/fulltext/u2/785072.pdf}{Logic for
 
 \bibitem{church1940formulation}
 A.~Church, A formulation of the simple theory of types, The journal of symbolic
-  logic 5~(2) (1940) 56--68 (1940).
+  logic 5~(2) (1940) 56--68.
 \newblock \href {https://doi.org/10.2307/2266170} {\path{doi:10.2307/2266170}}.
 
 \bibitem{hurd2011opentheory}
 J.~Leslie-Hurd, {The OpenTheory standard theory library}, in: NASA Formal
-  Methods Symposium, Springer, 2011, pp. 177--191 (2011).
+  Methods Symposium, Springer, 2011, pp. 177--191.
 \newblock \href {https://doi.org/10.1007/978-3-642-20398-5_14}
   {\path{doi:10.1007/978-3-642-20398-5_14}}.
 
 \bibitem{gorrieri2017ccs}
 R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
-  154~(1-4) (2017) 145--166 (2017).
+  154~(1-4) (2017) 145--166.
 \newblock \href {https://doi.org/10.3233/FI-2017-1557}
   {\path{doi:10.3233/FI-2017-1557}}.
 
 \bibitem{Nesi:2017wo}
 M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
-  Computing 11~(2) (1999) 160--199 (1999).
+  Computing 11~(2) (1999) 160--199.
 \newblock \href {https://doi.org/10.1007/s001650050046}
   {\path{doi:10.1007/s001650050046}}.
 
@@ -157,7 +157,7 @@ M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
 \bibitem{norrish2013ordinals}
 M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
   beyond) $\omega_1$}, in: International Conference on Interactive Theorem
-  Proving, Springer, 2013, pp. 133--146 (2013).
+  Proving, Springer, 2013, pp. 133--146.
 \newblock \href {https://doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
 
@@ -172,14 +172,14 @@ T.~F. Melham,
 R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A
   semantics-based tool for the verification of concurrent systems, ACM
   Transactions on Programming Languages and Systems (TOPLAS) 15~(1) (1993)
-  36--72 (1993).
+  36--72.
 \newblock \href {https://doi.org/10.1145/151646.151648}
   {\path{doi:10.1145/151646.151648}}.
 
 \bibitem{bengtson2007completeness}
 J.~Bengtson, J.~Parrow, A completeness proof for bisimulation in the
   pi-calculus using isabelle, Electronic Notes in Theoretical Computer Science
-  192~(1) (2007) 61--75 (2007).
+  192~(1) (2007) 61--75.
 \newblock \href {https://doi.org/10.1016/j.entcs.2007.08.017}
   {\path{doi:10.1016/j.entcs.2007.08.017}}.
 
@@ -191,8 +191,7 @@ J.~Parrow, J.~Bengtson, Formalising the pi-calculus using nominal logic,
 
 \bibitem{melham1994mechanized}
 T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
-  Theory of the Pi-Calculus in HOL}}, Nord. J. Comput. 1~(1) (1994) 50--76
-  (1994).
+  Theory of the Pi-Calculus in HOL}}, Nord. J. Comput. 1~(1) (1994) 50--76.
 \newblock \href {https://doi.org/10.1.1.56.4370} {\path{doi:10.1.1.56.4370}}.
 \newline\urlprefix\url{http://core.ac.uk/download/pdf/22878407.pdf}
 
@@ -200,7 +199,7 @@ T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
 O.~A{\"i}t~Mohamed, {{Mechanizing a $\pi$-calculus equivalence in HOL}}, in:
   E.~Thomas~Schubert, P.~J. Windley, J.~Alves-Foss (Eds.), Higher Order Logic
   Theorem Proving and Its Applications, Springer Berlin Heidelberg, Berlin,
-  Heidelberg, 1995, pp. 1--16 (1995).
+  Heidelberg, 1995, pp. 1--16.
 \newblock \href {https://doi.org/10.1007/3-540-60275-5_53}
   {\path{doi:10.1007/3-540-60275-5_53}}.
 
@@ -208,33 +207,33 @@ O.~A{\"i}t~Mohamed, {{Mechanizing a $\pi$-calculus equivalence in HOL}}, in:
 M.~Compton,
   \href{https://web.comlab.ox.ac.uk/techreports/oucl/RR-05-02.pdf#page=36}{{Embedding
   a fair CCS in Isabelle/HOL}}, in: Theorem Proving in Higher Order Logics:
-  Emerging Trends Proceedings, 2005, p.~30 (2005).
+  Emerging Trends Proceedings, 2005, p.~30.
 \newblock \href {https://doi.org/10.1.1.105.834} {\path{doi:10.1.1.105.834}}.
 \newline\urlprefix\url{https://web.comlab.ox.ac.uk/techreports/oucl/RR-05-02.pdf#page=36}
 
 \bibitem{chaudhuri2015lightweight}
 K.~Chaudhuri, M.~Cimini, D.~Miller, A lightweight formalization of the
   metatheory of bisimulation-up-to, in: Proceedings of the 2015 Conference on
-  Certified Programs and Proofs, ACM, 2015, pp. 157--166 (2015).
+  Certified Programs and Proofs, ACM, 2015, pp. 157--166.
 \newblock \href {https://doi.org/10.1145/2676724.2693170}
   {\path{doi:10.1145/2676724.2693170}}.
 
 \bibitem{pous2007new}
 D.~Pous, New up-to techniques for weak bisimulation, Theoretical Computer
-  Science 380 (2007) 164--180 (2007).
+  Science 380 (2007) 164--180.
 \newblock \href {https://doi.org/10.1016/j.tcs.2007.02.060}
   {\path{doi:10.1016/j.tcs.2007.02.060}}.
 
 \bibitem{kahsai2008implementing}
 T.~Kahsai, M.~Miculan, Implementing spi calculus using nominal techniques, in:
-  Conference on Computability in Europe, Springer, 2008, pp. 294--305 (2008).
+  Conference on Computability in Europe, Springer, 2008, pp. 294--305.
 \newblock \href {https://doi.org/10.1007/978-3-540-69407-6_33}
   {\path{doi:10.1007/978-3-540-69407-6_33}}.
 
 \bibitem{hirschkoff1997full}
 D.~Hirschkoff, A full formalisation of $\pi$-calculus theory in the calculus of
   constructions, in: International Conference on Theorem Proving in Higher
-  Order Logics, Springer, 1997, pp. 153--169 (1997).
+  Order Logics, Springer, 1997, pp. 153--169.
 \newblock \href {https://doi.org/10.1007/BFb0028392}
   {\path{doi:10.1007/BFb0028392}}.
 
@@ -245,7 +244,7 @@ A.~Durier, D.~Hirschkoff, D.~Sangiorgi,
   International Conference on Concurrency Theory (CONCUR 2017), Vol.~85 of
   Leibniz International Proceedings in Informatics (LIPIcs), Schloss
   Dagstuhl--Leibniz-Zentrum fuer Informatik, Dagstuhl, Germany, 2017, pp.
-  11:1--11:16 (2017).
+  11:1--11:16.
 \newblock \href {https://doi.org/10.4230/LIPIcs.CONCUR.2017.11}
   {\path{doi:10.4230/LIPIcs.CONCUR.2017.11}}.
 \newline\urlprefix\url{http://drops.dagstuhl.de/opus/volltexte/2017/7784}

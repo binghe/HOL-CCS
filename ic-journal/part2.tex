@@ -22,7 +22,7 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
        \HOLFreeVar{E} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}}. \HOLConst{CONTEXT} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{E} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{Q}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}}. \HOLConst{CONTEXT} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{E} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{Q}
 \end{alltt}
 \end{lemma}
 
@@ -36,7 +36,7 @@ guarded in $E$.
 P \sim Q.
 \end{equation}
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLBoundVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Q}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
 \end{theorem}
 In above proof, we have identified 14 major sub-goals, dividing them into 7
@@ -70,7 +70,7 @@ sequential, and if $\alpha = \tau$ then $H$ is also guarded.
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
        \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}.
-           \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} ((\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}}
            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}\hfill{[WEAK_UNIQUE_SOLUTION_LEMMA]}
 \end{alltt}
 \end{lemma}
@@ -102,8 +102,8 @@ following lemma.   It is   assertion
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
-            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
+            (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenImp{} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLBoundVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenImp{} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}) \HOLSymConst{\HOLTokenImp{}}
        \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{E\sp{\prime}}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 \end{lemma}
@@ -126,9 +126,7 @@ sequential, and if $\alpha = \tau$ then $H$ is also guarded.
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \HOLBoundVar{P\sp{\prime}}.
        \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}.
-           \HOLConst{SEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} ((\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P}) \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}\hfill{[OBS_UNIQUE_SOLUTION_LEMMA]}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}. \HOLConst{SEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{a} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}) \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{H} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}\hfill{[OBS_UNIQUE_SOLUTION_LEMMA]}
 \end{alltt}
 \end{lemma}
 
@@ -174,17 +172,17 @@ For this, we first
 Given a labeled transition relation \texttt{R} on CCS, \texttt{LRTC R} is
 a label-accumulated relation representing the trace of transitions:
 \begin{alltt}
-\HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
-    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
-    (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
-    \HOLBoundVar{P} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b}\hfill{[LRTC_DEF]}
+\HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLSymConst{\HOLTokenDefEquality{}}
+  \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
+      (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x}. \HOLBoundVar{P} \HOLBoundVar{x} [] \HOLBoundVar{x}) \HOLSymConst{\HOLTokenConj{}}
+      (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z}. \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{h} \HOLBoundVar{y} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \HOLBoundVar{y} \HOLBoundVar{t} \HOLBoundVar{z} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLBoundVar{x} (\HOLBoundVar{h}\HOLSymConst{::}\HOLBoundVar{t}) \HOLBoundVar{z}) \HOLSymConst{\HOLTokenImp{}}
+      \HOLBoundVar{P} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b}\hfill{[LRTC_DEF]}
 \end{alltt}
 The trace relation for CCS can be then obtained
  by calling \texttt{LRTC} on the (strong, or single-step) labeled transition
  relation \texttt{TRANS} ($\overset{\mu}{\rightarrow}$) defined by SOS rules:
 \begin{alltt}
-\HOLConst{TRACE} \HOLSymConst{=} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
+\HOLConst{TRACE} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
 
 If the list of actions is empty, that means that there is no transition and hence,
@@ -194,7 +192,7 @@ we have to distinguish between two cases: no label and unique label (in
 the list of actions). The definition of ``no
 label'' in an action list is easy (here \texttt{MEM} tests if a given element is a member of a list):
 \begin{alltt}
-\HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLFreeVar{L}\hfill{[NO_LABEL_def]}
+\HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} (\HOLConst{label} \HOLBoundVar{l}) \HOLFreeVar{L}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
 The definition of ``unique label'' can be done in many ways, the
@@ -203,8 +201,8 @@ avoids any counting or filtering in the list.
 It says that a label is unique in a list of actions if and only if there is no
 label in the rest of list:
 \begin{alltt}
-\HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLFreeVar{L} \HOLSymConst{\HOLTokenEquiv{}}
-\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}. (\HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDoublePlus} [\HOLFreeVar{u}] \HOLSymConst{\HOLTokenDoublePlus} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLFreeVar{L}) \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{2}}}\hfill{[UNIQUE_LABEL_def]}
+\HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLFreeVar{L} \HOLSymConst{\HOLTokenDefEquality{}}
+  \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{L\sb{\mathrm{1}}} \HOLBoundVar{L\sb{\mathrm{2}}}. \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDoublePlus} [\HOLFreeVar{u}] \HOLSymConst{\HOLTokenDoublePlus} \HOLBoundVar{L\sb{\mathrm{2}}} \HOLSymConst{=} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \HOLBoundVar{L\sb{\mathrm{2}}}\hfill{[UNIQUE_LABEL_def]}
 \end{alltt}
 
 The final relationship between traces and weak transitions is stated
@@ -220,7 +218,7 @@ $u$ is the unique label (for $u \neq \tau$):
 % empty action list: 1) without any visible label, if $u = \tau$, or 2)
 % $u$ is the unique label in the list, if $u \neq \tau$.
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
+\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenImp{} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{acts}.
        \HOLConst{TRACE} \HOLFreeVar{P} \HOLBoundVar{acts} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{NULL} \HOLBoundVar{acts} \HOLSymConst{\HOLTokenConj{}}
        \HOLKeyword{if} \HOLFreeVar{u} \HOLSymConst{=} \HOLSymConst{\ensuremath{\tau}} \HOLKeyword{then} \HOLConst{NO_LABEL} \HOLBoundVar{acts} \HOLKeyword{else} \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLBoundVar{acts}\hfill{[WEAK_TRANS_AND_TRACE]}
@@ -235,13 +233,13 @@ Now the formalised version of Lemma~\ref{l:uptocon}:
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{C}.
        \HOLConst{GCONTEXT} \HOLBoundVar{C} \HOLSymConst{\HOLTokenImp{}}
        (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{R}.
-            \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+            \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
             \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                 \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}}
-                (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLFreeVar{Q})
+                (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} (\HOLTokenLambda{}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenImp{} \HOLBoundVar{y})) (\HOLBoundVar{C} \HOLFreeVar{Q})
                   (\HOLBoundVar{C\sp{\prime}} \HOLFreeVar{Q})) \HOLSymConst{\HOLTokenConj{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-           \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
+           \HOLBoundVar{C} \HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenImp{} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
            \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
                \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}}
                (\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{EPS}) (\HOLBoundVar{C} \HOLFreeVar{Q}) (\HOLBoundVar{C\sp{\prime}} \HOLFreeVar{Q})
@@ -255,7 +253,7 @@ the following ``unfolding lemma'':\vspace{-1em}
 \HOLTokenTurnstile{} \HOLConst{GCONTEXT} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WGS} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLFreeVar{P}) \HOLFreeVar{xs} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{xs} \HOLSymConst{\HOLTokenLeq{}} \HOLFreeVar{n} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{C\sp{\prime}}.
-       \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} (\HOLFreeVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P}) \HOLSymConst{\HOLTokenConj{}}
+       \HOLConst{GCONTEXT} \HOLBoundVar{C\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P\sp{\prime}} \HOLSymConst{=} \HOLBoundVar{C\sp{\prime}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLConst{TRACE} ((\HOLFreeVar{C} \HOLSymConst{\HOLTokenCompose} \HOLConst{FUNPOW} \HOLFreeVar{E} \HOLFreeVar{n}) \HOLBoundVar{Q}) \HOLFreeVar{xs} (\HOLBoundVar{C\sp{\prime}} \HOLBoundVar{Q})\hfill{[unfolding_lemma4]}
 \end{small}
 \end{alltt}
