@@ -6,3 +6,5 @@
 *.hix
 *.synctex.gz
 *.pdf
+*.ilg
+*.ind
