@@ -355,7 +355,7 @@ val CCS_11 = TypeBase.one_one_of ``:('a, 'b) CCS``;
 
    This works under the hypothesis that the Barendregt convention holds. *)
 Definition CCS_Subst_def :
-   (CCS_Subst nil          E' X = nil) /\
+   (CCS_Subst nil          E  X = nil) /\
    (CCS_Subst (prefix u E) E' X = prefix u (CCS_Subst E E' X)) /\
    (CCS_Subst (sum E1 E2)  E' X = sum (CCS_Subst E1 E' X)
                                       (CCS_Subst E2 E' X)) /\
@@ -363,7 +363,7 @@ Definition CCS_Subst_def :
                                       (CCS_Subst E2 E' X)) /\
    (CCS_Subst (restr L E)  E' X = restr L (CCS_Subst E E' X)) /\
    (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
-   (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
+   (CCS_Subst (var Y)      E  X = if (Y = X) then E  else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
                                   else (rec Y (CCS_Subst E E' X)))
 End
