@@ -379,6 +379,14 @@ val [CCS_Subst_nil,   CCS_Subst_prefix, CCS_Subst_sum, CCS_Subst_par,
                    "CCS_Subst_var",   "CCS_Subst_rec"],
                   CONJUNCTS CCS_Subst_def));
 
+val _ = overload_on ("SUB", ``\E' X E. CCS_Subst E E' X``);
+
+(* `[E'/X] E`, learnt from <holdir>/examples/lambda/basics/termScript.sml *)
+val _ = add_rule {term_name = "SUB", fixity = Closefix,
+                  pp_elements = [TOK "[", TM, TOK "/", TM, TOK "]"],
+                  paren_style = OnlyIfNecessary,
+                  block_style = (AroundEachPhrase, (PP.INCONSISTENT, 2))};
+
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
    and bound, so there exist no free variables X in E to be replaced with E'.
    Hence, the term rec Y E is returned.

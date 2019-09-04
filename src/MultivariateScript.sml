@@ -189,6 +189,9 @@ Definition CCS_SUBST_def :
                                 else (rec X (CCS_SUBST fm E)))
 End
 
+(* TODO: move to relationTheory *)
+val _ = TeX_notation {hol = "\\\\", TeX = ("\\ensuremath{\\setminus}", 1)}
+
 (* broken into separate "axioms" *)
 val [CCS_SUBST_nil,   CCS_SUBST_prefix, CCS_SUBST_sum, CCS_SUBST_par,
      CCS_SUBST_restr, CCS_SUBST_relab,  CCS_SUBST_var, CCS_SUBST_rec] =
@@ -219,8 +222,13 @@ Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = FEMPTY |++ ZIP (Xs,Ps)
 End
 
+(* new pretty print format: ``[Ps/Xs] E`` *)
+val _ = overload_on ("SUB", ``\Ps Xs. CCS_SUBST (fromList Xs Ps)``);
+
+(* old pretty print format: ``CCS_SUBST (Xs |-> Ps) E``
 val _ = overload_on ("|->", ``fromList``);
 val _ = set_fixity "|->" (Infix (NONASSOC, 100));
+ *)
 
 Theorem fromList_EMPTY :
     fromList [] [] = FEMPTY
@@ -442,7 +450,7 @@ Theorem CCS_SUBST_nested :
         ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\ (LENGTH Es = LENGTH Xs) /\
         DISJOINT (BV C) (set Xs) ==>
        (CCS_SUBST (fromList Xs Ps) (CCS_SUBST (fromList Xs Es) C) =
-        CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)
+        CCS_SUBST (fromList Xs (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C)
 Proof
     Suff (* rewriting for induction *)
    `!Xs Ps Es. ALL_DISTINCT Xs /\
@@ -450,7 +458,7 @@ Proof
         !C. DISJOINT (BV C) (set Xs) ==>
             (CCS_SUBST (fromList Xs Ps)
                        (CCS_SUBST (fromList Xs Es) C) =
-             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (Xs |-> Ps)) Es)) C)`
+             CCS_SUBST (fromList Xs (MAP (CCS_SUBST (fromList Xs Ps)) Es)) C)`
  >- METIS_TAC []
  >> rpt GEN_TAC >> STRIP_TAC
  >> Induct_on `C` (* 8 subgoals *)

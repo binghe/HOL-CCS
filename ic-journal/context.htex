@@ -64,12 +64,9 @@ A (pre)congruence is a relation on CCS processes defined on top of
 precongruence is that the former  is an equivalence (reflexive,
 symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
 \begin{alltt}
-\HOLthm[def]{Congruence.congruence_def}\hfill{[congruence_def]}
-\hfill{[precongruence_def]}
-\end{alltt}
-\vspace{-4ex}
-\begin{alltt}
-\HOLthm[def]{Congruence.precongruence_def}
+\HOLthm[def]{Congruence.congruence}\hfill{[congruence]}
+
+\HOLthm[def]{Congruence.precongruence}\hfill{[precongruence]}
 \end{alltt}
 
 % next file: coarsest.htex

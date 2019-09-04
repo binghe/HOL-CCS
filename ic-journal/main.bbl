@@ -91,10 +91,15 @@ S.~Arun-Kumar, M.~Hennessy, An efficiency preorder for processes, Acta
 \newblock \href {https://doi.org/10.1007/BF01191894}
   {\path{doi:10.1007/BF01191894}}.
 
+\bibitem{Melham:1993vl}
+M.~J.~C. Gordon, T.~F. Melham, Introduction to {HOL}: A Theorem Proving
+  Environment for Higher Order Logic, Cambrige University Press, New York, NY,
+  USA, 1993.
+
 \bibitem{slind2008brief}
 K.~Slind, M.~Norrish,
   \href{http://ts.data61.csiro.au/publications/nicta_full_text/1482.pdf}{A
-  brief overview of hol4}, in: International Conference on Theorem Proving in
+  brief overview of {HOL4}}, in: International Conference on Theorem Proving in
   Higher Order Logics, Springer, 2008, pp. 28--32.
 \newblock \href {https://doi.org/10.1007/978-3-540-71067-7_6}
   {\path{doi:10.1007/978-3-540-71067-7_6}}.
@@ -108,9 +113,9 @@ C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
 
 \bibitem{hollogic}
 {HOL4 contributors},
-  \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-logic.pdf}{{The
-  HOL System LOGIC}} (Jun. 2018).
-\newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-logic.pdf}
+  \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-logic.pdf}{{The
+  HOL System LOGIC (Kananaskis-13 release)}} (Aug. 2019).
+\newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-logic.pdf}
 
 \bibitem{gordon1979edinburgh}
 M.~J.~C. Gordon, A.~J. Milner, C.~P. Wadsworth, Edinburgh {LCF}: A Mechanised
@@ -150,9 +155,9 @@ M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
 
 \bibitem{holdesc}
 {HOL4 contributors},
-  \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-description.pdf}{{The
-  HOL System DESCRIPTION}} (Jun. 2018).
-\newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-12/kananaskis-12-description.pdf}
+  \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}{{The
+  HOL System DESCRIPTION (Kananaskis-13 release)}} (Aug. 2019).
+\newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}
 
 \bibitem{norrish2013ordinals}
 M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
@@ -196,7 +201,6 @@ J.~Bengtson, Formalising process calculi, Ph.D. thesis, Acta Universitatis
 \bibitem{melham1994mechanized}
 T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
   Theory of the Pi-Calculus in HOL}}, Nord. J. Comput. 1~(1) (1994) 50--76.
-\newblock \href {https://doi.org/10.1.1.56.4370} {\path{doi:10.1.1.56.4370}}.
 \newline\urlprefix\url{http://core.ac.uk/download/pdf/22878407.pdf}
 
 \bibitem{mohamed1995mechanizing}

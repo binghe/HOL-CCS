@@ -1,23 +1,23 @@
-\newcommand{\HOLCongruenceDate}{03 Settembre 2019}
-\newcommand{\HOLCongruenceTime}{13:27}
+\newcommand{\HOLCongruenceDate}{04 Settembre 2019}
+\newcommand{\HOLCongruenceTime}{10:29}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsCCXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionsCCXXdef}{\UseVerbatim{HOLCongruenceDefinitionsCCXXdef}}
-\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceYYXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-       \HOLConst{congruence'} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
-\end{SaveVerbatim}
-\newcommand{\HOLCongruenceDefinitionscongruenceYYXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceYYXXdef}}
-\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceXXdef}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruence}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{congruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
-\newcommand{\HOLCongruenceDefinitionscongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionscongruenceXXdef}}
+\newcommand{\HOLCongruenceDefinitionscongruence}{\UseVerbatim{HOLCongruenceDefinitionscongruence}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionscongruenceYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       \HOLConst{congruence'} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionscongruenceYY}{\UseVerbatim{HOLCongruenceDefinitionscongruenceYY}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsCONTEXTXXdef}
 \HOLTokenTurnstile{} \HOLConst{CONTEXT} \HOLSymConst{=}
    (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
@@ -99,20 +99,20 @@
             \HOLBoundVar{OH\HOLTokenUnderscore{}CONTEXT\sp{\prime}} \HOLBoundVar{a\sb{\mathrm{0}}})
 \end{SaveVerbatim}
 \newcommand{\HOLCongruenceDefinitionsOHXXCONTEXTXXdef}{\UseVerbatim{HOLCongruenceDefinitionsOHXXCONTEXTXXdef}}
-\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceYYXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
-       \HOLConst{precongruence'} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLConst{PreOrder} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
-\end{SaveVerbatim}
-\newcommand{\HOLCongruenceDefinitionsprecongruenceYYXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceYYXXdef}}
-\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceXXdef}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruence}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
        \HOLConst{precongruence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLConst{PreOrder} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
 \end{SaveVerbatim}
-\newcommand{\HOLCongruenceDefinitionsprecongruenceXXdef}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceXXdef}}
+\newcommand{\HOLCongruenceDefinitionsprecongruence}{\UseVerbatim{HOLCongruenceDefinitionsprecongruence}}
+\begin{SaveVerbatim}{HOLCongruenceDefinitionsprecongruenceYY}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}.
+       \HOLConst{precongruence'} \HOLBoundVar{R} \HOLSymConst{\HOLTokenEquiv{}}
+       \HOLConst{PreOrder} \HOLBoundVar{R} \HOLSymConst{\HOLTokenConj{}}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{GCONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R} (\HOLBoundVar{ctx} \HOLBoundVar{x}) (\HOLBoundVar{ctx} \HOLBoundVar{y})
+\end{SaveVerbatim}
+\newcommand{\HOLCongruenceDefinitionsprecongruenceYY}{\UseVerbatim{HOLCongruenceDefinitionsprecongruenceYY}}
 \begin{SaveVerbatim}{HOLCongruenceDefinitionsSEQXXdef}
 \HOLTokenTurnstile{} \HOLConst{SEQ} \HOLSymConst{=}
    (\HOLTokenLambda{}\HOLBoundVar{a\sb{\mathrm{0}}}.
@@ -183,16 +183,16 @@
 \newcommand{\HOLCongruenceDefinitionsWGSXXdef}{\UseVerbatim{HOLCongruenceDefinitionsWGSXXdef}}
 \newcommand{\HOLCongruenceDefinitions}{
 \HOLDfnTag{Congruence}{CC_def}\HOLCongruenceDefinitionsCCXXdef
-\HOLDfnTag{Congruence}{congruence'_def}\HOLCongruenceDefinitionscongruenceYYXXdef
-\HOLDfnTag{Congruence}{congruence_def}\HOLCongruenceDefinitionscongruenceXXdef
+\HOLDfnTag{Congruence}{congruence}\HOLCongruenceDefinitionscongruence
+\HOLDfnTag{Congruence}{congruence'}\HOLCongruenceDefinitionscongruenceYY
 \HOLDfnTag{Congruence}{CONTEXT_def}\HOLCongruenceDefinitionsCONTEXTXXdef
 \HOLDfnTag{Congruence}{GCC_def}\HOLCongruenceDefinitionsGCCXXdef
 \HOLDfnTag{Congruence}{GCONTEXT_def}\HOLCongruenceDefinitionsGCONTEXTXXdef
 \HOLDfnTag{Congruence}{GSEQ_def}\HOLCongruenceDefinitionsGSEQXXdef
 \HOLDfnTag{Congruence}{IS_CONST_def}\HOLCongruenceDefinitionsISXXCONSTXXdef
 \HOLDfnTag{Congruence}{OH_CONTEXT_def}\HOLCongruenceDefinitionsOHXXCONTEXTXXdef
-\HOLDfnTag{Congruence}{precongruence'_def}\HOLCongruenceDefinitionsprecongruenceYYXXdef
-\HOLDfnTag{Congruence}{precongruence_def}\HOLCongruenceDefinitionsprecongruenceXXdef
+\HOLDfnTag{Congruence}{precongruence}\HOLCongruenceDefinitionsprecongruence
+\HOLDfnTag{Congruence}{precongruence'}\HOLCongruenceDefinitionsprecongruenceYY
 \HOLDfnTag{Congruence}{SEQ_def}\HOLCongruenceDefinitionsSEQXXdef
 \HOLDfnTag{Congruence}{SG_def}\HOLCongruenceDefinitionsSGXXdef
 \HOLDfnTag{Congruence}{WG_def}\HOLCongruenceDefinitionsWGXXdef
