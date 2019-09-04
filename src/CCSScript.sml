@@ -63,6 +63,8 @@ val _ = TeX_notation { hol = "tau", TeX = ("\\ensuremath{\\tau}", 1) };
    suggested by Michael Norrish *)
 val _ = overload_on ("In", ``\a. label (name a)``);
 val _ = overload_on ("Out", ``\a. label (coname a)``);
+val _ = TeX_notation { hol = "In",  TeX = ("\\HOLTokenInputAct", 1) };
+val _ = TeX_notation { hol = "Out", TeX = ("\\HOLTokenOutputAct", 1) };
 
 (* Define structural induction on actions
    !P. P tau /\ (!L. P (label L)) ==> !A. P A
