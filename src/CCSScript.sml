@@ -312,14 +312,23 @@ val _ = overload_on ("+", ``sum``); (* priority: 500 *)
 val _ = TeX_notation { hol = "+",
                        TeX = ("\\ensuremath{+}", 1) };
 
-val _ = set_mapped_fixity { fixity = Infix(LEFT, 600), tok = "||", term_name = "par" };
+val _ = set_mapped_fixity { fixity = Infix(LEFT, 600),
+                            tok = "||", term_name = "par" };
+
+val _ = Unicode.unicode_version { u = UTF8.chr 0x007C, tmnm = "par" };
 val _ = TeX_notation { hol = "||",
-                       TeX = ("\\ensuremath{\\parallel}", 1) };
+                       TeX = ("\\ensuremath{\\mid}", 1) }; (* old: \parallel *)
+
 val _ =
     add_rule { term_name = "prefix", fixity = Infix(RIGHT, 700),
         pp_elements = [ BreakSpace(0,0), TOK "..", BreakSpace(0,0) ],
         paren_style = OnlyIfNecessary,
         block_style = (AroundSamePrec, (PP.CONSISTENT, 0)) };
+
+(* this is only for printing purposes *)
+val _ = Unicode.unicode_version { u = UTF8.chr 0x002E, tmnm = "prefix" };
+val _ = TeX_notation { hol = "..",
+                       TeX = ("\\ensuremath{\\ldotp}", 1) };
 
 (* Define structural induction on CCS agent expressions. *)
 val CCS_induct = TypeBase.induction_of ``:('a, 'b) CCS``;
@@ -990,7 +999,7 @@ Proof
 QED
 
 Theorem FV_PAR :
-    !X E E1 E2. FV (CCS_Subst E (rec X (E1 || E2)) X) =
+    !X E E1 E2. FV (CCS_Subst E (rec X (par E1 E2)) X) =
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
     GEN_TAC >> Induct_on `E`

@@ -302,12 +302,12 @@ val OH_CONTEXT_IMP_CONTEXT = store_thm (
       BETA_TAC >> REWRITE_TAC [],
       (* goal 5 (of 8) *)
       `CONTEXT (\y. x)` by REWRITE_TAC [CONTEXT2] \\
-      Know `CONTEXT (\t. c t || (\y. x) t)`
+      Know `CONTEXT (\t. par (c t) ((\y. x) t))`
       >- ( MATCH_MP_TAC CONTEXT5 >> ASM_REWRITE_TAC [] ) \\
       BETA_TAC >> REWRITE_TAC [],
       (* goal 6 (of 8) *)
       `CONTEXT (\y. x)` by REWRITE_TAC [CONTEXT2] \\
-      Know `CONTEXT (\t. (\y. x) t || c t)`
+      Know `CONTEXT (\t. par ((\y. x) t) (c t))`
       >- ( MATCH_MP_TAC CONTEXT5 >> ASM_REWRITE_TAC [] ) \\
       BETA_TAC >> REWRITE_TAC [],
       (* goal 7 (of 8) *)
