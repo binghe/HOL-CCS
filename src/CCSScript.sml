@@ -30,7 +30,7 @@ val Label_induction = TypeBase.induction_of ``:'b Label``;
 (* The structural cases theorem for the type Label
    !LL. (?s. LL = name s) \/ ?s. LL = coname s
  *)
-val Label_nchotomy = TypeBase.nchotomy_of ``:'b Label``;
+val Label_cases = TypeBase.nchotomy_of ``:'b Label``;
 
 (* The distinction and injectivity theorems for the type Label
    !a' a. name a <> coname a'
@@ -63,6 +63,7 @@ val _ = TeX_notation { hol = "tau", TeX = ("\\ensuremath{\\tau}", 1) };
    suggested by Michael Norrish *)
 val _ = overload_on ("In", ``\a. label (name a)``);
 val _ = overload_on ("Out", ``\a. label (coname a)``);
+
 val _ = TeX_notation { hol = "In",  TeX = ("\\HOLTokenInputAct", 1) };
 val _ = TeX_notation { hol = "Out", TeX = ("\\HOLTokenOutputAct", 1) };
 
@@ -75,8 +76,8 @@ val Action_induction = save_thm (
 (* The structural cases theorem for the type Action
    !AA. (AA = tau) \/ ?L. AA = label L
  *)
-val Action_nchotomy = save_thm (
-   "Action_nchotomy", INST_TYPE [``:'a`` |-> ``:'b Label``] option_nchotomy);
+val Action_cases = save_thm (
+   "Action_cases", INST_TYPE [``:'a`` |-> ``:'b Label``] option_nchotomy);
 
 (* The distinction and injectivity theorems for the type Action
    !a. tau <> label a
@@ -94,7 +95,7 @@ val Action_11 = save_thm (
 (* !A. A <> tau ==> ?L. A = label L *)
 val Action_no_tau_is_Label = save_thm (
    "Action_no_tau_is_Label",
-    Q.GEN `A` (DISJ_IMP (Q.SPEC `A` Action_nchotomy)));
+    Q.GEN `A` (DISJ_IMP (Q.SPEC `A` Action_cases)));
 
 (* Extract the label from a visible action, LABEL: Action -> Label. *)
 val _ = overload_on ("LABEL", ``THE :'b Label option -> 'b Label``);
@@ -948,7 +949,7 @@ QED
   be impossible as `CCS_Subst E (rec X E) X` as turned
   all free X into bound X. Proven by induction on X.
  *)
-Theorem NOTIN_FV :
+Theorem NOTIN_FV_lemma :
     !X E E'. X NOTIN FV (CCS_Subst E (rec X E') X)
 Proof
     GEN_TAC >> Induct_on `E`
@@ -971,7 +972,7 @@ Proof
  >> Suff `X NOTIN (FV E')` >- ASM_SET_TAC []
  >> CCONTR_TAC >> fs [] (* reductio ad absurdum *)
  >> `X IN FV (CCS_Subst E (rec X E) X)` by ASM_SET_TAC []
- >> METIS_TAC [NOTIN_FV]
+ >> METIS_TAC [NOTIN_FV_lemma]
 QED
 
 val lemma1 = Q.prove (
@@ -1036,6 +1037,13 @@ Proof
     GEN_TAC >> Induct_on `E`
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 4 subgoals *)
  >> SET_TAC []
+QED
+
+Theorem FINITE_FV :
+    !E. FINITE (FV E)
+Proof
+    Induct_on `E`
+ >> RW_TAC lset_ss [CCS_Subst_def, FV_def]
 QED
 
 (* ('a, 'b) CCS -> 'a set (set of bound variables) *)
@@ -1116,6 +1124,13 @@ Theorem BV_SUBSET_rules :
              (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
 Proof
     rpt GEN_TAC >> SET_TAC [BV_def]
+QED
+
+Theorem FINITE_BV :
+    !E. FINITE (BV E)
+Proof
+    Induct_on `E`
+ >> RW_TAC lset_ss [CCS_Subst_def, BV_def]
 QED
 
 Definition IS_PROC_def :
