@@ -1,50 +1,50 @@
 \newcommand{\HOLStrongLawsDate}{04 Settembre 2019}
-\newcommand{\HOLStrongLawsTime}{10:29}
+\newcommand{\HOLStrongLawsTime}{13:46}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsALLXXSYNCXXdef}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-        \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
+        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-       \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
+       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
-       \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
+       \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsALLXXSYNCXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsALLXXSYNCXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsCCSXXCOMPXXdef}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{PI} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{PI} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsCCSXXCOMPXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsCCSXXCOMPXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsCCSXXSIGMAXXdef}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsCCSXXSIGMAXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsCCSXXSIGMAXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsIsXXPrefixXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{Is_Prefix} \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{=} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{Is_Prefix} \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsIsXXPrefixXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsIsXXPrefixXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsPREFXXACTXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{PREF_ACT} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) \HOLSymConst{=} \HOLBoundVar{u}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{u}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsPREFXXACTXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsPREFXXACTXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsPREFXXPROCXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{PREF_PROC} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) \HOLSymConst{=} \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsPREFXXPROCXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsPREFXXPROCXXdef}}
 \begin{SaveVerbatim}{HOLStrongLawsDefinitionsSYNCXXdef}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
-        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
-        \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
-        \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
-        \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
+        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}}
+        \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then} \HOLConst{\ensuremath{\mathbf{0}}}
+        \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLKeyword{then}
+          \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}
+        \HOLKeyword{else} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
-       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=}
-       \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
+       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
        \HOLKeyword{else} \HOLKeyword{if}
-         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))))
+         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
        \HOLKeyword{then}
-         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) \HOLSymConst{\ensuremath{+}} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
+         \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsDefinitionsSYNCXXdef}{\UseVerbatim{HOLStrongLawsDefinitionsSYNCXXdef}}
@@ -59,89 +59,89 @@
 }
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXBASE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-       \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
+       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
+       \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXBASE}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXcompute}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-        \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0})) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
-   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-        \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-        \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
-        \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))))
-          (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
+        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLNumLit{0} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
+        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
+        \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
+          \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-       \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
-       \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
-       \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))))
-         (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
+       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
+       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
+       \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
+         \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXINDUCT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-       \HOLConst{ALL_SYNC} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{=}
+       \HOLConst{ALL_SYNC} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{=}}
        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
-       \HOLConst{SYNC} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) (\HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
+       \HOLConst{SYNC} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXINDUCT}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXINDUCT}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{m} \HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E}.
        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k} \HOLBoundVar{k\sp{\prime}} \HOLBoundVar{l}.
-           \HOLBoundVar{k} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{k\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{k}) \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLConst{PREF_ACT} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{k}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}))
+           \HOLBoundVar{k} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{k\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHM}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n} \HOLBoundVar{m} \HOLBoundVar{f} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{u} \HOLBoundVar{E}.
        \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k} \HOLBoundVar{k\sp{\prime}} \HOLBoundVar{l}.
-           \HOLBoundVar{k} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{k\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{k}) \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLConst{PREF_ACT} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{k}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}))
+           \HOLBoundVar{k} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{k\sp{\prime}} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{k\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsALLXXSYNCXXTRANSXXTHMXXEQ}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXCOMPXXcompute}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
-   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
-        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
+        \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
-       \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
-       \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
+       \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsCCSXXCOMPXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXCOMPXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{\HOLTokenConj{}}
-   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
-        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
+        \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}.
-       \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
-       \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))
+       \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsCCSXXSIGMAXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsCOMPXXBASE}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{PI} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsCOMPXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsCOMPXXBASE}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsCOMPXXINDUCT}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{PI} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{PI} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{PI} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{PI} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsCOMPXXINDUCT}{\UseVerbatim{HOLStrongLawsTheoremsCOMPXXINDUCT}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsPREFXXISXXPREFIX}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{Is_Prefix} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}. \HOLConst{Is_Prefix} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsPREFXXISXXPREFIX}{\UseVerbatim{HOLStrongLawsTheoremsPREFXXISXXPREFIX}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSIGMAXXBASE}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=} \HOLBoundVar{f} \HOLNumLit{0}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f}. \HOLConst{SIGMA} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{f} \HOLNumLit{0}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSIGMAXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsSIGMAXXBASE}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSIGMAXXINDUCT}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{SIGMA} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n}. \HOLConst{SIGMA} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSIGMAXXINDUCT}{\UseVerbatim{HOLStrongLawsTheoremsSIGMAXXINDUCT}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSIGMAXXTRANSXXTHM}
@@ -153,208 +153,204 @@
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSIGMAXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsSIGMAXXTRANSXXTHMXXEQ}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLConst{STRONG_EQUIV} \HOLConst{nil} (\HOLConst{var} \HOLBoundVar{X})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X}. \HOLConst{STRONG_EQUIV} \HOLConst{\ensuremath{\mathbf{0}}} \ensuremath{(}\HOLConst{var} \HOLBoundVar{X}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXEQUIVXXNILXXVAR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXEXPANSIONXXLAW}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}.
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} (\HOLBoundVar{f} \HOLBoundVar{i})) \HOLSymConst{\HOLTokenConj{}}
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{j}. \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})) \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{STRONG_EQUIV} (\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
-         (\HOLConst{SIGMA}
-            (\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{i})\HOLSymConst{..}(\HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{i}) \HOLSymConst{\ensuremath{\parallel}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}))
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{j}. \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
+         \ensuremath{(}\HOLConst{SIGMA}
+            \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLConst{SIGMA} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}\ensuremath{)}
             \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}}
           \HOLConst{SIGMA}
-            (\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})\HOLSymConst{..}(\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j})))
-            \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m})
+            \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)}\ensuremath{)}
+            \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \HOLBoundVar{f\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXEXPANSIONXXLAW}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXEXPANSIONXXLAW}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXLEFTXXSUMXXMIDXXIDEMP}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXLEFTXXSUMXXMIDXXIDEMP}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXLEFTXXSUMXXMIDXXIDEMP}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXASSOC}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXASSOC}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXASSOC}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXCOMM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXCOMM}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXCOMM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{nil} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{nil}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXNOXXSYNCR}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{l\sp{\prime}}.
        \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotEqual{}} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-           \HOLConst{STRONG_EQUIV} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
-              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+           \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)}
+             \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXNOXXSYNCR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXNOXXSYNCR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXSYNCR}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{l\sp{\prime}}.
-       (\HOLBoundVar{l} \HOLSymConst{=} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}}) \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLBoundVar{l} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \HOLBoundVar{l\sp{\prime}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-           \HOLConst{STRONG_EQUIV} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-             (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}}
-              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{..}(\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+           \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)}
+             \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+              \HOLConst{label} \HOLBoundVar{l\sp{\prime}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXSYNCR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXSYNCR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-       \HOLConst{STRONG_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLBoundVar{u}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXTAU}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXPREFXXTAU}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXPREF}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}.
-       \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXPREF}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXPREF}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXTAU}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
-       \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}})
-         (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E\sp{\prime}}) \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\parallel}} \HOLBoundVar{E\sp{\prime}}))
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXTAU}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPARXXTAUXXTAU}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{s} \HOLBoundVar{v}.
-       \HOLConst{STRONG_EQUIV} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{v}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
-         (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{v}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{rec} \HOLBoundVar{s} \ensuremath{(}\HOLBoundVar{v}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLBoundVar{s}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{s} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{v}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLBoundVar{s}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXPREFXXRECXXEQUIV}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s} \HOLBoundVar{u}. \HOLConst{STRONG_EQUIV} (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s})) (\HOLConst{rec} \HOLBoundVar{s} (\HOLBoundVar{u}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{s}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{s} \HOLBoundVar{u}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{s} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLBoundVar{s}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{s} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLBoundVar{s}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRECXXACTTwo}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRELABXXNIL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{STRONG_EQUIV} (\HOLConst{relab} \HOLConst{nil} \HOLBoundVar{rf}) \HOLConst{nil}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{relab} \HOLConst{\ensuremath{\mathbf{0}}} \HOLBoundVar{rf}\ensuremath{)} \HOLConst{\ensuremath{\mathbf{0}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRELABXXNIL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRELABXXNIL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRELABXXPREFIX}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E} \HOLBoundVar{labl}.
-       \HOLConst{STRONG_EQUIV} (\HOLConst{relab} (\HOLBoundVar{u}\HOLSymConst{..}\HOLBoundVar{E}) (\HOLConst{RELAB} \HOLBoundVar{labl}))
-         (\HOLConst{relabel} (\HOLConst{RELAB} \HOLBoundVar{labl}) \HOLBoundVar{u}\HOLSymConst{..}\HOLConst{relab} \HOLBoundVar{E} (\HOLConst{RELAB} \HOLBoundVar{labl}))
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{relab} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{RELAB} \HOLBoundVar{labl}\ensuremath{)}\ensuremath{)}
+         \ensuremath{(}\HOLConst{relabel} \ensuremath{(}\HOLConst{RELAB} \HOLBoundVar{labl}\ensuremath{)} \HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{relab} \HOLBoundVar{E} \ensuremath{(}\HOLConst{RELAB} \HOLBoundVar{labl}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRELABXXPREFIX}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRELABXXPREFIX}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRELABXXSUM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}.
-       \HOLConst{STRONG_EQUIV} (\HOLConst{relab} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) \HOLBoundVar{rf})
-         (\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\ensuremath{+}} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf})
+       \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{relab} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}
+         \ensuremath{(}\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\ensuremath{+}} \HOLConst{relab} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{rf}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRELABXXSUM}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRELABXXSUM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRESTRXXNIL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLConst{nil}) \HOLConst{nil}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLConst{\ensuremath{\mathbf{0}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRESTRXXNIL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRESTRXXNIL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRESTRXXPRXXLABXXNIL}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{L}.
        \HOLBoundVar{l} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E})) \HOLConst{nil}
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)}\ensuremath{)} \HOLConst{\ensuremath{\mathbf{0}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRESTRXXPRXXLABXXNIL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRESTRXXPRXXLABXXNIL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXLABEL}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{L}.
        \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLBoundVar{E})) (\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{..}\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E})
+       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{nu} \HOLBoundVar{L} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXLABEL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXLABEL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXTAU}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{E})) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{nu} \HOLBoundVar{L} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXTAU}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRESTRXXPREFIXXXTAU}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXRESTRXXSUM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}})) (\HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\nu}} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{L}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{nu} \HOLBoundVar{L} \HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{nu} \HOLBoundVar{L} \HOLBoundVar{E\sp{\prime}}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXRESTRXXSUM}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXRESTRXXSUM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}) (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLBoundVar{E\sp{\prime\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime\prime}}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXASSOCXXR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXCOMM}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXCOMM}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXCOMM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXIDEMP}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXIDEMP}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXIDEMP}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{nil} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXL}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXL}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{nil}) \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXR}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXIDENTXXR}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}) (\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXSUMXXMIDXXIDEMP}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSTRONGXXUNFOLDING}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} (\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}) ([\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}/\HOLBoundVar{X}] \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSTRONGXXUNFOLDING}{\UseVerbatim{HOLStrongLawsTheoremsSTRONGXXUNFOLDING}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXBASE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
-       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
-       \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
-       \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
-       \HOLKeyword{else} \HOLConst{nil}
+       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}}
+       \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then} \HOLConst{\ensuremath{\mathbf{0}}}
+       \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLKeyword{then}
+         \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}
+       \HOLKeyword{else} \HOLConst{\ensuremath{\mathbf{0}}}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXBASE}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXBASE}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXcompute}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
-        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{=}
-        \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{nil}
-        \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLNumLit{0}))) \HOLKeyword{then}
-          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLNumLit{0}))
-        \HOLKeyword{else} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
-   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
-        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then}
-          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f}.
+        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}}
+        \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then} \HOLConst{\ensuremath{\mathbf{0}}}
+        \HOLKeyword{else} \HOLKeyword{if} \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLKeyword{then}
+          \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLNumLit{0}\ensuremath{)}\ensuremath{)}
+        \HOLKeyword{else} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
+        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+        \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then}
+          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)}
         \HOLKeyword{else} \HOLKeyword{if}
-          \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=}
-          \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))))
+          \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}}
+          \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
         \HOLKeyword{then}
-          \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})))) \HOLSymConst{\ensuremath{+}}
-          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})
-        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
+          \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+          \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)}
+        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
-       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
-       \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n}))) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then}
-         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
+       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then}
+         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
        \HOLKeyword{else} \HOLKeyword{if}
-         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=}
-         \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})))))
+         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}}
+         \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
        \HOLKeyword{then}
-         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})))) \HOLSymConst{\ensuremath{+}}
-         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
-       \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
+         \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+         \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
+       \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXcompute}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXcompute}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXINDUCT}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}.
-       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=}
-       \HOLKeyword{if} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenDisj{}} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n})) \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLKeyword{then} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
+       \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLKeyword{if} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLKeyword{then} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
        \HOLKeyword{else} \HOLKeyword{if}
-         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{=} \HOLConst{COMPL} (\HOLConst{LABEL} (\HOLConst{PREF_ACT} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))))
+         \HOLConst{LABEL} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{COMPL} \ensuremath{(}\HOLConst{LABEL} \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)}\ensuremath{)}
        \HOLKeyword{then}
-         \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} (\HOLConst{SUC} \HOLBoundVar{n}))) \HOLSymConst{\ensuremath{+}} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
+         \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
        \HOLKeyword{else} \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{n}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXINDUCT}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXINDUCT}}
@@ -362,18 +358,18 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{m} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{v} \HOLBoundVar{Q}.
        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{m} \HOLTokenTransBegin\HOLBoundVar{v}\HOLTokenTransEnd \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{j} \HOLBoundVar{l}.
-           \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{j}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{v} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLBoundVar{Q} \HOLSymConst{=} \HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{j}))
+           \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{j}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{v} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLBoundVar{Q} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXTRANSXXTHM}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXTRANSXXTHM}}
 \begin{SaveVerbatim}{HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{m} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{v} \HOLBoundVar{Q}.
        \HOLConst{SYNC} \HOLBoundVar{u} \HOLBoundVar{P} \HOLBoundVar{f} \HOLBoundVar{m} \HOLTokenTransBegin\HOLBoundVar{v}\HOLTokenTransEnd \HOLBoundVar{Q} \HOLSymConst{\HOLTokenEquiv{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{j} \HOLBoundVar{l}.
-           \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{u} \HOLSymConst{=} \HOLConst{label} \HOLBoundVar{l}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLConst{PREF_ACT} (\HOLBoundVar{f} \HOLBoundVar{j}) \HOLSymConst{=} \HOLConst{label} (\HOLConst{COMPL} \HOLBoundVar{l})) \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{v} \HOLSymConst{=} \HOLConst{\ensuremath{\tau}}) \HOLSymConst{\HOLTokenConj{}}
-           (\HOLBoundVar{Q} \HOLSymConst{=} \HOLBoundVar{P} \HOLSymConst{\ensuremath{\parallel}} \HOLConst{PREF_PROC} (\HOLBoundVar{f} \HOLBoundVar{j}))
+           \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{j}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{v} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\tau}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \ensuremath{(}\HOLBoundVar{Q} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ}{\UseVerbatim{HOLStrongLawsTheoremsSYNCXXTRANSXXTHMXXEQ}}
 \newcommand{\HOLStrongLawsTheorems}{

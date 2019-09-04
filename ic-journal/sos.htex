@@ -61,10 +61,10 @@ the manipulation of
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Operator} & \textbf{CCS Notation} & \textbf{HOL term} &
-                                                                \textbf{HOL (abbrev.)}\\
+\textbf{Operator} & \textbf{CCS notation} & \textbf{HOL term} &
+                                                                \textbf{\TeX{} output} \\
 \hline
-nil & $\textbf{0}$ & \HOLtm{nil} & \HOLtm{nil} \\
+nil & $\textbf{0}$ & \texttt{nil} & \HOLtm{nil} \\
 prefix & $u.P$ & \texttt{prefix u P} & \HOLtm{prefix u P} \\
 sum & $P + Q$ & \texttt{sum P Q} & \HOLtm{sum P Q} \\
 parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLtm{P || Q} \\

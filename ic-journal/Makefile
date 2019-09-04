@@ -1,4 +1,5 @@
 MUNGE = ../src/munge.exe
+MOPT = -w75
 
 HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex conclusions.tex
 TEXFILES = main.tex intro.tex ccs.tex expansion.tex multivariate.tex \
@@ -15,31 +16,31 @@ tokens.tex: ../src/tokens.tex
 	@cp ../src/tokens.tex .
 
 part2.tex: part2.htex $(MUNGE)
-	$(MUNGE) < part2.htex > part2.tex
+	$(MUNGE) $(MOPT) < part2.htex > part2.tex
 
 multivariate.tex: multivariate.htex $(MUNGE)
-	$(MUNGE) < multivariate.htex > multivariate.tex
+	$(MUNGE) $(MOPT) < multivariate.htex > multivariate.tex
 
 sos.tex: sos.htex $(MUNGE)
-	$(MUNGE) < sos.htex > sos.tex
+	$(MUNGE) $(MOPT) < sos.htex > sos.tex
 
 bisim.tex: bisim.htex $(MUNGE)
-	$(MUNGE) < bisim.htex > bisim.tex
+	$(MUNGE) $(MOPT) < bisim.htex > bisim.tex
 
 coarsest.tex: coarsest.htex $(MUNGE)
-	$(MUNGE) < coarsest.htex > coarsest.tex
+	$(MUNGE) $(MOPT) < coarsest.htex > coarsest.tex
 
 context.tex: context.htex $(MUNGE)
-	$(MUNGE) < context.htex > context.tex
+	$(MUNGE) $(MOPT) < context.htex > context.tex
 
 conclusions.tex: conclusions.htex $(MUNGE)
-	$(MUNGE) < conclusions.htex > conclusions.tex
+	$(MUNGE) $(MOPT) < conclusions.htex > conclusions.tex
 
 clean:
 	@rm -f *.aux *.blg *.log [0-9]*.tex *.out *.idx *.toc *.ilg *.ind *.hix *.pag \
                *.synctex.gz Thumbs.db *.spl
 
-dist-clean: clean
+distclean: clean
 	@rm -f *.pdf *.dvi *.ps
 
 main.pdf: $(TEXFILES) generic.bib

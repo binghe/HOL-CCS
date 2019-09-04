@@ -56,10 +56,11 @@ val _ = type_abbrev_pp ("Action", ``:'b Label option``);
 val _ = overload_on ("tau",   ``NONE :'b Action``);
 val _ = overload_on ("label", ``SOME :'b Label -> 'b Action``);
 
-val _ = Unicode.unicode_version { u = UnicodeChars.tau, tmnm = "tau"};
+val _ = Unicode.unicode_version { u = UnicodeChars.tau, tmnm = "tau" };
 val _ = TeX_notation { hol = "tau", TeX = ("\\ensuremath{\\tau}", 1) };
 
-(* The compact representation for (visible) input and output actions, suggested by Michael Norrish *)
+(* The compact representation for (visible) input and output actions, is
+   suggested by Michael Norrish *)
 val _ = overload_on ("In", ``\a. label (name a)``);
 val _ = overload_on ("Out", ``\a. label (coname a)``);
 
@@ -95,11 +96,15 @@ val Action_no_tau_is_Label = save_thm (
 
 (* Extract the label from a visible action, LABEL: Action -> Label. *)
 val _ = overload_on ("LABEL", ``THE :'b Label option -> 'b Label``);
-val    LABEL_def = save_thm (
-      "LABEL_def", INST_TYPE [``:'a`` |-> ``:'b Label``] THE_DEF);
 
+(* |- !x. LABEL (label x) = x *)
+val LABEL_def = save_thm (
+   "LABEL_def", INST_TYPE [``:'a`` |-> ``:'b Label``] THE_DEF);
+
+(* |- (!x. IS_SOME (label x) <=> T) /\ (IS_SOME 't <=> F) *)
 val IS_LABEL_def = save_thm (
    "IS_LABEL_def", INST_TYPE [``:'a`` |-> ``:'b Label``] IS_SOME_DEF);
+
 val _ = export_rewrites ["LABEL_def", "IS_LABEL_def"];
 
 (* Define the complement of a label, COMPL: Label -> Label. *)
@@ -109,8 +114,8 @@ val COMPL_LAB_def = Define `(COMPL_LAB (name (s :'b)) = (coname s)) /\
 val _ = overload_on ("COMPL", ``COMPL_LAB``);
 val _ = export_rewrites ["COMPL_LAB_def"];
 
-val coname_COMPL = store_thm ("coname_COMPL",
-  ``!(s :'b). coname s = COMPL (name s)``,
+val coname_COMPL = store_thm
+  ("coname_COMPL", ``!(s :'b). coname s = COMPL (name s)``,
     REWRITE_TAC [COMPL_LAB_def]);
 
 val COMPL_COMPL_LAB = store_thm (
@@ -127,14 +132,15 @@ val _ = export_rewrites ["COMPL_ACT_def"];
 
 val COMPL_COMPL_ACT = store_thm (
    "COMPL_COMPL_ACT", ``!(a :'b Action). COMPL_ACT (COMPL_ACT a) = a``,
-    Induct
+    Induct_on `a`
  >| [ REWRITE_TAC [COMPL_ACT_def],
       REWRITE_TAC [COMPL_ACT_def, COMPL_COMPL_LAB] ]);
 
-(* Auxiliary theorem about complementary labels. *)
-val COMPL_THM = store_thm ("COMPL_THM",
-  ``!(l :'b Label) s. (~(l = name s) ==> ~(COMPL l = coname s)) /\
-          (~(l = coname s) ==> ~(COMPL l = name s))``,
+(* auxiliary theorem about complementary labels. *)
+Theorem COMPL_THM :
+    !(l :'b Label) s. (l <> name s ==> COMPL l <> coname s) /\
+                      (l <> coname s ==> COMPL l <> name s)
+Proof
     Induct_on `l`
  >| [ (* case 1 *)
       rpt GEN_TAC >> CONJ_TAC >|
@@ -143,8 +149,10 @@ val COMPL_THM = store_thm ("COMPL_THM",
       (* case 2 *)
       rpt GEN_TAC >> CONJ_TAC >|
       [ REWRITE_TAC [Label_distinct, COMPL_LAB_def, Label_distinct'],
-        REWRITE_TAC [Label_11, COMPL_LAB_def] ] ]);
+        REWRITE_TAC [Label_11, COMPL_LAB_def] ] ]
+QED
 
+(* Relabeling function is subtype of `:'b Label -> 'b Label *)
 val Is_Relabeling_def = Define `
     Is_Relabeling (f: 'b Label -> 'b Label) = (!s. f (coname s) = COMPL (f (name s)))`;
 
@@ -155,13 +163,10 @@ val EXISTS_Relabeling = store_thm ("EXISTS_Relabeling",
  >> BETA_TAC
  >> REWRITE_TAC [COMPL_LAB_def]);
 
-(* Relabeling_TY_DEF =
-   ?rep. TYPE_DEFINITION Is_Relabeling rep
- *)
+(* |- ?rep. TYPE_DEFINITION Is_Relabeling rep *)
 val Relabeling_TY_DEF = new_type_definition ("Relabeling", EXISTS_Relabeling);
 
-(* Relabeling_ISO_DEF =
-   (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
+(* |- (!a. ABS_Relabeling (REP_Relabeling a) = a) /\
        !r. Is_Relabeling r <=> (REP_Relabeling (ABS_Relabeling r) = r)
  *)
 val Relabeling_ISO_DEF =
@@ -267,12 +272,12 @@ val IS_RELABELING = store_thm (
 val RELAB_def = Define `
     RELAB (labl :('b Label # 'b Label) list) = ABS_Relabeling (Apply_Relab labl)`;
 
-(* !labl' labl.
-     (RELAB labl' = RELAB labl) <=> (Apply_Relab labl' = Apply_Relab labl)
+(* !labl labl'.
+     (RELAB labl = RELAB labl') <=> (Apply_Relab labl = Apply_Relab labl')
  *)
 val APPLY_RELAB_THM = save_thm (
    "APPLY_RELAB_THM",
-    Q.GENL [`labl'`, `labl`]
+    Q.GENL [`labl`, `labl'`]
       (REWRITE_RULE [GSYM RELAB_def]
         (MATCH_MP (MATCH_MP ABS_Relabeling_one_one
                             (Q.SPEC `labl` IS_RELABELING))
@@ -294,30 +299,39 @@ val _ = Datatype `CCS = nil
                       | relab CCS ('b Relabeling)
                       | rec 'a CCS `;
 
+val _ = TeX_notation { hol = "nil", TeX = ("\\ensuremath{\\mathbf{0}}", 1) };
+
 (* compact representation for single-action restriction *)
 val _ = overload_on ("nu", ``\(n :'b) P. restr {name n} P``);
 val _ = overload_on ("nu", ``restr``);
-val _ = Unicode.unicode_version { u = UnicodeChars.nu, tmnm = "nu" };
-val _ = TeX_notation { hol = "nu",
-                       TeX = ("\\ensuremath{\\nu}", 1) };
+
+val _ = add_rule {term_name = "nu", fixity = Closefix,
+                  pp_elements = [TOK ("(" ^ UnicodeChars.nu), TM, TOK ")"],
+                  paren_style = OnlyIfNecessary,
+                  block_style = (AroundEachPhrase, (PP.INCONSISTENT, 2))};
+
+val _ = TeX_notation { hol = "(" ^ UnicodeChars.nu,
+                       TeX = ("\\ensuremath{(\\nu}", 1) };
+
+(* TODO: send to HOL's boolTheory *)
+val _ = TeX_notation { hol = "(", TeX = ("\\ensuremath{(}", 1) };
+val _ = TeX_notation { hol = ")", TeX = ("\\ensuremath{)}", 1) };
+val _ = TeX_notation { hol = "=", TeX = ("\\ensuremath{=}", 1) };
 
 (* disabled: this "\mu" is conflict with the \mu action used in CCS papers
 val _ = overload_on ("mu", ``rec``);
 val _ = Unicode.unicode_version { u = UnicodeChars.mu, tmnm = "mu" };
-val _ = TeX_notation { hol = "mu",
-                       TeX = ("\\ensuremath{\\mu}", 1) };
+val _ = TeX_notation { hol = "mu", TeX = ("\\ensuremath{\\mu}", 1) };
  *)
 
 val _ = overload_on ("+", ``sum``); (* priority: 500 *)
-val _ = TeX_notation { hol = "+",
-                       TeX = ("\\ensuremath{+}", 1) };
+val _ = TeX_notation { hol = "+", TeX = ("\\ensuremath{+}", 1) };
 
 val _ = set_mapped_fixity { fixity = Infix(LEFT, 600),
                             tok = "||", term_name = "par" };
 
-val _ = Unicode.unicode_version { u = UTF8.chr 0x007C, tmnm = "par" };
-val _ = TeX_notation { hol = "||",
-                       TeX = ("\\ensuremath{\\mid}", 1) }; (* old: \parallel *)
+(* val _ = Unicode.unicode_version {u = UTF8.chr 0x007C, tmnm = "par"}; *)
+val _ = TeX_notation { hol = "||", TeX = ("\\ensuremath{\\mid}", 1) };
 
 val _ =
     add_rule { term_name = "prefix", fixity = Infix(RIGHT, 700),
@@ -325,10 +339,7 @@ val _ =
         paren_style = OnlyIfNecessary,
         block_style = (AroundSamePrec, (PP.CONSISTENT, 0)) };
 
-(* this is only for printing purposes *)
-val _ = Unicode.unicode_version { u = UTF8.chr 0x002E, tmnm = "prefix" };
-val _ = TeX_notation { hol = "..",
-                       TeX = ("\\ensuremath{\\ldotp}", 1) };
+val _ = TeX_notation { hol = "..", TeX = ("\\ensuremath{\\ldotp}", 1) };
 
 (* Define structural induction on CCS agent expressions. *)
 val CCS_induct = TypeBase.induction_of ``:('a, 'b) CCS``;
@@ -373,7 +384,7 @@ Definition CCS_Subst_def :
    (CCS_Subst (par E1 E2)  E' X = par (CCS_Subst E1 E' X)
                                       (CCS_Subst E2 E' X)) /\
    (CCS_Subst (restr L E)  E' X = restr L (CCS_Subst E E' X)) /\
-   (CCS_Subst (relab E f)  E' X = relab   (CCS_Subst E E' X) f) /\
+   (CCS_Subst (relab E rf) E' X = relab   (CCS_Subst E E' X) rf) /\
    (CCS_Subst (var Y)      E  X = if (Y = X) then E  else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
                                   else (rec Y (CCS_Subst E E' X)))
@@ -395,6 +406,10 @@ val _ = add_rule {term_name = "SUB", fixity = Closefix,
                   pp_elements = [TOK "[", TM, TOK "/", TM, TOK "]"],
                   paren_style = OnlyIfNecessary,
                   block_style = (AroundEachPhrase, (PP.INCONSISTENT, 2))};
+
+val _ = TeX_notation { hol = "[", TeX = ("\\ensuremath{[}", 1) };
+val _ = TeX_notation { hol = "/", TeX = ("\\ensuremath{/}", 1) };
+val _ = TeX_notation { hol = "]", TeX = ("\\ensuremath{]}", 1) };
 
 (* Note that in the rec clause, if Y = X then all occurrences of Y in E are X
    and bound, so there exist no free variables X in E to be replaced with E'.
@@ -806,9 +821,18 @@ val RESTR_LABEL_NO_TRANS = store_thm ("RESTR_LABEL_NO_TRANS",
                 (ASSUME ``~((COMPL (l' :'b Label)) IN L)``))
               (ASSUME ``(COMPL (l :'b Label)) IN L``)) ] ]);
 
-val RELAB_cases_EQ = save_thm ("RELAB_cases_EQ",
-    Q.GENL [`E`, `rf`]
-           (REWRITE_RULE [CCS_distinct', CCS_11] (SPEC ``relab E rf`` TRANS_cases)));
+(* |- !E rf u P.
+         relab E rf --u-> P <=>
+         ?E' u' E'' rf'.
+             ((E = E') /\ (rf = rf')) /\ (u = relabel rf' u') /\
+             (P = relab E'' rf') /\ E' --u'-> E''
+ *)
+val RELAB_cases_EQ = save_thm
+  ("RELAB_cases_EQ",
+    TRANS_cases |> (Q.SPEC `relab E rf`)
+                |> (REWRITE_RULE [CCS_distinct', CCS_11])
+                |> (Q.SPECL [`u`, `P`])
+                |> (Q.GENL [`E`, `rf`, `u`, `P`]));
 
 val RELAB_cases = save_thm ("RELAB_cases", EQ_IMP_LR RELAB_cases_EQ);
 
@@ -841,11 +865,16 @@ val RELAB_NIL_NO_TRANS = store_thm ("RELAB_NIL_NO_TRANS",
  >> IMP_RES_TAC TRANS_RELAB
  >> IMP_RES_TAC NIL_NO_TRANS);
 
-val REC_cases_EQ = save_thm ("REC_cases_EQ",
-    Q.GENL [`X`, `E`, `u`, `E''`]
-         (Q.SPECL [`u`, `E''`]
-                  (REWRITE_RULE [CCS_distinct', CCS_11]
-                                (SPEC ``rec X E`` TRANS_cases))));
+(* |- !X E u E'.
+         rec X E --u-> E' <=>
+         ?E'' X'. ((X = X') /\ (E = E'')) /\ [rec X' E''/X'] E'' --u-> E'
+ *)
+val REC_cases_EQ = save_thm
+  ("REC_cases_EQ",
+    TRANS_cases |> (Q.SPEC `rec X E`)
+                |> (REWRITE_RULE [CCS_distinct', CCS_11])
+                |> (Q.SPECL [`u`, `E'`])
+                |> (Q.GENL [`X`, `E`, `u`, `E'`]));
 
 val REC_cases = save_thm ("REC_cases", EQ_IMP_LR REC_cases_EQ);
 
@@ -898,17 +927,17 @@ QED
 
 (* The magical proof of TRANS_FV : (by induction on `TRANS`)
 
-        FV E' ⊆ FV E DELETE X
+        FV E' SUBSET FV E DELETE X
    ------------------------------------
     0.  CCS_Subst E (rec X E) X --u-> E'
-    1.  FV E' ⊆ FV (CCS_Subst E (rec X E) X)
-    2.  FV (CCS_Subst E (rec X E) X) ⊆ FV E
-    3.  FV E' ⊆ FV E
+    1.  FV E' SUBSET FV (CCS_Subst E (rec X E) X)
+    2.  FV (CCS_Subst E (rec X E) X) SUBSET FV E
+    3.  FV E' SUBSET FV E
 
   It's possible that X is a free variable in E, and then
  `CCS_Subst E (rec X E) X` changed X into a bound variable by
   replacing every (free) `var X` in E with `rec X (...)`,
-  that's why `FV (CCS_Subst E (rec X E) X) ⊆ FV E`.
+  that's why `FV (CCS_Subst E (rec X E) X) SUBSET FV E`.
 
   Is X in (BV E')? Yes, possible.
 

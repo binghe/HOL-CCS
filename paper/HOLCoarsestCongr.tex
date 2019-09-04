@@ -1,24 +1,24 @@
 \newcommand{\HOLCoarsestCongrDate}{04 Settembre 2019}
-\newcommand{\HOLCoarsestCongrTime}{10:29}
+\newcommand{\HOLCoarsestCongrTime}{13:46}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsfreeXXactionXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}(\HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrDefinitionsfreeXXactionXXdef}{\UseVerbatim{HOLCoarsestCongrDefinitionsfreeXXactionXXdef}}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsKLOPXXdef}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}. \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{SUC} \HOLBoundVar{n}) \HOLSymConst{=} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}. \HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{SUC} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrDefinitionsKLOPXXdef}{\UseVerbatim{HOLCoarsestCongrDefinitionsKLOPXXdef}}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsKLOPXXINFXXdef}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{a}. \HOLConst{KLOP_INF} \HOLBoundVar{X} \HOLBoundVar{a} \HOLSymConst{=} \HOLConst{rec} \HOLBoundVar{X} (\HOLConst{var} \HOLBoundVar{X} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{var} \HOLBoundVar{X})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{a}. \HOLConst{KLOP_INF} \HOLBoundVar{X} \HOLBoundVar{a} \HOLSymConst{\ensuremath{=}} \HOLConst{rec} \HOLBoundVar{X} \ensuremath{(}\HOLConst{var} \HOLBoundVar{X} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLBoundVar{X}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrDefinitionsKLOPXXINFXXdef}{\UseVerbatim{HOLCoarsestCongrDefinitionsKLOPXXINFXXdef}}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsSUMXXEQUIV}
-\HOLTokenTurnstile{} \HOLConst{SUM_EQUIV} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}))
+\HOLTokenTurnstile{} \HOLConst{SUM_EQUIV} \HOLSymConst{\ensuremath{=}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrDefinitionsSUMXXEQUIV}{\UseVerbatim{HOLCoarsestCongrDefinitionsSUMXXEQUIV}}
 \begin{SaveVerbatim}{HOLCoarsestCongrDefinitionsWEAKXXCONGR}
-\HOLTokenTurnstile{} \HOLConst{WEAK_CONGR} \HOLSymConst{=} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
+\HOLTokenTurnstile{} \HOLConst{WEAK_CONGR} \HOLSymConst{\ensuremath{=}} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrDefinitionsWEAKXXCONGR}{\UseVerbatim{HOLCoarsestCongrDefinitionsWEAKXXCONGR}}
 \newcommand{\HOLCoarsestCongrDefinitions}{
@@ -31,48 +31,48 @@
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXFINITE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
-       (\HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}))
+       \ensuremath{(}\HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXFINITE}{\UseVerbatim{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXFINITE}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXLR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXLR}{\UseVerbatim{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXLR}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXRL}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})) \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXRL}{\UseVerbatim{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXRL}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXTHM}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{free_action} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{free_action} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
-       (\HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}))
+       \ensuremath{(}\HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXTHM}{\UseVerbatim{HOLCoarsestCongrTheoremsCOARSESTXXCONGRXXTHM}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsDENGXXLEMMA}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
-       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{p} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q}) \HOLSymConst{\HOLTokenDisj{}}
-       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{q} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q\sp{\prime}}) \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q}
+       \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{p\sp{\prime}}. \HOLBoundVar{p} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{q}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{q\sp{\prime}}. \HOLBoundVar{q} \HOLTokenTransBegin\HOLConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q\sp{\prime}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsDENGXXLEMMA}{\UseVerbatim{HOLCoarsestCongrTheoremsDENGXXLEMMA}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsHENNESSYXXLEMMA}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}}
-       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{q}) \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{q}
+       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{q}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{p}\ensuremath{)} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsHENNESSYXXLEMMA}{\UseVerbatim{HOLCoarsestCongrTheoremsHENNESSYXXLEMMA}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXLR}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{q}) \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{q}
+       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{q}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{p}\ensuremath{)} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXLR}{\UseVerbatim{HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXLR}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXRL}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
-       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{q}) \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}\HOLBoundVar{p}) \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
+       \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \HOLBoundVar{p} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{q}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLConst{OBS_CONGR} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{p}\ensuremath{)} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
        \HOLConst{WEAK_EQUIV} \HOLBoundVar{p} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXRL}{\UseVerbatim{HOLCoarsestCongrTheoremsHENNESSYXXLEMMAXXRL}}
@@ -80,64 +80,64 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{A} \HOLBoundVar{B}.
        \HOLConst{equivalence} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}}
        \HOLConst{FINITE} \HOLBoundVar{A} \HOLSymConst{\HOLTokenConj{}} \HOLConst{INFINITE} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}}
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{y} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{x} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y}) \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y}. \HOLBoundVar{x} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{y} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{x} \HOLSymConst{\HOLTokenNotEqual{}} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLBoundVar{R} \HOLBoundVar{x} \HOLBoundVar{y}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}. \HOLBoundVar{k} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{B} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{n}. \HOLBoundVar{n} \HOLConst{\HOLTokenIn{}} \HOLBoundVar{A} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLBoundVar{R} \HOLBoundVar{n} \HOLBoundVar{k}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsINFINITEXXEXISTSXXLEMMA}{\UseVerbatim{HOLCoarsestCongrTheoremsINFINITEXXEXISTSXXLEMMA}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKZeroXXNOXXTRANS}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}(\HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{u} \HOLBoundVar{E}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKZeroXXNOXXTRANS}{\UseVerbatim{HOLCoarsestCongrTheoremsKZeroXXNOXXTRANS}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXcompute}
-\HOLTokenTurnstile{} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLSymConst{=} \HOLConst{nil}) \HOLSymConst{\HOLTokenConj{}}
-   (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}.
-        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{=}
-        \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}) \HOLSymConst{\ensuremath{+}}
-        \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}) \HOLSymConst{\ensuremath{-}} \HOLNumLit{1})) \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLNumLit{0} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}.
+        \HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+        \HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+        \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)} \HOLSymConst{\ensuremath{-}} \HOLNumLit{1}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}.
-       \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT2} \HOLBoundVar{n})) \HOLSymConst{=}
-       \HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n})) \HOLSymConst{\ensuremath{+}}
-       \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{..}\HOLConst{KLOP} \HOLBoundVar{a} (\HOLConst{NUMERAL} (\HOLConst{BIT1} \HOLBoundVar{n}))
+       \HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT2} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{=}}
+       \HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)} \HOLSymConst{\ensuremath{+}}
+       \HOLConst{label} \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{KLOP} \HOLBoundVar{a} \ensuremath{(}\HOLConst{NUMERAL} \ensuremath{(}\HOLConst{BIT1} \HOLBoundVar{n}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXcompute}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXcompute}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXLEMMAXXFINITE}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
-           \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{k}) \HOLSymConst{\HOLTokenConj{}}
+           \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{q\sp{\prime}} \HOLBoundVar{k}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXLEMMAXXFINITE}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXLEMMAXXFINITE}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXONEXXONE}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{ONE_ONE} (\HOLConst{KLOP} \HOLBoundVar{a})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a}. \HOLConst{ONE_ONE} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXONEXXONE}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXONEXXONE}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPZero}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}. \HOLConst{STABLE} (\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n}. \HOLConst{STABLE} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPZero}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPZero}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPOne}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPOne}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPOne}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPOneYY}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPOneYY}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPOneYY}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPOneXXLR}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPOneXXLR}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPOneXXLR}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPOneXXRL}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} (\HOLBoundVar{E} \HOLSymConst{=} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m})) \HOLSymConst{\HOLTokenImp{}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{E}. \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPOneXXRL}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPOneXXRL}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPTwo}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{STRONG_EQUIV} (\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}) (\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{STRONG_EQUIV} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPTwo}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPTwo}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsKLOPXXPROPTwoYY}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} (\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}) (\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n})
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{n} \HOLBoundVar{m}. \HOLBoundVar{m} \HOLSymConst{\HOLTokenLt{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{m}\ensuremath{)} \ensuremath{(}\HOLConst{KLOP} \HOLBoundVar{a} \HOLBoundVar{n}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsKLOPXXPROPTwoYY}{\UseVerbatim{HOLCoarsestCongrTheoremsKLOPXXPROPTwoYY}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsOBSXXCONGRXXIMPXXWEAKXXCONGR}
@@ -146,15 +146,15 @@
 \newcommand{\HOLCoarsestCongrTheoremsOBSXXCONGRXXIMPXXWEAKXXCONGR}{\UseVerbatim{HOLCoarsestCongrTheoremsOBSXXCONGRXXIMPXXWEAKXXCONGR}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsPROPThreeXXCOMMON}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
-       (\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
-            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{k}) \HOLSymConst{\HOLTokenConj{}}
-            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{q\sp{\prime}} \HOLBoundVar{k}) \HOLSymConst{\HOLTokenImp{}}
-       (\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} (\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}) (\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r})) \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{p\sp{\prime}} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{WEAK_EQUIV} \HOLBoundVar{q\sp{\prime}} \HOLBoundVar{k}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \ensuremath{(}\HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLConst{OBS_CONGR} \HOLBoundVar{p} \HOLBoundVar{q}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsPROPThreeXXCOMMON}{\UseVerbatim{HOLCoarsestCongrTheoremsPROPThreeXXCOMMON}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsTAUXXSTRAT}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} (\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E})) (\HOLConst{\ensuremath{\tau}}\HOLSymConst{..}(\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}))
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{OBS_CONGR} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)}\ensuremath{)} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLBoundVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsTAUXXSTRAT}{\UseVerbatim{HOLCoarsestCongrTheoremsTAUXXSTRAT}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsWEAKXXCONGRXXcongruence}
@@ -166,7 +166,7 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsWEAKXXCONGRXXIMPXXSUMXXEQUIV}{\UseVerbatim{HOLCoarsestCongrTheoremsWEAKXXCONGRXXIMPXXSUMXXEQUIV}}
 \begin{SaveVerbatim}{HOLCoarsestCongrTheoremsWEAKXXCONGRXXTHM}
-\HOLTokenTurnstile{} \HOLConst{WEAK_CONGR} \HOLSymConst{=} (\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} (\HOLBoundVar{c} \HOLBoundVar{g}) (\HOLBoundVar{c} \HOLBoundVar{h}))
+\HOLTokenTurnstile{} \HOLConst{WEAK_CONGR} \HOLSymConst{\ensuremath{=}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLCoarsestCongrTheoremsWEAKXXCONGRXXTHM}{\UseVerbatim{HOLCoarsestCongrTheoremsWEAKXXCONGRXXTHM}}
 \newcommand{\HOLCoarsestCongrTheorems}{
