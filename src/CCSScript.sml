@@ -133,11 +133,13 @@ val COMPL_ACT_def = Define `
 val _ = overload_on ("COMPL", ``COMPL_ACT``);
 val _ = export_rewrites ["COMPL_ACT_def"];
 
-val COMPL_COMPL_ACT = store_thm (
-   "COMPL_COMPL_ACT", ``!(a :'b Action). COMPL_ACT (COMPL_ACT a) = a``,
+Theorem COMPL_COMPL_ACT :
+    !(a :'b Action). COMPL_ACT (COMPL_ACT a) = a
+Proof
     Induct_on `a`
- >| [ REWRITE_TAC [COMPL_ACT_def],
-      REWRITE_TAC [COMPL_ACT_def, COMPL_COMPL_LAB] ]);
+ >- REWRITE_TAC [COMPL_ACT_def]
+ >> REWRITE_TAC [COMPL_ACT_def, COMPL_COMPL_LAB]
+QED
 
 (* auxiliary theorem about complementary labels. *)
 Theorem COMPL_THM :
@@ -213,50 +215,52 @@ val relabel_def = Define `
    (relabel rf (label l) = label (REP_Relabeling rf l))`;
 
 (* If the renaming of an action is a label, that action is a label. *)
-val Relab_label = store_thm (
-   "Relab_label",
-  ``!(rf :'b Relabeling) u l. (relabel rf u = label l) ==> ?l'. u = label l'``,
+Theorem Relab_label :
+    !(rf :'b Relabeling) u l. (relabel rf u = label l) ==> ?l'. u = label l'
+Proof
     Induct_on `u`
  >- REWRITE_TAC [relabel_def, Action_distinct]
  >> REWRITE_TAC [relabel_def]
  >> rpt STRIP_TAC
  >> EXISTS_TAC ``a :'b Label``
- >> REWRITE_TAC []);
+ >> REWRITE_TAC []
+QED
 
 (* If the renaming of an action is tau, that action is tau. *)
-val Relab_tau = store_thm (
-   "Relab_tau",
-  ``!(rf :'b Relabeling) u. (relabel rf u = tau) ==> (u = tau)``,
+Theorem Relab_tau :
+    !(rf :'b Relabeling) u. (relabel rf u = tau) ==> (u = tau)
+Proof
     Induct_on `u`
- >> REWRITE_TAC [relabel_def, Action_distinct_label]);
+ >> REWRITE_TAC [relabel_def, Action_distinct_label]
+QED
 
 (* Apply_Relab: ((Label # Label) list) -> Label -> Label
    (SND of any pair is a name, FST can be either name or coname)
  *)
 val Apply_Relab_def = Define `
    (Apply_Relab ([]: ('b Label # 'b Label) list) l = l) /\
-   (Apply_Relab (CONS (newold: 'b Label # 'b Label) ls) l =
+   (Apply_Relab ((newold: 'b Label # 'b Label) :: ls) l =
           if (SND newold = l)         then (FST newold)
      else if (COMPL (SND newold) = l) then (COMPL (FST newold))
      else (Apply_Relab ls l))`;
 
-val Apply_Relab_COMPL_THM = store_thm (
-   "Apply_Relab_COMPL_THM",
-  ``!labl (s: 'b). Apply_Relab labl (coname s) = COMPL (Apply_Relab labl (name s))``,
-    Induct
- >- REWRITE_TAC [Apply_Relab_def, COMPL_LAB_def]
+Theorem Apply_Relab_COMPL_THM :
+    !labl (s: 'b). Apply_Relab labl (coname s) =
+            COMPL (Apply_Relab labl (name s))
+Proof
+    Induct >- REWRITE_TAC [Apply_Relab_def, COMPL_LAB_def]
  >> rpt GEN_TAC
  >> REWRITE_TAC [Apply_Relab_def]
  >> COND_CASES_TAC
  >- art [Label_distinct', COMPL_LAB_def, COMPL_COMPL_LAB]
  >> ASM_CASES_TAC ``SND (h :'b Label # 'b Label) = name s``
  >- art [COMPL_LAB_def]
- >> IMP_RES_TAC COMPL_THM
- >> art []);
+ >> IMP_RES_TAC COMPL_THM >> art []
+QED
 
-val IS_RELABELING = store_thm (
-   "IS_RELABELING",
-  ``!labl :('b Label # 'b Label) list. Is_Relabeling (Apply_Relab labl)``,
+Theorem IS_RELABELING :
+    !labl :('b Label # 'b Label) list. Is_Relabeling (Apply_Relab labl)
+Proof
     Induct
  >- REWRITE_TAC [Is_Relabeling_def, Apply_Relab_def, COMPL_LAB_def]
  >> GEN_TAC
@@ -267,7 +271,8 @@ val IS_RELABELING = store_thm (
  >> ASM_CASES_TAC ``SND (h :'b Label # 'b Label) = name s``
  >- art [COMPL_LAB_def]
  >> IMP_RES_TAC COMPL_THM
- >> art [Apply_Relab_COMPL_THM]);
+ >> art [Apply_Relab_COMPL_THM]
+QED
 
 (* Defining a relabelling function through substitution-like notation.
    RELAB: (Label # Label) list -> Relabeling
@@ -380,7 +385,7 @@ val CCS_11 = TypeBase.one_one_of ``:('a, 'b) CCS``;
 
    This works under the hypothesis that the Barendregt convention holds. *)
 Definition CCS_Subst_def :
-   (CCS_Subst nil          E  X = nil) /\
+   (CCS_Subst nil          E' X = nil) /\
    (CCS_Subst (prefix u E) E' X = prefix u (CCS_Subst E E' X)) /\
    (CCS_Subst (sum E1 E2)  E' X = sum (CCS_Subst E1 E' X)
                                       (CCS_Subst E2 E' X)) /\
@@ -388,7 +393,7 @@ Definition CCS_Subst_def :
                                       (CCS_Subst E2 E' X)) /\
    (CCS_Subst (restr L E)  E' X = restr L (CCS_Subst E E' X)) /\
    (CCS_Subst (relab E rf) E' X = relab   (CCS_Subst E E' X) rf) /\
-   (CCS_Subst (var Y)      E  X = if (Y = X) then E  else (var Y)) /\
+   (CCS_Subst (var Y)      E' X = if (Y = X) then E' else (var Y)) /\
    (CCS_Subst (rec Y E)    E' X = if (Y = X) then (rec Y E)
                                   else (rec Y (CCS_Subst E E' X)))
 End
