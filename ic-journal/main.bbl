@@ -5,6 +5,10 @@
 \expandafter\ifx\csname href\endcsname\relax
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
+\bibitem{Mil89}
+R.~Milner, Communication and concurrency, {PHI} Series in computer science,
+  Prentice-Hall, 1989.
+
 \bibitem{EPTCS276.10}
 C.~Tian, D.~Sangiorgi, {Unique Solutions of Contractions, CCS, and their HOL
   Formalisation}, in: J.~A. P\'erez, S.~Tini (Eds.), {\rm Proceedings Combined
@@ -14,10 +18,6 @@ C.~Tian, D.~Sangiorgi, {Unique Solutions of Contractions, CCS, and their HOL
   Open Publishing Association, 2018, pp. 122--139.
 \newblock \href {https://doi.org/10.4204/EPTCS.276.10}
   {\path{doi:10.4204/EPTCS.276.10}}.
-
-\bibitem{Mil89}
-R.~Milner, Communication and concurrency, {PHI} Series in computer science,
-  Prentice-Hall, 1989.
 
 \bibitem{BaeBOOK}
 J.~C.~M. Baeten, T.~Basten, M.~A. Reniers, Process Algebra: Equational Theories

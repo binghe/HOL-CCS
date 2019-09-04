@@ -61,10 +61,10 @@ the manipulation of
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Operator} & \textbf{CCS notation} & \textbf{HOL term} &
+\hl{\textbf{CCS concept}} & \hl{\textbf{Notation}} & \textbf{HOL term} &
                                                                 \textbf{\TeX{} output} \\
 \hline
-nil & $\textbf{0}$ & \texttt{nil} & \HOLinline{\HOLConst{\ensuremath{\mathbf{0}}}} \\
+\hl{deadlock} & $\textbf{0}$ & \texttt{nil} & \HOLinline{\HOLConst{\ensuremath{\mathbf{0}}}} \\
 prefix & $u.P$ & \texttt{prefix u P} & \HOLinline{\HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{P}} \\
 sum & $P + Q$ & \texttt{sum P Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{Q}} \\
 parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{Q}} \\
@@ -72,7 +72,7 @@ restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLinline{\ensuremath{(\nu}\
 recursion & $\recu A P$ & \texttt{rec A P} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P}}  \\
 relabeling & $P\;[r\!f]$ & \texttt{relab P rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf}}  \\
 \hline
-constant & $A$ & \texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
+\hl{variable} & $A$ & \texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
 invisible action & $\tau$ & \texttt{tau} & \HOLinline{\HOLSymConst{\ensuremath{\tau}}} \\
 input action & $a$ & \texttt{label (name a)} & \HOLinline{\HOLConst{In} \HOLFreeVar{a}} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLinline{\HOLConst{Out} \HOLFreeVar{a}} \\

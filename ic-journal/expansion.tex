@@ -16,10 +16,12 @@ A process relation ${\R}$ is a \emph{bisimulation} if, whenever
 written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
 \end{definition}
 
-We sometimes call bisimilarity the \emph{weak} one, to
-distinguish it from \emph{strong} bisimilarity ($\sim$),
-obtained by replacing in the above definition   the weak answer $
-Q\Arcap\mu Q'$ with the strong  $Q \arr \mu Q'$.
+\hl{We sometimes call the bisimulation and bisimilarity defined above
+the \emph{weak} bisimulation (and weak bisimilarity), to
+distinguish it from the \emph{strong} bisimulation and strong bisimilarity} ($\sim$),
+obtained by replacing the weak transition $Q\Arcap\mu Q'$ in the above
+definition with the strong transition $Q \arr \mu Q'$ (same for the
+other case).
 Weak bisimilarity is not preserved by the sum operator (except for
 guarded sums). For this, Milner introduced \emph{observational congruence}, also called \emph{rooted
   bisimilarity} \cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
@@ -37,10 +39,10 @@ for all $\mu$:
 \end{enumerate}
 \end{definition}
 
-Besides reducing the rooted bisimiarity of two processes to
+Besides reducing the rooted \hl{bisimilarity} of two processes to
 the bisimilarities of their immediate derivatives, the
-above definition also brings up a proof technique for proving  rooted
-bisimiarity results  by constructing a bisimulation.
+above definition also brings up a proof technique for proving rooted
+\hl{bisimilarity} results by constructing a bisimulation.
 \begin{lemma}[Rooted bisimilarity by bisimulation]
 \label{l:obsCongrByWeakBisim}
 Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
@@ -48,9 +50,10 @@ satisfies the following properties:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \RR Q'$;
-\item the converse of (1) on the actions from $Q$.
+\item $Q \arr\mu Q'$ \hl{implies that there is} $P'$ such that $P
+   \Arr\mu P'$ and $P' \RR Q'$.
 \end{enumerate}
-then $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
+\hl{Then} $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
 \end{lemma}
 
 \begin{theorem}

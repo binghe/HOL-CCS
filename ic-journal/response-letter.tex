@@ -34,28 +34,28 @@ Best regards,
 \subsection*{Meta comments}
 
 \begin{enumerate}
-\item \begin{quote}
-    This paper describes a HOL formalisation of several notions in
-    process theory: CCS and various kinds of bisimilarity, and in
-    particular the unique-solutions technique. The latter was
-    introduced by Milner, and recently revisited and refined by the
-    second author.
-  \end{quote}
+% \item \begin{quote}
+%     This paper describes a HOL formalisation of several notions in
+%     process theory: CCS and various kinds of bisimilarity, and in
+%     particular the unique-solutions technique. The latter was
+%     introduced by Milner, and recently revisited and refined by the
+%     second author.
+%   \end{quote}
   
-\item \begin{quote}
-    In general, these kinds of results are error-prone, especially
-    those related to weak bisimilarity: there are multiple known
-    mistakes in the literature. Therefore, formalisation is a
-    worthwile effort. Moreover, the formalisation itself is quite
-    readable. The paper itself documents this formalisation and is,
-    for the most part, clear.
-  \end{quote}
+% \item \begin{quote}
+%     In general, these kinds of results are error-prone, especially
+%     those related to weak bisimilarity: there are multiple known
+%     mistakes in the literature. Therefore, formalisation is a
+%     worthwile effort. Moreover, the formalisation itself is quite
+%     readable. The paper itself documents this formalisation and is,
+%     for the most part, clear.
+%   \end{quote}
 
-\item \begin{quote}
-    The paper is an extended version of an EXPRESS/SOS paper. The
-    extension consists of a more detailed report of the proofs -
-    perhaps this is enough.
-  \end{quote}
+% \item \begin{quote}
+%     The paper is an extended version of an EXPRESS/SOS paper. The
+%     extension consists of a more detailed report of the proofs -
+%     perhaps this is enough.
+%   \end{quote}
 
 \item \begin{quote}
     I was disappointed though that multi-variable contexts are still
@@ -74,9 +74,21 @@ Best regards,
     unique-solution method. 
   \end{quote}
 
+  Now we have additionally formalised the multivariate (i.e. multi-variable)
+  version of the \emph{unique solution of rooted contractions theorem}
+  (Theorem~\ref{t:rcontraBisimulationU}) and \emph{Milner's strong
+  unique-solution theorem} (Prop.~4.14 (2)
+  of~\citep[p.~103]{Mil89}), together with a detailed discussion on
+  multivariate contexts, weakly-guarded equations and multivariate
+  variable substitutions. This work consists of 4,000 lines of new
+  proof scripts, and it is indeed based on the existing framework in
+  the sense that, we do not need to change the CCS datatype definition
+  and any SOS rule. (c.f. Section~\ref{sec:multivariate} for more details.)
+
 \item \begin{quote}
     overall the paper can use a bit of spell-checking and proofreading (e.g. there are some initials in the margin)
   \end{quote}
+
 
 \end{enumerate}
 
@@ -87,14 +99,23 @@ Best regards,
     L45: "about unique solution*s*"
   \end{quote}
 
+  \hl{TODO}: I don't understand this comment. Is the referee indicating
+  that our uses of ``solutions'' wasn't accurate because we didn't
+  formalize their multivariate case?
+  
 \item \begin{quote}
     L84 "the weak one" rephrase
   \end{quote}
 
+  Rephrased: ``We sometimes call the bisimulation and bisimilarity defined above
+the \emph{weak} bisimulation (and weak bisimilarity), ...''
+  
 \item \begin{quote}
     L91 "bisimiarity"
   \end{quote}
 
+  We have fixed this typo (totally two instances in the paper, also in L92).
+  
 \item \begin{quote}
     proof of thm 3.10: could there be some kind of picture to help? also, the "Hence," in the one-to-last line refers only to the property right before it, right? (about $C[\tilde{Q}]$)
   \end{quote}

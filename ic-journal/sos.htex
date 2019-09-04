@@ -61,10 +61,10 @@ the manipulation of
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Operator} & \textbf{CCS notation} & \textbf{HOL term} &
+\hl{\textbf{CCS concept}} & \hl{\textbf{Notation}} & \textbf{HOL term} &
                                                                 \textbf{\TeX{} output} \\
 \hline
-nil & $\textbf{0}$ & \texttt{nil} & \HOLtm{nil} \\
+\hl{deadlock} & $\textbf{0}$ & \texttt{nil} & \HOLtm{nil} \\
 prefix & $u.P$ & \texttt{prefix u P} & \HOLtm{prefix u P} \\
 sum & $P + Q$ & \texttt{sum P Q} & \HOLtm{sum P Q} \\
 parallel & $P \,\mid\, Q$ & \texttt{par P Q} & \HOLtm{P || Q} \\
@@ -72,7 +72,7 @@ restriction & $(\nu\;L)\;P$ & \texttt{restr L P} & \HOLtm{restr L P}  \\
 recursion & $\recu A P$ & \texttt{rec A P} & \HOLtm{rec A P}  \\
 relabeling & $P\;[r\!f]$ & \texttt{relab P rf} & \HOLtm{relab P rf}  \\
 \hline
-constant & $A$ & \texttt{var A} & \HOLtm{var A} \\
+\hl{variable} & $A$ & \texttt{var A} & \HOLtm{var A} \\
 invisible action & $\tau$ & \texttt{tau} & \HOLtm{tau} \\
 input action & $a$ & \texttt{label (name a)} & \HOLtm{label (name a)} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \HOLtm{label (coname a)} \\
