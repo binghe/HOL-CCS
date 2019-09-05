@@ -6,22 +6,22 @@
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
 \hl{One} highlight of this formalization project is the simplified definitions of
-  bisimilarities using the new coinductive relational package for HOL.  
+  bisimilarities using the new coinductive relational package of HOL4.
 Without it, the bisimilaries can still be defined,  but
   proving their basic properties would be more complicated.
 
 The definition of strong bisimulation (\texttt{STRONG_BISIM})  follows
   its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
-what kind of binary relations on CCS process is a (strong) bisimulation:
+what kind of binary relations on CCS process \hl{are (strong) bisimulations}:
 \begin{alltt}
 \HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
 \end{alltt}
-With above definition it is easy to prove that the identity
+With \hl{the} above definition it is easy to prove that the identity
 relation is indeed a bisimulation,  that bisimulation is preserved by
 inversion, composition, and union operations.
 
 Without the coinductive relation package for HOL,
-the definition would be the following one:
+the definition \hl{of (strong) bisimilarity} would be the following one:
 \begin{alltt}
   \HOLthm[def]{StrongEQ.STRONG_EQUIV}\hfill{[STRONG_EQUIV]}
 \end{alltt}
@@ -40,11 +40,11 @@ This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
 
 %However we know that bisimiliarity is a coinductive relation, now 
 With HOL's
-new coinductive relation package (\texttt{Hol_coreln} (since Kananaskis-11 release),
+new coinductive relation package (\texttt{Hol_coreln} (since \hl{the} Kananaskis-11 release),
 it is possible to define (strong) bisimilarity in a more convienent way, which
 essentially amounts to defining bisimilarity as the greatest
-fixed-point of the appropriate functional on relations. Precisely we call 
-\texttt{Hol_coreln} command in the following way:%
+fixed-point of the appropriate functional on relations. Precisely we
+call \hl{the} \texttt{Hol_coreln} command in the following way:%
 \footnote{Here {\tt !} and {\tt ?} stand for universal and
 existential quantifiers in HOL's ASCII-based term syntax.}
 \begin{lstlisting}
@@ -77,16 +77,16 @@ and the fixed-point property of bisimilarity
 bisimulation):
 \begin{enumerate}
 \item \begin{alltt}
-\HOLthm{StrongEQ.STRONG_EQUIV_rules}\hfill{[STRONG_EQUIV_rules]}
+\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_rules}\hfill{[STRONG_EQUIV_rules]}
 \end{alltt}
 \item \begin{alltt}
-\HOLthm{StrongEQ.STRONG_EQUIV_coind}\hfill{[STRONG_EQUIV_coind]}
+\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_coind}\hfill{[STRONG_EQUIV_coind]}
 \end{alltt}
 \item \begin{alltt}
-\HOLthm{StrongEQ.STRONG_EQUIV_cases}\hfill{[STRONG_EQUIV_cases]}
+\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_cases}\hfill{[STRONG_EQUIV_cases]}
 \end{alltt}
 \end{enumerate}
-The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed  property (*)
+The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed \hl{the} property (*)
 mentioned earlier.
 % , and these theorems completely capture the definition of
 % , because now we can easily derive the original definition of
@@ -98,8 +98,8 @@ transitions of CCS processes.
 Following  Nesi \cite{Nesi:1992ve},
 we define a (possibly empty) sequence of $\tau$-transitions between
 two processes as
-a new relation  \texttt{EPS}
-($\overset{\epsilon}{\Rightarrow}$), which is the
+a new relation \texttt{EPS}
+($\overset{\epsilon}{\Longrightarrow}$), which is the
 reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
 \begin{alltt}
@@ -111,7 +111,7 @@ two $\epsilon$-transitions:
 \HOLthm[def]{WeakEQ.WEAK_TRANS}\hfill{[WEAK_TRANS]}
 \end{alltt}
 
-Weak bisimulation is defined upon weak transition:
+\hl{The definition of weak bisimulation is based on weak and $\epsilon$--transitions:}
 \begin{alltt}
 \HOLthm[def]{WeakEQ.WEAK_BISIM}\hfill{[WEAK_BISIM]}
 \end{alltt}
@@ -277,18 +277,31 @@ and contains the expansion preorder.
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-In general a proof of a property for the  contraction preorder is
-harder than that for the  expansion preorder; we sometimes need
-to reduce the proof to corresponding properties of weak bisimilarity.
-Also, surprisingly, a contraction does not imply weak bisimulation,
-i.e. the following proposition doesn't hold:
+In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
+harder than that for the cases of expansion: \hl{this is mostly due to the surprising fact
+that, contraction does not imply weak bisimulation (while expansion
+indeed implies weak bisimulation),}
+i.e. the following proposition does not hold:
 \begin{alltt}
 \HOLtm{!Con. CONTRACTION Con ==> WEAK_BISIM Con}
 \end{alltt}
-As a result, to finish the proof of \texttt{contracts_IMP_WEAK_EQUIV}, we do not prove
-that $Con$ itself is a weak
-   bisimulation, but rather that the union of  $Con$ and weak bisimilarity is a
-   weak bisimulation.
+\hl{For instance, in the proof of the following lemma (contraction preorder implies $\wb$)}:
+\begin{alltt}
+\HOLthm{Contraction.contracts_IMP_WEAK_EQUIV}
+\end{alltt}
+We prove it by constructing a bisimulation containing two processes
+$P$ and $Q$, given that they're in a contraction $Con$:
+\begin{lstlisting}
+        ?Wbsm. Wbsm P Q /\ WEAK_BISIM Wbsm
+   ------------------------------------
+    0.  Con P Q
+    1.  CONTRACTION Con
+\end{lstlisting}
+We cannot say show that $Con$ itself is a bisimulation, but rather
+that the union of $Con$ and $\wb$ is a bisimulation.
+\hl{The corresponding lemma for the expansion preorder is rather
+straightforward
+and does not require such a non-trivial contruction.}
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as follows, with its precongruence result:
@@ -298,7 +311,7 @@ defined as follows, with its precongruence result:
 \HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
 \end{alltt}
 
-\subsection{The formalisation of ``bisimulation up to''}
+\subsection{The formalisation of ``bisimulation up to bisimilarity''}
 
 ``Bisimulation up to'' is a family of  powerful proof techniques,
 used to reduce the size of a relation needed to define a bisimulation.
@@ -318,13 +331,14 @@ privileged relation, so to relieve the proof work needed. These are  called
 % bisimulation, which is often more useful in applications.
 % The following definition and proposition put the idea on a firm
 % basis. 
-We recall that we often write $P\mathcal{R} Q$ to mean
-$(P, Q) \in \mathcal{R}$, for any binary relation $\mathcal{R}$. 
+We recall that we often write \hl{$P \;\R\; Q$ to denote}
+$(P, Q) \in \R$ for any binary relation $\R$. 
 Moreover, 
- $\sim \mathcal{S} \sim$ is the composition of the binary
-relations, hence $P \sim \mathcal{S} \sim Q$ means that, for some
-$P'$ and $Q'$, we have $P \sim P'$, $P' \,\mathcal{S}\, Q'$ and $Q' \sim Q$.
+ $\sim \mathcal{S} \sim$ is the composition of \hl{three binary
+relations: $\sim$, $\S$ and $\sim$.} Hence $P \sim \S \sim Q$ means that,
+\hl{there exist $P'$ and $Q'$ such that} $P \sim P'$, $P' \;\S\; Q'$ and $Q' \sim Q$.
 \begin{definition}[Bisimulation up to $\sim$]
+  \label{def:bisimUptoSim}
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
   \mathcal{S} Q$ implies, for all $\mu$,
 \begin{enumerate}
@@ -335,10 +349,6 @@ $\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
   $P'$, $P \overset{\mu}{\rightarrow} P'$ and $P' \sim \mathcal{S}
   \sim Q'$.
 \end{enumerate}
-Formally,
-\begin{alltt}
-\HOLthm[def]{BisimulationUpto.STRONG_BISIM_UPTO}\hfill{[STRONG_BISIM_UPTO]}
-\end{alltt}
 \end{definition}
 
 \begin{theorem}
@@ -350,58 +360,64 @@ $\mathcal{S} \subseteq\;\sim$:
 \end{theorem}
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
-For weak bisimilarity, there are a few versions of the `up-to
-  bisimilarity'. The most common one is the following.
+
+For weak bisimilarity, \hl{the \emph{naive} weak bisimulation up to weak bisimilarity
+is unsound:} if one simply replaces all $\sim$ in
+Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting ``weak
+bisimulation up`` is not contained in $\wb$.~\cite{sangiorgi1992problem}
+\hl{There are a few ways to fix this problem, one is the following:}
 
 \begin{definition}{(Bisimulation up to $\approx$)}
-$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P
-  \mathcal{S} Q$ implies, for all $\mu$,
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P\;
+  \mathcal{S}\; Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
-  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
-  \approx Q'$,
+  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \sim \S \approx Q'$,
 \item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
-  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \mathcal{S}
-  \sim Q'$.
+  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \S \sim Q'$.
 \end{enumerate}
-Formally,
+or formally (for illustrating purposes below),
 \begin{alltt}
-\HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO}\hfill{[WEAK_BISIM_UPTO]}
+\HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
+\hl{Notice that, the formal represention of $\sim \S \approx$ is}
+``\HOLtm{WEAK_EQUIV O Wbsm O STRONG_EQUIV}'' where \hl{the order of
+$\sim$ and $\approx$ seems reverted.} This is because, in HOL's
+notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
+applied first.
 
 \begin{theorem}
 If $\mathcal{S}$ is a bisimulation up to $\approx$, then
 $\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
-\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}
 \end{alltt}
 \end{theorem}
 
 The above version of ``bisimulation up to $\wb$'' 
-is not powerful enough to be used within
-the proof of 
-Milner's ``unique solution of equations'' theorem for $\wb$, for
-which we need 
-the
-following version (though less practical to use,
-as checking multi-step transitions is  usually harder then
-checking one-step transitions):
+is not powerful to prove Milner's ``unique solution of equations''
+theorem for $\wb$,
+in which we actually used a different bisimulation game defined below:~\cite{sangiorgi1992problem}
+\begin{definition}{(Bisimulation up to $\approx$, the ``double-weak''
+    version)}
+  \label{def:doubleweak}
+$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
+  \mathcal{S} \; Q$ implies, for all $\mu$,
+\begin{enumerate}
+\item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
+  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \approx \S \approx Q'$,
+\item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
+  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \S \approx Q'$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+\hl{If $\mathcal{S}$ is a bisimulation up to $\approx$} (w.r.t. Definition~\ref{def:doubleweak}), then
+$\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
-\HOLthm[def]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}\hfill{[WEAK_BISIM_UPTO_ALT]}
-
-\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}
 \end{alltt}
-
-Finally, we  present a fourth version, ``bisimulation up
-to $\rapprox$'' (\texttt{OBS_BISIM_UPTO}), which can be used as a proof method for rooted
-bisimilarity. (Again, it is not powerful enough to be used within
-the proof of Milner's ``unique solution of equations''
-theorem for $\rapprox$.)
-\begin{alltt}
-\HOLthm[def]{BisimulationUpto.OBS_BISIM_UPTO}\hfill{[OBS_BISIM_UPTO]}
-
-\HOLthm{BisimulationUpto.OBS_CONGR_BY_BISIM_UPTO}\hfill{[OBS_CONGR_BY_BISIM_UPTO]}
-\end{alltt}
+\end{theorem}
 
 %  next file: context.htex

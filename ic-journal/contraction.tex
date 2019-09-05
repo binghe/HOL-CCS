@@ -1,4 +1,4 @@
-\subsection{Contractions}
+\subsection{Expansions and Contractions}
 \label{s:mcontr}
 
 The constraints on the unique-solution Theorem~\ref{t:Mil89} can be 
@@ -40,12 +40,11 @@ This makes sure that $Q$ is capable of mimicking $P$'s
 work at least as efficiently as $P$. 
 In contrast, the second clause of Definition~\ref{d:BisCon}, on the
 challenges from $Q$, entirely ignores efficiency: it is the same
-clause of  weak bisimulation~--- the final derivatives are even required
+clause of  weak bisimulation~---the final derivatives are even required
 to be related  by $\wb$, rather than by $\R$.
 
 Bisimilarity  contraction is coarser than 
- the \emph{expansion relation} 
-$\expa$ \cite{arun1992efficiency,sangiorgi2015equations}.
+ the \emph{expansion relation} $\expa$~\cite{arun1992efficiency,sangiorgi2015equations}.
 This is a
 preorder widely used in proof techniques for bisimilarity and that 
 intuitively refines bisimilarity by 
@@ -58,7 +57,7 @@ contraction the final derivatives are simply required to be bisimilar.
 An expansion 
 $P \expa Q$
 tells us  that $Q$ is always at least as efficient as $P$, whereas  the
- contraction $P \mcontrBIS Q$  just says that $Q$ has the  possibility of
+ contraction $P \mcontrBIS Q$  just says that $Q$ has the possibility of
 being at least as efficient as $P$. 
 
 % \iflong\newDS
@@ -90,10 +89,6 @@ we have $P\RR Q$, for all $\mu$
  if $P \RR Q$ for some expansion $\R$.
  \end{definition}
 
-As bisimilarity, so the expansion preorder is preserved by all operators but  sums.
-
-
-
 \begin{example}
 \label{exa:contr}
 We have %\mcontrBIS a + \tau^n . a $
@@ -115,5 +110,5 @@ $\expa$, which explains the strictness of the inclusion
 % The substitutivity proofs for for expansion and bisimilarity carry
 % over to contraction,   
 
-Like (weak) bisimilarity and expansion, contraction is
-preserved by all operators but (direct) sum.
+Like the case of (weak) bisimilarity, the expansion and contraction
+preorders are preserved by all CCS operators but the summation.

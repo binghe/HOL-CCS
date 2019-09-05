@@ -98,10 +98,7 @@ Best regards,
 \item \begin{quote}
     L45: "about unique solution*s*"
   \end{quote}
-
-  \hl{TODO}: I don't understand this comment. Is the referee indicating
-  that our uses of ``solutions'' wasn't accurate because we didn't
-  formalize their multivariate case?
+  Fixed.
   
 \item \begin{quote}
     L84 "the weak one" rephrase
@@ -211,65 +208,92 @@ w.r.t the corresponding definitions of contexts.''
 \item \begin{quote}
     L378 "is a" => "are"
   \end{quote}
-
+  Fixed. ``... what kind of binary relations on CCS process are (strong) bisimulations.''
+  
 \item \begin{quote}
     L385 "With *the* above"
   \end{quote}
-
+  Fixed.
+  
 \item \begin{quote}
     L386 "the definition" of what? (bisimilarity, but say that)
   \end{quote}
-
+  Fixed (``the definition of (strong) bisimilarity``).
+  
 \item \begin{quote}
     L394 "since *the* Kananaskis-11 release"
   \end{quote}
+  Fixed.
 
 \item \begin{quote}
     L396 "we call *the* Hol_coreln"
   \end{quote}
-
+  Fixed.
+  
 \item \begin{quote}
     L410 $E$ and $E'$ missing
   \end{quote}
-
+  All formal theorems and definitions are generated from HOL4.
+  By default, all theorems are fully specialised, removing outermost
+  universal quantifiers. For certain important theorems like this one,
+  now we have disabled the specialization showing outermost
+  universal quantifiers.
+  
 \item \begin{quote}
     L436 "is defined upon weak transition" grammar
   \end{quote}
 
+  Rephrased: ``The definition of weak bisimulation is based on weak
+  and $\epsilon$--transitions:''
+  
 \item \begin{quote}
     L505 this is good: it is missing for strong bisimilarity, should
     be added there too (the two definitions are now not explicitly
     related)
   \end{quote}
+TODO (remove the duplicated part of weak bisimulation, mergin into the
+strong case).
 
 \item \begin{quote}
     L580 "a contraction" ?
   \end{quote}
-
+  This is no big problem here, as we are talking about any relation
+  (which is a contraction) is not in general a bisimulation. However
+  we have removed the word ``a'', having just: ``contraction does not imply weak bisimulation, ...''
+  
 \item \begin{quote}
     section 4.6 header: "the formalisation of bisimulation up to
     bisimilarity", i would say; also since you're not using
     compatible/respectful functions
   \end{quote}
-
+  Fixed.
+  
 \item \begin{quote}
     L599 PRQ not so pretty spacing. perhaps mention around here that
     naive weak bisimulation up to weak bisimilarity is unsound?
   \end{quote}
-
+  Fixed PRQ; Mentioned ``naive weak bisimulation up to weak
+  bisimilarity is unsound'' right before the definition of ``weak
+  bisimilation up to.''
+  
 \item \begin{quote}
     L655 (around here): i'd say in the text above it that this is a
     different bisimulation game, not a different up-to technique
   \end{quote}
+  Thanks. We have added ``we actually used a different bisimulation game defined below''.
 
 \item \begin{quote}
     L708 " closure of bisimilarity under such operator" not sure whether this is gramatically correct
   \end{quote}
+  Rephrased: `` we also consider the relation closure of bisimilarity
+  w.r.t. summation...''
 
 \item \begin{quote}
     figure 2: I'm a bit confused since the other implication is missing. 
   \end{quote}
 
+  TODO: not understood this comment.
+  
 \item \begin{quote}
     Overall, in section 4.7, it seems the claim in the beginning is
     only proved under certain hypotheses: the "free-action" property,
@@ -278,10 +302,15 @@ w.r.t the corresponding definitions of contexts.''
     exactly under which assumptions.
   \end{quote}
 
+  TODO
+  
 \item \begin{quote}
     L740 "this proof" which? 
   \end{quote}
 
+  ``this proof (Theorem~\ref{thm:coarsestfiniteState} in next
+  section)``.
+  
 \item \begin{quote}
     The beginning of section 4.8 is really confusing: what are "the
     two root processes"? What are we going to prove in this section,
@@ -289,18 +318,24 @@ w.r.t the corresponding definitions of contexts.''
     we going to work?
   \end{quote}
 
+  TODO
+  
 \item \begin{quote}
     L820 "bisimularity"
   \end{quote}
-
+  Fixed.
+  
 \item \begin{quote}
     Lemma 4.14 is nicely introduced, Thm 4.15 not. 
   \end{quote}
 
+  TODO
+  
 \item \begin{quote}
     L898 full stop \& new sentence after "many ways"
   \end{quote}
-
+  Fixed.
+  
 \item \begin{quote}
     L990-995 aren't some of the textbook proofs even wrong? (e.g. [2]
     in the proof for unique solutions makes use of weak bisimulation
@@ -308,6 +343,8 @@ w.r.t the corresponding definitions of contexts.''
     perhaps say this, it makes the point even stronger
   \end{quote}
 
+  TODO
+  
 \end{enumerate}
 
 \section*{Responses to Review 2 (accept - minor revision)}
@@ -349,13 +386,19 @@ w.r.t the corresponding definitions of contexts.''
     There are some typos. E.g., several times I read “bisimiarity” (the “l” is missed).
   \end{quote}
 
+  Fixed (all raised by other reviewers).
+  
 \item \begin{quote}
     There are side remarks that should be removed.
   \end{quote}
 
+  Two of them, removed.
+  
 \item \begin{quote}
     The two sentences immediately before and after Example 3.7 are equivalent.
   \end{quote}
+
+  We have removed the one before Example 3.7.
 
 \item \begin{quote}
     The notion of “substitutivity property” should be introduced, now it’s used but not explained.
@@ -367,21 +410,32 @@ w.r.t the corresponding definitions of contexts.''
     some more details. Some examples.
   \end{quote}
 
+  TODO
+  
 \item \begin{quote}
     You assume the reader knows what Hol_reln is, but this not always the case. 
 Then, you define the congruence in terms of the equivalence, but is
 the equivalence already defined somewhere?
   \end{quote}
 
+  TODO
+  
 \item \begin{quote}
     The argument at lines 387-389 is clear only after the lines 394-427 have been read.
   \end{quote}
 
+  TODO (merge strong and weak cases0
+  
 \item \begin{quote}
     At lines 577 you write that proving properties for contraction is
     in general harder than proving properties for expansion. Could you
     explain why?
   \end{quote}
+
+  We added a few more words right after: ``this is mostly due to the surprising fact
+that, contraction does not imply weak bisimulation (while expansion
+indeed implies weak bisimulation) ''.
+
 \end{enumerate}
 
 \section*{Responses to Review 3 (accept - major revision)}

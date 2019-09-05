@@ -99,7 +99,10 @@ output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLtm
 \end{table}
 
 The transition semantics of CCS processes follows Structural
-Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
+Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:\footnote{All
+  formal theorems and definitions (their \TeX{} code) in this paper
+  are generated directly from HOL4. By default, all theorems are fully
+  specialised, removing outermost universal quantifiers.}
 \begin{alltt}
 \HOLthm{CCS.PREFIX}\hfill\texttt{[PREFIX]}
 \HOLthm{CCS.SUM1}\hfill\texttt{[SUM1]}
@@ -185,7 +188,7 @@ is called on the  process $(a.0 | \bar{a}.0)$ thus:
 This returns the following theorem, indeed describing all immediate
 transitions of the process:
 \begin{alltt}
-\HOLthm[nosp]{Example.ex_A}\hfill{[Example.ex_A]}
+\HOLthm{Example.ex_A}\hfill{[Example.ex_A]}
 \end{alltt}
 
 % next file: bisim.htex

@@ -35,12 +35,12 @@ contained in (weak) bisimilarity, namely \emph{bisimilarity
   congruence}, is
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
-\HOLConst{WEAK_CONGR} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
-\HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}\hfill{[CC_def]}
+   \HOLConst{WEAK_CONGR} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
+   \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}\hfill{[CC_def]}
 \end{alltt}
- (We need not  put $R\ g\ h$ in the antecedent of
-  \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.)
-For any relation $R$ 
+We do not need to put $R\ g\ h$ in the antecedent of
+  \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
+For any \hl{binary} relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
 fine as $R$
 (here $\subseteq_r$ stands for \emph{relational subset})
@@ -56,11 +56,11 @@ itself may not be) is contained in the composition closure of $R$
 \end{alltt}
 
 Given the central role of the  
- sum operator, we also consider the closure of bisimilarity under such
- operator, called \emph{equivalence compatible with sums}
+ summation, we also consider the relation closure of bisimilarity
+ w.r.t. summation, called \emph{equivalence compatible with summation}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
-\HOLConst{SUM_EQUIV} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\hfill{[SUM_EQUIV]}
+   \HOLConst{SUM_EQUIV} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\hfill{[SUM_EQUIV]}
 \end{alltt}
 
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
@@ -104,16 +104,16 @@ rooted bisimilarity ($\rapprox$), making all three relations
 
 \begin{figure}[ht]
 \begin{displaymath}
-\xymatrix@R=3ex{
+\xymatrix{
 {\textrm{Weak bisimilarity } (\approx)} & {\textrm{Equiv.
-    compatible with sums (\texttt{SUM\_EQUIV})}} \ar@/^3ex/[ldd]^{\subseteq}\\
+    compatible with summation (\texttt{SUM\_EQUIV})}}
+\ar@/^3ex/[ldd]^{\supseteq\; ?}\\
 {\textrm{Bisimilarity congruence (\texttt{WEAK\_CONGR})}}
 \ar[u]^{\subseteq} \ar[ru]^{\subseteq} \\
 {\textrm{Rooted bisimilarity } (\rapprox)} \ar[u]^{\subseteq}
 }
 \end{displaymath}
-\vspace{-2ex}
-\caption{Relationship between the equivalences mentioned}
+\caption{Relationships between several equivalences and $\wb$}
 \label{fig:relationship}
 \end{figure}
 
@@ -149,7 +149,7 @@ just assuming that all immediate \emph{weak} derivatives of
 We have formalised this property and
  called it the \emph{free action} property:
 \begin{alltt}
-\HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
+   \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
 \end{alltt}
 %
 With this property, the actual formalisation of (\ref{equa:pq}) says:
@@ -213,24 +213,17 @@ processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
  that are all pairwise non-bisimilar.
-We have partially formalised
-this proof, because the typed logic
+We have only partially formalised
+this proof (Theorem~\ref{thm:coarsestfiniteState} in next section), because ``the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
-strong enough to define a type for all possible ordinals
-\cite{norrish2013ordinals}, thus
-we have replaced transfinite induction with plain induction. As a
-consequence, the final
-result is about a restricted class of processes (which we have taken
-to be the finite-state processes).
-The proof, in the section below, uses extensively HOL's
-\texttt{pred_set} theory \cite{melham1992hol}, with a mix
-of CCS and pure mathematics.
-
-
+strong enough to define a type for all possible
+ordinals''~\cite{norrish2013ordinals}.
+\hl{As a consequence, the final result is only for finite-state
+  CCS---a very restricted class.}
 
 \subsection{Arbitrary many non-bisimilar processes}
 
-The assumption in the  previous \texttt{PROP3_COMMON} requires the
+The assumption in the previous \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
 any sub-process emanating from the two root processes by weak
 transitions. In the worst case, there may be infinite such
@@ -411,6 +404,7 @@ Combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_
 we can  prove the following theorem for finite-state CCS:
 \begin{theorem}{(Coarsest congruence contained in $\approx$ for
     finite-state CCS)}
+  \label{thm:coarsestfiniteState}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{finite_state} \HOLFreeVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} \ensuremath{(}\HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\hfill[COARSEST_CONGR_FINITE]
 \end{alltt}

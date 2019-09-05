@@ -6,7 +6,7 @@
 \subsection{Unique solution of equations}
 \label{ss:part2}
 
-\paragraph{Strong bisimularity}
+\paragraph{Strong bisimilarity}
 Based on results about ``bisimulation up to $\sim$'', we have first proved the following
  lemma. It states  that if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
@@ -175,7 +175,7 @@ label'' in an action list is easy (here \texttt{MEM} tests if a given element is
 \HOLthm[def]{Trace.NO_LABEL_def}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
-The definition of ``unique label'' can be done in many ways, the
+The definition of ``unique label'' can be done in many \hl{ways. The}
 following definition (a suggestion from Robert Beers)
 avoids any counting or filtering in the list.
 It says that a label is unique in a list of actions if and only if there is no

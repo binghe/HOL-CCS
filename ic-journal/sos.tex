@@ -99,7 +99,10 @@ output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLin
 \end{table}
 
 The transition semantics of CCS processes follows Structural
-Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
+Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:\footnote{All
+  formal theorems and definitions (their \TeX{} code) in this paper
+  are generated directly from HOL4. By default, all theorems are fully
+  specialised, removing outermost universal quantifiers.}
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
@@ -184,10 +187,9 @@ is called on the  process $(a.0 | \bar{a}.0)$ thus:
 This returns the following theorem, indeed describing all immediate
 transitions of the process:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{E}.
-       \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}}
-       \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}}
-       \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\hfill{[Example.ex_A]}
+\HOLTokenTurnstile{} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
+   \ensuremath{(}\HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}}
+   \HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\hfill{[Example.ex_A]}
 \end{alltt}
 
 % next file: bisim.htex
