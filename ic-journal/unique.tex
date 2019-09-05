@@ -31,7 +31,7 @@ The guardedness of contractions follows Def.~\ref{def:guardness} (for equations)
 % if,  in each    $E_i$, each occurrence of
 % a \behavC\ variable is underneath a prefix.
 
-% The system use \emph{weakly-guarded sums} if 
+% The system use \emph{guarded sums} if 
 % each $E_i$ only makes use of guarded sums.
 % \end{definition}
 
@@ -39,17 +39,13 @@ The guardedness of contractions follows Def.~\ref{def:guardness} (for equations)
 \label{l:uptocon}
 Suppose $\til P$ and $\til Q$ are solutions  for $\mcontrBIS$
  of a system of weakly-guarded contractions that uses 
-weakly-guarded sums.
+guarded sums.
 For any context $\qct$  that uses 
-weakly-guarded sums,
-if  $\ct{\til P}\Arr{\mu}  R$,
- then 
-there is a context $\qctp$  that uses 
-weakly-guarded sums
-such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu}
- \wb \ctp{\til Q}$.\footnote{There's no typo here: $\ct{\til Q} \Arcap{\mu} \wb \ctp{\til
-     Q}$ means $\exists Q'.\; \ct{\til Q} \Arcap{\mu} Q'
-   \wb \ctp{\til Q}$. Same as in Lemma~\ref{l:ruptocon}.}
+guarded sums,
+if  $\ct{\til P}\Arr{\mu}  R$, then there is a context $\qctp$  that uses 
+guarded sums
+such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu} R'
+ \wb \ctp{\til Q}$ \hl{for some $R'$}.
 \end{lemma}
 
 \begin{proof}{(sketch from \cite{sangiorgi2017equations})}
@@ -59,38 +55,30 @@ let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
 from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
 of the contractions $n$ times. Thus in $\qctpp$ each hole is
 underneath at least $n$ prefixes, and cannot contribute to an action
-in the first $n$ transitions; moreover all the contexts have only
-weakly-guarded sums.
+in the first $n$ transitions; moreover all the contexts use guarded sums.
 
 We have $\ct{\til P} \mcontrBIS \ctpp{\til P}$, and 
 $\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
  by the substitutivity  properties of $\mcontrBIS$ (we exploit here
  the syntactic constraints on sums). Moreover,
  since each hole of the  context $\qctpp$ is underneath at least $n$
- prefixes, applying  
-the definition
+ prefixes, applying the definition
  of $ \mcontrBIS$ on the transition 
  $\ct{\til P}\Arr{\mu}  R$, we infer the existence
  of $\qctp$ such that 
-$
-\ctpp{\til P}\Arcap{\mu} \ctp{\til P} \mexpaBIS R
-$
+$\ctpp{\til P}\Arcap{\mu} \ctp{\til P} \mexpaBIS R$
 and 
-$
-\ctpp{\til Q}\Arcap{\mu}  \ctp{\til Q} 
-. $
+$\ctpp{\til Q}\Arcap{\mu}  \ctp{\til Q}$.
 Finally, again applying the definition of $\mcontrBIS$ on 
 $\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
 we derive 
-$
-\ct{\til Q}\Arcap{\mu}  \wb \ctp{\til Q} 
-.$
+$\ct{\til Q}\Arcap{\mu} R' \wb \ctp{\til Q}$ \hl{for some $R'$}.
 \end{proof}
 
 \begin{theorem}[unique solution of contractions~\cite{sangiorgi2017equations}] % for $\wb$
 \label{t:contraBisimulationU} % Thm 3.10
 %A system of weakly-guarded contractions
-%having only weakly-guarded sums, has a unique solution for $\wb$.
+%having only guarded sums, has a unique solution for $\wb$.
 \hl{Let the expressions $E_i$ ($i \in I$) contain at most the
   variables $X_i$ ($i \in I$), and let each $X_j$ ($j\in I$) be weakly
   guarded in each $E_i$. For any two groups of CCS processes $P_i$ and
@@ -103,14 +91,14 @@ $
 \begin{equation*}
 %\label{eq:R}
 \R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
-$\qct$ (weakly-guarded sum only)} \} \enspace.
+$\qct$ (\hl{with only guarded sums})} \} \enspace.
 \end{equation*}
 
 \hl{Obviously we have $(P_i,Q_i) \in \R$ (by taking $C \equiv E_i$, and
 the fact that $\mcontrBIS$ implies $\wb$). It remains to}
 show that $\R$ is a bisimulation. Suppose \hl{$(R, S) \in \R$ via} a context
 $C$. \hl{For any $R'$ such that $R \arr{\mu} R'$, we have to find a} $S'$ with $S \Arcap{\mu}
-S'$ and $(R', S' \in \R$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
+S'$ and $(R', S') \in \R$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
 \Arcap{\mu} R'' \wb R'$ for some $R''$. Then by Lemma~\ref{l:uptocon},
 there exists $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
 \Arcap{\mu} S'' \wb C'[{\til Q}]$ for some $S''$. \hl{From $S \wb C[{\til
@@ -205,15 +193,27 @@ For any context $\qct$,
 if  $\ct{\til P}\Arr{\mu}  R$,
  then 
 there is a  context $\qctp$
-such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu}
- \wb \ctp{\til Q}$.
+such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu} R'
+ \wb \ctp{\til Q}$ \hl{for some $R'$}.
 \end{lemma}
 The proof of Lemma~\ref{l:ruptocon} is exactly the same as of
-Lemma~\ref{l:uptocon}, because all we need from $\mcontrBIS$ and
-$\rcontr$ is their precongruences (in the sense of different
-definitions of contexts). Also notice that, the conclusion of
-Lemma~\ref{l:ruptocon} still uses $\mcontrBIS$, because $\rcontr$ does
+Lemma~\ref{l:uptocon}, \hl{because all we need from $\mcontrBIS$ (or
+$\rcontr$) is their substitutivity properties (as precongruences)
+w.r.t the corresponding definitions of contexts.}
+Notice also that, the conclusion of
+Lemma~\ref{l:ruptocon} still uses $\mcontrBIS$, as $\rcontr$ does
 not hold.
+
+\hl{The next lemma is actually Lemma 3.13} of~\citep[p.~102]{Mil89}, \hl{which
+was designed to prove Milner's strong unique-solution theorem} (Prop.~3.14 of
+\citep[p.~103]{Mil89}).
+\begin{lemma}
+  \label{lem:milner313}
+  If the variables ${\til X}$ are weakly guarded in $E$, and $E\{\til
+  P/\til X\} \arr{\alpha} P'$, then $P'$ takes the form $E'\{\til
+  P/\til X\}$ (for some expression $E'$), and moreover, for any ${\til Q}$,
+  $E\{\til Q/\til X\} \arr{\alpha} E'\{\til Q/\til X\}$.
+\end{lemma}
 
 \begin{theorem}[Unique solution of \hl{rooted} contractions]
 \label{t:rcontraBisimulationU}
@@ -245,15 +245,14 @@ Lemma~\ref{l:obsCongrByWeakBisim}: \hl{for any $P'$ such that $P_i \arr{\mu} P'$
   find a $Q'$ with $Q_i \Arr{\mu} Q'$ and $(R',S') \in \R$.
 %
 From $P_i \rcontr E_i[{\til P}]$, by definition of $\rcontr$ we derive $E_i[{\til P}] \arr{\mu}
-P''$ for some $P''$.} Then by Lemma 3.13 of~\citep[p.~102]{Mil89}
-(c.f. also Lemma~\ref{lem:313} in Section~\ref{ss:part2}) \hl{there exists
-a context
-$C$ with $P'' = C[{\til P}]$ and $E_i[{\til Q}] \arr{\mu} C[{\til Q}]$.
-From $Q_i \rcontr E_i[{\til Q}]$ and $E_i[{\til Q}] \arr{\mu} C[{\til
+P''$ for some $P''$.} Then by Lemma~\ref{lem:milner313} there exists a context
+$E'$ with $P'' = E'[{\til P}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til Q}]$.
+%
+From $Q_i \rcontr E_i[{\til Q}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til
   Q}]$, by definition of $\rcontr$ we have $Q_i \Arr{\mu} Q'$ for some
-$Q'$ and $Q' \wb C[{\til Q}]$. This closes the proof, as we have
+$Q'$ and $Q' \wb E'[{\til Q}]$. This closes the proof, as we have
 $P' \wb C[{\til P}]$ (by the fact that $\mcontrBIS$ implies $\wb$) and
-$Q' \wb C[{\til Q}]$. (The other side from $Q_i$ follows in the same manner.)}
+$Q' \wb C[{\til Q}]$. (The other side from $Q_i$ follows in the same manner.)
 c.f. Fig.~\ref{fig:314} \hl{for a visual illustration.}
 \end{proof}
 
@@ -263,8 +262,8 @@ c.f. Fig.~\ref{fig:314} \hl{for a visual illustration.}
     {E_i[{\til P}]} \ar@{.}[r]^{\preceq^{\mathrm{c}}_{\mathrm{bis}}} \ar@{->}[d]^{\mu} & {P_i} \ar@{-}[r]
     \ar@{->}[d]^{\mu} & {\R} \ar@{-}[r] & {Q_i} \ar@{.}[r]^{\rcontr}
     \ar@{=>}[d]^{\mu} & {E_i[{\til Q}]} \ar@{->}[d]^{\mu} \\
-    {C[{\til P}] = P''} \ar@{.}[r]^{\qquad\preceq_{\mathrm{bis}}} & {P'} \ar@{-}[r] & {\R} \ar@{-}[r] & {Q'} \ar@{.}[r]^{\wb} 
-    & {C[{\til Q}]} \\
+    {P'' = E'[{\til P}]} \ar@{.}[r]^{\qquad\preceq_{\mathrm{bis}}} & {P'} \ar@{-}[r] & {\R} \ar@{-}[r] & {Q'} \ar@{.}[r]^{\wb} 
+    & {E'[{\til Q}]} \\
   }
 \end{displaymath}
 \caption{Proof illustration of Theorem~\ref{t:rcontraBisimulationU}

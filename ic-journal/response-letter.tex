@@ -129,34 +129,58 @@ the \emph{weak} bisimulation (and weak bisimilarity), ...''
     L209: "their precongruences" precongruence closure?
   \end{quote}
 
+  Rephrased: ``... because all we need from $\mcontrBIS$ (or
+$\rcontr$) is their substitutivity properties (as precongruences)
+w.r.t the corresponding definitions of contexts.''
+
 \item \begin{quote}
     L216 "using Lemma 3.13 ... Section 4.9" perhaps just repeat the lemma before the theorem, as it's a bit hard to read Lemma 4.14 at this stage 
   \end{quote}
 
+  We have recalled Lemma 3.13 of \cite{Mil89} as
+  Lemma~\ref{lem:milner313} right before Theorem 3.13, which now becomes Theorem~\ref{t:rcontraBisimulationU}).
+
 \item \begin{quote}
     L224: full stop and new sentence after "1972"
   \end{quote}
-
+  Done.
+  
 \item \begin{quote}
     L227 "considerable" -> "considerably"
   \end{quote}
-
+  Done.
+  
 \item \begin{quote}
     L228 "formal theories built in HOL is easily convincible" questionable grammar
   \end{quote}
 
+  Now we used the following sentence: ``As a consequence, theories and proofs verified in HOL are relatively more
+  convincible to non-experts.''
+  
 \item \begin{quote}
     L238 how is this without loss of generality?
   \end{quote}
 
+  Sentence eliminated as now we have formalized the multivariate
+  version of unique-solution theorems. The ``without loss of
+  generality'' part is actually true, in the sense that, all steps of
+  informal proofs do appears in the uni-variate formal proofs. The
+  additional difficulities of the formal multivariate proof is discussed in Section~\ref{sec:multivariate}.
+  
 \item \begin{quote}
     L245 maybe more clear to just give the definition of $\beta$ Action 
   \end{quote}
 
+  The original HOL definition of the type Action is now given.
+  
 \item \begin{quote}
     L250,300: perhaps explain what these (double) backquotes signify or just remove the sentence
   \end{quote}
-
+  Sentences removed. In HOL, single and double backquotes are
+  delimitator between ``inner'' (logic) and ``outer'' (proof)
+  languages but this is not quite relevant to the present paper.
+  After new HOL releases (k13) most uses of backquotes in  definitions can be eliminated.
+  
 \item \begin{quote}
     L277 "substutiion"
   \end{quote}
@@ -165,7 +189,9 @@ the \emph{weak} bisimulation (and weak bisimilarity), ...''
 \item \begin{quote}
     L280 (around): put some of these equalities on a single line? enough space
   \end{quote}
-
+  Now we have removed most less-interesting cases and explained in
+  details the two interesting cases (recursion operator and (free) variables).
+  
 \item \begin{quote}
     L316 and later, e.g. 323: is "p" a closed ccs term?
   \end{quote}
@@ -174,10 +200,14 @@ the \emph{weak} bisimulation (and weak bisimilarity), ...''
     L361 "Many lemmas ... contexts" this is a bit vague
   \end{quote}
 
+  Rephrased: ``Many lemmas about above concepts (\texttt{CONTEXT}, \texttt{WG},
+  \texttt{SEQ}, etc.)''
+  
 \item \begin{quote}
     L374 "An highlight"
   \end{quote}
-
+  Fixed. Now we say ``One highlight...''.
+  
 \item \begin{quote}
     L378 "is a" => "are"
   \end{quote}

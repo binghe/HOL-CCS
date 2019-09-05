@@ -18,22 +18,20 @@ current work consists of about 20,000 lines of proof scripts.
 Higher Order Logic (HOL) \cite{hollogic} traces
 its roots back to LCF
 \cite{gordon1979edinburgh,milner1972logic} by Robin Milner and others
-since 1972, it is a variant of
-Church’s simple theory of types (STT) \cite{church1940formulation},
+since \hl{1972. It} is a variant of
+Church’s Simple Theory of Types (STT)~\cite{church1940formulation},
 plus a higher order version of Hilbert's choice operator $\varepsilon$,
 Axiom of Infinity, and Rank-1 (prenex) polymorphism.
-HOL4 has implemented the original HOL Logic, 
+HOL4 has implemented the original HOL, 
 while some other theorem provers in HOL family (e.g. Isabelle/HOL) have
 certain extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
-Indeed the HOL Logic has considerable simpler logical
+Indeed the HOL has \hl{considerably} simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
-As a consequence,
-formal theories built in HOL is easily convincible and can
-also be easily ported to other proof systems,
-sometimes automatically \cite{hurd2011opentheory}.
+\hl{As a consequence, theories and proofs verified in HOL are relatively more
+convincible to non-experts.}
 
 HOL4 is written in Standard ML, a single programming language which
 plays three different roles:
@@ -62,14 +60,15 @@ their informal proofs, with minimal automatic proof searching.)
 %   contractions theorem;
 % \end{enumerate}\finish{TODO: need updates}
 
-\emph{In this
-formalisation we consider only single-variable equations/contractions.}
-This considerably
- simplifies the required proofs in HOL, and  enhances the readability of
- proof scripts without loss of generality. For the  pencil-and-paper proofs, the
- multi-variable case is just a routine adaptation, while the
- formalisation in theorem prover % \DDS{}
- is not (this is also discussed in Section~\ref{s:concl}).
+%% [Chun]: cancelled this part as now we have multivariate formal proofs!
+% \emph{In this
+% formalisation we consider only single-variable equations/contractions.}
+% This considerably
+%  simplifies the required proofs in HOL, and  enhances the readability of
+%  proof scripts without loss of generality. For the  pencil-and-paper proofs, the
+%  multi-variable case is just a routine adaptation, while the
+%  formalisation in theorem prover % \DDS{}
+%  is not (this is also discussed in Section~\ref{s:concl}).
 
 % \subsection{Simplifications and Limitations}
 

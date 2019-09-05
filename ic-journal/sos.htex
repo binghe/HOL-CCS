@@ -9,11 +9,17 @@ In our CCS formalisation, the type ``\HOLty{:'b Label}'' (\texttt{'b} or
 $\beta$ is the type variable for actions) accounts for visible actions, divided into input
 and output actions, defined by HOL's Datatype package:
 \begin{lstlisting}
-val _ = Datatype `Label = name 'b | coname 'b`;
+Datatype: Label = name 'b | coname 'b
+End
 \end{lstlisting}
 The type ``\HOLty{:'b Action}'' is the
-union of all visible actions, plus invisible action $\tau$ (now based on
-HOL's \texttt{option} theory). The cardinality of
+union of all visible actions, plus invisible action $\tau$. It's
+defined as an abbreviation of HOL's core type ``\HOLty{:'a option}'' instantiated
+with the type ``\HOLty{:'b Label}'':
+\begin{lstlisting}
+Type Action[pp] = ``:'b Label option``;
+\end{lstlisting}
+The cardinality of
 ``\HOLty{:'b Action}'' (and therefore of all
 CCS types built on top of it)
  depends on the choice (or \emph{type-instantiation}) of type variable $\beta$.
@@ -29,17 +35,17 @@ having the corresponding cardinalities $h$ and $k$. Monica Nesi goes
 farther, by adding another type variable $\gamma$ for value-passing CCS
 \cite{Nesi:2017wo}.}, is then defined inductively:
 (\texttt{'a} or $\alpha$ is the type variable for recursion variables,
-``\HOLty{:'b Relabeling}'' is the type of all relabeling functions,
-\mbox{\color{blue}{\texttt{`}}} is for backquotes of HOL terms):
+``\HOLty{:'b Relabeling}'' is the type of all relabeling functions):
 \begin{lstlisting}
-val _ = Datatype `CCS = nil
-		      | var 'a
-		      | prefix ('b Action) CCS
-		      | sum CCS CCS
-		      | par CCS CCS
-		      | restr (('b Label) set) CCS
-		      | relab CCS ('b Relabeling)
-		      | rec 'a CCS`;
+Datatype: CCS = nil
+              | var 'a
+              | prefix ('b Action) CCS
+              | sum CCS CCS
+              | par CCS CCS
+              | restr (('b Label) set) CCS
+              | relab CCS ('b Relabeling)
+              | rec 'a CCS
+End
 \end{lstlisting}
 
 We have added some grammar support,
@@ -122,11 +128,27 @@ The last rule \texttt{REC} (Recursion)
  says that if we substitute all appearances of variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. In its definition, \texttt{CCS_Subst} is a recursive \hl{substitution} function
-with the following long definition:
+transition. Here, ``\HOLtm{(CCS_Subst E (rec X E) X)}'' is \hl{an abbreviation}
+of ``\HOLtm[-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
+recursive function substituting all appearences of a free variable
+into another CCS term.
+For most CCS operators \HOLtm{CCS_Subst} just recursively goes into a deeper
+level without changing anything, e.g.
 \begin{alltt}
-\HOLthm[>>4,def]{CCS.CCS_Subst_def}\hfill{[CCS_Subst_def]}
+\HOLthm{CCS.CCS_Subst_sum}\hfill{[CCS_Subst_sum]}
 \end{alltt}
+The only two insteresting cases are for the recursion operator and
+recursion variables:
+\begin{alltt}
+\HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
+\HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
+\end{alltt}
+\hl{Intuitively, the variable substitutions only happens on \emph{free}
+variables: the variable $Y$ in} ``\HOLtm{rec Y E}'' \hl{is
+considered \emph{bound} and the substitution process ignores it if $Y$ is
+being substituted. The actual substitution happens in case of}
+``\HOLtm{var Y}'' if $Y$ is being substituted (and if \HOLtm{CCS_Subst}
+can actually reach it).
 
 From HOL's viewpoint, these
 SOS rules are \emph{inductive
@@ -156,8 +178,6 @@ non-existence of transitions.  Hence the usefulness of appealing to
 the new  function \texttt{CCS\_TRANS\_CONV}.
 For instance this function
 is called on the  process $(a.0 | \bar{a}.0)$ thus:
-(\mbox{\color{blue}{\texttt{``}}} is for double-backquotes of HOL
-  terms, \mbox{\color{blue}{\texttt{>}}} is HOL's prompt)
 \begin{lstlisting}
 > CCS_TRANS_CONV ``par (prefix (label (name "a")) nil)
                        (prefix (label (coname "a")) nil)``

@@ -135,12 +135,6 @@ A.~Church, A formulation of the simple theory of types, The journal of symbolic
   logic 5~(2) (1940) 56--68.
 \newblock \href {https://doi.org/10.2307/2266170} {\path{doi:10.2307/2266170}}.
 
-\bibitem{hurd2011opentheory}
-J.~Leslie-Hurd, {The OpenTheory standard theory library}, in: NASA Formal
-  Methods Symposium, Springer, 2011, pp. 177--191.
-\newblock \href {https://doi.org/10.1007/978-3-642-20398-5_14}
-  {\path{doi:10.1007/978-3-642-20398-5_14}}.
-
 \bibitem{gorrieri2017ccs}
 R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
   154~(1-4) (2017) 145--166.

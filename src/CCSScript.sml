@@ -22,7 +22,8 @@ val lset_ss = std_ss ++ PRED_SET_ss;
 
 (* Define the set of labels as the union of names (`in`) (strings) and
    co-names (`out`) (complement of names) *)
-val _ = Datatype `Label = name 'b | coname 'b`;
+Datatype: Label = name 'b | coname 'b
+End
 
 (* Define structural induction on labels
    !P. (!s. P (name s)) /\ (!s. P (coname s)) ==> !L. P L
@@ -53,7 +54,7 @@ val Label_not_eq' = save_thm (
 val Label_11 = TypeBase.one_one_of ``:'b Label``;
 
 (* NEW: define the set of actions as the OPTION of Label *)
-val _ = type_abbrev_pp ("Action", ``:'b Label option``);
+Type Action[pp] = ``:'b Label option``;
 
 val _ = overload_on ("tau",   ``NONE :'b Action``);
 val _ = overload_on ("label", ``SOME :'b Label -> 'b Action``);
@@ -300,14 +301,15 @@ val APPLY_RELAB_THM = save_thm (
 (******************************************************************************)
 
 (* Define the type of (pure) CCS agent expressions. *)
-val _ = Datatype `CCS = nil
-                      | var 'a
-                      | prefix ('b Action) CCS
-                      | sum CCS CCS
-                      | par CCS CCS
-                      | restr (('b Label) set) CCS
-                      | relab CCS ('b Relabeling)
-                      | rec 'a CCS `;
+Datatype: CCS = nil
+              | var 'a
+              | prefix ('b Action) CCS
+              | sum CCS CCS
+              | par CCS CCS
+              | restr (('b Label) set) CCS
+              | relab CCS ('b Relabeling)
+              | rec 'a CCS
+End
 
 val _ = TeX_notation { hol = "nil", TeX = ("\\ensuremath{\\mathbf{0}}", 1) };
 

@@ -5,7 +5,7 @@
 
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
-An highlight in this project is the simplified definitions of
+\hl{One} highlight of this formalization project is the simplified definitions of
   bisimilarities using the new coinductive relational package for HOL.  
 Without it, the bisimilaries can still be defined,  but
   proving their basic properties would be more complicated.
@@ -199,8 +199,7 @@ Although weak bisimilarity ($\approx$) is \emph{not} a congruence
   with respect to~\texttt{GCONTEXT} 
 % (or if the CCS syntax were defined with
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
-as $\approx$ is indeed preserved by 
-  weakly-guarded sums.
+as $\approx$ is indeed preserved by guarded sums.
 
 On the relationship between bisimilarity and rooted bisimilarity, 
 we also prove 

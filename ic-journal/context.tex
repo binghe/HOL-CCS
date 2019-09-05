@@ -79,9 +79,10 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[WGS_rules]}
 \end{alltt}
 
-Many lemmas have then to be proved for the
+\hl{Many lemmas about above concepts} (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
+\HOLinline{\HOLConst{SEQ}}, etc.) have then to be proven for the
  relationships among these kinds of contexts and properties about their
- compositions. These proofs are usually tedious but long,  due to multiple levels of
+ compositions. These proofs are usually tedious and long,  due to multiple levels of
  inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
