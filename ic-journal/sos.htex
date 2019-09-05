@@ -72,6 +72,7 @@ restriction & $(\nu{}L)\;P$ & \texttt{restr L P} & \texttt{(nu L) P} & \HOLtm{re
 recursion & $\recu A P$ & \texttt{rec A P} & \texttt{rec A P} & \HOLtm{rec A P}  \\
 relabeling & $P\;[r\!f]$ & \texttt{relab P rf} &\texttt{relab P rf} & \HOLtm{relab P rf}  \\
 \hl{constant/variable} & $A$ & \texttt{var A} &\texttt{var A} & \HOLtm{var A} \\
+\hline
 invisible action & $\tau$ & \texttt{tau} & \texttt{tau} & \HOLtm{tau} \\
 input action & $a$ & \texttt{label (name a)} &\texttt{In(a)} & \HOLtm{label (name a)} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLtm{label (coname a)} \\
@@ -99,20 +100,32 @@ Operational Semantics (SOS) in Fig.~\ref{f:LTSCCS}:
 \HOLthm{CCS.SUM2}\hfill\texttt{[SUM2]}
 \HOLthm{CCS.PAR1}\hfill\texttt{[PAR1]}
 \HOLthm{CCS.PAR2}\hfill\texttt{[PAR2]}
-\HOLthm{CCS.PAR3}\hfill\texttt{[PAR3]}
-\HOLthm{CCS.RESTR}\hfill\texttt{[RESTR]}
-\HOLthm{CCS.RELABELING}\hfill\texttt{[RELABELING]}
-\HOLthm{CCS.REC}\hfill\texttt{[REC]}
 \end{alltt}
+
+\begin{equation}
+\HOLthm[rule,rulename=PAR3]{CCS.PAR3}
+\end{equation}
+
+\begin{equation}
+\HOLthm[rule,rulename=RESTR]{CCS.RESTR}
+\end{equation}
+
+\begin{equation}
+\HOLthm[rule,rulename=RELABELING]{CCS.RELABELING}
+\end{equation}
+
+\begin{equation}
+\HOLthm[rule,rulename=REC]{CCS.REC}
+\end{equation}
 
 The last rule \texttt{REC} (Recursion)
  says that if we substitute all appearances of variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. In its definition, \texttt{CCS_Subst} is a recursive substutiion function
+transition. In its definition, \texttt{CCS_Subst} is a recursive \hl{substitution} function
 with the following long definition:
 \begin{alltt}
-\HOLthm[def]{CCS.CCS_Subst_def}\hfill{[CCS_Subst_def]}
+\HOLthm[>>4,def]{CCS.CCS_Subst_def}\hfill{[CCS_Subst_def]}
 \end{alltt}
 
 From HOL's viewpoint, these

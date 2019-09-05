@@ -48,7 +48,7 @@ there is a context $\qctp$  that uses
 weakly-guarded sums
 such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu}
  \wb \ctp{\til Q}$.\footnote{There's no typo here: $\ct{\til Q} \Arcap{\mu} \wb \ctp{\til
-     Q}$ means $\exists {\til R}.\; \ct{\til Q} \Arcap{\mu} {\til R}
+     Q}$ means $\exists Q'.\; \ct{\til Q} \Arcap{\mu} Q'
    \wb \ctp{\til Q}$. Same as in Lemma~\ref{l:ruptocon}.}
 \end{lemma}
 
@@ -87,30 +87,58 @@ $
 .$
 \end{proof}
 
-\begin{theorem}[unique solution of contractions for $\wb$]
-\label{t:contraBisimulationU}
-A system of weakly-guarded contractions
-having only weakly-guarded sums, has a unique solution for $\wb$.
+\begin{theorem}[unique solution of contractions~\cite{sangiorgi2017equations}] % for $\wb$
+\label{t:contraBisimulationU} % Thm 3.10
+%A system of weakly-guarded contractions
+%having only weakly-guarded sums, has a unique solution for $\wb$.
+\hl{Let the expressions $E_i$ ($i \in I$) contain at most the
+  variables $X_i$ ($i \in I$), and let each $X_j$ ($j\in I$) be weakly
+  guarded in each $E_i$. For any two groups of CCS processes $P_i$ and
+  $Q_i$ ($i \in I$), if $\til P \mcontrBIS \til E\{\til P/\til X\}$ and
+    $\til Q \mcontrBIS \til E\{\til Q/\til X\}$ then $\til P \wb \til Q$.}
 \end{theorem}
 
-\begin{proof}{(sketch from \cite{sangiorgi2017equations})}
-Suppose $\til P$ and $\til Q$ are two such solutions (for $\wb$) and consider
-the relation
-\begin{equation}
-\label{eq:R}
-\R \DSdefi \{ 
-(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
+\begin{proof}
+\hl{We want to prove $P_i \wb Q_i$ ($i \in I$) by considering} the following relation
+\begin{equation*}
+%\label{eq:R}
+\R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
 $\qct$ (weakly-guarded sum only)} \} \enspace.
-\end{equation}
-We show that $\R$ is a bisimulation. Suppose $R\ \R\ S$ vis the context
-$C$, and $R \arr{\mu} R'$. We have to find $S'$ with $S \Arcap{\mu}
-S'$ and $R'\ \R\ S'$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
-\Arcap{\mu} R'' \wb R'$ for some $R''$. By Lemma~\ref{l:uptocon},
-there is $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
-\Arcap{\mu} \wb C'[{\til Q}]$. Hence, by definition of $\wb$, there is
-also $S'$ with $S \Arcap{\mu} S' \wb C'[{\til Q}]$. This closes the
-proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$.
+\end{equation*}
+
+\hl{Obviously we have $(P_i,Q_i) \in \R$ (by taking $C \equiv E_i$, and
+the fact that $\mcontrBIS$ implies $\wb$). It remains to}
+show that $\R$ is a bisimulation. Suppose \hl{$(R, S) \in \R$ via} a context
+$C$. \hl{For any $R'$ such that $R \arr{\mu} R'$, we have to find a} $S'$ with $S \Arcap{\mu}
+S'$ and $(R', S' \in \R$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
+\Arcap{\mu} R'' \wb R'$ for some $R''$. Then by Lemma~\ref{l:uptocon},
+there exists $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
+\Arcap{\mu} S'' \wb C'[{\til Q}]$ for some $S''$. \hl{From $S \wb C[{\til
+  Q}]$ and $C[{\til Q}] \Arcap{\mu} S''$, by induction and definition of $\wb$, it is not
+hard to see that,}
+there exists also $S'$ with $S \Arcap{\mu} S'$. This closes the
+proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$ \hl{by
+transitivity of $\wb$ and the fact that $\mcontrBIS$ implies $\wb$.
+(The other side from $S$ follows in the same manner.)}
+c.f. Fig.~\ref{fig:310} \hl{for a visual illustration.}
 \end{proof}
+
+\begin{figure}[ht]
+\begin{displaymath}
+  \xymatrix{
+    {C[{\til P}]} \ar@{.}[r]^{\wb} \ar@{=>}[d]^{\widehat{\mu}} & {R} \ar@{-}[r]
+    \ar@{->}[d]^{\mu} & {\R} \ar@{-}[r] & {S} \ar@{.}[r]^{\wb}
+    \ar@{=>}[d]^{\widehat{\mu}} & {C[{\til Q}]} \ar@{=>}[d]^{\widehat{\mu}} \\
+    {R''} \ar@{.}[d]_{\mcontrBIS} \ar@{.}[r]^{\wb} & {R'} \ar@{-}[r]
+    \ar@{.}[ld]^{\wb} & {\R} \ar@{-}[r] & {S'} \ar@{.}[r]^{\wb} \ar@{.}[rd]_{\wb}
+    & {S''} \ar@{.}[d]^{\wb} \\
+    {C'[{\til P}]} & {} & {} & {} & {C'[{\til Q}]}
+  }
+\end{displaymath}
+\caption{Proof illustration of Theorem~\ref{t:contraBisimulationU}
+  (showing $\R$ is a bisimulation)}
+\label{fig:310}
+\end{figure}
 
 \subsection{Rooted contraction}
 \label{ss:new}
@@ -187,36 +215,59 @@ definitions of contexts). Also notice that, the conclusion of
 Lemma~\ref{l:ruptocon} still uses $\mcontrBIS$, because $\rcontr$ does
 not hold.
 
-\begin{theorem}[Unique solution of contractions for $\rapprox$]
+\begin{theorem}[Unique solution of \hl{rooted} contractions]
 \label{t:rcontraBisimulationU}
-A system of weakly-guarded contractions has a unique solution 
- for $\rapprox$. % (thus also for $\wb$).
-\end{theorem} 
+%A system of weakly-guarded contractions has a unique solution for $\rapprox$. 
+% (thus also for $\wb$).
+\hl{Let the expressions $E_i$ ($i \in I$) contain at most the
+  variables $X_i$ ($i \in I$), and let each $X_j$ ($j\in I$) be weakly
+  guarded in each $E_i$. For any two groups of CCS processes $P_i$ and
+  $Q_i$ ($i \in I$), if $\til P \rcontr \til E\{\til P/\til X\}$ and
+    $\til Q \rcontr \til E\{\til Q/\til X\}$ then $\til P \rapprox \til Q$.}
+\end{theorem}
 
 \begin{proof}
-Suppose $\til P$ and $\til Q$ are two such solutions: $\til P \rcontr
-C[{\til P}]$ and $\til Q \rcontr C[{\til Q}]$ (thus also $\til P \wb
-C[{\til P}]$ and $\til Q \wb C[{\til Q}]$). We first follow the same steps as in the proof of
-Theorem~\ref{t:contraBisimulationU} to show that the following
-relation is bisimulation 
-(using 
-Lemma~\ref{l:ruptocon}
-in place of  Lemma~\ref{l:uptocon}):
-\begin{equation}
-\label{eq:R2}
-\R \DSdefi \{ 
-(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{ for some context
+\hl{We want to prove $P_i \rapprox Q_i$ ($i \in I$) by considering}
+the following relation
+\begin{equation*}
+\R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
 $\qct$} \} \enspace.
-\end{equation}
-The property that $\R$ is a bisimulation  proves  $\til P$ and $\til Q$ bisimilar, i.e.,
-  $\til P \wb \til Q$.  To further prove
-$\til P \rapprox \til Q$, we  appeal to
-Lemma~\ref{l:obsCongrByWeakBisim}. Thus it remains to show that, for 
-any two process $P$ and $Q$ and action $\mu$, if $P \arr{\mu} P'$ then
-there is $Q'$ such that $Q \Arr{\mu} Q'$  and
-$P'\ \R\ Q'$ (and  the converse direction).  The prove for this
-part is routine,  using 
-Lemma 3.13 of \cite{Mil89},  reported as 
-Lemma~\ref{lem:313} in Section~\ref{ss:part2} (the lemma is  also needed 
-in  Milner's  proof of ``unique solution of equations for $\sim$'').
+\end{equation*}
+
+Following the same steps in the proof of
+Theorem~\ref{t:contraBisimulationU}
+(using Lemma~\ref{l:ruptocon}
+in place of Lemma~\ref{l:uptocon}), \hl{we can prove that $(P_i, Q_i)
+\in\R$ and $\R$ is indeed a bisimulation. But this only shows $P_i \wb Q_i$.}
+%
+To further show $P_i \rapprox Q_i$, we appeal to
+Lemma~\ref{l:obsCongrByWeakBisim}: \hl{for any $P'$ such that $P_i \arr{\mu} P'$, we have to
+  find a $Q'$ with $Q_i \Arr{\mu} Q'$ and $(R',S') \in \R$.
+%
+From $P_i \rcontr E_i[{\til P}]$, by definition of $\rcontr$ we derive $E_i[{\til P}] \arr{\mu}
+P''$ for some $P''$.} Then by Lemma 3.13 of~\citep[p.~102]{Mil89}
+(c.f. also Lemma~\ref{lem:313} in Section~\ref{ss:part2}) \hl{there exists
+a context
+$C$ with $P'' = C[{\til P}]$ and $E_i[{\til Q}] \arr{\mu} C[{\til Q}]$.
+From $Q_i \rcontr E_i[{\til Q}]$ and $E_i[{\til Q}] \arr{\mu} C[{\til
+  Q}]$, by definition of $\rcontr$ we have $Q_i \Arr{\mu} Q'$ for some
+$Q'$ and $Q' \wb C[{\til Q}]$. This closes the proof, as we have
+$P' \wb C[{\til P}]$ (by the fact that $\mcontrBIS$ implies $\wb$) and
+$Q' \wb C[{\til Q}]$. (The other side from $Q_i$ follows in the same manner.)}
+c.f. Fig.~\ref{fig:314} \hl{for a visual illustration.}
 \end{proof}
+
+\begin{figure}[ht]
+\begin{displaymath}
+  \xymatrix{
+    {E_i[{\til P}]} \ar@{.}[r]^{\preceq^{\mathrm{c}}_{\mathrm{bis}}} \ar@{->}[d]^{\mu} & {P_i} \ar@{-}[r]
+    \ar@{->}[d]^{\mu} & {\R} \ar@{-}[r] & {Q_i} \ar@{.}[r]^{\rcontr}
+    \ar@{=>}[d]^{\mu} & {E_i[{\til Q}]} \ar@{->}[d]^{\mu} \\
+    {C[{\til P}] = P''} \ar@{.}[r]^{\qquad\preceq_{\mathrm{bis}}} & {P'} \ar@{-}[r] & {\R} \ar@{-}[r] & {Q'} \ar@{.}[r]^{\wb} 
+    & {C[{\til Q}]} \\
+  }
+\end{displaymath}
+\caption{Proof illustration of Theorem~\ref{t:rcontraBisimulationU}
+  (showing $P_i \rapprox Q_i$)}
+\label{fig:314}
+\end{figure}
