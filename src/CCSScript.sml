@@ -8,6 +8,8 @@ open HolKernel Parse boolLib bossLib;
 
 open pred_setTheory pred_setLib relationTheory optionTheory listTheory CCSLib;
 
+local open termTheory; in end; (* for SUB's syntax only *)
+
 val _ = new_theory "CCS";
 
 val lset_ss = std_ss ++ PRED_SET_ss;
@@ -407,13 +409,8 @@ val [CCS_Subst_nil,   CCS_Subst_prefix, CCS_Subst_sum, CCS_Subst_par,
                    "CCS_Subst_var",   "CCS_Subst_rec"],
                   CONJUNCTS CCS_Subst_def));
 
-val _ = overload_on ("SUB", ``\E' X E. CCS_Subst E E' X``);
-
 (* `[E'/X] E`, learnt from <holdir>/examples/lambda/basics/termScript.sml *)
-val _ = add_rule {term_name = "SUB", fixity = Closefix,
-                  pp_elements = [TOK "[", TM, TOK "/", TM, TOK "]"],
-                  paren_style = OnlyIfNecessary,
-                  block_style = (AroundEachPhrase, (PP.INCONSISTENT, 2))};
+val _ = overload_on ("SUB", ``\E' X E. CCS_Subst E E' X``);
 
 val _ = TeX_notation { hol = "[", TeX = ("\\ensuremath{[}", 1) };
 val _ = TeX_notation { hol = "/", TeX = ("\\ensuremath{/}", 1) };

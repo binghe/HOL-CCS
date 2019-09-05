@@ -222,13 +222,8 @@ Definition fromList_def :
     fromList (Xs :'a list) (Ps :('a, 'b) CCS list) = FEMPTY |++ ZIP (Xs,Ps)
 End
 
-(* new pretty print format: ``[Ps/Xs] E`` *)
+(* new pretty print format: ``[Ps/Xs] E`` (from termTheory) *)
 val _ = overload_on ("SUB", ``\Ps Xs. CCS_SUBST (fromList Xs Ps)``);
-
-(* old pretty print format: ``CCS_SUBST (Xs |-> Ps) E``
-val _ = overload_on ("|->", ``fromList``);
-val _ = set_fixity "|->" (Infix (NONASSOC, 100));
- *)
 
 Theorem fromList_EMPTY :
     fromList [] [] = FEMPTY
