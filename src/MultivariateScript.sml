@@ -3531,10 +3531,6 @@ Proof
 QED
  *)
 
-(* for development purposes only:
- clear_overloads_on ("fromList");
- *)
-
 val _ = export_theory ();
 val _ = html_theory "Multivariate";
 val _ = print_theory_to_file "-" "MultivariateTheory.lst";
