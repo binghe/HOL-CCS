@@ -20,7 +20,7 @@ grammar extended with \behav\  variables.
 %  \emph{extended CCS}. 
 
   
-\begin{definition}
+\begin{definition} % Def 3.1
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
 $E_i$ possibly containing  such variables. 
@@ -55,9 +55,6 @@ that $P_i \wb E_i [\til P]$;
 \end{itemize} 
  \end{definition} 
 
-
-
-
 % Examples of systems with a  unique solution for $\wb$ are: 
 % \begin{enumerate}
 % \item
@@ -75,10 +72,8 @@ $R \DSdefi \recu A {\, (a. A)}$, and for any other solution $P$ we have $P \wb R
 In contrast, the equation 
  $X = a|  X$ has solutions that may be quite different, for instance,
  $K$ and $K | b$, for $K \DSdefi \recu K {\, (a. K)}$. (Actually any process capable of
-continuously performing $a$ 
-actions % \DDS{}
- is a solution for $X = a|  X$.)
- 
+continuously performing \hl{$a$--actions} is a solution \hl{of} $X = a  |  X$.)
+
 % The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
 % . K$:  for any other solution $P$ we have $P \wb K$.
 % The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
@@ -106,44 +101,41 @@ $\{  X_i = E_i\}_{i\in I}$
   an \behav\  variable is underneath a prefix;
 
 \item \emph{(strongly) guarded} if, in each $E_i$, each occurrence of
-  an \behav\  variable is underneath a \emph{visible} prefix;
+  an equation variable is underneath a \emph{visible} prefix;
 
-\item \emph{sequential} if, in each $E_i$, each of its subexpressions with occurrence of
-  an \behav\  variable, apart from the variable itself, is in forms of
-  prefixes or sums.
+\item \emph{sequential} if, in each $E_i$, each \hl{occurrence of an
+    equation variable only appears underneath prefixes and sums.}
 \end{itemize}
 \end{definition}
 
-% In other words,  
-% if the system is sequential, then 
-%  for
-% every expression $E_i$, any subexpression of $E_i$ in which $X_j $ 
-% appears, apart from $X_j$ itself,  is a sum (of prefixed terms). 
-% For instance, 
-% \begin{itemize}
-% \item $X = \tau. X + \mu . \nil$ is sequential but not 
-%  guarded, because the guarding prefix for the variable
-% is not visible.
+\hl{In other words, if the system is sequential, then for
+every expression $E_i$, any subexpression of $E_i$ in which $X_j $
+appears, apart from $X_j$ itself, is a sum (of prefixed terms).
+For instance,}
+\begin{itemize}
+\item $X = \tau. X + \mu . \nil$ is sequential but not 
+ guarded, because the guarding prefix for the variable
+is not visible.
 
-% \item $X =  \ell . X | P$ is  guarded but not sequential.
+\item $X =  \ell . X | P$ is guarded but not sequential.
 
-% \item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as 
-% $X = \tau . (a. X + \tau . b .X + \tau  )$
-% are both 
-%  guarded and sequential.
-% \end{itemize} 
-
+\item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as
+$X = \tau . (a. X + \tau . b .X + \tau  )$ are both guarded and sequential.
+\end{itemize}
 
 \begin{theorem}[unique solution of equations, \cite{Mil89}]
 \label{t:Mil89}
-A system of guarded and sequential equations (without direct sums)
-$\{  X_i = E_i\}_{i\in I}$ has a unique solution for $\wb$.
+A system of guarded and sequential equations (\hl{with guarded sums only})
+$\{  X_i = E_i\}_{i\in I}$ has an unique solution for $\wb$.
 \end{theorem}
 
-% The proof exploits an invariance property on immediate transitions for
-% guarded and sequential expressions, and then extracts a bisimulation
-% (up-to bisimilarity) out
-% of the solutions of the system.  
-To see the  need of the sequentiality  condition, consider
+\hl{The proof exploits an invariance property on immediate transitions for
+guarded and sequential expressions, and then extracts a bisimulation
+(up to bisimilarity) out
+of the solutions of the system.  }
+To see the need of the sequentiality  condition, consider
  the equation (from \cite{Mil89}) $X = \res a (a. X | \outC a)$
-where $X$ is guarded but not sequential. Any process that does not use $a$ is a solution.
+where $X$ is guarded but not sequential. Any process that does not use
+$a$ is a solution\hl{, e.g. $\nil$ and $b.\nil$.}
+
+%% next file: contraction.tex

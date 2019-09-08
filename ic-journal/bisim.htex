@@ -6,13 +6,13 @@
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
 \hl{One} highlight of this formalization project is the simplified definitions of
-  bisimilarities using the new coinductive relational package of HOL4.
+  bisimilarities using the new coinductive \hl{relation-defining} package of HOL4.
 Without it, the bisimilaries can still be defined,  but
   proving their basic properties would be more complicated.
 
 The definition of strong bisimulation (\texttt{STRONG_BISIM})  follows
   its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
-what kind of binary relations on CCS process \hl{are (strong) bisimulations}:
+what kind of binary \hl{relation on CCS processes is a (strong) bisimulation}:
 \begin{alltt}
 \HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
 \end{alltt}
@@ -46,7 +46,7 @@ essentially amounts to defining bisimilarity as the greatest
 fixed-point of the appropriate functional on relations. Precisely we
 call \hl{the} \texttt{Hol_coreln} command in the following way:%
 \footnote{Here {\tt !} and {\tt ?} stand for universal and
-existential quantifiers in HOL's ASCII-based term syntax.}
+existential quantifiers \hl{respectively} in HOL's ASCII-based term syntax.}
 \begin{lstlisting}
 val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
     (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -66,9 +66,7 @@ We have  pasted here the
   proof scripts). All formal definitions and
   theorems in the paper are automatically generated from HOL4. We have
   tried to  generate
-  Unicode and TeX outputs as easy  as possible to read (what is really
-  arbitrary is the presense/absense of outermost universal
-  quantifiers in all generated theorems).}, but now promoted into a theorem.
+  Unicode and TeX outputs as easy as possible to read.}, but now promoted into a theorem.
 The second and third theorems, namely \texttt{STRONG_EQUIV_coind} and \texttt{STRONG_EQUIV_cases},
 represent the coinduction proof method for bisimilarity 
 (i.e.~any bisimulation is contained in bisimilarity)
@@ -201,12 +199,9 @@ Although weak bisimilarity ($\approx$) is \emph{not} a congruence
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
 as $\approx$ is indeed preserved by guarded sums.
 
-On the relationship between bisimilarity and rooted bisimilarity, 
-we also prove 
-Deng
-Lemma and Hennessy Lemma
- (Lemma 4.1 and 4.2 in
-\cite{Gorrieri:2015jt}):
+On the relationship between (weak) bisimilarity and rooted bisimilarity, 
+we have proved \hl{Deng's Lemma and Hennessy's Lemma}
+(Lemma 4.1 and 4.2 of~\citep[p.~176,~178]{Gorrieri:2015jt}):
 \begin{alltt}
 \HOLthm{CoarsestCongr.DENG_LEMMA}\hfill{[DENG_LEMMA]}
   
@@ -242,9 +237,8 @@ last 3 laws are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
  
-The algebraic laws can be lifted to weak bisimilarity  and rooted 
- bisimilarity, as  they are coarser than   strong
-bisimilarity.
+\hl{These algebraic laws also hold for weak bisimilarity and rooted
+  bisimilarity, as these are coarser than strong bisimilarity.}
 
 \subsection{Expansion, Contraction and Rooted Contraction}
 
@@ -279,8 +273,9 @@ and contains the expansion preorder.
 \end{proposition}
 In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
 harder than that for the cases of expansion: \hl{this is mostly due to the surprising fact
-that, contraction does not imply weak bisimulation (while expansion
-indeed implies weak bisimulation),}
+that, although the contraction preorder is contained in weak
+bisimilarity, contraction does not imply weak bisimulation (while
+expansion does so),}
 i.e. the following proposition does not hold:
 \begin{alltt}
 \HOLtm{!Con. CONTRACTION Con ==> WEAK_BISIM Con}
@@ -296,12 +291,14 @@ $P$ and $Q$, given that they're in a contraction $Con$:
    ------------------------------------
     0.  Con P Q
     1.  CONTRACTION Con
+   
+   : proof
 \end{lstlisting}
-We cannot say show that $Con$ itself is a bisimulation, but rather
+We cannot show that $Con$ itself is a bisimulation, but rather
 that the union of $Con$ and $\wb$ is a bisimulation.
 \hl{The corresponding lemma for the expansion preorder is rather
-straightforward
-and does not require such a non-trivial contruction.}
+straightforward (just use $Con$)
+and does not require any non-trivial construction.}
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as follows, with its precongruence result:
@@ -310,6 +307,8 @@ defined as follows, with its precongruence result:
 
 \HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
 \end{alltt}
+
+%% TODO: move upto techniques inside "unique solution" theorems
 
 \subsection{The formalisation of ``bisimulation up to bisimilarity''}
 
@@ -371,10 +370,10 @@ bisimulation up`` is not contained in $\wb$.~\cite{sangiorgi1992problem}
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P\;
   \mathcal{S}\; Q$ implies, for all $\mu$,
 \begin{enumerate}
-\item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
-  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \sim \S \approx Q'$,
-\item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
-  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \S \sim Q'$.
+\item Whenever $P \arr{\mu} P'$ then, for some
+  $Q'$, $Q \Arcap{\mu} Q'$ and $P' \sim \S \approx Q'$,
+\item Whenever $Q \arr{\mu} Q'$ then, for some
+  $P'$, $P \Arcap{\mu} P'$ and $P' \approx \S \sim Q'$.
 \end{enumerate}
 or formally (for illustrating purposes below),
 \begin{alltt}
@@ -395,10 +394,13 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{alltt}
 \end{theorem}
 
+%% TODO: move these after ``unique solution of equations'' theorem:
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful to prove Milner's ``unique solution of equations''
-theorem for $\wb$,
-in which we actually used a different bisimulation game defined below:~\cite{sangiorgi1992problem}
+theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
+To complete the proof, the following ``double-weak'' version is
+actually used:
+
 \begin{definition}{(Bisimulation up to $\approx$, the ``double-weak''
     version)}
   \label{def:doubleweak}

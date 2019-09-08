@@ -9,6 +9,15 @@
 R.~Milner, Communication and concurrency, {PHI} Series in computer science,
   Prentice-Hall, 1989.
 
+\bibitem{sangiorgi1992problem}
+D.~Sangiorgi, R.~Milner,
+  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
+  problem of “weak bisimulation up to”}, in: International Conference on
+  Concurrency Theory, Springer, 1992, pp. 32--46.
+\newblock \href {https://doi.org/10.1007/BFb0084781}
+  {\path{doi:10.1007/BFb0084781}}.
+\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}
+
 \bibitem{EPTCS276.10}
 C.~Tian, D.~Sangiorgi, {Unique Solutions of Contractions, CCS, and their HOL
   Formalisation}, in: J.~A. P\'erez, S.~Tini (Eds.), {\rm Proceedings Combined
@@ -57,27 +66,18 @@ M.~Nesi, \href{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}{{A
   UCAM-CL-TR-278, University of Cambridge, Computer Laboratory (1992).
 \newline\urlprefix\url{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}
 
-\bibitem{sangiorgi1992problem}
-D.~Sangiorgi, R.~Milner,
-  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
-  problem of “weak bisimulation up to”}, in: International Conference on
-  Concurrency Theory, Springer, 1992, pp. 32--46.
-\newblock \href {https://doi.org/10.1007/BFb0084781}
-  {\path{doi:10.1007/BFb0084781}}.
-\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}
-
-\bibitem{Gorrieri:2015jt}
-R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
-  Systems and CCS, Springer, Cham, 2015.
-\newblock \href {https://doi.org/10.1007/978-3-319-21491-7}
-  {\path{doi:10.1007/978-3-319-21491-7}}.
-
 \bibitem{van2005characterisation}
 R.~J. van Glabbeek, A characterisation of weak bisimulation congruence, in:
   Processes, Terms and Cycles: Steps on the Road to Infinity, Springer, 2005,
   pp. 26--39.
 \newblock \href {https://doi.org/10.1007/11601548_4}
   {\path{doi:10.1007/11601548_4}}.
+
+\bibitem{Gorrieri:2015jt}
+R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
+  Systems and CCS, Springer, Cham, 2015.
+\newblock \href {https://doi.org/10.1007/978-3-319-21491-7}
+  {\path{doi:10.1007/978-3-319-21491-7}}.
 
 \bibitem{Sangiorgi:2011ut}
 D.~Sangiorgi, Introduction to Bisimulation and Coinduction, Cambridge
@@ -141,12 +141,6 @@ R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
 \newblock \href {https://doi.org/10.3233/FI-2017-1557}
   {\path{doi:10.3233/FI-2017-1557}}.
 
-\bibitem{Nesi:2017wo}
-M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
-  Computing 11~(2) (1999) 160--199.
-\newblock \href {https://doi.org/10.1007/s001650050046}
-  {\path{doi:10.1007/s001650050046}}.
-
 \bibitem{holdesc}
 {HOL4 contributors},
   \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}{{The
@@ -160,12 +154,11 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
 \newblock \href {https://doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
 
-\bibitem{melham1992hol}
-T.~F. Melham,
-  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}{{The
-  HOL pred_sets Library}}, Universiy of Cambridge Computer Lab (feb 1992).
-\newblock \href {https://doi.org/10.1.1.219.5390} {\path{doi:10.1.1.219.5390}}.
-\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.219.5390}
+\bibitem{Nesi:2017wo}
+M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
+  Computing 11~(2) (1999) 160--199.
+\newblock \href {https://doi.org/10.1007/s001650050046}
+  {\path{doi:10.1007/s001650050046}}.
 
 \bibitem{cleaveland1993concurrency}
 R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A

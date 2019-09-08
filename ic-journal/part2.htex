@@ -11,9 +11,9 @@ Based on results about ``bisimulation up to $\sim$'', we have first proved the f
  lemma. It states  that if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
 substituted for $X$:
-\begin{lemma}[Lemma 3.13 of \cite{Mil89}]
+\begin{lemma}[Lemma 3.13 of \cite{Mil89}, the univariate version]
 \label{lem:313}
-If the variable $X$ are weakly guarded in $E$, and
+If the variable $X$ is weakly guarded in $E$, and
 $E\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
 $E'\{P/X\}$ (for some expression $E'$), and moreover, for any $Q$,
 $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
@@ -36,7 +36,7 @@ P \sim Q.
 \HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}\hfill{[STRONG_UNIQUE_SOLUTION]}
 \end{alltt}
 \end{theorem}
-In above proof, we have identified 14 major sub-goals, dividing them into 7
+In \hl{the proof of the above theorem}, we have identified 14 major sub-goals, dividing them into 7
 groups, in which each pair is symmetric (thus having similar proof
 steps). The proof of this last theorem consists of 500 lines (each
 line usually has 2 or 3 HOL tactics, to make the proof shorter).
@@ -48,7 +48,7 @@ observational congruence.   There is however a
 version  of the result for weak bisimilarity that shares a large portion of proof
 steps with that case for observational congruence.  
 As  weak bisimilarity 
- is not congruence, we have to be more restrictive on the syntax for
+ is not \hl{a} congruence, we have to be more restrictive on the syntax for
  the equation, using strong guardedness.
 % to make correct statement of this
 % theorem, we must slightly modify the concept of sequential expresses

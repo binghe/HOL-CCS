@@ -27,12 +27,11 @@ A process relation ${\R}$
 \item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
  P'$ and $P' \wb Q'$\enspace.
 \end{enumerate}
-\emph{Bisimilarity contraction}, written as $P \mcontrBIS Q$ ($P$
-\emph{contracts to} $Q$), if $P\ \R\ Q$ for some contraction $\R$.
+\hl{Two processes $P$ and $Q$ are in the \emph{bisimilarity
+    contraction}}, written as $P \mcontrBIS Q$ ($P$ \emph{contracts to} $Q$),
+if $P\ \R\ Q$ for some contraction $\R$.
+\hl{Sometimes we write $\mexpaBIS$ for the inverse of $\mcontrBIS$.}
 \end{definition}
-% We say that $P$  {\emph{bisimilarly  contracts} $Q$, written
-% $Q \mcontrBIS Q$.
-% We write $\mexpaBIS$ for the inverse of $\mcontrBIS$.
 
 In the first clause $Q$ is required to match $P$'s challenge
 transition with at most one transition.
@@ -40,15 +39,14 @@ This makes sure that $Q$ is capable of mimicking $P$'s
 work at least as efficiently as $P$. 
 In contrast, the second clause of Definition~\ref{d:BisCon}, on the
 challenges from $Q$, entirely ignores efficiency: it is the same
-clause of  weak bisimulation~---the final derivatives are even required
+clause of  weak bisimulation~---the final derivatives are \hl{indeed} required
 to be related  by $\wb$, rather than by $\R$.
 
 Bisimilarity  contraction is coarser than 
- the \emph{expansion relation} $\expa$~\cite{arun1992efficiency,sangiorgi2015equations}.
-This is a
-preorder widely used in proof techniques for bisimilarity and that 
+the \emph{expansion relation} $\expa$~\cite{arun1992efficiency,sangiorgi2015equations}.
+This is a preorder \hl{that is} widely used in proof techniques for bisimilarity and
 intuitively refines bisimilarity by 
- formalising the idea of `efficiency' between processes.
+formalising the idea of `efficiency' between processes.
 Clause (1) is the same in the two
 preorders. But in clause (2) expansion uses 
 $P \Arr \mu P'$, rather than $P \Arcap \mu P'$; 
@@ -76,16 +74,12 @@ A process relation ${\R}$
   is an \emph{expansion} if, whenever
 we have $P\RR Q$, for all $\mu$
  \begin{enumerate}
- \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu
-   Q'$
+ \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu  Q'$
   and $P' \RR Q'$;
- \item
-     $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu
-  P'$ and $P'
- \RR Q'$.
+ \item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu P'$ and $P' \RR Q'$.
  \end{enumerate}
-  $P$  {\em expands} $Q$, written as
- $P  \expa Q$,
+\hl{Two processes $P$ and $Q$ are in the \emph{bisimilarity
+    expansion}}, written as $P \expa Q$ ($P$ \emph{expands} $Q$),
  if $P \RR Q$ for some expansion $\R$.
  \end{definition}
 
@@ -107,8 +101,6 @@ $\expa$, which explains the strictness of the inclusion
 %  $ a \not  \mcontrBIS \tau. a$
 \end{example} 
 
-% The substitutivity proofs for for expansion and bisimilarity carry
-% over to contraction,   
-
-Like the case of (weak) bisimilarity, the expansion and contraction
-preorders are preserved by all CCS operators but the summation.
+\hl{In the same way as bisimilarity, both the expansion and the
+contraction preorders are preserved by all CCS operators except the
+summation. The proofs are similar, see e.g.}~\cite{sangiorgi2017equations}.

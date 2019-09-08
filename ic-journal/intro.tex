@@ -30,13 +30,13 @@ restrictive CCS syntax)
 is the occurrences of direct sums, due to the failure of the
 substitutivity of contraction under direct sums.
 
-The main goal of the work described in this paper is a rather
+The main goal of the work described in this paper is a %rather
 comprehensive formalisation of the core theory of CCS in the HOL
 theorem prover (HOL4),  with a focus on the theory of unique solutions
 of equations and contractions.
 The formalisation, however, is not confined to the theory of unique
 solutions, but embraces a
-significant portion the theory of CCS \cite{Mil89}, mostly because the
+significant portion the theory of CCS~\cite{Mil89}, mostly because the
 theory of unique solutions relies on a large number of more fundamental results.
 Indeed the formalisation encompasses the basic properties of strong and weak
 bisimilarity (e.g.~the fixed-point and substitutivity properties), the
@@ -48,22 +48,19 @@ their algebraic laws. Further extensions (beyond Nesi
 techniques (e.g.~bisimulation up-to bisimilarity) \cite{Mil89,sangiorgi1992problem}, and the
 expansion and contraction preorder (two
 efficiency-like refinements of weak bisimilarity). Concerning rooted bisimilarity, the formalisation
-includes Hennessy Lemma and Deng Lemma (Lemma 4.1 and 4.2 of
-\cite{Gorrieri:2015jt}),
- and two long proofs saying that  rooted bisimilarity is the coarsest (largest)
- congruence contained in (weak) bisimilarity: one following Milner's
- book \cite{Mil89}, with the hypothesis that no processes can use up
+includes \hl{Hennessy's Lemma} and \hl{Deng's Lemma},
+ and two \hl{theorems} saying that rooted bisimilarity is the coarsest (largest)
+ congruence contained in weak bisimilarity ($\wb$): one following Milner's
+ book~\cite{Mil89}, with the hypothesis that no processes can use up
  all labels;
-the other without such hypothesis, essentially formalising van Glabbeek's paper \cite{van2005characterisation}.
+the other without such hypothesis, essentially formalising van Glabbeek's paper~\cite{van2005characterisation}.
 Similar theorems are proved for the rooted contraction preorder.
-In this respect, the work is an extensive experiment with the use of the HOL theorem prover with its
-recent developments, including a package for coinductive definitions.
+In this respect, the work is \hl{also} an extensive experiment \hl{using} the HOL theorem prover with its
+recent developments, including \hl{its coinductive relation-defining package}.
 
-From the view of CCS theory, this formalisation has offered us the possibility of
-further refining the theory of unique solutions of contractions, as
-formally proving a previously known result gives us the
-chance to see \emph{what is really needed} for establishing that result.
-In particular, the existing theory \cite{sangiorgi2017equations} has
+From the \hl{point of} view of CCS theory, this formalisation has offered us the possibility of
+further refining the theory of unique solutions of contractions.
+In particular, the existing \hl{theorem}~\cite{sangiorgi2017equations} has
 placed limitations on the body of the contractions due to the
 substitutivity problems of weak bisimilarity and other behavioural relations with respect
 to the sum operator.

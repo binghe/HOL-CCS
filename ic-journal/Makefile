@@ -18,6 +18,9 @@ tokens.tex: ../src/tokens.tex
 part2.tex: part2.htex $(MUNGE)
 	$(MUNGE) $(MOPT) < part2.htex > part2.tex
 
+formal.tex: formal.htex $(MUNGE)
+	$(MUNGE) $(MOPT) < formal.htex > formal.tex
+
 multivariate.tex: multivariate.htex $(MUNGE)
 	$(MUNGE) $(MOPT) < multivariate.htex > multivariate.tex
 

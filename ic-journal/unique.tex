@@ -16,8 +16,8 @@ $\{  X_i \mcontr E_i\}_{i\in I}$,
  we say that:
 \begin{itemize}
 \item $\til P$ is a \emph{solution (for $\mcontrBIS$) of the 
- system of contractions} if $\til P \mcontrBIS \til E [\til P]$;
-\item the system has \emph{a unique solution (for $\approx$)}
+ system of contractions} if \hl{for each $i$ it holds that $P_i \mcontrBIS E_i [\til P]$};
+\item \hl{The} system has \emph{a unique solution (for $\approx$)}
 if $\til P \approx \til Q$ whenever $\til P$ and $\til Q$ are both solutions.
 \end{itemize}
 \end{definition}
@@ -49,8 +49,8 @@ such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu} R'
 \end{lemma}
 
 \begin{proof}{(sketch from \cite{sangiorgi2017equations})}
-Let $n$ be the length of the transition $\ct{\til P}\Arr\mu R$  (the
-number of `strong steps' of which it is composed), and  
+  Let $n$ be the length \hl{(the number of one-step transitions)} of
+\hl{a} transition $\ct{\til P}\Arr\mu R$, and
 let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
 from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
 of the contractions $n$ times. Thus in $\qctpp$ each hole is
@@ -87,7 +87,7 @@ $\ct{\til Q}\Arcap{\mu} R' \wb \ctp{\til Q}$ \hl{for some $R'$}.
 \end{theorem}
 
 \begin{proof}
-\hl{We want to prove $P_i \wb Q_i$ ($i \in I$) by considering} the following relation
+\hl{We want to prove $P_i \wb Q_i$ (for each $i \in I$) by considering} the following relation
 \begin{equation*}
 %\label{eq:R}
 \R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
@@ -104,7 +104,7 @@ there exists $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
 \Arcap{\mu} S'' \wb C'[{\til Q}]$ for some $S''$. \hl{From $S \wb C[{\til
   Q}]$ and $C[{\til Q}] \Arcap{\mu} S''$, by induction and definition of $\wb$, it is not
 hard to see that,}
-there exists also $S'$ with $S \Arcap{\mu} S'$. This closes the
+there exists also $S'$ with $S \Arcap{\mu} S'$. This \hl{completes} the
 proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$ \hl{by
 transitivity of $\wb$ and the fact that $\mcontrBIS$ implies $\wb$.
 (The other side from $S$ follows in the same manner.)}
@@ -227,7 +227,7 @@ was designed to prove Milner's strong unique-solution theorem} (Prop.~3.14 of
 \end{theorem}
 
 \begin{proof}
-\hl{We want to prove $P_i \rapprox Q_i$ ($i \in I$) by considering}
+\hl{We want to prove $P_i \rapprox Q_i$ (for each $i \in I$) by considering}
 the following relation
 \begin{equation*}
 \R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
@@ -250,7 +250,7 @@ $E'$ with $P'' = E'[{\til P}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til Q}]$.
 %
 From $Q_i \rcontr E_i[{\til Q}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til
   Q}]$, by definition of $\rcontr$ we have $Q_i \Arr{\mu} Q'$ for some
-$Q'$ and $Q' \wb E'[{\til Q}]$. This closes the proof, as we have
+$Q'$ and $Q' \wb E'[{\til Q}]$. This \hl{completes} the proof, as we have
 $P' \wb C[{\til P}]$ (by the fact that $\mcontrBIS$ implies $\wb$) and
 $Q' \wb C[{\til Q}]$. (The other side from $Q_i$ follows in the same manner.)
 c.f. Fig.~\ref{fig:314} \hl{for a visual illustration.}

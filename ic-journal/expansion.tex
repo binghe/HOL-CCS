@@ -6,11 +6,11 @@ abstract from the number of internal steps being performed:
 \begin{definition}%[bisimilarity]
 \label{d:wb}
 A process relation ${\R}$ is a \emph{bisimulation} if, whenever
- $P\RR Q$, for all $\mu$ we have:
+ $P\RR Q$\hl{,} % for all $\mu$ we have:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
-  \mu P'$ and $P' \RR Q'$\enspace.
+  \mu P'$ and $P' \RR Q'$\hl{;}
 \end{enumerate}
  $P$ and $Q$ are \emph{bisimilar},
 written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
@@ -28,8 +28,7 @@ guarded sums). For this, Milner introduced \emph{observational congruence}, also
 \begin{definition}%[rooted bisimilarity]
 \label{d:rootedBisimilarity}
 Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
-\rapprox Q$, if
-for all $\mu$:
+\rapprox Q$, \hl{if} % for all $\mu$:
 %  for all $\mu\in \mathscr{L}\cup\{\tau\}$
 \begin{enumerate}
  \item  $P \arr\mu P'$ implies that there is $Q'$ such that $Q
@@ -39,14 +38,12 @@ for all $\mu$:
 \end{enumerate}
 \end{definition}
 
-Besides reducing the rooted \hl{bisimilarity} of two processes to
-the bisimilarities of their immediate derivatives, the
-above definition also brings up a proof technique for proving rooted
-\hl{bisimilarity} results by constructing a bisimulation.
+\hl{The above definition brings up a proof technique for proving rooted
+bisimilarity results, starting from a given bisimulation.}
 \begin{lemma}[Rooted bisimilarity by bisimulation]
 \label{l:obsCongrByWeakBisim}
 Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
-satisfies the following properties:
+\hl{satisfy} the following properties \hl{(but not necessary $P\;\R\;Q$)}:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \RR Q'$;
@@ -61,3 +58,5 @@ satisfies the following properties:
 $\rapprox$ is a congruence in CCS, and it is the
 coarsest congruence contained in $\approx$ \cite{van2005characterisation}.
 \end{theorem}
+
+%% next file: equa.tex

@@ -33,15 +33,16 @@ and proofs for different equivalences and preorders. Indeed we have
 considered several `unique-solution' results (for various equivalences
 and preorders); they share many parts of the proofs, but present a few
 delicate and subtle differences in a few points. In a paper-pencil
-proof, checking all details would be long and error-prune, since one
-is tempted to overlook  details that tend to repeat themselves. 
+proof, checking all details would be long and \hl{error-prone},
+\hl{especially in cases in which proofs are similar to each other or
+  when there is a long case analysis to be carried out.}
 A theorem-prover formalisation is in this respect  helpful and reassuring.
 We think that the statements in the formalisation are easy to read and
 understand, as they are  close to the original statements found in
 standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
 
 Formalising other equivalences and preorders could also be considered,
-notably the trace equivalences, as well as more refined process
+notably the \hl{trace-based} equivalences, as well as more refined process
 calculi such as value-passing CCS.
 % (e.g.~exploiting the type variable
 %of actions).}
@@ -71,7 +72,7 @@ divergence.
 
 We have benefitted from suggestions and comments 
 from several people from the HOL
-community, including (in alphabet order) Robert Beers, Jeremy Dawson,
+community, including (in \hl{alphabetic} order) Robert Beers, Jeremy Dawson,
 Ramana Kumar,
 Michael Norrish, 
 Konrad Slind, and
