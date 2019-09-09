@@ -5,26 +5,25 @@ The equivalences we consider here are mainly \emph{weak} ones, in that they
 abstract from the number of internal steps being performed:
 \begin{definition}%[bisimilarity]
 \label{d:wb}
-A process relation ${\R}$ is a \emph{bisimulation} if, whenever
+A process relation ${\R}$ is a \hl{(weak)} \emph{bisimulation} if, whenever
  $P\RR Q$\hl{,} % for all $\mu$ we have:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q \Arcap \mu Q'$ and $P' \RR Q'$;
 \item $Q \arr\mu Q'$,implies that there is $P'$ such that $P \Arcap
   \mu P'$ and $P' \RR Q'$\hl{;}
 \end{enumerate}
- $P$ and $Q$ are \emph{bisimilar},
+ $P$ and $Q$ are \hl{(weakly)} \emph{bisimilar},
 written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
 \end{definition}
 
-\hl{We sometimes call the bisimulation and bisimilarity defined above
-the \emph{weak} bisimulation (and weak bisimilarity), to
-distinguish it from the \emph{strong} bisimulation and strong bisimilarity} ($\sim$),
-obtained by replacing the weak transition $Q\Arcap\mu Q'$ in the above
-definition with the strong transition $Q \arr \mu Q'$ (same for the
-other case).
+\hl{The \emph{strong} bisimulation and strong bisimilarity} ($\sim$)
+can be obtained by replacing the weak transition $Q\Arcap\mu Q'$ in the above
+definition with normal transitions $Q \arr \mu Q'$ (similar for the other case).
 Weak bisimilarity is not preserved by the sum operator (except for
-guarded sums). For this, Milner introduced \emph{observational congruence}, also called \emph{rooted
-  bisimilarity} \cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
+guarded sums), \hl{i.e. from $P_1 \wb Q_1$ and $P_2 \wb Q_2$ one
+  cannot obtain $P_1 + P_2 \wb Q_1 + Q_2$.}
+For this, Milner introduced the concept of \emph{observational congruence}, also called \emph{rooted
+  bisimilarity}~\cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
 \begin{definition}%[rooted bisimilarity]
 \label{d:rootedBisimilarity}
 Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
@@ -38,8 +37,10 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
 \end{enumerate}
 \end{definition}
 
-\hl{The above definition brings up a proof technique for proving rooted
-bisimilarity results, starting from a given bisimulation.}
+\hl{The above definition also brings up a proof technique for proving rooted
+bisimilarity from a given bisimulation. The next
+lemma is usually not mentioned in CCS literature but plays an
+important role in proving some key results in this paper:}
 \begin{lemma}[Rooted bisimilarity by bisimulation]
 \label{l:obsCongrByWeakBisim}
 Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
@@ -53,10 +54,15 @@ Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
 \hl{Then} $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
 \end{lemma}
 
+\hl{One basic property of rooted bisimiarity is that, it is (like $\sim$)
+a congruence (thus also an equivalence relation)
+w.r.t.~all CCS operators except for the Recursion and is the
+coarsest congruence contained in bisimilarity:}
+(c.f. Section~\ref{s:coarsest} for more details)
 \begin{theorem}
 \label{t:rapproxCongruence}
 $\rapprox$ is a congruence in CCS, and it is the
-coarsest congruence contained in $\approx$ \cite{van2005characterisation}.
+coarsest congruence contained in $\wb$.
 \end{theorem}
 
 %% next file: equa.tex

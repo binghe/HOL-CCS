@@ -4,35 +4,68 @@
 \section{CCS}
 \label{ss:ccs}
 
+\hl{Here we beliefly recall the core theory of CCS, up to the unique solution of
+equation and contractions, with a focus on the syntactic differences with
+other literature.}
 We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
-\ldots\}$ forming input and $\overline{\mbox{output}}$ actions, plus a special invisible
-action $\tau \notin \mathscr{L}$, and a set of variables $A, B,
-\ldots$ for defining recursive behaviours.
-The class of CCS processes is inductively
-defined from $\nil$ \hl{(deadlock)} by the operators
-of prefixing, parallel composition, summation (binary choice),
-restriction, relabeling and recursion:
+\ldots\}$ forming input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
+action $\tau \notin \mathscr{L}$, and \hl{another possibly infinite
+  set of agent} variables $A, B,
+\ldots \in \mathscr{X}$.
+The class of CCS processes is then inductively
+defined from $\nil$ \hl{(deadlock) and agent variables} by the operators
+of \emph{prefixing} (.), \emph{parallel composition} ($|$),
+\emph{summation}
+(or \emph{binary choice}, $+$),
+\emph{restriction} ($\nu$), \emph{relabeling} ($[\cdot]$) and
+\emph{recursion} ($\texttt{rec}$):
 \begin{equation*}
 \begin{array}{cccl}
 \mu  & := & \tau\!\!\!\! & \midd \; a  \; \midd \;  \outC a  \\
 P  & := & \nil\!\!\!\! & \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd 
-(\res a\!)\, P
-\; \midd \; P\; [r\!f]  % relabelling
+(\res L)\, P
+\; \midd \; P\; [\mathit{rf}]  % relabelling
 \;  \midd \;  A \; \midd \; \recu A  P
 \end{array}
 \end{equation*}
-We sometimes omit a trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
-The operational semantics of CCS is then given by means of
+\hl{Notice the (minor) differences with other CCS literature regarding the above definition:}
+\begin{enumerate}
+  \item Some literature adopts possibly infinite sums over an index
+    set ($\sum_{i\in I} P_i$) while we only consider binary (thus
+    finite) sums, which is less expressive.
+  \item Our restriction operator takes a set of (input) labels $L
+    \subseteq \mathscr{L}$, while some CCS literature only restricts
+    one label (for each restriction operator);
+  \item Our relabeling operator takes a relabeling function
+    $\mathit{rf} \colon \mathscr{L} \cup \overline{\mathscr{L}} \cup
+    \{\tau\} \rightarrow \mathscr{L} \cup \overline{\mathscr{L}} \cup
+    \{\tau\}$, which
+    is capable to handle multiple actions including $\tau$. A valid
+    relabeling function $\mathit{rf}$ must satisfy $\mathit{rf}(\tau) =
+    \tau$ and $\forall l\in\mathscr{L} \cup \overline{\mathscr{L}}.\, \mathit{rf}(\overline{l}) =
+    \overline{\mathit{rf}(l)}$ (with $\bar{\bar l} = l$ for all $l \in
+    \mathscr{L}$); Same expressiveness
+    with single-label relabeling.
+  \item The recursion operator $\texttt{rec}$ has the same expressiveness with
+    \emph{process constants} adopted in some literature. For instance, a
+    CCS process $a.C$ with the constant $C \DSdefi b.C$ can be
+    expressed as $a.(\texttt{rec}\, C. (b.C))$.
+\end{enumerate}
+Besides, we sometimes omit \hl{the} trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
+\hl{A CCS process $P$ may \emph{derive} to another one, say $P'$, under
+  an action $\mu$, denoted by $P \arr{\mu} P'$.}
+The \hl{transitional semantics} of CCS processes is given by means of
 a Labeled Transition System (LTS) \hl{expressed in Structural Operational
-Semantics (SOS) rules}, shown in Fig.~\ref{f:LTSCCS}.
-The symmetric version of the two \hl{SOS} rules for
-parallel composition and the rule for sum are omitted.
-A CCS expression uses only \emph{weakly guarded sums} if all occurrences of
-the sum operator are of the form $\mu_1.P_1 + \mu_2.P_2 + \ldots
-+ \mu_n.P_n$, for some $n \geq 2$.
+Semantics (SOS) rules} shown in Fig.~\ref{f:LTSCCS}.
+(The symmetric versions of the \hl{SOS} rules for
+parallel composition and binary choice are omitted.)
+A CCS processes uses only \emph{guarded sums} if all occurrences of
+sums are in the form $a.P + b.Q$. \hl{(Otherwise we may call the sum
+a \emph{direct} one, e.g. $P + Q$ if either $P$ or $Q$ are not in the
+form of prefixes.)}
  The \emph{immediate derivatives} of a
-process $P$ are the elements of the set $\{P' \st P \arr\mu P' \mbox{
+process $P$ are elements of the set $\{P' \st P \arr\mu P' \mbox{
   for some $\mu$}\}$.
 We use $\ell$ to range over
 visible actions (i.e.~inputs or outputs, excluding  $\tau$)
@@ -40,7 +73,7 @@ and $\alpha, \mu$  to range over all actions.
 \begin{figure*}[t]
 \begin{center}
 \vskip .1cm
- $\displaystyle{  \over  \mu.  P    \arr\mu
+ $\displaystyle{  \over  \mu.  P \arr\mu
 P } $  $ \hb$   
 \hskip .5cm
  $\displaystyle{   P \arr\mu   P' \over   P + Q   \arr\mu
@@ -50,12 +83,12 @@ P'  } $  $ \hb$
 P' | Q } $  $ \hb$   
 \hskip .3cm
   $\; \;$  $\displaystyle{ P \arr{ a}P' \hk \hk  Q
-\arr{\outC a }Q'  \over     P|  Q \arr{ \tau} P'
+\arr{\outC a }Q'  \over  P|  Q \arr{ \tau} P'
 |  Q'  }$ 
 \\
 \vspace{.2cm}
 $\displaystyle{ P \arr{\mu}P' \over
- (\res a\!)\, P   \arr{\mu} (\res a\!)\, P'} $ $ \mu \neq a, \outC a$
+ (\res L\!)\, P \arr{\mu} (\res L\!)\, P'} $ $ \mu, \outC\mu \not\in L$
 $ \hb$
 %
 $\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
@@ -68,15 +101,14 @@ $ \hb$ %  &
 \caption{Structural Operational Semantics of CCS}
 \label{f:LTSCCS}
 \end{figure*}
+
 Some standard notations for transitions: $\Arr\epsilon$ is the 
 reflexive and transitive closure of $\arr\tau$, and 
 $\Arr \mu $ is $\Arr\epsilon \arr\mu \Arr\epsilon$ (the
 composition of the three relations).
 Moreover,   
-$ P \arcap \mu P'$ holds if $P \arr\mu P'$ or ($\mu =\tau$ and
-$P=P'$); similarly 
-$ P \Arcap \mu P'$ holds if $P \Arr\mu P'$ or ($\mu =\tau$ and
-$P=P'$).
+$P \arcap \mu P'$ holds if $P \arr\mu P'$ or $\mu =\tau \wedge P = P'$; similarly 
+$P \Arcap \mu P'$ holds if $P \Arr\mu P'$ or $\mu =\tau \wedge P = P'$).
 We write $P \:(\arr\mu)^n P'$ if $P$ can become $P'$ after performing
 $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
@@ -84,21 +116,23 @@ with $P \arr\mu P'$, and similarly for other forms of transitions.
 \paragraph{Further notations}
 We let $\R$, $\S$ range over binary relations, sometimes using 
  infix notation for them; e.g., 
-$P \RR Q$ means that $(P,Q) \in \R$.
+$P \,\R\, Q$ means $(P,Q) \in \R$.
 We use a tilde, as in  $\til P$, to denote tuples of processes with
 countably many elements (thus the tuple may also be infinite.)
 All notations are extended to tuples componentwise,
-e.g., $\til P \RR \til Q$ means that $P_i \RR Q_i$, for each  
-component $i$ of the tuples $\til P$ and $\til Q$.
-And $\ct{\til P}$ is the process obtained by replacing each hole
-$\holei i$ of the  context $\qct$ with $P_i$.  
-We write $\ctx \R$ for the closure of a relation under contexts.
-Thus $P\: \ctx \R\: Q$
-means that there \hl{exists a} context $\qct$ and tuples $\til P,\til Q$ with
-$P =  \ct{\til P}, Q =  \ct{\til Q}$ and $\til P \RR \til Q$.
+e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each  
+index $i$ of the tuples $\til P$ and $\til Q$.
 We use the symbol $\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
 $G$ is some expression, means that $P$ stands for the expression $G$.
 If $\leq$ is a preorder, then  $\geq$  is its inverse (and
 conversely).
+
+% \paragraph{CCS contexts and equations}
+% And $\ct{\til P}$ is the process obtained by replacing each hole
+% $\holei i$ of the  context $\qct$ with $P_i$.  
+% We write $\ctx \R$ for the closure of a relation under contexts.
+% Thus $P\: \ctx \R\: Q$
+% means that there \hl{exists a} context $\qct$ and tuples $\til P,\til Q$ with
+% $P =  \ct{\til P}, Q =  \ct{\til Q}$ and $\til P \RR \til Q$.
 
 % next file: expansion.tex (bisimilarity and rooted bisimilarity, actually)

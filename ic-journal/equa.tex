@@ -1,25 +1,52 @@
 \section{Equations and contractions}
 \label{s:eq}
 
-\subsection{Systems of  equations}
+\hl{In the CCS syntax given in previous section, there is the syntactic
+possibility that an agent variable $A$ occurs
+outside the recursion operator of the same variable (or, equivalently, a
+process constant $C$ is used but undefined). We say such a variable is
+\emph{free}, while those variables wrapped by their recursions are
+\emph{bound}.}
+\hl{A CCS \emph{tem} (or \emph{expression}, i.e. those with valid syntax)
+without any free variable is called a CCS \emph{process}.}
+\hl{For instance, the variable $X$ is free in $a.X + \recu Y (b.Y)$, while $Y$
+is bound. There is also the syntactic possibility that the same
+variable $X$ is
+both free and bound, e.g. in $a.X + \recu X (b.X)$.
+This does not cause any ambiguity, but sometimes leads to more
+complex proofs.} (c.f. Section~\ref{sec:multivariate} for more details.)
+
+\hl{In this paper (and the formalisation work), we reuse the free agent
+variables as \emph{equation variables}. This eliminates the need of
+another type for CCS equations, and we can also reuse the existing
+variable substitution operation} (c.f. SOS rule for the Recursion in
+Fig.~\ref{f:LTSCCS}) \hl{for the substitution of equation variables.
+For example, the result of substituting equation variable $X$ to $\nil$ in $a.X +
+\recu X (b.X)$, denoted by $(a.X + \recu X (b.X)) \sub {\nil} X$, is
+$a.\nil + \recu X (b.X)$ with the part $\recu X (b.X)$
+untouched. Multivariate substitutions are written in the same syntax,
+e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
+context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
+  X}$. ($E[P]$ for $E \sub P X$ in the case of a single variable $X$.)}
+
+\hl{In fact, free agent variables have the same transitional behavior
+as the deadlock $\nil$ if we strictly follow the existing SOS rules, as there is
+no SOS rule for them at all. In fact, most CCS theorems still hold if
+the involved CCS terms contain free variables. (The most notable
+exceptions are all versions of unique solution of equations/contracts,
+where all solutions must be \emph{pure} processes (without free variables).)}
+
+\subsection{Systems of equations}
 \label{ss:SysEq}
 
-Uniqueness of  solutions of equations \cite{Mil89} intuitively says that if  a context $\qct$ obeys
-certain  conditions, 
-then all processes $P$  that satisfy the equation $ P \wb \ct P$ are
+Milner's ``unique solution of equations'' theorems~\cite{Mil89} intuitively
+say that, if a context $C$ \hl{(i.e., a CCS expression with possibly
+free variables)} obeys certain conditions,
+then all processes $P$ that satisfy the equation $P \wb \ct P$ are
 bisimilar with each other.
-We need variables to write equations. We  use
- capital
-letters  $X,Y,Z$
- for  these variables and call them \emph{\behav\  variables}.
- The body of an equation is a CCS expression
-possibly containing \behav\  variables. Thus such expressions, ranged
-over by $E$, live in the CCS
-grammar extended with \behav\  variables.
-% , which we  call 
-%  \emph{extended CCS}. 
 
-  
+% TODO
+
 \begin{definition} % Def 3.1
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
