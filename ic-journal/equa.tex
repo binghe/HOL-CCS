@@ -27,139 +27,136 @@ $a.\nil + \recu X (b.X)$ with the part $\recu X (b.X)$
 untouched. Multivariate substitutions are written in the same syntax,
 e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
 context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
-  X}$. ($E[P]$ for $E \sub P X$ in the case of a single variable $X$.)}
+  X}$. (and $E[P]$ for $E \sub P X$ if there is a single equation variable $X$.)}
 
 \hl{In fact, free agent variables have the same transitional behavior
-as the deadlock $\nil$ if we strictly follow the existing SOS rules, as there is
-no SOS rule for them at all. In fact, most CCS theorems still hold if
+as the deadlock $\nil$ according to the SOS rules, as there is
+no rule for their transitions at all. In fact, most CCS theorems still hold if
 the involved CCS terms contain free variables. (The most notable
 exceptions are all versions of unique solution of equations/contracts,
-where all solutions must be \emph{pure} processes (without free variables).)}
+where all solutions must be \emph{pure} processes (i.e. no free variable).)}
 
 \subsection{Systems of equations}
 \label{ss:SysEq}
 
 Milner's ``unique solution of equations'' theorems~\cite{Mil89} intuitively
 say that, if a context $C$ \hl{(i.e., a CCS expression with possibly
-free variables)} obeys certain conditions,
+free variables)}\footnote{\hl{Rigorously speaking, under our setting
+(i.e.~reusing free agent variables as equation variables) not all
+valid CCS expressions
+are valid contexts: those where free variables occur inside
+recusion operators must be all excluded. For instace, $\recu X (a.X +
+b.Y)$ is not a valid context with the variable $Y$. This special requirement
+is perfectly aligned with CCS literature using process constants, as any
+equation variable cannot occur inside the definition of any
+constant. In fact, all versions of ``unique solution of
+equations/contractions'' theorems do not hold if equation variables
+are allowed to occur inside any recursion operator.}} obeys certain conditions,
 then all processes $P$ that satisfy the equation $P \wb \ct P$ are
 bisimilar with each other.
 
-% TODO
-
-\begin{definition} % Def 3.1
+\begin{definition}[equations] % Def 3.1
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
-$E_i$ possibly containing  such variables. 
-Then 
-$\{  X_i = E_i\}_{i\in I}$
-is 
-  a \emph{system of equations}. (There is one equation for each variable $X_i$.)
+$E_i$ containing variables up to $\til X$. Then 
+$\{ X_i = E_i\}_{i\in I}$ is 
+  a \emph{system of equations}. (There is one equation $E_i$ for each variable $X_i$.)
 \end{definition}
 
-We write $E[\til P]$ for the expression resulting from $E$ by
-replacing each variable $X_i$   with the process $P_i$, assuming
-$\til P$ and $\til X$ have the same length. (This is syntactic
-replacement.) 
-% The components of $\til P$ need not be
-%  different from each other, as it must be for the variables $\til X$.
-% If the system has infinitely many equations,
-% the  tuples $\til P$ and $\til X$
-%  are infinite too.
-\begin{definition}
-Suppose  $\{  X_i = E_i\}_{i\in I}$ is a system of equations: 
+The components of $\til P$ need not be
+different from each other, as it must be for the variables $\til X$.
+If the system has infinitely many equations, the  tuples $\til P$ and $\til X$ are infinite too.
+
+\begin{definition}[solutions and unique solutions]
+Suppose $\{ X_i = E_i\}_{i\in I}$ is a system of equations: 
 \begin{itemize}
 \item
- $\til P$ is a \emph{solution of the 
-system of equations  for $\wb$} 
-if for each $i$ it holds
-that $P_i \wb E_i [\til P]$;
-
-\item it %the  system
- has \emph{a unique solution for $\wb$}  if whenever 
- $\til P$ and $\til Q$ are both solutions for $\wb$, then $\til P \wb
- \til Q$. 
+ $\til P$ is a \emph{solution of the system of equations (for $\wb$)} 
+if for each $i$ it holds that $P_i \wb E_i [\til P]$;
+\item The system has \emph{a unique solution for $\wb$}  if whenever 
+ $\til P$ and $\til Q$ are both solutions \hl{it holds that} $\til P \wb \til Q$. 
 \end{itemize} 
- \end{definition} 
+ \end{definition}
+\hl{Similarily, the \emph{(unique) solution of a system of equations for $\sim$}
+(or for $\rapprox$) can be obtained by replacing all occurrences of $\wb$
+in above definition with $\sim$ and $rapprox$, respectively.}
 
-% Examples of systems with a  unique solution for $\wb$ are: 
-% \begin{enumerate}
-% \item
-% $ X = a. X$ 
-
-% \item 
-% $ X_1 = a.  X_2$, $ X_2 = b.  X_1$  
-
-% \end{enumerate}
-
-For instance, the solution of the equation 
-$ X = a. X$ 
-is  the process
+For instance, the solution of the equation $X = a. X$ 
+is the process
 $R \DSdefi \recu A {\, (a. A)}$, and for any other solution $P$ we have $P \wb R$.
 In contrast, the equation 
  $X = a|  X$ has solutions that may be quite different, for instance,
  $K$ and $K | b$, for $K \DSdefi \recu K {\, (a. K)}$. (Actually any process capable of
-continuously performing \hl{$a$--actions} is a solution \hl{of} $X = a  |  X$.)
+continuously performing \hl{$a$--actions} is a solution \hl{of} $X = a|  X$.)
 
+%
 % The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
 % . K$:  for any other solution $P$ we have $P \wb K$.
 % The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
 % with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
 % pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
-% Examples of systems that do not have a unique solution are: 
-% \begin{enumerate}
-% \item $X = X $ 
-
-% \item $X = \tau . X$
-% \item $X = a | X$
-
-% \end{enumerate} 
-% All processes are solutions of (1) and (2); examples of solutions for
-% (3) are $K$ and $K | b$, for $K \Defi a
-% . K$.
+%
+Examples of systems that do not have unique solutions are: $X = X$, $X
+= \tau . X$ and $X = a | X$.
 
 \begin{definition}[guardedness of equations]
 \label{def:guardness}
-A system of equations 
-$\{  X_i = E_i\}_{i\in I}$
- is 
+A system of equations $\{ X_i = E_i\}_{i\in I}$ is 
 \begin{itemize}
 \item \emph{weakly guarded} if, in each $E_i$, each occurrence of
-  an \behav\  variable is underneath a prefix;
+  each $X_i$ is underneath a prefix;
 
 \item \emph{(strongly) guarded} if, in each $E_i$, each occurrence of
-  an equation variable is underneath a \emph{visible} prefix;
+  each $X_i$ is underneath a \emph{visible} prefix;
 
-\item \emph{sequential} if, in each $E_i$, each \hl{occurrence of an
-    equation variable only appears underneath prefixes and sums.}
+\item \emph{sequential} if, in each $E_i$, each
+  \hl{occurrence of each $X_i$ is only underneath prefixes and sums.}
 \end{itemize}
 \end{definition}
 
-\hl{In other words, if the system is sequential, then for
-every expression $E_i$, any subexpression of $E_i$ in which $X_j $
-appears, apart from $X_j$ itself, is a sum (of prefixed terms).
+\hl{In other words, if a system of equations is sequential, then for
+each context $E_i$, any subcontext of $E_i$ in which $X_j $
+appears, apart from $X_j$ itself, is a sum of prefixed expressions.
 For instance,}
 \begin{itemize}
 \item $X = \tau. X + \mu . \nil$ is sequential but not 
  guarded, because the guarding prefix for the variable
-is not visible.
-
-\item $X =  \ell . X | P$ is guarded but not sequential.
-
+is not visible;
+\item $X =  \ell . X | P$ is guarded but not sequential;
 \item $X =  \ell . X + \tau. \res a (a .\outC b | a.\nil)$, as well as
 $X = \tau . (a. X + \tau . b .X + \tau  )$ are both guarded and sequential.
 \end{itemize}
 
-\begin{theorem}[unique solution of equations, \cite{Mil89}]
-\label{t:Mil89}
-A system of guarded and sequential equations (\hl{with guarded sums only})
-$\{  X_i = E_i\}_{i\in I}$ has an unique solution for $\wb$.
+\hl{Milner has totally three versions of ``unique solution of equations''
+theorems, for $\sim$, $\wb$ and $\rapprox$, respectively, but only the
+following two versions are explicitly mentioned} in~\cite{Mil89}:
+\begin{theorem}[unique solution of equations for $\sim$]
+\label{t:Mil89s1}
+Let $E_i$ be weakly guarded with free variables $\subseteq \til X$,
+and let ${\til P} \sim {\til E}\{\til P /\til X\}$,
+  ${\til Q} \sim {\til E}\{\til Q /\til X\}$. Then ${\til P} \sim {\til Q}$.
 \end{theorem}
 
-\hl{The proof exploits an invariance property on immediate transitions for
+\begin{theorem}[unique solution of equations for $\rapprox$]
+\label{t:Mil89s3}
+Let $E_i$ be guarded and sequential with free
+variables $\subseteq \til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$,
+  ${\til Q} \rapprox {\til E}\{\til Q /\til X\}$. Then ${\til P} \rapprox {\til Q}$.
+\end{theorem}
+
+The version for $\wb$, due to the non-substitutivity of $\wb$, further requires
+that all sums where equation variables appear are guarded sums:
+\begin{theorem}[unique solution of equations for $\wb$]
+\label{t:Mil89}
+Let $E_i$ be guarded (and with guarded sums) and sequential with free
+variables $\subseteq \til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
+  ${\til Q} \wb {\til E}\{\til Q /\til X\}$. Then ${\til P} \wb {\til Q}$.
+\end{theorem}
+
+The proof of Theorem~\ref{t:Mil89} exploits an invariance property on immediate transitions for
 guarded and sequential expressions, and then extracts a bisimulation
 (up to bisimilarity) out
-of the solutions of the system.  }
+of the solutions of the system.
 To see the need of the sequentiality  condition, consider
  the equation (from \cite{Mil89}) $X = \res a (a. X | \outC a)$
 where $X$ is guarded but not sequential. Any process that does not use
