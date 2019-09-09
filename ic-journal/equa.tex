@@ -56,6 +56,7 @@ then all processes $P$ that satisfy the equation $P \wb \ct P$ are
 bisimilar with each other.
 
 \begin{definition}[equations] % Def 3.1
+  \label{def:equation}
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
 $E_i$ containing variables up to $\til X$. Then 
@@ -68,6 +69,7 @@ different from each other, as it must be for the variables $\til X$.
 If the system has infinitely many equations, the  tuples $\til P$ and $\til X$ are infinite too.
 
 \begin{definition}[solutions and unique solutions]
+  \label{def:solution}
 Suppose $\{ X_i = E_i\}_{i\in I}$ is a system of equations: 
 \begin{itemize}
 \item
@@ -129,10 +131,10 @@ $X = \tau . (a. X + \tau . b .X + \tau  )$ are both guarded and sequential.
 
 \hl{Milner has totally three versions of ``unique solution of equations''
 theorems, for $\sim$, $\wb$ and $\rapprox$, respectively, but only the
-following two versions are explicitly mentioned} in~\cite{Mil89}:
+following two versions are explicitly mentioned} in~\citep[p.~103, 158]{Mil89}:
 \begin{theorem}[unique solution of equations for $\sim$]
 \label{t:Mil89s1}
-Let $E_i$ be weakly guarded with free variables $\subseteq \til X$,
+Let $E_i$ be weakly guarded with free variables up to $\til X$,
 and let ${\til P} \sim {\til E}\{\til P /\til X\}$,
   ${\til Q} \sim {\til E}\{\til Q /\til X\}$. Then ${\til P} \sim {\til Q}$.
 \end{theorem}
@@ -140,26 +142,37 @@ and let ${\til P} \sim {\til E}\{\til P /\til X\}$,
 \begin{theorem}[unique solution of equations for $\rapprox$]
 \label{t:Mil89s3}
 Let $E_i$ be guarded and sequential with free
-variables $\subseteq \til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$,
+variables up to $\til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$,
   ${\til Q} \rapprox {\til E}\{\til Q /\til X\}$. Then ${\til P} \rapprox {\til Q}$.
 \end{theorem}
 
-The version for $\wb$, due to the non-substitutivity of $\wb$, further requires
-that all sums where equation variables appear are guarded sums:
+\hl{The version of Milner's unique-solution theorem for $\wb$ further requires
+that all sums where equation variables appear are guarded
+sums}\footnote{But if the CCS syntax were defined with only guarded
+  sums, i.e., $\sum_{i\in I} \mu_i.P_i$ as
+  in~\cite{sangiorgi2015equations}, this addition
+  requirement disappears automatically, and we can even say $\wb$ is indeed a
+  congruence.}:
 \begin{theorem}[unique solution of equations for $\wb$]
 \label{t:Mil89}
-Let $E_i$ be guarded (and with guarded sums) and sequential with free
-variables $\subseteq \til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
+Let $E_i$ be guarded (with guarded sums only) and sequential with free
+variables up to $\til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
   ${\til Q} \wb {\til E}\{\til Q /\til X\}$. Then ${\til P} \wb {\til Q}$.
 \end{theorem}
 
-The proof of Theorem~\ref{t:Mil89} exploits an invariance property on immediate transitions for
-guarded and sequential expressions, and then extracts a bisimulation
+The proof of \hl{the last theorem above} exploits an invariance
+property on immediate \hl{derivations}
+of guarded and sequential expressions, and then extracts a bisimulation
 (up to bisimilarity) out
 of the solutions of the system.
 To see the need of the sequentiality  condition, consider
  the equation (from \cite{Mil89}) $X = \res a (a. X | \outC a)$
 where $X$ is guarded but not sequential. Any process that does not use
 $a$ is a solution\hl{, e.g. $\nil$ and $b.\nil$.}
+
+\hl{For more details of above three theorems,} c.f. Section~\ref{ss:part2}
+for their formalised versions (the univariate case) and
+Section~\ref{sec:multivariate} for the multivariate case
+(Theorem~\ref{t:Mil89s1} only).
 
 %% next file: contraction.tex
