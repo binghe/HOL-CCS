@@ -2,19 +2,23 @@
 \label{s:for}
 
 We highlight here a formalisation of CCS in the HOL theorem prover
-(HOL4)~\cite{Melham:1993vl,slind2008brief},
-including the new concepts and theorems proposed in the first half of
-this paper.
+(HOL4)~\cite{Melham:1993vl,slind2008brief}, \hl{with a focus towards the
+theory (and formal proofs) of the unique solution of
+equations/contractions theorems} mentioned in Section~\ref{s:eq} and
+\ref{s:mcontr}.
 %  The main purpose is to convince the readers that, there's no flaw
 %  in the informal proofs. 
-The whole formalisation (apart from minor fixes and extensions in this
-paper)
-is described in \cite{Tian:2017wrba}, and the
-proof scripts are in HOL4 official
-examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}. The
-current work consists of about 20,000 lines of proof scripts.
+\hl{The univariate versions of these theorems, apart from minor fixes and
+extensions in this paper, was already described in}
+\cite{Tian:2017wrba}. The multivariate proofs and the related results
+are new, and will be described in Section~\ref{sec:multivariate}.
+All proof scripts are available as part of HOL's official
+examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}.
+The work so far consists of about 24,000 lines (1MB) of code in total,
+in which about 5,000 lines were derived from the early work of Monica
+Nesi~\cite{Nesi:1992ve} on HOL88, with major modifications.
 
-Higher Order Logic (HOL) \cite{hollogic} traces
+Higher Order Logic (HOL)~\cite{hollogic} traces
 its roots back to LCF
 \cite{gordon1979edinburgh,milner1972logic} by Robin Milner and others
 since \hl{1972. It} is a variant of
@@ -30,16 +34,16 @@ certain extensions.
 Indeed the HOL has \hl{considerably} simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
 \hl{As a consequence, theories and proofs verified in HOL are relatively more
-convincible to non-experts.}
+convincible to non-experts who are not familar with more advanced
+dependent type theories.}
 
-HOL4 is written in Standard ML, the same programming language who
+HOL4 is implemented in Standard ML, the same programming language who
 plays three different roles:
-%(The situation is quite different in other systems like
-%Coq\footnote{The Coq Proof Assistant. \url{https://coq.inria.fr}}).
 \begin{enumerate}
-\item It serves as the underlying implementation language for the core HOL engine;
-\item it is used to implement tactics (and tacticals) for writing proofs;
-\item it is used as the command language of the HOL interactive shell.
+\item the underlying implementation language for the core HOL engine;
+\item \hl{the language in which proof tactics are implemented;}
+\item \hl{the interface (outer) language of the HOL proof scripts and
+  interactive shell.}
 \end{enumerate}
 Moreover, using the same language HOL4 users can write complex automatic
 verification tools by calling HOL's theorem proving
@@ -47,52 +51,6 @@ facilities. The formal proofs of theorems in CCS theory
 are mostly done by an \emph{interactive process} closely following
 their informal proofs, with minimal automatic proof searching.
 
-% \finish{below: to be reformulated (by Davide) later} 
-% We will not repeat all definitions and theorems of CCS again by their
-% formalized versions. Instead, we just focus on several highlights in
-% this work, i.e.
-% \begin{enumerate}
-% \item The use of HOL's new coinductive relation package for defining bisimilarity;
-% \item The formalisation of context by $\lambda$-expression and the theory of
-%   (pre)congruence for CCS;
-% \item The definition and uses of trace in the proof of unique solution of
-%   contractions theorem;
-% \end{enumerate}\finish{TODO: need updates}
-
-%% [Chun]: cancelled this part as now we have multivariate formal proofs!
-% \emph{In this
-% formalisation we consider only single-variable equations/contractions.}
-% This considerably
-%  simplifies the required proofs in HOL, and  enhances the readability of
-%  proof scripts without loss of generality. For the  pencil-and-paper proofs, the
-%  multi-variable case is just a routine adaptation, while the
-%  formalisation in theorem prover
-%  is not (this is also discussed in Section~\ref{s:concl}).
-
-% \subsection{Simplifications and Limitations}
-
-% We have only formally verified simplified forms of the unique
-% solution theorems introduced in the first part. This is to not only
-% save the formalisation efforts, but also to make us focusing on the most
-% important part of the proof. The most important simplification is
-% that, we have only proved all unique solution theorems with only single-variable equations
-% (contractions).
-
-% But such a simplification doesn't hurt the rigorousness of our entire
-% work, as once the single-equation version of the theorem is
-% proven, the general case is just a routine
-% adaptation for paper proofs.
-% It's not easy to formalize multi-variable CCS equations with
-% introducing a large number of definitions and intermediate
-% results. It's easy, however, to directly use the semantics context to
-% represent single-variable equations without the need of formalizing
-% the concept of ``equation'' at all.
-
-% There're two major limitations in this work. One is due to HOL, we only support Finitary CCS, i.e.
-% no infinite sum nor infinite parallel composition.
-% The other limitation is, equation variables (or holes in semantics contexts)
-% cannot appear inside recursion operator closure. However, these limitations do not
-% cause any difference in the proof of main results represented in this paper.
+\hl{TODO: some background knowledge about HOL itself (the logic fundations)}
 
 % next file: sos.htex
- 

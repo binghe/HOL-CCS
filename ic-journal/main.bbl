@@ -60,12 +60,6 @@ D.~Sangiorgi, \href{https://hal.inria.fr/hal-01647063}{Equations, contractions,
 \newblock \href {https://doi.org/10.1145/2971339} {\path{doi:10.1145/2971339}}.
 \newline\urlprefix\url{https://hal.inria.fr/hal-01647063}
 
-\bibitem{Nesi:1992ve}
-M.~Nesi, \href{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}{{A
-  formalization of the process algebra CCS in high order logic}}, Tech. Rep.
-  UCAM-CL-TR-278, University of Cambridge, Computer Laboratory (1992).
-\newline\urlprefix\url{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}
-
 \bibitem{van2005characterisation}
 R.~J. van Glabbeek, A characterisation of weak bisimulation congruence, in:
   Processes, Terms and Cycles: Steps on the Road to Infinity, Springer, 2005,
@@ -110,6 +104,12 @@ C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
   Solutions of Equations in Process Algebra}}, Master's thesis, AlmaDigital,
   Bologna (Dec. 2017).
 \newline\urlprefix\url{http://amslaurea.unibo.it/14798/}
+
+\bibitem{Nesi:1992ve}
+M.~Nesi, \href{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}{{A
+  formalization of the process algebra CCS in high order logic}}, Tech. Rep.
+  UCAM-CL-TR-278, University of Cambridge, Computer Laboratory (1992).
+\newline\urlprefix\url{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}
 
 \bibitem{hollogic}
 {HOL4 contributors},
