@@ -916,6 +916,15 @@ Definition FV_def :
    (FV (rec X p)           = (FV p) DELETE X)
 End
 
+(* broken into separate theorems *)
+val [FV_nil,   FV_prefix, FV_sum, FV_par,
+     FV_restr, FV_relab,  FV_var, FV_rec] =
+    map save_thm
+        (combine (["FV_nil",   "FV_prefix",
+                   "FV_sum",   "FV_par",
+                   "FV_restr", "FV_relab",
+                   "FV_var",   "FV_rec"], CONJUNCTS FV_def));
+
 Theorem FV_SUBSET :
     !X E E'. FV (CCS_Subst E E' X) SUBSET (FV E) UNION (FV E')
 Proof
@@ -1017,7 +1026,7 @@ Proof
       RES_TAC >> take [`E1`, `E2`] >> DISJ2_TAC >> art [] ]
 QED
 
-Theorem FV_PREF :
+Theorem FV_REC_PREF :
     !X E u E'. FV (CCS_Subst E (rec X (prefix u E')) X) =
                FV (CCS_Subst E (rec X E') X)
 Proof
@@ -1025,7 +1034,7 @@ Proof
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def]
 QED
 
-Theorem FV_SUM :
+Theorem FV_REC_SUM :
     !X E E1 E2. FV (CCS_Subst E (rec X (E1 + E2)) X) =
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
@@ -1034,7 +1043,7 @@ Proof
  >> SET_TAC []
 QED
 
-Theorem FV_PAR :
+Theorem FV_REC_PAR :
     !X E E1 E2. FV (CCS_Subst E (rec X (par E1 E2)) X) =
                (FV (CCS_Subst E (rec X E1) X)) UNION (FV (CCS_Subst E (rec X E2) X))
 Proof
@@ -1061,6 +1070,15 @@ Definition BV_def :
    (BV (var X)             = EMPTY) /\
    (BV (rec X p)           = X INSERT (BV p))
 End
+
+(* broken into separate theorems *)
+val [BV_nil,   BV_prefix, BV_sum, BV_par,
+     BV_restr, BV_relab,  BV_var, BV_rec] =
+    map save_thm
+        (combine (["BV_nil",   "BV_prefix",
+                   "BV_sum",   "BV_par",
+                   "BV_restr", "BV_relab",
+                   "BV_var",   "BV_rec"], CONJUNCTS BV_def));
 
 Theorem BV_SUBSET :
     !X E E'. BV (CCS_Subst E E' X) SUBSET (BV E) UNION (BV E')
