@@ -154,6 +154,10 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
 \newblock \href {https://doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
 
+\bibitem{milner1990operational}
+R.~Milner, Operational and algebraic semantics of concurrent processes,
+  Handbook of Theoretical Comput. Sci. (1990).
+
 \bibitem{Nesi:2017wo}
 M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
   Computing 11~(2) (1999) 160--199.

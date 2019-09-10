@@ -1,13 +1,143 @@
 %%%% -*- Mode: LaTeX -*-
 
-\section{Multivariate extensions}
+\section{The multivariate formalisation}
 \label{sec:multivariate}
 
-(\hl{This section is new.})
+In this section, the formalisation of the multivariate (general)
+cases of Milner's ``unique solution of equations (for $\sim$)''
+(Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
+contractions'' (Theorem~\ref{t:rcontraBisimulationU}) is
+described. This work is entirely new after~\cite{EPTCS276.10}.
+We choose these two theorems because they both depend on the same
+concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
+This further extension is accumulative and is completely based on the
+existing formal framework in the sense that, neither the CCS datatype nor
+the SOS rules need to be changed.
+
+The central problem of the multivariate formalisation is the
+representation of CCS equations and equation variables. Regarding
+a system of equations $\{X_i = E_i\}_{i\in I}$ as in
+Def.~\ref{def:equation},
+modern literature (after Milner) usually consider $X_i$ as
+\emph{process variables (or equation variables)}~\citep[p.~102]{Gorrieri:2015jt}
+\emph{outside} of the CCS syntax, and treat $E_i$ as an \emph{open} expression
+built with CCS operators which may contain some occurrences of $X_i$.
+For a formal point of view, this means we either need to define a
+whole new datatype (with extra equation variables) in which each CCS
+opeartor must be duplicated, or we should added equation variables as a
+new primitive element (e.g.~\texttt{Var X}) beside the recursion
+variables (e.g.~\texttt{var X}), then the substitution of equation
+variables in $E_i\{\til P/\til X\}$ would be simply the \emph{syntactic substitution} of
+each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. Notice that, in
+either case the \emph{disjointness} between equation variables and recursion
+variables (i.e. constants) is obvious and syntactically
+guaranteed. However, neither solution is elegant: dealing with another CCS-like type makes the
+whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
+transitional semantics of CCS expressions; on the other hand,
+modifying the CCS datatype to just support the formalisation of
+unique-solution theorems is also not acceptable.
+
+
+
+Following the beginning of Section~\ref{s:eq},
+
+\subsection{Free and bound variables}
+
+\cite{milner1990operational}
+The following cases are interesting:
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\HOLthm[def]{CCS.FV_var} & \HOLthm[def]{CCS.FV_rec} \\
+\HOLthm[def]{CCS.BV_var} & \HOLthm[def]{CCS.BV_rec} \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{small}
+\begin{alltt}
+\HOLthm[nosp,width=90]{CCS.TRANS_IND}
+\end{alltt}
+\end{small}
 
 \begin{alltt}
+\HOLthm{CCS.TRANS_BV}
+
+\HOLthm{CCS.TRANS_FV}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm[def,>>3]{CCS.IS_PROC_def}
+
+\HOLthm{CCS.TRANS_PROC}
+\end{alltt}
+
+\subsection{Multivariate substitutions}
+
+\begin{alltt}
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}
+
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
+
+\HOLthm{Multivariate.CCS_SUBST_elim}
+
+\HOLthm{Multivariate.CCS_SUBST_reduce}
+
+\HOLthm{Multivariate.CCS_SUBST_FOLDR}
+
+\HOLthm{Multivariate.CCS_SUBST_self}
+
+\HOLthm{Multivariate.CCS_SUBST_nested}
+
+\HOLthm{Multivariate.BV_SUBSET_BIGUNION}
+
+\HOLthm{Multivariate.FV_SUBSET_BIGUNION_PRO}
+\end{alltt}
+
+\subsection{Multivariate (weakly-guarded) contexts}
+
+\begin{alltt}
+\HOLthm[def,>>3]{Multivariate.context_def}
+
+\HOLthm{Multivariate.context_combin}
+
+\HOLthm{Multivariate.STRONG_EQUIV_subst_context}
+
+\HOLthm{Multivariate.OBS_CONGR_subst_context}
+
+\HOLthm{Multivariate.OBS_contracts_subst_context}
+\end{alltt}
+
+\begin{alltt}
+\HOLthm[def,>>3]{Multivariate.weakly_guarded_def}
+
+\HOLthm{Multivariate.weakly_guarded_imp_context}
+
+\HOLthm{Multivariate.weakly_guarded_combin}
+\end{alltt}
+
+\subsection{Multivariate equations and solutions}
+
+\begin{alltt}
+\HOLthm{Multivariate.CCS_equation_def}
+
+\HOLthm{Multivariate.CCS_solution_def}
+\end{alltt}
+
+\subsection{Unique solution of equations for $\sim$ (the multivariate version)}
+
+\begin{alltt}
+\HOLthm{Multivariate.strong_unique_solution_lemma}
+  
 \HOLthm{Multivariate.strong_unique_solution_thm}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
+
+\subsection{Unique solution of rooted contractions (the multivariate version)}
 
 \begin{alltt}
 \HOLthm{Multivariate.unique_solution_of_rooted_contractions}\hfill{[unique_solution_of_rooted_contractions]}

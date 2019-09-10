@@ -1,10 +1,11 @@
 MUNGE = ../src/munge.exe
 MOPT = -w75
 
-HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex conclusions.tex
+HTEXFILES = part2.tex sos.tex bisim.tex coarsest.tex context.tex \
+            conclusions.tex multivariate.tex formal.tex
 TEXFILES = main.tex intro.tex ccs.tex expansion.tex multivariate.tex \
-           contraction.tex unique.tex equa.tex formal.tex \
-           related.tex conclusions.tex tokens.tex $(HTEXFILES)
+           contraction.tex unique.tex equa.tex \
+           related.tex tokens.tex $(HTEXFILES)
 
 TEXCMD = pdflatex
 
