@@ -7,26 +7,33 @@ In this section, the formalisation of the multivariate (general)
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}) is
-described. This work is entirely new after~\cite{EPTCS276.10}.
+described.
 We choose these two theorems because they both depend on the same
 concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-This further extension is accumulative and is completely based on the
+This work is entirely new after~\cite{EPTCS276.10}.
+It is accumulative, completely based on the
 existing formal framework in the sense that, neither the CCS datatype nor
 the SOS rules need to be changed.
 
 The central problem of the multivariate formalisation is the
-representation of CCS equations and equation variables. Regarding
-a system of equations $\{X_i = E_i\}_{i\in I}$ as in
-Def.~\ref{def:equation},
-modern literature (after Milner) usually consider $X_i$ as
-\emph{process variables (or equation variables)}~\citep[p.~102]{Gorrieri:2015jt}
+representation of CCS equations (expressions, contexts).
+Recall the univariate formalisation, $\lambda$-functions (of type
+$CCS\rightarrow CCS$) are used to represent univariate CCS
+equations, and variable substitutions are simply done by
+calling $\lambda$-functions on the target CCS terms.
+This idea cannot be extended to the multivariate case, as
+we don't have a fixed number of variables to deal with.
+
+Modern literature (i.e.~after Milner) usually consider the $X_i$ of
+a system of equations $\{X_i = E_i\}_{i\in I}$ (c.f. Def.~\ref{def:equation}) as an
+\emph{equation variable (or process variable)}~\citep[p.~102]{Gorrieri:2015jt}
 \emph{outside} of the CCS syntax, and treat $E_i$ as an \emph{open} expression
 built with CCS operators which may contain some occurrences of $X_i$.
 For a formal point of view, this means we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
-opeartor must be duplicated, or we should added equation variables as a
-new primitive element (e.g.~\texttt{Var X}) beside the recursion
-variables (e.g.~\texttt{var X}), then the substitution of equation
+opeartor must be duplicated, or we should add equation variables as a
+new primitive (e.g.~\texttt{Var X}) in the existing CCS type, beside the recursion
+variables (e.g.~\texttt{var X}). Then the substitution of equation
 variables in $E_i\{\til P/\til X\}$ would be simply the \emph{syntactic substitution} of
 each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. Notice that, in
 either case the \emph{disjointness} between equation variables and recursion
@@ -37,14 +44,29 @@ transitional semantics of CCS expressions; on the other hand,
 modifying the CCS datatype to just support the formalisation of
 unique-solution theorems is also not acceptable.
 
-
-
-Following the beginning of Section~\ref{s:eq},
+In this project, we have chosen to adopt Milner's original approach,
+which is also the most elegant way: reusing \emph{free} recursion variables
+(i.e. undefined constants) as equation variables, then the variable
+substitution function used in SOS rules [\texttt{REC}] can be also
+used for substituting eqaution variables.
+However, this approach brings us great difficulities in proving many
+fundamental lemmas, mostly due to the variable capture issues between
+equation variables and recursion variables. We believe all these
+issues are solvable.
 
 \subsection{Free and bound variables}
 
-\cite{milner1990operational}
-The following cases are interesting:
+Recall the beginning of Section~\ref{s:eq},
+the CCS syntax leaves the syntactic possibility that an
+agent variable $A$ occurs outside the recursion operator of the same
+variable. In Milner's original book chapter~\cite{milner1990operational}, the
+variables which occur in Recursion (such as $X$ in $\recu X E$) are
+called \emph{bound} variables, while those which occur unbound are called
+\emph{free} variables. We denote the set of all bound variables of a
+given CCS term $E$ as ``\HOLtm{BV E}'', and the set of all free
+variables as ``\HOLtm{FV E}''. In HOL, both \HOLtm{BV} and \HOLtm{FV} have the
+type ``\HOLty[of]{FV}'' (taking a CCS term returning a set of variable).
+Milner didn't give their definitions explicitly, however, 
 
 \begin{center}
 \begin{tabular}{|l|l|}
