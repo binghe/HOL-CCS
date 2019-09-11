@@ -10,7 +10,7 @@ contractions'' (Theorem~\ref{t:rcontraBisimulationU}) is
 described.
 We choose these two theorems because they both depend on the same
 concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-This work is entirely new after~\cite{EPTCS276.10}.
+\hl{This work is entirely new} after~\cite{EPTCS276.10}.
 It is accumulative, completely based on the
 existing formal framework in the sense that, neither the CCS datatype nor
 the SOS rules need to be changed.
@@ -83,7 +83,7 @@ and \texttt{INSERT} are set-theoretic operators of HOL's
 Furthermore, we say $E$ is a process, denoted by \HOLtm{IS_PROC E}, if
 it contains no free variables, i.e. $\fv{E} = \emptyset$:
 \begin{alltt}
-\HOLthm[def,>>3]{CCS.IS_PROC_def}
+\HOLthm[def,>>3]{CCS.IS_PROC_def}\hfill{[IS_PROC_def]}
 \end{alltt}
 
 Notice that, for any CCS expression, the set of free and bound
@@ -116,37 +116,39 @@ i.e. the set of free variables decreases through derivations:
 \HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
 \end{alltt}
 
-From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order matching
-based on the following induction principle generated
-together with SOS rules:
+From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
+of the following \emph{induction principle} generated together with SOS
+rules: (which essentially says \HOLtm{TRANS} is the smallest relation
+satisfying SOS rules. This is the \emph{first} time we need the inductive
+nature of CCS derivations.)
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
 \end{alltt}
-In the above long theorem, the outermost universal quantifier $P$ is a
-proposition about transition arguments $E$, $\mu$ and $E'$, and in
-this case $P(E, \mu, E')$ is actually $\fv{E'} \subseteq \fv{E}$. By Modus
-Ponens, the original proof goal can be reduced to several conjunct
-subgoals, each corresponding to one SOS rule. For instance, in one
-subgoal we are asked to prove that $\fv{E_1} \subseteq \fv{E} \Longrightarrow
-\fv{E_1} \subseteq \fv{E' + E}$, and this obviously holds, as $\fv{E}
+The above long theorem has the form \HOLtm[m\;]{!P. X ==> !E u E'. TRANS E
+  u E' ==> P E u E'} (with $a_0, a_1, a_2$ renamed), where the
+outermost universal quantifier $P$ is a higher-order
+proposition (about $E$, $\mu$ and $E'$), and $X$ is another higher-order
+proposition about $P$.
+What we are trying to prove is actually in the form of
+\HOLtm[m\;]{!E u E'. TRANS E u E' ==> P E u E'}, where
+\HOLtm[m\;]{P = \E u E'. FV E' SUBSET FV E}. Thus, if we can prove
+$X$ under this specific $P$, by Modus Ponens (MP) the original proof completes.
+\hl{\emph{This is the whole idea of action induction.}}
+Now the original goal can be reduced to several conjunct
+subgoals, each corresponding to one SOS rule. For instance, in
+a subgoal about Summation we are asked to prove
+$\fv{E_1} \subseteq \fv{E} \Longrightarrow
+\fv{E_1} \subseteq \fv{E' + E}$, but this obviously holds: $\fv{E}
 \subseteq \fv{E' + E} = \fv{E'} \cup \fv{E}$. Eventually we have only
-the following subgoal left: (the term above the line is the goal,
+the following goal left: (the term above the dash line is the goal,
 those below the line are assumptions)
 \begin{alltt}
         \HOLtm{FV E' SUBSET FV E DELETE X}
    ------------------------------------
     0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
 \end{alltt}
-Notice that, \HOLtm[m\;]{FV E DELETE X} comes from \HOLtm[m\;]{FV (rec X E)}, so
-the current goal is exactly the consequence of action induction on the
-SOS rule \texttt{REC}. Milner ever (correctly)
-said~\cite{milner1990operational} that,
-\begin{quote}
-  ``We shall often need to prove properties with the logical form `if
-  $E \arr{\alpha} E'$ then ...', ... but this is \emph{infeasible in
-    general} because, with (either) Recursion rule, an action for an
-  expression is inferred from an action of a `larger' expression.''
-\end{quote}
+Notice that, \HOLtm[m\;]{FV E DELETE X = FV (rec X E)}, so
+this is indeed the consequence of action induction on the Recursion.
 Here the problem is, we know nothing about
 \HOLtm[m\;]{FV ([rec X E/X] E)}. To further proceed, we need to prove
 some other (easier) lemmas. First, the next lemma can be easily proven
@@ -157,13 +159,13 @@ by doing induction on $E$ and basic set-theoretic facts:
 Then, if we took $E' = \recu X E$ in the above lemma, we get
 \HOLtm[m\;]{FV ([rec X E/X] E) SUBSET FV E UNION
   FV (rec X E)} $=$ \HOLtm[m\;]{FV E UNION (FV E DELETE X)} $=$
-\HOLtm[m\;]{FV E}, i.e.
+\HOLtm[m\;]{FV E}, i.e. the following lemma:
 \begin{alltt}
 \HOLthm[nosp]{CCS.FV_SUBSET_REC}\hfill{[FV_SUBSET_REC]}
 \end{alltt}
 Now we can enrich the assumptions of the current proof goal with above
-lemma and also conclude that \HOLtm{FV E' SUBSET FV E} (by
-the transitivity of $\subseteq$):
+lemma, then obtain \HOLtm{FV E' SUBSET FV E} by
+from the transitivity of $\subseteq$:
 \begin{alltt}
         \HOLtm{FV E' SUBSET FV E DELETE X}
    ------------------------------------
@@ -171,11 +173,12 @@ the transitivity of $\subseteq$):
     1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
     2.  \HOLtm{FV E' SUBSET FV E}
 \end{alltt}
-Here, knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
+Knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
   E' SUBSET FV E DELETE X}. However, if we knew \HOLtm{X
   NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and 
 \HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
-  DELETE X}, the proof completes. Thus it remains to prove that
+  DELETE X}, no matter if \HOLtm{X IN FV E} or not, and the proof
+completes. Thus it remains to prove that
 \begin{alltt}
         \HOLtm{X NOTIN FV E'}
    ------------------------------------
@@ -184,7 +187,8 @@ Here, knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
     2.  \HOLtm{FV E' SUBSET FV E}
 \end{alltt}
 Now we try proof by contradiction (\emph{reductio ad absurdum}): if
-\HOLtm{X IN FV E'}, by assumption 0 we have \HOLtm{X IN FV ([rec X
+the goal does not hold, i.e.
+\HOLtm{X IN FV E'}, then by assumption 0 we have \HOLtm{X IN FV ([rec X
   E/X] E)}:
 \begin{alltt}
         F
@@ -202,14 +206,12 @@ easily proven by induction on $E$:
 \HOLthm[nosp]{CCS.NOTIN_FV_lemma}\hfill{[NOTIN_FV_lemma]}
 \end{alltt}
 Adding the above lemma (taking $E' = E$) into the assumption list immediately causes
-a contradiction with assumption 4, thus the whole proof completes
-here. The (first) author cannot see any essentially easier proof of
-this proposition. (Without this result, the proof of Milner's ``unique solution of
-equations'' theorem (for $\sim$) cannot complete.)
+a contradiction with assumption 4, and the proof finally completes.
 \end{proof}
 
-Comparing with the above long proof, the proof of a  similar result on
-bound variables is much easier:
+Without the above result, the proof of Milner's ``unique solution of
+equations'' theorem (for $\sim$) cannot complete. Comparing with the
+above proof, the proof of the similar result for bound variables is much easier:
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
@@ -248,6 +250,16 @@ Taking $E ' = \recu X E$ in the above lemma, we have
 
 \subsection{Multivariate substitutions}
 
+There are two ways to represent (and actually do) the multivariate
+substitution of $E\{\til P/\til X\}$ which substitutes each possibly
+occurrences of free variables $X_i$ in $E$ with the corresponding
+$P_i$: (1) repeatedly applying the existing univariate
+\HOLtm[-SUB]{CCS_Subst}; (2) defining a new multivariate substitution
+function. In any case, we (reasonably) assume that all $X_i$ are
+distinct with each other.
+
+
+
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}
 
@@ -259,11 +271,9 @@ Taking $E ' = \recu X E$ in the above lemma, we have
 
 \HOLthm{Multivariate.CCS_SUBST_elim}
 
-\HOLthm{Multivariate.CCS_SUBST_reduce}
+\HOLthm{Multivariate.CCS_SUBST_self}
 
 \HOLthm{Multivariate.CCS_SUBST_FOLDR}
-
-\HOLthm{Multivariate.CCS_SUBST_self}
 
 \HOLthm{Multivariate.CCS_SUBST_nested}
 
