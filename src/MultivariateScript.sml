@@ -3498,6 +3498,8 @@ QED
      International Workshop on Expressiveness in Concurrency and 15th
      Workshop on Structural Operational Semantics (EXPRESS/SOS
      2018). Vol. 276. No. 4. 2018. (DOI: 10.4204/EPTCS.276.10)
+
+ [4] Gorrieri, R., Versari, C.: Introduction to Concurrency Theory. Springer, Cham (2015).
  *)
 
 (* Some unfinished work: *)
@@ -3529,6 +3531,14 @@ Theorem STRONG_EQUIV_PRESD_BY_REC :
 Proof
    ...
 QED
+
+(* the name "observationally_guarded" is from [4, p.104]
+   TODO: instead of changing SEQ to GSEQ, we should change SG to OG *)
+Definition observationally_guarded_def :
+    observationally_guarded Xs =
+       \E. DISJOINT (BV E) (set Xs) /\
+           EVERY (\X. OG (\t. CCS_Subst E t X)) Xs
+End
  *)
 
 val _ = export_theory ();

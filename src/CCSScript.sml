@@ -492,6 +492,9 @@ val [PREFIX, SUM1, SUM2, PAR1, PAR2, PAR3, RESTR, RELABELING, REC] =
                    "RELABELING", "REC"],
                   CONJUNCTS TRANS_rules));
 
+val TRANS_IND = save_thm ("TRANS_IND",
+    TRANS_ind |> (Q.SPEC `P`) |> GEN_ALL);
+
 (* The process nil has no transitions.
    !u E. ~TRANS nil u E
  *)
@@ -972,7 +975,7 @@ QED
 Theorem TRANS_FV :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E)
 Proof
-    HO_MATCH_MP_TAC TRANS_strongind
+    HO_MATCH_MP_TAC TRANS_IND (* strongind is useless *)
  >> RW_TAC lset_ss [FV_def] (* 7 subgoals *)
  >- ASM_SET_TAC [] (* 1 *)
  >- ASM_SET_TAC [] (* 2 *)
@@ -1108,14 +1111,14 @@ Proof
  >- ASM_SET_TAC [] (* 5 *)
  >- ASM_SET_TAC [] (* 6 *)
  >> MATCH_MP_TAC SUBSET_TRANS
- >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)`
+ >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)` >> art []
  >> fs [BV_SUBSET_REC]
 QED
 
 Theorem TRANS_FV_old :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
 Proof
-    HO_MATCH_MP_TAC TRANS_strongind
+    HO_MATCH_MP_TAC TRANS_IND
  >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
  >- ASM_SET_TAC [] (* 1 *)
  >- ASM_SET_TAC [] (* 2 *)
@@ -1156,15 +1159,15 @@ Proof
 QED
 
 Definition IS_PROC_def :
-    IS_PROC P <=> (FV P = EMPTY)
+    IS_PROC E <=> (FV E = EMPTY)
 End
 
 Definition ALL_PROC_def :
-    ALL_PROC Ps <=> EVERY IS_PROC Ps
+    ALL_PROC Es <=> EVERY IS_PROC Es
 End
 
 Theorem IS_PROC_EL :
-    !Ps n. ALL_PROC Ps /\ n < LENGTH Ps ==> IS_PROC (EL n Ps)
+    !Es n. ALL_PROC Es /\ n < LENGTH Es ==> IS_PROC (EL n Es)
 Proof
     RW_TAC list_ss [ALL_PROC_def, EVERY_MEM, MEM_EL]
  >> FIRST_X_ASSUM MATCH_MP_TAC
