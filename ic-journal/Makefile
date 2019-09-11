@@ -68,4 +68,7 @@ force: htex
 	bibtex main
 	$(TEXCMD) main
 
+quick: htex
+	$(TEXCMD) main
+
 .PHONY: all

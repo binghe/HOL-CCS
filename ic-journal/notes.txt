@@ -1,4 +1,0 @@
-Proposed additions into the journal version
-
-(strong) bisimulation
-

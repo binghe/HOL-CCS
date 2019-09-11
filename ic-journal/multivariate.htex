@@ -32,12 +32,12 @@ built with CCS operators which may contain some occurrences of $X_i$.
 For a formal point of view, this means we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
 opeartor must be duplicated, or we should add equation variables as a
-new primitive (e.g.~\texttt{Var X}) in the existing CCS type, beside the recursion
-variables (e.g.~\texttt{var X}). Then the substitution of equation
+new primitive (e.g.~\texttt{Var X}) in the existing CCS type beside
+the agent variables (e.g.~\texttt{var X}). Then the substitution of equation
 variables in $E_i\{\til P/\til X\}$ would be simply the \emph{syntactic substitution} of
 each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. Notice that, in
-either case the \emph{disjointness} between equation variables and recursion
-variables (i.e. constants) is obvious and syntactically
+either case the \emph{disjointness} between equation variables and
+agent variables (or constants) is obvious and syntactically
 guaranteed. However, neither solution is elegant: dealing with another CCS-like type makes the
 whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
 transitional semantics of CCS expressions; on the other hand,
@@ -45,14 +45,13 @@ modifying the CCS datatype to just support the formalisation of
 unique-solution theorems is also not acceptable.
 
 In this project, we have chosen to adopt Milner's original approach,
-which is also the most elegant way: reusing \emph{free} recursion variables
+which is also the most elegant way: reusing \emph{free} agent variables
 (i.e. undefined constants) as equation variables, then the variable
 substitution function used in SOS rules [\texttt{REC}] can be also
 used for substituting eqaution variables.
 However, this approach brings us great difficulities in proving many
 fundamental lemmas, mostly due to the variable capture issues between
-equation variables and recursion variables. We believe all these
-issues are solvable.
+equation variables and agent variables.
 
 \subsection{Free and bound variables}
 
@@ -63,11 +62,16 @@ variable. In Milner's original book chapter~\cite{milner1990operational}, the
 variables which occur in Recursion (such as $X$ in $\recu X E$) are
 called \emph{bound} variables, while those which occur unbound are called
 \emph{free} variables. We denote the set of all bound variables of a
-given CCS term $E$ as ``\HOLtm{BV E}'', and the set of all free
-variables as ``\HOLtm{FV E}''. In HOL, both \HOLtm{BV} and \HOLtm{FV} have the
-type ``\HOLty[of]{FV}'' (taking a CCS term returning a set of variable).
-Milner didn't give their definitions explicitly, however, 
-
+given CCS term $E$ as $\bv{E}$ (or \HOLtm[m\;]{BV E} in HOL), and the set of all free
+variables as $\fv{E}$ (or \HOLtm[m\;]{FV E} in HOL). Both \HOLtm{BV} and \HOLtm{FV} have the
+type ``\HOLty[of]{FV}'', i.e. functions taking CCS terms returning sets of
+variables (of type \HOLty{:'a}).
+Milner didn't give their definitions explicitly. However, one can
+imagine that, for most CCS operators they just pass into
+subterms without collecting anything (and $\nil$ gives $\emptyset$).
+The only interesting cases are Recursion and agent variables, shown below: (Here \texttt{DELETE}
+and \texttt{INSERT} are set-theoretic operators of HOL's
+\texttt{pred_set} theory.)
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
@@ -76,24 +80,171 @@ Milner didn't give their definitions explicitly, however,
 \hline
 \end{tabular}
 \end{center}
-
-\begin{small}
-\begin{alltt}
-\HOLthm[nosp,width=90]{CCS.TRANS_IND}
-\end{alltt}
-\end{small}
-
-\begin{alltt}
-\HOLthm{CCS.TRANS_BV}
-
-\HOLthm{CCS.TRANS_FV}
-\end{alltt}
-
+Furthermore, we say $E$ is a process, denoted by \HOLtm{IS_PROC E}, if
+it contains no free variables, i.e. $\fv{E} = \emptyset$:
 \begin{alltt}
 \HOLthm[def,>>3]{CCS.IS_PROC_def}
-
-\HOLthm{CCS.TRANS_PROC}
 \end{alltt}
+
+Notice that, for any CCS expression, the set of free and bound
+variables may not be disjoint, e.g. $X + \recu X E$.
+More importantly, when going
+from a CCS expression to its sub-expressions, the set of free
+variables may increase, while the set of bound variables always
+decrease. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
+$\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings greatly
+difficulities when doing proofs on CCS transitions. As an evidence,
+we prove the following fundamental result about $\fv{\cdot}$:
+
+\begin{proposition}
+\label{prop:transFV}
+The derivatives of a process are themselves processes, i.e.
+if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
+\emptyset$. Or, formally:
+\begin{alltt}
+\HOLthm[nosp]{CCS.TRANS_PROC}\hfill{[TRANS_PROC]}
+\end{alltt}
+\end{proposition}
+
+\begin{proof}
+Milner said it can be proven by ``an easy action
+induction''~\cite{milner1990operational}. However this is not true at all.
+%
+To see things more clearly, we try to prove a stronger result,
+i.e. the set of free variables decreases through derivations:
+\begin{alltt}
+\HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
+\end{alltt}
+
+From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order matching
+based on the following induction principle generated
+together with SOS rules:
+\begin{alltt}
+\HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
+\end{alltt}
+In the above long theorem, the outermost universal quantifier $P$ is a
+proposition about transition arguments $E$, $\mu$ and $E'$, and in
+this case $P(E, \mu, E')$ is actually $\fv{E'} \subseteq \fv{E}$. By Modus
+Ponens, the original proof goal can be reduced to several conjunct
+subgoals, each corresponding to one SOS rule. For instance, in one
+subgoal we are asked to prove that $\fv{E_1} \subseteq \fv{E} \Longrightarrow
+\fv{E_1} \subseteq \fv{E' + E}$, and this obviously holds, as $\fv{E}
+\subseteq \fv{E' + E} = \fv{E'} \cup \fv{E}$. Eventually we have only
+the following subgoal left: (the term above the line is the goal,
+those below the line are assumptions)
+\begin{alltt}
+        \HOLtm{FV E' SUBSET FV E DELETE X}
+   ------------------------------------
+    0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
+\end{alltt}
+Notice that, \HOLtm[m\;]{FV E DELETE X} comes from \HOLtm[m\;]{FV (rec X E)}, so
+the current goal is exactly the consequence of action induction on the
+SOS rule \texttt{REC}. Milner ever (correctly)
+said~\cite{milner1990operational} that,
+\begin{quote}
+  ``We shall often need to prove properties with the logical form `if
+  $E \arr{\alpha} E'$ then ...', ... but this is \emph{infeasible in
+    general} because, with (either) Recursion rule, an action for an
+  expression is inferred from an action of a `larger' expression.''
+\end{quote}
+Here the problem is, we know nothing about
+\HOLtm[m\;]{FV ([rec X E/X] E)}. To further proceed, we need to prove
+some other (easier) lemmas. First, the next lemma can be easily proven
+by doing induction on $E$ and basic set-theoretic facts:
+\begin{alltt}
+\HOLthm[nosp]{CCS.FV_SUBSET}\hfill{[FV_SUBSET]}
+\end{alltt}
+Then, if we took $E' = \recu X E$ in the above lemma, we get
+\HOLtm[m\;]{FV ([rec X E/X] E) SUBSET FV E UNION
+  FV (rec X E)} $=$ \HOLtm[m\;]{FV E UNION (FV E DELETE X)} $=$
+\HOLtm[m\;]{FV E}, i.e.
+\begin{alltt}
+\HOLthm[nosp]{CCS.FV_SUBSET_REC}\hfill{[FV_SUBSET_REC]}
+\end{alltt}
+Now we can enrich the assumptions of the current proof goal with above
+lemma and also conclude that \HOLtm{FV E' SUBSET FV E} (by
+the transitivity of $\subseteq$):
+\begin{alltt}
+        \HOLtm{FV E' SUBSET FV E DELETE X}
+   ------------------------------------
+    0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
+    1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
+    2.  \HOLtm{FV E' SUBSET FV E}
+\end{alltt}
+Here, knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
+  E' SUBSET FV E DELETE X}. However, if we knew \HOLtm{X
+  NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and 
+\HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
+  DELETE X}, the proof completes. Thus it remains to prove that
+\begin{alltt}
+        \HOLtm{X NOTIN FV E'}
+   ------------------------------------
+    0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
+    1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
+    2.  \HOLtm{FV E' SUBSET FV E}
+\end{alltt}
+Now we try proof by contradiction (\emph{reductio ad absurdum}): if
+\HOLtm{X IN FV E'}, by assumption 0 we have \HOLtm{X IN FV ([rec X
+  E/X] E)}:
+\begin{alltt}
+        F
+   ------------------------------------
+    0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
+    1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
+    2.  \HOLtm{FV E' SUBSET FV E}
+    3.  \HOLtm{X IN FV E'}
+    4.  \HOLtm{X IN FV ([rec X E/X] E)}
+\end{alltt}
+But this is impossible, because all free occurrences of $X$ in $E$ now become
+bound in the form of $\recu X E$. In fact, the following lemma can be
+easily proven by induction on $E$:
+\begin{alltt}
+\HOLthm[nosp]{CCS.NOTIN_FV_lemma}\hfill{[NOTIN_FV_lemma]}
+\end{alltt}
+Adding the above lemma (taking $E' = E$) into the assumption list immediately causes
+a contradiction with assumption 4, thus the whole proof completes
+here. The (first) author cannot see any essentially easier proof of
+this proposition. (Without this result, the proof of Milner's ``unique solution of
+equations'' theorem (for $\sim$) cannot complete.)
+\end{proof}
+
+Comparing with the above long proof, the proof of a  similar result on
+bound variables is much easier:
+\begin{proposition}
+\label{prop:transBV}
+if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
+\begin{alltt}
+\HOLthm[nosp]{CCS.TRANS_BV}\hfill{[TRANS_BV]}
+\end{alltt}
+\end{proposition}
+\begin{proof}
+Following the proof of Prop.~\ref{prop:transFV}, we do action
+induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
+facts. The only subgoal left is:
+\begin{alltt}
+        \HOLtm{BV E' SUBSET X INSERT BV E}
+   ------------------------------------
+    0.  \HOLtm{BV E' SUBSET BV ([rec X E/X] E)}
+\end{alltt}
+Notice the difference with the proof of Prop.~\ref{prop:transFV}: now
+we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
+use the assumption and the transitivity of $\subseteq$ and try to
+prove the following goal instead:
+\begin{alltt}
+        \HOLtm{BV ([rec X E/X] E) SUBSET X INSERT BV E}
+   ------------------------------------
+    0.  \HOLtm{BV E' SUBSET BV ([rec X E/X] E)}
+\end{alltt}
+But this is an easy goal, due to the following lemma which can be
+easily proven by induction on $E$:
+\begin{alltt}
+\HOLthm[nosp]{CCS.BV_SUBSET}\hfill{[BV_SUBSET]}
+\end{alltt}
+Taking $E ' = \recu X E$ in the above lemma, we have
+    \HOLtm[m\;]{BV ([rec X E/X] E) SUBSET BV E UNION BV (rec X E)},
+    the right side equals to \HOLtm[m\;]{BV E UNION (X INSERT BV E)} $=$
+    \HOLtm[m\;]{X INSERT BV E}. The proof easily completes.
+\end{proof}
 
 \subsection{Multivariate substitutions}
 
