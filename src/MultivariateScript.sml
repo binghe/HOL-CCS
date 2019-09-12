@@ -232,8 +232,8 @@ Proof
 QED
 
 Theorem fromList_HD :
-    !x xs y ys. ~MEM x xs /\ (LENGTH xs = LENGTH ys) ==>
-                (fromList (x::xs) (y::ys) = (fromList xs ys) |+ (x,y))
+    !X Xs P Ps. ~MEM X Xs /\ (LENGTH Ps = LENGTH Xs) ==>
+                (fromList (X::Xs) (P::Ps) = (fromList Xs Ps) |+ (X,P))
 Proof
     SRW_TAC [] [fromList_def, FUPDATE_LIST_THM]
  >> MATCH_MP_TAC FUPDATE_FUPDATE_LIST_COMMUTES
@@ -244,6 +244,15 @@ Theorem FDOM_fromList :
     !Xs Ps. (LENGTH Ps = LENGTH Xs) ==> (FDOM (fromList Xs Ps) = set Xs)
 Proof
     SRW_TAC [] [fromList_def, FDOM_FUPDATE_LIST, MAP_ZIP]
+QED
+
+Theorem fromList_DOMSUB_NOT_IN_DOM :
+    !X Xs Ps. ~MEM X Xs /\ (LENGTH Ps = LENGTH Xs) ==>
+              (fromList Xs Ps) \\ X = fromList Xs Ps
+Proof
+    rpt STRIP_TAC
+ >> MATCH_MP_TAC DOMSUB_NOT_IN_DOM
+ >> fs [FDOM_fromList]
 QED
 
 Theorem fromList_FAPPLY_HD :
@@ -308,27 +317,50 @@ Proof
  >> MATCH_MP_TAC CCS_SUBST_elim' >> fs [FDOM_fromList]
 QED
 
+val lemma0 = Q.prove (
+   `!X P E fm. X NOTIN (FDOM fm) /\
+               FEVERY (\(k,v). X NOTIN (FV v)) fm ==>
+              (CCS_SUBST (fm |+ (X,P)) E = CCS_Subst (CCS_SUBST fm E) P X)`,
+ (* proof *)
+    NTAC 2 GEN_TAC
+ >> Induct_on `E` >> SRW_TAC [] []
+ >> fs [CCS_Subst_def, CCS_SUBST_def, EVERY_MEM] (* 2 subgoals left *)
+ >- (Cases_on `a = X` >> fs [] \\
+     Cases_on `a NOTIN FDOM fm` >> fs []
+     >- (MATCH_MP_TAC EQ_SYM \\
+         MATCH_MP_TAC CCS_Subst_elim >> rw [FV_def]) \\
+     fs [FAPPLY_FUPDATE_THM] \\
+     MATCH_MP_TAC EQ_SYM \\
+     MATCH_MP_TAC CCS_Subst_elim \\
+     fs [FEVERY_DEF])
+ >> Cases_on `a = X` >> fs [DOMSUB_NOT_IN_DOM]
+ >> Cases_on `a NOTIN FDOM fm` >> fs [CCS_Subst_rec]
+ >> Know `fm |+ (X,P) \\ a = fm \\ a |+ (X,P)`
+ >- (MATCH_MP_TAC DOMSUB_FUPDATE_NEQ >> METIS_TAC []) >> Rewr'
+ >> FIRST_X_ASSUM MATCH_MP_TAC
+ >> fs [FDOM_DOMSUB, FEVERY_DEF]
+ >> RW_TAC std_ss []
+ >> fs [DOMSUB_FAPPLY_NEQ]);
+
 (* CCS_SUBST_reduce leads to CCS_SUBST_FOLDR *)
 Theorem CCS_SUBST_reduce :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
                 EVERY (\e. X NOTIN (FV e)) Ps ==>
-         !E E'. DISJOINT (BV E) (set (X::Xs)) /\
-               (CCS_SUBST (fromList Xs Ps) E = E') ==>
-               (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
+         !E E'. (CCS_SUBST (fromList Xs Ps) E = E') ==>
+                (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
 Proof
-    rpt GEN_TAC >> STRIP_TAC
- >> Induct_on `E`
- >> SRW_TAC [] [CCS_SUBST_def, FDOM_fromList, BV_def]
- >> fs [CCS_Subst_def, EVERY_MEM, fromList_FAPPLY_HD] (* up to here *)
- >> `?n. n < LENGTH Xs /\ a = EL n Xs` by PROVE_TAC [MEM_EL]
- >> Know `(fromList (X::Xs) (P::Ps)) ' a = EL n Ps`
- >- (POP_ORW >> MATCH_MP_TAC fromList_FAPPLY_EL' >> art []) >> Rewr'
- >> MATCH_MP_TAC EQ_SYM
- >> Know `(fromList Xs Ps) ' a = EL n Ps`
- >- (POP_ORW >> MATCH_MP_TAC fromList_FAPPLY_EL >> art []) >> Rewr'
- >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_elim)
- >> `MEM (EL n Ps) Ps` by PROVE_TAC [MEM_EL]
- >> METIS_TAC []
+    rpt STRIP_TAC
+ >> Know `fromList (X::Xs) (P::Ps) = (fromList Xs Ps) |+ (X,P)`
+ >- (MATCH_MP_TAC fromList_HD >> art []) >> Rewr'
+ >> POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM)
+ >> MATCH_MP_TAC lemma0
+ >> fs [FDOM_fromList, FEVERY_DEF]
+ >> RW_TAC std_ss []
+ >> rename1 `MEM Y Xs`
+ >> `?n. n < LENGTH Xs /\ (Y = EL n Xs)` by PROVE_TAC [MEM_EL]
+ >> fs [fromList_FAPPLY_EL, EVERY_MEM]
+ >> FIRST_X_ASSUM MATCH_MP_TAC >> rw [MEM_EL]
+ >> Q.EXISTS_TAC `n` >> art []
 QED
 
 (* CCS_SUBST_reduce in another form *)
@@ -337,7 +369,6 @@ val lemma1 = Q.prove (
          ~MEM (FST (HD map)) (MAP FST (TL map)) /\
           ALL_DISTINCT (MAP FST (TL map)) /\
           EVERY (\e. (FST (HD map)) NOTIN (FV e)) (MAP SND (TL map)) /\
-          DISJOINT (BV E) (set (MAP FST map)) /\
          (CCS_SUBST (FEMPTY |++ (TL map)) E = E')
      ==> (CCS_SUBST (FEMPTY |++ map) E = CCS_Subst E' (SND (HD map)) (FST (HD map)))`,
  (* proof *)
@@ -345,7 +376,6 @@ val lemma1 = Q.prove (
  >> Cases_on `map` >- SRW_TAC [] []
  >> RW_TAC std_ss [HD, TL]
  >> Cases_on `h` >> fs []
- >> rename1 `X NOTIN (BV E)`
  >> Q.ABBREV_TAC `Xs = FST (UNZIP t)`
  >> Q.ABBREV_TAC `Ps = SND (UNZIP t)`
  >> Know `t = ZIP (Xs,Ps)` >- (unset [`Xs`, `Ps`] >> fs [])
@@ -355,19 +385,17 @@ val lemma1 = Q.prove (
  >> DISCH_THEN (fs o wrap)
  >> Know `(MAP SND (ZIP (Xs,Ps))) = Ps` >- PROVE_TAC [MAP_ZIP]
  >> DISCH_THEN (fs o wrap)
- >> MP_TAC (REWRITE_RULE [fromList_def] (Q.SPECL [`X`,`Xs`,`r`,`Ps`] CCS_SUBST_reduce))
+ >> MP_TAC (REWRITE_RULE [fromList_def] (Q.SPECL [`q`,`Xs`,`r`,`Ps`] CCS_SUBST_reduce))
  >> RW_TAC std_ss []
  >> POP_ASSUM (MP_TAC o (REWRITE_RULE [ZIP, LIST_TO_SET]) o (Q.SPEC `E`))
- >> `DISJOINT (BV E) (X INSERT (set Xs))` by ASM_SET_TAC []
- >> RW_TAC std_ss []);
+ >> rw []);
 
 (* Let map = ZIP(Xs,Ps), to convert CCS_SUBST to a folding of CCS_Subst, each P
    of Ps must contains free variables up to the corresponding X of Xs.
  *)
 val lemma2 = Q.prove (
    `!E map. ALL_DISTINCT (MAP FST map) /\
-            EVERY (\(x,p). FV p SUBSET {x}) map /\
-            DISJOINT (BV E) (set (MAP FST map)) ==>
+            EVERY (\(x,p). FV p SUBSET {x}) map ==>
            (CCS_SUBST (FEMPTY |++ map) E =
             FOLDR (\l e. CCS_Subst e (SND l) (FST l)) E map)`,
  (* proof *)
@@ -377,7 +405,6 @@ val lemma2 = Q.prove (
  >> MP_TAC (Q.SPECL [`E`, `CCS_SUBST (FEMPTY |++ map) E`,
                      `h::map`] lemma1) >> fs []
  >> Cases_on `h` >> fs []
- >> rename1 `X NOTIN (BV E)`
  >> rename1 `FV P SUBSET {X}`
  >> Know `EVERY (\e. X NOTIN (FV e)) (MAP SND map)`
  >- (fs [EVERY_MEM] >> RW_TAC std_ss [] \\
@@ -390,8 +417,7 @@ val lemma2 = Q.prove (
 (* lemma2 in another form; this is less general than CCS_SUBST_reduce *)
 Theorem CCS_SUBST_FOLDR :
     !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
-              EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) /\
-              DISJOINT (BV E) (set Xs) ==>
+              EVERY (\(x,p). FV p SUBSET {x}) (ZIP (Xs,Ps)) ==>
              (CCS_SUBST (fromList Xs Ps) E =
               FOLDR (\(x,y) e. CCS_Subst e y x) E (ZIP (Xs,Ps)))
 Proof
@@ -418,17 +444,13 @@ Proof
 QED
  *)
 
-(* `ALL_DISTINCT Xs` is not necessary but makes the proof (much) easier;
-   `DISJOINT (BV E) (set Xs)` is also not necessary but without it
-    the proof (mostly dependent lemmas) cannot complete.
- *)
+(* `ALL_DISTINCT Xs` is not necessary but makes the proof (much) easier *)
 Theorem CCS_SUBST_self :
-    !E Xs. ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==>
-           (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
+    !E Xs. ALL_DISTINCT Xs ==> (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
 Proof
     GEN_TAC >> Induct_on `Xs`
  >> SRW_TAC [] [CCS_SUBST_FEMPTY, fromList_EMPTY]
- >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs /\ DISJOINT (BV E) (set Xs) ==> _` MP_TAC
+ >> Q.PAT_X_ASSUM `ALL_DISTINCT Xs ==> _` MP_TAC
  >> RW_TAC std_ss []
  >> MP_TAC (Q.SPECL [`h`, `Xs`, `var h`, `MAP var Xs`] CCS_SUBST_reduce)
  >> `LENGTH (MAP var Xs) = LENGTH Xs` by PROVE_TAC [LENGTH_MAP]
@@ -636,7 +658,7 @@ QED
 (* ========================================================================== *)
 
 Definition context_def :
-    context Xs = \E. DISJOINT (BV E) (set Xs) /\
+    context Xs E <=> DISJOINT (BV E) (set Xs) /\
                      EVERY (\X. CONTEXT (\t. CCS_Subst E t X)) Xs
 End
 
@@ -874,7 +896,7 @@ Proof
  >> DISCH_TAC
  >> IMP_RES_TAC CONTEXT8_IMP_CONST
  >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
- >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
 QED
 
 (* a collection of all (forward) rules of `context` *)
@@ -1248,7 +1270,7 @@ QED
       the resulting multi-hole context (\t. CCS_Subst E t X) is a WG.
  *)
 Definition weakly_guarded_def :
-    weakly_guarded Xs = \E. DISJOINT (BV E) (set Xs) /\
+    weakly_guarded Xs E <=> DISJOINT (BV E) (set Xs) /\
                             EVERY (\X. WG (\t. CCS_Subst E t X)) Xs
 End
 
@@ -1503,7 +1525,7 @@ Proof
  >> DISCH_TAC
  >> IMP_RES_TAC WG8_IMP_CONST
  >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
- >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
 QED
 
 (* This lemma is not used on purpose: `weakly_guarded Xs E` doesn't hold
@@ -1546,7 +1568,7 @@ Proof
  >> DISCH_TAC
  >> IMP_RES_TAC WG8_IMP_CONST
  >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
- >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NO_FV))
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
 QED
 
 Theorem weakly_guarded_rec_rule :
@@ -1558,7 +1580,7 @@ Proof
  >> RW_TAC list_ss [EVERY_MEM, CCS_Subst_def]
  >> `Y <> X` by METIS_TAC [] >> fs []
  >> Know `!t. CCS_Subst E t X = E`
- >- (GEN_TAC >> MATCH_MP_TAC (EQ_IMP_LR CCS_Subst_elim) \\
+ >- (GEN_TAC >> MATCH_MP_TAC CCS_Subst_elim \\
      ASM_SET_TAC [])
  >> Rewr' >> REWRITE_TAC [WG2]
 QED
@@ -1873,8 +1895,7 @@ Proof
  >- (RW_TAC std_ss [context_def, EVERY_MEM] \\
      Suff `!t. CCS_Subst P' t X = P'`
      >- (Rewr' >> REWRITE_TAC [CONTEXT2]) \\
-     REWRITE_TAC [GSYM CCS_Subst_elim] \\
-     ASM_SET_TAC [])
+     MATCH_MP_TAC CCS_Subst_elim >> ASM_SET_TAC [])
  >> CONJ_TAC (* FV P' SUBSET set Xs *)
  >- (`FV P' SUBSET FV (rec Y E)`
         by PROVE_TAC [TRANS_FV] (* TRANS_FV_old is not enough! *) \\
