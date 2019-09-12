@@ -977,12 +977,7 @@ Theorem TRANS_FV :
 Proof
     HO_MATCH_MP_TAC TRANS_IND (* strongind is useless *)
  >> RW_TAC lset_ss [FV_def] (* 7 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
+ >> TRY (ASM_SET_TAC []) (* 1 - 6 *)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
  >> `FV E' SUBSET FV E` by PROVE_TAC [SUBSET_TRANS]
  >> Suff `X NOTIN (FV E')` >- ASM_SET_TAC []
@@ -1104,12 +1099,7 @@ Theorem TRANS_BV :
 Proof
     HO_MATCH_MP_TAC TRANS_ind
  >> RW_TAC lset_ss [BV_def] (* 7 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
+ >> TRY (ASM_SET_TAC []) (* 1 - 6 *)
  >> MATCH_MP_TAC SUBSET_TRANS
  >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)` >> art []
  >> fs [BV_SUBSET_REC]
@@ -1120,14 +1110,7 @@ Theorem TRANS_FV_old :
 Proof
     HO_MATCH_MP_TAC TRANS_IND
  >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
- >- ASM_SET_TAC [] (* 7 *)
- >- ASM_SET_TAC [] (* 8 *)
+ >> TRY (ASM_SET_TAC []) (* 1 - 8 *)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
  >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
