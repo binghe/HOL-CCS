@@ -118,9 +118,8 @@ i.e. the set of free variables decreases through derivations:
 
 From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
 of the following \emph{induction principle} generated together with SOS
-rules: (which essentially says \HOLtm{TRANS} is the smallest relation
-satisfying SOS rules. This is the \emph{first} time we need the inductive
-nature of CCS derivations.)
+rules: (which essentially says \hl{that} \HOLtm{TRANS} is the smallest relation
+satisfying SOS rules.)
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
 \end{alltt}
@@ -136,10 +135,10 @@ $X$ under this specific $P$, by Modus Ponens (MP) the original proof completes.
 \hl{\emph{This is the whole idea of action induction.}}
 Now the original goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
-a subgoal about Summation we are asked to prove
+\hl{the subgoal for \texttt{SUM1} we need to prove}
 $\fv{E_1} \subseteq \fv{E} \Longrightarrow
-\fv{E_1} \subseteq \fv{E' + E}$, but this obviously holds: $\fv{E}
-\subseteq \fv{E' + E} = \fv{E'} \cup \fv{E}$. Eventually we have only
+\fv{E_1} \subseteq \fv{E + E'}$, but this obviously holds: $\fv{E}
+\subseteq \fv{E + E'} = \fv{E} \cup \fv{E'}$. Eventually we have only
 the following goal left: (the term above the dash line is the goal,
 those below the line are assumptions)
 \begin{alltt}
@@ -253,36 +252,115 @@ Taking $E ' = \recu X E$ in the above lemma, we have
 There are two ways to represent (and actually do) the multivariate
 substitution of $E\{\til P/\til X\}$ which substitutes each possibly
 occurrences of free variables $X_i$ in $E$ with the corresponding
-$P_i$: (1) repeatedly applying the existing univariate
+$P_i$: (1) iterately applying the existing univariate
 \HOLtm[-SUB]{CCS_Subst}; (2) defining a new multivariate substitution
 function. In any case, we (reasonably) assume that all $X_i$ are
-distinct with each other.
+distinct with each other. On the other hand, there is the syntactic
+possibility that $\til P$ again contains variables from $\til X$, thus
+different orders of iterated substitutions may lead to different results.
+In fact, there are all kinds of issues with
+substitutions and applying them to term-like structures. To obtain the
+maximal flexibility with mimimal efforts, we defined
+a multivariate version of \HOLtm[-SUB]{CCS_Subst}
+called \HOLtm[-SUB]{CCS_SUBST} based HOL's \texttt{finite\_map} theory~\cite{holdesc}.
 
+A finite map of type \HOLty{:'a |-> 'b} is like a function of type
+\HOLty{:'a -> 'b} having only finitely many elements in its
+domain. In HOL, an empty finite map is denoted as \HOLtm{FEMPTY}.
+If \HOLtm{fm} is a finite map, its domain (as a set of keys) is denoted as
+\HOLtm{FDOM fm}. Applying \HOLtm{fm} on a certain key, say $k$, is denoted
+by \HOLtm{FAPPLY fm k}.
 
-
+The function \HOLtm[-SUB]{CCS_SUBST} takes a finite
+map \HOLtm{fm} of type \HOLty{:'a |-> ('a, 'b) CCS} and a CCS expression,
+then it returns another CCS expression in which
+all occurrences of variables in the \HOLtm{fm}'s domain are substituted with
+the corresponding value in \HOLtm{fm}. Such a finite map can be built from
+the list of variables \HOLtm{Xs} and the corresponding targets
+\HOLtm{Ps} (of the same length) by a helper function \HOLtm{fromList} (whose details are
+not interesting and omitted here), while
+\HOLtm[m\;,-SUB]{CCS_SUBST (fromList Xs Ps) E} is
+abbreviated as \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}.
+The substitution process is
+variable-parallel thus order-independent. For most CCS operators it
+just recursively call itself on subterms of current input. The only
+interesting cases are at agent variables and recursion operators:
 \begin{alltt}
-\HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}\hfill{[CCS_SUBST_var]}
 
-\HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}\hfill{[CCS_SUBST_rec]}
 \end{alltt}
+Notice that, the variable substitution only happens on free
+variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
+the domain of \HOLtm{fm}, \HOLtm[-SUB]{CCS_SUBST} must further does the
+substitution on $E$ using a reduce map with $X$, so that all
+occurences of agent variable $X$ in $E$ are correctly bypassed. On the
+other hand, since \HOLtm[-SUB]{CCS_SUBST} only walks each subterm
+once, even \HOLtm{Ps} contains free variables, these variables will
+not be further substituted. Thus the process is indeed
+order-independent. Below we give some key lemmas about \HOLtm[-SUB]{CCS_SUBST}.
 
+\begin{lemma}
+  If there is only one single variable $X$ in the map (with the target
+  expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
+  same as (the univariate) \HOLtm[-SUB]{CCS_Subst}:
 \begin{alltt}
-\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
+\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}\hfill{[CCS_SUBST_SING]}
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_elim}
+\begin{lemma}
+If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
+substitution of \HOLtm{Xs} in $E$ does not change $E$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_elim}\hfill{[CCS_SUBST_elim]}
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_self}
+\begin{lemma}
+Substituting each free variable $X$ in $E$ to \HOLtm[m\;]{var X} (itself)
+does not change $E$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_self}\hfill{[CCS_SUBST_self]}
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_FOLDR}
+The next lemma plays an important role. It essentially swaps the order of two substitutions:
+\begin{lemma}
+Under certain conditions, two nested substitutions can be
+converted into a single substitution where the targets are substituted first:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_nested}\hfill{[CCS_SUBST_nested]}
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_nested}
-
+Finally, the following two lemmas precisely estimate the free and
+bound variables of a substituted term:
+\begin{lemma}
+The bound variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
+at most the union of all bound variables from $E$ and \HOLtm{Ps}.
+\begin{alltt}
 \HOLthm{Multivariate.BV_SUBSET_BIGUNION}
+\end{alltt}
+\end{lemma}
 
+\begin{lemma}
+The free variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
+at most the union of all free variables from $E$ and \HOLtm{Ps}
+removing \HOLtm{Xs}.
+\begin{alltt}
 \HOLthm{Multivariate.FV_SUBSET_BIGUNION_PRO}
 \end{alltt}
+\end{lemma}
+
+It is worth noting that, in some of the above lemmas, the condition
+\HOLtm[m\;]{DISJOINT (BV E) (set Xs)} (the disjointness between bound variables of $E$ and
+ substitution variables) is not necessary but makes some proofs
+ easier.
 
 \subsection{Multivariate (weakly-guarded) contexts}
+
+
 
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.context_def}
