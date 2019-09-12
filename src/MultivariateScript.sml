@@ -869,8 +869,25 @@ QED
 
 (* `~MEM Y Xs` doesn't hold. *)
 Theorem context_rec :
-    !Xs Y E. context Xs (rec Y E) ==>
-             context Xs E /\ DISJOINT (FV E) (set Xs)
+    !Xs Y E. context Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
+Proof
+    rpt GEN_TAC >> DISCH_TAC
+ >> fs [context_def, EVERY_MEM]
+ >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
+ >> RES_TAC
+ >> `Y <> x` by PROVE_TAC []
+ >> fs [CCS_Subst_def]
+ >> Q.ABBREV_TAC `e = \t. CCS_Subst E t x`
+ >> Know `CONTEXT (\t. rec Y (e t))` >- (Q.UNABBREV_TAC `e` >> fs [])
+ >> Q.PAT_X_ASSUM `CONTEXT (\t. P)` K_TAC (* cleanup *)
+ >> DISCH_TAC
+ >> IMP_RES_TAC CONTEXT8_IMP_CONST
+ >> Q.UNABBREV_TAC `e` >> fs [IS_CONST_def]
+ >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
+QED
+
+Theorem context_rec' :
+    !Xs Y E. context Xs (rec Y E) ==> context Xs E /\ DISJOINT (FV E) (set Xs)
 Proof
     rpt GEN_TAC >> DISCH_TAC
  >> CONJ_TAC
@@ -956,7 +973,8 @@ Proof
      IMP_RES_TAC context_relab)
  (* 4 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -969,7 +987,8 @@ Proof
      REWRITE_TAC [STRONG_EQUIV_REFL])
  (* 3 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -981,7 +1000,8 @@ Proof
      REWRITE_TAC [STRONG_EQUIV_REFL])
  (* 2 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -992,7 +1012,8 @@ Proof
          ASM_SET_TAC []) >> Rewr' \\
      REWRITE_TAC [STRONG_EQUIV_REFL])
  >> (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -1047,7 +1068,8 @@ Proof
      IMP_RES_TAC context_relab)
  (* 4 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -1060,7 +1082,8 @@ Proof
      REWRITE_TAC [OBS_CONGR_REFL])
  (* 3 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -1072,7 +1095,8 @@ Proof
      REWRITE_TAC [OBS_CONGR_REFL])
  (* 2 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -1083,7 +1107,8 @@ Proof
          ASM_SET_TAC []) >> Rewr' \\
      REWRITE_TAC [OBS_CONGR_REFL])
  >> (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -1138,7 +1163,8 @@ Proof
      IMP_RES_TAC context_relab)
  (* 4 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -1151,7 +1177,8 @@ Proof
      REWRITE_TAC [OBS_contracts_REFL])
  (* 3 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST ((fromList Xs Ps) \\ a) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_DOMSUB, FDOM_fromList] \\
@@ -1163,7 +1190,8 @@ Proof
      REWRITE_TAC [OBS_contracts_REFL])
  (* 2 cases left *)
  >- (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -1174,7 +1202,8 @@ Proof
          ASM_SET_TAC []) >> Rewr' \\
      REWRITE_TAC [OBS_contracts_REFL])
  >> (IMP_RES_TAC context_rec \\
-    `DISJOINT (BV E) (set Xs)` by PROVE_TAC [context_def] \\
+     Know `DISJOINT (BV E) (set Xs)`
+     >- (fs [context_def, BV_def]) >> DISCH_TAC \\
      Know `CCS_SUBST (fromList Xs Ps) E = E`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
          ASM_SIMP_TAC std_ss [FDOM_fromList]) >> Rewr' \\
@@ -1661,7 +1690,7 @@ Proof
  (* goal 9 (of 10): hard, impossible *)
  >- (Know `FDOM (fromList Xs Es) = set Xs`
      >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap) \\
-     IMP_RES_TAC context_rec \\
+     IMP_RES_TAC context_rec' (* TODO *) \\
      Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
      rename1 `MEM X Xs` \\
      Know `CCS_SUBST ((fromList Xs Es) \\ X) C' = C'`
@@ -1676,7 +1705,7 @@ Proof
  (* goal 10 (of 10): not easy *)
  >> Know `FDOM (fromList Xs Es) = set Xs`
  >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap)
- >> IMP_RES_TAC context_rec
+ >> IMP_RES_TAC context_rec' (* TODO *)
  >> Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss []
  >> Know `CCS_SUBST (fromList Xs Es) C' = C'`
  >- (irule CCS_SUBST_elim >> fs [context_def])
