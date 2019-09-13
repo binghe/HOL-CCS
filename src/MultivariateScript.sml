@@ -867,7 +867,16 @@ Proof
  >> Cases_on `Y = X` >> fs [CONTEXT_rules]
 QED
 
-(* `~MEM Y Xs` doesn't hold. *)
+(* NOTES:
+
+  `~MEM Y Xs` doesn't hold (c.f. weakly_guarded_rec);
+
+  `DISJOINT (FV E) (set Xs)` should be `DISJOINT ((FV E) DIFF Y) (set Xs)`,
+   if we didn't have `DISJOINT (BV E) (set Xs)` in context_def, because
+  `Y` may appears inside Recursion in `E` in the case of `Y IN FV E`.
+
+   TODO: see if the rest theorems are still there under this weaker concl.
+ *)
 Theorem context_rec :
     !Xs Y E. context Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
 Proof
@@ -886,6 +895,11 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
 QED
 
+(* This lemma is not used on purpose: `context Xs E` doesn't hold
+   if we didn't have `DISJOINT (BV E) (set Xs)` in context_def, because
+  `Y` may appears inside Recursion in `E` in the case of `Y IN FV E`,
+   then `context Xs E` doesn't hold.
+ *)
 Theorem context_rec' :
     !Xs Y E. context Xs (rec Y E) ==> context Xs E /\ DISJOINT (FV E) (set Xs)
 Proof
@@ -1270,7 +1284,6 @@ Proof
  >> Know `FDOM (fromList Xs Es) = set Xs`
  >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap)
  >> IMP_RES_TAC context_rec
- >> Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss []
  >> Know `CCS_SUBST (fromList Xs Es) C' = C'`
  >- (irule CCS_SUBST_elim >> fs [context_def])
  >> DISCH_THEN (fs o wrap)
@@ -1687,11 +1700,10 @@ Proof
  >- (IMP_RES_TAC context_relab \\
      Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
      MATCH_MP_TAC weakly_guarded_relab_rule >> art [])
- (* goal 9 (of 10): hard, impossible *)
+ (* goal 9 (of 10): hard, impossible case *)
  >- (Know `FDOM (fromList Xs Es) = set Xs`
      >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap) \\
-     IMP_RES_TAC context_rec' (* TODO *) \\
-     Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss [] \\
+     IMP_RES_TAC context_rec \\
      rename1 `MEM X Xs` \\
      Know `CCS_SUBST ((fromList Xs Es) \\ X) C' = C'`
      >- (MATCH_MP_TAC CCS_SUBST_elim' \\
@@ -1705,14 +1717,13 @@ Proof
  (* goal 10 (of 10): not easy *)
  >> Know `FDOM (fromList Xs Es) = set Xs`
  >- (MATCH_MP_TAC FDOM_fromList >> art []) >> DISCH_THEN (fs o wrap)
- >> IMP_RES_TAC context_rec' (* TODO *)
- >> Q.PAT_X_ASSUM `context Xs C' ==> _` MP_TAC >> RW_TAC std_ss []
+ >> IMP_RES_TAC context_rec
  >> Know `CCS_SUBST (fromList Xs Es) C' = C'`
  >- (irule CCS_SUBST_elim >> fs [context_def])
  >> DISCH_THEN (fs o wrap)
  >> rename1 `~MEM Y Xs`
  >> MATCH_MP_TAC weakly_guarded_rec_rule >> art []
- >> fs [context_def]
+ >> fs [context_def, BV_def]
 QED
 
 Theorem disjoint_imp_weakly_guarded :
