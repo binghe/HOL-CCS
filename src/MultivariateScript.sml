@@ -346,13 +346,12 @@ val lemma0 = Q.prove (
 Theorem CCS_SUBST_reduce :
     !X Xs P Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
                 EVERY (\e. X NOTIN (FV e)) Ps ==>
-         !E E'. (CCS_SUBST (fromList Xs Ps) E = E') ==>
-                (CCS_SUBST (fromList (X::Xs) (P::Ps)) E = CCS_Subst E' P X)
+         !E. (CCS_SUBST (fromList (X::Xs) (P::Ps)) E =
+              CCS_Subst (CCS_SUBST (fromList Xs Ps) E) P X)
 Proof
     rpt STRIP_TAC
  >> Know `fromList (X::Xs) (P::Ps) = (fromList Xs Ps) |+ (X,P)`
  >- (MATCH_MP_TAC fromList_HD >> art []) >> Rewr'
- >> POP_ASSUM (ONCE_REWRITE_TAC o wrap o SYM)
  >> MATCH_MP_TAC lemma0
  >> fs [FDOM_fromList, FEVERY_DEF]
  >> RW_TAC std_ss []
@@ -444,7 +443,7 @@ Proof
 QED
  *)
 
-(* `ALL_DISTINCT Xs` is not necessary but makes the proof (much) easier *)
+(* not used any more. *)
 Theorem CCS_SUBST_self :
     !E Xs. ALL_DISTINCT Xs ==> (CCS_SUBST (fromList Xs (MAP var Xs)) E = E)
 Proof
