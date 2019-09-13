@@ -869,13 +869,11 @@ QED
 
 (* NOTES:
 
-  `~MEM Y Xs` doesn't hold (c.f. weakly_guarded_rec);
-
   `DISJOINT (FV E) (set Xs)` should be `DISJOINT ((FV E) DIFF Y) (set Xs)`,
    if we didn't have `DISJOINT (BV E) (set Xs)` in context_def, because
   `Y` may appears inside Recursion in `E` in the case of `Y IN FV E`.
 
-   TODO: see if the rest theorems are still there under this weaker concl.
+   TODO: check if the rest theorems are still there under this weaker concl.
  *)
 Theorem context_rec :
     !Xs Y E. context Xs (rec Y E) ==> DISJOINT (FV E) (set Xs)
@@ -895,16 +893,17 @@ Proof
  >> POP_ASSUM (STRIP_ASSUME_TAC o (MATCH_MP CCS_Subst_IMP_NOTIN_FV))
 QED
 
-(* This lemma is not used on purpose: `context Xs E` doesn't hold
-   if we didn't have `DISJOINT (BV E) (set Xs)` in context_def, because
+(* This lemma is not used on purpose: `context Xs E /\ ~MEM Y Xs` doesn't
+   hold if we didn't have `DISJOINT (BV E) (set Xs)` in context_def, as
   `Y` may appears inside Recursion in `E` in the case of `Y IN FV E`,
    then `context Xs E` doesn't hold.
  *)
 Theorem context_rec' :
-    !Xs Y E. context Xs (rec Y E) ==> context Xs E /\ DISJOINT (FV E) (set Xs)
+    !Xs Y E. context Xs (rec Y E) ==>
+             context Xs E /\ ~MEM Y Xs /\ DISJOINT (FV E) (set Xs)
 Proof
     rpt GEN_TAC >> DISCH_TAC
- >> CONJ_TAC
+ >> STRONG_CONJ_TAC
  >- (fs [context_def, EVERY_MEM, BV_def] \\
      rpt STRIP_TAC \\
      RES_TAC \\
@@ -915,7 +914,12 @@ Proof
      >- (Q.UNABBREV_TAC `e` >> ASM_SIMP_TAC std_ss []) \\
      DISCH_TAC \\
      MATCH_MP_TAC CONTEXT8_backward \\
-     Q.EXISTS_TAC `Y` >> art [])
+     Q.EXISTS_TAC `Y` >> art []) >> DISCH_TAC
+ >> STRONG_CONJ_TAC
+ >- (fs [context_def, EVERY_MEM] \\
+    `Y IN BV (rec Y E)` by PROVE_TAC [BV_REC] \\
+     CCONTR_TAC >> METIS_TAC [IN_DISJOINT]) >> DISCH_TAC
+ (* `DISJOINT (FV E) (set Xs) *)
  >> fs [context_def, EVERY_MEM]
  >> CCONTR_TAC >> fs [IN_DISJOINT, BV_def]
  >> RES_TAC
@@ -1546,6 +1550,10 @@ QED
 
 (* This theorem is only possible with our special `weakly_guarded`:
    those `var Y` left in E must not be wrongly treated as free variables.
+
+  `DISJOINT (FV E) (set Xs)` should be `DISJOINT ((FV E) DIFF Y) (set Xs)`,
+   if we didn't have `DISJOINT (BV E) (set Xs)` in weakly_guarded_def, because
+  `Y` may appears inside Recursion in `E` in the case of `Y IN FV E`.
  *)
 Theorem weakly_guarded_rec :
     !Xs Y E. weakly_guarded Xs (rec Y E) ==>
