@@ -225,6 +225,13 @@ End
 (* new pretty print format: ``[Ps/Xs] E`` (from termTheory) *)
 val _ = overload_on ("SUB", ``\Ps Xs. CCS_SUBST (fromList Xs Ps)``);
 
+Theorem CCS_SUBST_sing :
+    !X E E'. CCS_SUBST (fromList [X] [E']) E = CCS_Subst E E' X
+Proof
+    RW_TAC list_ss [fromList_def, ZIP, FUPDATE_LIST_THM]
+ >> rw [CCS_SUBST_SING]
+QED
+
 Theorem fromList_EMPTY :
     fromList [] [] = FEMPTY
 Proof
