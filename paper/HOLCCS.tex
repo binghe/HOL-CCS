@@ -1,5 +1,5 @@
-\newcommand{\HOLCCSDate}{11 Settembre 2019}
-\newcommand{\HOLCCSTime}{02:17}
+\newcommand{\HOLCCSDate}{12 Settembre 2019}
+\newcommand{\HOLCCSTime}{20:30}
 \begin{SaveVerbatim}{HOLCCSDatatypesCCS}
 \HOLFreeVar{CCS} \ensuremath{=}
     \HOLConst{\ensuremath{\mathbf{0}}}
@@ -357,13 +357,17 @@
 \end{SaveVerbatim}
 \newcommand{\HOLCCSTheoremsCCSXXdistinctXXexists}{\UseVerbatim{HOLCCSTheoremsCCSXXdistinctXXexists}}
 \begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXelim}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLBoundVar{X} \HOLConst{\HOLTokenNotIn{}} \HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}}. \ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{E}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLBoundVar{X} \HOLConst{\HOLTokenNotIn{}} \HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}}. \ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLCCSTheoremsCCSXXSubstXXelim}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXelim}}
-\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXIMPXXNOXXFV}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXelimXXIMPXXNOTIN}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}}. \ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{X} \HOLConst{\HOLTokenNotIn{}} \HOLConst{FV} \HOLBoundVar{E}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsCCSXXSubstXXelimXXIMPXXNOTIN}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXelimXXIMPXXNOTIN}}
+\begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXIMPXXNOTINXXFV}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \ensuremath{[}\HOLBoundVar{E\sb{\mathrm{1}}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{E\sb{\mathrm{2}}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{X} \HOLConst{\HOLTokenNotIn{}} \HOLConst{FV} \HOLBoundVar{E}
 \end{SaveVerbatim}
-\newcommand{\HOLCCSTheoremsCCSXXSubstXXIMPXXNOXXFV}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXIMPXXNOXXFV}}
+\newcommand{\HOLCCSTheoremsCCSXXSubstXXIMPXXNOTINXXFV}{\UseVerbatim{HOLCCSTheoremsCCSXXSubstXXIMPXXNOTINXXFV}}
 \begin{SaveVerbatim}{HOLCCSTheoremsCCSXXSubstXXnil}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sp{\prime}} \HOLBoundVar{X}. \ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}}
 \end{SaveVerbatim}
@@ -539,10 +543,18 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{\HOLTokenUnion{}} \HOLConst{FV} \HOLBoundVar{E\sp{\prime}}
 \end{SaveVerbatim}
 \newcommand{\HOLCCSTheoremsFVXXSUBSET}{\UseVerbatim{HOLCCSTheoremsFVXXSUBSET}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFVXXSUBSETXXPRO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{E\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{DELETE} \HOLBoundVar{X} \HOLConst{\HOLTokenUnion{}} \HOLConst{FV} \HOLBoundVar{E\sp{\prime}}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFVXXSUBSETXXPRO}{\UseVerbatim{HOLCCSTheoremsFVXXSUBSETXXPRO}}
 \begin{SaveVerbatim}{HOLCCSTheoremsFVXXSUBSETXXREC}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}
 \end{SaveVerbatim}
 \newcommand{\HOLCCSTheoremsFVXXSUBSETXXREC}{\UseVerbatim{HOLCCSTheoremsFVXXSUBSETXXREC}}
+\begin{SaveVerbatim}{HOLCCSTheoremsFVXXSUBSETXXRECXXPRO}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{DELETE} \HOLBoundVar{X}
+\end{SaveVerbatim}
+\newcommand{\HOLCCSTheoremsFVXXSUBSETXXRECXXPRO}{\UseVerbatim{HOLCCSTheoremsFVXXSUBSETXXRECXXPRO}}
 \begin{SaveVerbatim}{HOLCCSTheoremsFVXXsum}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{FV} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{q}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLConst{FV} \HOLBoundVar{p} \HOLConst{\HOLTokenUnion{}} \HOLConst{FV} \HOLBoundVar{q}
 \end{SaveVerbatim}
@@ -1079,7 +1091,8 @@
 \HOLThmTag{CCS}{CCS_distinct'}\HOLCCSTheoremsCCSXXdistinctYY
 \HOLThmTag{CCS}{CCS_distinct_exists}\HOLCCSTheoremsCCSXXdistinctXXexists
 \HOLThmTag{CCS}{CCS_Subst_elim}\HOLCCSTheoremsCCSXXSubstXXelim
-\HOLThmTag{CCS}{CCS_Subst_IMP_NO_FV}\HOLCCSTheoremsCCSXXSubstXXIMPXXNOXXFV
+\HOLThmTag{CCS}{CCS_Subst_elim_IMP_NOTIN}\HOLCCSTheoremsCCSXXSubstXXelimXXIMPXXNOTIN
+\HOLThmTag{CCS}{CCS_Subst_IMP_NOTIN_FV}\HOLCCSTheoremsCCSXXSubstXXIMPXXNOTINXXFV
 \HOLThmTag{CCS}{CCS_Subst_nil}\HOLCCSTheoremsCCSXXSubstXXnil
 \HOLThmTag{CCS}{CCS_Subst_par}\HOLCCSTheoremsCCSXXSubstXXpar
 \HOLThmTag{CCS}{CCS_Subst_prefix}\HOLCCSTheoremsCCSXXSubstXXprefix
@@ -1115,7 +1128,9 @@
 \HOLThmTag{CCS}{FV_relab}\HOLCCSTheoremsFVXXrelab
 \HOLThmTag{CCS}{FV_restr}\HOLCCSTheoremsFVXXrestr
 \HOLThmTag{CCS}{FV_SUBSET}\HOLCCSTheoremsFVXXSUBSET
+\HOLThmTag{CCS}{FV_SUBSET_PRO}\HOLCCSTheoremsFVXXSUBSETXXPRO
 \HOLThmTag{CCS}{FV_SUBSET_REC}\HOLCCSTheoremsFVXXSUBSETXXREC
+\HOLThmTag{CCS}{FV_SUBSET_REC_PRO}\HOLCCSTheoremsFVXXSUBSETXXRECXXPRO
 \HOLThmTag{CCS}{FV_sum}\HOLCCSTheoremsFVXXsum
 \HOLThmTag{CCS}{FV_var}\HOLCCSTheoremsFVXXvar
 \HOLThmTag{CCS}{IS_LABEL_def}\HOLCCSTheoremsISXXLABELXXdef
