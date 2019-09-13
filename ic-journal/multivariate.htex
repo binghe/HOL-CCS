@@ -301,15 +301,6 @@ not be further substituted. Thus the process is indeed
 order-independent. Below we present some key lemmas about
 \HOLtm[-SUB]{CCS_SUBST} \emph{without proofs}:
 
-\begin{lemma}[\texttt{CCS_SUBST_SING}]
-  If there is only one single variable $X$ in the map (with the target
-  expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
-  same as (the univariate) \HOLtm[-SUB]{CCS_Subst}:
-\begin{alltt}
-\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
-\end{alltt}
-\end{lemma}
-
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
 substitution of \HOLtm{Xs} in $E$ does not change $E$:
@@ -332,6 +323,35 @@ Under certain conditions, two nested substitutions can be
 converted into a single substitution where the targets are substituted first:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_nested}
+\end{alltt}
+\end{lemma}
+
+The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
+w.r.t. \texttt{CCS\_Subst}:
+\begin{lemma}[\texttt{CCS_SUBST_SING}]
+  If there is only one single variable $X$ in the map (with the target
+  expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
+  same as (the univariate) \HOLtm[-SUB]{CCS_Subst}:
+\begin{alltt}
+\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
+\end{alltt}
+\end{lemma}
+
+\begin{lemma}[\texttt{CCS_SUBST_reduce}]
+Under certain conditions (to get rid of substitution orders), a \multivariate substitution of variables
+\HOLtm{X::Xs} can be reduced to a \multivariate substitution of
+variables \HOLtm{Xs} and an \univariate substitution of $X$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_reduce}    
+\end{alltt}
+\end{lemma}
+
+\begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
+Under certain conditions (to get rid of substitution orders), a
+\multivariate substitution can be reduced to repeated applications
+of \univariate substitutions of each variable:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_FOLDR}    
 \end{alltt}
 \end{lemma}
 

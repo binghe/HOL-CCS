@@ -310,15 +310,6 @@ not be further substituted. Thus the process is indeed
 order-independent. Below we present some key lemmas about
 \HOLinline{\HOLConst{CCS_SUBST}} \emph{without proofs}:
 
-\begin{lemma}[\texttt{CCS_SUBST_SING}]
-  If there is only one single variable $X$ in the map (with the target
-  expression $E'$), then \HOLinline{\HOLConst{CCS_SUBST}} behaves exactly the
-  same as (the univariate) \HOLinline{\HOLConst{CCS_Subst}}:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{CCS_SUBST} \ensuremath{(}\HOLConst{FEMPTY} \HOLSymConst{|+} \ensuremath{(}\HOLFreeVar{X}\HOLSymConst{,}\HOLFreeVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
-\end{alltt}
-\end{lemma}
-
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the free variables of $E$ is disjoint with \HOLinline{\HOLFreeVar{Xs}}, a
 substitution of \HOLinline{\HOLFreeVar{Xs}} in $E$ does not change $E$:
@@ -343,6 +334,39 @@ converted into a single substitution where the targets are substituted first:
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{C}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}
+\end{alltt}
+\end{lemma}
+
+The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
+w.r.t. \texttt{CCS\_Subst}:
+\begin{lemma}[\texttt{CCS_SUBST_SING}]
+  If there is only one single variable $X$ in the map (with the target
+  expression $E'$), then \HOLinline{\HOLConst{CCS_SUBST}} behaves exactly the
+  same as (the univariate) \HOLinline{\HOLConst{CCS_Subst}}:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{CCS_SUBST} \ensuremath{(}\HOLConst{FEMPTY} \HOLSymConst{|+} \ensuremath{(}\HOLFreeVar{X}\HOLSymConst{,}\HOLFreeVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
+\end{alltt}
+\end{lemma}
+
+\begin{lemma}[\texttt{CCS_SUBST_reduce}]
+Under certain conditions (to get rid of substitution orders), a \multivariate substitution of variables
+\HOLinline{\HOLFreeVar{X}\HOLSymConst{::}\HOLFreeVar{Xs}} can be reduced to a \multivariate substitution of
+variables \HOLinline{\HOLFreeVar{Xs}} and an \univariate substitution of $X$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenNeg{}}\HOLConst{MEM} \HOLFreeVar{X} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
+   \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \HOLBoundVar{e}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \ensuremath{[}\HOLFreeVar{P}\HOLSymConst{::}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{X}\HOLSymConst{::}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLFreeVar{P}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)}    
+\end{alltt}
+\end{lemma}
+
+\begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
+Under certain conditions (to get rid of substitution orders), a
+\multivariate substitution can be reduced to repeated applications
+of \univariate substitutions of each variable:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
+   \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\ensuremath{(}\HOLBoundVar{x}\HOLSymConst{,}\HOLBoundVar{p}\ensuremath{)}. \HOLConst{FV} \HOLBoundVar{p} \HOLSymConst{\HOLTokenSubset{}} \HOLTokenLeftbrace{}\HOLBoundVar{x}\HOLTokenRightbrace{}\ensuremath{)} \ensuremath{(}\HOLConst{ZIP} \ensuremath{(}\HOLFreeVar{Xs}\HOLSymConst{,}\HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+   \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{FOLDR} \ensuremath{(}\HOLTokenLambda{}\ensuremath{(}\HOLBoundVar{x}\HOLSymConst{,}\HOLBoundVar{y}\ensuremath{)} \HOLBoundVar{e}. \ensuremath{[}\HOLBoundVar{y}\ensuremath{/}\HOLBoundVar{x}\ensuremath{]} \HOLBoundVar{e}\ensuremath{)} \HOLFreeVar{E} \ensuremath{(}\HOLConst{ZIP} \ensuremath{(}\HOLFreeVar{Xs}\HOLSymConst{,}\HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}    
 \end{alltt}
 \end{lemma}
 
@@ -409,11 +433,9 @@ derived from the original expression in this way must satisfy
 \end{alltt}
 Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{[}\HOLFreeVar{t}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\ensuremath{(}\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\ensuremath{)}}. This idea leads to the following definitions:
 \begin{alltt}
-   \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}}
-     \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
+   \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
 
-   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}}
-     \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
+   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
 \end{alltt}
 
 
@@ -444,7 +466,8 @@ Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeV
 
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
-   \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{FV} \HOLBoundVar{e} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es}
+   \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{FV} \HOLBoundVar{e} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
+   \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Es}
 
 \HOLTokenTurnstile{} \HOLConst{CCS_solution} \HOLFreeVar{R} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
@@ -454,13 +477,14 @@ Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeV
 \subsection{Unique solution of equations for $\sim$ (the \multivariate version)}
 
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
+\HOLTokenTurnstile{} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Ps}.
        \HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{P\sp{\prime}}.
            \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
            \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sp{\prime}}.
-               \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
+               \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{E\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+               \HOLBoundVar{P\sp{\prime}} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Qs}. \HOLConst{LENGTH} \HOLBoundVar{Qs} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E\sp{\prime}}
   
 \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
