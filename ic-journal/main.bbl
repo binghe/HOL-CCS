@@ -137,17 +137,27 @@ A.~Church, A formulation of the simple theory of types, The journal of symbolic
 \newblock \href {http://dx.doi.org/10.2307/2266170}
   {\path{doi:10.2307/2266170}}.
 
-\bibitem{gorrieri2017ccs}
-R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
-  154~(1-4) (2017) 145--166.
-\newblock \href {http://dx.doi.org/10.3233/FI-2017-1557}
-  {\path{doi:10.3233/FI-2017-1557}}.
+\bibitem{Melham:1989dk}
+T.~F. Melham, {Automating Recursive Type Definitions in Higher Order Logic},
+  in: Current Trends in Hardware Verification and Automated Theorem Proving,
+  Springer New York, New York, NY, 1989, pp. 341--386.
+
+\bibitem{Melham:1991}
+T.~F. Melham, {A Package For Inductive Relation Definitions In HOL}, in: 1991.,
+  International Workshop on the HOL Theorem Proving System and Its
+  Applications, IEEE, 1991, pp. 350--357.
 
 \bibitem{holdesc}
 {HOL4 contributors},
   \href{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}{{The
   HOL System DESCRIPTION (Kananaskis-13 release)}} (Aug. 2019).
 \newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}
+
+\bibitem{gorrieri2017ccs}
+R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
+  154~(1-4) (2017) 145--166.
+\newblock \href {http://dx.doi.org/10.3233/FI-2017-1557}
+  {\path{doi:10.3233/FI-2017-1557}}.
 
 \bibitem{norrish2013ordinals}
 M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and

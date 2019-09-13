@@ -331,7 +331,7 @@ substitution of \HOLinline{\HOLFreeVar{Xs}} in $E$ does not change $E$:
 Substituting each free variable $X$ in $E$ to \HOLinline{\HOLConst{var}\\\;\HOLFreeVar{X}} (itself)
 does not change $E$:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLConst{MAP} \HOLConst{var} \HOLFreeVar{Xs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{E}
+\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLConst{MAP} \HOLConst{var} \HOLFreeVar{Xs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{E}
 \end{alltt}
 \end{lemma}
 
@@ -359,8 +359,8 @@ at most the union of all bound variables from $E$ and \HOLinline{\HOLFreeVar{Ps}
 
 \begin{lemma}[\texttt{FV_SUBSET_BIGUNION_PRO}]
 The free variables of \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]}\\\;\HOLFreeVar{E}} have
-at most the union of all free variables from $E$ and \HOLinline{\HOLFreeVar{Ps}}
-removing \HOLinline{\HOLFreeVar{Xs}}.
+at most the union of all free variables from $E$ and \HOLinline{\HOLFreeVar{Ps}},
+excluding \HOLinline{\HOLFreeVar{Xs}}.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DIFF} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}

@@ -347,8 +347,8 @@ at most the union of all bound variables from $E$ and \HOLtm{Ps}.
 
 \begin{lemma}[\texttt{FV_SUBSET_BIGUNION_PRO}]
 The free variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
-at most the union of all free variables from $E$ and \HOLtm{Ps}
-removing \HOLtm{Xs}.
+at most the union of all free variables from $E$ and \HOLtm{Ps},
+excluding \HOLtm{Xs}.
 \begin{alltt}
 \HOLthm{Multivariate.FV_SUBSET_BIGUNION_PRO}
 \end{alltt}
