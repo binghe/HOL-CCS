@@ -430,6 +430,25 @@ Proof
  >> Cases_on `l` >> rw []
 QED
 
+Theorem CCS_SUBST_FOLDR' :
+    !Xs Ps E. ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
+              FEVERY (\(x,p). FV p SUBSET {x}) (fromList Xs Ps) ==>
+             (CCS_SUBST (fromList Xs Ps) E =
+              FOLDR (\(x,y) e. CCS_Subst e y x) E (ZIP (Xs,Ps)))
+Proof
+    rpt STRIP_TAC
+ >> MATCH_MP_TAC CCS_SUBST_FOLDR >> art []
+ >> fs [FEVERY_DEF, EVERY_MEM]
+ >> RW_TAC std_ss [MEM_ZIP]
+ >> fs []
+ >> Know `FDOM (fromList Xs Ps) = set Xs`
+ >- (MATCH_MP_TAC FDOM_fromList >> art [])
+ >> DISCH_THEN (fs o wrap)
+ >> `MEM (EL n Xs) Xs` by METIS_TAC [MEM_EL]
+ >> RES_TAC
+ >> METIS_TAC [fromList_FAPPLY_EL]
+QED
+
 (* A FOLDL-like version of CCS_SUBST_reduce
 Theorem CCS_SUBST_reduce' :
     !E X P Xs Ps. ~MEM X Xs /\ ALL_DISTINCT Xs /\ (LENGTH Ps = LENGTH Xs) /\
