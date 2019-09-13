@@ -213,7 +213,7 @@ in HOL. (c.f.~\cite{hollogic} for more details.)} entire mathematics
 can be formalised:
 \begin{equation*}
 \begin{array}{@{}l@{\qquad}l}
-\mbox{\texttt{BOOL\_CASES\_AX}} &\vdash \uquant{b} (b = \T ) \vee (b = \F )\\
+\mbox{\texttt{BOOL\_CASES\_AX}} &\vdash \uquant{b} (b = \T )\ \vee \ (b = \F )\\
 \mbox{\texttt{ETA\_AX}} &
 \vdash \uquant{f_{\alpha\fun\beta}}(\lquant{x}f\ x) = f\\
 \mbox{\texttt{SELECT\_AX}} &

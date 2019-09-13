@@ -98,5 +98,24 @@ symmetric, transitive), while the latter can  just be  a preorder (reflexive, tr
   \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[precongruence]}
 \end{alltt}
 
+Both strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are congruence:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
+\HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
+
+Although weak bisimilarity ($\approx$) is \emph{not} a congruence
+  with respect to~\texttt{CONTEXT}, it is indeed substitutive
+  with respect to~\texttt{GCONTEXT} 
+% (or if the CCS syntax were defined with
+%   only guarded sum operator \cite{sangiorgi2015equations}) 
+as $\approx$ is indeed preserved by guarded sums.
+
+Also,
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_precongruence]}
+\end{alltt}
+
 % next file: coarsest.htex
   

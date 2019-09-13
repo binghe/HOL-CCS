@@ -70,13 +70,12 @@ divergence.
 
 \paragraph{Acknowledgements}
 
-We have benefitted from suggestions and comments 
-from several people from the HOL
+We have \hl{greatly} benefitted from suggestions and comments 
+from \hl{anonymous reviewers} and several people from the HOL
 community, including (in \hl{alphabetic} order) Robert Beers, Jeremy Dawson,
 Ramana Kumar,
 Michael Norrish, 
 Konrad Slind, and
 Thomas T\"{u}rk.
 %
-The 
-paper was written in memory of Michael J.~C.~Gordon, the creator of the HOL theorem prover.
+The paper was written in memory of Michael J.~C.~Gordon, the creator of the HOL theorem prover.
