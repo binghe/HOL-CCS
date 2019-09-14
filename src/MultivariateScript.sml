@@ -1768,8 +1768,7 @@ Proof
      >- (Rewr' >> REWRITE_TAC [CONTEXT2]) \\
      MATCH_MP_TAC CCS_Subst_elim >> ASM_SET_TAC [])
  >> CONJ_TAC (* FV P' SUBSET set Xs *)
- >- (`FV P' SUBSET FV (rec Y E)`
-        by PROVE_TAC [TRANS_FV] (* TRANS_FV_old is not enough! *) \\
+ >- (`FV P' SUBSET FV (rec Y E)` by PROVE_TAC [TRANS_FV] \\
      MATCH_MP_TAC SUBSET_TRANS \\
      Q.EXISTS_TAC `FV (rec Y E)` >> art []) (* Yeah! *)
  >> CONJ_TAC (* DISJOINT (BV P') (set Xs) *)
