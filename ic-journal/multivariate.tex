@@ -330,6 +330,7 @@ interesting cases are at agent variables and recursion:
 \end{alltt}
 Note that the variable substitution only occurs on free
 variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
+<<<<<<< HEAD
 the domain of \HOLinline{\HOLFreeVar{fm}}, \HOLinline{\HOLConst{CCS_SUBST}} must continue the
 substitution on $E$ using a reduced map~--- without $X$~--- so that all
 occurences of $X$ in $E$ are correctly bypassed. Since
@@ -343,6 +344,29 @@ Below we present some key lemmas about
 
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the set of  free variables of $E$ is disjoint from \HOLinline{\HOLFreeVar{Xs}}, a
+=======
+the domain of \HOLinline{\HOLFreeVar{fm}}, \HOLinline{\HOLConst{CCS_SUBST}} must further does the
+substitution on $E$ using a reduce map with $X$, so that all
+occurences of agent variable $X$ in $E$ are correctly bypassed. On the
+other hand, since \HOLinline{\HOLConst{CCS_SUBST}} only walks each subterm
+once, even \HOLinline{\HOLFreeVar{Ps}} contains free variables, these variables will
+not be further substituted. Thus the process is indeed
+order-independent. Below we present some key lemmas about
+\HOLinline{\HOLConst{CCS_SUBST}} without proofs:\footnote{Hereafter,
+  some new logical constants from HOL's \texttt{pred_set}
+and \texttt{list} theories are used (c.f.~\cite{holdesc} for more
+details.): \HOLinline{\HOLConst{DISJOINT}} denotes set disjointness;
+``\HOLinline{\HOLConst{set}\\\;\HOLFreeVar{Xs}}'' is the set converted from the list \HOLinline{\HOLFreeVar{Xs}};
+\HOLinline{\HOLConst{ALL_DISTINCT}} says
+all elements of a list are distinct with each other; \HOLinline{\HOLConst{MAP}} is
+the mapping function from one list to another; \HOLinline{\HOLConst{EVERY}} means
+each element of a list satisfies a predicate; \HOLinline{\HOLConst{ZIP}} creates a
+new list from two lists of the same length, and each element of the new list is a pair of
+elements, each from one of the old lists.}
+
+\begin{lemma}[\texttt{CCS_SUBST_elim}]
+If the free variables of $E$ is disjoint with \HOLinline{\HOLFreeVar{Xs}}, a
+>>>>>>> 362252c862e9109d7a57f82c3d0f79c09dfe3a1f
 substitution of \HOLinline{\HOLFreeVar{Xs}} in $E$ does not change $E$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{E}
@@ -432,12 +456,13 @@ are propagated everywhere.
 % (We believe that they can be
 % all eliminated in the future.)
 
-\subsection{\Multivariate (weakly-guarded) contexts}
+\subsection{\Multivariate (weakly guarded) contexts}
 
 Recall in Section~\ref{ss:context}, univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
 of type $CCS\rightarrow CCS$. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
+<<<<<<< HEAD
 (contexts/expressions), \HOLinline{\HOLConst{WG}} (weak-guarded contexts),
 \HOLinline{\HOLConst{SG}} (strongly-guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
 contexts), are all defined inductively, i.e.~they are built bottom-up starting from some ``holes''. For instance, \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{\mid}}\\\;\HOLFreeVar{P}\ensuremath{)}}
@@ -445,6 +470,13 @@ holds because
 \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}}
 holds on the ground,
 \finish{what does it mean ``on the ground''?} 
+=======
+(contexts/expressions), \HOLinline{\HOLConst{WG}} (weak guarded contexts),
+\HOLinline{\HOLConst{SG}} (strongly guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
+contexts), are all defined inductively, i.e.~they are built from some ``holes''
+in a bottom-up way. For instance, \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{\mid}}\\\;\HOLFreeVar{P}\ensuremath{)}}
+holds because \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}} holds on the ground,
+>>>>>>> 362252c862e9109d7a57f82c3d0f79c09dfe3a1f
 and for any agent variable $X$, we have (by $\beta$-reduction)
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
 notation) is weakly guarded (c.f.~Def.~\ref{def:guardness}).
@@ -464,35 +496,98 @@ derived from the original expression  must satisfy
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)}
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}
 \end{alltt}
+<<<<<<< HEAD
 Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{[}\HOLFreeVar{t}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\ensuremath{(}\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\ensuremath{)}}. This idea leads to the following definitions:
+=======
+Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{[}\HOLFreeVar{t}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\ensuremath{(}\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\ensuremath{)}}. This above idea leads to the
+following definitions of CCS contexts and weakly guarded contexts:
+>>>>>>> 362252c862e9109d7a57f82c3d0f79c09dfe3a1f
 \begin{alltt}
    \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
 
    \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
 \end{alltt}
+<<<<<<< HEAD
 
 
 
+=======
+Notice that, the above definitions take an extra list of variables \HOLinline{\HOLFreeVar{Xs}} and
+assert the CCS expression \HOLinline{\HOLFreeVar{E}} with respect to this list. This
+allows us to formalise the concepts of contexts and guardedness
+independently of \HOLinline{\HOLConst{FV}}. Then \HOLinline{\HOLConst{weakly_guarded}\\\;\ensuremath{(}\HOLConst{SET_TO_LIST}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\ensuremath{)}\\\;\HOLFreeVar{E}} can
+be used assert that $E$ is weakly guarded w.r.t.~all its free
+variables.\footnote{Here \HOLinline{\HOLConst{SET_TO_LIST}} converts a finite set
+  to a list of the same elements. It turns out that, we never need this, because
+  in all unique-solution theorems a list of variables \HOLinline{\HOLFreeVar{Xs}} is fixed and
+  then all equations are required to contain free variables up to
+  \HOLinline{\HOLFreeVar{Xs}}. Thus our choices in these definitions are optimal.}
+(The strong guardedness and sequentiality can also be defined similarily
+when needed, using
+their \univariate companions (\texttt{SG} and \texttt{SEQ}).)
+
+The most important property of contexts are that, strong bisimilarity
+and other (pre)congruence relations are preserved by contexts, e.g.
+\begin{lemma}[\texttt{STRONG_EQUIV_subst_context}]
+If two tuples of processes $\til P$ and $\til Q$ are strongly
+bisimilar\footnote{Hereafter, HOL terms like \HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenStrongEQ}\\\;\HOLFreeVar{Qs}}
+  means that, two list of CCS processes are componentwise
+  (strongly) bisimilar. The same notation $\sim$ has been overloaded.}
+for any context $E$ with the possible occurrences of variables $\til
+X$ (same length as $\til P$ and $\til Q$), $E\{\til P/\til X\}$ and
+$E\{\til Q/\til X\}$ are also strongly bisimilar:
+>>>>>>> 362252c862e9109d7a57f82c3d0f79c09dfe3a1f
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\HOLTokenStrongEQ} \ensuremath{[}\HOLFreeVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}
+\end{alltt}
+\end{lemma}
+The similar properties also hold if $\sim$ is replaced with rooted
+bisimilarity ($\rapprox$) or rooted contraction ($\rcontr$). (It does
+not hold for weak bisimilarity $\wb$ and the contraction preorder $\mcontrBIS$.)
+
+Another important property of contexts is their composability: if we
+substitute some free variables in a context for some other contexts, the
+resulting term is still a context (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLConst{context} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
-   \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}
-
-\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\HOLTokenStrongEQ} \ensuremath{[}\HOLFreeVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}
-
-\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \ensuremath{[}\HOLFreeVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}
-
-\HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsContracts} \ensuremath{[}\HOLFreeVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}
+   \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[context_combin]}
 \end{alltt}
 
+Not every expression fit with CCS syntax is a context: any free
+variable in concern must not occur inside any recusion operator
+(c.f. the footnote at the beginning of Section~\ref{ss:SysEq}). In the
+extreme case, if the set of free variables of an expression, say $E$,
+is disjoint with a list of variables $\til X$, then this expression is
+for sure a context:
 \begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
+\end{alltt}
+On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$, we can
+conclude that, the set of free variables of $E$ excluding $Y$, is
+disjoint with $\til X$, i.e.
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{Y}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\hfill{[context_rec]}
+\end{alltt}
+Notice that, the above result is the best possible one. We cannot
+conclude \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}}, because $Y$ as a bound
+variable of $\recu Y E$ may be also a free variable in $\til X$. We
+also cannot conclude \HOLinline{\HOLConst{context}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{E}}, because in $\recu Y E$
+it is possible that the bound variable $Y$ occurs inside another
+recursion operator, then in $E$ it now becomes free. (See $\recu Y
+(\recu Z (a.Y + b.Z) + c.Y)$ for such an example.)
 
+For weakly-guarded contexts (which are also normal contexts), beside
+their regular properties (i.e. weak
+guardedness) as in the \univariate case (\HOLinline{\HOLConst{WG}}), we also need
+their composability w.r.t.~\multivariate contexts: if we
+substitute some free variables in a context $C$ for some weakly-guarded
+contexts, the resulting term is weakly-guarded (w.r.t.~the same set of variables):
+\begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
-   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}
+   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[weakly_guarded_combin]}
 \end{alltt}
 
 \subsection{\Multivariate equations and solutions}
@@ -501,7 +596,6 @@ Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeV
 \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{FV} \HOLBoundVar{e} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Es}
-
 \HOLTokenTurnstile{} \HOLConst{CCS_solution} \HOLFreeVar{R} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenEquiv{}}
    \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}
