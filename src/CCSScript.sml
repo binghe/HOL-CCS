@@ -1098,21 +1098,6 @@ Proof
  >> fs [BV_SUBSET_REC]
 QED
 
-Theorem TRANS_FV_old :
-    !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E UNION BV E)
-Proof
-    HO_MATCH_MP_TAC TRANS_IND
- >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
- >> TRY (ASM_SET_TAC []) (* 1 - 8 *)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
- >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
- >> Q.ABBREV_TAC `B = BV (CCS_Subst E (rec X E) X)`
- >> MATCH_MP_TAC SUBSET_TRANS
- >> Q.EXISTS_TAC `A UNION B` >> art []
- >> ASM_SET_TAC []
-QED
-
 Theorem BV_REC :
     !X E. X IN BV (rec X E)
 Proof
@@ -1120,9 +1105,11 @@ Proof
 QED
 
 Theorem BV_SUBSET_rules :
-    !X E E'. (BV E) SUBSET (BV (rec X E)) /\
-             (BV E) SUBSET (BV (sum E E')) /\ (BV E') SUBSET (BV (sum E E')) /\
-             (BV E) SUBSET (BV (par E E')) /\ (BV E') SUBSET (BV (par E E'))
+    !X E E'. (BV E)  SUBSET (BV (rec X E)) /\
+             (BV E)  SUBSET (BV (sum E E')) /\
+             (BV E') SUBSET (BV (sum E E')) /\
+             (BV E)  SUBSET (BV (par E E')) /\
+             (BV E') SUBSET (BV (par E E'))
 Proof
     rpt GEN_TAC >> SET_TAC [BV_def]
 QED

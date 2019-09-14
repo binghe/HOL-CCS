@@ -85,6 +85,10 @@ it contains no free variables, i.e. $\fv{E} = \emptyset$:
 \begin{alltt}
 \HOLthm[def,>>3]{CCS.IS_PROC_def}\hfill{[IS_PROC_def]}
 \end{alltt}
+And a list of CCS processes can be asserted by \HOLtm{ALL_PROC} defined upon \HOLtm{IS_PROC}:
+\begin{alltt}
+\HOLthm[>>3]{CCS.ALL_PROC_def}\hfill{[ALL_PROC_def]}
+\end{alltt}
 
 Notice that, for any CCS expression, the set of free and bound
 variables may not be disjoint, e.g. $X + \recu X E$.
@@ -499,7 +503,7 @@ recursion operator, then in $E$ it now becomes free. (See $\recu Y
 For weakly-guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
 guardedness) as in the \univariate case (\HOLtm{WG}), we also need
-their composability w.r.t.~\multivariate contexts: if we
+their composability w.r.t.~\multivariate contexts, i.e.~if we
 substitute some free variables in a context $C$ for some weakly-guarded
 contexts, the resulting term is weakly-guarded (w.r.t.~the same set of variables):
 \begin{alltt}
@@ -508,9 +512,83 @@ contexts, the resulting term is weakly-guarded (w.r.t.~the same set of variables
 
 \subsection{\Multivariate equations and solutions}
 
+With the formal definitions of \multivariate substitution and
+\multivariate (weakly-guarded) contexts, now we are ready to formally
+define \multivariate CCS equations/contractions and their (unique)
+solutions. Consider a system of equation $\{X_i = E_i\}_{i\in I}$
+(Def.~\ref{def:equation}), or its expanded form (here we suppose $I = [1,n]
+\in \mathbb{N}$, i.e.~a finite list):
+\begin{equation*}
+  \begin{cases}
+    &X_1 = E_1[\til X] \\
+    &X_2 = E_2[\til X] \\
+    & \vdots \\
+    &X_n = E_n[\til X]
+  \end{cases}
+\end{equation*}
+Consider its two essential ingredients:
+\begin{itemize}
+\item $\til X = (X_1, X_2, \ldots, X_n)$: a list of equation variables;
+\item $\til E = (E_1, E_2, \ldots, E_n)$: a list of CCS contexts 
+  with possible occurrences of free variables in $\til X$.
+\end{itemize}
+Obviously the two lists must have the same length. The all
+distinctness of $\til X$ is not really necessary but is very
+reasonable. Furthermore, we should assume $\til E$ does not contain
+any other free variables not in $\til X$, as Milner's unique-solution
+theorems also require the same condition.\footnote{One may think that,
+  if all other (i.e.~not in $\til X$) free variables in $\til E$ have
+  the same functionalities as $\nil$ as they are not to be
+  substituted, then all versions of unique-solution
+  theorems should still hold. However this is not the case for at
+  least Milner's Theorem~\ref{t:Mil89s1} as we shall explain.}
+
+In this project, the only optional restriction we added here is that, for each
+$E_i$ the set of its bound variables must be \emph{disjoint} with $\til
+X$. This restriction is actually aligned with literature based on
+process constants as one should never use the same name for equation
+variables and constants. However, we believe this restriction can be
+removed in the future.~\footnote{Essentially, this restriction is due
+  to the proof difficulties in some early lemmas about \multivariate
+  substitutions where \HOLtm[m\;]{DISJOINT (BV E) (set Xs)}
+  unnecessarily appears in the antecedents. Removing it requires a
+  more complex proof but is indeed possible. (We have succeeded in
+  fixing many such lemmas.) Once all these lemmas are
+fixed, the final unique-solution theorems also do not need this
+disjointness restriction.} Putting all together, below is the fomal
+definition of \multivariate CCS equation:
 \begin{alltt}
-\HOLthm{Multivariate.CCS_equation_def}
-\HOLthm{Multivariate.CCS_solution_def}
+\HOLthm[>>3]{Multivariate.CCS_equation_def}\hfill{[CCS_equation_def]}
+\end{alltt}
+
+Now consider (formally) what is a solution $\til P$ of CCS equation. First of
+all, the definition should be parametrized on a binary CCS
+relation $\R$ such as $\sim$ and $\rcontr$, so that the single definition
+could be used for the solution of all kind of CCS
+equations/contractions. Then, of course ${\til P} \ \R\  {\til E}\{\til
+P/\til X\}$ must hold, i.e.
+\begin{equation*}
+  \begin{cases}
+    &P_1 \ \R\ E_1\{\til P/\til X\} \\
+    &P_2 \ \R\ E_2\{\til P/\til X\} \\
+    & \vdots \\
+    &P_n \ \R\ E_n\{\til P/\til X\}
+  \end{cases}
+\end{equation*}
+Furthermore, each $P_i$ should be pure process, i.e. having no free
+variable. This is usually implicitly assumed in the literature but is
+actually a \emph{must} to complete some unique-solution proofs.
+At last, like the case of CCS equations, we must assume that, the
+set of bound variables (i.e. process constants) must be disjoint with
+$\til X$. (This disjointness requirement is optional but makes many proofs much
+easier, and it can be removed in the future.) Putting all together,
+below is the formal definition of a solution of \multivariate CCS
+equations:\footnote{If $R$ is a binary relation of CCS processes,
+  \HOLtm[m\;]{LIST_REL R} is the same binary relation but for lists of
+  CCS processes. Furthermore, \HOLtm[m\;]{LIST_REL R A B} implicitly
+  implies that the two lists $A$ and $B$ have the same length.}
+\begin{alltt}
+\HOLthm[>>3]{Multivariate.CCS_solution_def}\hfill{[CCS_solution_def]}
 \end{alltt}
 
 \subsection{Unique solution of equations for $\sim$ (the \multivariate version)}

@@ -6,7 +6,7 @@
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
 
-\hl{One} highlight of this formalization project is the simplified definitions of
+\hlD{An} highlight of this formalization project is the simplified definitions of
   bisimilarities using the new coinductive \hl{relation-defining} package of HOL4.
 Without it, the bisimilaries can still be defined,  but
   proving their basic properties would be more complicated.

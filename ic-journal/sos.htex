@@ -30,7 +30,7 @@ are denoted by \HOLtm[-In]{label (name
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
 expressions, where \texttt{'a} (or $\alpha$) is the type variable\footnote{The order of type variables $\alpha$ and $\beta$
-    is arbitrary. Our choice is aligned with other \hl{literature.
+    is arbitrary. Our choice is aligned with  the \hl{literature.
 For instance,} $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
@@ -66,7 +66,7 @@ either for end user or for \TeX{} outputs.}\footnote{All
 \hl{\textbf{CCS concept}} & \hl{\textbf{Notation}} & \textbf{HOL term} &
                                              \textbf{HOL abbrev.} & \hl{\textbf{\TeX{} outputs}} \\
 \hline
-\hl{nil} & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLtm{nil} \\
+\hlD{nil} & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLtm{nil} \\
 prefix & $\mu.P$ & \texttt{prefix u P} & \texttt{u..P} & \HOLtm{prefix u P} \\
 \hl{summation} & $P + Q$ & \texttt{sum P Q} & \texttt{P + Q} & \HOLtm{sum P Q} \\
 parallel \hl{composition} & $P \,\mid\, Q$ & \texttt{par P Q} & \texttt{P || Q} & \HOLtm{P || Q} \\
@@ -123,9 +123,9 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{equation*}
 \HOLthm[rule,rulename=REC]{CCS.REC}
 \end{equation*}
-\item \hl{\emph{ind} is the induction principle for the
-  relation.} (c.f.~Section~\ref{sec:multivariate} for the exact form
-  and its application.)
+\item \hlD{\emph{ind} is the induction principle for the
+  relation} (see Section~\ref{sec:multivariate} for the exact form
+  and its application).
 \item \hl{\emph{cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules. For instance, it leads to the following
@@ -140,7 +140,7 @@ The last SOS rule \texttt{REC} (Recursion)
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
 transition. Here, ``\HOLtm{(CCS_Subst E (rec X E) X)}'' is \hl{an abbreviation}
-of ``\HOLtm[-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
+for ``\HOLtm[-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
 recursive function substituting all appearences of a free variable
 into another CCS term.
 For most CCS operators \HOLtm{CCS_Subst} just recursively goes into a deeper
@@ -154,12 +154,13 @@ recursion variables:
 \HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
 \HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
 \end{alltt}
-\hl{Intuitively, the variable substitutions only happens on \emph{free}
-variables: the variable $Y$ in} ``\HOLtm{rec Y E}'' \hl{is
-considered \emph{bound} and the substitution process ignores it if $Y$ is
-being substituted. The actual substitution happens in case of}
-``\HOLtm{var Y}'' if $Y$ is being substituted (and if \HOLtm{CCS_Subst}
-can actually reach it).
+\hlD{The variable substitutions only affects free
+variables: the variable $Y$ in} ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' \hlD{is
+bound and therefore the substitution ignores it. }
+% The actual substitution happens in case of}
+% ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being substituted (and if
+\HOLinline{\HOLConst{CCS_Subst}} 
+% can actually reach it).
 
 A useful facility exploiting the interplay
 between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
@@ -173,12 +174,12 @@ possible transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 \overset{\bar{a}}{\longrightarrow} (a.\nil | \nil)$ and $(a.\nil | \bar{a}.\nil)
 \overset{\tau}{\longrightarrow} (\nil | \nil)$.
 To completely describe all possible transitions of a process, if done manually, the
-following two facts must be proved: \hl{(1) there exist indeed three
-  transitions mentioned above; (2) there exists no other
-  transition.} For large CCS processes it is surprisingly \hl{tedious} to manually derive
-all the possible transitions and prove the non-existence of others,
-\hl{which shows the usefulness of appealing to an ML function
-\texttt{CCS\_TRANS\_CONV} who is designed to automate the whole process.
+following two facts must be proved: \hl{(1) there are indeed the three
+  transitions mentioned above; (2) there are no other
+  transitions.} For large CCS processes it is surprisingly \hl{tedious} to manually derive
+all the possible transitions and prove the non-existence of others.
+\hlD{This shows the usefulness of appealing to an ML function
+\texttt{CCS\_TRANS\_CONV} that is designed to automate the whole process.
 For instance, calling it on $(a.\nil | \bar{a}.\nil)$ the function returns the
 following theorem which describes all the transitions (just one-step) of the process:}
 \begin{alltt}
