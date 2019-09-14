@@ -1,3 +1,36 @@
+%%%% -*- Mode: LaTeX; -*-
+
+\newcommand\fun{{\to}}
+\newcommand\prd{{\times}}
+\newcommand{\ty}[1]{\textsl{#1}}
+\newcommand\conj{\ \wedge\ }
+\newcommand\disj{\ \vee\ }
+\newcommand\imp{ \Rightarrow }
+\newcommand\eqv{\ \equiv\ }
+\newcommand\vbar{\mid}
+\newcommand\turn{\ \vdash\ } % FIXME: "\ " resultgs in extra space
+\newcommand\hilbert{\varepsilon}
+\newcommand{\uquant}[1]{\forall #1.\ }
+\newcommand{\equant}[1]{\exists #1.\ }
+\newcommand{\hquant}[1]{\hilbert #1.\ }
+\newcommand{\iquant}[1]{\exists ! #1.\ }
+\newcommand{\lquant}[1]{\lambda #1.\ }
+\newcommand{\ml}[1]{\mbox{{\def\_{\char'137}\texttt{#1}}}}
+\newcommand{\con}[1]{\mathrm{#1}}
+
+\newcommand\bool{\ty{bool}}
+\newcommand\num{\ty{num}}
+\newcommand\ind{\ty{ind}}
+\newcommand\lst{\ty{list}}
+
+\providecommand{\T}{\con{T}}
+\renewcommand{\T}{\con{T}}
+\newcommand\F{\con{F}}
+\newcommand\OneOne{\con{One\_One}}
+\newcommand\OntoSubset{\con{Onto\_Subset}}
+\newcommand\Onto{\con{Onto}}
+\newcommand\TyDef{\con{Type\_Definition}}
+
 \section{The formalisation}
 \label{s:for}
 
@@ -51,6 +84,151 @@ facilities. The formal proofs of theorems in CCS theory
 are mostly done by an \emph{interactive process} closely following
 their informal proofs, with minimal automatic proof searching.
 
-\hl{TODO: some background knowledge about HOL itself (the logic fundations)}
+\subsection{Higher Order Logic}
+
+HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
+universe $\mathcal{U}$). HOL's type system is much simpler than those
+based on dependent types and other type theories. There are four kinds of types in the HOL
+logic, as illustrated in Fig. \ref{fig:hol-types} for its BNF
+grammar. Noticed that, in HOL the standard atomic types \emph{bool} and \emph{ind}
+ denote, respectively, the distinguished two-element set 2 and the
+distinguished infinite set $I$.
+
+\newlength{\ttX}
+\settowidth{\ttX}{\tt X}
+\newcommand{\tyvar}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize type variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\tyatom}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize atomic types}}
+\put(.5,3.3){\vector(0,1){2.6}}
+\end{picture}}
+\newcommand{\funty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function types}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (domain $\sigma_1$, codomain $\sigma_2$)}}
+\put(1,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\cmpty}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(2,3.3){\makebox(0,0)[b]{\footnotesize compound types}}
+\put(1.9,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\begin{figure}[h]
+\begin{equation*}
+\sigma\quad ::=\quad {\mathord{\mathop{\alpha}\limits_{\tyvar}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\tyatom}}}
+        \quad\mid\quad\underbrace{(\sigma_1, \ldots , \sigma_n){op}}_{\cmpty}
+        \quad\mid\quad\underbrace{\sigma_1\fun\sigma_2}_{\funty}
+\end{equation*}
+   \caption{HOL's type grammar}
+   \label{fig:hol-types}
+\end{figure}
+
+The terms of the HOL logic are expressions that denote elements of the
+sets denoted by types. There're four kinds of terms in the HOL
+logic. There can be described approximately by the BNF grammar in
+Fig. \ref{fig:hol-terms}.
+
+\settowidth{\ttX}{\tt X}
+\newcommand{\var}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,0){\makebox(0,0)[b]{\footnotesize variables}}
+\put(0,1.5){\vector(0,1){4.5}}
+\end{picture}}
+\newcommand{\const}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,2.3){\makebox(0,0)[b]{\footnotesize constants}}
+\put(.5,3.5){\vector(0,1){2.4}}
+\end{picture}}
+\newcommand{\app}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(.5,1.5){\makebox(0,0)[b]{\footnotesize function applications}}
+\put(.5,0){\makebox(0,0)[b]{\footnotesize (function $t$, argument $t'$)}}
+\put(0.5,2.5){\vector(0,1){3.5}}
+\end{picture}}
+\newcommand{\abs}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
+\put(1,3.3){\makebox(0,0)[b]{\footnotesize $\lambda$-abstractions}}
+\put(0.7,4.5){\vector(0,1){1.5}}
+\end{picture}}
+
+\begin{figure}[h]
+\begin{equation*}
+t \quad ::=\quad {\mathord{\mathop{x}\limits_{\var}}}
+        \quad\mid\quad{\mathord{\mathop{c}\limits_{\const}}}
+        \quad\mid\quad\underbrace{t\ t'}_{\app}
+        \quad\mid\quad\underbrace{\lambda x .\ t}_{\abs}
+\end{equation*}
+   \caption{HOL's term grammar}
+   \label{fig:hol-terms}
+ \end{figure}
+
+The deductive system of the HOL is specified by eight primitive
+derivation rules: (c.f.~\cite{hollogic} for more details.)
+\begin{enumerate}
+\item Assumption introduction (\texttt{ASSUME});
+\item Reflexivity (\texttt{REFL});
+\item $\beta$-conversion (\texttt{BETA\_CONV});
+\item Substitution (\texttt{SUBST});
+\item Abstraction (\texttt{ABS});
+\item Type instantiation (\texttt{INST\_TYPE});
+\item Discharging an assumption (\texttt{DISCH});
+\item Modus Ponens (\texttt{MP}).
+\end{enumerate}
+All proofs are eventually reduced to applications of the above rules,
+which also give the semantics of two foundamental
+logical connectives, the equality ($=$) and implication
+($\Rightarrow$). The rest logical connectives and first-order
+quantifiers, including the logical true (\HOLtm{T}) and false (\HOLtm{F}), are
+further defined as $\lambda$-functions: (one rarely needs to care
+things at this level, however.)
+\begin{equation*}
+\begin{array}{l}
+\turn \T       =  ((\lquant{x_{\ty{bool}}}x) =
+               (\lquant{x_{\ty{bool}}}x))    \\
+\turn \forall  =  \lquant{P_{\alpha\fun\ty{bool}}} P =
+                    (\lquant{x}\T ) \\
+\turn \exists  =  \lquant{P_{\alpha\fun\ty{bool}}} P({\hilbert}\, P) \\
+\turn \F  =  \uquant{b_{\ty{bool}}} b  \\
+\turn \neg    =  \lquant{b} b \imp \F \\
+\turn {\wedge}  =  \lquant{b_1\ b_2}\uquant{b} (b_1\imp (b_2 \imp b)) \imp b \\
+\turn {\vee}  =  \lquant{b_1\ b_2}\uquant{b} (b_1 \imp b)\imp ((b_2 \imp b) \imp b) \\
+\turn \OneOne  =  \lquant{f_{\alpha \fun\beta}}\uquant{x_1\ x_2}
+                    (f\ x_1 = f\ x_2)  \imp (x_1 = x_2) \\
+\turn \Onto  =  \lquant{f_{\alpha\fun\beta}}
+                  \uquant{y}\equant{x} y = f\ x \\
+\turn \TyDef  =  \lambda P_{\alpha\fun\ty{bool}}\
+                  rep_{\beta\fun\alpha}.\;
+                  \OneOne\ rep \ \wedge{}\  (\uquant{x}P x = (\equant{y} x = rep\ y))
+\end{array}
+\end{equation*}
+It deserves to mention that, the last logical constant above,
+$\TyDef$, can be used to define new HOL types as bijections of
+subsets of existing types. (c.f.~\cite{Melham:1989dk} for more details.)
+HOL's \texttt{Datatype} package~\cite{Melham:1991, holdesc} automates
+this tedious process, and can be used to define needed types in CCS.
+
+Finally, the whole HOL \emph{standard} theory is based on the
+following four axioms, from which the almost\footnote{HOL is strictly
+  weaker than ZFC (the Zermelo-Frankel set theory with the
+Axiom of Choice), thus not all theorems valid in ZFC can be formalised
+in HOL. (c.f.~\cite{hollogic} for more details.)} entire mathematics
+can be formalised:
+\begin{equation*}
+\begin{array}{@{}l@{\qquad}l}
+\mbox{\texttt{BOOL\_CASES\_AX}} &\vdash \uquant{b} (b = \T )\ \vee \ (b = \F )\\
+\mbox{\texttt{ETA\_AX}} &
+\vdash \uquant{f_{\alpha\fun\beta}}(\lquant{x}f\ x) = f\\
+\mbox{\texttt{SELECT\_AX}} &
+\vdash \uquant{P_{\alpha\fun\ty{bool}}\ x} P\ x \imp P({\hilbert}\ P)\\
+\mbox{\texttt{INFINITY\_AX}}&
+\vdash \equant{f_{\ind\fun \ind}} \OneOne \ f \conj \neg(\Onto \ f)\\
+\end{array}
+\end{equation*}
+
+Notice that, usually the above four axioms are the only axioms allowed
+in conventional formalisation projects in HOL: adding new axioms may
+either break the logic consistencies or make the whole work less
+convincible. The theorem prover (in general) guarantees that,
+without adding new axioms, if both the definitions and the statements
+of theorems are correct, then any proof which successfully completes must
+be correct.
 
 % next file: sos.htex

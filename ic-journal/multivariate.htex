@@ -1,9 +1,9 @@
 %%%% -*- Mode: LaTeX -*-
 
-\section{The multivariate formalisation}
+\section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section, the formalisation of the multivariate (general)
+In this section, the formalisation of the \multivariate (general)
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}) is
@@ -15,13 +15,13 @@ It is accumulative, completely based on the
 existing formal framework in the sense that, neither the CCS datatype nor
 the SOS rules need to be changed.
 
-The central problem of the multivariate formalisation is the
+The central problem of the \multivariate formalisation is the
 representation of CCS equations (expressions, contexts).
 Recall the univariate formalisation, $\lambda$-functions (of type
 $CCS\rightarrow CCS$) are used to represent univariate CCS
 equations, and variable substitutions are simply done by
 calling $\lambda$-functions on the target CCS terms.
-This idea cannot be extended to the multivariate case, as
+This idea cannot be extended to the \multivariate case, as
 we don't have a fixed number of variables to deal with.
 
 Modern literature (i.e.~after Milner) usually consider the $X_i$ of
@@ -118,9 +118,8 @@ i.e. the set of free variables decreases through derivations:
 
 From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
 of the following \emph{induction principle} generated together with SOS
-rules: (which essentially says \HOLtm{TRANS} is the smallest relation
-satisfying SOS rules. This is the \emph{first} time we need the inductive
-nature of CCS derivations.)
+rules: (which essentially says \hl{that} \HOLtm{TRANS} is the smallest relation
+satisfying SOS rules.)
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
 \end{alltt}
@@ -136,10 +135,10 @@ $X$ under this specific $P$, by Modus Ponens (MP) the original proof completes.
 \hl{\emph{This is the whole idea of action induction.}}
 Now the original goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
-a subgoal about Summation we are asked to prove
+\hl{the subgoal for \texttt{SUM1} we need to prove}
 $\fv{E_1} \subseteq \fv{E} \Longrightarrow
-\fv{E_1} \subseteq \fv{E' + E}$, but this obviously holds: $\fv{E}
-\subseteq \fv{E' + E} = \fv{E'} \cup \fv{E}$. Eventually we have only
+\fv{E_1} \subseteq \fv{E + E'}$, but this obviously holds: $\fv{E}
+\subseteq \fv{E + E'} = \fv{E} \cup \fv{E'}$. Eventually we have only
 the following goal left: (the term above the dash line is the goal,
 those below the line are assumptions)
 \begin{alltt}
@@ -248,45 +247,185 @@ Taking $E ' = \recu X E$ in the above lemma, we have
     \HOLtm[m\;]{X INSERT BV E}. The proof easily completes.
 \end{proof}
 
-\subsection{Multivariate substitutions}
+\subsection{\Multivariate substitutions}
 
-There are two ways to represent (and actually do) the multivariate
+There are two ways to represent (and actually do) the \multivariate
 substitution of $E\{\til P/\til X\}$ which substitutes each possibly
 occurrences of free variables $X_i$ in $E$ with the corresponding
-$P_i$: (1) repeatedly applying the existing univariate
-\HOLtm[-SUB]{CCS_Subst}; (2) defining a new multivariate substitution
+$P_i$: (1) iterately applying the existing univariate
+\HOLtm[-SUB]{CCS_Subst}; (2) defining a new \multivariate substitution
 function. In any case, we (reasonably) assume that all $X_i$ are
-distinct with each other.
+distinct with each other. On the other hand, there is the syntactic
+possibility that $\til P$ again contains variables from $\til X$, thus
+different orders of iterated substitutions may lead to different results.
+In fact, there are all kinds of issues with
+substitutions and applying them to term-like structures. To obtain the
+maximal flexibility with mimimal efforts, we defined
+a \multivariate version of \HOLtm[-SUB]{CCS_Subst}
+called \HOLtm[-SUB]{CCS_SUBST} based HOL's \texttt{finite\_map} theory~\cite{holdesc}.
 
+A finite map of type \HOLty{:'a |-> 'b} is like a function of type
+\HOLty{:'a -> 'b} having only finitely many elements in its
+domain. In HOL, an empty finite map is denoted as \HOLtm{FEMPTY}.
+If \HOLtm{fm} is a finite map, its domain (as a set of keys) is denoted as
+\HOLtm{FDOM fm}. Applying \HOLtm{fm} on a certain key, say $k$, is denoted
+by \HOLtm{FAPPLY fm k}.
 
-
+The function \HOLtm[-SUB]{CCS_SUBST} takes a finite
+map \HOLtm{fm} of type \HOLty{:'a |-> ('a, 'b) CCS} and a CCS expression,
+then it returns another CCS expression in which
+all occurrences of variables in the \HOLtm{fm}'s domain are substituted with
+the corresponding value in \HOLtm{fm}. Such a finite map can be built from
+the list of variables \HOLtm{Xs} and the corresponding targets
+\HOLtm{Ps} (of the same length) by a helper function \HOLtm{fromList} (whose details are
+not interesting and omitted here), while
+\HOLtm[m\;,-SUB]{CCS_SUBST (fromList Xs Ps) E} is
+abbreviated as \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}.
+The substitution process is
+variable-parallel thus order-independent. For most CCS operators it
+just recursively call itself on subterms of current input. The only
+interesting cases are at agent variables and recursion operators:
 \begin{alltt}
-\HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}\hfill{[CCS_SUBST_var]}
 
-\HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}
+\HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}\hfill{[CCS_SUBST_rec]}
 \end{alltt}
+Notice that, the variable substitution only happens on free
+variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
+the domain of \HOLtm{fm}, \HOLtm[-SUB]{CCS_SUBST} must further does the
+substitution on $E$ using a reduce map with $X$, so that all
+occurences of agent variable $X$ in $E$ are correctly bypassed. On the
+other hand, since \HOLtm[-SUB]{CCS_SUBST} only walks each subterm
+once, even \HOLtm{Ps} contains free variables, these variables will
+not be further substituted. Thus the process is indeed
+order-independent. Below we present some key lemmas about
+\HOLtm[-SUB]{CCS_SUBST} \emph{without proofs}:
 
+\begin{lemma}[\texttt{CCS_SUBST_elim}]
+If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
+substitution of \HOLtm{Xs} in $E$ does not change $E$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_elim}
+\end{alltt}
+\end{lemma}
+
+\begin{lemma}[\texttt{CCS_SUBST_self}]
+Substituting each free variable $X$ in $E$ to \HOLtm[m\;]{var X} (itself)
+does not change $E$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_self}
+\end{alltt}
+\end{lemma}
+
+The next lemma plays an important role. It essentially swaps the order of two substitutions:
+\begin{lemma}[\texttt{CCS_SUBST_nested}]
+Under certain conditions, two nested substitutions can be
+converted into a single substitution where the targets are substituted first:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_nested}
+\end{alltt}
+\end{lemma}
+
+The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
+w.r.t. \texttt{CCS\_Subst}:
+\begin{lemma}[\texttt{CCS_SUBST_SING}]
+  If there is only one single variable $X$ in the map (with the target
+  expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
+  same as (the univariate) \HOLtm[-SUB]{CCS_Subst}:
 \begin{alltt}
 \HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_elim}
+\begin{lemma}[\texttt{CCS_SUBST_reduce}]
+Under certain conditions (to get rid of substitution orders), a \multivariate substitution of variables
+\HOLtm{X::Xs} can be reduced to a \multivariate substitution of
+variables \HOLtm{Xs} and an \univariate substitution of $X$:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_reduce}    
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_self}
+\begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
+Under certain conditions (to get rid of substitution orders), a
+\multivariate substitution can be reduced to repeated applications
+of \univariate substitutions of each variable:
+\begin{alltt}
+\HOLthm{Multivariate.CCS_SUBST_FOLDR}    
+\end{alltt}
+\end{lemma}
 
-\HOLthm{Multivariate.CCS_SUBST_FOLDR}
-
-\HOLthm{Multivariate.CCS_SUBST_nested}
-
+Finally, the following two lemmas precisely estimate the free and
+bound variables of a substituted term:
+\begin{lemma}[\texttt{BV_SUBSET_BIGUNION}]
+The bound variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
+at most the union of all bound variables from $E$ and \HOLtm{Ps}.
+\begin{alltt}
 \HOLthm{Multivariate.BV_SUBSET_BIGUNION}
+\end{alltt}
+\end{lemma}
 
+\begin{lemma}[\texttt{FV_SUBSET_BIGUNION_PRO}]
+The free variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
+at most the union of all free variables from $E$ and \HOLtm{Ps},
+excluding \HOLtm{Xs}.
+\begin{alltt}
 \HOLthm{Multivariate.FV_SUBSET_BIGUNION_PRO}
 \end{alltt}
+\end{lemma}
 
-\subsection{Multivariate (weakly-guarded) contexts}
+It is worth noting that, in the above lemmas, the condition
+\HOLtm[m\;]{DISJOINT (BV E) (set Xs)} (the bound
+variables of $E$ and the free substitution variables are disjoint) is
+not necessary but makes some proofs (much) easier. As these lemmas are
+used in the rest work, these disjointness conditions eventually
+are propagated everywhere. (We believe that they can be
+all eliminated in the future.)
 
+\subsection{\Multivariate (weakly-guarded) contexts}
+
+Recall in Section~\ref{ss:context}, univariate contexts and their
+guarded companions are defined as predicates over $\lambda$-expressions
+of type $CCS\rightarrow CCS$. These predicates, such as
+\HOLtm{CONTEXT}
+(contexts/expressions), \HOLtm{WG} (weak-guarded contexts),
+\HOLtm{SG} (strongly-guarded contexts) and \HOLtm{SEQ} (sequential
+contexts), are all defined inductively, i.e.~they are built from some ``holes''
+in a bottom-up way. For instance, \HOLtm[m\;]{WG (\t. prefix l t || P)}
+holds because \HOLtm[m\;]{WG (\t. prefix l t)} holds on the ground,
+and for any agent variable $X$, we have (by $\beta$-reduction)
+\HOLtm[m\;]{(\t. prefix l t + P) (var X) = prefix l (var X) + P} (or ``$l.X + P$'' in textbook
+notation) is weakly guarded (c.f.~Def.~\ref{def:guardness}).
+
+It is possible to inductively assert multivariate contexts and their
+guarded variants, but this is not easy as we need to carefully exclude the cases where
+free variables occur inside any recusion operator (c.f. the footnote
+at the beginning of Section~\ref{ss:SysEq}. A more elegant (and less
+error-prone) solution is to define \multivariate contexts (and variants) upon the
+existing \univariate definitions. This is indeed our choice.
+
+For instance, to see the weak guardedness of $a.X + b.X + c.Y$, it is
+natural to focus on each (free) variable: if we substitute each
+occurrence of just one variable, say $X$, with a ``hole'' and see the
+resulting term as a $\lambda$-function, then all $\lambda$-functions
+derived from the original expression in this way must satisfy
+\HOLtm{WG}:
+\begin{alltt}
+\HOLthm{Example.WG_example1}
+\HOLthm{Example.WG_example2}
+\end{alltt}
+Notice that, \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
+  Y) = CCS_Subst (prefix a (var X) + prefix b
+  (var X) + prefix c  (var Y)) t X}. This idea leads to the following definitions:
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.context_def}
 
+\HOLthm[def,>>3]{Multivariate.weakly_guarded_def}
+\end{alltt}
+
+
+
+\begin{alltt}
 \HOLthm{Multivariate.context_combin}
 
 \HOLthm{Multivariate.STRONG_EQUIV_subst_context}
@@ -297,14 +436,11 @@ distinct with each other.
 \end{alltt}
 
 \begin{alltt}
-\HOLthm[def,>>3]{Multivariate.weakly_guarded_def}
-
-\HOLthm{Multivariate.weakly_guarded_imp_context}
 
 \HOLthm{Multivariate.weakly_guarded_combin}
 \end{alltt}
 
-\subsection{Multivariate equations and solutions}
+\subsection{\Multivariate equations and solutions}
 
 \begin{alltt}
 \HOLthm{Multivariate.CCS_equation_def}
@@ -312,7 +448,7 @@ distinct with each other.
 \HOLthm{Multivariate.CCS_solution_def}
 \end{alltt}
 
-\subsection{Unique solution of equations for $\sim$ (the multivariate version)}
+\subsection{Unique solution of equations for $\sim$ (the \multivariate version)}
 
 \begin{alltt}
 \HOLthm{Multivariate.strong_unique_solution_lemma}
@@ -320,7 +456,7 @@ distinct with each other.
 \HOLthm{Multivariate.strong_unique_solution_thm}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
 
-\subsection{Unique solution of rooted contractions (the multivariate version)}
+\subsection{Unique solution of rooted contractions (the \multivariate version)}
 
 \begin{alltt}
 \HOLthm{Multivariate.unique_solution_of_rooted_contractions}\hfill{[unique_solution_of_rooted_contractions]}

@@ -4,6 +4,7 @@
 %% Prof. Davide Sangiorgi and Chun Tian.
 
 \subsection{Context, guardedness and (pre)congruence}
+\label{ss:context}
 
 % We need to find a suitable formal definition of 
 % context. There're multiple ways. Here 
@@ -68,6 +69,25 @@ symmetric, transitive), while the latter can  just be  a preorder (reflexive, tr
 \HOLthm[def]{Congruence.congruence}\hfill{[congruence]}
 
 \HOLthm[def]{Congruence.precongruence}\hfill{[precongruence]}
+\end{alltt}
+
+Both strong bisimilarity ($\sim$) and
+rooted bisimilarity ($\approx^c$) are congruence:
+\begin{alltt}
+\HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
+\HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
+\end{alltt}
+
+Although weak bisimilarity ($\approx$) is \emph{not} a congruence
+  with respect to~\texttt{CONTEXT}, it is indeed substitutive
+  with respect to~\texttt{GCONTEXT} 
+% (or if the CCS syntax were defined with
+%   only guarded sum operator \cite{sangiorgi2015equations}) 
+as $\approx$ is indeed preserved by guarded sums.
+
+Also,
+\begin{alltt}
+\HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
 \end{alltt}
 
 % next file: coarsest.htex

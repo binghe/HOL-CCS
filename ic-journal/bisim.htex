@@ -5,6 +5,7 @@
 
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
+
 \hl{One} highlight of this formalization project is the simplified definitions of
   bisimilarities using the new coinductive \hl{relation-defining} package of HOL4.
 Without it, the bisimilaries can still be defined,  but
@@ -185,20 +186,6 @@ of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
 
-Both strong bisimilarity ($\sim$) and
-rooted bisimilarity ($\approx^c$) are  congruence relations:
-\begin{alltt}
-\HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
-\HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
-\end{alltt}
-
-Although weak bisimilarity ($\approx$) is \emph{not} a congruence
-  with respect to~\texttt{CONTEXT}, it is indeed substitutive
-  with respect to~\texttt{GCONTEXT} 
-% (or if the CCS syntax were defined with
-%   only guarded sum operator \cite{sangiorgi2015equations}) 
-as $\approx$ is indeed preserved by guarded sums.
-
 On the relationship between (weak) bisimilarity and rooted bisimilarity, 
 we have proved \hl{Deng's Lemma and Hennessy's Lemma}
 (Lemma 4.1 and 4.2 of~\citep[p.~176,~178]{Gorrieri:2015jt}):
@@ -210,7 +197,7 @@ we have proved \hl{Deng's Lemma and Hennessy's Lemma}
 
 \subsection{Algebraic Laws}
 
-Having formalised  the definitions of strong bisimulation and strong bisimilarity,
+Having formalised the definitions of strong bisimulation and strong bisimilarity,
 we can derive  \emph{algebraic laws} for the 
  bisimilarities. We only report a few laws for 
  the sum operator:
@@ -228,12 +215,10 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLthm{StrongLaws.STRONG_LEFT_SUM_MID_IDEMP}
 % Not all above theorems are primitive (in the sense of providing a
 % minimal axiomatization set for proving all other strong algebraic
 % laws). 
-The
-first 5 laws are proved
- by constructing bisimulation
+The first \hl{five of them are proven} by constructing \hl{proper} bisimulation
 relations, and their formal proofs are written in
-a goal-directed manner. Instead, the
-last 3 laws are derived in a forward manner by applications of
+a goal-directed manner. \hl{On the other hand, the
+last three algebraic laws} are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
  
@@ -286,14 +271,12 @@ i.e. the following proposition does not hold:
 \end{alltt}
 We prove it by constructing a bisimulation containing two processes
 $P$ and $Q$, given that they're in a contraction $Con$:
-\begin{lstlisting}
-        ?Wbsm. Wbsm P Q /\ WEAK_BISIM Wbsm
+\begin{alltt}
+        \HOLtm{?Wbsm. Wbsm P Q /\ WEAK_BISIM Wbsm}
    ------------------------------------
-    0.  Con P Q
-    1.  CONTRACTION Con
-   
-   : proof
-\end{lstlisting}
+    0.  \HOLtm{Con P Q}
+    1.  \HOLtm{CONTRACTION Con}
+\end{alltt}
 We cannot show that $Con$ itself is a bisimulation, but rather
 that the union of $Con$ and $\wb$ is a bisimulation.
 \hl{The corresponding lemma for the expansion preorder is rather
@@ -303,9 +286,7 @@ and does not require any non-trivial construction.}
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as follows, with its precongruence result:
 \begin{alltt}
-\HOLthm[def]{Contraction.OBS_contracts}\hfill{[OBS_contracts]}
-
-\HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}
+\HOLthm[def,>>3]{Contraction.OBS_contracts}\hfill{[OBS_contracts]}
 \end{alltt}
 
 %% TODO: move upto techniques inside "unique solution" theorems

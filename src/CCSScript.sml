@@ -936,6 +936,16 @@ Proof
  >> ASM_SET_TAC []
 QED
 
+(* This stronger result doesn't lead to a simpler proof
+   of TRANS_FV, as FV_SUBSET_REC cannot be further improved *)
+Theorem FV_SUBSET_PRO :
+    !X E E'. FV (CCS_Subst E E' X) SUBSET ((FV E) DELETE X) UNION (FV E')
+Proof
+    GEN_TAC >> Induct_on `E`
+ >> RW_TAC lset_ss [FV_def, CCS_Subst_def]
+ >> ASM_SET_TAC []
+QED
+
 Theorem FV_SUBSET_REC :
     !X E. FV (CCS_Subst E (rec X E) X) SUBSET (FV E)
 Proof
@@ -944,27 +954,6 @@ Proof
  >> ASM_SET_TAC [FV_def]
 QED
 
-(* The magical proof of TRANS_FV : (by induction on `TRANS`)
-
-        FV E' SUBSET FV E DELETE X
-   ------------------------------------
-    0.  CCS_Subst E (rec X E) X --u-> E'
-    1.  FV E' SUBSET FV (CCS_Subst E (rec X E) X)
-    2.  FV (CCS_Subst E (rec X E) X) SUBSET FV E
-    3.  FV E' SUBSET FV E
-
-  It's possible that X is a free variable in E, and then
- `CCS_Subst E (rec X E) X` changed X into a bound variable by
-  replacing every (free) `var X` in E with `rec X (...)`,
-  that's why `FV (CCS_Subst E (rec X E) X) SUBSET FV E`.
-
-  Is X in (BV E')? Yes, possible.
-
-  Is X in (FV E')? No. Because if it's in (FV E'), it must
-  be also in FV (CCS_Subst E (rec X E) X), but this should
-  be impossible as `CCS_Subst E (rec X E) X` as turned
-  all free X into bound X. Proven by induction on X.
- *)
 Theorem NOTIN_FV_lemma :
     !X E E'. X NOTIN FV (CCS_Subst E (rec X E') X)
 Proof
@@ -972,50 +961,49 @@ Proof
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def]
 QED
 
+Theorem FV_SUBSET_REC_PRO :
+    !X E. FV (CCS_Subst E (rec X E) X) SUBSET (FV E) DELETE X
+Proof
+    rpt GEN_TAC
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
+ >> ASSUME_TAC (Q.SPECL [`X`, `E`, `E`] NOTIN_FV_lemma)
+ >> ASM_SET_TAC []
+QED
+
 Theorem TRANS_FV :
     !E u E'. TRANS E u E' ==> FV E' SUBSET (FV E)
 Proof
     HO_MATCH_MP_TAC TRANS_IND (* strongind is useless *)
  >> RW_TAC lset_ss [FV_def] (* 7 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
- >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
- >> `FV E' SUBSET FV E` by PROVE_TAC [SUBSET_TRANS]
- >> Suff `X NOTIN (FV E')` >- ASM_SET_TAC []
- >> CCONTR_TAC >> fs [] (* reductio ad absurdum *)
- >> `X IN FV (CCS_Subst E (rec X E) X)` by ASM_SET_TAC []
- >> METIS_TAC [NOTIN_FV_lemma]
+ >> TRY (ASM_SET_TAC []) (* 1 - 6 *)
+ >> MATCH_MP_TAC SUBSET_TRANS
+ >> Q.EXISTS_TAC `FV (CCS_Subst E (rec X E) X)`
+ >> POP_ASSUM (REWRITE_TAC o wrap)
+ >> REWRITE_TAC [FV_SUBSET_REC_PRO]
 QED
 
-val lemma1 = Q.prove (
-   `!X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)`,
+Theorem CCS_Subst_elim :
+    !X E. X NOTIN (FV E) ==> !E'. (CCS_Subst E E' X = E)
+Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* one left *)
  >> Cases_on `a = X` >- fs []
- >> RES_TAC >> ASM_SIMP_TAC std_ss []);
+ >> RES_TAC >> ASM_SIMP_TAC std_ss []
+QED
 
-val lemma2 = Q.prove (
-   `!X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)`,
+Theorem CCS_Subst_elim_IMP_NOTIN :
+    !X E. (!E'. CCS_Subst E E' X = E) ==> X NOTIN (FV E)
+Proof
     GEN_TAC >> Induct_on `E` (* 8 subgoals *)
  >> RW_TAC lset_ss [CCS_Subst_def, FV_def] (* 2 goals left *)
  >- (CCONTR_TAC >> fs [] \\
      PROVE_TAC [Q.SPEC `var a` CCS_distinct_exists])
  >> Cases_on `X = a` >- fs []
- >> DISJ1_TAC >> fs []);
-
-(* X is not a free variable of E if and only if E{E'/X} = E *)
-Theorem CCS_Subst_elim :
-    !X E. X NOTIN (FV E) <=> !E'. (CCS_Subst E E' X = E)
-Proof
-    METIS_TAC [lemma1, lemma2]
+ >> DISJ1_TAC >> fs []
 QED
 
 (* if E[t/X] = E[t'/X] for all t t', X must not be free in E *)
-Theorem CCS_Subst_IMP_NO_FV :
+Theorem CCS_Subst_IMP_NOTIN_FV :
     !X E. (!E1 E2. CCS_Subst E E1 X = CCS_Subst E E2 X) ==> X NOTIN (FV E)
 Proof
     Suff `!X E. X IN (FV E) ==> ?E1 E2. CCS_Subst E E1 X <> CCS_Subst E E2 X`
@@ -1104,12 +1092,7 @@ Theorem TRANS_BV :
 Proof
     HO_MATCH_MP_TAC TRANS_ind
  >> RW_TAC lset_ss [BV_def] (* 7 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
+ >> TRY (ASM_SET_TAC []) (* 1 - 6 *)
  >> MATCH_MP_TAC SUBSET_TRANS
  >> Q.EXISTS_TAC `BV (CCS_Subst E (rec X E) X)` >> art []
  >> fs [BV_SUBSET_REC]
@@ -1120,14 +1103,7 @@ Theorem TRANS_FV_old :
 Proof
     HO_MATCH_MP_TAC TRANS_IND
  >> RW_TAC lset_ss [BV_def, FV_def] (* 9 subgoals *)
- >- ASM_SET_TAC [] (* 1 *)
- >- ASM_SET_TAC [] (* 2 *)
- >- ASM_SET_TAC [] (* 3 *)
- >- ASM_SET_TAC [] (* 4 *)
- >- ASM_SET_TAC [] (* 5 *)
- >- ASM_SET_TAC [] (* 6 *)
- >- ASM_SET_TAC [] (* 7 *)
- >- ASM_SET_TAC [] (* 8 *)
+ >> TRY (ASM_SET_TAC []) (* 1 - 8 *)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] FV_SUBSET_REC)
  >> ASSUME_TAC (Q.SPECL [`X`, `E`] BV_SUBSET_REC)
  >> Q.ABBREV_TAC `A = FV (CCS_Subst E (rec X E) X)`
