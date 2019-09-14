@@ -17,7 +17,7 @@ with special inequations called
 preorder that, roughly, places some efficiency constraints on processes.
 \hl{The unique solution of contractions is defined as with equations:}
 any two solutions must be componentwise bisimilar.
-The difference \hl{from} equations is \hl{at} the meaning of a solution:
+The difference \hl{from} equations is \hlD{in} the meaning of a solution:
 in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem \hl{are
@@ -25,14 +25,15 @@ eliminated}. One constraint that still remains
 in~\cite{sangiorgi2017equations}
 (where the issue is bypassed using a more
 restrictive CCS syntax)
-is the occurrences of \emph{direct} sums (e.g.~$P + Q$) due to
+is the occurrences of %\emph{direct} 
+\hlD{sums} (e.g.~$P + Q$) due to
 the \hl{non-substitutivity of the contraction preorder in this case}.
 
-The work \hl{behind} this paper is a
+ \hlD{This paper presents}  a
 comprehensive formalisation of Milner's Calculus of Communicating
 Systems (CCS) in the HOL theorem prover (HOL4),
 with a focus towards the theory of unique solutions of equations and contractions.
-\hl{Almost all results in Milner's CCS book}~\cite{Mil89} are covered, since
+\hlD{Many results in Milner's CCS book}~\cite{Mil89} are covered, since
 the unique-solution theorems rely on a large number of fundamental results.
 Indeed the formalisation encompasses all basic properties of strong and weak
 \hl{bisimilarities} (e.g.~the fixed-point and substitutivity properties), the
@@ -49,10 +50,10 @@ Similar results are also proved for the rooted contraction preorder.
 In this respect, the work is \hl{also} an extensive experiment \hl{using} the HOL theorem prover with its
 recent developments, including \hl{its coinductive relation-defining package}.
 
-From the \hl{point of} view of CCS theory, this formalisation has offered us the possibility of
+From the \hl{point of} view of the CCS theory, this formalisation has offered us the possibility of
 further refining the theory of unique solutions of contractions.
-In particular, Sangiorgi's result~\cite{sangiorgi2017equations} has
-placed limitations on the body of the contractions due to the
+In particular, \hlD{the existing result~\cite{sangiorgi2017equations} has
+ limitations} on the body of the contractions due to the
 substitutivity problems of weak bisimilarity and other behavioural relations with respect
 to the sum operator.
 \hl{In this paper, the contraction-based proof technique is further
@@ -60,7 +61,7 @@ refined by moving from the contraction preorder} to
 \emph{rooted contraction}, that is, the coarsest precongruence contained in the contraction
 preorder. The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
-constraints on the occurrences of sums.
+\hlD{constraints on the use the sum operator}.
 
 Another benefit of the formalisation is 
 that we can take advantage of results about different 
@@ -77,24 +78,35 @@ for rooted in which the auxiliary relation is rooted contraction); the
 proofs about various forms of enhancements of the bisimulation proof
 method (the `up-to' techniques).}
 %
-In these cases, moving between proofs there are only a few places in
+In these cases, when moving between proofs there are only a few places in
 which the HOL proof scripts have to be modified.
 Then the successful termination of the proof gives us a guarantee that the proof is
 complete and trustworthy, eliminating the risks 
 of overlooking or missing details as in \emph{paper-and-pencil} proofs.
 
-\hl{The univariate versions of unique-solution theorems use
-$\lambda$-functions to present univariate CCS equations,
+
+
+\finish{below: ``In contrast to most literature,...'' we need to
+  support this with references}
+
+
+\hlD{We first consider the case of a single equation (or contraction),
+that we call the univariate case, then consider the multivariate
+  case, where  more than one equation
+  (or contraction) is possible.
+The univariate  theorems use
+$\lambda$-functions to present  CCS equations,
 while the multivariate versions require a
-careful and detailed formalisation of CCS equations with equation
-variables and multivariate variable substitutions.
+more careful and delicate treatment of 
+expressions with several 
+variables and substitutions acting on them.
 In contrast to most literature, we have adopted the same
 type for both CCS equations and processes: those undefined constants
-in CCS terms are treated as equation (free) variables, and a CCS
-\emph{process} is a CCS term without equation variables. As a result,
-most CCS results except the unique-solution theorems are valid for
-both CCS processes and equations.} (c.f. Section~\ref{sec:multivariate}
-for more deails.)
+in CCS terms are treated as  (free) equation variables, and a CCS
+\emph{process} is a CCS term without equation variables. 
+This allows us a smoother move from the univariate case to the multivariate
+one. See Section~\ref{sec:multivariate}
+for  deails.}
 
 \paragraph{Structure of the paper}
 
@@ -104,9 +116,10 @@ bisimilarity.
 Section~\ref{s:eq} discusses equations and contractions.
 Section~\ref{ss:new} presents rooted contraction and the related
 unique-solution result for rooted bisimilarity.
-Section~\ref{s:for} highlights our formalisation in HOL4.
-In Section~\ref{sec:multivariate}, \hl{we describe the formalisation of
-multivariate versions of unique-solution theorems.}
+Section~\ref{s:for} highlights our formalisation in HOL4 \hlDfor the
+univariate case.}
+\hlD{Section~\ref{sec:multivariate} describes the move to the
+  multivariate case}. 
 Finally,  Section~\ref{s:rel} and \ref{s:concl} discuss related work,
 conclusions, and a few directions for future work.
 

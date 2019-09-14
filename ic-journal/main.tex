@@ -35,6 +35,11 @@
 % \cupdot (the best one)
 \newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
 
+
+%\newcommand{\hl}[1]{{\underline{#1}}} % added DS
+% otherwise it would   not compile 
+
+
 \usepackage{amsthm}
 %\usepackage{newtxmath} % must be after amsthm (but can't use in this paper)
 
@@ -120,9 +125,9 @@
 % title
 \title{Unique Solutions of Contractions, CCS, and their HOL
   Formalisation\tnoteref{mytitlenote}}
-\tnotetext[mytitlenote]{\hl{This is the full version of the paper with
-  the same title published} in EXPRESS/SOS 2018~\cite{EPTCS276.10} \hl{with
-  multivariate extensions.}}
+\tnotetext[mytitlenote]{\hlD{This is an extended and refined
+ version of the paper with
+  the same title published} in EXPRESS/SOS 2018~\cite{EPTCS276.10}.}
 
 % authors
 \author[mymainaddress]{Chun Tian}%\fnref{myfootnote}
@@ -151,7 +156,8 @@
   In particular we removed the constraints on summation,
   which must be guarded, by moving \hl{from contraction} to \emph{rooted
   contraction}. \hl{We prove the ``unique solution of rooted
-  contractions'' theorem (both univariate and multivariate versions)
+  contractions'' theorem 
+%(both univariate and multivariate versions)
   and show that} rooted contraction is the coarsest
   precongruence contained in the contraction preorder. 
 \end{abstract}

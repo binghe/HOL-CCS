@@ -16,12 +16,12 @@ A process relation ${\R}$ is a \hl{(weak)} \emph{bisimulation} if, whenever
 written as $P \wb Q$, if $P \RR Q$ for some bisimulation $\R$.
 \end{definition}
 
-\hl{The \emph{strong} bisimulation and strong bisimilarity} ($\sim$)
+\hlD{\emph{Strong} bisimulation and strong bisimilarity} ($\sim$)
 can be obtained by replacing the weak transition $Q\Arcap\mu Q'$ in the above
 definition with normal transitions $Q \arr \mu Q'$ (similar for the other case).
 Weak bisimilarity is not preserved by the sum operator (except for
-guarded sums), \hl{i.e. from $P_1 \wb Q_1$ and $P_2 \wb Q_2$ one
-  cannot obtain $P_1 + P_2 \wb Q_1 + Q_2$.}
+guarded sums), \hlD{i.e.\  $P_1 \wb Q_1$ and $P_2 \wb Q_2$  does not imply
+ $P_1 + P_2 \wb Q_1 + Q_2$.}
 For this, Milner introduced the concept of \emph{observational congruence}, also called \emph{rooted
   bisimilarity}~\cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
 \begin{definition}%[rooted bisimilarity]
@@ -37,14 +37,14 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
 \end{enumerate}
 \end{definition}
 
-\hl{The above definition also brings up a proof technique for proving rooted
+\hlD{The above definition also brings up a proof technique for proving rooted
 bisimilarity from a given bisimulation. The next
-lemma is usually not mentioned in CCS literature but plays an
+lemma plays an
 important role in proving some key results in this paper:}
 \begin{lemma}[Rooted bisimilarity by bisimulation]
 \label{l:obsCongrByWeakBisim}
-Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
-\hl{satisfy} the following properties \hl{(but not necessary $P\;\R\;Q$)}:
+\hlD{Given a (weak) bisimulation $\RR$, suppose two processes $P$ and $Q$
+satisfy the following properties}:
 \begin{enumerate}
 \item $P \arr\mu P'$ implies that there is $Q'$ such that $Q
    \Arr\mu Q'$ and $P' \RR Q'$;
@@ -54,11 +54,11 @@ Given a (weak) bisimulation $\RR$, if two processes $P$ and $Q$
 \hl{Then} $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
 \end{lemma}
 
-\hl{One basic property of rooted bisimiarity is that, it is (like $\sim$)
-a congruence (thus also an equivalence relation)
-w.r.t.~all CCS operators except for the Recursion and is the
-coarsest congruence contained in bisimilarity:}
-(c.f. Section~\ref{s:coarsest} for more details)
+\hlD{One basic property of rooted bisimiarity is congruence,
+indeed
+ the
+coarsest congruence contained in bisimilarity
+(c.f., Section~\ref{s:coarsest} for more details): }
 \begin{theorem}
 \label{t:rapproxCongruence}
 $\rapprox$ is a congruence in CCS, and it is the
