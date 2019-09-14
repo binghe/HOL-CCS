@@ -11,7 +11,7 @@ action $\tau \notin \mathscr{L}$, and \hl{another possibly infinite
   set of agent} variables $A, B,
 \ldots \in \mathscr{X}$.
 The class of CCS processes is then inductively
-defined from $\nil$ \hl{(deadlock) and agent variables} by the operators
+defined from $\nil$ \hlD{(the terminated process)} and agent variables by the operators
 of \emph{prefixing} (.), \emph{parallel composition} ($|$),
 \emph{summation}
 (or \emph{binary choice}, $+$),
@@ -66,8 +66,8 @@ satisfy $\mathit{rf}(\tau) =
 %     expressed as $a.(\texttt{rec}\, C. (b.C))$.
 % \end{enumerate}
 We sometimes omit \hlD{a} trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
-\hl{A CCS process $P$ may \hlD{evolve} to another one, say $P'$, under
-  an action $\mu$, written by $P \arr{\mu} P'$.}
+A CCS process $P$ may \hlD{evolve} to another one, say $P'$, under
+  an action $\mu$, written by $P \arr{\mu} P'$.
 The \hlD{transition semantics} of CCS processes is given by means of
 a Labeled Transition System (LTS) \hl{expressed in Structural Operational
 Semantics (SOS) rules} shown in Fig.~\ref{f:LTSCCS}.

@@ -66,7 +66,7 @@ either for end user or for \TeX{} outputs.}\footnote{All
 \hl{\textbf{CCS concept}} & \hl{\textbf{Notation}} & \textbf{HOL term} &
                                              \textbf{HOL abbrev.} & \hl{\textbf{\TeX{} outputs}} \\
 \hline
-\hl{deadlock} & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLtm{nil} \\
+\hl{nil} & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLtm{nil} \\
 prefix & $\mu.P$ & \texttt{prefix u P} & \texttt{u..P} & \HOLtm{prefix u P} \\
 \hl{summation} & $P + Q$ & \texttt{sum P Q} & \texttt{P + Q} & \HOLtm{sum P Q} \\
 parallel \hl{composition} & $P \,\mid\, Q$ & \texttt{par P Q} & \texttt{P || Q} & \HOLtm{P || Q} \\
