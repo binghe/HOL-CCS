@@ -55,7 +55,7 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
 \HOLthm{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
-\hl{Many lemmas about above concepts} (\HOLtm{CONTEXT}, \HOLtm{WG},
+\hlD{Many lemmas about the  above concepts} (\HOLtm{CONTEXT}, \HOLtm{WG},
 \HOLtm{SEQ}, etc.) have then to be proven for the
  relationships among these kinds of contexts and properties about their
  compositions. These proofs are usually tedious and long,  due to multiple levels of
