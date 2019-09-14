@@ -308,11 +308,22 @@ other hand, since \HOLinline{\HOLConst{CCS_SUBST}} only walks each subterm
 once, even \HOLinline{\HOLFreeVar{Ps}} contains free variables, these variables will
 not be further substituted. Thus the process is indeed
 order-independent. Below we present some key lemmas about
-\HOLinline{\HOLConst{CCS_SUBST}} \emph{without proofs}:
+\HOLinline{\HOLConst{CCS_SUBST}} \emph{without proofs}: \footnote{Hereafter,
+  some new logical constants from HOL's \texttt{pred_set}
+and \texttt{list} theories are used (c.f.~\cite{holdesc} for more
+details.): \HOLinline{\HOLConst{DISJOINT}} denotes set disjointness;
+``\HOLinline{\HOLConst{set}\\\;\HOLFreeVar{Xs}}'' is the set converted from the list \HOLinline{\HOLFreeVar{Xs}};
+\HOLinline{\HOLConst{ALL_DISTINCT}} says
+all elements of a list are distinct with each other; \HOLinline{\HOLConst{MAP}} is
+the mapping function from one list to another; \HOLinline{\HOLConst{EVERY}} means
+each element of a list satisfies a predicate; \HOLinline{\HOLConst{ZIP}} creates a
+new list from two lists of the same length, and each element of the new list is a pair of
+elements, each from one of the old lists.}
 
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the free variables of $E$ is disjoint with \HOLinline{\HOLFreeVar{Xs}}, a
-substitution of \HOLinline{\HOLFreeVar{Xs}} in $E$ does not change $E$:
+substitution of \HOLinline{\HOLFreeVar{Xs}} in $E$ does not change
+$E$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{E}
 \end{alltt}
@@ -337,14 +348,14 @@ converted into a single substitution where the targets are substituted first:
 \end{alltt}
 \end{lemma}
 
-The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
-w.r.t. \texttt{CCS\_Subst}:
-\begin{lemma}[\texttt{CCS_SUBST_SING}]
+The next three lemmas show the relative correctness of \texttt{CCS_SUBST}
+with respect to \texttt{CCS_Subst}:
+\begin{lemma}[\texttt{CCS_SUBST_sing}]
   If there is only one single variable $X$ in the map (with the target
   expression $E'$), then \HOLinline{\HOLConst{CCS_SUBST}} behaves exactly the
   same as (the univariate) \HOLinline{\HOLConst{CCS_Subst}}:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{CCS_SUBST} \ensuremath{(}\HOLConst{FEMPTY} \HOLSymConst{|+} \ensuremath{(}\HOLFreeVar{X}\HOLSymConst{,}\HOLFreeVar{E\sp{\prime}}\ensuremath{)}\ensuremath{)} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{CCS_Subst} \HOLFreeVar{E} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{X}
+\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{]}\ensuremath{/}\ensuremath{[}\HOLFreeVar{X}\ensuremath{]}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}
 \end{alltt}
 \end{lemma}
 
@@ -361,8 +372,8 @@ variables \HOLinline{\HOLFreeVar{Xs}} and an \univariate substitution of $X$:
 
 \begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
 Under certain conditions (to get rid of substitution orders), a
-\multivariate substitution can be reduced to repeated applications
-of \univariate substitutions of each variable:
+\multivariate substitution can be reduced to a sequence of
+of \univariate substitutions:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\ensuremath{(}\HOLBoundVar{x}\HOLSymConst{,}\HOLBoundVar{p}\ensuremath{)}. \HOLConst{FV} \HOLBoundVar{p} \HOLSymConst{\HOLTokenSubset{}} \HOLTokenLeftbrace{}\HOLBoundVar{x}\HOLTokenRightbrace{}\ensuremath{)} \ensuremath{(}\HOLConst{ZIP} \ensuremath{(}\HOLFreeVar{Xs}\HOLSymConst{,}\HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
@@ -431,13 +442,14 @@ derived from the original expression in this way must satisfy
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)}
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}
 \end{alltt}
-Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{[}\HOLFreeVar{t}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\ensuremath{(}\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\ensuremath{)}}. This idea leads to the following definitions:
+Notice that, \HOLinline{\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{[}\HOLFreeVar{t}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\ensuremath{(}\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{Y}\ensuremath{)}}. This above idea leads to the
+following definitions of CCS contexts and weakly-guarded contexts:
 \begin{alltt}
-   \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
+   \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}\hfill{[context_def]}
 
-   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}
+   \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{X}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{[}\HOLBoundVar{t}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Xs}\hfill{[weakly_guarded_def]}
 \end{alltt}
-
+Notice that, 
 
 
 \begin{alltt}

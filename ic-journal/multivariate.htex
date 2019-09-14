@@ -299,7 +299,17 @@ other hand, since \HOLtm[-SUB]{CCS_SUBST} only walks each subterm
 once, even \HOLtm{Ps} contains free variables, these variables will
 not be further substituted. Thus the process is indeed
 order-independent. Below we present some key lemmas about
-\HOLtm[-SUB]{CCS_SUBST} \emph{without proofs}:
+\HOLtm[-SUB]{CCS_SUBST} without proofs:\footnote{Hereafter,
+  some new logical constants from HOL's \texttt{pred_set}
+and \texttt{list} theories are used (c.f.~\cite{holdesc} for more
+details.): \HOLtm{DISJOINT} denotes set disjointness;
+``\HOLtm[m\;]{set Xs}'' is the set converted from the list \HOLtm{Xs};
+\HOLtm{ALL_DISTINCT} says
+all elements of a list are distinct with each other; \HOLtm{MAP} is
+the mapping function from one list to another; \HOLtm{EVERY} means
+each element of a list satisfies a predicate; \HOLtm{ZIP} creates a
+new list from two lists of the same length, and each element of the new list is a pair of
+elements, each from one of the old lists.}
 
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
@@ -326,14 +336,14 @@ converted into a single substitution where the targets are substituted first:
 \end{alltt}
 \end{lemma}
 
-The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
-w.r.t. \texttt{CCS\_Subst}:
-\begin{lemma}[\texttt{CCS_SUBST_SING}]
+The next three lemmas show the relative correctness of \texttt{CCS_SUBST}
+with respect to \texttt{CCS_Subst}:
+\begin{lemma}[\texttt{CCS_SUBST_sing}]
   If there is only one single variable $X$ in the map (with the target
   expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
   same as (the univariate) \HOLtm[-SUB]{CCS_Subst}:
 \begin{alltt}
-\HOLthm[-SUB]{Multivariate.CCS_SUBST_SING}
+\HOLthm{Multivariate.CCS_SUBST_sing}
 \end{alltt}
 \end{lemma}
 
@@ -348,8 +358,8 @@ variables \HOLtm{Xs} and an \univariate substitution of $X$:
 
 \begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
 Under certain conditions (to get rid of substitution orders), a
-\multivariate substitution can be reduced to repeated applications
-of \univariate substitutions of each variable:
+\multivariate substitution can be reduced to a sequence of
+of \univariate substitutions:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_FOLDR}    
 \end{alltt}
@@ -416,13 +426,14 @@ derived from the original expression in this way must satisfy
 \end{alltt}
 Notice that, \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
   Y) = CCS_Subst (prefix a (var X) + prefix b
-  (var X) + prefix c  (var Y)) t X}. This idea leads to the following definitions:
+  (var X) + prefix c  (var Y)) t X}. This above idea leads to the
+following definitions of CCS contexts and weakly-guarded contexts:
 \begin{alltt}
-\HOLthm[def,>>3]{Multivariate.context_def}
+\HOLthm[def,>>3]{Multivariate.context_def}\hfill{[context_def]}
 
-\HOLthm[def,>>3]{Multivariate.weakly_guarded_def}
+\HOLthm[def,>>3]{Multivariate.weakly_guarded_def}\hfill{[weakly_guarded_def]}
 \end{alltt}
-
+Notice that, 
 
 
 \begin{alltt}
