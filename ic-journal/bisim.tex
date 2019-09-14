@@ -314,14 +314,14 @@ followed the same ways as in the case of strong and weak bisimilarities:
 
 We can prove that the contraction preorder is contained in weak bisimilarity,
 and contains the expansion preorder.
-\begin{proposition}{(Relationships between contraction, expansion and weak
-    bisimilarity)}
+\begin{proposition}{(Relationships between contraction preorder,
+    expansion preorder and weak bisimilarity)}
 \begin{enumerate}
-\item (`expansion' implies `contraction')
+\item (\hl{expansion preorder} implies contraction preorder)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q}\hfill[expands_IMP_contracts]
 \end{alltt}
-\item (`contraction' implies weak  bisimilarity)
+\item (\hl{contraction preorder} implies weak bisimilarity)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}\hfill[contracts_IMP_WEAK_EQUIV]
 \end{alltt}
@@ -330,22 +330,19 @@ and contains the expansion preorder.
 In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
 harder than that for the cases of expansion: \hl{this is mostly due to the surprising fact
 that, although the contraction preorder is contained in weak
-bisimilarity, contraction does not imply weak bisimulation (while
-expansion does so),}
+bisimilarity, contraction is not contained in weak bisimulation (while
+expansion is),}
 i.e. the following proposition does not hold:
 
 \finish{i do not understand above: contraction IMPLIES weak bisimilarity, maybe it is
-  harder to prove, i do not know, but the implication is true} 
+  harder to prove, i do not know, but the implication is true}
 
 \begin{alltt}
-\HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
+\HOLinline{   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
-\hl{For instance, in the proof of the following lemma (contraction preorder implies $\wb$)}:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
-\end{alltt}
-We prove it by constructing a bisimulation containing two processes
-$P$ and $Q$, given that they're in a contraction $Con$:
+\hl{For instance, in the proof of \texttt{contracts_IMP_WEAK_EQUIV} (contraction preorder implies $\wb$)}.
+We prove it by constructing a bisimulation \HOLinline{\HOLFreeVar{Wbsm}} containing two processes
+$P$ and $Q$, given that \hl{they are in $Con$ (a contraction)}:
 \begin{alltt}
         \HOLinline{\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Wbsm}. \HOLBoundVar{Wbsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Wbsm}}
    ------------------------------------
