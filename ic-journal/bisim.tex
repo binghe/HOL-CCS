@@ -273,14 +273,13 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ens
 % Not all above theorems are primitive (in the sense of providing a
 % minimal axiomatization set for proving all other strong algebraic
 % laws). 
-The first \hl{five of them are proven} by constructing \hl{proper} bisimulation
+The first \hl{five of them are proven} by constructing \hlD{appropriate} bisimulation
 relations, and their formal proofs are written in
 a goal-directed manner. \hl{On the other hand, the
 last three algebraic laws} are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
- 
-\hl{These algebraic laws also hold for weak bisimilarity and rooted
+ \hl{These algebraic laws also hold for weak bisimilarity and rooted
   bisimilarity, as these are coarser than strong bisimilarity.}
 
 \subsection{Expansion, Contraction and Rooted Contraction}
@@ -334,6 +333,10 @@ that, although the contraction preorder is contained in weak
 bisimilarity, contraction does not imply weak bisimulation (while
 expansion does so),}
 i.e. the following proposition does not hold:
+
+\finish{i do not understand above: contraction IMPLIES weak bisimilarity, maybe it is
+  harder to prove, i do not know, but the implication is true} 
+
 \begin{alltt}
 \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
@@ -351,9 +354,8 @@ $P$ and $Q$, given that they're in a contraction $Con$:
 \end{alltt}
 We cannot show that $Con$ itself is a bisimulation, but rather
 that the union of $Con$ and $\wb$ is a bisimulation.
-\hl{The corresponding lemma for the expansion preorder is rather
-straightforward (just use $Con$)
-and does not require any non-trivial construction.}
+\hlD{The corresponding lemma for the expansion preorder is rather
+straightforward (just use $Con$).}
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as follows, with its precongruence result:
@@ -455,7 +457,7 @@ or formally (for illustrating purposes below),
               \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}
 \end{alltt}
 \end{definition}
-\hl{Notice that, the formal represention of $\sim \S \approx$ is}
+\hl{Note that the formal represention of $\sim \S \approx$ is}
 ``\HOLinline{\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}}'' where \hl{the order of
 $\sim$ and $\approx$ seems reverted.} This is because, in HOL's
 notation, the rightmost relation (\HOLinline{\HOLConst{STRONG_EQUIV}} or $\sim$) in the relational composition is
@@ -490,7 +492,7 @@ $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
 \end{definition}
 
 \begin{theorem}
-\hl{If $\mathcal{S}$ is a bisimulation up to $\approx$} (w.r.t. Definition~\ref{def:doubleweak}), then
+\hl{If $\mathcal{S}$ is a bisimulation up to $\approx$} (as by Definition~\ref{def:doubleweak}), then
 $\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Bsm} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Bsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
