@@ -176,7 +176,7 @@ The assumption \hl{in} Milner's result
 requires $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
   names}), and is therefore strictly stronger than the assumption in
-our result above. \hl{Indeed, in out result we} only look at immediate weak
+our result above. \hl{Indeed, in our result we} only look at immediate weak
 derivatives for $p$ and $q$, \hl{and only requires that there is an input
 or output action}
 that never appears as a label. \hl{Furthermore, such an action need
@@ -208,8 +208,8 @@ this proof (Theorem~\ref{thm:coarsestfiniteState} in next section), because ``th
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
 ordinals''~\cite{norrish2013ordinals}.
-\hl{As a consequence, the final result is only for finite-state
-  CCS---a very restricted class.}
+\hlD{As a consequence, the final result is only for finite-state
+  CCS~--- a  restricted class.}
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
