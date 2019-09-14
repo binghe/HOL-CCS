@@ -3,55 +3,71 @@
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section, the formalisation of the \multivariate (general)
+In this section,  \hlD{we discuss the formalisation of the general}  \multivariate
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
-contractions'' (Theorem~\ref{t:rcontraBisimulationU}) is
-described.
-We choose these two theorems because they both depend on the same
+contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
+We chose these two theorems because they both depend on the same
 concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-\hl{This work is entirely new} after~\cite{EPTCS276.10}.
-It is accumulative, completely based on the
-existing formal framework in the sense that, neither the CCS datatype nor
-the SOS rules need to be changed.
+%\hl{This work is entirely new} after~\cite{EPTCS276.10}.
+\hlD{The work is an extension of the univariate case
+ in the sense that neither the CCS datatype nor
+the SOS rules need to be changed.}
 
 The central problem of the \multivariate formalisation is the
 representation of CCS equations (expressions, contexts).
-Recall the univariate formalisation, $\lambda$-functions (of type
+\hlD{In the} \univariate formalisation, $\lambda$-functions (of type
 $CCS\rightarrow CCS$) are used to represent univariate CCS
-equations, and variable substitutions are simply done by
-calling $\lambda$-functions on the target CCS terms.
+\hlD{equations, and variable substitutions are simply 
+calls to $\lambda$-functions on the target CCS terms.}
 This idea cannot be extended to the \multivariate case, as
-we don't have a fixed number of variables to deal with.
+we do not have a fixed number of variables to deal with.
 
-Modern literature (i.e.~after Milner) usually consider the $X_i$ of
-a system of equations $\{X_i = E_i\}_{i\in I}$ (c.f. Def.~\ref{def:equation}) as an
-\emph{equation variable (or process variable)}~\citep[p.~102]{Gorrieri:2015jt}
-\emph{outside} of the CCS syntax, and treat $E_i$ as an \emph{open} expression
-built with CCS operators which may contain some occurrences of $X_i$.
-For a formal point of view, this means we either need to define a
+In the  literature the variables  $X_i$ of
+a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
+\emph{equation variables}
+\emph{outside} of the CCS syntax; then an equation body  $E_i$  is an \emph{open} expression
+built with CCS operators plus the equation variables.
+\hlD{For a formal point of view, this means we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
-opeartor must be duplicated, or we should add equation variables as a
-new primitive (e.g.~\texttt{Var X}) in the existing CCS type beside
-the agent variables (e.g.~\texttt{var X}). Then the substitution of equation
-variables in $E_i\{\til P/\til X\}$ would be simply the \emph{syntactic substitution} of
-each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. Notice that, in
-either case the \emph{disjointness} between equation variables and
-agent variables (or constants) is obvious and syntactically
-guaranteed. However, neither solution is elegant: dealing with another CCS-like type makes the
-whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
-transitional semantics of CCS expressions; on the other hand,
-modifying the CCS datatype to just support the formalisation of
-unique-solution theorems is also not acceptable.
+opeartor must be duplicated, or we have to  add equation variables as a
+new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
+the agent variables such as  \texttt{var X}).
+ Then the substitution of equation
+variables in $E_i\{\til P/\til X\}$ would be the \emph{syntactic substitution} of
+each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. In
+either cases the \emph{disjointness} between equation variables and
+agent variables is syntactically
+guaranteed. Both solutions are rather combersome, and require a non-trivial modification
+of the formalisation of the univariate case. }
+ 
 
-In this project, we have chosen to adopt Milner's original approach,
-which is also the most elegant way: reusing \emph{free} agent variables
-(i.e. undefined constants) as equation variables, then the variable
+% : dealing with another CCS-like type makes the
+% whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
+% transitional semantics of CCS expressions; on the other hand,
+% modifying the CCS datatype to just support the formalisation of
+% unique-solution theorems is also not acceptable.
+
+\hlD{In this project, we have  followed} Milner~\cite{Mil89}, thus using the same alphabet for
+both agent variables and equation variables. 
+\hlD{This has allowed a large reuse of the univariate formalisation. For instance, 
+the variable
 substitution function used in SOS rules [\texttt{REC}] can be also
 used for substituting eqaution variables.
-However, this approach brings us great difficulities in proving many
+However, a lot of care is needed in 
+in the proofs of  many
 fundamental lemmas, mostly due to the variable capture issues between
 equation variables and agent variables.
+}
+
+
+% which is also the most elegant way: reusing \emph{free} agent variables
+% (i.e. undefined constants) as equation variables, then the variable
+% substitution function used in SOS rules [\texttt{REC}] can be also
+% used for substituting eqaution variables.
+% However, this approach brings us great difficulities in proving many
+% fundamental lemmas, mostly due to the variable capture issues between
+% equation variables and agent variables.
 
 \subsection{Free and bound variables}
 
@@ -61,17 +77,22 @@ agent variable $A$ occurs outside the recursion operator of the same
 variable. In Milner's original book chapter~\cite{milner1990operational}, the
 variables which occur in Recursion (such as $X$ in $\recu X E$) are
 called \emph{bound} variables, while those which occur unbound are called
-\emph{free} variables. We denote the set of all bound variables of a
-given CCS term $E$ as $\bv{E}$ (or \HOLtm[m\;]{BV E} in HOL), and the set of all free
+\emph{free} variables. 
+
+
+We denote the set of all bound variables of a
+given CCS term $E$ (we recall that these are variables that are bound in a recursion
+subexpression of $E$) as $\bv{E}$ (or \HOLtm[m\;]{BV E} in HOL), and the set of  free
 variables as $\fv{E}$ (or \HOLtm[m\;]{FV E} in HOL). Both \HOLtm{BV} and \HOLtm{FV} have the
 type ``\HOLty[of]{FV}'', i.e. functions taking CCS terms returning sets of
 variables (of type \HOLty{:'a}).
-Milner didn't give their definitions explicitly. However, one can
-imagine that, for most CCS operators they just pass into
-subterms without collecting anything (and $\nil$ gives $\emptyset$).
-The only interesting cases are Recursion and agent variables, shown below: (Here \texttt{DELETE}
+% Milner didn't give their definitions explicitly. However, one can
+% imagine that, for most CCS operators they just pass into
+% subterms without collecting anything (and $\nil$ gives $\emptyset$).
+For their definition the interesting cases are those of 
+recursion and agent variables, shown below  (here \texttt{DELETE}
 and \texttt{INSERT} are set-theoretic operators of HOL's
-\texttt{pred_set} theory.)
+\texttt{pred_set} theory):
 \begin{center}
 \begin{tabular}{|l|l|}
 \hline
@@ -80,8 +101,8 @@ and \texttt{INSERT} are set-theoretic operators of HOL's
 \hline
 \end{tabular}
 \end{center}
-Furthermore, we say $E$ is a process, denoted by \HOLtm{IS_PROC E}, if
-it contains no free variables, i.e. $\fv{E} = \emptyset$:
+Furthermore, $E$ is a process, written \HOLtm{IS_PROC E}, if
+\hl{it does not contain any free variable}, i.e. $\fv{E} = \emptyset$:
 \begin{alltt}
 \HOLthm[def,>>3]{CCS.IS_PROC_def}\hfill{[IS_PROC_def]}
 \end{alltt}
@@ -90,14 +111,14 @@ And a list of CCS processes can be asserted by \HOLtm{ALL_PROC} defined upon \HO
 \HOLthm[>>3]{CCS.ALL_PROC_def}\hfill{[ALL_PROC_def]}
 \end{alltt}
 
-Notice that, for any CCS expression, the set of free and bound
-variables may not be disjoint, e.g. $X + \recu X E$.
+Note that, in CCS expression, the set of free and bound
+variables need not be disjoint, e.g.\ in  $X + \recu X E$.
 More importantly, when going
 from a CCS expression to its sub-expressions, the set of free
-variables may increase, while the set of bound variables always
-decrease. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
-$\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings greatly
-difficulities when doing proofs on CCS transitions. As an evidence,
+variables may increase, while the set of bound variables \hl{either
+remains the same or decreases}. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
+$\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings some
+difficulities when doing proofs about CCS transitions. As an evidence,
 we prove the following fundamental result about $\fv{\cdot}$:
 
 \begin{proposition}
@@ -111,19 +132,20 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \end{proposition}
 
 \begin{proof}
-Milner said it can be proven by ``an easy action
-induction''~\cite{milner1990operational}. However this is not true at all.
-%
-To see things more clearly, we try to prove a stronger result,
-i.e. the set of free variables decreases through derivations:
+% Milner said it can be proven by ``an easy action
+% induction''~\cite{milner1990operational}. However this is not true at all.
+% %
+%To see things more clearly, 
+We  prove a stronger result,
+i.e.,  the set of free variables decreases through derivations:
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
 \end{alltt}
 
 From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
 of the following \emph{induction principle} generated together with SOS
-rules: (which essentially says \hl{that} \HOLtm{TRANS} is the smallest relation
-satisfying SOS rules.)
+rules (which essentially says \hl{that} \HOLtm{TRANS} is the smallest relation
+satisfying SOS rules):
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
 \end{alltt}
@@ -136,12 +158,12 @@ What we are trying to prove is actually in the form of
 \HOLtm[m\;]{!E u E'. TRANS E u E' ==> P E u E'}, where
 \HOLtm[m\;]{P = \E u E'. FV E' SUBSET FV E}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof completes.
-\hl{\emph{This is the whole idea of action induction.}}
+This is the essence of action induction.
 Now the original goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
 \hl{the subgoal for \texttt{SUM1} we need to prove}
 $\fv{E_1} \subseteq \fv{E} \Longrightarrow
-\fv{E_1} \subseteq \fv{E + E'}$, but this obviously holds: $\fv{E}
+\fv{E_1} \subseteq \fv{E + E'}$, which holds as $\fv{E}
 \subseteq \fv{E + E'} = \fv{E} \cup \fv{E'}$. Eventually we have only
 the following goal left: (the term above the dash line is the goal,
 those below the line are assumptions)
@@ -152,23 +174,22 @@ those below the line are assumptions)
 \end{alltt}
 Notice that, \HOLtm[m\;]{FV E DELETE X = FV (rec X E)}, so
 this is indeed the consequence of action induction on the Recursion.
-Here the problem is, we know nothing about
+Here the problem is that we know nothing about
 \HOLtm[m\;]{FV ([rec X E/X] E)}. To further proceed, we need to prove
-some other (easier) lemmas. First, the next lemma can be easily proven
-by doing induction on $E$ and basic set-theoretic facts:
+some other (easier) lemmas. First, the next lemma can be  proven
+by  induction on $E$ and a few basic set-theoretic facts:
 \begin{alltt}
 \HOLthm[nosp]{CCS.FV_SUBSET}\hfill{[FV_SUBSET]}
 \end{alltt}
-Then, if we took $E' = \recu X E$ in the above lemma, we get
+Now, if we take $E' = \recu X E$ in the above lemma, we get
 \HOLtm[m\;]{FV ([rec X E/X] E) SUBSET FV E UNION
   FV (rec X E)} $=$ \HOLtm[m\;]{FV E UNION (FV E DELETE X)} $=$
 \HOLtm[m\;]{FV E}, i.e. the following lemma:
 \begin{alltt}
 \HOLthm[nosp]{CCS.FV_SUBSET_REC}\hfill{[FV_SUBSET_REC]}
 \end{alltt}
-Now we can enrich the assumptions of the current proof goal with above
-lemma, then obtain \HOLtm{FV E' SUBSET FV E} by
-from the transitivity of $\subseteq$:
+Thus we can enrich the assumptions of the current proof goal with above
+lemma, and obtain \HOLtm{FV E' SUBSET FV E} by the transitivity of $\subseteq$:
 \begin{alltt}
         \HOLtm{FV E' SUBSET FV E DELETE X}
    ------------------------------------
@@ -178,7 +199,7 @@ from the transitivity of $\subseteq$:
 \end{alltt}
 Knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
   E' SUBSET FV E DELETE X}. However, if we knew \HOLtm{X
-  NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and 
+  NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and \hl{then}
 \HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
   DELETE X}, no matter if \HOLtm{X IN FV E} or not, and the proof
 completes. Thus it remains to prove that
@@ -189,7 +210,7 @@ completes. Thus it remains to prove that
     1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
     2.  \HOLtm{FV E' SUBSET FV E}
 \end{alltt}
-Now we try proof by contradiction (\emph{reductio ad absurdum}): if
+Now we try the  proof by contradiction (\emph{reductio ad absurdum}): if
 the goal does not hold, i.e.
 \HOLtm{X IN FV E'}, then by assumption 0 we have \HOLtm{X IN FV ([rec X
   E/X] E)}:
@@ -204,7 +225,7 @@ the goal does not hold, i.e.
 \end{alltt}
 But this is impossible, because all free occurrences of $X$ in $E$ now become
 bound in the form of $\recu X E$. In fact, the following lemma can be
-easily proven by induction on $E$:
+proven by induction on $E$:
 \begin{alltt}
 \HOLthm[nosp]{CCS.NOTIN_FV_lemma}\hfill{[NOTIN_FV_lemma]}
 \end{alltt}
@@ -213,8 +234,8 @@ a contradiction with assumption 4, and the proof finally completes.
 \end{proof}
 
 Without the above result, the proof of Milner's ``unique solution of
-equations'' theorem (for $\sim$) cannot complete. Comparing with the
-above proof, the proof of the similar result for bound variables is much easier:
+equations'' theorem (for $\sim$) cannot complete. Compared with the
+above proof, the proof of the similar result for bound variables is easier:
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
@@ -231,7 +252,7 @@ facts. The only subgoal left is:
    ------------------------------------
     0.  \HOLtm{BV E' SUBSET BV ([rec X E/X] E)}
 \end{alltt}
-Notice the difference with the proof of Prop.~\ref{prop:transFV}: now
+Note the difference with the proof of Prop.~\ref{prop:transFV}: now
 we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
 use the assumption and the transitivity of $\subseteq$ and try to
 prove the following goal instead:
@@ -240,31 +261,36 @@ prove the following goal instead:
    ------------------------------------
     0.  \HOLtm{BV E' SUBSET BV ([rec X E/X] E)}
 \end{alltt}
-But this is an easy goal, due to the following lemma which can be
-easily proven by induction on $E$:
+This is an easy goal, due to the following lemma which is
+ proved by induction on $E$:
 \begin{alltt}
 \HOLthm[nosp]{CCS.BV_SUBSET}\hfill{[BV_SUBSET]}
 \end{alltt}
 Taking $E ' = \recu X E$ in the above lemma, we have
     \HOLtm[m\;]{BV ([rec X E/X] E) SUBSET BV E UNION BV (rec X E)},
     the right side equals to \HOLtm[m\;]{BV E UNION (X INSERT BV E)} $=$
-    \HOLtm[m\;]{X INSERT BV E}. The proof easily completes.
+    \HOLtm[m\;]{X INSERT BV E}. Thus
+the    proof can 
+ be completed.
 \end{proof}
 
 \subsection{\Multivariate substitutions}
 
-There are two ways to represent (and actually do) the \multivariate
+There are two ways to represent  the \multivariate
 substitution of $E\{\til P/\til X\}$ which substitutes each possibly
 occurrences of free variables $X_i$ in $E$ with the corresponding
 $P_i$: (1) iterately applying the existing univariate
 \HOLtm[-SUB]{CCS_Subst}; (2) defining a new \multivariate substitution
-function. In any case, we (reasonably) assume that all $X_i$ are
-distinct with each other. On the other hand, there is the syntactic
-possibility that $\til P$ again contains variables from $\til X$, thus
+function.
+% In any case, we (reasonably) assume that all $X_i$ are
+%distinct with each other. 
+Note that  there is the
+possibility that $\til P$   syntactically  again contains variables from $\til X$, thus
 different orders of iterated substitutions may lead to different results.
-In fact, there are all kinds of issues with
-substitutions and applying them to term-like structures. To obtain the
-maximal flexibility with mimimal efforts, we defined
+% In fact, there are all kinds of issues with
+% substitutions and applying them to term-like structures. 
+To obtain the
+maximal flexibility with a reduced effort, we defined
 a \multivariate version of \HOLtm[-SUB]{CCS_Subst}
 called \HOLtm[-SUB]{CCS_SUBST} based HOL's \texttt{finite\_map} theory~\cite{holdesc}.
 
@@ -277,7 +303,7 @@ by \HOLtm{FAPPLY fm k}.
 
 The function \HOLtm[-SUB]{CCS_SUBST} takes a finite
 map \HOLtm{fm} of type \HOLty{:'a |-> ('a, 'b) CCS} and a CCS expression,
-then it returns another CCS expression in which
+and then returns another CCS expression in which
 all occurrences of variables in the \HOLtm{fm}'s domain are substituted with
 the corresponding value in \HOLtm{fm}. Such a finite map can be built from
 the list of variables \HOLtm{Xs} and the corresponding targets
@@ -287,23 +313,25 @@ not interesting and omitted here), while
 abbreviated as \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}.
 The substitution process is
 variable-parallel thus order-independent. For most CCS operators it
-just recursively call itself on subterms of current input. The only
-interesting cases are at agent variables and recursion operators:
+just recursively calls itself on subterms. The only
+interesting cases are at agent variables and recursion:
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.CCS_SUBST_var}\hfill{[CCS_SUBST_var]}
 
 \HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}\hfill{[CCS_SUBST_rec]}
 \end{alltt}
-Notice that, the variable substitution only happens on free
+Note that the variable substitution only occurs on free
 variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
-the domain of \HOLtm{fm}, \HOLtm[-SUB]{CCS_SUBST} must further does the
-substitution on $E$ using a reduce map with $X$, so that all
-occurences of agent variable $X$ in $E$ are correctly bypassed. On the
-other hand, since \HOLtm[-SUB]{CCS_SUBST} only walks each subterm
-once, even \HOLtm{Ps} contains free variables, these variables will
-not be further substituted. Thus the process is indeed
-order-independent. Below we present some key lemmas about
-\HOLtm[-SUB]{CCS_SUBST} without proofs:\footnote{Hereafter,
+the domain of \HOLtm{fm}, \HOLtm{CCS_SUBST} must continue the
+substitution on $E$ using a reduced map~--- without $X$~--- so that all
+occurences of $X$ in $E$ are correctly bypassed.
+\hl{Since} \HOLtm{CCS_SUBST} only runs
+once on each subterm, the possible free variables in  \HOLtm{Ps} are never
+ substituted. 
+% Thus the process is indeed
+% order-independent. 
+Below we present some key lemmas about
+\HOLtm{CCS_SUBST}, omitting the proofs:\footnote{Hereafter,
   some new logical constants from HOL's \texttt{pred_set}
 and \texttt{list} theories are used (c.f.~\cite{holdesc} for more
 details.): \HOLtm{DISJOINT} denotes set disjointness;
@@ -324,8 +352,8 @@ substitution of \HOLtm{Xs} in $E$ does not change $E$:
 \end{lemma}
 
 \begin{lemma}[\texttt{CCS_SUBST_self}]
-Substituting each free variable $X$ in $E$ to \HOLtm[m\;]{var X} (itself)
-does not change $E$:
+  Substituting each free variable $X$ % of \HOLtm{Xs}
+  in $E$ to \HOLtm[m\;]{var X} (itself) does not change $E$:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_self}
 \end{alltt}
@@ -333,15 +361,15 @@ does not change $E$:
 
 The next lemma plays an important role. It essentially swaps the order of two substitutions:
 \begin{lemma}[\texttt{CCS_SUBST_nested}]
-Under certain conditions, two nested substitutions can be
+Under certain conditions \hl{(to get rid of substitution orders)}, two nested substitutions can be
 converted into a single substitution where the targets are substituted first:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_nested}
 \end{alltt}
 \end{lemma}
 
-The next three lemmas show the relative correctness of \texttt{CCS_SUBST}
-with respect to \texttt{CCS_Subst}:
+The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
+w.r.t.~\texttt{CCS\_Subst}:
 \begin{lemma}[\texttt{CCS_SUBST_sing}]
   If there is only one single variable $X$ in the map (with the target
   expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
@@ -362,8 +390,8 @@ variables \HOLtm{Xs} and an \univariate substitution of $X$:
 
 \begin{lemma}[\texttt{CCS_SUBST_FOLDR}]
 Under certain conditions (to get rid of substitution orders), a
-\multivariate substitution can be reduced to a sequence of
-of \univariate substitutions:
+\multivariate substitution can be reduced to repeated applications
+of \univariate substitutions of each variable:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_FOLDR}    
 \end{alltt}
@@ -388,13 +416,15 @@ excluding \HOLtm{Xs}.
 \end{alltt}
 \end{lemma}
 
-It is worth noting that, in the above lemmas, the condition
+In the above lemmas, the condition
 \HOLtm[m\;]{DISJOINT (BV E) (set Xs)} (the bound
 variables of $E$ and the free substitution variables are disjoint) is
-not necessary but makes some proofs (much) easier. As these lemmas are
-used in the rest work, these disjointness conditions eventually
-are propagated everywhere. (We believe that they can be
-all eliminated in the future.)
+not necessary but makes some proofs (much) easier. 
+As these lemmas are
+used in the rest work, such disjointness conditions 
+are propagated everywhere. 
+% (We believe that they can be
+% all eliminated in the future.)
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
@@ -405,33 +435,35 @@ of type $CCS\rightarrow CCS$. These predicates, such as
 (contexts/expressions), \HOLtm{WG} (weak guarded contexts),
 \HOLtm{SG} (strongly guarded contexts) and \HOLtm{SEQ} (sequential
 contexts), are all defined inductively, i.e.~they are built from some ``holes''
-in a bottom-up way. For instance, \HOLtm[m\;]{WG (\t. prefix l t || P)}
-holds because \HOLtm[m\;]{WG (\t. prefix l t)} holds on the ground,
-and for any agent variable $X$, we have (by $\beta$-reduction)
+in a bottom-up way. For instance, \HOLtm[m\;]{WG (\t. prefix a t || P)}
+holds because \HOLtm[m\;]{WG (\t. prefix a t)}
+holds \hl{as a base case of the inductive definition of} \HOLtm{WG}:
+\begin{alltt}
+\HOLthm[nosp]{Congruence.WG1}\hfill{[WG1]}
+\end{alltt}
+\hl{For} any agent variable $X$, we have \hl{by $\beta$-reduction:}
 \HOLtm[m\;]{(\t. prefix l t + P) (var X) = prefix l (var X) + P} (or ``$l.X + P$'' in textbook
 notation) is weakly guarded (c.f.~Def.~\ref{def:guardness}).
 
 It is possible to inductively assert multivariate contexts and their
-guarded variants, but this is not easy as we need to carefully exclude the cases where
-free variables occur inside any recusion operator (c.f. the footnote
-at the beginning of Section~\ref{ss:SysEq}. A more elegant (and less
-error-prone) solution is to define \multivariate contexts (and variants) upon the
-existing \univariate definitions. This is indeed our choice.
-
-For instance, to see the weak guardedness of $a.X + b.X + c.Y$, it is
+guarded variants, but care is needed as  we need to exclude the cases where
+free variables occur inside a recusion operator. A more elegant
+ solution is to define \multivariate contexts (and variants) upon the
+existing \univariate definitions, which is the approach we have followed.
+For \hl{example}, to see the weak guardedness of $a.X + b.X + c.Y$, it is
 natural to focus on each (free) variable: if we substitute each
 occurrence of just one variable, say $X$, with a ``hole'' and see the
-resulting term as a $\lambda$-function, then all $\lambda$-functions
-derived from the original expression in this way must satisfy
-\HOLtm{WG}:
+resulting term as a $\lambda$-function, then all such $\lambda$-functions
+must satisfy \HOLtm{WG}, i.e.~the following results hold:
 \begin{alltt}
 \HOLthm{Example.WG_example1}
 \HOLthm{Example.WG_example2}
 \end{alltt}
-Notice that, \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
+Also note that \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
   Y) = CCS_Subst (prefix a (var X) + prefix b
-  (var X) + prefix c  (var Y)) t X}. This above idea leads to the
-following definitions of CCS contexts and weakly guarded contexts:
+  (var X) + prefix c  (var Y)) t X}
+can be expressed as a \univariate \hl{substitution of the original term.}
+This idea leads to the following definitions:
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.context_def}\hfill{[context_def]}
 
@@ -503,7 +535,7 @@ recursion operator, then in $E$ it now becomes free. (See $\recu Y
 For weakly-guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
 guardedness) as in the \univariate case (\HOLtm{WG}), we also need
-their composability w.r.t.~\multivariate contexts, i.e.~if we
+their composability w.r.t.~\multivariate contexts: if we
 substitute some free variables in a context $C$ for some weakly-guarded
 contexts, the resulting term is weakly-guarded (w.r.t.~the same set of variables):
 \begin{alltt}
