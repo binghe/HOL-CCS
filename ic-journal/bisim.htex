@@ -7,97 +7,16 @@
 \label{ss:bb}
 
 \hlC{A} highlight of this formalization project is the simplified definitions of
-  bisimilarities using the new coinductive \hl{relation-defining} package of HOL4.
-Without it, the bisimilaries can still be defined, but
-  proving their basic properties would be more complicated.
+  bisimilarities using the new coinductive \hlC{relation} package of
+  HOL4. \hl{Without this package, bisimilaries can still be defined in HOL, but
+  proving their properties would be more complicated. Below we explain
+  how the weak bisimulation (and bisimilarity) is defined. The way to
+  define strong bisimulation (and bisimilarity) and other concepts
+  (expansion, contraction, etc.) are in the same manner.}
 
-The definition of strong bisimulation (\texttt{STRONG_BISIM})  follows
-  its textbook definitions. Essentially it is a predicate (i.e.~unary relation) stating
-what kind of binary \hl{relation on CCS processes is a (strong) bisimulation}:
-\begin{alltt}
-\HOLthm[def]{StrongEQ.STRONG_BISIM}\hfill{[STRONG_BISIM]}
-\end{alltt}
-With \hl{the} above definition it is easy to prove that the identity
-relation is indeed a bisimulation,  that bisimulation is preserved by
-inversion, composition, and union operations.
-
-Without the coinductive relation package for HOL,
-the definition \hl{of (strong) bisimilarity} would be the following one:
-\begin{alltt}
-  \HOLthm[def]{StrongEQ.STRONG_EQUIV}\hfill{[STRONG_EQUIV]}
-\end{alltt}
-This is indeed the way followed by Nesi \cite{Nesi:1992ve} at  the
-  time of HOL88. With the above definition, deriving, e.g.,
- the  property (*) below \citep[p.~91]{Mil89}  is tedious:
-\begin{quote}
-  $P\sim Q$ iff, for all $\mu$,\hfill{(*)}
-  \begin{enumerate}[(i)]
-    \item Whenever $P\overset{\mu}{\rightarrow}P'$ then, for some
-      $Q'$, $Q\overset{\mu}{\rightarrow}Q'$ and $P'\sim Q'$
-    \item Whenever $Q\overset{\mu}{\rightarrow}Q'$ then, for some
-      $P'$, $P\overset{\mu}{\rightarrow}P'$ and $P'\sim Q'$
-  \end{enumerate}
-\end{quote}
-
-%However we know that bisimiliarity is a coinductive relation, now 
-With HOL's
-new coinductive relation package (\texttt{Hol_coreln} (since \hl{the} Kananaskis-11 release),
-it is possible to define (strong) bisimilarity in a more convienent way, which
-essentially amounts to defining bisimilarity as the greatest
-fixed-point of the appropriate functional on relations. Precisely we
-call \hl{the} \texttt{Hol_coreln} command in the following way:%
-\footnote{Here {\tt !} and {\tt ?} stand for universal and
-existential quantifiers \hl{respectively} in HOL's ASCII-based term syntax.}
-\begin{lstlisting}
-val (STRONG_EQUIV_rules, STRONG_EQUIV_coind, STRONG_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
-       (!u.
-         (!E1. TRANS E u E1 ==>
-               (?E2. TRANS E' u E2 /\ STRONG_EQUIV E1 E2)) /\
-         (!E2. TRANS E' u E2 ==>
-               (?E1. TRANS E u E1 /\ STRONG_EQUIV E1 E2))) ==> STRONG_EQUIV E E')`;
-\end{lstlisting}
-\texttt{Hol_coreln} returns 3 theorems: the first one,
-\texttt{STRONG_EQUIV_rules}, is the
-same as the input term\footnote{Our mixing of HOL notation and mathematical
-  notation in this paper is not arbitrary.
-We have  pasted here the
-    original proof scripts,  written in HOL ASCII term
-  notation (c.f.\  \cite{holdesc} for more details; HOL4 also supports writing Unicode symbols directly in
-  proof scripts). All formal definitions and
-  theorems in the paper are automatically generated from HOL4. We have
-  tried to  generate
-  Unicode and TeX outputs as easy as possible to read.}, but now promoted into a theorem.
-The second and third theorems, namely \texttt{STRONG_EQUIV_coind} and \texttt{STRONG_EQUIV_cases},
-represent the coinduction proof method for bisimilarity 
-(i.e.~any bisimulation is contained in bisimilarity)
-and the fixed-point property of bisimilarity
-(bisimilarity itself is a bisimulation, thus the largest
-bisimulation):
-\begin{enumerate}
-\item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_rules}\hfill{[STRONG_EQUIV_rules]}
-\end{alltt}
-\item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_coind}\hfill{[STRONG_EQUIV_coind]}
-\end{alltt}
-\item \begin{alltt}
-\HOLthm[nosp]{StrongEQ.STRONG_EQUIV_cases}\hfill{[STRONG_EQUIV_cases]}
-\end{alltt}
-\end{enumerate}
-The last theorem, \texttt{STRONG_EQUIV_cases}, is indeed \hl{the} property (*)
-mentioned earlier.
-% , and these theorems completely capture the definition of
-% , because now we can easily derive the original definition of
-% \texttt{STRONG_EQUIV} as a theorem from \texttt{STRONG_EQUIV_coind}
-% and \texttt{STRONG_EQUIV_cases}.
-
-To define (weak) bisimilarity, we first need to define weak
-transitions of CCS processes. 
-Following  Nesi \cite{Nesi:1992ve},
-we define a (possibly empty) sequence of $\tau$-transitions between
-two processes as
-a new relation \texttt{EPS}
+To define (weak) bisimilarity, we need to define weak transitions of CCS processes. 
+First of all, a (possibly empty) sequence of $\tau$-transitions between
+two processes is defined as a new relation \texttt{EPS}
 ($\overset{\epsilon}{\Longrightarrow}$), which is the
 reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
@@ -115,15 +34,13 @@ two $\epsilon$-transitions:
 \HOLthm[def]{WeakEQ.WEAK_BISIM}\hfill{[WEAK_BISIM]}
 \end{alltt}
 
-Again, we can prove that the identity
-relation is a bisimulation, that bisimulation is preserved by inversion,
- composition, and union. 
-The definition of weak bisimilarity can be
- generated with the following call to
-\texttt{Hol_coreln}:
+We can prove that the identity relation is a bisimulation, that
+bisimulation is preserved by inversion, composition, and union. 
+The definition of weak bisimilarity can be generated with the
+following scripts:
 \begin{lstlisting}
-val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
-    (!(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
+CoInductive WEAK_EQUIV :
+    !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
        (!l.
          (!E1. TRANS E  (label l) E1 ==>
                (?E2. WEAK_TRANS E' (label l) E2 /\ WEAK_EQUIV E1 E2)) /\
@@ -131,20 +48,28 @@ val (WEAK_EQUIV_rules, WEAK_EQUIV_coind, WEAK_EQUIV_cases) = Hol_coreln `
                (?E1. WEAK_TRANS E  (label l) E1 /\ WEAK_EQUIV E1 E2))) /\
        (!E1. TRANS E  tau E1 ==> (?E2. EPS E' E2 /\ WEAK_EQUIV E1 E2)) /\
        (!E2. TRANS E' tau E2 ==> (?E1. EPS E  E1 /\ WEAK_EQUIV E1 E2))
-      ==> WEAK_EQUIV E E')`;
+      ==> WEAK_EQUIV E E'
+End
 \end{lstlisting}
-This returns the following 3 theorems defining \texttt{WEAK_EQUIV}:
-\begin{enumerate}
-\item \begin{alltt}
+Like the case of \HOLtm{TRANS}, a successful invocation of the coinductive definitional principle returns three
+important theorems (\emph{rules}, \emph{coind} and \emph{cases}):
+\begin{itemize}
+\item \hl{\emph{rules} is a conjunction of implications that will be the
+    same as the input term:}
+\begin{alltt}
 \HOLthm[nosp]{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
-\item \begin{alltt}
+\item \hlD{\emph{coind} is the coinduction principle for the relation.}
+\begin{alltt}
 \HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
 \end{alltt}
-\item \begin{alltt}
+\item \hl{\emph{cases} is the so-called `cases' or `inversion' theorem for
+  the relations, and is used to decompose an element in the relation into the possible ways of
+  obtaining it by the rules.}
+\begin{alltt}
 \HOLthm[nosp]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
 \end{alltt}
-\end{enumerate}
+\end{itemize}
 
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 bisimulation is contained in the resulting relation (i.e.~it is
@@ -264,8 +189,8 @@ i.e. the following proposition does not hold: (what holds is that $\R\ \cup \wb$
 \begin{alltt}
 \HOLtm[>>3]{!Con. CONTRACTION Con ==> WEAK_BISIM Con}
 \end{alltt}
-\hl{For instance, in the proof of \texttt{contracts_IMP_WEAK_EQUIV} (contraction preorder implies $\wb$)}.
-We prove it by constructing a bisimulation \HOLtm{Wbsm} containing two processes
+\hl{For instance, in the proof of \texttt{contracts_IMP_WEAK_EQUIV},}
+we can prove it by constructing a bisimulation \HOLtm{Wbsm} containing two processes
 $P$ and $Q$, given that \hl{they are in $Con$ (a contraction)}:
 \begin{alltt}
         \HOLtm{?Wbsm. Wbsm P Q /\ WEAK_BISIM Wbsm}
