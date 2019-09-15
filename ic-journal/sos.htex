@@ -36,8 +36,8 @@ and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$.} for
-agent variables, is then defined inductively:\footnote{``\HOLty{:'b
-    Relabeling}'' is the type of all relabeling functions. They (and
+agent variables, is then defined inductively:\footnote{\HOLty{:'b
+    Relabeling} is the type of all relabeling functions. They (and
   related operations) are not discussed in this paper.}
 \begin{lstlisting}
 Datatype: CCS = nil
@@ -97,7 +97,7 @@ output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLtm
 The transition semantics of CCS processes strictly follows the SOS rules given
 in Fig.~\ref{f:LTSCCS}. However, they are not axioms, but the
 consequence of an \emph{inductive relation} definition of
-\HOLtm{TRANS} by HOL's \texttt{HOL_reln} function~\cite{holdesc} for more details.
+\HOLtm{TRANS} by HOL's \texttt{HOL_reln} function.~(c.f.~\citep[p.~219]{holdesc} for more details.)
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
@@ -148,11 +148,10 @@ level without changing anything, e.g.
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_sum}\hfill{[CCS_Subst_sum]}
 \end{alltt}
-The only two insteresting cases are for the recursion operator and
-recursion variables:
+The only two insteresting cases are \hlC{at agent variables and recursion:}
 \begin{alltt}
-\HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
 \HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
+\HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
 \end{alltt}
 \hlD{The variable substitutions only affects free
 variables: the variable $Y$ in} ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' \hlD{is

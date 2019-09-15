@@ -3,16 +3,18 @@
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section,  \hlD{we discuss the formalisation of the general}  \multivariate
+In this section,  \hlD{we discuss the formalisation of the} \multivariate
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
+\hlC{This formalisation only supports finitely many
+  equations/contractions and equation variables.\footnote{The original theorems
+hold for even (uncountably) infinite equations and equation variables.}}
 We chose these two theorems because they both depend on the same
 concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-%\hl{This work is entirely new} after~\cite{EPTCS276.10}.
-\hlD{The work is an extension of the univariate case
+\hlD{The work is an extension of the univariate case}~\cite{EPTCS276.10}
  in the sense that neither the CCS datatype nor
-the SOS rules need to be changed.}
+the SOS rules need to be changed.
 
 The central problem of the \multivariate formalisation is the
 representation of CCS equations (expressions, contexts).
@@ -35,12 +37,11 @@ new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
 the agent variables such as  \texttt{var X}).
  Then the substitution of equation
 variables in $E_i\{\til P/\til X\}$ would be the \emph{syntactic substitution} of
-each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$. In
-either cases the \emph{disjointness} between equation variables and
+each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.
+In either cases the \emph{disjointness} between equation variables and
 agent variables is syntactically
 guaranteed. Both solutions are rather combersome, and require a non-trivial modification
 of the formalisation of the univariate case. }
- 
 
 % : dealing with another CCS-like type makes the
 % whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
@@ -48,18 +49,15 @@ of the formalisation of the univariate case. }
 % modifying the CCS datatype to just support the formalisation of
 % unique-solution theorems is also not acceptable.
 
-\hlD{In this project, we have  followed} Milner~\cite{Mil89}, thus using the same alphabet for
-both agent variables and equation variables. 
-\hlD{This has allowed a large reuse of the univariate formalisation. For instance, 
+\hlD{In this project, we have followed} Milner~\cite{Mil89}, using the
+same alphabet for both agent variables and equation variables.
+This has allowed a large reuse of the \univariate formalisation. \hl{For instance, 
 the variable
 substitution function used in SOS rules [\texttt{REC}] can be also
 used for substituting eqaution variables.
-However, a lot of care is needed in 
-in the proofs of  many
+However, a lot of care is needed in the proofs of many
 fundamental lemmas, mostly due to the variable capture issues between
-equation variables and agent variables.
-}
-
+equation variables and agent variables.}
 
 % which is also the most elegant way: reusing \emph{free} agent variables
 % (i.e. undefined constants) as equation variables, then the variable
@@ -132,16 +130,14 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \end{proposition}
 
 \begin{proof}
-% Milner said it can be proven by ``an easy action
-% induction''~\cite{milner1990operational}. However this is not true at all.
-% %
-%To see things more clearly, 
 We  prove a stronger result,
 i.e.,  the set of free variables decreases through derivations:
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
 \end{alltt}
 
+\hlC{Milner said it can be proved by ``an easy action
+induction''}~\cite{milner1990operational}.
 From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
 of the following \emph{induction principle} generated together with SOS
 rules (which essentially says \hl{that} \HOLtm{TRANS} is the smallest relation

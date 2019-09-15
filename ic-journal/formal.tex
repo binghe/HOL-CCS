@@ -86,9 +86,9 @@ their informal proofs, with minimal automatic proof searching.
 
 \subsection{Higher Order Logic}
 
-HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
+\hl{HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
 universe $\mathcal{U}$). HOL's type system is much simpler than those
-based on dependent types and other type theories. There are four kinds of types in the HOL
+based on dependent types and other type theories.} There are four kinds of types in the HOL
 logic, as illustrated in Fig. \ref{fig:hol-types} for its BNF
 grammar. Noticed that, in HOL the standard atomic types \emph{bool} and \emph{ind}
  denote, respectively, the distinguished two-element set 2 and the
@@ -229,6 +229,7 @@ either break the logic consistencies or make the whole work less
 convincible. The theorem prover (in general) guarantees that,
 without adding new axioms, if both the definitions and the statements
 of theorems are correct, then any proof which successfully completes must
-be correct.
+be correct. \hl{This is also the case here: SOS rules of CCS are
+\emph{not} axioms but consequences of an inductive relation.}
 
 % next file: sos.htex

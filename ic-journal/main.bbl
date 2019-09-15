@@ -74,6 +74,10 @@ R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
 \newblock \href {http://dx.doi.org/10.1007/978-3-319-21491-7}
   {\path{doi:10.1007/978-3-319-21491-7}}.
 
+\bibitem{milner1990operational}
+R.~Milner, Operational and algebraic semantics of concurrent processes,
+  Handbook of Theoretical Comput. Sci.
+
 \bibitem{Sangiorgi:2011ut}
 D.~Sangiorgi, Introduction to Bisimulation and Coinduction, Cambridge
   University Press, 2011.
@@ -99,12 +103,6 @@ K.~Slind, M.~Norrish,
 \newblock \href {http://dx.doi.org/10.1007/978-3-540-71067-7_6}
   {\path{doi:10.1007/978-3-540-71067-7_6}}.
 \newline\urlprefix\url{http://ts.data61.csiro.au/publications/nicta_full_text/1482.pdf}
-
-\bibitem{Tian:2017wrba}
-C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
-  Solutions of Equations in Process Algebra}}, Master's thesis, AlmaDigital,
-  Bologna (Dec. 2017).
-\newline\urlprefix\url{http://amslaurea.unibo.it/14798/}
 
 \bibitem{Nesi:1992ve}
 M.~Nesi, \href{http://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-278.pdf}{{A
@@ -166,10 +164,6 @@ M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
 \newblock \href {http://dx.doi.org/10.1007/978-3-642-39634-2_12}
   {\path{doi:10.1007/978-3-642-39634-2_12}}.
 
-\bibitem{milner1990operational}
-R.~Milner, Operational and algebraic semantics of concurrent processes,
-  Handbook of Theoretical Comput. Sci.
-
 \bibitem{Nesi:2017wo}
 M.~Nesi, {Formalising a Value-Passing Calculus in HOL}, Formal Aspects of
   Computing 11~(2) (1999) 160--199.
@@ -183,6 +177,12 @@ R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A
   36--72.
 \newblock \href {http://dx.doi.org/10.1145/151646.151648}
   {\path{doi:10.1145/151646.151648}}.
+
+\bibitem{Tian:2017wrba}
+C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
+  Solutions of Equations in Process Algebra}}, Master's thesis, AlmaDigital,
+  Bologna (Dec. 2017).
+\newline\urlprefix\url{http://amslaurea.unibo.it/14798/}
 
 \bibitem{bengtson2007completeness}
 J.~Bengtson, J.~Parrow, A completeness proof for bisimulation in the

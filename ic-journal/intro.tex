@@ -83,28 +83,23 @@ Then the successful termination of the proof gives us a guarantee that the proof
 complete and trustworthy, eliminating the risks 
 of overlooking or missing details as in \emph{paper-and-pencil} proofs.
 
-
-
-\finish{below: ``In contrast to most literature,...'' we need to
-  support this with references}
-
-
-\hlD{We first consider the case of a single equation (or contraction),
-that we call the univariate case, then consider the multivariate
+We first consider the case of a single equation (or contraction),
+that we call the \univariate case, then consider the \multivariate
   case, where  more than one equation
-  (or contraction) is possible.
-The univariate  theorems use
-$\lambda$-functions to present  CCS equations,
-while the multivariate versions require a
-more careful and delicate treatment of 
-expressions with several 
-variables and substitutions acting on them.
-In contrast to most literature, we have adopted the same
+  (or contraction) \hl{with multiple equation variables is considered.}
+The \univariate theorems use
+$\lambda$-functions to present CCS equations,
+while the \multivariate versions require a
+more careful and delicate treatment of CCS
+expressions with \hl{multiple} variables and substitutions acting on them.
+
+\hl{In contrast to modern literature, e.g.}~\cite{Gorrieri:2015jt},
+\hl{we have followed Milner's original approach}~\cite{milner1990operational} and adopted the same
 type for both CCS equations and processes: those undefined constants
 in CCS terms are treated as  (free) equation variables, and a CCS
 \emph{process} is a CCS term without equation variables. 
-This allows us a smoother move from the univariate case to the multivariate
-one. See} Section~\ref{sec:multivariate} for  details.
+This allows us a smoother move from the \univariate case to the \multivariate
+one. See Section~\ref{sec:multivariate} for  details.
 
 \paragraph{Structure of the paper}
 
@@ -114,10 +109,10 @@ bisimilarity.
 Section~\ref{s:eq} discusses equations and contractions.
 Section~\ref{ss:new} presents rooted contraction and the related
 unique-solution result for rooted bisimilarity.
-Section~\ref{s:for} highlights our formalisation in HOL4 \hlD{for the
-univariate case.}
-Section~\ref{sec:multivariate} \hlD{describes the move to the
-  multivariate case}. 
+Section~\ref{s:for} highlights our formalisation in HOL4 for the
+\univariate case.
+Section~\ref{sec:multivariate} describes the \hl{extension} to the
+  \multivariate case.
 Finally,  Section~\ref{s:rel} and \ref{s:concl} discuss related work,
 conclusions, and a few directions for future work.
 
