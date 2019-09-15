@@ -36,10 +36,17 @@ delicate and subtle differences in a few points. In a paper-pencil
 proof, checking all details would be long and \hl{error-prone},
 \hl{especially in cases where the proofs are similar to each other or
   when there are long case analyses to be carried out.}
-A theorem-prover formalisation is in this respect  helpful and reassuring.
-We think that the statements in the formalisation are easy to read and
-understand, as they are  close to the original statements found in
-standard CCS textbooks \cite{Gorrieri:2015jt,Mil89}.
+Some of the textbook proofs are even wrong, e.g. Milner's
+proof of the unique-solution theorem for $wb$
+(Theorem~\ref{t:Mil89s3}).
+For some other textbook proofs, even they are correct, sometimes they actually
+do not need all information from the antecedents, which can be further
+weakened. This kind of improvements can be easily found during the
+formalisation work.
+For our CCS formalisation, we believe that all the definitions and
+theorem statements are easy to read and
+understand, as they are very close to their original statements in
+textbooks~\cite{Gorrieri:2015jt,Mil89}.
 
 Formalising other equivalences and preorders could also be considered,
 notably the \hl{trace-based} equivalences, as well as more refined process
