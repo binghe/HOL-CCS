@@ -9,7 +9,7 @@ based on algebraic reasoning~\cite{BaeBOOK,theoryAndPractice,RosUnder10}.
 
 \hl{Milner's unique-solution theorem for weak bisimilarity, however,
 has severe syntactic limitations:}
-the equations must be both \emph{(strongly) guarded} and \emph{sequential}. That is,
+the equations must be both \emph{guarded} and \emph{sequential}. That is,
 variables of the equations \hl{can only occur underneath visible prefixes and summations.}
 One way \hl{to overcome} such limitations is to replace the equations
 with special inequations called
@@ -17,7 +17,7 @@ with special inequations called
 preorder that, roughly, places some efficiency constraints on processes.
 \hl{The unique solution of contractions is defined as with equations:}
 any two solutions must be componentwise bisimilar.
-The difference \hl{from} equations is \hlD{in} the meaning of a solution:
+The difference \hl{from} equations is \hl{in} the meaning of a solution:
 in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
 With contractions, most syntactic limitations of the unique-solution theorem \hl{are
@@ -26,14 +26,14 @@ in~\cite{sangiorgi2017equations}
 (where the issue is bypassed using a more
 restrictive CCS syntax)
 is the occurrences of %\emph{direct} 
-\hlD{sums} (e.g.~$P + Q$) due to
+\hl{sums} (e.g.~$P + Q$) due to
 the \hl{non-substitutivity of the contraction preorder in this case}.
 
- \hlD{This paper presents}  a
+ \hl{This paper presents}  a
 comprehensive formalisation of Milner's Calculus of Communicating
 Systems (CCS) in the HOL theorem prover (HOL4),
 with a focus towards the theory of unique solutions of equations and contractions.
-\hlD{Many results in Milner's CCS book}~\cite{Mil89} are covered, since
+\hl{Many results in Milner's CCS book}~\cite{Mil89} are covered, since
 the unique-solution theorems rely on a large number of fundamental results.
 Indeed the formalisation encompasses all basic properties of strong and weak
 \hl{bisimilarities} (e.g.~the fixed-point and substitutivity properties), the
@@ -41,32 +41,31 @@ basic properties of rooted bisimilarity and their algebraic laws.
 Further extensions include several versions of ``bisimulation up to''
 techniques, the expansion and contraction preorder.
 Concerning rooted bisimilarity, the formalisation
-includes \hl{Hennessy's Lemma} and \hl{Deng's Lemma},
- and two \hl{theorems} saying that rooted bisimilarity is the coarsest (largest)
+includes Hennessy's Lemma and Deng's Lemma,
+ and two theorems saying that rooted bisimilarity is the coarsest (largest)
  congruence contained in weak bisimilarity ($\wb$): one is classical
  with the hypothesis that no process uses up all labels;
 the other without such hypothesis, essentially formalised van Glabbeek's proof~\cite{van2005characterisation}.
 Similar results are also proved for the rooted contraction preorder.
-In this respect, the work is \hl{also} an extensive experiment \hl{using} the HOL theorem prover with its
-recent developments, including \hl{its coinductive relation-defining package}.
+In this respect, the work is also an extensive experiment using the HOL theorem prover with its
+recent developments, including its coinduction defining package.
 
-From the \hl{point of} view of the CCS theory, this formalisation has offered us the possibility of
+From the point of view of the CCS theory, this formalisation has offered us the possibility of
 further refining the theory of unique solutions of contractions.
-In particular, \hlD{the existing result}~\cite{sangiorgi2017equations} \hlD{has  limitations} on the body of the contractions due to the
+In particular, the existing result~\cite{sangiorgi2017equations} has limitations on the body of the contractions due to the
 substitutivity problems of weak bisimilarity and other behavioural relations with respect
 to the sum operator.
-\hl{In this paper, the contraction-based proof technique is further
-refined by moving from the contraction preorder} to
+In this paper, the contraction-based proof technique is further
+refined by moving from the contraction preorder to
 \emph{rooted contraction}, that is, the coarsest precongruence contained in the contraction
 preorder. The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
-\hlD{constraints on the use the sum operator}.
+\hl{constraints on the use the sum operator}.
 
 Another benefit of the formalisation is 
 that we can take advantage of results about different 
 equivalences and preorders that share similar proof structures.
-% rephrased: (TODO: still hard to read --Chun)
-\hl{Such structural simililarities can be found, for instance, in the
+Such structural simililarities can be found, for instance, in the
 following cases: the proofs that rooted bisimilarity and rooted
 contraction are, respectively, the coarsest congruence contained in
 weak bisimilarity and the coarsest precongruence contained in the
@@ -75,7 +74,7 @@ for weak bisimilarity that uses the contraction preorder as an
 auxiliary relation, and other unique solution results (e.g. the one
 for rooted in which the auxiliary relation is rooted contraction); the
 proofs about various forms of enhancements of the bisimulation proof
-method (the `up-to' techniques).}
+method (the `up-to' techniques).
 %
 In these cases, when moving between proofs there are only a few places in
 which the HOL proof scripts have to be modified.
@@ -91,10 +90,10 @@ The \univariate theorems use
 $\lambda$-functions to present CCS equations,
 while the \multivariate versions require a
 more careful and delicate treatment of CCS
-expressions with \hl{multiple} variables and substitutions acting on them.
+expressions with multiple variables and substitutions acting on them.
 
-\hl{In contrast to modern literature, e.g.}~\cite{Gorrieri:2015jt},
-\hl{we have followed Milner's original approach}~\cite{milner1990operational} and adopted the same
+In contrast to modern literature, e.g.~\cite{Gorrieri:2015jt},
+we have followed Milner's original approach~\cite{milner1990operational} and adopted the same
 type for both CCS equations and processes: those undefined constants
 in CCS terms are treated as  (free) equation variables, and a CCS
 \emph{process} is a CCS term without equation variables. 

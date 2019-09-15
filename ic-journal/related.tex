@@ -7,11 +7,8 @@ theorem prover.\footnote{Part of this work can now be found at
   \url{https://github.com/binghe/HOL-CCS/tree/master/CCS-Nesi}.}
 Her main focus was on implementing decision procedures (as a ML
 program, e.g.~\cite{cleaveland1993concurrency}) for
-automatically proving bisimilarities of CCS
-processes. %, thus she stopped proving deeper theorems in Milner's
-           %book, once the congruence and algebraic laws of 
-%strong, weak and rooted bisimilarity were proved.
-\hlD{Her work has been a basis for} ours~\cite{Tian:2017wrba}.
+automatically proving bisimilarities of CCS processes.
+Her work has been a basis for ours~\cite{Tian:2017wrba}.
 However, the differences are substantial, especially in the way of defining
 bisimilarities. We greatly benefited from \hl{new} features and standard
 libraries in recent versions of HOL4, and our formalisation has
@@ -22,9 +19,9 @@ on CCS, $\pi$-calculi
 and $\psi$-calculi 
 using Isabelle/HOL and its nominal logic, with the main focus on the handling of
 name binders \cite{bengtson2007completeness,parrow2009formalising}.
-\hl{Details are found in   Bengtson's PhD thesis}~\cite{bengtson2010formalising}. For CCS, 
+More details can be found in Bengtson's PhD thesis~\cite{bengtson2010formalising}. For CCS, 
 he has formalized basic properties for strong/weak equivalence (congruence, basic
- algebraic laws); \hlD{however the CCS syntax doesn't have constants
+ algebraic laws); \hl{however the CCS syntax doesn't have constants
 (or recursion operator), using replication in place of recursion.}
 % The formalisation effort has then been continued 
 %

@@ -59,7 +59,7 @@ As  weak bisimilarity
 % requires more restrictions on the expression, namely, .
 % Now we're ready to state and prove the following lemma:
 \begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
-If the variable $X$ is strongly guarded and sequential in $G$, and
+If the variable $X$ is guarded and sequential in $G$, and
 $G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
 $H\{P/X\}$, for some expression $H$, and for any $Q$, we have
 $G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
@@ -107,7 +107,7 @@ used
  the  above \texttt{OBS_CONGR_BY_WEAK_BISIM},
  we  directly construct the appropriate bisimulation relations.
 \begin{lemma}[\texttt{OBS_UNIQUE_SOLUTION_LEMMA}]
-If the variable $X$ is strongly guarded and sequential in $G$, and
+If the variable $X$ is guarded and sequential in $G$, and
 $G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
 $H\{P/X\}$, for some  $H$, and for any $Q$, we also have 
 $G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
@@ -259,7 +259,7 @@ equations' theorem for \emph{strong} bisimilarity ($\sim$)~---
 the same weakly guarded context (\texttt{WG}) is required.
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$)
-has more rigid constraints, as the variables must be both strongly guarded and sequential.
+has more rigid constraints, as the variables must be both guarded and sequential.
 %  Theorem~\ref{t:rcontraBisimulationU} can also be seen as a more
 % applicable version of Milner's ``unique solution of
 % equations'' theorem for rooted bisimilarity ($\rapprox$), which has more

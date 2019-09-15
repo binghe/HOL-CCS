@@ -4,14 +4,14 @@
 \section{CCS}
 \label{ss:ccs}
 
-\hlD{Here we recall the core theory of CCS.}
+\hl{Here we recall the core theory of CCS.}
 We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
-\ldots\}$ \hlD{yielding} input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
+\ldots\}$ \hl{yielding} input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
 action $\tau \notin \mathscr{L}$, and \hl{another possibly infinite
   set of agent} variables $A, B,
 \ldots \in \mathscr{X}$.
 The class of CCS processes is then inductively
-defined from $\nil$ \hlD{(the terminated process)} and agent variables by the operators
+defined from $\nil$ \hl{(the terminated process)} and agent variables by the operators
 of \emph{prefixing} (.), \emph{parallel composition} ($|$),
 \emph{summation}
 (or \emph{binary choice}, $+$),
@@ -27,7 +27,7 @@ P_1 + P_2 \; \midd
 \;  \midd \;  A \; \midd \; \recu A  P
 \end{array}
 \end{equation*}
-\hlD{In our presentation of CCS, 
+\hl{In our presentation of CCS, 
 the restriction operator takes a set of  labels $L
     \subseteq \mathscr{L}$, rather than a single one.  
 The relabeling operator takes a relabeling function
@@ -65,10 +65,10 @@ satisfy $\mathit{rf}(\tau) =
 %     CCS process $a.C$ with the constant $C \DSdefi b.C$ can be
 %     expressed as $a.(\texttt{rec}\, C. (b.C))$.
 % \end{enumerate}
-We sometimes omit \hlD{a} trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
-A CCS process $P$ may \hlD{evolve} to another one, say $P'$, under
+We sometimes omit \hl{a} trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
+A CCS process $P$ may \hl{evolve} to another one, say $P'$, under
   an action $\mu$, written by $P \arr{\mu} P'$.
-The \hlD{transition semantics} of CCS processes is given by means of
+The \hl{transition semantics} of CCS processes is given by means of
 a Labeled Transition System (LTS) \hl{expressed in Structural Operational
 Semantics (SOS) rules} shown in Fig.~\ref{f:LTSCCS}.
 (The symmetric versions of the \hl{SOS} rules for

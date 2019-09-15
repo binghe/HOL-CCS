@@ -3,11 +3,11 @@
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section,  \hlD{we discuss the formalisation of the} \multivariate
+In this section,  \hl{we discuss the formalisation of the} \multivariate
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
-\hlC{This formalisation only supports finitely many
+\hl{This formalisation only supports finitely many
   equations/contractions and equation variables.\footnote{The original theorems
 hold for even (uncountably) infinite equations and equation variables.}}
 We chose these two theorems because they both depend on the same
@@ -18,9 +18,9 @@ the SOS rules need to be changed.
 
 The central problem of the \multivariate formalisation is the
 representation of CCS equations (expressions, contexts).
-\hlD{In the} \univariate formalisation, $\lambda$-functions (of type
+\hl{In the} \univariate formalisation, $\lambda$-functions (of type
 $CCS\rightarrow CCS$) are used to represent \univariate CCS
-\hlD{equations, and variable substitutions are simply 
+\hl{equations, and variable substitutions are simply 
 calls to $\lambda$-functions on the target CCS terms.}
 This idea cannot be extended to the \multivariate case, as
 we do not have a fixed number of variables to deal with.
@@ -49,7 +49,7 @@ of the formalisation of the \univariate case.
 % modifying the CCS datatype to just support the formalisation of
 % unique-solution theorems is also not acceptable.
 
-\hlD{In this project, we have followed} Milner~\cite{Mil89}, using the
+\hl{In this project, we have followed} Milner~\cite{Mil89}, using the
 same alphabet for both agent variables and equation variables.
 This has allowed a large reuse of the \univariate formalisation. \hl{For instance, 
 the variable
@@ -131,12 +131,12 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 
 \begin{proof}
 We  prove a stronger result,
-i.e.,  the set of free variables decreases through derivations:
+i.e.,  the set of free variables decreases through derivatives:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[TRANS_FV]}
 \end{alltt}
 
-\hlC{Milner said it can be proved by ``an easy action
+\hl{Milner said it can be proved by ``an easy action
 induction''}~\cite{milner1990operational}.
 From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order \hl{application}
 of the following \emph{induction principle} generated together with SOS
@@ -447,7 +447,7 @@ guarded companions are defined as predicates over $\lambda$-expressions
 of type $CCS\rightarrow CCS$. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
 (contexts/expressions), \HOLinline{\HOLConst{WG}} (weak guarded contexts),
-\HOLinline{\HOLConst{SG}} (strongly guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
+\HOLinline{\HOLConst{SG}} (guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
 contexts), are all defined inductively, i.e.~they are built from some ``holes''
 in a bottom-up way. For instance, \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{\mid}}\\\;\HOLFreeVar{P}\ensuremath{)}}
 holds because \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}}
@@ -491,7 +491,7 @@ variables.\footnote{Here \HOLinline{\HOLConst{SET_TO_LIST}} converts a finite se
   in all unique-solution theorems a list of variables \HOLinline{\HOLFreeVar{Xs}} is fixed and
   then all equations are required to contain free variables up to
   \HOLinline{\HOLFreeVar{Xs}}. Thus our choices in these definitions are optimal.}
-(The strong guardedness and sequentiality can also be defined similarily
+(The guardedness and sequentiality can also be defined similarily
 when needed, using
 their \univariate companions (\texttt{SG} and \texttt{SEQ}).)
 
@@ -645,9 +645,9 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
 \end{alltt}
 Notice that, in HOL, \HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenEquiv{}}\\\;\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}. The form in right side suggest that,
 \HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}} is actually a set containing all
-solutions (of \HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}). \hlC{Then the unique-solution
+solutions (of \HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}). Then the unique-solution
 theorems can be understood as: any two (syntactically different) elements
-in the set are bisimilar.}
+in the set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
 

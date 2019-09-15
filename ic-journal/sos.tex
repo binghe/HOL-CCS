@@ -4,6 +4,7 @@
 %% Prof. Davide Sangiorgi and Chun Tian.
 
 \subsection{CCS: the formal theory}
+\label{ss:formalCCS}
 
 \hl{The CCS formalisation starts with type definitions for action,
 relabeling and the CCS term itself. We use} the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
@@ -35,8 +36,8 @@ and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' with types
 having the corresponding cardinalities $h$ and $k$.} for
-agent variables, is then defined inductively:\footnote{\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}} is the type of all relabeling functions. They (and
-  related operations) are not discussed in this paper.}
+agent variables, is then defined inductively: (\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}} is the type of all relabeling functions. They (and
+  related operations) are not discussed in this paper.)
 \begin{lstlisting}
 Datatype: CCS = nil
               | var 'a
@@ -52,19 +53,19 @@ The above definitions allow us to use terms like \texttt{nil} and
 \texttt{sum P Q} in HOL. Their correspondences with conventional CCS notations
 in the literature, are given in Table~\ref{tab:ccsoperator}, \hl{where
 most CCS operators have also the more readable abbreviation forms,
-either for end user or for \TeX{} outputs.}\footnote{All
+either for end user or for \TeX{} outputs.} (All
   formal theorems and definitions in this paper
   are generated from HOL4. Also, by default, all theorems are fully
-  specialised, removing outermost universal quantifiers.}
+  specialised, removing outermost universal quantifiers.)
 
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\hl{\textbf{CCS concept}} & \hl{\textbf{Notation}} & \textbf{HOL term} &
+\textbf{CCS concept} & \textbf{Notation} & \textbf{HOL term} &
                                              \textbf{HOL abbrev.} & \hl{\textbf{\TeX{} outputs}} \\
 \hline
-\hlD{nil} & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLinline{\HOLConst{\ensuremath{\mathbf{0}}}} \\
+nil & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLinline{\HOLConst{\ensuremath{\mathbf{0}}}} \\
 prefix & $\mu.P$ & \texttt{prefix u P} & \texttt{u..P} & \HOLinline{\HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{P}} \\
 \hl{summation} & $P + Q$ & \texttt{sum P Q} & \texttt{P + Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{Q}} \\
 parallel \hl{composition} & $P \,\mid\, Q$ & \texttt{par P Q} & \texttt{P || Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{Q}} \\
@@ -121,7 +122,7 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{equation*}
 \infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}
 \end{equation*}
-\item \hlD{\emph{ind} is the induction principle for the
+\item \hl{\emph{ind} is the induction principle for the
   relation} (see Section~\ref{sec:multivariate} for the exact form
   and its application).
 \item \hl{\emph{cases} is the so-called `cases' or `inversion' theorem for
@@ -146,13 +147,13 @@ level without changing anything, e.g.
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E\sb{\mathrm{2}}}\hfill{[CCS_Subst_sum]}
 \end{alltt}
-The only two insteresting cases are \hlC{at agent variables and recursion:}
+The only two insteresting cases are at agent variables and recursion:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLFreeVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
 \HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
 \end{alltt}
-\hlD{The variable substitutions only affects free
-variables: the variable $Y$ in} ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' \hlD{is
+\hl{The variable substitutions only affects free
+variables: the variable $Y$ in} ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' \hl{is
 bound and therefore the substitution ignores it. }
 % The actual substitution happens in case of}
 % ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being substituted (and if
@@ -175,7 +176,7 @@ following two facts must be proved: \hl{(1) there are indeed the three
   transitions mentioned above; (2) there are no other
   transitions.} For large CCS processes it is surprisingly \hl{tedious} to manually derive
 all the possible transitions and prove the non-existence of others.
-\hlD{This shows the usefulness of appealing to an ML function
+\hl{This shows the usefulness of appealing to an ML function
 \texttt{CCS\_TRANS\_CONV} that is designed to automate the whole process.
 For instance, calling it on $(a.\nil | \bar{a}.\nil)$ the function returns the
 following theorem which describes all the transitions (just one-step) of the process:}

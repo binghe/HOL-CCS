@@ -6,8 +6,8 @@
 \subsection{Bisimulation and Bisimilarity}
 \label{ss:bb}
 
-\hlC{A} highlight of this formalization project is the simplified definitions of
-  bisimilarities using the new coinductive \hlC{relation} package of
+\hl{A} highlight of this formalization project is the simplified definitions of
+  bisimilarities using the new coinductive \hl{relation} package of
   HOL4. \hl{Without this package, bisimilaries can still be defined in HOL, but
   proving their properties would be more complicated. Below we explain
   how the weak bisimulation (and bisimilarity) is defined. The way to
@@ -59,7 +59,7 @@ important theorems (\emph{rules}, \emph{coind} and \emph{cases}):
 \begin{alltt}
 \HOLthm[nosp]{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
-\item \hlD{\emph{coind} is the coinduction principle for the relation.}
+\item \hl{\emph{coind} is the coinduction principle for the relation.}
 \begin{alltt}
 \HOLthm[nosp]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
 \end{alltt}
@@ -95,10 +95,6 @@ becomes a theorem:
 \begin{alltt}
 \HOLthm{WeakEQ.WEAK_EQUIV}\hfill{[WEAK_EQUIV]}
 \end{alltt}
-
-% \finish{I have removed other things as i fear they would confuse a
-%   reader and I think the main point we wanted to say are now clearly
-%   expressed}  (I don't buy this any more, sorry)
 
 The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) 
 follows Definition~\ref{d:rootedBisimilarity}:
@@ -139,7 +135,7 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLthm{StrongLaws.STRONG_LEFT_SUM_MID_IDEMP}
 % Not all above theorems are primitive (in the sense of providing a
 % minimal axiomatization set for proving all other strong algebraic
 % laws). 
-The first \hl{five of them are proven} by constructing \hlD{appropriate} bisimulation
+The first \hl{five of them are proven} by constructing \hl{appropriate} bisimulation
 relations, and their formal proofs are written in
 a goal-directed manner. \hl{On the other hand, the
 last three algebraic laws} are derived in a forward manner by applications of
@@ -189,7 +185,7 @@ and contains the expansion preorder.
 \end{enumerate}
 \end{proposition}
 In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
-harder than that for the cases of expansion: \hlC{this is mostly due to the (surprising) fact
+harder than that for the cases of expansion: \hl{this is mostly due to the (surprising) fact
   that, although the contraction preorder $\mcontrBIS$ is contained in
   bisimilarity ($\wb$), in general it won't be true that
 if $\R$ is a contraction then $\R$ itself is a bisimulation,}
@@ -208,7 +204,7 @@ $P$ and $Q$, given that \hl{they are in $Con$ (a contraction)}:
 \end{alltt}
 We cannot show that $Con$ itself is a bisimulation, but rather
 that the union of $Con$ and $\wb$ is a bisimulation.
-\hlD{The corresponding lemma for the expansion preorder is rather
+\hl{The corresponding lemma for the expansion preorder is rather
 straightforward (just use $Con$).}
 
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally

@@ -31,10 +31,8 @@ Section 5 in the paper.
 In the following, we discuss the changes to the paper and provide a
 point-by-point reply to the issues that have been raised.
 
-Our answers are marked  with an `` \Mark''  at the beginning.
+Our answers are marked  with a `` \Mark''  at the beginning.
 
-
-\finish{add some kind of mark, like above, so that our answers are clearly seen} 
 \ \\
 
 Best regards,
@@ -114,12 +112,13 @@ The extension  is indeed based on the existing framework in
 \item \begin{quote}
     L45: "about unique solution*s*"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L84 "the weak one" rephrase
   \end{quote}
-
+  \Mark
 
 Done. 
 
@@ -127,13 +126,14 @@ Done.
 \item \begin{quote}
     L91 "bisimiarity"
   \end{quote}
-
+  \Mark
 Fixed.
   
 \item \begin{quote}
     proof of thm 3.10: could there be some kind of picture to help? also, the "Hence," in the one-to-last line refers only to the property right before it, right? (about $C[\tilde{Q}]$)
   \end{quote}
 
+  \Mark
   We have rephrased this proof (also the theorem statements) with a
   picture (Fig.~\ref{fig:310} illustrating the proof. 
 % The "Hence" part
@@ -144,6 +144,7 @@ Fixed.
     L209: "their precongruences" precongruence closure?
   \end{quote}
 
+  \Mark
   Rephrased.
 
 % : ``... because all we need from $\mcontrBIS$ (or
@@ -154,23 +155,27 @@ Fixed.
     L216 "using Lemma 3.13 ... Section 4.9" perhaps just repeat the lemma before the theorem, as it's a bit hard to read Lemma 4.14 at this stage 
   \end{quote}
 
+  \Mark
   We have recalled Lemma 3.13 of \cite{Mil89} as
   Lemma~\ref{lem:milner313} right before Theorem 3.13, which now becomes Theorem~\ref{t:rcontraBisimulationU}).
 
 \item \begin{quote}
     L224: full stop and new sentence after "1972"
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L227 "considerable" -> "considerably"
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L228 "formal theories built in HOL is easily convincible" questionable grammar
   \end{quote}
 
+  \Mark
 We have rephrased the sentence.
 %   Now we used the following sentence: ``As a consequence, theories and proofs verified in HOL are relatively more
 %   convincible to non-experts.''
@@ -178,6 +183,7 @@ We have rephrased the sentence.
     L238 how is this without loss of generality?
   \end{quote}
 
+  \Mark
   Sentence eliminated as now we have formalized the multivariate
   version of the unique-solution theorems. The ``without loss of
   generality'' intended to point out  that all steps of
@@ -188,11 +194,14 @@ We have rephrased the sentence.
     L245 maybe more clear to just give the definition of $\beta$ Action 
   \end{quote}
 
+  \Mark
   The original HOL definition of the type Action is now given.
   
 \item \begin{quote}
     L250,300: perhaps explain what these (double) backquotes signify or just remove the sentence
   \end{quote}
+
+  \Mark
   Sentences removed. In HOL, single and double backquotes are
   delimitator between ``inner'' (logic) and ``outer'' (proof)
   languages but this is not really  relevant for the present paper.
@@ -201,11 +210,13 @@ We have rephrased the sentence.
 \item \begin{quote}
     L277 "substutiion"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L280 (around): put some of these equalities on a single line? enough space
   \end{quote}
+  \Mark
   Now we have removed most less-interesting cases and explained in
   details the two interesting cases (recursion operator and (free) variables).
   
@@ -213,48 +224,59 @@ We have rephrased the sentence.
     L316 and later, e.g. 323: is "p" a closed ccs term?
   \end{quote}
 
+  \Mark
+  Yes, we have further explained this.
+
 \item \begin{quote}
     L361 "Many lemmas ... contexts" this is a bit vague
   \end{quote}
 
-We have rephrased
+  \Mark
+ We have rephrased
 % : ``Many lemmas about above concepts (\texttt{CONTEXT}, \texttt{WG},
 %   \texttt{SEQ}, etc.)''
   
 \item \begin{quote}
     L374 "An highlight"
   \end{quote}
-  Fixed.  %Now we say ``One highlight...''.
+   \Mark
+ Fixed.  %Now we say ``One highlight...''.
   
 \item \begin{quote}
     L378 "is a" => "are"
   \end{quote}
+  \Mark
   Fixed.  
 %``... what kind of binary relations on CCS process are (strong) bisimulations.''
   
 \item \begin{quote}
     L385 "With *the* above"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L386 "the definition" of what? (bisimilarity, but say that)
   \end{quote}
+  \Mark
   Fixed (``the definition of (strong) bisimilarity``).
   
 \item \begin{quote}
     L394 "since *the* Kananaskis-11 release"
   \end{quote}
+  \Mark
   Fixed.
 
 \item \begin{quote}
     L396 "we call *the* Hol_coreln"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L410 $E$ and $E'$ missing
   \end{quote}
+  \Mark
   All formal theorems and definitions are generated from HOL4.
   By default, all theorems are fully specialised, removing outermost
   universal quantifiers. For certain important theorems like this one,
@@ -265,7 +287,8 @@ We have rephrased
     L436 "is defined upon weak transition" grammar
   \end{quote}
 
-We have rephrased: ``The definition of weak bisimulation is based on weak
+  \Mark
+ We have rephrased: ``The definition of weak bisimulation is based on weak
   and $\epsilon$--transitions:''
   
 \item \begin{quote}
@@ -273,25 +296,29 @@ We have rephrased: ``The definition of weak bisimulation is based on weak
     be added there too (the two definitions are now not explicitly
     related)
   \end{quote}
+  \Mark
   We have removed the duplicated part and only kept the part for weak bisimulation.
 
 \item \begin{quote}
     L580 "a contraction" ?
   \end{quote}
-We have rephrased this
+  \Mark
+ We have rephrased this
   
 \item \begin{quote}
     section 4.6 header: "the formalisation of bisimulation up to
     bisimilarity", i would say; also since you're not using
     compatible/respectful functions
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L599 PRQ not so pretty spacing. perhaps mention around here that
     naive weak bisimulation up to weak bisimilarity is unsound?
   \end{quote}
-  Fixed ( we  mention that the ``naive weak bisimulation up to weak
+  \Mark
+  Fixed (we mention that the ``naive weak bisimulation up to weak
   bisimilarity is unsound'' right before the definition of ``weak
   bisimilation up to.'')
   
@@ -299,11 +326,13 @@ We have rephrased this
     L655 (around here): i'd say in the text above it that this is a
     different bisimulation game, not a different up-to technique
   \end{quote}
+  \Mark
   Thanks. We have rephrased it 
 %added ``we actually used a different bisimulation game defined below''.
 \item \begin{quote}
     L708 " closure of bisimilarity under such operator" not sure whether this is gramatically correct
   \end{quote}
+  \Mark
   Rephrased
 % : `` we also consider the relation closure of bisimilarity
 %   w.r.t. summation...''
@@ -311,6 +340,7 @@ We have rephrased this
 \item \begin{quote}
     figure 2: I'm a bit confused since the other implication is missing. 
   \end{quote}
+  \Mark
   We fixed one minor issue in Fig.~2 (from \texttt{SUM_EQUIV} to
   $\rapprox$ the label $\subseteq$ should be $\supseteq$). The main
   message of Fig.~2 is to show the equivalences of three involved
@@ -324,6 +354,7 @@ We have rephrased this
     exactly under which assumptions.
   \end{quote}
 
+  \Mark
   We have rephrased the beginning part, putting the free-action
   hypothesis as early as possible.
   
@@ -331,6 +362,7 @@ We have rephrased this
     L740 "this proof" which? 
   \end{quote}
 
+  \Mark
   ``this proof (Theorem~\ref{thm:coarsestfiniteState} in next
   section)``.
   
@@ -341,23 +373,27 @@ We have rephrased this
     we going to work?
   \end{quote}
 
+  \Mark
   We have re-organized this section, putting the target theorem and
   its limitations  first.
   
 \item \begin{quote}
     L820 "bisimularity"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     Lemma 4.14 is nicely introduced, Thm 4.15 not. 
   \end{quote}
 
+  \Mark
   We have add some explanation on the proof details of Thm 4.15.
   
 \item \begin{quote}
     L898 full stop \& new sentence after "many ways"
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
@@ -367,6 +403,7 @@ We have rephrased this
     perhaps say this, it makes the point even stronger
   \end{quote}
 
+  \Mark
   Thanks for reminding this. We have added this argument into the conclusion.
   
 \end{enumerate}
@@ -410,23 +447,29 @@ We have rephrased this
     There are some typos. E.g., several times I read “bisimiarity” (the “l” is missed).
   \end{quote}
 
+  \Mark
   Fixed % (all raised by other reviewers).
   
 \item \begin{quote}
     There are side remarks that should be removed.
   \end{quote}
 
-Done.  % Two of them, removed.
+  \Mark
+ Done.  % Two of them, removed.
   
 \item \begin{quote}
     The two sentences immediately before and after Example 3.7 are equivalent.
   \end{quote}
 
-  We have removed the one before Example 3.7.
+   \Mark
+ We have removed the one before Example 3.7.
 
 \item \begin{quote}
     The notion of “substitutivity property” should be introduced, now it’s used but not explained.
   \end{quote}
+   \Mark
+  We have rephrased it as ``precongruence property'' which is indeed
+  introduced and further explained in Section 4.
 
 \item \begin{quote}
     I strongly believe that Section 4 is accessible only to people
@@ -434,6 +477,7 @@ Done.  % Two of them, removed.
     some more details. Some examples.
   \end{quote}
 
+  \Mark
   We have added some HOL background and links to further details about its official documentation.
   
 \item \begin{quote}
@@ -442,12 +486,14 @@ Then, you define the congruence in terms of the equivalence, but is
 the equivalence already defined somewhere?
   \end{quote}
 
+  \Mark
   We have  further explained what  \texttt{Hol_reln} does and returns.
   
 \item \begin{quote}
     The argument at lines 387-389 is clear only after the lines 394-427 have been read.
   \end{quote}
 
+  \Mark
   We have merged the strong and weak cases.
   
 \item \begin{quote}
@@ -456,6 +502,7 @@ the equivalence already defined somewhere?
     explain why?
   \end{quote}
 
+  \Mark
   We added some explanations, including this sentence:
  ``this is mostly due to the (surprising) fact
  that, contraction does not imply weak bisimulation (while expansion
@@ -551,41 +598,49 @@ the equivalence already defined somewhere?
     There should be a remark that this is about weak bisimilarity. In
     general 'bisimilarity' is strong bisimilarity.
   \end{quote}
+  \Mark
   We have added "(weak)" before "bisimilarity", in the first line of abstract.
 
 \item \begin{quote}
     L18: Remove the word 'rather'
   \end{quote}
-Done.
+  \Mark
+ Done.
   
 \item \begin{quote}
     L28: Hennessy Lemma -> Hennessy's Lemma
   \end{quote}
-  Done.
+   \Mark
+ Done.
   
 \item \begin{quote}
     L28: Deng Lemma -> Deng's lemma
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L28: Remove the word 'long'
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L28: proofs -> theorems
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L32: Add the word 'also' after 'the work is'
   \end{quote}
+  \Mark
   Done.
 
 \item \begin{quote}
     L34: From the view of -> From the point of view of
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
@@ -595,6 +650,7 @@ Done.
     gains by doing this work
   \end{quote}
 
+  \Mark
   Our formal proof of the standard  result  ``$\rapprox$ is the
   coarsest congruence contained in $\wb$'' is one such example, where
   the formal theorem we obtained has slightly weaker antecedents under
@@ -604,16 +660,19 @@ Done.
     L43-48: This sentence is difficult to read and could be split into multiple sentences.
   \end{quote}
 
+  \Mark
   We have rephrased it into multiple sentences.
   
 \item \begin{quote}
     L55-60: Remove "Given a deadlock 0"
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L58: the trailing 0 -> a trailing 0
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
@@ -622,31 +681,32 @@ Done.
     But there is no LTS. Figure 1 contains the SOS of CCS.
   \end{quote}
 
+  \Mark
   We have rephrased it (pointing out that Fig.1 represents an LTS expressed in SOS rules).
 
 \item \begin{quote}
     Semantics: The relabeling rule is not explained anywhere.
   \end{quote}
 
+  \Mark
   In this project, relabeling is not discussed besides their presense
   in CCS syntax. In particular, relabeling doesn't bring in any delicate issues
-  in the proofs of unique-solution theorems.  We have added a footnote to clarify this.
-  
-\finish{is the footnote still there? anyway, i do not like footnotes. One could just say
-  two words on the rule for relabelling (maybe we do say it already?)}  
+  in the proofs of unique-solution theorems.  We have clarified this
+  right before the CCS datatype definition.
 
 \item \begin{quote}
     Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
   \end{quote}
+  \Mark
   We have moved the side condition to the main text where we explain
   the syntax.
   
 \item \begin{quote}
     L74: Add the word 'a' between 'are' and 'context'.
   \end{quote}
+  \Mark
   Done.
-  
-  
+    
 \item \begin{quote}
   Contexts: Does an $i$-holed context have exactly one hole $[]_i$ for
   each $i$? This question is not answered anywhere in the text.
@@ -655,7 +715,8 @@ Done.
   use one hole as well, with a clear indication that this hole can occur multiple times.
 \end{quote}
 
-We have completely rewritten this part, now we adopt free variables
+  \Mark
+ We have completely rewritten this part, now we adopt free variables
 and unified CCS expressions for both processes and equations.
 We have then explained the meaning of context in relation to this 
 (having multiequations now we have to deal also with contexts with multiple holes)
@@ -663,7 +724,8 @@ We have then explained the meaning of context in relation to this
 \item \begin{quote}
     L82: Remove the comma after $Q'$
   \end{quote}
-  Done.
+   \Mark
+ Done.
   
 \item \begin{quote}
     Definition 2.2: Superscript $c$ is already used for contextual closure.
@@ -671,6 +733,7 @@ We have then explained the meaning of context in relation to this
     Since contextual closure is not used anywhere in the paper, it is best to remove it.
     Otherwise you need different notation for rooted bisimilarity.
   \end{quote}
+  \Mark
   We have removed the definition of ``context closure'' since it's not
   (explicitly) used in the paper.  Then $\rapprox$ is a standard
   notation for rooted bisimilarity (eg  Gorrieri~\cite{Gorrieri:2015jt})
@@ -679,27 +742,31 @@ We have then explained the meaning of context in relation to this
 \item \begin{quote}
     L91: What does 'reducing' mean?
   \end{quote}
-We have rephrased the sentence.
-
-\finish{above: check, i think i rewrote it} 
+  \Mark
+ We have rephrased the sentence.
 
 \item \begin{quote}
     L91: bisimiarity -> bisimilarity
   \end{quote}
-  Fixed.
+   \Mark
+ Fixed.
 
 \item \begin{quote}
     L92: bisimiarity -> bisimilarity
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L92: Add a colon after 'results'
   \end{quote}
-
+  \Mark
+  We have rephrased texts around here, the original sentence has disappeared.
+  
 \item \begin{quote}
     L118: Why is the word 'actions' in bold font? It says 'ds' in the margin, what does that mean?
   \end{quote}
+  \Mark
   We have corrected it. 
   
 \item \begin{quote}
@@ -707,45 +774,53 @@ Definition 3.3: The definition of ‘sequential’ is awkward.  Moreover
 this definition calls for some examples since the definitions can be
 very confusing.
 \end{quote}
-We have added some examples, and used Milner's original definition of sequentiality.
+  \Mark
+ We have added some examples, and used Milner's original definition of sequentiality.
  
 \item \begin{quote}
 Theorem 3.4: What are direct sums?
 \end{quote}
-Rephrased: ``with guarded sums only''. We have removed all usages of
+  \Mark
+ Rephrased: ``with guarded sums only''. We have removed all usages of
 ``direct sum''.
 
 \item \begin{quote}
     L.127: I think it would be clearer to give two concrete solutions
     rather than saying that any process not using a is a solution.
   \end{quote}
-  Done. (Two examples are $\nil$ and $b.\nil$.)
+   \Mark
+ Done. (Two examples are $\nil$ and $b.\nil$.)
   
 \item \begin{quote}
     L138: "Bisimilarity contraction ... some contraction R". This is not a grammatically correct sentence.
   \end{quote}
+  \Mark
   We have rephrased the sentence.
   
 \item \begin{quote}
     L142: ".. are even required". The word 'even' suggests that this
     is a stronger requirement, but it is in fact weaker.
   \end{quote}
+  \Mark
   We have replaced it with ``indeed''.
   
 \item \begin{quote}
     L143: Add the words "that is" after 'preorder'.
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L144: remove ‘that’
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L153: "As bisimilarity .. but sums." This is not a grammatically correct sentence.
   \end{quote}
 
+  \Mark
   We have removed the sentence, including this statement with the
   statement after the example.
   
@@ -755,12 +830,14 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     show that the preorder is not preserved by sums.
   \end{quote}
 
+  \Mark
   Having removed the sentence above now this should be ok. We have
   also rephrased the sentence following the Example 3.7.
   
 \item \begin{quote}
     L157: Doesn’t this statement deserve a proof?
   \end{quote}
+  \Mark
   We have added a reference which contains this proof. Additionally,
   this proof will be discussed later in a formalized version.
   
@@ -768,6 +845,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     L163: $P >= E[P]$ is spelled out earlier in Definition 3.2. Maybe spell out this one as well.
   \end{quote}
 
+  \Mark
   Done.
 
 \item \begin{quote}
@@ -779,6 +857,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     suggestive.
   \end{quote}
 
+  \Mark
   We have merged these definitions as best as we could
 
 \item \begin{quote}
@@ -787,6 +866,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     ways to reach R from $C[\tilde{P}]$ with a weak $\mu$-trace.
   \end{quote}
 
+  \Mark
   We have replaced ``the transition'' with ``a transition''.
 
 \item \begin{quote}
@@ -798,17 +878,20 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     L181: vis ?
   \end{quote}
 
-Corrected.
+  \Mark
+ Corrected.
   
 \item \begin{quote}
     L184: closes -> completes
   \end{quote}
-  Done.
+   \Mark
+ Done.
   
 \item \begin{quote}
     L194: ‘the definition should not be recursive’?
   \end{quote}
 
+  \Mark
   We meant the definition should not be \emph{coinductive}, just like the
   case of $\rapprox$. Notice that, this is just an informal idea when searching for
   a possible definiton of rooted contraction, and the definition we
@@ -818,7 +901,8 @@ Corrected.
     Definition 3.11: Similar to the remark about Definition 2.2.
   \end{quote}
 
-We have tried to clarify this.
+  \Mark
+ We have tried to clarify this.
   % You meant removing also the comma (period) here? But it's different
   % here: the definition ends at clause (2), an end period is added with
   % an ``enspace'' distance.
@@ -829,52 +913,62 @@ We have tried to clarify this.
     E instead of C.
     If $\tilde{P}$ is a solution then $P_i >=^c E_i[\tilde{P}]$ for all i, but this quantification over i is missing.
   \end{quote}
-  We have  re-worked this proof.
+   \Mark
+ We have  re-worked this proof.
 
 \item \begin{quote}
     L215: The prove -> The proof
   \end{quote}
+  \Mark
   Fixed during re-work of the proof of Theorem 3.14.
   
 \item \begin{quote}
     General: the word 'Logic' in "HOL Logic" is redundant.
   \end{quote}
+  \Mark
   Removed ``Logic'' from ``HOL Logic''.
   
 \item \begin{quote}
     L223-225: Perhaps you want to reformulate this long sentence. It is hard to read.
   \end{quote}
+  \Mark
   The long sentence is spilited.
   
 \item \begin{quote}
     L227: considerable -> considerably
   \end{quote}
+  \Mark
   Done.
  
 \item \begin{quote}
     L228: is -> are
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L228: what does convincible mean here?
   \end{quote}
+  \Mark
   We have further explained it.
   
 \item \begin{quote}
     L230: single?
   \end{quote}
+  \Mark
   Changed to: ``the \emph{same} (programming language)''
   
 \item \begin{quote}
     L235: The sentence between parentheses is an important remark and
     should not be between parentheses.
   \end{quote}
+  \Mark
   Removed parentheses.
   
 \item \begin{quote}
     L238: without loss of generality?
   \end{quote}
+  \Mark
   We have eliminated this sentence as now we have  the
   multivariate formalizations.
   
@@ -882,30 +976,36 @@ We have tried to clarify this.
     L239: similar to the comment about line 118, theorem-prover is
     bold and 'ds' is in the margin.
   \end{quote}
+  \Mark
   We have eliminated this sentence as now we have  the
   multivariate formalizations.
   
 \item \begin{quote}
     L245: now based on HOL’s option theory?
   \end{quote}
-  \texttt{option} is the name of the HOL formal theory.
+  \Mark
+  \texttt{option} is the name of the HOL formal theory. (Then we have
+  removed this mention completely)
   
 \item \begin{quote}
     L249: What are ‘backquotes’?
   \end{quote}
+  \Mark
   We have eliminated most uses of backquotes using HOL's new syntax.
   
 \item \begin{quote}
     Footnote 3: What are CCS literals?
   \end{quote}
-Corrected.
+  \Mark
+ Corrected.
   
 \item \begin{quote}
     L265: What does the turnstile mean? I would expect that structural
     operational rules are axioms of the theory, but the turnstile
     suggests to me that they are theorems.
   \end{quote}
-  We have tried to  clarify this. 
+   \Mark
+ We have tried to  clarify this. 
 (SOS rules are  not axioms, because it's
   generally not allowed to define new axioms. SOS rules are actually
  theorems added by the inductive relation \texttt{TRANS} as a
@@ -914,16 +1014,19 @@ Corrected.
 \item \begin{quote}
     L275: we substitute rec A. P for all occurrences of the variable A in P.
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L279: substutiion -> substitution
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
     L289: these -> the, on the tenary -> of the ternary
   \end{quote}
+  \Mark
   Fixed.
   
 \item \begin{quote}
@@ -931,28 +1034,33 @@ Corrected.
     while in the preliminaries you stated that it would be omitted. If
     you decide to keep the deadlock, it should also be in bold font.
   \end{quote}
+  \Mark
   We have made them all in bold fonts.
   
 \item \begin{quote}
     L296: I don’t understand fact (1).
   \end{quote}
-We have re-phrased this part: ``(1) there exist indeed three
+  \Mark
+ We have re-phrased this part: ``(1) there exist indeed three
   transitions mentioned above; (2) there exists no other
   transition.''
   
 \item \begin{quote}
     L299: ‘Hence ... CCS_TRANS_CONV’ is not a grammatically correct sentence; there is a verb missing.
   \end{quote}
-  We have rephrased this sentence.
+   \Mark
+ We have rephrased this sentence.
 
 \item \begin{quote}
     L316: Explain what is p.
   \end{quote}
+  \Mark
   We have explained it in the paper. In this case there is no hole in the context.
   
 \item \begin{quote}
     Footnote 4: Do you mean ‘unguarded recursion’? How can relabelling operators cause infinite branching?
   \end{quote}
+  \Mark
   We have removed the part ``due to the use of ...''. 
 % Infinite
 %   branching is indeed possible, no matter what's the reason.
@@ -960,36 +1068,40 @@ We have re-phrased this part: ``(1) there exist indeed three
 \item \begin{quote}
     L362: tedious but long -> tedious and long
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L374: An highlight -> A highlight
   \end{quote}
+  \Mark
   Rephrased to ``One highlight...''
   
 \item \begin{quote}
     L378: relations on CCS process -> relation on CCS processes
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     Footnote 5: Add the word 'respectively' between 'quantifiers' and 'in'.
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     Footnote 6: Regarding the last sentence between parentheses. What do you mean by this?
   \end{quote}
+  \Mark
   By default, all theorems (their \TeX code) exported from HOL are
   fully specialised, removing outermost universal quantifiers. We have
-  moved this sentence to an earlier footnote on the first such exported theorem.
-
-\finish{check above, after my modifications} 
+  moved this sentence to Section~\ref{ss:formalCCS} between parentheses.
   
 \item \begin{quote}
     General: The same trick of applying the coinduction package to the
     definition of bisimulation is repeated twice.
   \end{quote}
+  \Mark
   We have removed the one for strong bisimulation, leaving
   only the part for weak bisimulation.
   
@@ -997,6 +1109,7 @@ We have re-phrased this part: ``(1) there exist indeed three
     General: In the sections about the HOL formalisation you refer to
     weak bisimulation instead of bisimulation.    
   \end{quote}
+  \Mark
   In the first part of the paper, strong bisimulation rarely appears
   as the focus is on weak bisimulation. But in the formalisation
   sections we also formalised Milner's unique-solution theorem for
@@ -1009,22 +1122,26 @@ We have re-phrased this part: ``(1) there exist indeed three
     theorems. Wouldn’t it suffice to write that similar theorems are
     returned as for \texttt{STRONG\_EQUIV}?
   \end{quote}
-As pointed out above, we have  only maintained 
+  \Mark
+ As pointed out above, we have  only maintained 
  the part for weak bisimulation.
   
 \item \begin{quote}
     L496-503: A similar remark can be made for \texttt{STRONG\_EQUIV}. Why do you put it here?
   \end{quote}
-  Same as above.
+   \Mark
+ Same as above.
 
 \item \begin{quote}
     L523,524: Similar to the comment about line L28
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L545: What does this statement mean?
   \end{quote}
+  \Mark
   We have rephrased this sentence. (Basically we meant that
 any  algebraic law for strong bisimilarity can be stated also for
   weak and rooted bisimilarity.)
@@ -1035,6 +1152,7 @@ any  algebraic law for strong bisimilarity can be stated also for
     unique solution theorems. Why are they not powerful enough?
   \end{quote}
 
+  \Mark
   We have repharsed this part.
 % , moving the citation
 %   \cite{sangiorgi1992problem} (which explains the reason) right before
@@ -1043,70 +1161,79 @@ any  algebraic law for strong bisimilarity can be stated also for
 \item \begin{quote}
     L580: ‘Surprisingly’ To me this is not really surprising. Why do you find it surprising?
   \end{quote}
+  \Mark
  We have rephrased this sentence:
 %   ``this is mostly due to the (surprising) fact
 %   that, although the contraction preorder is contained in weak
 % bisimilarity, contraction does not imply weak bisimulation (while
 % expansion does so)''.
 
-
-
-
 \item \begin{quote}
     L606-619: I really see no added value in repeating Def. 4.2 in HOL syntax.
   \end{quote}
+  \Mark
   We have removed the HOL version.
   
 \item \begin{quote}
     Def. 4.4: Shouldn’t there be double arrows? (twice)
   \end{quote}
+  \Mark
   Yes. We have fixed the definition.
   
 \item \begin{quote}
     L700: This paragraph starts with a sentence in parentheses, which is not very desirable.
     Moreover this sentence does not seem to be connected to the next sentence.
   \end{quote}
+  \Mark
   We have rephrased the sentence.
   
 \item \begin{quote}
     L701: Sentence does not end with a period.
   \end{quote}
+  \Mark
   We have added a colon at the end.
   
 \item \begin{quote}
     L704: What do you mean by "which itself may not be"?
   \end{quote}
+  \Mark
   We have rephrased the sentence: ``(which needs not to be itself a (pre)congruence)''.
 
 \item \begin{quote}
     Figure 2: The $\subseteq$ from \texttt{SUM\_EQUIV} to Rooted
     bisimilarity makes the figure confusing; put a $\supseteq$
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L723: is -> in
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L723-L727: This sentence should be split into multiple sentences.
   \end{quote}
+  \Mark
   We have rephrased the sentence.
   
 \item \begin{quote}
     L744-745: pure mathematics?
   \end{quote}
+  \Mark
   We have removed this sentence.
   
 \item \begin{quote}
     L746: Arbitrary -> Arbitrarily
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L749: "infinite such sub-processes" this construction does not seem right and could be avoided.
   \end{quote}
+  \Mark
   We have rephrased the sentence: 
 % ``There could be infinitely many such sub-processes, even on finitely
 %   branching processes.''
@@ -1114,51 +1241,62 @@ any  algebraic law for strong bisimilarity can be stated also for
 \item \begin{quote}
     L754: non-$\tau$ action $a$ -> $a\neq\tau$
   \end{quote}
-
+  \Mark
+  Fixed.
+  
 \item \begin{quote}
     L766: "By induction on the definition", don't you mean by induction on natural numbers?
   \end{quote}
+  \Mark
   We have rephrased the sentence: ``Following the inductive structure
   of the definition of Klop processes,...''
   
 \item \begin{quote}
     L823: are -> is
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L831: `In above proof’ Which proof are your referring too? I only see a theorem.
   \end{quote}
+  \Mark
   Fixed as: ``In the proof of the above theorem''.
   
 \item \begin{quote}
     L837: Add the word 'a' between 'not' and 'congruence'
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L837: why do you also need the condition of sequentiality?
   \end{quote}
+  \Mark
   We have added an example to show its need.
   
 \item \begin{quote}
     L991: error-prune -> error-prone, ’since one is tempted to overlook details’?
   \end{quote}
+  \Mark
   We have rephrased the sentence.
   
 \item \begin{quote}
     L1001: the trace equivalences -> trace-based equivalences
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L1006: in alphabetic order
   \end{quote}
+  \Mark
   Done.
   
 \item \begin{quote}
     L1040: hol4 -> HOL4
   \end{quote}
+  \Mark
   Fixed bibtex item.
   
 \end{enumerate}

@@ -202,8 +202,8 @@ this proof (Theorem~\ref{thm:coarsestfiniteState} in next section), because ``th
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
 ordinals''~\cite{norrish2013ordinals}.
-\hlD{As a consequence, the final result is only for finite-state
-  CCS~--- a  restricted class.}
+As a consequence, the final result is only for finite-state
+  CCS~--- a  restricted class.
 
 The assumption in the previous \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
@@ -220,7 +220,7 @@ graphs of the two given processes.
 This can be done following Klop's contruction \cite{van2005characterisation}.
  We call  ``Klop processes''  the processes in this construction:
 \begin{definition}[Klop processes]
-For each ordinal $\lambda$, and an arbitrary chosen non-$\tau$ action $a$,
+For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
 define a CCS process $k_\lambda$ as follows:
 \begin{itemize}
 \item $k_0 = 0$,

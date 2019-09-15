@@ -46,7 +46,7 @@ one: $\lambda t. t$ is not weakly guarded as the variable is directly
 exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
 
-A context is \emph{(strongly) guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
+A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -84,8 +84,8 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[WGS_rules]}
 \end{alltt}
 
-\hlD{Many lemmas about the  above concepts} (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
-\HOLinline{\HOLConst{SEQ}}, etc.) have then to be proven for the
+Many lemmas about the above concepts (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
+\HOLinline{\HOLConst{SEQ}}, etc.) have to be proved for the
  relationships among these kinds of contexts and properties about their
  compositions. These proofs are usually tedious and long,  due to multiple levels of
  inductions on the structure of the contexts.
