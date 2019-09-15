@@ -153,7 +153,8 @@ proposition about $P$.
 What we are trying to prove is actually in the form of
 \HOLtm[m\;]{!E u E'. TRANS E u E' ==> P E u E'}, where
 \HOLtm[m\;]{P = \E u E'. FV E' SUBSET FV E}. Thus, if we can prove
-$X$ under this specific $P$, by Modus Ponens (MP) the original proof completes.
+$X$ under this specific $P$, by Modus Ponens (MP) the original proof
+\hl{would have completed.}
 This is the essence of action induction.
 Now the original goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
@@ -198,7 +199,7 @@ Knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
   NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and \hl{then}
 \HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
   DELETE X}, no matter if \HOLtm{X IN FV E} or not, and the proof
-completes. Thus it remains to prove that
+\hl{would have completed.} Thus it remains to show that
 \begin{alltt}
         \HOLtm{X NOTIN FV E'}
    ------------------------------------
@@ -206,7 +207,7 @@ completes. Thus it remains to prove that
     1.  \HOLtm{FV ([rec X E/X] E) SUBSET FV E}
     2.  \HOLtm{FV E' SUBSET FV E}
 \end{alltt}
-Now we try the  proof by contradiction (\emph{reductio ad absurdum}): if
+Now we try the proof by contradiction (\emph{reductio ad absurdum}): if
 the goal does not hold, i.e.
 \HOLtm{X IN FV E'}, then by assumption 0 we have \HOLtm{X IN FV ([rec X
   E/X] E)}:

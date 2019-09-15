@@ -328,15 +328,11 @@ and contains the expansion preorder.
 \end{enumerate}
 \end{proposition}
 In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
-harder than that for the cases of expansion: \hl{this is mostly due to the surprising fact
-that, although the contraction preorder is contained in weak
-bisimilarity, contraction is not contained in weak bisimulation (while
-expansion is),}
-i.e. the following proposition does not hold:
-
-\finish{i do not understand above: contraction IMPLIES weak bisimilarity, maybe it is
-  harder to prove, i do not know, but the implication is true}
-
+harder than that for the cases of expansion: \hlC{this is mostly due to the surprising fact
+  that, although the contraction preorder $\mcontrBIS$ is contained in
+  bisimilarity ($\wb$), in general it won't be true that
+if $\R$ is a contraction then $\R$ itself is a bisimulation,}
+i.e. the following proposition does not hold: (what holds is that $\R\ \cup \wb$ will be a bisimulation)
 \begin{alltt}
 \HOLinline{   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
