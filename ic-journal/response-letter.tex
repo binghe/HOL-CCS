@@ -1,3 +1,6 @@
+\newcommand{\Mark}{{\underline{\tt R:} }}
+
+
 \begin{center}
 \textbf{
 {\small Changes for Submission 1 to SI:EXPRESS/SOS'18}\\[5mm]
@@ -6,23 +9,32 @@
 }}
 \end{center}
 
-Dear Chairs and Reviewers,
+
 
 \vskip 10pt
 \noindent
 
-thank you for conditionally accepting our paper and for the fruitful
-comments. We took all of them into consideration, and thoroughly
-addressed each of them in the revised version. Beside, we have done
-a further formalisation of the general, multivariable case of two
-unique-solution theorems as the referee have suggested. This work
+We would like to thank the reviewers for many useful
+comments and suggestions. We believe we have taken all of them into consideration, as best
+as we could. 
+
+The main addition, here again following the recommendations of the reviewers 
+has been the extension of the our central theorems 
+to the multivariable case (ie., moving from ``unique solution theorems'' for a single
+equations, or contractions,  to multi-equations  or multi-contractions). 
+ This has been a significant effort (also because a few alternative ways to make the
+ extension had to be examined). At the end, this work 
 consists of another 4,000 lines of proof scripts and a whole new
-Section 5 in the paper. We believe that after
-this revision, the quality of the paper has been significantly
-improved and has reached a whole new technical level.
+Section 5 in the paper.
+
 
 In the following, we discuss the changes to the paper and provide a
 point-by-point reply to the issues that have been raised.
+
+Our answers are marked  with an `` \Mark''  at the beginning.
+
+
+\finish{add some kind of mark, like above, so that our answers are clearly seen} 
 \ \\
 
 Best regards,
@@ -78,16 +90,16 @@ Best regards,
     unique-solution method. 
   \end{quote}
 
-  Now we have additionally formalised the multivariate (i.e. multi-variable)
-  version of the \emph{unique solution of rooted contractions theorem}
+\Mark  As indicated  above,  we have make the extension to the multivariate (i.e. multi-variable)
+  versions of two core theorems:  the \emph{unique solution of rooted contractions theorem}
   (Theorem~\ref{t:rcontraBisimulationU}) and \emph{Milner's strong
   unique-solution theorem} (Prop.~4.14 (2)
-  of~\citep[p.~103]{Mil89}), together with a detailed discussion on
-  multivariate contexts, weakly-guarded equations and multivariate
-  variable substitutions. This work consists of 4,000 lines of new
-  proof scripts, and it is indeed based on the existing framework in
-  the sense that, we do not need to change the CCS datatype definition
-  and any SOS rule. (c.f. Section~\ref{sec:multivariate} for more details.)
+  of~\citep[p.~103]{Mil89}), and added a whole new section to  discuss the main issues
+  faced in the  extension (having to do, eg, with 
+  multivariable  contexts, weakly-guarded equations and multivariable substitutions). 
+The extension  is indeed based on the existing framework in
+  the sense that, we do not  change the CCS datatype definition
+  and the  SOS rules
 
 \item \begin{quote}
     overall the paper can use a bit of spell-checking and proofreading (e.g. there are some initials in the margin)
@@ -108,31 +120,35 @@ Best regards,
     L84 "the weak one" rephrase
   \end{quote}
 
-  Rephrased: ``We sometimes call the bisimulation and bisimilarity defined above
-the \emph{weak} bisimulation (and weak bisimilarity), ...''
+
+Done. 
+
   
 \item \begin{quote}
     L91 "bisimiarity"
   \end{quote}
 
-  We have fixed this typo (totally two instances in the paper, also in L92).
+Fixed.
   
 \item \begin{quote}
     proof of thm 3.10: could there be some kind of picture to help? also, the "Hence," in the one-to-last line refers only to the property right before it, right? (about $C[\tilde{Q}]$)
   \end{quote}
 
   We have rephrased this proof (also the theorem statements) with a
-  picture (Fig.~\ref{fig:310} illustrating the proof. The "Hence" part
-  actually used a property of $\wb$ that can be easily proven by induction
-  on each $\tau$-transition in a weak transition.
+  picture (Fig.~\ref{fig:310} illustrating the proof. 
+% The "Hence" part
+%   actually used a property of $\wb$ that can be easily proven by induction
+%   on each $\tau$-transition in a weak transition.
   
 \item \begin{quote}
     L209: "their precongruences" precongruence closure?
   \end{quote}
 
-  Rephrased: ``... because all we need from $\mcontrBIS$ (or
-$\rcontr$) is their substitutivity properties (as precongruences)
-w.r.t the corresponding definitions of contexts.''
+  Rephrased.
+
+% : ``... because all we need from $\mcontrBIS$ (or
+% $\rcontr$) is their substitutivity properties (as precongruences)
+% w.r.t the corresponding definitions of contexts.''
 
 \item \begin{quote}
     L216 "using Lemma 3.13 ... Section 4.9" perhaps just repeat the lemma before the theorem, as it's a bit hard to read Lemma 4.14 at this stage 
@@ -155,18 +171,18 @@ w.r.t the corresponding definitions of contexts.''
     L228 "formal theories built in HOL is easily convincible" questionable grammar
   \end{quote}
 
-  Now we used the following sentence: ``As a consequence, theories and proofs verified in HOL are relatively more
-  convincible to non-experts.''
-  
+We have rephrased the sentence.
+%   Now we used the following sentence: ``As a consequence, theories and proofs verified in HOL are relatively more
+%   convincible to non-experts.''
 \item \begin{quote}
     L238 how is this without loss of generality?
   \end{quote}
 
   Sentence eliminated as now we have formalized the multivariate
-  version of unique-solution theorems. The ``without loss of
-  generality'' part is actually true, in the sense that, all steps of
-  informal proofs do appears in the uni-variate formal proofs. The
-  additional difficulities of the formal multivariate proof is discussed in Section~\ref{sec:multivariate}.
+  version of the unique-solution theorems. The ``without loss of
+  generality'' intended to point out  that all steps of
+  informal proofs do appear in the univariate formal proofs. The
+  additional difficulities for the formal multivariate proof are discussed in Section~\ref{sec:multivariate}.
   
 \item \begin{quote}
     L245 maybe more clear to just give the definition of $\beta$ Action 
@@ -179,7 +195,7 @@ w.r.t the corresponding definitions of contexts.''
   \end{quote}
   Sentences removed. In HOL, single and double backquotes are
   delimitator between ``inner'' (logic) and ``outer'' (proof)
-  languages but this is not quite relevant to the present paper.
+  languages but this is not really  relevant for the present paper.
   After new HOL releases (k13) most uses of backquotes in  definitions can be eliminated.
   
 \item \begin{quote}
@@ -201,18 +217,20 @@ w.r.t the corresponding definitions of contexts.''
     L361 "Many lemmas ... contexts" this is a bit vague
   \end{quote}
 
-  Rephrased: ``Many lemmas about above concepts (\texttt{CONTEXT}, \texttt{WG},
-  \texttt{SEQ}, etc.)''
+We have rephrased
+% : ``Many lemmas about above concepts (\texttt{CONTEXT}, \texttt{WG},
+%   \texttt{SEQ}, etc.)''
   
 \item \begin{quote}
     L374 "An highlight"
   \end{quote}
-  Fixed. Now we say ``One highlight...''.
+  Fixed.  %Now we say ``One highlight...''.
   
 \item \begin{quote}
     L378 "is a" => "are"
   \end{quote}
-  Fixed. ``... what kind of binary relations on CCS process are (strong) bisimulations.''
+  Fixed.  
+%``... what kind of binary relations on CCS process are (strong) bisimulations.''
   
 \item \begin{quote}
     L385 "With *the* above"
@@ -247,7 +265,7 @@ w.r.t the corresponding definitions of contexts.''
     L436 "is defined upon weak transition" grammar
   \end{quote}
 
-  Rephrased: ``The definition of weak bisimulation is based on weak
+We have rephrased: ``The definition of weak bisimulation is based on weak
   and $\epsilon$--transitions:''
   
 \item \begin{quote}
@@ -260,9 +278,7 @@ w.r.t the corresponding definitions of contexts.''
 \item \begin{quote}
     L580 "a contraction" ?
   \end{quote}
-  This is no big problem here, as we are talking about any relation
-  (which is a contraction) is not in general a bisimulation. However
-  we have removed the word ``a'', having just: ``contraction does not imply weak bisimulation, ...''
+We have rephrased this
   
 \item \begin{quote}
     section 4.6 header: "the formalisation of bisimulation up to
@@ -275,27 +291,28 @@ w.r.t the corresponding definitions of contexts.''
     L599 PRQ not so pretty spacing. perhaps mention around here that
     naive weak bisimulation up to weak bisimilarity is unsound?
   \end{quote}
-  Fixed PRQ; Mentioned ``naive weak bisimulation up to weak
+  Fixed ( we  mention that the ``naive weak bisimulation up to weak
   bisimilarity is unsound'' right before the definition of ``weak
-  bisimilation up to.''
+  bisimilation up to.'')
   
 \item \begin{quote}
     L655 (around here): i'd say in the text above it that this is a
     different bisimulation game, not a different up-to technique
   \end{quote}
-  Thanks. We have added ``we actually used a different bisimulation game defined below''.
-
+  Thanks. We have rephrased it 
+%added ``we actually used a different bisimulation game defined below''.
 \item \begin{quote}
     L708 " closure of bisimilarity under such operator" not sure whether this is gramatically correct
   \end{quote}
-  Rephrased: `` we also consider the relation closure of bisimilarity
-  w.r.t. summation...''
+  Rephrased
+% : `` we also consider the relation closure of bisimilarity
+%   w.r.t. summation...''
 
 \item \begin{quote}
     figure 2: I'm a bit confused since the other implication is missing. 
   \end{quote}
-  We fixed one minor issue in Fig.~2: from \texttt{SUM_EQUIV} to
-  $\rapprox$ the label $\subseteq$ should be $\supseteq$. The main
+  We fixed one minor issue in Fig.~2 (from \texttt{SUM_EQUIV} to
+  $\rapprox$ the label $\subseteq$ should be $\supseteq$). The main
   message of Fig.~2 is to show the equivalences of three involved
   relations by making a loop of implications.
   
@@ -325,7 +342,7 @@ w.r.t the corresponding definitions of contexts.''
   \end{quote}
 
   We have re-organized this section, putting the target theorem and
-  its limitations at first.
+  its limitations  first.
   
 \item \begin{quote}
     L820 "bisimularity"
@@ -336,7 +353,7 @@ w.r.t the corresponding definitions of contexts.''
     Lemma 4.14 is nicely introduced, Thm 4.15 not. 
   \end{quote}
 
-  We have explained slightly more on the proof details of Thm 4.15.
+  We have add some explanation on the proof details of Thm 4.15.
   
 \item \begin{quote}
     L898 full stop \& new sentence after "many ways"
@@ -393,13 +410,13 @@ w.r.t the corresponding definitions of contexts.''
     There are some typos. E.g., several times I read “bisimiarity” (the “l” is missed).
   \end{quote}
 
-  Fixed (all raised by other reviewers).
+  Fixed % (all raised by other reviewers).
   
 \item \begin{quote}
     There are side remarks that should be removed.
   \end{quote}
 
-  Two of them, removed.
+Done.  % Two of them, removed.
   
 \item \begin{quote}
     The two sentences immediately before and after Example 3.7 are equivalent.
@@ -417,7 +434,7 @@ w.r.t the corresponding definitions of contexts.''
     some more details. Some examples.
   \end{quote}
 
-  We have added some HOL background and linked further details to its official book.
+  We have added some HOL background and links to further details about its official documentation.
   
 \item \begin{quote}
     You assume the reader knows what Hol_reln is, but this not always the case. 
@@ -425,13 +442,13 @@ Then, you define the congruence in terms of the equivalence, but is
 the equivalence already defined somewhere?
   \end{quote}
 
-  We have further explains what exact \texttt{Hol_reln} does and returns.
+  We have  further explained what  \texttt{Hol_reln} does and returns.
   
 \item \begin{quote}
     The argument at lines 387-389 is clear only after the lines 394-427 have been read.
   \end{quote}
 
-  We have merged the strong and weak cases together.
+  We have merged the strong and weak cases.
   
 \item \begin{quote}
     At lines 577 you write that proving properties for contraction is
@@ -439,9 +456,10 @@ the equivalence already defined somewhere?
     explain why?
   \end{quote}
 
-  We added a few more words right after: ``this is mostly due to the surprising fact
-that, contraction does not imply weak bisimulation (while expansion
-indeed implies weak bisimulation) ''.
+  We added some explanations, including this sentence:
+ ``this is mostly due to the (surprising) fact
+ that, contraction does not imply weak bisimulation (while expansion
+ indeed implies weak bisimulation) ''.
 
 \end{enumerate}
 
@@ -538,7 +556,7 @@ indeed implies weak bisimulation) ''.
 \item \begin{quote}
     L18: Remove the word 'rather'
   \end{quote}
-  Removed.
+Done.
   
 \item \begin{quote}
     L28: Hennessy Lemma -> Hennessy's Lemma
@@ -577,10 +595,10 @@ indeed implies weak bisimulation) ''.
     gains by doing this work
   \end{quote}
 
-  Our formal proof of the classical result of ``$\rapprox$ is the
+  Our formal proof of the standard  result  ``$\rapprox$ is the
   coarsest congruence contained in $\wb$'' is one such example, where
   the formal theorem we obtained has slightly weaker antecedents under
-  the same proof idea. Anyway, we have omitted the sentence here.
+  the same proof idea. We have however now omitted the sentence.
 
 \item \begin{quote}
     L43-48: This sentence is difficult to read and could be split into multiple sentences.
@@ -604,16 +622,19 @@ indeed implies weak bisimulation) ''.
     But there is no LTS. Figure 1 contains the SOS of CCS.
   \end{quote}
 
-  We have rephrased it, saying Fig.1 represents an LTS expressed in SOS rules.
+  We have rephrased it (pointing out that Fig.1 represents an LTS expressed in SOS rules).
 
 \item \begin{quote}
     Semantics: The relabeling rule is not explained anywhere.
   \end{quote}
 
   In this project, relabeling is not discussed besides their presense
-  in CCS syntax. In particular, relabeling doesn't show any speciality
+  in CCS syntax. In particular, relabeling doesn't bring in any delicate issues
   in the proofs of unique-solution theorems.  We have added a footnote to clarify this.
   
+\finish{is the footnote still there? anyway, i do not like footnotes. One could just say
+  two words on the rule for relabelling (maybe we do say it already?)}  
+
 \item \begin{quote}
     Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
   \end{quote}
@@ -623,7 +644,8 @@ indeed implies weak bisimulation) ''.
 \item \begin{quote}
     L74: Add the word 'a' between 'are' and 'context'.
   \end{quote}
-  Done. (``... there exists a context ...'')
+  Done.
+  
   
 \item \begin{quote}
   Contexts: Does an $i$-holed context have exactly one hole $[]_i$ for
@@ -633,10 +655,10 @@ indeed implies weak bisimulation) ''.
   use one hole as well, with a clear indication that this hole can occur multiple times.
 \end{quote}
 
-We have completely rewritten this part, now we adope free variables
+We have completely rewritten this part, now we adopt free variables
 and unified CCS expressions for both processes and equations.
- Thus the hole is not needed here. (It's formal defined later and used
- to formalize the univariate version of unique-solution theorems.
+We have then explained the meaning of context in relation to this 
+(having multiequations now we have to deal also with contexts with multiple holes)
 
 \item \begin{quote}
     L82: Remove the comma after $Q'$
@@ -651,16 +673,15 @@ and unified CCS expressions for both processes and equations.
   \end{quote}
   We have removed the definition of ``context closure'' since it's not
   (explicitly) used in the paper.  Then $\rapprox$ is a standard
-  notation for rooted bisimilarity following
-  Gorrieri~\cite{Gorrieri:2015jt}, in which the superscript $c$ should be
-  understood as a separate function or operator.
+  notation for rooted bisimilarity (eg  Gorrieri~\cite{Gorrieri:2015jt})
+
   
 \item \begin{quote}
     L91: What does 'reducing' mean?
   \end{quote}
-We have rephrased the sentence: ``The above definition brings up a
-proof technique for proving rooted bisimilarity results, starting from
-a given bisimulation.''
+We have rephrased the sentence.
+
+\finish{above: check, i think i rewrote it} 
 
 \item \begin{quote}
     L91: bisimiarity -> bisimilarity
@@ -679,7 +700,7 @@ a given bisimulation.''
 \item \begin{quote}
     L118: Why is the word 'actions' in bold font? It says 'ds' in the margin, what does that mean?
   \end{quote}
-  We have corrected it. It's an internal comment.
+  We have corrected it. 
   
 \item \begin{quote}
 Definition 3.3: The definition of ‘sequential’ is awkward.  Moreover
@@ -698,7 +719,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     L.127: I think it would be clearer to give two concrete solutions
     rather than saying that any process not using a is a solution.
   \end{quote}
-  Done. Two examples are $\nil$ and $b.\nil$.
+  Done. (Two examples are $\nil$ and $b.\nil$.)
   
 \item \begin{quote}
     L138: "Bisimilarity contraction ... some contraction R". This is not a grammatically correct sentence.
@@ -758,7 +779,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     suggestive.
   \end{quote}
 
-  We have merged these definitions together as much as possible.
+  We have merged these definitions as best as we could
 
 \item \begin{quote}
     L169: "The number of strong steps of which is is composed". Note
@@ -777,7 +798,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     L181: vis ?
   \end{quote}
 
-  It should be ``via''.
+Corrected.
   
 \item \begin{quote}
     L184: closes -> completes
@@ -791,14 +812,16 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
   We meant the definition should not be \emph{coinductive}, just like the
   case of $\rapprox$. Notice that, this is just an informal idea when searching for
   a possible definiton of rooted contraction, and the definition we
-  found at last is indeed not coinductive (nor recursive).
+  found at last is indeed not coinductive 
   
 \item \begin{quote}
     Definition 3.11: Similar to the remark about Definition 2.2.
   \end{quote}
-  You meant removing also the comma (period) here? But it's different
-  here: the definition ends at clause (2), an end period is added with
-  an ``enspace'' distance.
+
+We have tried to clarify this.
+  % You meant removing also the comma (period) here? But it's different
+  % here: the definition ends at clause (2), an end period is added with
+  % an ``enspace'' distance.
   
 \item \begin{quote}
     Proof of Theorem 3.14: Why do you use context $C$ instead of tuples of expressions $\tilde{E}$?
@@ -806,7 +829,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     E instead of C.
     If $\tilde{P}$ is a solution then $P_i >=^c E_i[\tilde{P}]$ for all i, but this quantification over i is missing.
   \end{quote}
-  We have completely re-worked this proof.
+  We have  re-worked this proof.
 
 \item \begin{quote}
     L215: The prove -> The proof
@@ -852,14 +875,14 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
 \item \begin{quote}
     L238: without loss of generality?
   \end{quote}
-  We have eliminated this sentence as now we have done the
+  We have eliminated this sentence as now we have  the
   multivariate formalizations.
   
 \item \begin{quote}
     L239: similar to the comment about line 118, theorem-prover is
     bold and 'ds' is in the margin.
   \end{quote}
-  We have eliminated this sentence as now we have done the
+  We have eliminated this sentence as now we have  the
   multivariate formalizations.
   
 \item \begin{quote}
@@ -875,17 +898,18 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
 \item \begin{quote}
     Footnote 3: What are CCS literals?
   \end{quote}
-  Sorry, it should be ``literature''.
+Corrected.
   
 \item \begin{quote}
     L265: What does the turnstile mean? I would expect that structural
     operational rules are axioms of the theory, but the turnstile
     suggests to me that they are theorems.
   \end{quote}
-  We have clarified that, SOS rules are NOT axioms, because it's
+  We have tried to  clarify this. 
+(SOS rules are  not axioms, because it's
   generally not allowed to define new axioms. SOS rules are actually
-  some theorems added by the inductive relation \texttt{TRANS} as a
-  conservative extension of the logic.
+ theorems added by the inductive relation \texttt{TRANS} as a
+  conservative extension of the logic.)
   
 \item \begin{quote}
     L275: we substitute rec A. P for all occurrences of the variable A in P.
@@ -929,8 +953,9 @@ We have re-phrased this part: ``(1) there exist indeed three
 \item \begin{quote}
     Footnote 4: Do you mean ‘unguarded recursion’? How can relabelling operators cause infinite branching?
   \end{quote}
-  We have removed the part ``due to the use of ...''. Infinite
-  branching is indeed possible, no matter what's the reason.
+  We have removed the part ``due to the use of ...''. 
+% Infinite
+%   branching is indeed possible, no matter what's the reason.
   
 \item \begin{quote}
     L362: tedious but long -> tedious and long
@@ -958,12 +983,14 @@ We have re-phrased this part: ``(1) there exist indeed three
   By default, all theorems (their \TeX code) exported from HOL are
   fully specialised, removing outermost universal quantifiers. We have
   moved this sentence to an earlier footnote on the first such exported theorem.
+
+\finish{check above, after my modifications} 
   
 \item \begin{quote}
     General: The same trick of applying the coinduction package to the
     definition of bisimulation is repeated twice.
   \end{quote}
-  We have removed the defining process of strong bisimulation, left
+  We have removed the one for strong bisimulation, leaving
   only the part for weak bisimulation.
   
 \item \begin{quote}
@@ -974,16 +1001,16 @@ We have re-phrased this part: ``(1) there exist indeed three
   as the focus is on weak bisimulation. But in the formalisation
   sections we also formalised Milner's unique-solution theorem for
   strong bisimilarity and many statements must distinguish between
-  strong/weak bisimilarities. Thus we use more ``weak bisimulation''
-  to make it more clear. This is not in conflict with anything.
+  strong/weak bisimilarities. Thus we often use ``weak bisimulation''
+  to make it  clearer. 
   
 \item \begin{quote}
     L461: I think there is no need to include those 3
     theorems. Wouldn’t it suffice to write that similar theorems are
     returned as for \texttt{STRONG\_EQUIV}?
   \end{quote}
-  We have removed the defining process of strong bisimulation, left
-  only the part for weak bisimulation.
+As pointed out above, we have  only maintained 
+ the part for weak bisimulation.
   
 \item \begin{quote}
     L496-503: A similar remark can be made for \texttt{STRONG\_EQUIV}. Why do you put it here?
@@ -998,9 +1025,9 @@ We have re-phrased this part: ``(1) there exist indeed three
 \item \begin{quote}
     L545: What does this statement mean?
   \end{quote}
-  We have rephrased this sentence. Basically we meant, for whatever
-  algebraic law of strong bisimilarity, there're also versions for
-  weak and rooted bisimilarity.
+  We have rephrased this sentence. (Basically we meant that
+any  algebraic law for strong bisimilarity can be stated also for
+  weak and rooted bisimilarity.)
 
 \item \begin{quote}
     Up-to techniques: You mention four up-to techniques for weak
@@ -1008,18 +1035,22 @@ We have re-phrased this part: ``(1) there exist indeed three
     unique solution theorems. Why are they not powerful enough?
   \end{quote}
 
-  We have repharsed this part, moving the citation
-  \cite{sangiorgi1992problem} (which explains the reason) right before
-  the first sentence.
+  We have repharsed this part.
+% , moving the citation
+%   \cite{sangiorgi1992problem} (which explains the reason) right before
+%   the first sentence.
   
 \item \begin{quote}
     L580: ‘Surprisingly’ To me this is not really surprising. Why do you find it surprising?
   \end{quote}
-  Actually this is indeed surprising. We have rephrased this sentence:
-  ``this is mostly due to the surprising fact
-  that, although the contraction preorder is contained in weak
-bisimilarity, contraction does not imply weak bisimulation (while
-expansion does so)''.
+ We have rephrased this sentence:
+%   ``this is mostly due to the (surprising) fact
+%   that, although the contraction preorder is contained in weak
+% bisimilarity, contraction does not imply weak bisimulation (while
+% expansion does so)''.
+
+
+
 
 \item \begin{quote}
     L606-619: I really see no added value in repeating Def. 4.2 in HOL syntax.
@@ -1076,8 +1107,9 @@ expansion does so)''.
 \item \begin{quote}
     L749: "infinite such sub-processes" this construction does not seem right and could be avoided.
   \end{quote}
-  We have rephrased the sentence: ``There could be infinitely many such sub-processes, even on finitely
-  branching processes.''
+  We have rephrased the sentence: 
+% ``There could be infinitely many such sub-processes, even on finitely
+%   branching processes.''
   
 \item \begin{quote}
     L754: non-$\tau$ action $a$ -> $a\neq\tau$
@@ -1107,7 +1139,7 @@ expansion does so)''.
 \item \begin{quote}
     L837: why do you also need the condition of sequentiality?
   \end{quote}
-  We have added an example to show its necessity.
+  We have added an example to show its need.
   
 \item \begin{quote}
     L991: error-prune -> error-prone, ’since one is tempted to overlook details’?
