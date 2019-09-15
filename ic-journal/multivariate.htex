@@ -619,17 +619,39 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
 \begin{alltt}
 \HOLthm[>>3]{Multivariate.CCS_solution_def}\hfill{[CCS_solution_def]}
 \end{alltt}
+Notice that, in HOL, \HOLtm[m\;]{CCS_solution R Xs Es Ps <=> Ps IN
+  (CCS_solution R Xs Es)}. The form in right side suggest that,
+\HOLtm[m\;]{CCS_solution R Xs Es} is actually a set containing all
+solutions (of \HOLtm[m\;]{CCS_equation Xs Es}). \hlC{Then the unique-solution
+theorems can be understood as: any two (syntactically different) elements
+in the set are bisimilar.}
 
-\subsection{Unique solution of equations for $\sim$ (the \multivariate version)}
+\subsection{Unique solution of equations/contractions (the \multivariate version)}
 
+With all above new devices (\multivariate contexts and substitutions),
+the \multivariate case of Lemma~\ref{lem:milner313} is formalised
+below:
 \begin{alltt}
 \HOLthm{Multivariate.strong_unique_solution_lemma}
-  
+\end{alltt}
+Notice that, while Milner did not pointed out explicitly, the involved
+weakly guarded context $E$ must contain free variables up to $\til
+X$~--- the same requirement as in Theorem~\ref{t:Mil89s1}, which
+otherwise does not complete. Besides, we further required that, the
+bound variables of $E$ must be disjoint with $\til X$.
+
+The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised
+below:
+\begin{alltt}
 \HOLthm{Multivariate.strong_unique_solution_thm}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
 
-\subsection{Unique solution of rooted contractions (the \multivariate version)}
-
+And the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{Multivariate.unique_solution_of_rooted_contractions}\hfill{[unique_solution_of_rooted_contractions]}
 \end{alltt}
+
+Compared with their formal proofs in the \univariate case, although each
+step related to \multivariate substitutions is more difficult than
+the \univariate case, the entire proofs still follow the same outlines,
+and many proof scripts can be directly copied from their \univariate version.
