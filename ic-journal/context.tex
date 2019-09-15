@@ -27,6 +27,10 @@ single-variable cases. The precise definition is given inductively:
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[CONTEXT_rules]}
 \end{alltt}
+Notice in above inductive definitions, for any CCS term $p$,
+\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{p}} is a valid context. In this case there is no
+hole in the context. On the other hand, if any CCS term with recursion
+could be a context, the recursion must be a subterm of this $p$.
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:

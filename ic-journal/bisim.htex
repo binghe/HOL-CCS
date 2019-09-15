@@ -189,7 +189,7 @@ and contains the expansion preorder.
 \end{enumerate}
 \end{proposition}
 In general a proof of a property for the contraction \hl{(and the contraction preorder)} is
-harder than that for the cases of expansion: \hlC{this is mostly due to the surprising fact
+harder than that for the cases of expansion: \hlC{this is mostly due to the (surprising) fact
   that, although the contraction preorder $\mcontrBIS$ is contained in
   bisimilarity ($\wb$), in general it won't be true that
 if $\R$ is a contraction then $\R$ itself is a bisimulation,}

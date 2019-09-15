@@ -3,29 +3,25 @@
 \section{Conclusions and future work}
 \label{s:concl}
 
-In this paper, we have highlighted a formalisation of the theory of CCS in the 
-HOL4 theorem prover.
-%  (for lack of space we have not discussed 
-% the formalisation of some basic algebraic theory, of the basic
-% properties of the expansion preorder,   and of a few
-%  versions of `bisimulation up to'
-% techniques). %
-%such as  bisimulation up-to bisimilarity). 
-The formalisation supports 4 methods for establishing (strong and weak) bisimilarity
-results: 
+In this paper, beside the introduction of rooted contraction and its
+unique solution theorems as a theoretical extension
+of~\cite{sangiorgi2017equations},
+we highlighted a comprehensive formalisation of the theory of CCS in the 
+HOL4 theorem prover. In particular, the formalisation supports four
+methods for establishing (strong and weak) bisimilarities:
 \begin{enumerate}
-\item
- constructing a bisimulation (the standard bisimulation proof
+\item constructing a bisimulation (the standard bisimulation proof
 method);
 \item constructing a `bisimulation up-to'; 
 \item employing algebraic laws;
-\item defining a system of equations or contractions
+\item constructing a system of equations or contractions
 (i.e., the `unique-solution' method)
 \end{enumerate}
 
 The formalisation has actually focused on the theory of
-unique solution of equations and contractions. It    
- has also allowed us to further develop the theory,
+unique solution of equations and contractions, both \univariate and
+\multivariate cases. It    
+ has allowed us to further develop the theory,
 notably the basic properties of rooted contraction, and the unique
 solution theorem for it with respect to rooted bisimilarity. 
 The formalisation brings up and exploits similarities between results
@@ -36,9 +32,11 @@ delicate and subtle differences in a few points. In a paper-pencil
 proof, checking all details would be long and \hl{error-prone},
 \hl{especially in cases where the proofs are similar to each other or
   when there are long case analyses to be carried out.}
-Some of the textbook proofs are even wrong, e.g. Milner's
-proof of the unique-solution theorem for $wb$
-(Theorem~\ref{t:Mil89s3}).
+\hl{Some of the textbook proofs were even wrong and the correct version is
+known but not available in the literature. This is the case of Milner's
+proof of the unique-solution theorem for $wb$}
+(Theorem~\ref{t:Mil89s3}). \hl{Now we have fully verified formal proofs for
+people who can read them.}
 For some other textbook proofs, even they are correct, sometimes they actually
 do not need all information from the antecedents, which can be further
 weakened. This kind of improvements can be easily found during the
@@ -48,7 +46,7 @@ theorem statements are easy to read and
 understand, as they are very close to their original statements in
 textbooks~\cite{Gorrieri:2015jt,Mil89}.
 
-Formalising other equivalences and preorders could also be considered,
+For the future work, formalising other equivalences and preorders could also be considered,
 notably the \hl{trace-based} equivalences, as well as more refined process
 calculi such as value-passing CCS.
 % (e.g.~exploiting the type variable
@@ -58,13 +56,12 @@ On another research line, one could examine the formalisation of a different
 approach \cite{DurierHS17} to unique
 solutions, in which the use of contraction is
 replaced by semantic conditions on process transitions such as
-divergence. 
-%We hope this work also inspires new formalisations on other process calculi.
-
-% Further plan on the formalisation mainly includes: 1) the extension to
-% multi-variable equation/contractions. 2) the support of recursion
-% operators in 
-% CCS context and expressions.
+divergence.
+%
+Finally, the disjointness between free and bound variables in the current
+\multivariate formalisation is certainly a limitation that can be
+removed in the future. If needed, extending the current work to
+infinite number of equations and variables is also feasible.
 
 % We believe that, beside the discovery of the rooted contraction $\rcontr$
 % with a more elegant unique solution theorem,

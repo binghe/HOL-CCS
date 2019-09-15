@@ -9,6 +9,12 @@
 R.~Milner, Communication and concurrency, {PHI} Series in computer science,
   Prentice-Hall, 1989.
 
+\bibitem{Gorrieri:2015jt}
+R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
+  Systems and CCS, Springer, Cham, 2015.
+\newblock \href {http://dx.doi.org/10.1007/978-3-319-21491-7}
+  {\path{doi:10.1007/978-3-319-21491-7}}.
+
 \bibitem{sangiorgi1992problem}
 D.~Sangiorgi, R.~Milner,
   \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
@@ -67,12 +73,6 @@ R.~J. van Glabbeek, A characterisation of weak bisimulation congruence, in:
   pp. 26--39.
 \newblock \href {http://dx.doi.org/10.1007/11601548_4}
   {\path{doi:10.1007/11601548_4}}.
-
-\bibitem{Gorrieri:2015jt}
-R.~Gorrieri, C.~Versari, {Introduction to Concurrency Theory}, Transition
-  Systems and CCS, Springer, Cham, 2015.
-\newblock \href {http://dx.doi.org/10.1007/978-3-319-21491-7}
-  {\path{doi:10.1007/978-3-319-21491-7}}.
 
 \bibitem{milner1990operational}
 R.~Milner, Operational and algebraic semantics of concurrent processes,

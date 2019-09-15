@@ -22,6 +22,10 @@ single-variable cases. The precise definition is given inductively:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
+Notice in above inductive definitions, for any CCS term $p$,
+\HOLtm[m\;]{\t. p} is a valid context. In this case there is no
+hole in the context. On the other hand, if any CCS term with recursion
+could be a context, the recursion must be a subterm of this $p$.
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
