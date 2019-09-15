@@ -12,14 +12,14 @@ contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
 hold for even (uncountably) infinite equations and equation variables.}}
 We chose these two theorems because they both depend on the same
 concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-\hlD{The work is an extension of the univariate case}~\cite{EPTCS276.10}
+The work is an extension of the \univariate case~\cite{EPTCS276.10}
  in the sense that neither the CCS datatype nor
 the SOS rules need to be changed.
 
 The central problem of the \multivariate formalisation is the
 representation of CCS equations (expressions, contexts).
 \hlD{In the} \univariate formalisation, $\lambda$-functions (of type
-$CCS\rightarrow CCS$) are used to represent univariate CCS
+$CCS\rightarrow CCS$) are used to represent \univariate CCS
 \hlD{equations, and variable substitutions are simply 
 calls to $\lambda$-functions on the target CCS terms.}
 This idea cannot be extended to the \multivariate case, as
@@ -30,7 +30,7 @@ a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
 \emph{equation variables}
 \emph{outside} of the CCS syntax; then an equation body  $E_i$  is an \emph{open} expression
 built with CCS operators plus the equation variables.
-\hlD{For a formal point of view, this means we either need to define a
+For a formal point of view, this means we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
 opeartor must be duplicated, or we have to  add equation variables as a
 new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
@@ -41,7 +41,7 @@ each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.
 In either cases the \emph{disjointness} between equation variables and
 agent variables is syntactically
 guaranteed. Both solutions are rather combersome, and require a non-trivial modification
-of the formalisation of the univariate case. }
+of the formalisation of the \univariate case.
 
 % : dealing with another CCS-like type makes the
 % whole formalisation work ugly and we loose the (possibly valuable) bisimilarity concepts and
@@ -106,7 +106,7 @@ Furthermore, $E$ is a process, written \HOLinline{\HOLConst{IS_PROC} \HOLFreeVar
 \end{alltt}
 And a list of CCS processes can be asserted by \HOLinline{\HOLConst{ALL_PROC}} defined upon \HOLinline{\HOLConst{IS_PROC}}:
 \begin{alltt}
-   \HOLTokenTurnstile{} \HOLConst{ALL_PROC} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}} \HOLConst{EVERY} \HOLConst{IS_PROC} \HOLFreeVar{Es}\hfill{[ALL_PROC_def]}
+   \HOLConst{ALL_PROC} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{EVERY} \HOLConst{IS_PROC} \HOLFreeVar{Es}\hfill{[ALL_PROC_def]}
 \end{alltt}
 
 Note that, in CCS expression, the set of free and bound
@@ -283,7 +283,7 @@ the    proof can
 There are two ways to represent  the \multivariate
 substitution of $E\{\til P/\til X\}$ which substitutes each possibly
 occurrences of free variables $X_i$ in $E$ with the corresponding
-$P_i$: (1) iterately applying the existing univariate
+$P_i$: (1) iterately applying the existing \univariate
 \HOLinline{\HOLConst{CCS_Subst}}; (2) defining a new \multivariate substitution
 function.
 % In any case, we (reasonably) assume that all $X_i$ are
@@ -381,7 +381,7 @@ w.r.t.~\texttt{CCS\_Subst}:
 \begin{lemma}[\texttt{CCS_SUBST_sing}]
   If there is only one single variable $X$ in the map (with the target
   expression $E'$), then \HOLinline{\HOLConst{CCS_SUBST}} behaves exactly the
-  same as (the univariate) \HOLinline{\HOLConst{CCS_Subst}}:
+  same as (the \univariate) \HOLinline{\HOLConst{CCS_Subst}}:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{]}\ensuremath{/}\ensuremath{[}\HOLFreeVar{X}\ensuremath{]}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}
 \end{alltt}
@@ -442,7 +442,7 @@ are propagated everywhere.
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
-Recall in Section~\ref{ss:context}, univariate contexts and their
+Recall in Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
 of type $CCS\rightarrow CCS$. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
@@ -459,7 +459,7 @@ holds \hl{as a base case of the inductive definition of} \HOLinline{\HOLConst{WG
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
 notation) is weakly guarded (c.f.~Def.~\ref{def:guardness}).
 
-It is possible to inductively assert multivariate contexts and their
+It is possible to inductively assert \multivariate contexts and their
 guarded variants, but care is needed as  we need to exclude the cases where
 free variables occur inside a recusion operator. A more elegant
  solution is to define \multivariate contexts (and variants) upon the

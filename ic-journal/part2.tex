@@ -6,12 +6,13 @@
 \subsection{Unique solution of equations}
 \label{ss:part2}
 
-\paragraph{Strong bisimilarity}
+\subsubsection{Strong bisimilarity}
+
 Based on results about ``bisimulation up to $\sim$'', we have first proved the following
  lemma. It states  that if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
 substituted for $X$:
-\begin{lemma}[\texttt{STRONG_UNIQUE_SOLUTION_LEMMA} (Lemma 3.13 of \cite{Mil89}, the univariate version)]
+\begin{lemma}[\texttt{STRONG_UNIQUE_SOLUTION_LEMMA} (Lemma 3.13 of~\cite{Mil89}, \univariate version)]
 \label{lem:313}
 If the variable $X$ is weakly guarded in $E$, and
 $E\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
@@ -41,7 +42,8 @@ groups, in which each pair is symmetric (thus having similar proof
 steps). The proof of this last theorem consists of 500 lines (each
 line usually has 2 or 3 HOL tactics, to make the proof shorter).
 
-\paragraph{Weak bisimilarity}
+\subsubsection{Weak bisimilarity}
+
 Milner's book~\cite{Mil89} contains only two ``unique solutions of
 equations'' theorems, one for strong equivalence, the other for
 observational congruence.   There is however a
@@ -80,7 +82,8 @@ $Q \wb E\{Q/X\}$. Then $P \wb Q$.
 \end{alltt}
 \end{theorem}
 
-\paragraph{Rooted bisimilarity}
+\subsubsection{Rooted bisimilarity}
+
 For the ``unique solutions of
 equations'' theorem of rooted bisimilarity, we use a different
 technique, represented by the

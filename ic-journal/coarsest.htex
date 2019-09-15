@@ -153,23 +153,23 @@ We have formalised this property and
 \end{alltt}
 %
 With this property, the actual formalisation of (\ref{equa:pq}) says:
-%\begin{theorem}{(Coarsest congruence contained in $\wb$)}
+\begin{theorem}[\texttt{COARSEST_CONGR_RL}]
+  Under the free actions assumption, $\rapprox$ is coarsest congruence contained in $\wb$.
 \begin{alltt}
-\HOLthm[]{CoarsestCongr.COARSEST_CONGR_RL}\hfill{[COARSEST_CONGR_RL]}
+\HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_RL}
 \end{alltt}
-%\end{theorem}
+\end{theorem}
 
 With an almost identical proof, rooted contraction
 ($\rcontr$) is also the coarsest
 precongruence contained in the bisimilarity contraction ($\mcontrBIS$)
 (the other direction is trivial):
-%\begin{theorem}{(Coarsest precongruence contained in $\contr$)}
-\vspace{-2ex}
+\begin{theorem}[\texttt{COARSEST_PRECONGR_RL}]
+  Under the free actions assumption, $\mcontrBIS$ is the coarsest precongruence contained in $\contr$.
 \begin{alltt}
-\hfill{[COARSEST_PRECONGR_RL]}
-\HOLthm[]{Contraction.COARSEST_PRECONGR_RL}
+\HOLthm[nosp]{Contraction.COARSEST_PRECONGR_RL}
 \end{alltt}
-%\end{theorem}
+\end{theorem}
 
 The formal proofs  of the above two results follow Milner's proof~\cite{Mil89}.
 The assumption \hl{in} Milner's result 
@@ -190,12 +190,13 @@ require any additional assumption.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
- $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity ($\rapprox$):
+ $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
+ ($\rapprox$): (c.f.~\cite{Tian:2017wrba} for more details of the proof)
 \begin{alltt}
 \HOLthm{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
 \begin{alltt}
-\HOLthm[def]{WeakEQ.STABLE'}\hfill{[STABLE]}
+\HOLthm[def,>>3]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
 To construct this process $k$,
  the proof relies on arbitrary infinite sums of 
@@ -387,12 +388,12 @@ and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
 \end{lemma}
 
 Combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
-we can  prove the following theorem for finite-state CCS:
-\begin{theorem}{(Coarsest congruence contained in $\approx$ for
-    finite-state CCS)}
-  \label{thm:coarsestfiniteState}
+we can prove the following theorem:
+\begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
+    \label{thm:coarsestfiniteState}
+    For finite-state CCS, $\wb$ is the coarsest congruence contained in $\approx$:
 \begin{alltt}
-\HOLthm{CoarsestCongr.COARSEST_CONGR_FINITE}\hfill[COARSEST_CONGR_FINITE]
+\HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_FINITE}
 \end{alltt}
 \end{theorem}
 

@@ -39,12 +39,6 @@ We highlight here a formalisation of CCS in the HOL theorem prover
 theory (and formal proofs) of the unique solution of
 equations/contractions theorems} mentioned in Section~\ref{s:eq} and
 \ref{s:mcontr}.
-%  The main purpose is to convince the readers that, there's no flaw
-%  in the informal proofs. 
-% \hl{The univariate versions of these theorems, apart from minor fixes and
-% extensions in this paper, was already described in}
-% \cite{Tian:2017wrba}. The multivariate proofs and the related results
-% are new, and will be described in Section~\ref{sec:multivariate}.
 All proof scripts are available as part of HOL's official
 examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}.
 The work so far consists of about 24,000 lines (1MB) of code in total,

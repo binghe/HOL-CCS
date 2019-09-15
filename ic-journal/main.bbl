@@ -157,6 +157,12 @@ R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
 \newblock \href {http://dx.doi.org/10.3233/FI-2017-1557}
   {\path{doi:10.3233/FI-2017-1557}}.
 
+\bibitem{Tian:2017wrba}
+C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
+  Solutions of Equations in Process Algebra}}, Master's thesis, AlmaDigital,
+  Bologna (Dec. 2017).
+\newline\urlprefix\url{http://amslaurea.unibo.it/14798/}
+
 \bibitem{norrish2013ordinals}
 M.~Norrish, B.~Huffman, {Ordinals in HOL: Transfinite arithmetic up to (and
   beyond) $\omega_1$}, in: International Conference on Interactive Theorem
@@ -177,12 +183,6 @@ R.~Cleaveland, J.~Parrow, B.~Steffen, The concurrency workbench: A
   36--72.
 \newblock \href {http://dx.doi.org/10.1145/151646.151648}
   {\path{doi:10.1145/151646.151648}}.
-
-\bibitem{Tian:2017wrba}
-C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
-  Solutions of Equations in Process Algebra}}, Master's thesis, AlmaDigital,
-  Bologna (Dec. 2017).
-\newline\urlprefix\url{http://amslaurea.unibo.it/14798/}
 
 \bibitem{bengtson2007completeness}
 J.~Bengtson, J.~Parrow, A completeness proof for bisimulation in the

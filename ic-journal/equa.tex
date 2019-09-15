@@ -26,14 +26,14 @@ without free variables  is a  \emph{process}.}
 variables also as \emph{equation variables}. This eliminates the need of
 another type for  equations, and we can reuse the existing
 variable substitution operation} (c.f. SOS rule for the Recursion in
-Fig.~\ref{f:LTSCCS}) \hlD{for the substitution of equation variables.
+Fig.~\ref{f:LTSCCS}) for the substitution of equation variables.
 For example, the result of substituting variable $X$ with $\nil$ in $a.X +
 \recu X (b.X)$,  written $(a.X + \recu X (b.X)) \sub {\nil} X$, is
 $a.\nil + \recu X (b.X)$ (with the part $\recu X (b.X)$
-untouched). Multivariate substitutions are written in the same syntax,
+untouched). \Multivariate substitutions are written in the same syntax,
 e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
 context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
-  X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation variable $X$.)}
+  X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation variable $X$.)
 
 % \hl{In fact, free agent variables have the same transitional behavior
 % as the deadlock $\nil$ according to the SOS rules, as there is
@@ -187,8 +187,7 @@ where $X$ is guarded but not sequential. Any process that does not use
 $a$ is a solution\hl{, e.g. $\nil$ and $b.\nil$.}
 
 \hlD{For more details of above three theorems,} see Section~\ref{ss:part2}
-for the univariate case and
-Section~\ref{sec:multivariate} for the multivariate case.
-%(Theorem~\ref{t:Mil89s1} only).
+for the \univariate case and
+Section~\ref{sec:multivariate} for the \multivariate case.
 
 %% next file: contraction.tex
