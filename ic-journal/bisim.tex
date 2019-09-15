@@ -163,8 +163,7 @@ we have proved \hl{Deng's Lemma and Hennessy's Lemma}
 
 Having formalised the definitions of strong bisimulation and strong bisimilarity,
 we can derive  \emph{algebraic laws} for the 
- bisimilarities. We only report a few laws for 
- the sum operator:
+ bisimilarities. We only report a few laws for the sum operator:
 \begin{alltt}
 STRONG_SUM_IDEMP:          \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E}  
 STRONG_SUM_COMM:           \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E}
@@ -186,7 +185,16 @@ last three algebraic laws} are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
  \hl{These algebraic laws also hold for weak bisimilarity and rooted
-  bisimilarity, as these are coarser than strong bisimilarity.}
+  bisimilarity, as these are coarser than strong bisimilarity.} But
+for weak bisimilarity and rooted bisimilarity, the following so-called
+$\tau$-laws are further available:
+\begin{alltt}
+TAU1:      \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
+TAU2:      \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
+TAU3:      \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E\sp{\prime}}\ensuremath{)}
+TAU_STRAT: \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E}\ensuremath{)}
+TAU_WEAK:  \HOLTokenTurnstile{} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E}
+\end{alltt}
 
 \subsection{Expansion, Contraction and Rooted Contraction}
 

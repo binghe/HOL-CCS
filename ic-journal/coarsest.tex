@@ -6,29 +6,44 @@
 \subsection{Coarsest (pre)congruence contained in $\approx$ ($\succeq_{\mathrm{bis}}$)}
 \label{s:coarsest}
 
-% The ``coarsest congruence contained in weak bisimilarity ($\approx$)''
-% theorem in CCS is somehow special, as its current known proofs either
-% rely on quite restricted conditions, or have an extremely complicated proof
-% (c.f. van Glabbeek's paper) in
-% which the theory of ordinals is required.  Actually even the relationship
-% between its name and statement is not well explained in many CCS
-% textbooks. But van Glabbeek's paper has given the so far clearest
-% explanation, here we briefly repeat his arguments:
-
-%As bisimilarity ($\approx$) is not congruence, for this reason rooted bisimilarity has been
-%introduced (Def.~\ref{d:rootedBisimilarity}).
-In this subsection we discuss two proofs of the fundamental result stating that
-rooted bisimilarity is the coarsest congruence contained in
-bisimilarity \cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
+In this section we give a proof of the second part of
+Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
+congruence contained in $\wb$. \hl{This theorem is of special interests to
+us, because within our framework it seems impossible to prove it
+without any limitation.} The general form of this theorem can be
+expressed informally as below~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
+\begin{proposition}
+\label{prop:coarsest}
 \begin{equation}
-\label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
 r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
+\end{proposition}
 
-% : Milner's proof \cite{Mil89}, that requires
-% that no process can use all available names; and van Glabbeek's proof
-% \cite{van2005characterisation}, that does not require additional assumptions. 
+However, we are only interested in the proposition from right to left,
+as from left to right it holds trivially by the substitutivity of
+$\rapprox$ of summation and that fact that $\rapprox$ implies $\wb$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\hfill{[COARSEST_CONGR_LR]}
+\end{alltt}
+
+The standard argument~\cite{Mil89} requires that $p$
+and $q$ do not use up available labels (i.e.~visible actions).
+Formalising such an argument requires  
+a detailed treatment on free and bound names of CCS
+processes (with the restriction operator being a binder).
+However, in this project we do not discuss on free and bound names
+(also called ``sorts'') of CCS processes. Instead, we
+assume that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use all available action names. We call it
+ the \emph{free action} property:
+\begin{alltt}
+   \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
+\end{alltt}
+
+Below we show how Proposition~\ref{prop:coarsest} is connected with
+the statement in Theorem~\ref{t:rapproxCongruence}, and prove it under
+the free action assumptions.
 
 The coarsest congruence
 contained in (weak) bisimilarity, namely \emph{bisimilarity
@@ -92,14 +107,14 @@ Given the central role of the
 Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
-in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{eq:coarsest}),
+in Fig.~\ref{fig:relationship}. Thus, to prove (\ref{prop:coarsest}),
 the crux is to prove that \texttt{SUM_EQUIV} implies
 rooted bisimilarity ($\rapprox$), making all three relations
 ($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) coincide:
 \begin{equation}
 \label{equa:pq}
 \forall p\ \ q.\ ( \forall r.\ p\ +\ r \;\approx\; q\ +\ r ) \
-\Rightarrow\ p\ \rapprox\ \! q\enspace.
+\Longrightarrow\ p\ \rapprox\ \! q\enspace.
 \end{equation}
 
 \begin{figure}[ht]
@@ -117,42 +132,7 @@ rooted bisimilarity ($\rapprox$), making all three relations
 \label{fig:relationship}
 \end{figure}
 
-The standard argument \cite{Mil89} requires that $p$
-and $q$ do not use up available labels (i.e.~visible actions).
-Formalising such an argument requires  
-a detailed treatment on free and bound names of CCS
-processes (with the restriction operator being a binder).
-However, the proof of (\ref{equa:pq}) can be carried out 
-% But it's
-% not easy to formalize and use such an assumption without a detailed
-% treatment on free and bound names (visible actions) of CCS
-% processes.\footnote{There're totally four such concepts: 1) free names
-% are all visible actions appearing in a CCS term without surrounding
-% $\nu$ (restriction) operator on the same action; 2) bound names are
-% the set of all actions ever used by $\nu$ (restriction) operator; 3)
-% free variables (or equation variables) are those variables without a
-% definition given by recursion
-% operator; 4) bound variables (process constants) are variables with
-% definitions given by recursion operator. All CCS results using these
-% concepts are not touched so far, although these four concepts are
-% successfully defined using HOL's set and list theories.} However, by
-just assuming that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use  all available labels.
-% analyzing the proof steps, we found that, what's really required is to
-% not use up all available labels in those weak transitions directly
-% lead from $p$ and $q$. In another words, even they have used all
-% available labels, as long as their first weak transitions didn't, the
-% whole proof can still be finished.\footnote{Further more, $p$ and $q$
-%   can be considered separately: the proof can be finished as long as
-%   \emph{each} of them didn't use up all labels on first weak
-%   transition, while the union of these labels are all labels.}
-We have formalised this property and
- called it the \emph{free action} property:
-\begin{alltt}
-   \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
-\end{alltt}
-%
-With this property, the actual formalisation of (\ref{equa:pq}) says:
+Under the free action assumptions, the actual formalisation of (\ref{equa:pq}) says:
 \begin{theorem}[\texttt{COARSEST_CONGR_RL}]
   Under the free actions assumption, $\rapprox$ is coarsest congruence contained in $\wb$.
 \begin{alltt}
@@ -184,9 +164,21 @@ not to be the same for $p$ and for $q$,
 as an action $a$ and its complementary $\outC a$ are
 considered as \emph{different} actions.}
 
-There exists a different, more complex, proof of (\ref{eq:coarsest}),
-given by van Glabbeek \cite{van2005characterisation}, which does not
-require any additional assumption.
+\subsection{Arbitrarily many non-bisimilar processes}
+\label{ss:arbitrarily}
+
+In this section, we give another more complex proof of the second part
+of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS:
+\begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
+    \label{thm:coarsestfiniteState}
+    For finite-state CCS, $\wb$ is the coarsest congruence contained in $\approx$:
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}
+\end{alltt}
+\end{theorem}
+
+The proof of above theorem was given by Rob van Glabbeek
+\cite{van2005characterisation}, which originally applies to all CCS processes.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
@@ -202,7 +194,8 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \begin{alltt}
    \HOLConst{STABLE} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
-To construct this process $k$,
+
+To \hl{actually} construct this process $k$,
  the proof relies on arbitrary infinite sums of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
@@ -215,9 +208,6 @@ strong enough to define a type for all possible
 ordinals''~\cite{norrish2013ordinals}.
 \hlD{As a consequence, the final result is only for finite-state
   CCS~--- a  restricted class.}
-
-\subsection{Arbitrarily many non-bisimilar processes}
-\label{ss:arbitrarily}
 
 The assumption in the previous \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
@@ -380,7 +370,7 @@ If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
 \end{alltt}
 \end{proposition}
 
-Using all the above results, now we can  prove the following finite
+Using all the above results, now we can prove the following finite
 version of ``Klop lemma'':
 \begin{lemma}{(Klop lemma,  finite version)}
 \label{lem:klop-lemma-finite}
@@ -399,13 +389,6 @@ and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
 \end{lemma}
 
 Combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
-we can prove the following theorem:
-\begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
-    \label{thm:coarsestfiniteState}
-    For finite-state CCS, $\wb$ is the coarsest congruence contained in $\approx$:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \ensuremath{(}\HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}
-\end{alltt}
-\end{theorem}
+we can prove the theorem \texttt{COARSEST_CONGR_FINITE}.
 
 % next file: part2.htex

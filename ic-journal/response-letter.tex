@@ -13,9 +13,13 @@ Dear Chairs and Reviewers,
 
 thank you for conditionally accepting our paper and for the fruitful
 comments. We took all of them into consideration, and thoroughly
-addressed each of them in the revised version. We believe that after
+addressed each of them in the revised version. Beside, we have done
+a further formalisation of the general, multivariable case of two
+unique-solution theorems as the referee have suggested. This work
+consists of another 4,000 lines of proof scripts and a whole new
+Section 5 in the paper. We believe that after
 this revision, the quality of the paper has been significantly
-improved.
+improved and has reached a whole new technical level.
 
 In the following, we discuss the changes to the paper and provide a
 point-by-point reply to the issues that have been raised.
@@ -251,8 +255,7 @@ w.r.t the corresponding definitions of contexts.''
     be added there too (the two definitions are now not explicitly
     related)
   \end{quote}
-TODO (remove the duplicated part of weak bisimulation, mergin into the
-strong case).
+  We have removed the duplicated part and only kept the part for weak bisimulation.
 
 \item \begin{quote}
     L580 "a contraction" ?
@@ -291,8 +294,10 @@ strong case).
 \item \begin{quote}
     figure 2: I'm a bit confused since the other implication is missing. 
   \end{quote}
-
-  TODO: not understood this comment.
+  We fixed one minor issue in Fig.~2: from \texttt{SUM_EQUIV} to
+  $\rapprox$ the label $\subseteq$ should be $\supseteq$. The main
+  message of Fig.~2 is to show the equivalences of three involved
+  relations by making a loop of implications.
   
 \item \begin{quote}
     Overall, in section 4.7, it seems the claim in the beginning is
@@ -302,7 +307,8 @@ strong case).
     exactly under which assumptions.
   \end{quote}
 
-  TODO
+  We have rephrased the beginning part, putting the free-action
+  hypothesis as early as possible.
   
 \item \begin{quote}
     L740 "this proof" which? 
@@ -318,7 +324,8 @@ strong case).
     we going to work?
   \end{quote}
 
-  TODO
+  We have re-organized this section, putting the target theorem and
+  its limitations at first.
   
 \item \begin{quote}
     L820 "bisimularity"
@@ -329,7 +336,7 @@ strong case).
     Lemma 4.14 is nicely introduced, Thm 4.15 not. 
   \end{quote}
 
-  TODO
+  We have explained slightly more on the proof details of Thm 4.15.
   
 \item \begin{quote}
     L898 full stop \& new sentence after "many ways"
@@ -343,7 +350,7 @@ strong case).
     perhaps say this, it makes the point even stronger
   \end{quote}
 
-  TODO
+  Thanks for reminding this. We have added this argument into the conclusion.
   
 \end{enumerate}
 
@@ -410,7 +417,7 @@ strong case).
     some more details. Some examples.
   \end{quote}
 
-  TODO
+  We have added some HOL background and linked further details to its official book.
   
 \item \begin{quote}
     You assume the reader knows what Hol_reln is, but this not always the case. 
@@ -418,13 +425,13 @@ Then, you define the congruence in terms of the equivalence, but is
 the equivalence already defined somewhere?
   \end{quote}
 
-  TODO
+  We have further explains what exact \texttt{Hol_reln} does and returns.
   
 \item \begin{quote}
     The argument at lines 387-389 is clear only after the lines 394-427 have been read.
   \end{quote}
 
-  TODO (merge strong and weak cases0
+  We have merged the strong and weak cases together.
   
 \item \begin{quote}
     At lines 577 you write that proving properties for contraction is
@@ -603,13 +610,15 @@ indeed implies weak bisimulation) ''.
     Semantics: The relabeling rule is not explained anywhere.
   \end{quote}
 
-  TODO
+  In this project, relabeling is not discussed besides their presense
+  in CCS syntax. In particular, relabeling doesn't show any speciality
+  in the proofs of unique-solution theorems.  We have added a footnote to clarify this.
   
 \item \begin{quote}
     Semantics: The constraint on the relabeling functions does not belong to the inference rule, but should be formulated as a restriction on the syntax.
   \end{quote}
   We have moved the side condition to the main text where we explain
-  the syntax. (TODO)
+  the syntax.
   
 \item \begin{quote}
     L74: Add the word 'a' between 'are' and 'context'.
@@ -623,7 +632,11 @@ indeed implies weak bisimulation) ''.
   In the formalisation you only use contexts with one kind of hole $[]$. This definition can be changed to only
   use one hole as well, with a clear indication that this hole can occur multiple times.
 \end{quote}
-TODO
+
+We have completely rewritten this part, now we adope free variables
+and unified CCS expressions for both processes and equations.
+ Thus the hole is not needed here. (It's formal defined later and used
+ to formalize the univariate version of unique-solution theorems.
 
 \item \begin{quote}
     L82: Remove the comma after $Q'$
@@ -741,7 +754,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     suggestive.
   \end{quote}
 
-  TODO
+  We have merged these definitions together as much as possible.
 
 \item \begin{quote}
     L169: "The number of strong steps of which is is composed". Note
@@ -819,7 +832,7 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
 \item \begin{quote}
     L228: what does convincible mean here?
   \end{quote}
-  TODO
+  We have further explained it.
   
 \item \begin{quote}
     L230: single?
@@ -865,7 +878,10 @@ Rephrased: ``with guarded sums only''. We have removed all usages of
     operational rules are axioms of the theory, but the turnstile
     suggests to me that they are theorems.
   \end{quote}
-  TODO
+  We have clarified that, SOS rules are NOT axioms, because it's
+  generally not allowed to define new axioms. SOS rules are actually
+  some theorems added by the inductive relation \texttt{TRANS} as a
+  conservative extension of the logic.
   
 \item \begin{quote}
     L275: we substitute rec A. P for all occurrences of the variable A in P.
@@ -950,7 +966,12 @@ We have re-phrased this part: ``(1) there exist indeed three
     General: In the sections about the HOL formalisation you refer to
     weak bisimulation instead of bisimulation.    
   \end{quote}
-  TODO
+  In the first part of the paper, strong bisimulation rarely appears
+  as the focus is on weak bisimulation. But in the formalisation
+  sections we also formalised Milner's unique-solution theorem for
+  strong bisimilarity and many statements must distinguish between
+  strong/weak bisimilarities. Thus we use more ``weak bisimulation''
+  to make it more clear. This is not in conflict with anything.
   
 \item \begin{quote}
     L461: I think there is no need to include those 3
@@ -1082,7 +1103,7 @@ expansion does so)''.
 \item \begin{quote}
     L837: why do you also need the condition of sequentiality?
   \end{quote}
-  TODO.
+  We have added an example to show its necessity.
   
 \item \begin{quote}
     L991: error-prune -> error-prone, ’since one is tempted to overlook details’?
@@ -1104,13 +1125,4 @@ expansion does so)''.
   \end{quote}
   Fixed bibtex item.
   
-\end{enumerate}
-
-\section*{Other changes}
-
-In this section, we listed other changes. All line numbers are based
-on the original review version of this paper.
-
-\begin{enumerate}
-\item TODO
 \end{enumerate}

@@ -23,8 +23,13 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 \end{alltt}
 \end{lemma}
 
-% We are now ready to prove the following, the main proposition above the
-% ``unique solution of equations'':
+Then, by a structural induction on weakly-guarded context
+(\texttt{WG}), we have proved Milner's strong unique-solution theorem
+in the \univariate case (c.f.~Section~\ref{sec:multivariate} for the
+\multivariate case). The formal proof basically follows the outline of its
+informal version. It is tedious due to large amounts of case analyses
+on each CCS operator.
+
 \begin{theorem}[\texttt{STRONG_UNIQUE_SOLUTION} (Proposition 3.14 of~\cite{Mil89})]
 Suppose the expression $E$ contains at most the variable $X$, and let $X$ be weakly
 guarded in $E$.
@@ -36,10 +41,6 @@ P \sim Q.
 \HOLthm{UniqueSolutions.STRONG_UNIQUE_SOLUTION}
 \end{alltt}
 \end{theorem}
-In \hl{the proof of the above theorem}, we have identified 14 major sub-goals, dividing them into 7
-groups, in which each pair is symmetric (thus having similar proof
-steps). The proof of this last theorem consists of 500 lines (each
-line usually has 2 or 3 HOL tactics, to make the proof shorter).
 
 \subsubsection{Weak bisimilarity}
 
