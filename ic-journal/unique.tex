@@ -7,9 +7,9 @@ $=$ in Def.~\ref{def:equation}. Thus a system of contractions is a set
 $\{  X_i \mcontr E_i\}_{i\in I}$ where $I$ is an indexing set and each
 $E_i$  contains variables up to $\til X$.
 
-\hl{Now we recall the ``unique solution of
-contractions'' theorem}~\cite{sangiorgi2017equations},
-\hl{which weakens} the requirements of Milner's result
+Now we recall the ``unique solution of
+contractions'' theorem~\cite{sangiorgi2017equations},
+which weakens the requirements of Milner's result
 (Theorem~\ref{t:Mil89}).
 
 \begin{lemma}
@@ -21,12 +21,12 @@ For any context $\qct$  that uses guarded sums,
 if $\ct{\til P}\Arr{\mu}  R$, then there is a context $\qctp$  that uses 
 guarded sums
 such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu} R'
- \wb \ctp{\til Q}$ \hl{for some $R'$}.
+ \wb \ctp{\til Q}$ for some $R'$.
 \end{lemma}
 
 \begin{proof}{(sketch from~\cite{sangiorgi2017equations})}
-  Let $n$ be the length \hl{(the number of one-step transitions)} of
-\hl{a} transition $\ct{\til P}\Arr\mu R$, and
+  Let $n$ be the length (the number of one-step transitions) of
+a transition $\ct{\til P}\Arr\mu R$, and
 let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
 from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
 of the contractions $n$ times. Thus in $\qctpp$ each hole is
@@ -48,36 +48,36 @@ $\ctpp{\til Q}\Arcap{\mu}  \ctp{\til Q}$.
 Finally, again applying the definition of $\mcontrBIS$ on 
 $\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
 we derive 
-$\ct{\til Q}\Arcap{\mu} R' \wb \ctp{\til Q}$ \hl{for some $R'$}.
+$\ct{\til Q}\Arcap{\mu} R' \wb \ctp{\til Q}$ for some $R'$.
 \end{proof}
 
 \begin{theorem}[unique solution of contractions~\cite{sangiorgi2017equations}]
 \label{t:contraBisimulationU} % was: Thm 3.10
-\hl{Let $E_i$ be weakly guarded (and with guarded sums only) with free
+Let $E_i$ be weakly guarded (and with guarded sums only) with free
 variables in $\til X$, and let $\til P \mcontrBIS \til E\{\til P/\til X\}$,
-    $\til Q \mcontrBIS \til E\{\til Q/\til X\}$. Then $\til P \wb \til Q$.}
+    $\til Q \mcontrBIS \til E\{\til Q/\til X\}$. Then $\til P \wb \til Q$.
 \end{theorem}
 
 \begin{proof}
-\hl{We  prove $P_i \wb Q_i$ (for each $i \in I$) by considering} the following relation
+We  prove $P_i \wb Q_i$ (for each $i \in I$) by considering the following relation
 \begin{equation*}
 \R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
-$\qct$ (\hl{with only guarded sums})} \} \enspace.
+$\qct$ (with only guarded sums)} \} \enspace.
 \end{equation*}
 
 Obviously we have $(P_i,Q_i) \in \R$ (by taking $C = E_i$, and
 the fact that $\mcontrBIS$ implies $\wb$). It remains to
-show that $\R$ is a bisimulation. Suppose \hl{$(R, S) \in \R$ via} a context
-$C$. \hl{For any $R'$ such that $R \arr{\mu} R'$, we have to find a} $S'$ with $S \Arcap{\mu}
+show that $\R$ is a bisimulation. Suppose $(R, S) \in \R$ via a context
+$C$. For any $R'$ such that $R \arr{\mu} R'$, we have to find \hl{an} $S'$ with $S \Arcap{\mu}
 S'$ and $(R', S') \in \R$. From $R \wb C[{\til P}]$, we derive $C[{\til P}]
 \Arcap{\mu} R'' \wb R'$ for some $R''$. Then by Lemma~\ref{l:uptocon},
 there exists $C'$ with $R'' \mcontrBIS C'[{\til P}]$ and $C[{\til Q}]
-\Arcap{\mu} S'' \wb C'[{\til Q}]$ for some $S''$. \hl{From $S \wb C[{\til
+\Arcap{\mu} S'' \wb C'[{\til Q}]$ for some $S''$. From $S \wb C[{\til
   Q}]$ and $C[{\til Q}] \Arcap{\mu} S''$, by induction and definition of $\wb$, we find
- $S'$} with $S \Arcap{\mu} S'$. This \hl{completes} the
-proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$ \hl{by
+ $S'$ with $S \Arcap{\mu} S'$. This completes the
+proof, as we have $R' \wb C'[{\til P}]$ and $S' \wb C'[{\til Q}]$ by
 transitivity of $\wb$ and the fact that $\mcontrBIS$ implies $\wb$.
-(The other side from $S$ follows in the same manner.)}
+(The other side from $S$ follows in the same manner.)
 See Fig.~\ref{fig:310} for a visual illustration.
 \end{proof}
 
@@ -105,13 +105,13 @@ Theorem~\ref{t:contraBisimulationU} brings a new proof technique for
 bisimilarity, which is much less restrictive than Milner's
 Theorem~\ref{t:Mil89} (but with the additional costs of checking $\mcontrBIS$
 in addition to $\wb$).
-However, comparing with Milner's Theorem~\ref{t:Mil89s1}, \hl{there is
+However, comparing with Milner's Theorem~\ref{t:Mil89s1}, there is
 a constraint: the involved CCS expression may only
 use guarded sums. The is mainly due to the fact that $\wb$ is not a
  congruence and also $\mcontrBIS$ is not a  precongruence.
 Inspired by rooted bisimilarity, to  eliminate the restriction
 on guarded sums, we have extended the idea of contractions by moving
-to \emph{rooted contractions}:}
+to \emph{rooted contractions}:
 
 \begin{definition}
 \label{d:rcontra}
@@ -125,22 +125,16 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
 \end{enumerate}
 \end{definition}
 
-\hl{The above definition was found with the help of interactive theorem proving.}
-\hl{The following two principles were adopted when searching
+The above definition was found with the help of interactive theorem proving.
+The following two principles were adopted when searching
 for a possible definition: (1) the definition should not be coinductive,
-along the lines of rooted bisimilarity} $\rapprox$ (Def.~\ref{d:rootedBisimilarity});
+along the lines of rooted bisimilarity $\rapprox$ (Def.~\ref{d:rootedBisimilarity});
 (2) the definition should be built on top of  the existing \emph{contraction}
 relation $\mcontrBIS$.
-% \hl{Then several candidates were quickly checked (using very similar
-%   proof steps): the key is to prove its transitivity, and whenever the
-%   proof attempts failed we tried to fix the definition. Eventually the
-%   above definition was found and shown to be a precongruence, i.e. it
-%   is preserved by all CCS operators except the Recursion, same as in
-%   the cases of $\sim$ and $\rapprox$.}
-\hl{Furthermore, we needed to show that the definition found is the
+Furthermore, we needed to show that the \hl{found} definition is the
 best possible one, by showing that it yields the coarsest precongruence
-contains in $\mcontrBIS$; the proof is similar
-to  the analogous result for $\rapprox$}. \hl{See} Section~\ref{s:coarsest} for
+contains in $\mcontrBIS$; the proof is similar \hl{with}
+the analogous result for $\rapprox$. See Section~\ref{s:coarsest} for
 more details.
 
 \begin{theorem}
@@ -163,15 +157,8 @@ For any context $\qct$,
 if  $\ct{\til P}\Arr{\mu}  R$,
  then there is a context $\qctp$
 such that $R \mcontrBIS \ctp{\til P}$ and  $\ct{\til Q} \Arr{\mu} R'
- \wb \ctp{\til Q}$ \hl{for some $R'$}.
+ \wb \ctp{\til Q}$ for some $R'$.
 \end{lemma}
-% The proof of Lemma~\ref{l:ruptocon} is exactly the same as of
-% Lemma~\ref{l:uptocon}, \hl{because all we need from $\mcontrBIS$ (or
-% $\rcontr$) is their substitutivity properties (as precongruences)
-% w.r.t the corresponding definitions of contexts.}
-% Notice also that, the conclusion of
-% Lemma~\ref{l:ruptocon} still uses $\mcontrBIS$, as $\rcontr$ does
-% not hold.
 
 The next lemma is actually Lemma 3.13 of~\citep[p.~102]{Mil89}, and
 is needed to prove Milner's ``unique solution of equations for
@@ -184,15 +171,15 @@ $\sim$'' (Theorem~\ref{t:Mil89s1}):
   $E\{\til Q/\til X\} \arr{\alpha} E'\{\til Q/\til X\}$.
 \end{lemma}
 
-\begin{theorem}[Unique solution of \hl{rooted} contractions]
+\begin{theorem}[Unique solution of rooted contractions]
 \label{t:rcontraBisimulationU}
-\hl{Let $E_i$ be weakly guarded with free variables in $\til X$,
+Let $E_i$ be weakly guarded with free variables in $\til X$,
 and let $\til P \rcontr \til E\{\til P/\til X\}$,
-    $\til Q \rcontr \til E\{\til Q/\til X\}$. Then $\til P \rapprox \til Q$.}
+    $\til Q \rcontr \til E\{\til Q/\til X\}$. Then $\til P \rapprox \til Q$.
 \end{theorem}
 
 \begin{proof}
-\hl{We  prove $P_i \rapprox Q_i$ (for each $i \in I$) by considering}
+We  prove $P_i \rapprox Q_i$ (for each $i \in I$) by considering
 the following relation
 \begin{equation*}
 \R \DSdefi \{(R,S) \st R \wb \ct{\til P}, S \wb \ct{\til Q} \mbox{~for some context
@@ -202,20 +189,20 @@ $\qct$} \} \enspace.
 Following the same steps in the proof of
 Theorem~\ref{t:contraBisimulationU}
 (using Lemma~\ref{l:ruptocon}
-in place of Lemma~\ref{l:uptocon}), \hl{we can prove that $(P_i, Q_i)
-\in\R$ and $\R$ is indeed a bisimulation. But this only shows $P_i \wb Q_i$.}
+in place of Lemma~\ref{l:uptocon}), we can prove that $(P_i, Q_i)
+\in\R$ and $\R$ is indeed a bisimulation. But this only shows $P_i \wb Q_i$.
 %
 To further show $P_i \rapprox Q_i$, we appeal to
-Lemma~\ref{l:obsCongrByWeakBisim}: \hl{for any $P'$ such that $P_i \arr{\mu} P'$, we have to
+Lemma~\ref{l:obsCongrByWeakBisim}: for any $P'$ such that $P_i \arr{\mu} P'$, we have to
   find a $Q'$ with $Q_i \Arr{\mu} Q'$ and $(R',S') \in \R$.
 %
 From $P_i \rcontr E_i[{\til P}]$, by definition of $\rcontr$ we derive $E_i[{\til P}] \arr{\mu}
-P''$ for some $P''$.} Then by Lemma~\ref{lem:milner313} there exists a context
+P''$ for some $P''$. Then by Lemma~\ref{lem:milner313} there exists a context
 $E'$ with $P'' = E'[{\til P}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til Q}]$.
 %
 From $Q_i \rcontr E_i[{\til Q}]$ and $E_i[{\til Q}] \arr{\mu} E'[{\til
   Q}]$, by definition of $\rcontr$ we have $Q_i \Arr{\mu} Q'$ for some
-$Q'$ and $Q' \wb E'[{\til Q}]$. This \hl{completes} the proof, as we have
+$Q'$ and $Q' \wb E'[{\til Q}]$. This completes the proof, as we have
 $P' \wb C[{\til P}]$ (by the fact that $\mcontrBIS$ implies $\wb$) and
 $Q' \wb C[{\til Q}]$. (The other side from $Q_i$ follows in the same manner.)
 See Fig.~\ref{fig:314} for a visual illustration.
@@ -235,3 +222,5 @@ See Fig.~\ref{fig:314} for a visual illustration.
   (showing $P_i \rapprox Q_i$)}
 \label{fig:314}
 \end{figure}
+
+% next file: formal.htex

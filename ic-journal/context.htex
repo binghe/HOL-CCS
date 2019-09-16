@@ -70,9 +70,9 @@ A (pre)congruence is a relation on CCS processes defined on top of
 precongruence is that the former  is an equivalence (reflexive,
 symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
 \begin{alltt}
-\HOLthm[def]{Congruence.congruence}\hfill{[congruence]}
+\HOLthm[def,>>3]{Congruence.congruence}\hfill{[congruence]}
 
-\HOLthm[def]{Congruence.precongruence}\hfill{[precongruence]}
+\HOLthm[def,>>3]{Congruence.precongruence}\hfill{[precongruence]}
 \end{alltt}
 
 Both strong bisimilarity ($\sim$) and

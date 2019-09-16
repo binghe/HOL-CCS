@@ -111,8 +111,6 @@
 	pdfsubject={Concurrency Theory},
 	pdfkeywords={theorem proving, process calculi, coinduction, unique solution of equations, congruence}}
 
-% To disable highlights
-\renewcommand\hl[1]{#1}
 
 \begin{document}
 
@@ -136,34 +134,32 @@
 
 % authors
 \author[mymainaddress]{Chun Tian}%\fnref{myfootnote}
-\address[mymainaddress]{\hl{University of Trento} and Fondazione Bruno
+\address[mymainaddress]{University of Trento and Fondazione Bruno
   Kessler, Italy}
 \ead{chun.tian@unitn.it}
-% Chun: I still think this footnote is necessary (to show my respect
-% to Alma Mater):
+% Chun: I still think this footnote is necessary (to show my respect to Alma Mater):
 \fntext[myfootnote]{Part of this work was carried out when the first
   author was studying at the University of Bologna, Italy.}
 
 \author[mysecondaryaddress]{Davide Sangiorgi}
 \ead{davide.sangiorgi@unibo.it}
-\address[mysecondaryaddress]{\hl{University of Bologna, Italy and INRIA, France}}
+\address[mysecondaryaddress]{University of Bologna, Italy and INRIA, France}
 
 \begin{abstract}
   The unique solution of contractions is a proof technique for
-  \hl{(weak)} bisimilarity that overcomes certain syntactic \hl{limitations} of
-  Milner's ``unique solution of equations'' \hl{theorem}.  \hl{This} paper
+  (weak) bisimilarity that overcomes certain syntactic limitations of
+  Milner's ``unique solution of equations'' theorem.  This paper
   presents an overview of a comprehensive formalisation of
-  \hl{Milner's Calculus of Communicating Systems (CCS)}
+  Milner's Calculus of Communicating Systems (CCS)
   in the HOL theorem prover (HOL4), with a
   focus towards the theory of unique solutions of equations and contractions.
-  The formalisation consists of about \hl{24,000 lines (1MB) of code in total.}
+  The formalisation consists of about 24,000 lines (1MB) of code in total.
   Some refinements of the ``unique solution of contractions'' theory itself are obtained.
   In particular we removed the constraints on summation,
-  which must be guarded, by moving \hl{from contraction} to \emph{rooted
-  contraction}. \hl{We prove the ``unique solution of rooted
-  contractions'' theorem 
-%(both univariate and multivariate versions)
-  and show that} rooted contraction is the coarsest
+  which must be guarded, by moving from contraction to \emph{rooted
+  contraction}. We prove the ``unique solution of rooted
+  contractions'' theorem %(both \univariate and \multivariate versions)
+  and show that rooted contraction is the coarsest
   precongruence contained in the contraction preorder. 
 \end{abstract}
 

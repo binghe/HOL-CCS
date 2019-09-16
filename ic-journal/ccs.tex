@@ -4,14 +4,13 @@
 \section{CCS}
 \label{ss:ccs}
 
-\hl{Here we recall the core theory of CCS.}
+Here we recall the core theory of CCS.
 We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
-\ldots\}$ \hl{yielding} input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
-action $\tau \notin \mathscr{L}$, and \hl{another possibly infinite
-  set of agent} variables $A, B,
-\ldots \in \mathscr{X}$.
-The class of CCS processes is then inductively
-defined from $\nil$ \hl{(the terminated process)} and agent variables by the operators
+\ldots\}$ yielding input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
+action $\tau \notin \mathscr{L}$, and another possibly infinite
+set of agent variables $A, B, \ldots \in \mathscr{X}$.
+The class of \hl{all} CCS \hl{terms (or expressions)} is then inductively
+defined from $\nil$ (the terminated process) and agent variables by the operators
 of \emph{prefixing} (.), \emph{parallel composition} ($|$),
 \emph{summation}
 (or \emph{binary choice}, $+$),
@@ -27,62 +26,30 @@ P_1 + P_2 \; \midd
 \;  \midd \;  A \; \midd \; \recu A  P
 \end{array}
 \end{equation*}
-\hl{In our presentation of CCS, 
-the restriction operator takes a set of  labels $L
-    \subseteq \mathscr{L}$, rather than a single one.  
+In our presentation of CCS, the restriction operator takes a set of labels $L
+  \subseteq \mathscr{L}$, rather than a single one.  
 The relabeling operator takes a relabeling function
-    $\mathit{rf} \colon \mathscr{L} \cup \overline{\mathscr{L}} \cup
+  $\mathit{rf} \colon \mathscr{L} \cup \overline{\mathscr{L}} \cup
     \{\tau\} \rightarrow \mathscr{L} \cup \overline{\mathscr{L}} \cup
     \{\tau\}$, that can  handle multiple actions including $\tau$. A valid
     relabeling function $\mathit{rf}$ must however 
 satisfy $\mathit{rf}(\tau) =
     \tau$ and $\forall l\in\mathscr{L} \cup \overline{\mathscr{L}}.\, \mathit{rf}(\overline{l}) =
     \overline{\mathit{rf}(l)}$ (with $\bar{\bar l} = l$ for all $l \in
-    \mathscr{L}$).}
-% \hl{Notice the (minor) differences with other CCS literature
-% regarding the above definition:} 
-% \begin{enumerate}
-%   \item Some literature adopts possibly infinite sums over an index
-%     set ($\sum_{i\in I} P_i$) while we only consider binary (thus
-%     finite) sums, which is less expressive.
-%   \item Our restriction operator takes a set of (input) labels $L
-%     \subseteq \mathscr{L}$, while some CCS literature only restricts
-%     one label (for each restriction operator);
-%   \item Our relabeling operator takes a relabeling function
-%     $\mathit{rf} \colon \mathscr{L} \cup \overline{\mathscr{L}} \cup
-%     \{\tau\} \rightarrow \mathscr{L} \cup \overline{\mathscr{L}} \cup
-%     \{\tau\}$, which
-%     is capable to handle multiple actions including $\tau$. A valid
-%     relabeling function $\mathit{rf}$ must satisfy $\mathit{rf}(\tau) =
-%     \tau$ and $\forall l\in\mathscr{L} \cup
-%     \overline{\mathscr{L}}.\, \mathit{rf}(\overline{l}) = 
-%     \overline{\mathit{rf}(l)}$ (with $\bar{\bar l} = l$ for all $l \in
-%     \mathscr{L}$); Same expressiveness
-%     with single-label relabeling.
-%   \item The recursion operator $\texttt{rec}$ has the same
-%   expressiveness with  
-%     \emph{process constants} adopted in some literature. For instance, a
-%     CCS process $a.C$ with the constant $C \DSdefi b.C$ can be
-%     expressed as $a.(\texttt{rec}\, C. (b.C))$.
-% \end{enumerate}
-We sometimes omit \hl{a} trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
-A CCS process $P$ may \hl{evolve} to another one, say $P'$, under
+    \mathscr{L}$).
+We sometimes omit a trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
+A CCS process $P$ may evolve to another one, say $P'$, under
   an action $\mu$, written by $P \arr{\mu} P'$.
-The \hl{transition semantics} of CCS processes is given by means of
-a Labeled Transition System (LTS) \hl{expressed in Structural Operational
-Semantics (SOS) rules} shown in Fig.~\ref{f:LTSCCS}.
-(The symmetric versions of the \hl{SOS} rules for
+The transition semantics of CCS processes is given by means of
+a Labeled Transition System (LTS) expressed in Structural Operational
+Semantics (SOS) rules shown in Fig.~\ref{f:LTSCCS}.
+(The symmetric versions of the SOS rules for
 parallel composition and binary choice are omitted.)
 A CCS processes uses only \emph{guarded sums} if all occurrences of
 sums are in the form $a.P + b.Q$. 
-% \hl{(Otherwise we may call the sum
-% a \emph{direct} one, e.g. $P + Q$ if either $P$ or $Q$ are not in the
-% form of prefixes.)}
- The \emph{immediate derivatives} of a
-process $P$ are elements of the set $\{P' \st P \arr\mu P' \mbox{
-  for some $\mu$}\}$.
-We use $\ell$ to range over
-visible actions (i.e.~inputs or outputs, excluding  $\tau$)
+The \emph{immediate derivatives} of a
+process $P$ are elements of the set $\{P' \st P \arr\mu P' \mbox{for some $\mu$}\}$.
+We use $\ell$ to range over visible actions (i.e.~inputs or outputs, excluding  $\tau$)
 and $\alpha, \mu$  to range over all actions.
 \begin{figure*}[t]
 \begin{center}

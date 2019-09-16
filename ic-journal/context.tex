@@ -95,11 +95,11 @@ A (pre)congruence is a relation on CCS processes defined on top of
 precongruence is that the former  is an equivalence (reflexive,
 symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
 \begin{alltt}
-\HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}}
-  \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[congruence]}
+   \HOLConst{congruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}}
+     \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[congruence]}
 
-\HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}}
-  \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[precongruence]}
+   \HOLConst{precongruence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}}
+     \HOLConst{PreOrder} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[precongruence]}
 \end{alltt}
 
 Both strong bisimilarity ($\sim$) and

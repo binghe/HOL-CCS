@@ -1,31 +1,20 @@
 \section{Equations and contractions}
 \label{s:eq}
 
-\hl{In the CCS syntax, 
+In the CCS syntax, 
 a recursion $\recu A  P$ acts as a binder for $A$ in the body $P$. 
 This gives rise, in the expected manner, to the notions of 
 \emph{free} and \emph{bound} recursion variables in a CCS expression. 
 For instance,  $X$ is free in $a.X + \recu Y (b.Y)$ while $Y$
-is bound; 
-in $a.X + \recu X (b.X)$,
- $X$ is
-both free and bound.
-%  given in previous section, there is the syntactic
-% possibility that an agent variable $A$ occurs
-% outside the recursion operator of the same variable (or, equivalently, a
-% process constant $C$ is used but undefined). We say such a variable is
-% \emph{free}, while those variables wrapped by their recursions are
-% \emph{bound}.}
-A tem
-without free variables  is a  \emph{process}.}
+is bound; in $a.X + \recu X (b.X)$, $X$ is both free and bound.
+A \hl{term} without free variables is a \emph{process}.
 % This setting does not cause any ambiguity, but sometimes leads to more
 % complex proofs.} (c.f. Section~\ref{sec:multivariate} for more details.)
 
-
-\hl{In this paper (and the formalisation work), we use the agent
+In this paper (and the formalisation work), we use the agent
 variables also as \emph{equation variables}. This eliminates the need of
 another type for  equations, and we can reuse the existing
-variable substitution operation} (c.f. SOS rule for the Recursion in
+variable substitution operation (c.f. SOS rule for the Recursion in
 Fig.~\ref{f:LTSCCS}) for the substitution of equation variables.
 For example, the result of substituting variable $X$ with $\nil$ in $a.X +
 \recu X (b.X)$,  written $(a.X + \recu X (b.X)) \sub {\nil} X$, is
@@ -35,20 +24,20 @@ e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
 context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
   X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation variable $X$.)
 
-% \hl{In fact, free agent variables have the same transitional behavior
+% In fact, free agent variables have the same transitional behavior
 % as the deadlock $\nil$ according to the SOS rules, as there is
 % no rule for their transitions at all. In fact, most CCS theorems still hold if
 % the involved CCS terms contain free variables. (The most notable
 % exceptions are all versions of unique solution of equations/contracts,
-% where all solutions must be \emph{pure} processes (i.e. no free variable).)}
+% where all solutions must be \emph{pure} processes (i.e. no free variable).)
  
 \subsection{Systems of equations}
 \label{ss:SysEq}
-\hl{When discussing equations it is standard to talk about `context'. This is a 
+When discussing equations it is standard to talk about `context'. This is a 
  a CCS expression  possibly containing  free variables that, however, may not occur within
 the body of recursive definitions. 
-Milner's ``unique solution of equations'' }  theorems~\cite{Mil89} intuitively
-\hl{say that, if a context $C$
+Milner's ``unique solution of equations'' theorems~\cite{Mil89} intuitively
+say that, if a context $C$
 %  \hl{(i.e., a CCS expression with possibly
 % free variables)}\footnote{\hl{Rigorously speaking, under our setting
 % (i.e.~reusing free agent variables as equation variables) not all
@@ -64,13 +53,12 @@ Milner's ``unique solution of equations'' }  theorems~\cite{Mil89} intuitively
 obeys certain conditions,
 then all processes $P$ that satisfy the equation $P \wb \ct P$ are
 bisimilar with each other.
-}
 
 \begin{definition}[equations] % Def 3.1
   \label{def:equation}
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
-$E_i$ \hl{possibly containing such variables $\cup_i \{ X_i\}$}. Then 
+$E_i$ possibly containing such variables $\cup_i \{ X_i\}$. Then 
 $\{ X_i = E_i\}_{i\in I}$ is 
   a \emph{system of equations}. (There is one equation $E_i$ for each variable $X_i$.)
 \end{definition}
@@ -87,12 +75,12 @@ Suppose $\{ X_i = E_i\}_{i\in I}$ is a system of equations:
  $\til P$ is a \emph{solution of the system of equations (for $\wb$)} 
 if for each $i$ it holds that $P_i \wb E_i [\til P]$;
 \item The system has \emph{a unique solution for $\wb$}  if whenever 
- $\til P$ and $\til Q$ are both solutions \hl{then} $\til P \wb \til Q$. 
+ $\til P$ and $\til Q$ are both solutions then $\til P \wb \til Q$. 
 \end{itemize} 
  \end{definition}
-\hl{Similarily, the \emph{(unique) solution of a system of equations for $\sim$}
+Similarily, the \emph{(unique) solution of a system of equations for $\sim$}
 (or for $\rapprox$) can be obtained by replacing all occurrences of $\wb$
-in above definition with $\sim$ and $\rapprox$, respectively.}
+in above definition with $\sim$ and $\rapprox$, respectively.
 
 For instance, the solution of the equation $X = a. X$ 
 is the process
@@ -100,7 +88,7 @@ $R \DSdefi \recu A {\, (a. A)}$, and for any other solution $P$ we have $P \wb R
 In contrast, the equation 
  $X = a|  X$ has solutions that may be quite different, for instance,
  $K$ and $K | b$, for $K \DSdefi \recu K {\, (a. K)}$. (Actually any process capable of
-continuously performing \hl{$a$--actions} is a solution \hl{of} $X = a|  X$.)
+continuously performing $a$--actions is a solution of $X = a|  X$.)
 
 %
 % The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
@@ -119,18 +107,18 @@ A system of equations $\{ X_i = E_i\}_{i\in I}$ is
 \item \emph{weakly guarded} if, in each $E_i$, each occurrence of
   each $X_i$ is underneath a prefix;
 
-\item \hl{\emph{guarded}} if, in each $E_i$, each occurrence of
+\item \emph{guarded} if, in each $E_i$, each occurrence of
   each $X_i$ is underneath a \emph{visible} prefix;
 
 \item \emph{sequential} if, in each $E_i$, each
-  \hl{occurrence of each $X_i$ is only underneath prefixes and sums.}
+  occurrence of each $X_i$ is only underneath prefixes and sums.
 \end{itemize}
 \end{definition}
 
-\hl{In other words, if a system of equations is sequential, then for
+In other words, if a system of equations is sequential, then for
 each  $E_i$, any subexpression of $E_i$ in which $X_j $
 appears, apart from $X_j$ itself, is a sum of prefixed expressions.
-For instance,}
+For instance,
 \begin{itemize}
 \item $X = \tau. X + \mu . \nil$ is sequential but not 
  guarded, because the guarding prefix for the variable
@@ -140,9 +128,9 @@ is not visible;
 $X = \tau . (a. X + \tau . b .X + \tau  )$ are both guarded and sequential.
 \end{itemize}
 
-\hl{Milner has  three versions of  ``unique solution of equations''
+Milner has  three versions of  ``unique solution of equations''
 theorems, for $\sim$, $\wb$ and $\rapprox$, respectively, though only the
-following two versions are explicitly mentioned} in~\citep[p.~103, 158]{Mil89}:
+following two versions are explicitly mentioned in~\citep[p.~103, 158]{Mil89}:
 \begin{theorem}[unique solution of equations for $\sim$]
 \label{t:Mil89s1}
 Let $E_i$ be weakly guarded with free variables in $\til X$,
@@ -157,8 +145,8 @@ variables up to $\til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$
   ${\til Q} \rapprox {\til E}\{\til Q /\til X\}$. Then ${\til P} \rapprox {\til Q}$.
 \end{theorem}
 
-\hl{The version of Milner's unique-solution theorem for $\wb$ further requires
-that all sums are guarded}:
+The version of Milner's unique-solution theorem for $\wb$ further requires
+that all sums are guarded:
 % \footnote{But if the CCS syntax were defined with only guarded
 %   sums, i.e., $\sum_{i\in I} \mu_i.P_i$ as
 %   in~\cite{sangiorgi2015equations}, this addition
@@ -166,7 +154,7 @@ that all sums are guarded}:
 %   congruence.}:
 \begin{theorem}[unique solution of equations for $\wb$]
 \label{t:Mil89}
-Let $E_i$ be \hl{guarded}  and sequential with free
+Let $E_i$ be guarded and sequential with free
 variables up to $\til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
   ${\til Q} \wb {\til E}\{\til Q /\til X\}$. Then ${\til P} \wb {\til Q}$.
 \end{theorem}

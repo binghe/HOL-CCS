@@ -7,36 +7,34 @@ componentwise bisimilar if they are solutions of the same system of equations.
 This method is important in verification techniques and tools
 based on algebraic reasoning~\cite{BaeBOOK,theoryAndPractice,RosUnder10}. 
 
-\hl{Milner's unique-solution theorem for weak bisimilarity, however,
-has severe syntactic limitations:}
+Milner's unique-solution theorem for weak bisimilarity, however,
+has severe syntactic limitations:
 the equations must be both \emph{guarded} and \emph{sequential}. That is,
-variables of the equations \hl{can only occur underneath visible prefixes and summations.}
-One way \hl{to overcome} such limitations is to replace the equations
+variables of the equations can only occur underneath visible prefixes and summations.
+One way to overcome such limitations is to replace the equations
 with special inequations called
 \emph{contractions}~\cite{sangiorgi2015equations,sangiorgi2017equations}. Contraction is a
 preorder that, roughly, places some efficiency constraints on processes.
-\hl{The unique solution of contractions is defined as with equations:}
+The unique solution of contractions is defined as with equations:
 any two solutions must be componentwise bisimilar.
-The difference \hl{from} equations is \hl{in} the meaning of a solution:
+The difference from equations is in the meaning of a solution:
 in the case of contractions the solution is evaluated with respect to
 the contraction preorder, rather than bisimilarity. 
-With contractions, most syntactic limitations of the unique-solution theorem \hl{are
-eliminated}. One constraint that still remains
+With contractions, most syntactic limitations of the unique-solution theorem are
+eliminated. One constraint that still remains
 in~\cite{sangiorgi2017equations}
 (where the issue is bypassed using a more
 restrictive CCS syntax)
-is the occurrences of %\emph{direct} 
-\hl{sums} (e.g.~$P + Q$) due to
-the \hl{non-substitutivity of the contraction preorder in this case}.
+is the occurrences of sums (e.g.~$P + Q$) due to
+the non-substitutivity of the contraction preorder in this case.
 
- \hl{This paper presents}  a
-comprehensive formalisation of Milner's Calculus of Communicating
+This paper presents a comprehensive formalisation of Milner's Calculus of Communicating
 Systems (CCS) in the HOL theorem prover (HOL4),
 with a focus towards the theory of unique solutions of equations and contractions.
-\hl{Many results in Milner's CCS book}~\cite{Mil89} are covered, since
+Many results in Milner's CCS book~\cite{Mil89} are covered, since
 the unique-solution theorems rely on a large number of fundamental results.
 Indeed the formalisation encompasses all basic properties of strong and weak
-\hl{bisimilarities} (e.g.~the fixed-point and substitutivity properties), the
+bisimilarities (e.g.~the fixed-point and substitutivity properties), the
 basic properties of rooted bisimilarity and their algebraic laws.
 Further extensions include several versions of ``bisimulation up to''
 techniques, the expansion and contraction preorder.
@@ -60,7 +58,7 @@ refined by moving from the contraction preorder to
 \emph{rooted contraction}, that is, the coarsest precongruence contained in the contraction
 preorder. The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
-\hl{constraints on the use the sum operator}.
+constraints on the use the sum operator.
 
 Another benefit of the formalisation is 
 that we can take advantage of results about different 
@@ -85,7 +83,7 @@ of overlooking or missing details as in \emph{paper-and-pencil} proofs.
 We first consider the case of a single equation (or contraction),
 that we call the \univariate case, then consider the \multivariate
   case, where  more than one equation
-  (or contraction) \hl{with multiple equation variables is considered.}
+  (or contraction) with multiple equation variables is considered.
 The \univariate theorems use
 $\lambda$-functions to present CCS equations,
 while the \multivariate versions require a
@@ -108,10 +106,8 @@ bisimilarity.
 Section~\ref{s:eq} discusses equations and contractions.
 Section~\ref{ss:new} presents rooted contraction and the related
 unique-solution result for rooted bisimilarity.
-Section~\ref{s:for} highlights our formalisation in HOL4 for the
-\univariate case.
-Section~\ref{sec:multivariate} describes the \hl{extension} to the
-  \multivariate case.
+Section~\ref{s:for} highlights our formalisation in HOL4 for the \univariate case.
+Section~\ref{sec:multivariate} describes the \hl{extension} to the \multivariate case.
 Finally,  Section~\ref{s:rel} and \ref{s:concl} discuss related work,
 conclusions, and a few directions for future work.
 
