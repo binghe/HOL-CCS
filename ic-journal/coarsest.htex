@@ -55,14 +55,14 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \end{alltt}
 We do not need to put $R\ g\ h$ in the antecedent of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
-\hl{The next result shows that, for any binary} relation $R$ 
+The next result shows that, for any binary relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
-fine as $R$\hl{:} ($\subseteq_r$ stands for \emph{relational subset}.)
+fine as $R$: ($\subseteq_r$ stands for \emph{relational subset}.)
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
 Furthermore, we prove that any (pre)congruence contained in $R$
-\hl{(which needs not to be itself a (pre)congruence)}
+(which needs not to be itself a (pre)congruence)
 is contained in the composition closure of $R$
 (hence the closure is the coarsest one):
 \begin{alltt}
@@ -152,17 +152,17 @@ precongruence contained in the bisimilarity contraction ($\mcontrBIS$)
 \end{theorem}
 
 The formal proofs  of the above two results follow Milner's proof~\cite{Mil89}.
-The assumption \hl{in} Milner's result 
+The assumption in Milner's result 
 requires $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
   names}), and is therefore strictly stronger than the assumption in
-our result above. \hl{Indeed, in our result we} only look at immediate weak
-derivatives for $p$ and $q$, \hl{and only requires that there is an input
-or output action}
-that never appears as a label. \hl{Furthermore, such an action need
+our result above. Indeed, in our result we only look at immediate weak
+derivatives for $p$ and $q$, and only requires that there is an input
+or output action
+that never appears as a label. Furthermore, such an action need
 not to be the same for $p$ and for $q$,
 as an action $a$ and its complementary $\outC a$ are
-considered as \emph{different} actions.}
+considered as \emph{different} actions.
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
@@ -191,7 +191,7 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \HOLthm[def,>>3]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
 
-To \hl{actually} construct this process $k$,
+To actually construct this process $k$,
  the proof relies on arbitrary infinite sums of 
 processes and uses transfinite induction to obtain
 an arbitrary large sequence of processes (firstly introduced by Jan
@@ -209,8 +209,8 @@ The assumption in the previous \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
 any sub-process emanating from the two root processes by weak
 transitions.
-\hl{There could be infinitely many such sub-processes, even on finitely
-branching processes.}
+There could be infinitely many such sub-processes, even on finitely
+branching processes.
 We can, however, consider the equivalence classes of CCS processes
 modulo weak bisimilarity.
 If there are infinitely many of such classes, 
@@ -237,11 +237,11 @@ we can use  the following subset of Klop processes,
 defined as a recursive function (on natural numbers) in HOL4:
 \begin{definition}{(Klop processes as recursive function on natural numbers)}
 \begin{alltt}
-\HOLthm[def]{CoarsestCongr.KLOP_def}\hfill{[KLOP_def]}
+\HOLthm[def,>>3]{CoarsestCongr.KLOP_def}\hfill{[KLOP_def]}
 \end{alltt}
 \end{definition}
 
-\hl{Following the inductive structure of the definition of Klop processes,}
+Following the inductive structure of the definition of Klop processes,
   and using the SOS rules
   ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we proved
 the following properties of Klop functions:
