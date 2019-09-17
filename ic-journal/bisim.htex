@@ -176,11 +176,11 @@ and contains the expansion preorder.
 \begin{enumerate}
 \item (The expansion preorder implies contraction preorder)
 \begin{alltt}
-\HOLthm{Contraction.expands_IMP_contracts}\hfill[expands_IMP_contracts]
+\HOLthm[nosp]{Contraction.expands_IMP_contracts}\hfill[expands_IMP_contracts]
 \end{alltt}
 \item (The contraction preorder implies weak bisimilarity)
 \begin{alltt}
-\HOLthm{Contraction.contracts_IMP_WEAK_EQUIV}\hfill[contracts_IMP_WEAK_EQUIV]
+\HOLthm[nosp]{Contraction.contracts_IMP_WEAK_EQUIV}\hfill[contracts_IMP_WEAK_EQUIV]
 \end{alltt}
 \end{enumerate}
 \end{proposition}
@@ -222,18 +222,11 @@ bisimulation relation containing them as a pair. However, in practice
 this definition is hardly ever followed plainly; instead, to reduce
 the size of the relations exhibited one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. These are  called
- an \emph{``up-to'' techniques}. 
-% It is a pretty general device
-% which allows a great variety of prssibilities.
+privileged relation, so to relieve the proof work needed. \hl{This is the so-called}
+\emph{``up-to'' techniques}, \hl{which is a pretty general device that
+allows a great variety of possibilities.}
 
-
-% Following Milner \cite{Mil89}, the concept of ``bisimulation up to
-% $\sim$''  begins  with a generalization of the notion of strong
-% bisimulation, which is often more useful in applications.
-% The following definition and proposition put the idea on a firm
-% basis. 
-We recall that we often write $P \;\R\; Q$ to denote
+\hl{Recall} that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
 Moreover, 
  $\sim \mathcal{S} \sim$ is the composition of three binary
@@ -241,14 +234,13 @@ relations: $\sim$, $\S$ and $\sim$. Hence $P \sim \S \sim Q$ means that,
 there exist $P'$ and $Q'$ such that $P \sim P'$, $P' \;\S\; Q'$ and $Q' \sim Q$.
 \begin{definition}[Bisimulation up to $\sim$]
   \label{def:bisimUptoSim}
-$\mathcal{S}$ is a ``\emph{bisimulation up to $\sim$}'' if $P
-  \mathcal{S} Q$ implies, for all $\mu$,
+$\S$ is a ``\emph{bisimulation up to $\sim$}'' if \hl{$P\ \S\ Q$} implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
-  $Q'$, $Q \overset{\mu}{\rightarrow} Q'$ and $P' \sim \mathcal{S}
+  $Q'$, $Q \overset{\mu}{\rightarrow} Q'$ and $P' \sim \S
   \sim Q'$,
 \item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
-  $P'$, $P \overset{\mu}{\rightarrow} P'$ and $P' \sim \mathcal{S}
+  $P'$, $P \overset{\mu}{\rightarrow} P'$ and $P' \sim \S
   \sim Q'$.
 \end{enumerate}
 \end{definition}
@@ -270,8 +262,8 @@ bisimulation up`` is not contained in $\wb$.~\cite{sangiorgi1992problem}
 There are a few ways to fix this problem, one is the following:
 
 \begin{definition}{(Bisimulation up to $\approx$)}
-$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P\;
-  \mathcal{S}\; Q$ implies, for all $\mu$,
+  $\S$ is a ``\emph{bisimulation up to $\approx$}'' if
+  \hl{$P\ \S\ Q$} implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \arr{\mu} P'$ then, for some
   $Q'$, $Q \Arcap{\mu} Q'$ and $P' \sim \S \approx Q'$,
@@ -283,8 +275,8 @@ or formally (for illustrating purposes below),
 \HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-Note that the formal represention of $\sim \S \approx$ is
-``\HOLtm{WEAK_EQUIV O Wbsm O STRONG_EQUIV}'' where the order of
+Note that the \hl{HOL term} of $\sim \R \approx$ is
+``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL's
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
 applied first.
@@ -293,11 +285,10 @@ applied first.
 If $\mathcal{S}$ is a bisimulation up to $\approx$, then
 $\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
-\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO]}
 \end{alltt}
 \end{theorem}
 
-%% TODO: move these after ``unique solution of equations'' theorem:
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful to prove Milner's ``unique solution of equations''
 theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
@@ -321,8 +312,8 @@ $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
 If $\mathcal{S}$ is a bisimulation up to $\approx$ (as by Definition~\ref{def:doubleweak}), then
 $\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
-\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}
+\HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
 \end{alltt}
 \end{theorem}
 
-%  next file: context.htex
+%  next file: coarsest.htex
