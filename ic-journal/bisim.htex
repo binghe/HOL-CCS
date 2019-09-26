@@ -99,10 +99,10 @@ becomes a theorem:
 The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) 
 follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
-\HOLthm[def]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
+\HOLthm[def,>>3]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
 \end{alltt}
 Below is the formal version of Lemma~\ref{l:obsCongrByWeakBisim}, which is needed in the proof
-of unique-solution Theorem~\ref{t:rcontraBisimulationU}:
+of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
@@ -117,9 +117,10 @@ we have proved Deng's Lemma and Hennessy's Lemma
 \end{alltt}
 
 \subsection{Algebraic Laws}
+\label{ss:alaws}
 
 Having formalised the definitions of strong bisimulation and strong bisimilarity,
-we can derive  \emph{algebraic laws} for the 
+we can derive \emph{algebraic laws} for the 
  bisimilarities. We only report a few laws for the sum operator:
 \begin{alltt}
 STRONG_SUM_IDEMP:          \HOLthm{StrongLaws.STRONG_SUM_IDEMP}  
