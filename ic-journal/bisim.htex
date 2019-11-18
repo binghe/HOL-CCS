@@ -302,10 +302,8 @@ actually used:
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
   \mathcal{S} \; Q$ implies, for all $\mu$,
 \begin{enumerate}
-\item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
-  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \approx \S \approx Q'$,
-\item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
-  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \S \approx Q'$.
+\item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
+\item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
 \end{definition}
 

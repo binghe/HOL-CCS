@@ -21,17 +21,17 @@ two processes is defined as a new relation \texttt{EPS}
 reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
 \begin{alltt}
-\HOLConst{EPS} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
+\HOLConst{EPS} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
 \end{alltt}
 Then we can define a weak transition as an ordinary transition wrapped by
 two $\epsilon$-transitions:
 \begin{alltt}
-\HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
+\HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{E\sp{\prime}} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}} \HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{E\sp{\prime}}\hfill{[WEAK_TRANS]}
 \end{alltt}
 
 The definition of weak bisimulation is based on weak and $\epsilon$--transitions:
 \begin{alltt}
-\HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenDefEquality{}}
+\HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLTokenDefEquality{}
   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
       \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -130,7 +130,7 @@ becomes a theorem:
 The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) 
 follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
-   \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDefEquality{}}
+   \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E\sp{\prime}} \HOLTokenDefEquality{}
      \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
          \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
          \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_CONGR]}
@@ -198,7 +198,7 @@ TAU_WEAK:  \HOLTokenTurnstile{} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ens
 To formally define bisimulation expansion and contraction (and their preorders), we have
 followed the same ways as in the case of strong and weak bisimilarities:
 \begin{alltt}
-\HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLSymConst{\HOLTokenDefEquality{}}
+\HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLTokenDefEquality{}
   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
       \HOLFreeVar{Exp} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -211,7 +211,7 @@ followed the same ways as in the case of strong and weak bisimilarities:
 \end{alltt}
 
 \begin{alltt}
-\HOLConst{CONTRACTION} \HOLFreeVar{Con} \HOLSymConst{\HOLTokenDefEquality{}}
+\HOLConst{CONTRACTION} \HOLFreeVar{Con} \HOLTokenDefEquality{}
   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
       \HOLFreeVar{Con} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -264,7 +264,7 @@ straightforward (just use $Con$).
 The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
 defined as follows:
 \begin{alltt}
-   \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\HOLTokenDefEquality{}}
+   \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E\sp{\prime}} \HOLTokenDefEquality{}
      \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
          \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{E\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
          \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E\sb{\mathrm{2}}}. \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{E\sb{\mathrm{2}}}\hfill{[OBS_contracts]}
@@ -329,7 +329,7 @@ There are a few ways to fix this problem, one is the following:
 \end{enumerate}
 or formally (for illustrating purposes below),
 \begin{alltt}
-    \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenDefEquality{}}
+    \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Wbsm} \HOLTokenDefEquality{}
       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}.
           \HOLFreeVar{Wbsm} \HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
           \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
@@ -377,10 +377,8 @@ actually used:
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
   \mathcal{S} \; Q$ implies, for all $\mu$,
 \begin{enumerate}
-\item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
-  $Q'$, $Q \overset{\hat{\mu}}{\rightarrow} Q'$ and $P' \approx \S \approx Q'$,
-\item Whenever $Q \overset{\mu}{\rightarrow} Q'$ then, for some
-  $P'$, $P \overset{\hat{\mu}}{\rightarrow} P'$ and $P' \approx \S \approx Q'$.
+\item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
+\item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
 \end{definition}
 

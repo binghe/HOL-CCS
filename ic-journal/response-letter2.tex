@@ -1,0 +1,90 @@
+\newcommand{\Mark}{{\underline{\tt R:} }}
+
+
+\begin{center}
+\textbf{
+{\small Changes for Submission 1 to SI:EXPRESS/SOS'18 (2nd Round)}\\[5mm]
+{\large Unique Solutions of Contractions, CCS, and their HOL
+  Formalisation
+}}
+\end{center}
+
+
+
+\vskip 10pt
+\noindent
+
+(TODO)
+% We would like to thank the reviewers for many useful
+% comments and suggestions. We believe we have taken all of them into consideration, as best
+% as we could. 
+
+% The main addition, here again following the recommendations of the reviewers 
+% has been the extension of the our central theorems 
+% to the multivariable case (ie., moving from ``unique solution theorems'' for a single
+% equations, or contractions,  to multi-equations  or multi-contractions). 
+%  This has been a significant effort (also because a few alternative ways to make the
+%  extension had to be examined). At the end, this work 
+% consists of another 4,000 lines of proof scripts and a whole new
+% Section 5 in the paper.
+
+In the following, we discuss the changes to the paper and provide a
+point-by-point reply to the issues that have been raised.
+
+Our answers are marked  with a `` \Mark''  at the beginning.
+
+\ \\
+
+Best regards,
+\begin{flushright}
+  Chun Tian and Davide Sangiorgi \\
+  (TODO) December 22, 2019
+\end{flushright}
+
+\vspace{1cm}
+
+\section*{Responses to Review 1}
+
+\subsection*{Meta comments}
+
+\begin{enumerate}
+
+\item \begin{quote}
+    The multivariable case has been added. This is great: it makes the result stronger, and adds a real improvement over the conference version. 
+  \end{quote}
+  \Mark
+  Thanks.
+
+\item \begin{quote}
+Overall the authors did address the minor comments. But the paper
+still contains quite a few grammatical and other minor mistakes, also
+in the newly added text. Below are a couple that I found just browsing
+again through the paper; but this is certainly inexhaustive and the
+authors should do some more careful proofreading.
+\end{quote}
+\Mark
+(TODO) We have done a more careful proofreading and fixed all
+grammatically wrong sentences in the paper.
+
+\item \begin{quote}
+    In fact, one of the corrections appears to have introduced a new
+    bug: Theorem 4.7 in the new version is wrong; I guess Def. 4.6
+    should be about weak transitions. In the original submission,
+    there was verbatim copied proof code, which was however
+    correct. But as it stands now, it suffers from the famous problem
+    with weak bisimulation up-to found by the second author (one can
+    simply use the same counterexample $\{(\tau. a , 0)\}$).
+  \end{quote}
+  \Mark
+  This is an embarassing typo. The two $\arr{\mu}$ in
+  Definition 4.6 should be $\Arr{\mu}$ instead. Our actual formalization is
+  correct. Below is the fixed part of Definition 4.6:
+\begin{enumerate}
+\item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
+\item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
+\end{enumerate}
+
+\end{enumerate}
+
+\subsection*{Detailed comments}
+
