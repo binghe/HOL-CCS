@@ -138,7 +138,7 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLthm{StrongLaws.STRONG_LEFT_SUM_MID_IDEMP}
 % laws). 
 The first five of them are proven by constructing appropriate bisimulations,
 and their formal proofs are written in
-a goal-directed manner\hl{\mbox{~\citep[Chapter 4]{holdesc}}}. On the other hand, the
+a goal-directed manner~\citep[Chapter 4]{holdesc}. On the other hand, the
 last three algebraic laws are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
@@ -223,11 +223,11 @@ bisimulation relation containing them as a pair. However, in practice
 this definition is hardly ever followed plainly; instead, to reduce
 the size of the relations exhibited one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. \hl{This is the so-called}
-\emph{``up-to'' techniques}, \hl{which is a pretty general device that
-allows a great variety of possibilities.}
+privileged relation, so to relieve the proof work needed. This is the so-called
+\emph{``up-to'' techniques}, which is a pretty general device that
+allows a great variety of possibilities.
 
-\hl{Recall} that we often write $P \;\R\; Q$ to denote
+Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
 Moreover, 
  $\sim \mathcal{S} \sim$ is the composition of three binary
@@ -235,7 +235,7 @@ relations: $\sim$, $\S$ and $\sim$. Hence $P \sim \S \sim Q$ means that,
 there exist $P'$ and $Q'$ such that $P \sim P'$, $P' \;\S\; Q'$ and $Q' \sim Q$.
 \begin{definition}[Bisimulation up to $\sim$]
   \label{def:bisimUptoSim}
-$\S$ is a ``\emph{bisimulation up to $\sim$}'' if \hl{$P\ \S\ Q$} implies, for all $\mu$,
+$\S$ is a ``\emph{bisimulation up to $\sim$}'' if $P\ \S\ Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
   $Q'$, $Q \overset{\mu}{\rightarrow} Q'$ and $P' \sim \S
@@ -264,7 +264,7 @@ There are a few ways to fix this problem, one is the following:
 
 \begin{definition}{(Bisimulation up to $\approx$)}
   $\S$ is a ``\emph{bisimulation up to $\approx$}'' if
-  \hl{$P\ \S\ Q$} implies, for all $\mu$,
+  $P\ \S\ Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \arr{\mu} P'$ then, for some
   $Q'$, $Q \Arcap{\mu} Q'$ and $P' \sim \S \approx Q'$,
@@ -276,7 +276,7 @@ or formally (for illustrating purposes below),
 \HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-Note that the \hl{HOL term} of $\sim \R \approx$ is
+Note that the HOL term of $\sim \R \approx$ is
 ``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL's
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
@@ -293,11 +293,9 @@ $\mathcal{S} \subseteq\;\approx$:
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful to prove Milner's ``unique solution of equations''
 theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
-To complete the proof, the following ``double-weak'' version is
+To complete the proof, the following version \hl{\emph{with weak arrows}} is
 actually used:
-
-\begin{definition}{(Bisimulation up to $\approx$, the ``double-weak''
-    version)}
+\begin{definition}{(Bisimulation up to $\approx$ with weak arrows}
   \label{def:doubleweak}
 $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
   \mathcal{S} \; Q$ implies, for all $\mu$,
@@ -308,7 +306,7 @@ $\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
 \end{definition}
 
 \begin{theorem}
-If $\mathcal{S}$ is a bisimulation up to $\approx$ (as by Definition~\ref{def:doubleweak}), then
+If $\mathcal{S}$ is a bisimulation up to $\approx$ with weak arrows, then
 $\mathcal{S} \subseteq\;\approx$:
 \begin{alltt}
 \HOLthm{BisimulationUpto.WEAK_EQUIV_BY_BISIM_UPTO_ALT}\hfill{[WEAK_EQUIV_BY_BISIM_UPTO_ALT]}
