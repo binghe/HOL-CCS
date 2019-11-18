@@ -35,9 +35,9 @@
 \label{s:for}
 
 We highlight here a formalisation of CCS in the HOL theorem prover
-(HOL4)~\cite{Melham:1993vl,slind2008brief}, \hl{with a focus towards the
+(HOL4)~\cite{Melham:1993vl,slind2008brief}, with a focus towards the
 theory (and formal proofs) of the unique solution of
-equations/contractions theorems} mentioned in Section~\ref{s:eq} and
+equations/contractions theorems mentioned in Section~\ref{s:eq} and
 \ref{s:mcontr}.
 All proof scripts are available as part of HOL's official
 examples\footnote{\url{https://github.com/HOL-Theorem-Prover/HOL/tree/master/examples/CCS}}.
@@ -48,7 +48,7 @@ Nesi~\cite{Nesi:1992ve} on HOL88, with major modifications.
 Higher Order Logic (HOL)~\cite{hollogic} traces
 its roots back to LCF
 \cite{gordon1979edinburgh,milner1972logic} by Robin Milner and others
-since \hl{1972. It} is a variant of
+since 1972. It is a variant of
 Church’s Simple Theory of Types (STT)~\cite{church1940formulation},
 plus a higher order version of Hilbert's choice operator $\varepsilon$,
 Axiom of Infinity, and Rank-1 (prenex) polymorphism.
@@ -58,19 +58,18 @@ certain extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
-Indeed the HOL has \hl{considerably} simpler logical
+Indeed the HOL has considerably simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
-\hl{As a consequence, theories and proofs verified in HOL are easier to understand
+As a consequence, theories and proofs verified in HOL are easier to understand
  to people who are not familar with more advanced
-dependent type theories.}
+dependent type theories.
 
 HOL4 is implemented in Standard ML, the same programming language who
 plays three different roles:
 \begin{enumerate}
-\item the underlying implementation language for the core HOL engine;
-\item \hl{the language in which proof tactics are implemented;}
-\item \hl{the interface  language of the HOL proof scripts and
-  interactive shell.}
+\item \hl{The} underlying implementation language for the core HOL engine;
+\item \hl{The} language in which proof tactics are implemented;
+\item \hl{The} interface language of the HOL proof scripts and interactive shell.
 \end{enumerate}
 Moreover, using the same language HOL4 users can write complex automatic
 verification tools by calling HOL's theorem proving
@@ -80,9 +79,9 @@ their informal proofs, with minimal automatic proof searching.
 
 \subsection{Higher Order Logic}
 
-\hl{HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
+HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
 universe $\mathcal{U}$). HOL's type system is much simpler than those
-based on dependent types and other type theories.} There are four kinds of types in the HOL
+based on dependent types and other type theories. There are four kinds of types in the HOL
 logic, as illustrated in Fig. \ref{fig:hol-types} for its BNF
 grammar. Noticed that, in HOL the standard atomic types \emph{bool} and \emph{ind}
  denote, respectively, the distinguished two-element set 2 and the
@@ -223,7 +222,8 @@ either break the logic consistencies or make the whole work less
 convincible. The theorem prover (in general) guarantees that,
 without adding new axioms, if both the definitions and the statements
 of theorems are correct, then any proof which successfully completes must
-be correct. \hl{This is also the case here: SOS rules of CCS are
-\emph{not} axioms but consequences of an inductive relation.}
+be correct. This is also the case here: SOS rules of CCS are
+\emph{not} axioms but consequences of the inductive relation\hl{, the
+  CCS transition $\rightarrow$}.
 
 % next file: sos.htex

@@ -6,20 +6,20 @@
 \subsection{CCS: the formal theory}
 \label{ss:formalCCS}
 
-\hl{The CCS formalisation starts with type definitions for action,
-relabeling and the CCS term itself. We use} the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
-$\beta$ is \hl{a type variable}) for all visible actions. The
+The CCS formalisation starts with type definitions for action,
+relabeling and the CCS term itself. We use the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
+$\beta$ is a \emph{type variable}) for all visible actions. The
 cardinality and the exact elements depend on the type variable $\beta$
 supplied by the end user.
-\hl{All actions are} divided into input and \hl{$\overline{\text{output}}$ ones.}
+All actions are divided into input and $\overline{\text{output}}$ ones.
 This type is defined by HOL's \texttt{Datatype} package in the
 following syntax:
 \begin{lstlisting}
 Datatype: Label = name 'b | coname 'b
 End
 \end{lstlisting}
-\hl{For instance, if the type $\beta$ is instantiated by the type
-\texttt{string}, then HOL terms} \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
+For instance, if the type $\beta$ is instantiated by the type
+\texttt{string}, then HOL terms \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
 \HOLinline{\HOLConst{coname} \HOLStringLit{b}} denote the input action $a$ and output
 action $\overline{\text{b}}$, respectively.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
@@ -30,8 +30,8 @@ are denoted by \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLStr
 
 The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'', accounting for the CCS
 expressions, where \texttt{'a} (or $\alpha$) is the type variable\footnote{The order of type variables $\alpha$ and $\beta$
-    is arbitrary. Our choice is aligned with  the \hl{literature.
-For instance,} $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
+    is arbitrary. Our choice is aligned with  the literature.
+For instance, $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' with types
@@ -51,9 +51,9 @@ End
 \end{lstlisting}
 The above definitions allow us to use terms like \texttt{nil} and
 \texttt{sum P Q} in HOL. Their correspondences with conventional CCS notations
-in the literature, are given in Table~\ref{tab:ccsoperator}, \hl{where
+in the literature, are given in Table~\ref{tab:ccsoperator}, where
 most CCS operators have also the more readable abbreviation forms,
-either for end user or for \TeX{} outputs.} (All
+either for end user or for \TeX{} outputs. (All
   formal theorems and definitions in this paper
   are generated from HOL4. Also, by default, all theorems are fully
   specialised, removing outermost universal quantifiers.)
@@ -63,33 +63,33 @@ either for end user or for \TeX{} outputs.} (All
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 \textbf{CCS concept} & \textbf{Notation} & \textbf{HOL term} &
-                                             \textbf{HOL abbrev.} & \hl{\textbf{\TeX{} outputs}} \\
+                                             \textbf{HOL abbrev.} & \textbf{\TeX{} outputs} \\
 \hline
 nil & $\textbf{0}$ & \texttt{nil} & \texttt{nil} & \HOLinline{\HOLConst{\ensuremath{\mathbf{0}}}} \\
 prefix & $\mu.P$ & \texttt{prefix u P} & \texttt{u..P} & \HOLinline{\HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{P}} \\
-\hl{summation} & $P + Q$ & \texttt{sum P Q} & \texttt{P + Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{Q}} \\
-parallel \hl{composition} & $P \,\mid\, Q$ & \texttt{par P Q} & \texttt{P || Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{Q}} \\
+summation & $P + Q$ & \texttt{sum P Q} & \texttt{P + Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{Q}} \\
+parallel composition & $P \,\mid\, Q$ & \texttt{par P Q} & \texttt{P || Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{Q}} \\
 restriction & $(\nu{}L)\;P$ & \texttt{restr L P} & \texttt{(nu L) P} & \HOLinline{\ensuremath{(\nu}\HOLFreeVar{L}\ensuremath{)} \HOLFreeVar{P}}  \\
 recursion & $\recu A P$ & \texttt{rec A P} & \texttt{rec A P} & \HOLinline{\HOLConst{rec} \HOLFreeVar{A} \HOLFreeVar{P}}  \\
 relabeling & $P\;[r\!f]$ & \texttt{relab P rf} &\texttt{relab P rf} & \HOLinline{\HOLConst{relab} \HOLFreeVar{P} \HOLFreeVar{rf}}  \\
-\hl{constant/variable} & $A$ & \texttt{var A} &\texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
+constant/variable & $A$ & \texttt{var A} &\texttt{var A} & \HOLinline{\HOLConst{var} \HOLFreeVar{A}} \\
 \hline
 invisible action & $\tau$ & \texttt{tau} & \texttt{tau} & \HOLinline{\HOLSymConst{\ensuremath{\tau}}} \\
 input action & $a$ & \texttt{label (name a)} &\texttt{In(a)} & \HOLinline{\HOLConst{\HOLTokenInputAct} \HOLFreeVar{a}} \\
 output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLinline{\HOLConst{\HOLTokenOutputAct} \HOLFreeVar{a}} \\
 \hline
-\hl{variable substitution} & $E\{E'/X\}$ & \texttt{CCS_Subst E E' X} &
+variable substitution & $E\{E'/X\}$ & \texttt{CCS_Subst E E' X} &
                                            \texttt{[E'/X]  E} & \HOLinline{\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}} \\
-\hl{transition} & $P\overset{\mu}{\longrightarrow}Q$
+transition & $P\overset{\mu}{\longrightarrow}Q$
                        & \texttt{TRANS P u Q} & \texttt{P ---u-> Q} & \HOLinline{\HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{Q}} \\
-\hl{weak transition} & $P\overset{\mu}{\Longrightarrow}Q$
+weak transition & $P\overset{\mu}{\Longrightarrow}Q$
                        & \texttt{WEAK\_TRANS P u Q} & \texttt{P ==u=> Q} & \HOLinline{\HOLFreeVar{P} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{Q}} \\
-\hl{$\epsilon$--transition} & $P\overset{\epsilon}{\Longrightarrow}Q$
+$\epsilon$--transition & $P\overset{\epsilon}{\Longrightarrow}Q$
                        & \texttt{EPS P Q} & \texttt{EPS P Q} & \HOLinline{\HOLFreeVar{P} \HOLSymConst{\HOLTokenEPS} \HOLFreeVar{Q}} \\
 \hline
 \end{tabular}
 \end{center}
-   \caption{Syntax of \hl{some CCS concepts in HOL}}
+   \caption{Syntax of some CCS concepts in HOL}
    \label{tab:ccsoperator}
 \end{table}
 
@@ -100,9 +100,9 @@ consequence of an \emph{inductive relation} definition of
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
-  \item \hl{\emph{rules} is a conjunction of implications that will be the
+  \item \emph{rules} is a conjunction of implications that will be the
     same as the input term. In fact, the following formal versions of SOS rules are
-    extracted from the \emph{rules} theorem:}
+    extracted from the \emph{rules} theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
@@ -122,23 +122,22 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{equation*}
 \infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}
 \end{equation*}
-\item \hl{\emph{ind} is the induction principle for the
-  relation} (see Section~\ref{sec:multivariate} for the exact form
-  and its application).
-\item \hl{\emph{cases} is the so-called `cases' or `inversion' theorem for
+\item \emph{ind} is the induction principle for the relation
+  (see Section~\ref{sec:multivariate} for the exact form and its application).
+\item \emph{cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules. For instance, it leads to the following
-  theorem:}
+  theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
 \end{itemize}
 
 The last SOS rule \texttt{REC} (Recursion)
- says that if we substitute all \hl{occurrences of the} variable $A$ in $P$ to
+ says that if we substitute all occurrences of the variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. Here, ``\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}}'' is \hl{an abbreviation}
+transition. Here, ``\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}}'' is an abbreviation
 for ``\HOLinline{\HOLConst{CCS_Subst} \HOLFreeVar{E} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{)} \HOLFreeVar{X}}'', where \HOLinline{\HOLConst{CCS_Subst}} is a
 recursive function substituting all appearences of a free variable
 into another CCS term.
@@ -152,34 +151,34 @@ The only two insteresting cases are at agent variables and recursion:
 \HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLFreeVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
 \HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
 \end{alltt}
-\hl{The variable substitutions only affects free
-variables: the variable $Y$ in} ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' \hl{is
-bound and therefore the substitution ignores it. }
+The variable substitutions only affects free
+variables: the variable $Y$ in ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' is
+bound and therefore the substitution ignores it.
 % The actual substitution happens in case of}
-% ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being substituted (and if
-\HOLinline{\HOLConst{CCS_Subst}} 
+% ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being
+% substituted (and if \HOLinline{\HOLConst{CCS_Subst}}
 % can actually reach it).
 
 A useful facility exploiting the interplay
 between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
  is a complex Standard ML function
   taking a CCS process and returning a theorem indicating all
-  direct transitions of the process.\footnote{If the input process \hl{are
- infinite branching, the function will not terminate}.}
+  direct transitions of the process.\footnote{If the input process are
+ infinite branching, the function will not terminate}.
 For instance, we know that the process $(a.\nil | \bar{a}.\nil)$ has three
 possible transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 (\nil | \bar{a}.\nil)$, $(a.\nil | \bar{a}.\nil)
 \overset{\bar{a}}{\longrightarrow} (a.\nil | \nil)$ and $(a.\nil | \bar{a}.\nil)
 \overset{\tau}{\longrightarrow} (\nil | \nil)$.
 To completely describe all possible transitions of a process, if done manually, the
-following two facts must be proved: \hl{(1) there are indeed the three
+following two facts must be proved: (1) there are indeed the three
   transitions mentioned above; (2) there are no other
-  transitions.} For large CCS processes it is surprisingly \hl{tedious} to manually derive
+  transitions. For large CCS processes it is surprisingly tedious to manually derive
 all the possible transitions and prove the non-existence of others.
-\hl{This shows the usefulness of appealing to an ML function
+This shows the usefulness of appealing to an ML function
 \texttt{CCS\_TRANS\_CONV} that is designed to automate the whole process.
 For instance, calling it on $(a.\nil | \bar{a}.\nil)$ the function returns the
-following theorem which describes all the transitions (just one-step) of the process:}
+following theorem which describes all the transitions (just one-step) of the process:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E} \HOLSymConst{\HOLTokenEquiv{}}
    \ensuremath{(}\HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenOutputAct} \HOLStringLit{a} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \HOLConst{\HOLTokenInputAct} \HOLStringLit{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{\ensuremath{\mathbf{0}}} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\ensuremath{\mathbf{0}}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}}
