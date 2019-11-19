@@ -21,11 +21,11 @@ End
 For instance, if the type $\beta$ is instantiated by the type
 \texttt{string}, then HOL terms \HOLtm[-In]{name "a"} and
 \HOLtm[-Out]{coname "b"} denote the input action $a$ and output
-action $\overline{\text{b}}$, respectively.
+action \hl{$\overline{b}$}, respectively.
 The type ``\HOLty{:'b Action}'' is the
 union of all visible actions, plus the invisible action $\tau$
 (\texttt{tau}). For instace, the input action $a$ and output
-action $\overline{\text{b}}$ of type ``\HOLty{:'b Action}''
+action \hl{$\overline{b}$} of type \hl{\mbox{``\HOLty{:string Action}''}}
 are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively.
 
@@ -139,10 +139,9 @@ The last SOS rule \texttt{REC} (Recursion)
  says that if we substitute all occurrences of the variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. Here, ``\HOLtm{(CCS_Subst E (rec X E) X)}'' is an abbreviation
-for ``\HOLtm[-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
-recursive function substituting all appearences of a free variable
-into another CCS term.
+transition. Here, ``\HOLtm[m,]{(CCS_Subst E (rec X E) X)}'' is an abbreviation
+for ``\HOLtm[m,,-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
+recursive function substituting all appearences of a free variable \hl{with} another CCS term.
 For most CCS operators \HOLtm{CCS_Subst} just recursively goes into a deeper
 level without changing anything, e.g.
 \begin{alltt}
@@ -154,19 +153,17 @@ The only two insteresting cases are at agent variables and recursion:
 \HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
 \end{alltt}
 The variable substitutions only affects free
-variables: the variable $Y$ in ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' is
+variables: the variable $Y$ in ``\HOLtm[m!;]{rec Y E}'' is
 bound and therefore the substitution ignores it.
-% The actual substitution happens in case of}
-% ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being
-% substituted (and if \HOLinline{\HOLConst{CCS_Subst}}
-% can actually reach it).
+% The actual substitution happens in case of
+% ``\HOLtm{var Y}'' if $Y$ is being
+% substituted (and if \HOLtm{CCS_Subst} can actually reach it).
 
 A useful facility exploiting the interplay
 between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
- is a complex Standard ML function
-  taking a CCS process and returning a theorem indicating all
-  direct transitions of the process.\footnote{If the input process are
- infinite branching, the function will not terminate}.
+ is a \hl{recursive} ML function \hl{which takes} a CCS process and \hl{returns} a theorem indicating all
+  direct transitions of the process. \hl{(If the input process is
+ infinite branching, the function will not terminate.)}
 For instance, we know that the process $(a.\nil | \bar{a}.\nil)$ has three
 possible transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 (\nil | \bar{a}.\nil)$, $(a.\nil | \bar{a}.\nil)

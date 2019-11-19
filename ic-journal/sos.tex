@@ -21,11 +21,11 @@ End
 For instance, if the type $\beta$ is instantiated by the type
 \texttt{string}, then HOL terms \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
 \HOLinline{\HOLConst{coname} \HOLStringLit{b}} denote the input action $a$ and output
-action $\overline{\text{b}}$, respectively.
+action \hl{$\overline{b}$}, respectively.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible actions, plus the invisible action $\tau$
 (\texttt{tau}). For instace, the input action $a$ and output
-action $\overline{\text{b}}$ of type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}''
+action \hl{$\overline{b}$} of type \hl{\mbox{``\HOLinline{\HOLTyOp{string} \HOLTyOp{Action}}''}}
 are denoted by \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLStringLit{a}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLStringLit{b}\ensuremath{)}}, respectively.
 
 The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'', accounting for the CCS
@@ -79,7 +79,7 @@ input action & $a$ & \texttt{label (name a)} &\texttt{In(a)} & \HOLinline{\HOLCo
 output action & $\outC a$ & \texttt{label (coname a)} & \texttt{Out(a)} & \HOLinline{\HOLConst{\HOLTokenOutputAct} \HOLFreeVar{a}} \\
 \hline
 variable substitution & $E\{E'/X\}$ & \texttt{CCS_Subst E E' X} &
-                                           \texttt{[E'/X]  E} & \HOLinline{\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}} \\
+                                           \texttt{[E'/X]  E} & \HOLinline{\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}} \\
 transition & $P\overset{\mu}{\longrightarrow}Q$
                        & \texttt{TRANS P u Q} & \texttt{P ---u-> Q} & \HOLinline{\HOLFreeVar{P} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{Q}} \\
 weak transition & $P\overset{\mu}{\Longrightarrow}Q$
@@ -105,22 +105,22 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
     extracted from the \emph{rules} theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[SUM2]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E\sp{\prime}}\hfill\texttt{[PAR1]}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E\sb{\mathrm{1}}}\hfill\texttt{[PAR2]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}\hfill\texttt{[SUM2]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLFreeVar{E}\sp{\prime}}\hfill\texttt{[PAR1]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}\hfill\texttt{[PAR2]}
 \end{alltt}
 \begin{equation*}
-\infer[\HOLRuleName{PAR3}]{\HOLinline{\HOLFreeVar{E} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \HOLFreeVar{E\sb{\mathrm{2}}}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{l}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}&\HOLinline{\HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLFreeVar{l}\ensuremath{)}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{2}}}}}
+\infer[\HOLRuleName{PAR3}]{\HOLinline{\HOLFreeVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLFreeVar{l}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}&\HOLinline{\ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLFreeVar{l}\ensuremath{)}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}}}
 \end{equation*}
 \begin{equation*}
-\infer[\HOLRuleName{RESTR}]{\HOLinline{\ensuremath{(\nu}\HOLFreeVar{L}\ensuremath{)} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{(\nu}\HOLFreeVar{L}\ensuremath{)} \HOLFreeVar{E\sp{\prime}}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}}}&\HOLinline{\HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLFreeVar{l} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}}}
+\infer[\HOLRuleName{RESTR}]{\HOLinline{\ensuremath{(\nu}\HOLFreeVar{L}\ensuremath{)} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{(\nu}\HOLFreeVar{L}\ensuremath{)} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime}}}&\HOLinline{\HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLFreeVar{l} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLFreeVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLFreeVar{L}}}
 \end{equation*}
 \begin{equation*}
-\infer[\HOLRuleName{RELABELING}]{\HOLinline{\HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \HOLFreeVar{E\sp{\prime}} \HOLFreeVar{rf}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime}}}}
+\infer[\HOLRuleName{RELABELING}]{\HOLinline{\HOLConst{relab} \HOLFreeVar{E} \HOLFreeVar{rf} \HOLTokenTransBegin\HOLConst{relabel} \HOLFreeVar{rf} \HOLFreeVar{u}\HOLTokenTransEnd \HOLConst{relab} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLFreeVar{rf}}}{\HOLinline{\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime}}}}
 \end{equation*}
 \begin{equation*}
-\infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sb{\mathrm{1}}}}}
+\infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}
 \end{equation*}
 \item \emph{ind} is the induction principle for the relation
   (see Section~\ref{sec:multivariate} for the exact form and its application).
@@ -129,7 +129,7 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
   obtaining it by the rules. For instance, it leads to the following
   theorem:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \HOLFreeVar{E\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
+\HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
 \end{itemize}
 
@@ -137,34 +137,31 @@ The last SOS rule \texttt{REC} (Recursion)
  says that if we substitute all occurrences of the variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with action $u$, then $(\recu A P)$ has the same
-transition. Here, ``\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}}'' is an abbreviation
-for ``\HOLinline{\HOLConst{CCS_Subst} \HOLFreeVar{E} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{)} \HOLFreeVar{X}}'', where \HOLinline{\HOLConst{CCS_Subst}} is a
-recursive function substituting all appearences of a free variable
-into another CCS term.
+transition. Here, ``\HOLinline{\ensuremath{[}\HOLConst{rec}\;\;\HOLFreeVar{X}\;\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\;\;\HOLFreeVar{E}}'' is an abbreviation
+for ``\HOLinline{\HOLConst{CCS_Subst}\;\;\HOLFreeVar{E}\;\;\ensuremath{(}\HOLConst{rec}\;\;\HOLFreeVar{X}\;\;\HOLFreeVar{E}\ensuremath{)}\;\;\HOLFreeVar{X}}'', where \HOLinline{\HOLConst{CCS_Subst}} is a
+recursive function substituting all appearences of a free variable \hl{with} another CCS term.
 For most CCS operators \HOLinline{\HOLConst{CCS_Subst}} just recursively goes into a deeper
 level without changing anything, e.g.
 \begin{alltt}
-\HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{E\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E\sb{\mathrm{2}}}\hfill{[CCS_Subst_sum]}
+\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\hfill{[CCS_Subst_sum]}
 \end{alltt}
 The only two insteresting cases are at agent variables and recursion:
 \begin{alltt}
-\HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLFreeVar{E\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
-\HOLTokenTurnstile{} \ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\HOLFreeVar{E\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
+\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
+\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
 \end{alltt}
 The variable substitutions only affects free
-variables: the variable $Y$ in ``\HOLinline{\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}}'' is
+variables: the variable $Y$ in ``\HOLinline{\HOLConst{rec}\!\;\HOLFreeVar{Y}\!\;\HOLFreeVar{E}}'' is
 bound and therefore the substitution ignores it.
-% The actual substitution happens in case of}
+% The actual substitution happens in case of
 % ``\HOLinline{\HOLConst{var} \HOLFreeVar{Y}}'' if $Y$ is being
-% substituted (and if \HOLinline{\HOLConst{CCS_Subst}}
-% can actually reach it).
+% substituted (and if \HOLinline{\HOLConst{CCS_Subst}} can actually reach it).
 
 A useful facility exploiting the interplay
 between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
- is a complex Standard ML function
-  taking a CCS process and returning a theorem indicating all
-  direct transitions of the process.\footnote{If the input process are
- infinite branching, the function will not terminate}.
+ is a \hl{recursive} ML function \hl{which takes} a CCS process and \hl{returns} a theorem indicating all
+  direct transitions of the process. \hl{(If the input process is
+ infinite branching, the function will not terminate.)}
 For instance, we know that the process $(a.\nil | \bar{a}.\nil)$ has three
 possible transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 (\nil | \bar{a}.\nil)$, $(a.\nil | \bar{a}.\nil)

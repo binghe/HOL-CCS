@@ -218,12 +218,17 @@ can be formalised:
 
 Notice that, usually the above four axioms are the only axioms allowed
 in conventional formalisation projects in HOL: adding new axioms may
-either break the logic consistencies or make the whole work less
-convincible. The theorem prover (in general) guarantees that,
+either break the logic \hl{consistency} or make the whole
+\hl{formalisation} work less
+convincible. \hl{In general,} the theorem prover guarantees that,
 without adding new axioms, if both the definitions and the statements
-of theorems are correct, then any proof which successfully completes must
-be correct. This is also the case here: SOS rules of CCS are
-\emph{not} axioms but consequences of the inductive relation\hl{, the
-  CCS transition $\rightarrow$}.
+of theorems \hl{were} correct, then the \hl{proofs of these theorems} must
+be \hl{also} correct.
+% This last sentence doesn't have a good link with the previous context,
+% disabled. --Chun
+%
+%% This is also the case here: SOS rules of CCS are
+%% \emph{not} axioms but consequences of the inductive relation\hl{, the
+%% CCS transition $\rightarrow$}.
 
 % next file: sos.htex
