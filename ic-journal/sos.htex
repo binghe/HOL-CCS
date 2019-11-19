@@ -30,16 +30,17 @@ are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively.
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
-expressions, where \texttt{'a} (or $\alpha$) is the type variable\footnote{The order of type variables $\alpha$ and $\beta$
-    is arbitrary. Our choice is aligned with  the literature.
+expressions, where \texttt{'a} (or $\alpha$) is the type
+variable\footnote{The order \hl{between} type variables $\alpha$ and $\beta$
+    \hl{can be} arbitrary. Our choice is aligned with the literature.
 For instance, $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$.} for
-agent variables, is then defined inductively: (\HOLty{:'b
-    Relabeling} is the type of all relabeling functions. They (and
-  related operations) are not discussed in this paper.)
+agent variables, is then defined inductively: (``\HOLty{:'b
+    Relabeling}'' is the type of all relabeling
+  functions. \hl{Relabeling is formalised but is not to be} discussed in this paper.)
 \begin{lstlisting}
 Datatype: CCS = nil
               | var 'a
@@ -98,7 +99,7 @@ $\epsilon$--transition & $P\overset{\epsilon}{\Longrightarrow}Q$
 The transition semantics of CCS processes strictly follows the SOS rules given
 in Fig.~\ref{f:LTSCCS}. However, they are not axioms, but the
 consequence of an \emph{inductive relation} definition of
-\HOLtm{TRANS} by HOL's \texttt{HOL_reln} function.~(c.f.~\citep[p.~219]{holdesc} for more details.)
+\HOLtm{TRANS} by HOL's \texttt{HOL_reln} function.~(\hl{See}~\citep[p.~219]{holdesc} for more details.)
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
@@ -160,24 +161,24 @@ bound and therefore the substitution ignores it.
 % substituted (and if \HOLtm{CCS_Subst} can actually reach it).
 
 A useful facility exploiting the interplay
-between HOL4 and Standard ML (that follows an idea by Nesi \cite{Nesi:1992ve})
+between HOL4 and Standard ML (that follows an idea \hl{of} Nesi~\cite{Nesi:1992ve})
  is a \hl{recursive} ML function \hl{which takes} a CCS process and \hl{returns} a theorem indicating all
   direct transitions of the process. \hl{(If the input process is
  infinite branching, the function will not terminate.)}
 For instance, we know that the process $(a.\nil | \bar{a}.\nil)$ has three
-possible transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
+possible \hl{(one-step)} transitions: $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 (\nil | \bar{a}.\nil)$, $(a.\nil | \bar{a}.\nil)
 \overset{\bar{a}}{\longrightarrow} (a.\nil | \nil)$ and $(a.\nil | \bar{a}.\nil)
 \overset{\tau}{\longrightarrow} (\nil | \nil)$.
-To completely describe all possible transitions of a process, if done manually, the
+To completely describe all possible transitions of \hl{the} process, if done manually, the
 following two facts must be proved: (1) there are indeed the three
-  transitions mentioned above; (2) there are no other
-  transitions. For large CCS processes it is surprisingly tedious to manually derive
+  transitions mentioned above; (2) there \hl{is} no other
+  \hl{transition}. For large CCS processes it is surprisingly tedious to manually derive
 all the possible transitions and prove the non-existence of others.
 This shows the usefulness of appealing to an ML function
 \texttt{CCS\_TRANS\_CONV} that is designed to automate the whole process.
-For instance, calling it on $(a.\nil | \bar{a}.\nil)$ the function returns the
-following theorem which describes all the transitions (just one-step) of the process:
+For instance, \hl{taking the input} $(a.\nil | \bar{a}.\nil)$ the function returns the
+following theorem which describes all \hl{its one-step} transitions:
 \begin{alltt}
 \HOLthm{Example.ex_A}
 \end{alltt}

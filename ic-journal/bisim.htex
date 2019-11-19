@@ -216,16 +216,15 @@ defined as follows:
 
 \subsection{The formalisation of ``bisimulation up to bisimilarity''}
 
-``Bisimulation up to'' is a family of  powerful proof techniques,
-used to reduce the size of a relation needed to define a bisimulation.
+``Bisimulation up to'' is a family of powerful proof techniques
+\hl{for reducing the sizes of relations needed for defining bisimulations}.
 By definition, two processes are bisimilar if there exists a
-bisimulation relation containing them as a pair. However, in practice
-this definition is hardly ever followed plainly; instead, to reduce
-the size of the relations exhibited one prefers to define relations
+bisimulation relation containing them. However, in practice
+this definition is hard \hl{to be} followed plainly. \hl{I}nstead, to reduce
+the \hl{sizes of the exhibited relations}, one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. This is the so-called
-\emph{``up-to'' techniques}, which is a pretty general device that
-allows a great variety of possibilities.
+privileged relation, so to relieve the proof work needed. \hl{These}
+\emph{``up-to'' techniques} \hl{are general devices allowing} a great variety of possibilities.
 
 Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
@@ -276,7 +275,7 @@ or formally (for illustrating purposes below),
 \HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-Note that the HOL term of $\sim \R \approx$ is
+Note that the \hl{HOL term corresponding to} $\sim \R \approx$ is
 ``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL's
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
@@ -291,7 +290,7 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{theorem}
 
 The above version of ``bisimulation up to $\wb$'' 
-is not powerful to prove Milner's ``unique solution of equations''
+is not powerful \hl{enough} to prove Milner's ``unique solution of equations''
 theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
 To complete the proof, the following version \hl{\emph{with weak arrows}} is
 actually used:
