@@ -8,50 +8,52 @@
 
 In this section we give a proof of the second part of
 Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
-congruence contained in $\wb$. \hl{This theorem is of special interests to
-us, because within our framework it seems impossible to prove it
-without any limitation.} The general form of this theorem can be
+congruence contained in $\wb$. This theorem is of special \hl{interest} to
+us, because under our \hl{CCS syntax (with only binary summations)} it seems impossible to prove it
+without any \hl{antecedent such as ``the involved processes do not
+  use up all available labels''}. The general form of this theorem can be
 expressed informally as below~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
-\begin{proposition}[\hl{$\rapprox$ is the coarsest congruence contained in $\wb$}]
+\begin{proposition}
 \label{prop:coarsest}
-\begin{equation}
+  \hl{Rooted bisimilarity ($\rapprox$) is the coarsest congruence
+    contained in weak bisimilarity ($\wb$):}
+  \begin{equation}
+    \label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
 r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 \end{proposition}
-
-However, we are only interested in the proposition from right to left,
-as from left to right it holds trivially by the substitutivity of
-$\rapprox$ of summation and that fact that $\rapprox$ implies $\wb$:
+From left to right (\ref{eq:coarsest}) trivially holds, due to the substitutivity of
+$\rapprox$ \hl{for} summation and \hl{the fact that} $\rapprox$ implies $\wb$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\hfill{[COARSEST_CONGR_LR]}
 \end{alltt}
-
+Thus we are only interested in (\ref{eq:coarsest}) from right to left.
+%
 The standard argument~\cite{Mil89} requires that $p$
-and $q$ do not use up available labels (i.e.~visible actions).
-Formalising such an argument requires  
-a detailed treatment on free and bound names of CCS
+and $q$ do not use up \hl{all} available labels (i.e.~visible actions).
+Formalising this \hl{result, however,} requires a detailed treatment on free and bound names of CCS
 processes (with the restriction operator being a binder).
-However, in this project we do not discuss on free and bound names
-(also called ``sorts'') of CCS processes. Instead, we
-assume that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use all available action names. We call it
+\hl{In} this project we do not discuss free and bound names (also
+called ``sorts'') of CCS processes. Instead, we
+assume \hl{a weaker condition} that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use all available \hl{labels}. We \hl{might} call it
  the \emph{free action} property:
 \begin{alltt}
-   \HOLConst{free_action} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
+   \HOLConst{free_action} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{p}\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
 \end{alltt}
 
-Below we show how Proposition~\ref{prop:coarsest} is connected with
+Below we show how \hl{Prop.}~\ref{prop:coarsest} is connected with
 the statement in Theorem~\ref{t:rapproxCongruence}, and prove it under
 the free action assumptions.
-
+%
 The coarsest congruence
 contained in (weak) bisimilarity, namely \emph{bisimilarity
   congruence}, is
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
-   \HOLConst{CC} \HOLFreeVar{R} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}\hfill{[CC_def]}
-   \HOLConst{WEAK_CONGR} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
+   \HOLConst{CC} \HOLFreeVar{R} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}\hfill{[CC_def]}
+   \HOLConst{WEAK_CONGR} \HOLTokenDefEquality{} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \end{alltt}
 We do not need to put $R\ g\ h$ \hl{into} the antecedents of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
@@ -66,8 +68,8 @@ itself} needs not to be a (pre)congruence,
 is contained in the composition closure of $R$
 (hence the \hl{composition} closure is the coarsest one):
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{congruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \HOLBoundVar{R\sp{\prime}}. \HOLConst{precongruence} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{R\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[PCC_is_coarsest]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{congruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{precongruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[PCC_is_coarsest]}
 \end{alltt}
 
 Given the central role of the  
@@ -75,7 +77,7 @@ Given the central role of the
  w.r.t. summation, called \emph{equivalence compatible with summation}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
-   \HOLConst{SUM_EQUIV} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\hfill{[SUM_EQUIV]}
+   \HOLConst{SUM_EQUIV} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}\hfill{[SUM_EQUIV]}
 \end{alltt}
 
 % it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
@@ -90,7 +92,7 @@ Given the central role of the
 % the original weak bisimilarity relation, we call the resulting
 % relation ``Weak bisimilarity congruence'' ($[\approx]$):
 % \begin{alltt}
-% \HOLConst{WEAK_CONGR} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
+% \HOLConst{WEAK_CONGR} \HOLTokenDefEquality{} \HOLConst{CC} \HOLConst{WEAK_EQUIV}
 % \end{alltt}
 % It can be shown that any such (pre)congruence closure is automatically coarsest.
 %
@@ -102,7 +104,7 @@ Given the central role of the
 % operator. To focus on this important operator, we can temporally
 % introduce another concept called \emph{sum equivalence}:
 % \begin{alltt}
-% \HOLConst{SUM_EQUIV} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}
+% \HOLConst{SUM_EQUIV} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)}
 % \end{alltt}
 Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
@@ -177,22 +179,23 @@ of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS:
 \end{alltt}
 \end{theorem}
 
-The proof of above theorem was given by Rob van Glabbeek
-\cite{van2005characterisation}, which originally applies to all CCS processes.
+The formal proof follows van
+Glabbeek~\cite{van2005characterisation}.
 The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
  ($\rapprox$): (c.f.~\cite{Tian:2017wrba} for more details of the proof)
 \begin{alltt}
-\HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
-        \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-        \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLFreeVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-   \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLFreeVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-   \HOLFreeVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{q}\hfill{[PROP3_COMMON]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
+       \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
+            \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+            \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+       \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q}\hfill{[PROP3_COMMON]}
 \end{alltt}
 \begin{alltt}
-   \HOLConst{STABLE} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \HOLBoundVar{p\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
+   \HOLConst{STABLE} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \ensuremath{\HOLBoundVar{p}\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
 
 To actually construct this process $k$,
@@ -207,9 +210,14 @@ implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
 ordinals''~\cite{norrish2013ordinals}.
 As a consequence, the final result is only for finite-state
-  CCS~--- a  restricted class.
+CCS~--- a  restricted class.\footnote{\hl{van Glabbeek's
+  original proof applies to all CCS processes, but it
+  requires the CCS syntax to support arbitrary large summations based
+  on ordinals, and it relies on the fact that, there always exists an
+  ordinal large than the cardinality of any given set. This is beyond
+  the capacity of HOL.}}
 
-The assumption in the previous \texttt{PROP3_COMMON} requires the
+The assumption in \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
 any sub-process emanating from the two root processes by weak
 transitions.
@@ -222,7 +230,7 @@ then it will be
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
 This can be done following Klop's contruction \cite{van2005characterisation}.
- We call  ``Klop processes''  the processes in this construction:
+ We call  the processes in this construction \hl{the ``Klop processes''}:
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
 define a CCS process $k_\lambda$ as follows:
@@ -241,8 +249,8 @@ we can use  the following subset of Klop processes,
 defined as a recursive function (on natural numbers) in HOL4:
 \begin{definition}{(Klop processes as recursive function on natural numbers)}
 \begin{alltt}
-   \HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{\ensuremath{\mathbf{0}}}
-   \HOLConst{KLOP} \HOLFreeVar{a} \ensuremath{(}\HOLConst{SUC} \HOLFreeVar{n}\ensuremath{)} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill{[KLOP_def]}
+   \HOLConst{KLOP} \HOLFreeVar{a} \HOLNumLit{0} \HOLTokenDefEquality{} \HOLConst{\ensuremath{\mathbf{0}}}
+   \HOLConst{KLOP} \HOLFreeVar{a} \ensuremath{(}\HOLConst{SUC} \HOLFreeVar{n}\ensuremath{)} \HOLTokenDefEquality{} \HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n} \HOLSymConst{\ensuremath{+}} \HOLConst{label} \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{KLOP} \HOLFreeVar{a} \HOLFreeVar{n}\hfill{[KLOP_def]}
 \end{alltt}
 \end{definition}
 
@@ -347,16 +355,16 @@ of ``finite-state'':
 \item Define \emph{reachable} as the RTC of a relation, which
   indicates the existence of a transition between two processes:
 \begin{alltt}
-\HOLConst{Reach} \HOLSymConst{\HOLTokenDefEquality{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \HOLBoundVar{E\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \HOLBoundVar{E\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill[Reach_def]
+\HOLConst{Reach} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill[Reach_def]
 \end{alltt}
 \item The ``nodes'' of a process is the set of all processes reachable
   from it:
 \begin{alltt}
-\HOLConst{NODES} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLTokenLeftbrace{}\HOLBoundVar{q} \HOLTokenBar{} \HOLConst{Reach} \HOLFreeVar{p} \HOLBoundVar{q}\HOLTokenRightbrace{}\hfill[NODES_def]
+\HOLConst{NODES} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLTokenLeftbrace{}\HOLBoundVar{q} \HOLTokenBar{} \HOLConst{Reach} \HOLFreeVar{p} \HOLBoundVar{q}\HOLTokenRightbrace{}\hfill[NODES_def]
 \end{alltt}
 \item A process is finite-state if the set of nodes is finite:
 \begin{alltt}
-\HOLConst{finite_state} \HOLFreeVar{p} \HOLSymConst{\HOLTokenDefEquality{}} \HOLConst{FINITE} \ensuremath{(}\HOLConst{NODES} \HOLFreeVar{p}\ensuremath{)}\hfill[finite_state_def]
+\HOLConst{finite_state} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLConst{FINITE} \ensuremath{(}\HOLConst{NODES} \HOLFreeVar{p}\ensuremath{)}\hfill[finite_state_def]
 \end{alltt}
 \end{enumerate}
 \end{definition}
@@ -383,8 +391,8 @@ and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
-           \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLBoundVar{p\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-           \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{q\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLBoundVar{q\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\hfill{[KLOP_LEMMA_FINITE]}
+           \HOLConst{STABLE} \HOLBoundVar{k} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{p} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+           \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\hfill{[KLOP_LEMMA_FINITE]}
 \end{alltt}
 \end{lemma}
 

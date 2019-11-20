@@ -50,39 +50,49 @@ Best regards,
 \begin{enumerate}
 
 \item \begin{quote}
-    The multivariable case has been added. This is great: it makes the result stronger, and adds a real improvement over the conference version. 
+    ``The multivariable case has been added. This is great: it makes the result stronger, and adds a real improvement over the conference version.''
   \end{quote}
   \Mark
-  Thanks.
+  Thanks for your suggestion (on doing this) in the previous
+  review. This extra formalisation work also closed an open question
+  (on how to naturally/elegantly formalise the multivariate case of
+  the unique-solution theorems) that the first author failed to
+  resolve in his master thesis work. There exists several CCS
+  formalisations as we mentioned in the related work (Section 6) but
+  our formalisation is the only one which covers the unique-solution
+  theorems, either in the univariable or multivariable cases.
 
 \item \begin{quote}
-Overall the authors did address the minor comments. But the paper
+``Overall the authors did address the minor comments. But the paper
 still contains quite a few grammatical and other minor mistakes, also
 in the newly added text. Below are a couple that I found just browsing
 again through the paper; but this is certainly inexhaustive and the
-authors should do some more careful proofreading.
+authors should do some more careful proofreading.''
 \end{quote}
 \Mark
 (TODO) We have done a more careful proofreading and fixed all
 grammatically wrong sentences in the paper.
 
 \item \begin{quote}
-    In fact, one of the corrections appears to have introduced a new
-    bug: Theorem 4.7 in the new version is wrong; I guess Def. 4.6
+    ``In fact, one of the corrections appears to have introduced a new
+    bug: Theorem 4.7 in the new version is wrong; I guess Def.~4.6
     should be about weak transitions. In the original submission,
     there was verbatim copied proof code, which was however
     correct. But as it stands now, it suffers from the famous problem
     with weak bisimulation up-to found by the second author (one can
-    simply use the same counterexample $\{(\tau. a , 0)\}$).
+    simply use the same counterexample $\{(\tau. a , 0)\}$).''
   \end{quote}
   \Mark
-  This is an embarassing typo. The two $\arr{\mu}$ in
-  Definition 4.6 should be $\Arr{\mu}$ instead. Our actual formalization is
-  correct. Below is the fixed part of Definition 4.6:
+  This is an embarassing typo when we were trying to make the paper
+  more compact. The two $\arr{\mu}$ in
+  Definition 4.6 should be $\Arr{\mu}$ instead. Our formalization
+  (ever shown as verbatim generated code in the previous version) is
+  however correct, because otherwise. Below is the fixed part of Definition 4.6:
 \begin{enumerate}
 \item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
 \item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
+We also put the HOL definition back, to show the correspondence between the informal and formal definitions.
 
 \end{enumerate}
 
@@ -113,7 +123,7 @@ grammatically wrong sentences in the paper.
   \item \begin{quote}
 323 and around: why is "a" in italics and $\bar{b}$ not?
 \end{quote}
-  \Mark Fixed. Typesetting mistake.
+  \Mark Fixed. This is a typesetting mistake.
 
   \item \begin{quote}
 sec 4.2: I'm now totally lost on the meaning of $(\alpha, \beta) CCS$. First $\beta$ is a label, then an action, and then there is some mystifying text between brackets (l328) about how this is not explained. *Please* just explain clearly what $\alpha$ and $\beta$ mean in $(\alpha, \beta) CCS$. 
@@ -128,17 +138,17 @@ sec 4.2: I'm now totally lost on the meaning of $(\alpha, \beta) CCS$. First $\b
   \item \begin{quote}
 530 "for the contraction" the contraction what? the game? functional? or remove "the"
 \end{quote}
-  \Mark
+  \Mark Removed ``the'' and re-organized the whole sentence.
 
   \item \begin{quote}
 555 "an “up-to” techniques." => "“up-to” techniques."
 \end{quote}
-  \Mark Re-organized the whole sentence.
+  \Mark Fixed and re-organized the whole sentence.
 
   \item \begin{quote}
 566 "the resulting ``weak bisimulation up``" correct; also the `` at the right should be ''
 \end{quote}
-  \Mark
+  \Mark Fixed.
 
   \item \begin{quote}
 597 "not powerful *enough* to prove" 
@@ -148,27 +158,33 @@ sec 4.2: I'm now totally lost on the meaning of $(\alpha, \beta) CCS$. First $\b
   \item \begin{quote}
 600 perhaps point out that this is (almost) 
 \end{quote}
-  \Mark
+  \Mark We have renamed the concept to ``bisimulation up to $\wb$ with weak arrows''.
 
   \item \begin{quote}
 608 "This theorem is of special interests to us, because within our framework it seems impossible to prove it without any limitation" interests => interest; also, I do not really understand this sentence (which limitation?)
 \end{quote}
-  \Mark
+  \Mark We have fixed and re-organized this sentence adding an example
+  of such limitations (due to Milner).
 
   \item \begin{quote}
 965 "Recall *from* the beginning of Section 3 *that*"
 \end{quote}
-  \Mark
+  \Mark Fixed, thanks.
 
   \item \begin{quote}
 985 Is there anything fundamentally interesting going on in the proof? Otherwise perhaps remove it or replace by a high-level description?
 \end{quote}
-  \Mark
+  \Mark Milner said it can be proven by ``an easy action induction''.
+             It is actually not that easy, and we take this chance to
+             illustrate how to apply ``action induction'' in HOL.
+             (TODO) The proof is now shortened, according to the
+             latest updates in the HOL formalisation.
 
   \item \begin{quote}
-1066 "the proof cannot complete" ?
+1066 (should be 1056) "the proof cannot complete" ?
 \end{quote}
-  \Mark
+  \Mark We wanted to say ``Proposition 5.1 is essential in the proofs of all unique-solution
+theorems (multivariable vesions).''
 
   \item \begin{quote}
 1075 "substitutes each possibly occurrences" "substitues each possible occurence"

@@ -63,14 +63,13 @@ equation variables and agent variables.
 
 \subsection{Free and bound variables}
 
-Recall the beginning of Section~\ref{s:eq},
-the CCS syntax leaves the syntactic possibility that an
+Recall \hl{from} the beginning of Section~\ref{s:eq} \hl{that},
+CCS syntax leaves the syntactic possibility that an
 agent variable $A$ occurs outside the recursion operator of the same
 variable. In Milner's original book chapter~\cite{milner1990operational}, the
 variables which occur in Recursion (such as $X$ in $\recu X E$) are
 called \emph{bound} variables, while those which occur unbound are called
 \emph{free} variables. 
-
 
 We denote the set of all bound variables of a
 given CCS term $E$ (we recall that these are variables that are bound in a recursion
@@ -124,14 +123,15 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \end{proposition}
 
 \begin{proof}
-We prove a stronger result,
-i.e.,  the set of free variables decreases through derivatives:
+We \hl{actually proved} a stronger result \hl{saying} the set of free
+variables \hl{in any CCS process} decreases through its derivatives:
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
 \end{alltt}
 
 \hl{Milner said it can be proven by ``an easy action induction''.}
-From HOL's viewpoint, the so-called ``action induction'' is actually a higher-order application
+\hl{It is actually not that easy, and we take this chance to
+  illustrate how to apply ``action induction'' (in HOL), which} is actually a higher-order application
 of the following \emph{induction principle} generated together with SOS
 rules (which essentially says that \HOLtm{TRANS} is the smallest relation
 satisfying SOS rules):
@@ -223,9 +223,11 @@ Adding the above lemma (taking $E' = E$) into the assumption list immediately ca
 a contradiction with assumption 4, and the proof finally completes.
 \end{proof}
 
-Without the above result, the proof of Milner's ``unique solution of
-equations'' theorem (for $\sim$) cannot complete. Compared with the
-above proof, the proof of the similar result for bound variables is easier:
+Proposition~\ref{prop:transFV} \hl{is essential in the proofs of the
+  multivariable versions of all unique-solution
+  theorems.
+In comparison with} the above proof, the proof of the similar
+result for bound variables is \hl{much} easier:
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:

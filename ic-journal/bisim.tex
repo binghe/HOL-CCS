@@ -223,27 +223,29 @@ followed the same ways as in the case of strong and weak bisimilarities:
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-We can prove that the contraction preorder is contained in weak bisimilarity,
-and contains the expansion preorder.
+\hl{It is formally verified} that contraction preorder
+\hl{($\mcontrBIS$) contains expansion
+preorder ($\expa$), and they are both}
+contained in weak bisimilarity ($\wb$):
 \begin{proposition}{(Relationships between contraction preorder,
     expansion preorder and weak bisimilarity)}
 \begin{enumerate}
-\item (The expansion preorder implies contraction preorder)
+\item (Expansion preorder implies contraction preorder)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenExpands{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{Q}\hfill[expands_IMP_contracts]
 \end{alltt}
-\item (The contraction preorder implies weak bisimilarity)
+\item (Contraction preorder implies weak bisimilarity)
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{Q}. \HOLBoundVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLBoundVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{Q}\hfill[contracts_IMP_WEAK_EQUIV]
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-In general a proof of a property for the contraction (and the contraction preorder) is
-harder than that for the cases of expansion: this is mostly due to the (surprising) fact
-  that, although the contraction preorder $\mcontrBIS$ is contained in
-  bisimilarity ($\wb$), in general it won't be true that
-if $\R$ is a contraction then $\R$ itself is a bisimulation,
-i.e.~the following proposition does not hold: (what holds is that $\R\ \cup \wb$ will be a bisimulation)
+The proof of a property for contraction (and contraction preorder) is
+\hl{generally} harder than \hl{the case for} expansion. \hl{This} is mostly due to the fact
+  that, although contraction preorder ($\mcontrBIS$) is contained in
+  bisimilarity ($\wb$), in general it \hl{is not} true that \hl{a
+  contraction itself is also a bisimulation.} In another words,
+  the following proposition does not hold: (What holds, \hl{however}, is that $\R\ \cup \wb$ is a bisimulation)
 \begin{alltt}
 \HOLinline{   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
@@ -288,9 +290,9 @@ Moreover,
  $\sim \mathcal{S} \sim$ is the composition of three binary
 relations: $\sim$, $\S$ and $\sim$. Hence $P \sim \S \sim Q$ means that,
 there exist $P'$ and $Q'$ such that $P \sim P'$, $P' \;\S\; Q'$ and $Q' \sim Q$.
-\begin{definition}[Bisimulation up to $\sim$]
+\begin{definition}%[Bisimulation up to $\sim$]
   \label{def:bisimUptoSim}
-$\S$ is a ``\emph{bisimulation up to $\sim$}'' if $P\ \S\ Q$ implies, for all $\mu$,
+$\S$ is a ``bisimulation up to $\sim$'' if $P\ \S\ Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \overset{\mu}{\rightarrow} P'$ then, for some
   $Q'$, $Q \overset{\mu}{\rightarrow} Q'$ and $P' \sim \S
@@ -312,13 +314,14 @@ Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
 
 For weak bisimilarity, the \emph{naive} weak bisimulation up to weak bisimilarity
-is unsound: if one simply replaces all $\sim$ in
-Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting ``weak
-bisimulation up`` is not contained in $\wb$.~\cite{sangiorgi1992problem}
-There are a few ways to fix this problem, one is the following:
-
-\begin{definition}{(Bisimulation up to $\approx$)}
-  $\S$ is a ``\emph{bisimulation up to $\approx$}'' if
+is unsound: if one simply replaces all \hl{occurrences of} $\sim$ in
+Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
+\hl{``weak bisimulation up to'' relation will not be contained in weak
+  bisimilarity} ($\wb$)~\cite{sangiorgi1992problem}.
+There are a few ways to fix this problem, \hl{and} one is the following:
+%
+\begin{definition}%[Bisimulation up to $\approx$]
+  $\S$ is a ``bisimulation up to $\approx$'' if
   $P\ \S\ Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \arr{\mu} P'$ then, for some
@@ -369,14 +372,37 @@ is not powerful \hl{enough} to prove Milner's ``unique solution of equations''
 theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
 To complete the proof, the following version \hl{\emph{with weak arrows}} is
 actually used:
-\begin{definition}{(Bisimulation up to $\approx$ with weak arrows}
+\begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
-$\mathcal{S}$ is a ``\emph{bisimulation up to $\approx$}'' if $P \;
+$\mathcal{S}$ is a \hl{``bisimulation up to $\approx$ with weak arrows''} if $P \;
   \mathcal{S} \; Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
 \item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
+\hl{or formally (for showing the correspondence between the informal and formal definitions)}
+\begin{alltt}
+    \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLTokenDefEquality{}
+      \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}.
+          \HOLFreeVar{Wbsm} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+          \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
+               \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}.
+                    \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+                    \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}.
+                        \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}}
+                        \ensuremath{(}\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+               \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}.
+                   \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+                   \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}.
+                       \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}}
+                       \ensuremath{(}\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+          \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}.
+               \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
+               \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+          \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}.
+              \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+              \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}
+\end{alltt}
 \end{definition}
 
 \begin{theorem}
