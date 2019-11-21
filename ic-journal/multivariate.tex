@@ -276,8 +276,8 @@ the    proof can
 \subsection{\Multivariate substitutions}
 
 There are two ways to represent  the \multivariate
-substitution of $E\{\til P/\til X\}$ which substitutes each possibly
-occurrences of free variables $X_i$ in $E$ with the corresponding
+substitution of $E\{\til P/\til X\}$ which substitutes each \hl{possible
+occurrence} of free variables $X_i$ in $E$ with the corresponding
 $P_i$: (1) iterately applying the existing \univariate
 \HOLinline{\HOLConst{CCS_Subst}}; (2) defining a new \multivariate substitution
 function.
@@ -437,7 +437,7 @@ are propagated everywhere.
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
-Recall in Section~\ref{ss:context}, \univariate contexts and their
+Recall \hl{that} in Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
 of type $CCS\rightarrow CCS$. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
