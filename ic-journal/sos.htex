@@ -7,19 +7,22 @@
 \label{ss:formalCCS}
 
 The CCS formalisation starts with type definitions for action,
-relabeling and the CCS term itself. We use the type ``\HOLty{:'b Label}'' (\texttt{'b} or
-$\beta$ is a \emph{type variable}) for all visible actions. The
-cardinality and the exact elements depend on the type variable $\beta$
-supplied by the end user.
-All actions are divided into input and $\overline{\text{output}}$ ones.
-This type is defined by HOL's \texttt{Datatype} package in the
+relabeling and the CCS term itself. We use the type ``\HOLty{:'b Label}''
+for all labels (i.e. visible actions), where the type variable $\beta$ corresponds
+to $\mathscr{L}$ (the set of names for labels) used at the beginning
+of Section~\ref{ss:ccs}. The
+cardinality and the exact elements of this type depend on the type variable $\beta$
+instantiated by the end user \hl{or further formalisations built upon the
+present one.}
+All \hl{labels} are divided into input and $\overline{\text{output}}$ ones.
+The type ``\HOLty{:'b Label}'' is defined by HOL's \texttt{Datatype} package in the
 following syntax:
 \begin{lstlisting}
 Datatype: Label = name 'b | coname 'b
 End
 \end{lstlisting}
-For instance, if the type $\beta$ is instantiated by the type
-\texttt{string}, then HOL terms \HOLtm[-In]{name "a"} and
+For instance, if the type $\beta$ is instantiated by \texttt{string}
+(the type of all strings), then HOL terms \HOLtm[-In]{name "a"} and
 \HOLtm[-Out]{coname "b"} denote the input action $a$ and output
 action \hl{$\overline{b}$}, respectively.
 The type ``\HOLty{:'b Action}'' is the
@@ -30,15 +33,19 @@ are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively.
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for the CCS
-expressions, where \texttt{'a} (or $\alpha$) is the type
-variable\footnote{The order \hl{between} type variables $\alpha$ and $\beta$
+expressions, has two type variables \hl{$\alpha$ and $\beta$ corresponding%
+\footnote{The order \hl{between} type variables $\alpha$ and $\beta$
     \hl{can be} arbitrary. Our choice is aligned with the literature.
 For instance, $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
-having the corresponding cardinalities $h$ and $k$.} for
-agent variables, is then defined inductively: (``\HOLty{:'b
+having the corresponding cardinalities $h$ and $k$.}
+to $\mathscr{X}$ (the set of agent variables) and $\mathscr{L}$ (the
+set of names used for labels), respectively, used at the beginning of} Section~\ref{ss:ccs}.
+%
+The type ``\HOLty{:('a, 'b) CCS}'' \hl{is defined inductively by HOL's \texttt{Datatype} package:}
+(Here ``\HOLty{:'b
     Relabeling}'' is the type of all relabeling
   functions. \hl{Relabeling is formalised but is not to be} discussed in this paper.)
 \begin{lstlisting}

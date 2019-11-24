@@ -7,19 +7,22 @@
 \label{ss:formalCCS}
 
 The CCS formalisation starts with type definitions for action,
-relabeling and the CCS term itself. We use the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' (\texttt{'b} or
-$\beta$ is a \emph{type variable}) for all visible actions. The
-cardinality and the exact elements depend on the type variable $\beta$
-supplied by the end user.
-All actions are divided into input and $\overline{\text{output}}$ ones.
-This type is defined by HOL's \texttt{Datatype} package in the
+relabeling and the CCS term itself. We use the type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}''
+for all labels (i.e. visible actions), where the type variable $\beta$ corresponds
+to $\mathscr{L}$ (the set of names for labels) used at the beginning
+of Section~\ref{ss:ccs}. The
+cardinality and the exact elements of this type depend on the type variable $\beta$
+instantiated by the end user \hl{or further formalisations built upon the
+present one.}
+All \hl{labels} are divided into input and $\overline{\text{output}}$ ones.
+The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' is defined by HOL's \texttt{Datatype} package in the
 following syntax:
 \begin{lstlisting}
 Datatype: Label = name 'b | coname 'b
 End
 \end{lstlisting}
-For instance, if the type $\beta$ is instantiated by the type
-\texttt{string}, then HOL terms \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
+For instance, if the type $\beta$ is instantiated by \texttt{string}
+(the type of all strings), then HOL terms \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
 \HOLinline{\HOLConst{coname} \HOLStringLit{b}} denote the input action $a$ and output
 action \hl{$\overline{b}$}, respectively.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
@@ -29,15 +32,19 @@ action \hl{$\overline{b}$} of type \hl{\mbox{``\HOLinline{\HOLTyOp{string} \HOLT
 are denoted by \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLStringLit{a}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLStringLit{b}\ensuremath{)}}, respectively.
 
 The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'', accounting for the CCS
-expressions, where \texttt{'a} (or $\alpha$) is the type
-variable\footnote{The order \hl{between} type variables $\alpha$ and $\beta$
+expressions, has two type variables \hl{$\alpha$ and $\beta$ corresponding%
+\footnote{The order \hl{between} type variables $\alpha$ and $\beta$
     \hl{can be} arbitrary. Our choice is aligned with the literature.
 For instance, $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
 such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' with types
-having the corresponding cardinalities $h$ and $k$.} for
-agent variables, is then defined inductively: (``\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}}'' is the type of all relabeling
+having the corresponding cardinalities $h$ and $k$.}
+to $\mathscr{X}$ (the set of agent variables) and $\mathscr{L}$ (the
+set of names used for labels), respectively, used at the beginning of} Section~\ref{ss:ccs}.
+%
+The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' \hl{is defined inductively by HOL's \texttt{Datatype} package:}
+(Here ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Relabeling}}'' is the type of all relabeling
   functions. \hl{Relabeling is formalised but is not to be} discussed in this paper.)
 \begin{lstlisting}
 Datatype: CCS = nil

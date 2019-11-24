@@ -1,14 +1,14 @@
 % \section{Background}
 % \label{s:back}
 
-\section{CCS}
+\section{Calculus of Communicating Systems (CCS)}
 \label{ss:ccs}
 
 Here we recall the core theory of CCS.
 We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
 \ldots\}$ yielding input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
 action $\tau \notin \mathscr{L}$, and another possibly infinite
-set of agent variables $A, B, \ldots \in \mathscr{X}$.
+set of agent variables \hl{$\mathscr{X} = \{X, Y, \ldots\}$}.
 The class of \hl{all} CCS \hl{terms (or expressions)} is then inductively
 defined from $\nil$ (the terminated process) and agent variables by the operators
 of \emph{prefixing} (.), \emph{parallel composition} ($|$),
@@ -23,7 +23,7 @@ P  & := & \nil\!\!\!\! & \midd \;  \mu . P \; \midd \;  P_1 |  P_2 \; \midd  \;
 P_1 + P_2 \; \midd 
 (\res L)\, P
 \; \midd \; P\; [\mathit{rf}]  % relabelling
-\;  \midd \;  A \; \midd \; \recu A  P
+\;  \midd \;  X \; \midd \; \recu X P
 \end{array}
 \end{equation*}
 In our presentation of CCS, the restriction operator takes a set of labels $L
@@ -72,8 +72,8 @@ $\displaystyle{ P \arr{\mu}P' \over
  (\res L\!)\, P \arr{\mu} (\res L\!)\, P'} $ $ \mu, \outC\mu \not\in L$
 $ \hb$
 %
-$\displaystyle{ P \sub {\recu A P} A \arr{\mu}P' \over
- \recu A P   \arr{ \mu} P'  } $
+$\displaystyle{ P \sub {\recu X P} X \arr{\mu}P' \over
+ \recu X P \arr{\mu} P'} $
 \hskip .5cm  
 $\displaystyle{ P \arr{\mu} P' \over
  P \;[r\!f] \arr{r\!f(\mu)} P' \;[r\!f]} $
@@ -96,14 +96,12 @@ with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
 We let $\R$, $\S$ range over binary relations, sometimes using 
- infix notation for them; e.g., 
-$P \,\R\, Q$ means $(P,Q) \in \R$.
+ infix notation for them, \hl{e.g.} $P \,\R\, Q$ means $(P,Q) \in \R$.
 We use a tilde, as in  $\til P$, to denote tuples of processes with
-countably many elements (thus the tuple may also be infinite.)
-All notations are extended to tuples componentwise,
-e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each  
-index $i$ of the tuples $\til P$ and $\til Q$.
-We use the symbol $\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
+countably many \hl{elements.}
+All \hl{relation} notations can be extended to tuples componentwise,
+e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each index $i$ of the tuples $\til P$ and $\til Q$.
+We use $\DSdefi$ to \hl{define} abbreviations. For instance, $P \DSdefi G $, where
 $G$ is some expression, means that $P$ stands for the expression $G$.
 If $\leq$ is a preorder, then  $\geq$  is its inverse (and
 conversely).
