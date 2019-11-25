@@ -14,7 +14,7 @@ A \hl{term} without free variables is \hl{called} a \emph{process}.
 In this paper (and the formalisation work), we use the agent
 variables also as \emph{equation variables}. This eliminates the need of
 another type for  equations, and we can reuse the existing
-variable substitution operation (c.f. SOS rule for the Recursion in
+variable substitution operation (c.f.\ the   SOS rule for the Recursion in
 Fig.~\ref{f:LTSCCS}) for the substitution of equation variables.
 For example, the result of substituting variable $X$ with $\nil$ in $a.X +
 \recu X (b.X)$,  written $(a.X + \recu X (b.X)) \sub {\nil} X$, is
@@ -22,7 +22,8 @@ $a.\nil + \recu X (b.X)$ (with the part $\recu X (b.X)$
 untouched). \Multivariate substitutions are written in the same syntax,
 e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
 context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
-  X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation variable $X$.)
+  X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation
+variable $X$). 
 
 % In fact, free agent variables have the same transitional behavior
 % as the deadlock $\nil$ according to the SOS rules, as there is
@@ -65,7 +66,8 @@ $\{ X_i = E_i\}_{i\in I}$ is
 
 The components of $\til P$ need not be
 different from each other, as it must be for the variables $\til X$.
-If the system has infinitely many equations, the  tuples $\til P$ and $\til X$ are infinite too.
+% If the system has infinitely many equations, the  tuples $\til P$
+% and $\til X$ are infinite too. 
 
 \begin{definition}[solutions and unique solutions]
   \label{def:solution}
@@ -141,7 +143,7 @@ and let ${\til P} \sim {\til E}\{\til P /\til X\}$,
 \begin{theorem}[unique solution of equations for $\rapprox$]
 \label{t:Mil89s3}
 Let $E_i$ be guarded and sequential with free
-variables up to $\til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$,
+variables in $\til X$, and let ${\til P} \rapprox {\til E}\{\til P /\til X\}$,
   ${\til Q} \rapprox {\til E}\{\til Q /\til X\}$. Then ${\til P} \rapprox {\til Q}$.
 \end{theorem}
 
@@ -155,7 +157,7 @@ that all sums are guarded:
 \begin{theorem}[unique solution of equations for $\wb$]
 \label{t:Mil89}
 Let $E_i$ be guarded and sequential with free
-variables up to $\til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
+variables in $\til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
   ${\til Q} \wb {\til E}\{\til Q /\til X\}$. Then ${\til P} \wb {\til Q}$.
 \end{theorem}
 

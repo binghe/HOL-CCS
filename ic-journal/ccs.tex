@@ -6,7 +6,7 @@
 
 Here we recall the core theory of CCS.
 We assume a possibly infinite set of names $\mathscr{L} = \{a, b,
-\ldots\}$ yielding input and $\overline{\mbox{output}}$ labels (actions), plus a special invisible
+\ldots\}$ yielding input and output labels (actions), plus a special invisible
 action $\tau \notin \mathscr{L}$, and another possibly infinite
 set of agent variables \hl{$\mathscr{X} = \{X, Y, \ldots\}$}.
 The class of \hl{all} CCS \hl{terms (or expressions)} is then inductively
@@ -89,7 +89,7 @@ $\Arr \mu $ is $\Arr\epsilon \arr\mu \Arr\epsilon$ (the
 composition of the three relations).
 Moreover,   
 $P \arcap \mu P'$ holds if $P \arr\mu P'$ or $\mu =\tau \wedge P = P'$; similarly 
-$P \Arcap \mu P'$ holds if $P \Arr\mu P'$ or $\mu =\tau \wedge P = P'$).
+$P \Arcap \mu P'$ holds if ($P \Arr\mu P'$ or $\mu =\tau \wedge P = P'$).
 We write $P \:(\arr\mu)^n P'$ if $P$ can become $P'$ after performing
 $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
@@ -97,8 +97,9 @@ with $P \arr\mu P'$, and similarly for other forms of transitions.
 \paragraph{Further notations}
 We let $\R$, $\S$ range over binary relations, sometimes using 
  infix notation for them, \hl{e.g.} $P \,\R\, Q$ means $(P,Q) \in \R$.
-We use a tilde, as in  $\til P$, to denote tuples of processes with
-countably many \hl{elements.}
+We use a tilde, as in  $\til P$, to denote (finite) tuples of elements. 
+% We use a tilde, as in  $\til P$, to denote tuples of processes with
+% countably many \hl{elements.}
 All \hl{relation} notations can be extended to tuples componentwise,
 e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each index $i$ of the tuples $\til P$ and $\til Q$.
 We use $\DSdefi$ to \hl{define} abbreviations. For instance, $P \DSdefi G $, where

@@ -5,7 +5,7 @@ A \emph{system of contractions} is defined as a system of equations,
 except that the contraction symbol $\mcontr$ is used in the place of
 $=$ in Def.~\ref{def:equation}. Thus a system of contractions is a set 
 $\{  X_i \mcontr E_i\}_{i\in I}$ where $I$ is an indexing set and each
-$E_i$  contains variables up to $\til X$.
+$E_i$  contains variables in $\til X$.
 
 Now we recall the ``unique solution of
 contractions'' theorem~\cite{sangiorgi2017equations},
@@ -102,15 +102,15 @@ See Fig.~\ref{fig:310} for a visual illustration.
 \label{ss:new}
 
 Theorem~\ref{t:contraBisimulationU} brings a new proof technique for
-bisimilarity, which is much less restrictive than Milner's
+bisimilarity, which is  less restrictive than Milner's
 Theorem~\ref{t:Mil89} (but with the additional costs of checking $\mcontrBIS$
 in addition to $\wb$).
-However, comparing with Milner's Theorem~\ref{t:Mil89s1}, there is
+However, comparing with Milner's Theorem~\ref{t:Mil89s1}, there remains
 a constraint: the involved CCS expression may only
-use guarded sums. The is mainly due to the fact that $\wb$ is not a
+use guarded sums. This is mainly due to the fact that $\wb$ is not a
  congruence and also $\mcontrBIS$ is not a  precongruence.
 Inspired by rooted bisimilarity, to  eliminate the restriction
-on guarded sums, we have extended the idea of contractions by moving
+on guarded sums we refine the idea of contractions by moving
 to \emph{rooted contractions}:
 
 \begin{definition}

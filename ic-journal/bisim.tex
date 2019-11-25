@@ -10,15 +10,15 @@ A highlight of this formalization project is the simplified definitions of
   bisimilarities using the new coinductive relation package of
   HOL4. Without this package, bisimilaries can still be defined in HOL, but
   proving their properties would be more complicated. Below we explain
-  how the weak bisimulation (and bisimilarity) is defined. The way to
-  define strong bisimulation (and bisimilarity) and other concepts
-  (expansion, contraction, etc.) are in the same manner.
+  how weak bisimulation and weak bisimilarity are defined. 
+Strong bisimulation and strong bisimilarity, as well as  other
+concepts such as expansion and contraction,  are defined in the same manner.
 
-To define (weak) bisimilarity, we need to define weak transitions of CCS processes. 
+To define (weak) bisimilarity, we need  weak transitions of processes. 
 First of all, a (possibly empty) sequence of $\tau$-transitions between
 two processes is defined as a new relation \texttt{EPS}
 ($\overset{\epsilon}{\Longrightarrow}$), which is the
-reflexive transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
+reflexive and transitive closure (RTC, denoted by \mbox{\color{blue}{$^*$}} in
 HOL4) of ordinary $\tau$-transitions of CCS processes:
 \begin{alltt}
 \HOLConst{EPS} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill{[EPS_def]}
@@ -72,7 +72,7 @@ important theorems (\emph{rules}, \emph{coind} and \emph{cases}):
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLBoundVar{E} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
-\item \emph{coind} is the coinduction principle for the relation.
+\item \emph{coind} is the coinduction principle for the relation:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}}.
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}.
@@ -90,7 +90,7 @@ important theorems (\emph{rules}, \emph{coind} and \emph{cases}):
 \end{alltt}
 \item \emph{cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
-  obtaining it by the rules.
+  obtaining it by the rules:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}.
        \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenEquiv{}}
@@ -104,18 +104,19 @@ important theorems (\emph{rules}, \emph{coind} and \emph{cases}):
 
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
 bisimulation is contained in the resulting relation (i.e.~it is
-largest), but it didn't constrain the resulting relation in the set of
-fixed points (e.g.~even the universal relation---the set of all
-pairs---would fit with this theorem); the
+largest), but it does not constrain the resulting relation in the set of
+fixed points (e.g.~even the universal relation~--- the set of all
+pairs~--- would fit); the
 purpose of \texttt{WEAK_EQUIV_cases} is to
 further assert that the resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
 together make sure that bisimilarity is the greatest
-fixed point, as
-the former contributes to ``greatest'' while the latter
-contributes to ``fixed point''.
+fixed point.
+% , as
+% the former contributes to ``greatest'' while the latter
+% contributes to ``fixed point''.
 %
-Without HOL's coinductive relation package, (weak) bisimilarity
+Without HOL coinductive relation package, (weak) bisimilarity
 would have to be defined by following literally
 Def.~\ref{d:wb};  then other properties of bisimilarity, such
 as the fixed-point property in \texttt{WEAK_EQUIV_cases}, would have to be
@@ -177,14 +178,14 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ens
 % laws). 
 The first five of them are proven by constructing appropriate bisimulations,
 and their formal proofs are written in
-a goal-directed manner~\citep[Chapter 4]{holdesc}. On the other hand, the
+a goal-directed manner~\citep[Chapter 4]{holdesc}. In constrast, the
 last three algebraic laws are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).
  These algebraic laws also hold for weak bisimilarity and rooted
-  bisimilarity, as these are coarser than strong bisimilarity. But
-for weak bisimilarity and rooted bisimilarity, the following so-called
-$\tau$-laws are further available:
+  bisimilarity, as these are coarser than strong bisimilarity. 
+For weak bisimilarity and rooted bisimilarity, the following laws, 
+called $\tau$-laws, hold:
 \begin{alltt}
 TAU1:      \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
 TAU2:      \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
@@ -355,7 +356,7 @@ or formally (for illustrating purposes below),
 \end{definition}
 Note that the \hl{HOL term corresponding to} $\sim \R \approx$ is
 ``\HOLinline{\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{R} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}}'' where the order of
-$\sim$ and $\approx$ seems reverted. This is because, in HOL's
+$\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLinline{\HOLConst{STRONG_EQUIV}} or $\sim$) in the relational composition is
 applied first.
 
