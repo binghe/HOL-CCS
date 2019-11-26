@@ -43,7 +43,7 @@ assume \hl{a weaker condition} that all immediate \emph{weak} derivatives of
 \HOLthm[def,>>3]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
 
-Below we show how \hl{Prop.}~\ref{prop:coarsest} is connected with
+Below we show how Proposition~\ref{prop:coarsest} is connected with
 the statement in Theorem~\ref{t:rapproxCongruence}, and prove it under
 the free action assumptions.
 %
@@ -109,7 +109,7 @@ Given the central role of the
 Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
-in Fig.~\ref{fig:relationship}. Thus, to prove \hl{Prop.}~\ref{prop:coarsest},
+in Fig.~\ref{fig:relationship}. Thus, to prove Proposition~\ref{prop:coarsest},
 the crux is to prove that \texttt{SUM_EQUIV} implies
 rooted bisimilarity ($\rapprox$), making all three relations
 ($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) coincide:

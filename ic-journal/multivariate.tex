@@ -243,7 +243,7 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 \end{alltt}
 \end{proposition}
 \begin{proof}
-Following the proof of Prop.~\ref{prop:transFV}, we do action
+Following the proof of Proposition~\ref{prop:transFV}, we do action
 induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
 facts. The only subgoal left is:
 \begin{alltt}
@@ -251,7 +251,7 @@ facts. The only subgoal left is:
    ------------------------------------
     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
-Note the difference with the proof of Prop.~\ref{prop:transFV}: now
+Note the difference with the proof of Proposition~\ref{prop:transFV}: now
 we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
 use the assumption and the transitivity of $\subseteq$ and try to
 prove the following goal instead:
