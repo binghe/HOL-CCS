@@ -27,10 +27,12 @@ single-variable cases. The precise definition is given inductively:
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[CONTEXT_rules]}
 \end{alltt}
-Notice in above inductive definitions, for any CCS term $p$,
-\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{p}} is a valid context. In this case there is no
-hole in the context. On the other hand, if any CCS term with recursion
-could be a context, the recursion must be a subterm of this $p$.
+In above inductive definitions, for any CCS term $p$,
+\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{p}} is a
+valid context, with  no
+hole. 
+% On the other hand, if any CCS term with recursion
+% could be a context, the recursion must be a subterm of this $p$.
 
 A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
 underneath a prefix:
@@ -41,9 +43,10 @@ underneath a prefix:
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{L} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[WG_rules]}
 \end{alltt}
-(Notice the differences between a weak guarded context and a normal
-one: $\lambda t. t$ is not weakly guarded as the variable is directly
-exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
+(Notice the differences between a weakly guarded context and an
+ordinary
+context: $\lambda t. t$ is not weakly guarded as the variable is directly
+exposed, without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
 
 A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
@@ -84,16 +87,20 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[WGS_rules]}
 \end{alltt}
 
-Many lemmas about the above concepts (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
-\HOLinline{\HOLConst{SEQ}}, etc.) have to be proved for the
- relationships among these kinds of contexts and properties about their
- compositions. These proofs are usually tedious and long,  due to multiple levels of
+
+In our work, several 
+ lemmas about the above concepts (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
+\HOLinline{\HOLConst{SEQ}}, etc.)  were needed 
+to capture properties about
+ the
+ relationships among these kinds of contexts and their
+ composition. These proofs are usually tedious and long,  due to multiple levels of
  inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
 \texttt{CONTEXT}. The only difference between congruence and
-precongruence is that the former  is an equivalence (reflexive,
-symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
+precongruence is that the former  is an equivalence, while
+ the latter can  just be  a preorder:
 \begin{alltt}
    \HOLConst{congruence} \HOLFreeVar{R} \HOLTokenDefEquality{}
      \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[congruence]}
@@ -103,7 +110,7 @@ symmetric, transitive), while the latter can  just be  a preorder (reflexive, tr
 \end{alltt}
 
 Both strong bisimilarity ($\sim$) and
-rooted bisimilarity ($\approx^c$) are congruence:
+rooted bisimilarity ($\approx^c$) are congruence relations:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{STRONG_EQUIV}\hfill{[STRONG_EQUIV_congruence]}
 \HOLTokenTurnstile{} \HOLConst{congruence} \HOLConst{OBS_CONGR}\hfill{[OBS_CONGR_congruence]}
@@ -115,7 +122,6 @@ Although weak bisimilarity ($\approx$) is \emph{not} a congruence
 % (or if the CCS syntax were defined with
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
 as $\approx$ is indeed preserved by guarded sums.
-
 Rooted contraction, on the other hand, is a precongruence:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_precongruence]}

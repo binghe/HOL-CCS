@@ -196,8 +196,9 @@ TAU_WEAK:  \HOLTokenTurnstile{} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ens
 
 \subsection{Expansion, Contraction and Rooted Contraction}
 
-To formally define bisimulation expansion and contraction (and their preorders), we have
-followed the same ways as in the case of strong and weak bisimilarities:
+We have formalizes
+ bisimulation expansion and contraction (and their preorders) along
+ the lines of  strong and weak bisimilarity:
 \begin{alltt}
 \HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLTokenDefEquality{}
   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}.
@@ -224,9 +225,9 @@ followed the same ways as in the case of strong and weak bisimilarities:
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{It is formally verified} that contraction preorder
-\hl{($\mcontrBIS$) contains expansion
-preorder ($\expa$), and they are both}
+\hl{We have  verified the properties that} the contraction preorder
+\hl{($\mcontrBIS$) contains the expansion
+preorder ($\expa$), and that they are both}
 contained in weak bisimilarity ($\wb$):
 \begin{proposition}{(Relationships between contraction preorder,
     expansion preorder and weak bisimilarity)}
@@ -241,17 +242,22 @@ contained in weak bisimilarity ($\wb$):
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-The proof of a property for contraction (and contraction preorder) is
-\hl{generally} harder than \hl{the case for} expansion. \hl{This} is mostly due to the fact
-  that, although contraction preorder ($\mcontrBIS$) is contained in
-  bisimilarity ($\wb$), in general it \hl{is not} true that \hl{a
-  contraction itself is also a bisimulation.} In another words,
-  the following proposition does not hold: (What holds, \hl{however}, is that $\R\ \cup \wb$ is a bisimulation)
+The proof of a property for contraction  is
+\hl{generally} harder than  that for expansion. \hl{This} is mostly due to the fact
+  that, although the contraction preorder ($\mcontrBIS$) is contained in
+  bisimilarity ($\wb$), 
+\hl{a
+  contraction need not be a bisimulation.} In another words,
+  the following proposition does not hold: 
 \begin{alltt}
 \HOLinline{   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Con}. \HOLConst{CONTRACTION} \HOLBoundVar{Con} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Con}}
 \end{alltt}
-For instance, in the proof of \texttt{contracts_IMP_WEAK_EQUIV},
-we can prove it by constructing a bisimulation \HOLinline{\HOLFreeVar{Wbsm}} containing two processes
+However it does  hold that, if $\R$ is a contraction, then 
+ $\R\ \cup \wb$ is a bisimulation.
+For instance, 
+we can prove 
+\texttt{contracts_IMP_WEAK_EQUIV}
+ by constructing a bisimulation \HOLinline{\HOLFreeVar{Wbsm}} containing two processes
 $P$ and $Q$, given that they are in $Con$ (a contraction):
 \begin{alltt}
         \HOLinline{\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Wbsm}. \HOLBoundVar{Wbsm} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{WEAK_BISIM} \HOLBoundVar{Wbsm}}
@@ -279,11 +285,13 @@ defined as follows:
 \hl{for reducing the sizes of relations needed for defining bisimulations}.
 By definition, two processes are bisimilar if there exists a
 bisimulation relation containing them. However, in practice
-this definition is hard \hl{to be} followed plainly. \hl{I}nstead, to reduce
+this definition is sometimes  hard \hl{to apply}. \hl{I}nstead, to reduce
 the \hl{sizes of the exhibited relations}, one prefers to define relations
 which are bisimulations only when closed up under some specific and
 privileged relation, so to relieve the proof work needed. \hl{These}
-\emph{``up-to'' techniques} \hl{are general devices allowing} a great variety of possibilities.
+are usually called 
+\emph{``up-to'' techniques}. 
+% \hl{are general devices allowing} a great variety of possibilities.
 
 Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
@@ -313,12 +321,11 @@ $\mathcal{S} \subseteq\;\sim$:
 \end{theorem}
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
-
 For weak bisimilarity, the \emph{naive} weak bisimulation up to weak bisimilarity
 is unsound: if one simply replaces all \hl{occurrences of} $\sim$ in
 Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
-\hl{``weak bisimulation up to'' relation will not be contained in weak
-  bisimilarity} ($\wb$)~\cite{sangiorgi1992problem}.
+\hl{``weak bisimulation up to'' relation need not be contained in weak
+  bisimilarity} ($\wb$)~\cite{PoSa2019}.
 There are a few ways to fix this problem, \hl{and} one is the following:
 %
 \begin{definition}%[Bisimulation up to $\approx$]
@@ -330,7 +337,7 @@ There are a few ways to fix this problem, \hl{and} one is the following:
 \item Whenever $Q \arr{\mu} Q'$ then, for some
   $P'$, $P \Arcap{\mu} P'$ and $P' \approx \S \sim Q'$.
 \end{enumerate}
-or formally (for illustrating purposes below),
+Formally:
 \begin{alltt}
     \HOLConst{WEAK_BISIM_UPTO} \HOLFreeVar{Wbsm} \HOLTokenDefEquality{}
       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}.
@@ -354,7 +361,7 @@ or formally (for illustrating purposes below),
               \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}
 \end{alltt}
 \end{definition}
-Note that the \hl{HOL term corresponding to} $\sim \R \approx$ is
+The \hl{HOL term corresponding to} $\sim \R \approx$ is
 ``\HOLinline{\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{R} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLinline{\HOLConst{STRONG_EQUIV}} or $\sim$) in the relational composition is
@@ -369,7 +376,7 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{theorem}
 
 The above version of ``bisimulation up to $\wb$'' 
-is not powerful \hl{enough} to prove Milner's ``unique solution of equations''
+is not powerful \hl{enough} for Milner's ``unique solution of equations''
 theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
 To complete the proof, the following version \hl{\emph{with weak arrows}} is
 actually used:
@@ -381,7 +388,7 @@ $\mathcal{S}$ is a \hl{``bisimulation up to $\approx$ with weak arrows''} if $P 
 \item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
 \item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
-\hl{or formally (for showing the correspondence between the informal and formal definitions)}
+\hl{Formally: } % (for showing the correspondence between the informal and formal definitions)}
 \begin{alltt}
     \HOLConst{WEAK_BISIM_UPTO_ALT} \HOLFreeVar{Wbsm} \HOLTokenDefEquality{}
       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}.

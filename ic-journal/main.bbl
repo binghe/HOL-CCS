@@ -146,6 +146,12 @@ R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
 \newblock \href {https://doi.org/10.3233/FI-2017-1557}
   {\path{doi:10.3233/FI-2017-1557}}.
 
+\bibitem{PoSa2019}
+D.~Pous, D.~Sangiorgi, Bisimulation and coinduction enhancements: A historical
+  perspective, Formal Aspects of Computing (2019).
+\newblock \href {https://doi.org/10.1007/s00165-019-00497-w}
+  {\path{doi:10.1007/s00165-019-00497-w}}.
+
 \bibitem{sangiorgi1992problem}
 D.~Sangiorgi, R.~Milner,
   \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
@@ -257,5 +263,10 @@ A.~Durier, D.~Hirschkoff, D.~Sangiorgi,
 \newblock \href {https://doi.org/10.4230/LIPIcs.CONCUR.2017.11}
   {\path{doi:10.4230/LIPIcs.CONCUR.2017.11}}.
 \newline\urlprefix\url{http://drops.dagstuhl.de/opus/volltexte/2017/7784}
+
+\bibitem{DurierHS18}
+A.~Durier, D.~Hirschkoff, D.~Sangiorgi, Eager functions as processes, in: 33nd
+  Annual {ACM/IEEE} Symposium on Logic in Computer Science, {LICS} 2018, {IEEE}
+  Computer Society, 2018.
 
 \end{thebibliography}

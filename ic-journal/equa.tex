@@ -6,8 +6,10 @@ a recursion $\recu A  P$ acts as a binder for $A$ in the body $P$.
 This gives rise, in the expected manner, to the notions of 
 \emph{free} and \emph{bound} recursion variables in a CCS expression. 
 For instance,  $X$ is free in $a.X + \recu Y (b.Y)$ while $Y$
-is bound; \hl{And} in $a.X + \recu X (b.X)$, $X$ is both free and bound.
-A \hl{term} without free variables is \hl{called} a \emph{process}.
+is bound; whereas 
+$X$ is both free and bound 
+ in $a.X + \recu X (b.X)$.
+A \hl{term} without free variables is  a \emph{process}.
 % This setting does not cause any ambiguity, but sometimes leads to more
 % complex proofs.} (c.f. Section~\ref{sec:multivariate} for more details.)
 
