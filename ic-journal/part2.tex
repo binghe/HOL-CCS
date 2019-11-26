@@ -6,7 +6,7 @@
 \subsection{Unique solution of equations}
 \label{ss:part2}
 
-\subsubsection{Strong bisimilarity}
+\subsubsection{The case of strong bisimilarity}
 
 Based on results about ``bisimulation up to $\sim$'', we have first proved the following
  lemma. It states  that if $X$ is weakly guarded
@@ -43,47 +43,7 @@ P \sim Q.
 \end{alltt}
 \end{theorem}
 
-\subsubsection{Weak bisimilarity}
-
-Milner's book~\cite{Mil89} contains only two ``unique solutions of
-equations'' theorems, one for strong equivalence, the other for
-observational congruence.   There is however a
-version  of the result for weak bisimilarity that shares a large portion of proof
-steps with that case for observational congruence.  
-As  weak bisimilarity 
- is not \hl{a} congruence, we have to be more restrictive on the syntax for
- the equation, using strong guardedness.
-% to make correct statement of this
-% theorem, we must slightly modify the concept of sequential expresses
-% with further restrictions: no direct sums (or only guarded sums).
-% The ``unique solution of equations'' theorem for weak equivalence
-% requires more restrictions on the expression, namely, .
-% Now we're ready to state and prove the following lemma:
-\begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
-If the variable $X$ is guarded and sequential in $G$, and
-$G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
-$H\{P/X\}$, for some expression $H$, and for any $Q$, we have
-$G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
-sequential, and if $\alpha = \tau$ then $H$ is also guarded.
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
-       \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{a} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{H} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}
-\end{alltt}
-\end{lemma}
-
-We can then derive the target theorem:
-\begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}]
-Let $E$ be guarded and sequential expressions, and let $P \wb
-E\{P/X\}$,
-$Q \wb E\{Q/X\}$. Then $P \wb Q$.
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
-\end{alltt}
-\end{theorem}
-
-\subsubsection{Rooted bisimilarity}
+\subsubsection{The case of rooted bisimilarity}
 
 For the ``unique solutions of
 equations'' theorem of rooted bisimilarity, we use a different
@@ -135,6 +95,40 @@ E\{P/X\}$,
 $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}
+\end{alltt}
+\end{theorem}
+
+\subsubsection{The case of weak bisimilarity}
+
+Milner~\cite{Mil89} \emph{only mentioned} two ``unique solution of
+equations'' theorems, one for strong equivalence, the other for
+rooted bisimilarity.   There is, however, \hl{another
+version for} weak bisimilarity that shares a large portion of proof
+steps with the case \hl{of} rooted bisimilarity.
+As weak bisimilarity is not \hl{a} congruence, we have to be more restrictive
+on the syntax \hl{of} the equation, using strong guardedness.
+
+\begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
+If the variable $X$ is guarded and sequential in $G$, and
+$G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
+$H\{P/X\}$, for some expression $H$, and for any $Q$, we have
+$G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
+sequential, and if $\alpha = \tau$ then $H$ is also guarded.
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
+   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
+       \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{a} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{H} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}
+\end{alltt}
+\end{lemma}
+
+We can then derive the target theorem:
+\begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}]
+Let $E$ be guarded and sequential expressions, and let $P \wb
+E\{P/X\}$,
+$Q \wb E\{Q/X\}$. Then $P \wb Q$.
+\begin{alltt}
+\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
 \end{alltt}
 \end{theorem}
 
