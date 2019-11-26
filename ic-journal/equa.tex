@@ -9,12 +9,12 @@ For instance,  $X$ is free in $a.X + \recu Y (b.Y)$ while $Y$
 is bound; \hl{And} in $a.X + \recu X (b.X)$, $X$ is both free and bound.
 A \hl{term} without free variables is \hl{called} a \emph{process}.
 % This setting does not cause any ambiguity, but sometimes leads to more
-% complex proofs.} (c.f. Section~\ref{sec:multivariate} for more details.)
+% complex proofs.} (see Section~\ref{sec:multivariate} for more details.)
 
 In this paper (and the formalisation work), we use the agent
 variables also as \emph{equation variables}. This eliminates the need of
 another type for  equations, and we can reuse the existing
-variable substitution operation (c.f.\ the   SOS rule for the Recursion in
+variable substitution operation (cf.~the SOS rule for the Recursion in
 Fig.~\ref{f:LTSCCS}) for the substitution of equation variables.
 For example, the result of substituting variable $X$ with $\nil$ in $a.X +
 \recu X (b.X)$,  written $(a.X + \recu X (b.X)) \sub {\nil} X$, is

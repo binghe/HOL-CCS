@@ -206,7 +206,7 @@ Finally, the whole HOL \emph{standard} theory is based on the
 following four axioms:\footnote{HOL is strictly
   weaker than ZFC (the Zermelo-Frankel set theory with the
 Axiom of Choice), thus not all theorems valid in ZFC can be formalised
-in HOL. (c.f.~\cite{hollogic} for more details.)}
+in HOL. (See~\cite{hollogic} for more details.)}
 \begin{equation*}
 \begin{array}{@{}l@{\qquad}l}
 \mbox{\texttt{BOOL\_CASES\_AX}} &\vdash \uquant{b} (b = \T )\ \vee \ (b = \F )\\

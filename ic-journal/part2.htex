@@ -25,7 +25,7 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 
 Then, by a structural induction on weakly-guarded context
 (\texttt{WG}), we have proved Milner's strong unique-solution theorem
-in the \univariate case (c.f.~Section~\ref{sec:multivariate} for the
+in the \univariate case (cf.~Section~\ref{sec:multivariate} for the
 \multivariate case). The formal proof basically follows the outline of its
 informal version. It is tedious due to large amounts of case analyses
 on each CCS operator.

@@ -295,7 +295,7 @@ $\mathcal{S} \subseteq\;\approx$:
 
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful \hl{enough} to prove Milner's ``unique solution of equations''
-theorem for $\wb$ (c.f.~\cite{sangiorgi1992problem} for more details).
+theorem for $\wb$ (see~\cite{sangiorgi1992problem} for more details).
 To complete the proof, the following version \hl{\emph{with weak arrows}} is
 actually used:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]

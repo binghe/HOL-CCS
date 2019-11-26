@@ -44,7 +44,7 @@ A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{vis
 
 A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
 a hole, apart from the hole itself, is in forms of prefixes or sums:
-(c.f. Def.~\ref{def:guardness} and p.101,157 of \cite{Mil89} for
+(See Def.~\ref{def:guardness} and \citep[p.~101, 157]{Mil89} for
 the informal definitions.)
  \begin{alltt}
 \HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
