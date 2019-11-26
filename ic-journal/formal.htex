@@ -53,18 +53,19 @@ Church’s Simple Theory of Types (STT)~\cite{church1940formulation},
 plus a higher order version of Hilbert's choice operator $\varepsilon$,
 Axiom of Infinity, and Rank-1 (prenex) polymorphism.
 HOL4 has implemented the original HOL, 
-while some other theorem provers in HOL family (e.g. Isabelle/HOL) have
+while some other theorem provers in the HOL family (e.g. Isabelle/HOL) have
 certain extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
-Indeed the HOL has considerably simpler logical
+Indeed HOL has considerably simpler logical
 foundations than most other theorem provers. %, e.g. Coq. 
 As a consequence, theories and proofs verified in HOL are easier to understand
  to people who are not familar with more advanced
 dependent type theories.
 
-HOL4 is implemented in Standard ML, the same programming language who
+HOL4 is implemented in Standard ML, and
+ the same programming language
 plays three different roles:
 \begin{enumerate}
 \item \hl{The} underlying implementation language for the core HOL engine;
@@ -73,17 +74,18 @@ plays three different roles:
 \end{enumerate}
 Moreover, using the same language HOL4 users can write complex automatic
 verification tools by calling HOL's theorem proving
-facilities. The formal proofs of theorems in CCS theory
-are mostly done by an \emph{interactive process} closely following
-their informal proofs, with minimal automatic proof searching.
+facilities. The formal proofs of the CCS theorems that we have carried
+out 
+are mostly done in a manner that closely follows
+their paper proofs, with minimal automatic proof searching.
 
 \subsection{Higher Order Logic (HOL)}
 
 HOL is a formal system of typed logical terms. The types are expressions that denote sets (in the
-universe $\mathcal{U}$). HOL's type system is much simpler than those
+universe $\mathcal{U}$). HOL type system is much simpler than those
 based on dependent types and other type theories. There are four kinds of types in the HOL
 logic, as illustrated in Fig. \ref{fig:hol-types} for its BNF
-grammar. Noticed that, in HOL the standard atomic types \emph{bool} and \emph{ind}
+grammar. In HOL, the standard atomic types \emph{bool} and \emph{ind}
  denote, respectively, the distinguished two-element set 2 and the
 distinguished infinite set $I$.
 
@@ -119,9 +121,9 @@ distinguished infinite set $I$.
 \end{figure}
 
 The terms of the HOL logic are expressions \hl{which} denote elements of the
-sets denoted by types. There're four kinds of terms in the HOL
+sets denoted by types. There are four kinds of terms in the HOL
 logic. \hl{They} can be described (in simplified forms) by the BNF grammar in
-Fig.~\ref{fig:hol-terms}. (See~\ref{hollogic} for a complete description.)
+Fig.~\ref{fig:hol-terms}; see~\ref{hollogic} for a complete description.
 
 \settowidth{\ttX}{\tt X}
 \newcommand{\var}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
@@ -153,8 +155,8 @@ t \quad ::=\quad {\mathord{\mathop{x}\limits_{\var}}}
    \label{fig:hol-terms}
  \end{figure}
 
-The deductive system of the HOL is specified by eight primitive
-derivative rules: (See~\cite{hollogic} for more details.)
+The deductive system of HOL is specified by eight primitive
+derivative rules~\cite{hollogic}:
 \begin{enumerate}
 \item Assumption introduction (\texttt{ASSUME});
 \item Reflexivity (\texttt{REFL});
@@ -167,11 +169,12 @@ derivative rules: (See~\cite{hollogic} for more details.)
 \end{enumerate}
 All proofs are eventually reduced to applications of the above rules,
 which also give the semantics of two foundamental
-logical connectives, the equality ($=$) and implication
-($\Rightarrow$). The rest logical connectives and first-order
+logical connectives,  equality ($=$) and implication
+($\Rightarrow$). The remaining logical connectives and first-order
 quantifiers, including the logical true (\HOLtm{T}) and false (\HOLtm{F}), are
-further defined as $\lambda$-functions: (one rarely needs to care
-things at this level, however.)
+further defined as $\lambda$-functions: 
+% (one rarely needs to care
+% things at this level, however.)
 \begin{equation*}
 \begin{array}{l}
 \turn \T       =  ((\lquant{x_{\ty{bool}}}x) =
@@ -192,18 +195,18 @@ things at this level, however.)
                   \OneOne\ rep \ \wedge{}\  (\uquant{x}P x = (\equant{y} x = rep\ y))
 \end{array}
 \end{equation*}
-It deserves to mention that, the last logical constant above,
+The last logical constant,
 $\TyDef$, can be used to define new HOL types as bijections of
 subsets of existing types~\cite{Melham:1989dk}.
-HOL's \texttt{Datatype} package~\cite{Melham:1991, holdesc} automates
-this tedious process, and can be used for \hl{defining types needed for} CCS.
+HOL \texttt{Datatype} package~\cite{Melham:1991, holdesc} automates
+this tedious process, and can be used for \hl{defining the 
+types needed for} CCS.
 
 Finally, the whole HOL \emph{standard} theory is based on the
-following four axioms, from which the almost\footnote{HOL is strictly
+following four axioms:\footnote{HOL is strictly
   weaker than ZFC (the Zermelo-Frankel set theory with the
 Axiom of Choice), thus not all theorems valid in ZFC can be formalised
-in HOL. (c.f.~\cite{hollogic} for more details.)} entire mathematics
-can be formalised:
+in HOL. (c.f.~\cite{hollogic} for more details.)}
 \begin{equation*}
 \begin{array}{@{}l@{\qquad}l}
 \mbox{\texttt{BOOL\_CASES\_AX}} &\vdash \uquant{b} (b = \T )\ \vee \ (b = \F )\\
@@ -216,13 +219,13 @@ can be formalised:
 \end{array}
 \end{equation*}
 
-Notice that, usually the above four axioms are the only axioms allowed
+Usually the above four axioms are the only axioms allowed
 in conventional formalisation projects in HOL: adding new axioms
-\hl{manually}, may break the logic \hl{consistency}.
+\hl{manually}, may break logical \hl{consistency}.
 \hl{In general,} the theorem prover guarantees that,
 without adding new axioms, if both the definitions and the statements
-of theorems are correct, then the \hl{proofs of these theorems} must
-be \hl{also} correct.
+of theorems are correct, then the \hl{proofs of these theorems} is
+ \hl{also} correct.
 % This last sentence doesn't have a good link with the previous context,
 % disabled. --Chun
 %

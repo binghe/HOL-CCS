@@ -7,14 +7,14 @@
 \label{ss:formalCCS}
 
 The CCS formalisation starts with type definitions for action,
-relabeling and the CCS term itself. We use the type ``\HOLty{:'b Label}''
+relabeling and then the  processes. We use the type ``\HOLty{:'b Label}''
 for all labels (i.e. visible actions), where the type variable $\beta$ corresponds
 to $\mathscr{L}$ (the set of names for labels) used at the beginning
 of Section~\ref{ss:ccs}. The
 cardinality and the exact elements of this type depend on the type variable $\beta$
 instantiated by the end user \hl{or further formalisations built upon the
 present one.}
-All \hl{labels} are divided into input and $\overline{\text{output}}$ ones.
+All \hl{labels} are divided into input and output ones.
 The type ``\HOLty{:'b Label}'' is defined by HOL's \texttt{Datatype} package in the
 following syntax:
 \begin{lstlisting}
@@ -38,16 +38,17 @@ expressions, has two type variables \hl{$\alpha$ and $\beta$ corresponding%
     \hl{can be} arbitrary. Our choice is aligned with the literature.
 For instance, $\mathrm{CCS}(h,k)$ is the CCS subcalculus that can use at most $h$ constants
 and $k$ actions~\cite{gorrieri2017ccs}. To formalize theorems on
-such $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
+ $\mathrm{CCS}(h,k)$, the required CCS type can be retrieved by instantiating the type
 variables $\alpha$ and $\beta$ in ``\HOLty{:('a, 'b) CCS}'' with types
 having the corresponding cardinalities $h$ and $k$.}
 to $\mathscr{X}$ (the set of agent variables) and $\mathscr{L}$ (the
-set of names used for labels), respectively, used at the beginning of} Section~\ref{ss:ccs}.
+set of names used for labels), respectively}.
 %
-The type ``\HOLty{:('a, 'b) CCS}'' \hl{is defined inductively by HOL's \texttt{Datatype} package:}
-(Here ``\HOLty{:'b
+The type ``\HOLty{:('a, 'b) CCS}'' \hl{is defined inductively by HOL \texttt{Datatype} package}
+(here ``\HOLty{:'b
     Relabeling}'' is the type of all relabeling
-  functions. \hl{Relabeling is formalised but is not to be} discussed in this paper.)
+  functions;   \hl{we have also formalised relabeling, though we will
+    not discuss it}):
 \begin{lstlisting}
 Datatype: CCS = nil
               | var 'a
@@ -61,7 +62,7 @@ End
 \end{lstlisting}
 The above definitions allow us to use terms like \texttt{nil} and
 \texttt{sum P Q} in HOL. Their correspondences with conventional CCS notations
-in the literature, are given in Table~\ref{tab:ccsoperator}, where
+in the literature are given in Table~\ref{tab:ccsoperator}, where
 most CCS operators have also the more readable abbreviation forms,
 either for end user or for \TeX{} outputs. (All
   formal theorems and definitions in this paper
@@ -106,7 +107,8 @@ $\epsilon$--transition & $P\overset{\epsilon}{\Longrightarrow}Q$
 The transition semantics of CCS processes strictly follows the SOS rules given
 in Fig.~\ref{f:LTSCCS}. However, they are not axioms, but the
 consequence of an \emph{inductive relation} definition of
-\HOLtm{TRANS} by HOL's \texttt{HOL_reln} function.~(\hl{See}~\citep[p.~219]{holdesc} for more details.)
+\HOLtm{TRANS} by HOL \texttt{HOL_reln} function 
+(\hl{see}~\citep[p.~219]{holdesc} for more details).
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
@@ -155,7 +157,7 @@ level without changing anything, e.g.
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_sum}\hfill{[CCS_Subst_sum]}
 \end{alltt}
-The only two insteresting cases are at agent variables and recursion:
+The only two insteresting cases are those for  agent variables and recursion:
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
 \HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
@@ -181,7 +183,7 @@ To completely describe all possible transitions of \hl{the} process, if done man
 following two facts must be proved: (1) there are indeed the three
   transitions mentioned above; (2) there \hl{is} no other
   \hl{transition}. For large CCS processes it is surprisingly tedious to manually derive
-all the possible transitions and prove the non-existence of others.
+all the possible transitions and prove the non-existence of other transitions.
 This shows the usefulness of appealing to an ML function
 \texttt{CCS\_TRANS\_CONV} that is designed to automate the whole process.
 For instance, \hl{taking the input} $(a.\nil | \bar{a}.\nil)$ the function returns the
