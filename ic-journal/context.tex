@@ -61,7 +61,7 @@ A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{vis
 
 A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
 a hole, apart from the hole itself, is in forms of prefixes or sums:
-(c.f. Def.~\ref{def:guardness} and p.101,157 of \cite{Mil89} for
+(See Def.~\ref{def:guardness} and \citep[p.~101, 157]{Mil89} for
 the informal definitions.)
  \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SEQ} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SEQ} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SEQ} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}

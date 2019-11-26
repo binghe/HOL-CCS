@@ -252,7 +252,7 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 \end{alltt}
 \end{proposition}
 \begin{proof}
-Following the proof of Prop.~\ref{prop:transFV}, we do action
+Following the proof of Proposition~\ref{prop:transFV}, we do action
 induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
 facts. The only subgoal left is:
 \begin{alltt}
@@ -260,7 +260,7 @@ facts. The only subgoal left is:
    ------------------------------------
     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
-Note the difference with the proof of Prop.~\ref{prop:transFV}: now
+Note the difference with the proof of Proposition~\ref{prop:transFV}: now
 we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
 use the assumption and the transitivity of $\subseteq$ and try to
 prove the following goal instead:
@@ -270,7 +270,7 @@ prove the following goal instead:
     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
 This is an easy goal, due to the following lemma which is
- proved by induction on $E$:
+ proved by \hl{doing} induction on $E$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLConst{BV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[BV_SUBSET]}
 \end{alltt}
@@ -343,7 +343,7 @@ once on each subterm, the possible free variables in  \HOLinline{\HOLFreeVar{Ps}
 Below we present some key lemmas about
 \HOLinline{\HOLConst{CCS_SUBST}}, omitting the proofs:\footnote{Hereafter,
   some new logical constants from HOL's \texttt{pred_set}
-and \texttt{list} theories are used (c.f.~\cite{holdesc} for more
+and \texttt{list} theories are used (see~\cite{holdesc} for more
 details.): \HOLinline{\HOLConst{DISJOINT}} denotes set disjointness;
 ``\HOLinline{\HOLConst{set}\\\;\HOLFreeVar{Xs}}'' is the set converted from the list \HOLinline{\HOLFreeVar{Xs}};
 \HOLinline{\HOLConst{ALL_DISTINCT}} says that
@@ -464,7 +464,11 @@ holds as a base case of the inductive definition of \HOLinline{\HOLConst{WG}}:
 \end{alltt}
 For any agent variable $X$, we have by $\beta$-reduction:
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
+<<<<<<< HEAD
 notation), and the expression  is weakly guarded (Def.~\ref{def:guardness}).
+=======
+notation) is weakly guarded (cf.~Def.~\ref{def:guardness}).
+>>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
 
 It is possible to inductively assert \multivariate contexts and their
 guarded variants, but care is needed as  we need to exclude the cases where
@@ -532,11 +536,20 @@ resulting term is still a context (w.r.t.~the same set of variables):
    \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[context_combin]}
 \end{alltt}
 
+<<<<<<< HEAD
 Not every  expression from the CCS syntax is a context, as 
 context variable may not within a recusion. Trivially,
  if the set of free variables of an expression
 is disjoint from a list of variables, then the expression is
  a context:
+=======
+Not every expression fit with CCS syntax is a context: any free
+variable in concern must not occur inside any recusion operator
+(cf.~the footnote at the beginning of Section~\ref{ss:SysEq}). In the
+extreme case, if the set of free variables of an expression, say $E$,
+is disjoint with a list of variables $\til X$, then this expression is
+for sure a context:
+>>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
 \end{alltt}

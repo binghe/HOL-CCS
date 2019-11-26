@@ -43,7 +43,7 @@ assume \hl{a weaker condition} that all immediate \emph{weak} derivatives of
 \HOLthm[def,>>3]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
 
-Below we show how \hl{Prop.}~\ref{prop:coarsest} is connected with
+Below we show how Proposition~\ref{prop:coarsest} is connected with
 the statement in Theorem~\ref{t:rapproxCongruence}, and prove it under
 the free action assumptions.
 %
@@ -109,7 +109,7 @@ Given the central role of the
 Rooted bisimilarity $\rapprox$ (a congruence contained in
 $\wb$), is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
-in Fig.~\ref{fig:relationship}. Thus, to prove \hl{Prop.}~\ref{prop:coarsest},
+in Fig.~\ref{fig:relationship}. Thus, to prove Proposition~\ref{prop:coarsest},
 the crux is to prove that \texttt{SUM_EQUIV} implies
 rooted bisimilarity ($\rapprox$), making all three relations
 ($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) coincide:
@@ -185,7 +185,7 @@ The core lemma says, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
- ($\rapprox$): (c.f.~\cite{Tian:2017wrba} for more details of the proof)
+ ($\rapprox$): (see~\cite{Tian:2017wrba} for more details of the proof)
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
