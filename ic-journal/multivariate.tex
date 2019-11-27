@@ -464,11 +464,7 @@ holds as a base case of the inductive definition of \HOLinline{\HOLConst{WG}}:
 \end{alltt}
 For any agent variable $X$, we have by $\beta$-reduction:
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
-<<<<<<< HEAD
-notation), and the expression  is weakly guarded (Def.~\ref{def:guardness}).
-=======
-notation) is weakly guarded (cf.~Def.~\ref{def:guardness}).
->>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
+notation), and the expression is weakly guarded (Def.~\ref{def:guardness}).
 
 It is possible to inductively assert \multivariate contexts and their
 guarded variants, but care is needed as  we need to exclude the cases where
@@ -536,20 +532,11 @@ resulting term is still a context (w.r.t.~the same set of variables):
    \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[context_combin]}
 \end{alltt}
 
-<<<<<<< HEAD
 Not every  expression from the CCS syntax is a context, as 
 context variable may not within a recusion. Trivially,
  if the set of free variables of an expression
 is disjoint from a list of variables, then the expression is
  a context:
-=======
-Not every expression fit with CCS syntax is a context: any free
-variable in concern must not occur inside any recusion operator
-(cf.~the footnote at the beginning of Section~\ref{ss:SysEq}). In the
-extreme case, if the set of free variables of an expression, say $E$,
-is disjoint with a list of variables $\til X$, then this expression is
-for sure a context:
->>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
 \end{alltt}
