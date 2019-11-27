@@ -7,12 +7,14 @@ In this section,  we discuss the formalisation of the \multivariate
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
-\hl{This formalisation only supports finitely many
-  equations/contractions and equation variables.}\footnote{\hl{The original theorems
-hold for even (uncountably) infinite equations and equation variables.}}
-We chose these two theorems because they both depend on the same
-concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-The work is an extension of the \univariate case~\cite{EPTCS276.10}
+This formalisation  supports finitely many
+  equations/contractions and equation variables.\footnote{The original theorems
+hold for even  infinitely-many equations and equation variables.}
+We chose these two theorems because of their relevance and 
+because they well illustrate the effort needed for the \multivariate case.
+% Both theorems depend on the same
+% concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
+The work is an extension of the \univariate case %~\cite{EPTCS276.10}
  in the sense that neither the CCS datatype nor
 the SOS rules need to be changed.
 
@@ -27,12 +29,12 @@ we do not have a fixed number of variables to deal with.
 
 In the  literature the variables  $X_i$ of
 a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
-\emph{equation variables}
+equation variables
 \emph{outside} of the CCS syntax; then an equation body  $E_i$  is an \emph{open} expression
 built with CCS operators plus the equation variables.
 For a formal point of view, this means we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
-opeartor must be duplicated, or we have to  add equation variables as a
+operator must be duplicated, or we have to  add equation variables as a
 new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
 the agent variables such as  \texttt{var X}).
  Then the substitution of equation
@@ -48,7 +50,7 @@ same alphabet for both agent variables and equation variables.
 This has allowed a large reuse of the \univariate formalisation.
 For instance, the variable
 substitution function used in SOS rules \texttt{REC} can be also
-used for substituting eqaution variables.
+used for substituting equation variables.
 However, a lot of care is needed in the proofs of many
 fundamental lemmas, mostly due to the variable capture issues between
 equation variables and agent variables.
@@ -63,19 +65,15 @@ equation variables and agent variables.
 
 \subsection{Free and bound variables}
 
-Recall \hl{from} the beginning of Section~\ref{s:eq} \hl{that},
-CCS syntax leaves the syntactic possibility that an
-agent variable $A$ occurs outside the recursion operator of the same
-variable. In Milner's original book chapter~\cite{milner1990operational}, the
-variables which occur in Recursion (such as $X$ in $\recu X E$) are
-called \emph{bound} variables, while those which occur unbound are called
-\emph{free} variables. 
+As mentioned at the beginning of Section~\ref{s:eq},
+ an agent variable may occur outside the recursion in which it is bound;
+i.e., a variable can appear both \emph{bound} and \emph{free} in a term.
 
-We denote the set of all bound variables of a
-given CCS term $E$ (we recall that these are variables that are bound in a recursion
+We denote the set of bound variables of a
+given CCS term $E$ (the variables that are bound in a recursion
 subexpression of $E$) as $\bv{E}$ (or \HOLtm[m\;]{BV E} in HOL), and the set of  free
 variables as $\fv{E}$ (or \HOLtm[m\;]{FV E} in HOL). Both \HOLtm{BV} and \HOLtm{FV} have the
-type ``\HOLty[of]{FV}'', i.e. functions taking CCS terms returning sets of
+type ``\HOLty[of]{FV}'', i.e. functions taking CCS terms and returning sets of
 variables (of type \HOLty{:'a}).
 % Milner didn't give their definitions explicitly. However, one can
 % imagine that, for most CCS operators they just pass into
@@ -102,8 +100,8 @@ And a list of CCS processes can be asserted by \HOLtm{ALL_PROC} defined upon \HO
 \HOLthm[def,>>3]{CCS.ALL_PROC_def}\hfill{[ALL_PROC_def]}
 \end{alltt}
 
-Note that, in CCS expression, the set of free and bound
-variables need not be disjoint, e.g.\ in  $X + \recu X E$.
+The set of free and bound
+variables of a term need not be disjoint, e.g.~in $X + \recu X E$.
 More importantly, when going
 from a CCS expression to its sub-expressions, the set of free
 variables may increase, while the set of bound variables either
@@ -116,25 +114,26 @@ we prove the following fundamental result about $\fv{\cdot}$\hl{\mbox{~\citep[p.
 \label{prop:transFV}
 The derivatives of a process are themselves processes, i.e.
 if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
-\emptyset$. Or, formally:
+\emptyset$. Formally:
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_PROC}\hfill{[TRANS_PROC]}
 \end{alltt}
 \end{proposition}
 
 \begin{proof}
-We \hl{actually proved} a stronger result \hl{saying} the set of free
-variables \hl{in any CCS process} decreases through its derivatives:
+We actually prove a stronger result, asserting that the set of free
+variables in a CCS process may decrease through its derivatives:
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_FV}\hfill{[TRANS_FV]}
 \end{alltt}
 
-\hl{Milner said it can be proven by ``an easy action induction''.}
-\hl{It is actually not that easy, and we take this chance to
-  illustrate how to apply ``action induction'' (in HOL), which} is actually a higher-order application
-of the following \emph{induction principle} generated together with SOS
-rules (which essentially says that \HOLtm{TRANS} is the smallest relation
-satisfying SOS rules):
+In textbooks such as~\cite{Mil89}, the proof of the above property is 
+commented as  ``an easy action induction''.
+\hl{The actual proof in HOL is not that trivial}:
+ ``action induction'' (or \emph{transition induction}) becomes a form of higher-order application
+of the following \emph{induction principle}, generated together with the SOS
+rules (and that essentially says that \HOLtm{TRANS} is the smallest relation
+satisfying the SOS rules):
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
 \end{alltt}
@@ -147,22 +146,21 @@ What we are trying to prove is actually in the form of
 \HOLtm[m\;]{!E u E'. TRANS E u E' ==> P E u E'}, where
 \HOLtm[m\;]{P = \E u E'. FV E' SUBSET FV E}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof
-would have completed.
-This is the essence of action induction.
-Now the original goal can be reduced to several conjunct
+is completed.
+Now, the goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
 the subgoal for \texttt{SUM1} we need to prove
 $\fv{E_1} \subseteq \fv{E} \Longrightarrow
 \fv{E_1} \subseteq \fv{E + E'}$, which holds as $\fv{E}
 \subseteq \fv{E + E'} = \fv{E} \cup \fv{E'}$. Eventually we have only
-the following goal left: (the term above the dash line is the goal,
-those below the line are assumptions)
+the following goal left (the term above the dash line is the goal,
+those below the line are assumptions):
 \begin{alltt}
         \HOLtm{FV E' SUBSET FV E DELETE X}
    ------------------------------------
     0.  \HOLtm{FV E' SUBSET FV ([rec X E/X] E)}
 \end{alltt}
-Notice that, \HOLtm[m\;]{FV E DELETE X = FV (rec X E)}, so
+Note that \HOLtm[m\;]{FV E DELETE X = FV (rec X E)}, so
 this is indeed the consequence of action induction on the Recursion.
 Here the problem is that we know nothing about
 \HOLtm[m\;]{FV ([rec X E/X] E)}. To further proceed, we need to prove
@@ -192,7 +190,7 @@ Knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
   NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and then
 \HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
   DELETE X}, no matter if \HOLtm{X IN FV E} or not, and the proof
-would have completed. Thus it remains to show that
+would be complete. Thus it remains to show that
 \begin{alltt}
         \HOLtm{X NOTIN FV E'}
    ------------------------------------
@@ -223,11 +221,11 @@ Adding the above lemma (taking $E' = E$) into the assumption list immediately ca
 a contradiction with assumption 4, and the proof finally completes.
 \end{proof}
 
-Proposition~\ref{prop:transFV} \hl{is essential in the proofs of the
+Proposition~\ref{prop:transFV} is essential in the proofs of the
   multivariable versions of all unique-solution
   theorems.
-In comparison with} the above proof, the proof of the similar
-result for bound variables is \hl{much} easier:
+In comparison with the above proof, the proof of the analogous
+result for bound variables is easier:
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
@@ -261,22 +259,21 @@ This is an easy goal, due to the following lemma which is
 Taking $E ' = \recu X E$ in the above lemma, we have
     \HOLtm[m\;]{BV ([rec X E/X] E) SUBSET BV E UNION BV (rec X E)},
     the right side equals to \HOLtm[m\;]{BV E UNION (X INSERT BV E)} $=$
-    \HOLtm[m\;]{X INSERT BV E}. Thus
-the    proof can 
- be completed.
+    \HOLtm[m\;]{X INSERT BV E}.
+This completes the proof.
 \end{proof}
 
 \subsection{\Multivariate substitutions}
 
-There are two ways to represent  the \multivariate
-substitution of $E\{\til P/\til X\}$ which substitutes each \hl{possible
-occurrence} of free variables $X_i$ in $E$ with the corresponding
+There are two ways to represent the \multivariate
+substitution $E\{\til P/\til X\}$, that replaces each \hl{free
+occurrence} of variables $X_i$ in $E$ with the corresponding
 $P_i$: (1) iterately applying the existing \univariate
 \HOLtm[-SUB]{CCS_Subst}; (2) defining a new \multivariate substitution
 function.
 % In any case, we (reasonably) assume that all $X_i$ are
 %distinct with each other. 
-Note that  there is the
+Note that there is the
 possibility that $\til P$   syntactically  again contains variables from $\til X$, thus
 different orders of iterated substitutions may lead to different results.
 % In fact, there are all kinds of issues with
@@ -295,16 +292,15 @@ by \HOLtm{FAPPLY fm k}.
 
 The function \HOLtm[-SUB]{CCS_SUBST} takes a finite
 map \HOLtm{fm} of type \HOLty{:'a |-> ('a, 'b) CCS} and a CCS expression,
-and then returns another CCS expression in which
-all occurrences of variables in the \HOLtm{fm}'s domain are substituted with
+and returns another CCS expression in which
+all occurrences of variables in \HOLtm{fm} domain are substituted with
 the corresponding value in \HOLtm{fm}. Such a finite map can be built from
 the list of variables \HOLtm{Xs} and the corresponding targets
-\HOLtm{Ps} (of the same length) by a helper function \HOLtm{fromList} (whose details are
-not interesting and omitted here), while
+\HOLtm{Ps} by a helper function \HOLtm{fromList} (whose details are
+omitted here), while
 \HOLtm[m\;,-SUB]{CCS_SUBST (fromList Xs Ps) E} is
 abbreviated as \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}.
-The substitution process is
-variable-parallel thus order-independent. For most CCS operators it
+The substitution mechanism is order-independent. For most CCS operators it
 just recursively calls itself on subterms. The only
 interesting cases are at agent variables and recursion:
 \begin{alltt}
@@ -312,7 +308,7 @@ interesting cases are at agent variables and recursion:
 
 \HOLthm[def,>>3]{Multivariate.CCS_SUBST_rec}\hfill{[CCS_SUBST_rec]}
 \end{alltt}
-Note that the variable substitution only occurs on free
+Variable substitution only occurs on free
 variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
 the domain of \HOLtm{fm}, \HOLtm{CCS_SUBST} must continue the
 substitution on $E$ using a reduced map~--- without $X$~--- so that all
@@ -328,12 +324,12 @@ Below we present some key lemmas about
 and \texttt{list} theories are used (see~\cite{holdesc} for more
 details.): \HOLtm{DISJOINT} denotes set disjointness;
 ``\HOLtm[m\;]{set Xs}'' is the set converted from the list \HOLtm{Xs};
-\HOLtm{ALL_DISTINCT} says
-all elements of a list are distinct with each other; \HOLtm{MAP} is
+\HOLtm{ALL_DISTINCT} says that
+the elements of a list are all distinct; \HOLtm{MAP} is
 the mapping function from one list to another; \HOLtm{EVERY} means
 each element of a list satisfies a predicate; \HOLtm{ZIP} creates a
 new list from two lists of the same length, and each element of the new list is a pair of
-elements, each from one of the old lists.}
+elements from the given lists.}
 
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
 If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
@@ -345,7 +341,7 @@ substitution of \HOLtm{Xs} in $E$ does not change $E$:
 
 \begin{lemma}[\texttt{CCS_SUBST_self}]
   Substituting each free variable $X$ % of \HOLtm{Xs}
-  in $E$ to \HOLtm[m\;]{var X} (itself) does not change $E$:
+  in $E$ with \HOLtm[m\;]{var X} (itself) does not change $E$:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_self}
 \end{alltt}
@@ -392,16 +388,16 @@ of \univariate substitutions of each variable:
 Finally, the following two lemmas precisely estimate the free and
 bound variables of a substituted term:
 \begin{lemma}[\texttt{BV_SUBSET_BIGUNION}]
-The bound variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
-at most the union of all bound variables from $E$ and \HOLtm{Ps}.
+The bound variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}
+are contained in the union of the bound variables in $E$ and \HOLtm{Ps}.
 \begin{alltt}
 \HOLthm{Multivariate.BV_SUBSET_BIGUNION}
 \end{alltt}
 \end{lemma}
 
 \begin{lemma}[\texttt{FV_SUBSET_BIGUNION_PRO}]
-The free variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E} have
-at most the union of all free variables from $E$ and \HOLtm{Ps},
+The free variables of \HOLtm[m\;]{CCS_SUBST (fromList Xs Ps) E}
+are contained in the union of the free variables in $E$ and \HOLtm{Ps},
 excluding \HOLtm{Xs}.
 \begin{alltt}
 \HOLthm{Multivariate.FV_SUBSET_BIGUNION_PRO}
@@ -411,7 +407,7 @@ excluding \HOLtm{Xs}.
 In the above lemmas, the condition
 \HOLtm[m\;]{DISJOINT (BV E) (set Xs)} (the bound
 variables of $E$ and the free substitution variables are disjoint) is
-not necessary but makes some proofs (much) easier. 
+not necessary but makes some proofs easier. 
 As these lemmas are
 used in the rest work, such disjointness conditions 
 are propagated everywhere. 
@@ -420,13 +416,14 @@ are propagated everywhere.
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
-Recall \hl{that} in Section~\ref{ss:context}, \univariate contexts and their
+As mentioned in
+Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
 of type $CCS\rightarrow CCS$. These predicates, such as
 \HOLtm{CONTEXT}
 (contexts/expressions), \HOLtm{WG} (weak guarded contexts),
 \HOLtm{SG} (guarded contexts) and \HOLtm{SEQ} (sequential
-contexts), are all defined inductively, i.e.~they are built from some ``holes''
+contexts), are defined inductively, i.e.~they are built from some ``holes''
 in a bottom-up way. For instance, \HOLtm[m\;]{WG (\t. prefix a t || P)}
 holds because \HOLtm[m\;]{WG (\t. prefix a t)}
 holds as a base case of the inductive definition of \HOLtm{WG}:
@@ -435,7 +432,7 @@ holds as a base case of the inductive definition of \HOLtm{WG}:
 \end{alltt}
 For any agent variable $X$, we have by $\beta$-reduction:
 \HOLtm[m\;]{(\t. prefix l t + P) (var X) = prefix l (var X) + P} (or ``$l.X + P$'' in textbook
-notation) is weakly guarded (cf.~Def.~\ref{def:guardness}).
+notation), and the expression is weakly guarded (Def.~\ref{def:guardness}).
 
 It is possible to inductively assert \multivariate contexts and their
 guarded variants, but care is needed as  we need to exclude the cases where
@@ -451,7 +448,7 @@ must satisfy \HOLtm{WG}, i.e.~the following results hold:
 \HOLthm{Example.WG_example1}
 \HOLthm{Example.WG_example2}
 \end{alltt}
-Also note that \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
+Note that \HOLtm[m\;]{prefix a t + prefix b t + prefix c (var
   Y) = CCS_Subst (prefix a (var X) + prefix b
   (var X) + prefix c  (var Y)) t X}
 can be expressed as a \univariate substitution of the original term.
@@ -461,7 +458,7 @@ This idea leads to the following definitions:
 
 \HOLthm[def,>>3]{Multivariate.weakly_guarded_def}\hfill{[weakly_guarded_def]}
 \end{alltt}
-Notice that, the above definitions take an extra list of variables \HOLtm{Xs} and
+The above definitions take an extra list of variables \HOLtm{Xs} and
 assert the CCS expression \HOLtm{E} with respect to this list. This
 allows us to formalise the concepts of contexts and guardedness
 independently of \HOLtm{FV}. Then \HOLtm[m\;]{weakly_guarded
@@ -470,22 +467,23 @@ be used assert that $E$ is weakly guarded w.r.t.~all its free
 variables.\footnote{Here \HOLtm{SET_TO_LIST} converts a finite set
   to a list of the same elements. It turns out that, we never need this, because
   in all unique-solution theorems a list of variables \HOLtm{Xs} is fixed and
-  then all equations are required to contain free variables up to
-  \HOLtm{Xs}. Thus our choices in these definitions are optimal.}
-(The guardedness and sequentiality can also be defined similarily
-when needed, using
-their \univariate companions (\texttt{SG} and \texttt{SEQ}).)
+  then all equations are required to contain free variables in
+  \HOLtm{Xs}.}
+(Guardedness and sequentiality can also be defined similarily, using
+their \univariate companions \HOLtm{SG} and \HOLtm{SEQ}.)
 
 The most important property of contexts are that, strong bisimilarity
 and other (pre)congruence relations are preserved by contexts, e.g.
 \begin{lemma}[\texttt{STRONG_EQUIV_subst_context}]
 If two tuples of processes $\til P$ and $\til Q$ are strongly
-bisimilar\footnote{Hereafter, HOL terms like \HOLtm[m\;]{STRONG_EQUIV Ps Qs}
-  means that, two list of CCS processes are componentwise
-  (strongly) bisimilar. The same notation $\sim$ has been overloaded.}
-for any context $E$ with the possible occurrences of variables $\til
-X$ (same length as $\til P$ and $\til Q$), $E\{\til P/\til X\}$ and
-$E\{\til Q/\til X\}$ are also strongly bisimilar:
+bisimilar\footnote{A HOL term like \HOLtm[m\;]{STRONG_EQUIV Ps Qs}
+  means that two lists of CCS processes are componentwise
+  (strongly) bisimilar.}, then
+for any context $E$
+% with the possible occurrences of variables $\til X$
+% (same length as $\til P$ and $\til Q$),
+also $E\{\til P/\til X\}$ and
+$E\{\til Q/\til X\}$ are strongly bisimilar:
 \begin{alltt}
 \HOLthm{Multivariate.STRONG_EQUIV_subst_context}
 \end{alltt}
@@ -501,35 +499,33 @@ resulting term is still a context (w.r.t.~the same set of variables):
 \HOLthm{Multivariate.context_combin}\hfill{[context_combin]}
 \end{alltt}
 
-Not every expression fit with CCS syntax is a context: any free
-variable in concern must not occur inside any recusion operator
-(cf.~the footnote at the beginning of Section~\ref{ss:SysEq}). In the
-extreme case, if the set of free variables of an expression, say $E$,
-is disjoint with a list of variables $\til X$, then this expression is
-for sure a context:
+Not every expression from the CCS syntax is a context, as 
+context variable may not within a recusion. Trivially,
+ if the set of free variables of an expression
+is disjoint from a list of variables, then the expression is a context:
 \begin{alltt}
 \HOLthm{Multivariate.disjoint_imp_context}\hfill{[disjoint_imp_context]}
 \end{alltt}
-On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$, we can
-conclude that, the set of free variables of $E$ excluding $Y$, is
-disjoint with $\til X$, i.e.
+On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$,
+the set of free variables of $E$ excluding $Y$ is
+disjoint from $\til X$, i.e.
 \begin{alltt}
 \HOLthm{Multivariate.context_rec}\hfill{[context_rec]}
 \end{alltt}
-Notice that, the above result is the best possible one. We cannot
+In the above result we cannot
 conclude \HOLtm[m\;]{DISJOINT (FV E) (set Xs)}, because $Y$ as a bound
-variable of $\recu Y E$ may be also a free variable in $\til X$. We
+variable of $\recu Y E$ may also be a free variable in $\til X$. We
 also cannot conclude \HOLtm[m\;]{context Xs E}, because in $\recu Y E$
 it is possible that the bound variable $Y$ occurs inside another
-recursion operator, then in $E$ it now becomes free. (See $\recu Y
-(\recu Z (a.Y + b.Z) + c.Y)$ for such an example.)
+recursion operator, and then it is a free variable for $E$ (as in $\recu Y
+(\recu Z (a.Y + b.Z) + c.Y)$).
 
 For weakly-guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
 guardedness) as in the \univariate case (\HOLtm{WG}), we also need
 their composability w.r.t.~\multivariate contexts: if we
 substitute some free variables in a context $C$ for some weakly-guarded
-contexts, the resulting term is weakly-guarded (w.r.t.~the same set of variables):
+contexts the resulting term is weakly-guarded (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLthm{Multivariate.weakly_guarded_combin}\hfill{[weakly_guarded_combin]}
 \end{alltt}
@@ -556,39 +552,46 @@ Consider its two essential ingredients:
 \item $\til E = (E_1, E_2, \ldots, E_n)$: a list of CCS contexts 
   with possible occurrences of free variables in $\til X$.
 \end{itemize}
-Obviously the two lists must have the same length. The all
-distinctness of $\til X$ is not really necessary but is very
-reasonable. Furthermore, we should assume $\til E$ does not contain
-any other free variables not in $\til X$, as Milner's unique-solution
-theorems also require the same condition.\footnote{One may think that,
-  if all other (i.e.~not in $\til X$) free variables in $\til E$ have
-  the same functionalities as $\nil$ as they are not to be
-  substituted, then all versions of unique-solution
-  theorems should still hold. However this is not the case for at
-  least Milner's Theorem~\ref{t:Mil89s1} as we shall explain.}
-
-In this project, the only optional restriction we added here is that, for each
-$E_i$ the set of its bound variables must be \emph{disjoint} with $\til
-X$. This restriction is actually aligned with literature based on
-process constants as one should never use the same name for equation
-variables and constants. However, we believe this restriction can be
-removed in the future.~\footnote{Essentially, this restriction is due
-  to the proof difficulties in some early lemmas about \multivariate
+Obviously the two lists must have the same length. 
+% The all
+% distinctness of $\til X$ is not really necessary but is very
+% reasonable. 
+Furthermore, we should assume that $\til E$ does not contain
+ free variables not in $\til X$.
+% , as Milner's unique-solution
+% theorems also require the same condition.
+% \footnote{One may think that,
+%   if all other (i.e.~not in $\til X$) free variables in $\til E$ have
+%   the same functionalities as $\nil$ as they are not to be
+%   substituted, then all versions of unique-solution
+%   theorems should still hold. However this is not the case for at
+%   least Milner's Theorem~\ref{t:Mil89s1} as we shall explain.}
+The only optional condition we have added is that, for each
+$E_i$, the set of its bound variables must be \emph{disjoint} from $\til X$.
+% This restriction is actually aligned with literature based on
+% process constants as one should never use the same name for equation
+% variables and constants. However, we believe this restriction can be
+% removed in the future.~
+\footnote{Essentially, this condition is due
+  to  some early lemmas about \multivariate
   substitutions where \HOLtm[m\;]{DISJOINT (BV E) (set Xs)}
-  unnecessarily appears in the antecedents. Removing it requires a
-  more complex proof but is indeed possible. (We have succeeded in
-  fixing many such lemmas.) Once all these lemmas are
-fixed, the final unique-solution theorems also do not need this
-disjointness restriction.} Putting all together, below is the fomal
+ appears in the antecedents. Removing this would require 
+  more complex proofs.
+% (We have succeeded in
+%   fixing many such lemmas.) Once all these lemmas are
+% fixed, the final unique-solution theorems also do not need this
+% disjointness restriction.
+} 
+Putting all together, below is the fomal
 definition of \multivariate CCS equation:
 \begin{alltt}
 \HOLthm[>>3]{Multivariate.CCS_equation_def}\hfill{[CCS_equation_def]}
 \end{alltt}
 
-Now consider (formally) what is a solution $\til P$ of CCS equation. First of
+Now consider (formally) what is a solution $\til P$ of CCS equations. First of
 all, the definition should be parametrized on a binary CCS
 relation $\R$ such as $\sim$ and $\rcontr$, so that the single definition
-could be used for the solution of all kind of CCS
+could be used for the solution of all kinds of CCS
 equations/contractions. Then, of course ${\til P} \ \R\  {\til E}\{\til
 P/\til X\}$ must hold, i.e.
 \begin{equation*}
@@ -599,13 +602,16 @@ P/\til X\}$ must hold, i.e.
     &P_n \ \R\ E_n\{\til P/\til X\}
   \end{cases}
 \end{equation*}
-Furthermore, each $P_i$ should be pure process, i.e. having no free
-variable. This is usually implicitly assumed in the literature but is
-actually a \emph{must} to complete some unique-solution proofs.
-At last, like the case of CCS equations, we must assume that, the
-set of bound variables (i.e. process constants) must be disjoint with
-$\til X$. (This disjointness requirement is optional but makes many proofs much
-easier, and it can be removed in the future.) Putting all together,
+Furthermore, each $P_i$ should be a pure process, i.e. having no free
+variable.
+% This is usually implicitly assumed in the literature but is
+% actually a \emph{must} to complete some unique-solution proofs.
+Finally, 
+%like the case of CCS equations, we must assume that, 
+the set of bound variables %(i.e. process constants) 
+must be disjoint from
+$\til X$ (this disjointness requirement is optional but makes many proofs
+easier). Putting all together,
 below is the formal definition of a solution of \multivariate CCS
 equations:\footnote{If $R$ is a binary relation of CCS processes,
   \HOLtm[m\;]{LIST_REL R} is the same binary relation but for lists of
@@ -614,29 +620,28 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
 \begin{alltt}
 \HOLthm[>>3]{Multivariate.CCS_solution_def}\hfill{[CCS_solution_def]}
 \end{alltt}
-Notice that, in HOL, \HOLtm[m\;]{CCS_solution R Xs Es Ps <=> Ps IN
-  (CCS_solution R Xs Es)}. The form in right side suggest that,
+Note that, in HOL, \HOLtm[m\;]{CCS_solution R Xs Es Ps <=> Ps IN
+  (CCS_solution R Xs Es)}. The form in the right-hand side suggests that,
 \HOLtm[m\;]{CCS_solution R Xs Es} is actually a set containing all
 solutions (of \HOLtm[m\;]{CCS_equation Xs Es}). Then the unique-solution
-theorems can be understood as: any two (syntactically different) elements
+theorems can be understood thus: any two (syntactically different) elements
 in the set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
 
-With all above new devices (\multivariate contexts and substitutions),
+With the above machinery about \multivariate contexts and substitutions,
 the \multivariate case of Lemma~\ref{lem:milner313} is formalised
 below:
 \begin{alltt}
 \HOLthm{Multivariate.strong_unique_solution_lemma}
 \end{alltt}
-Notice that, while Milner did not pointed out explicitly, the involved
-weakly guarded context $E$ must contain free variables up to $\til
-X$~--- the same requirement as in Theorem~\ref{t:Mil89s1}, which
-otherwise does not complete. Besides, we further required that, the
-bound variables of $E$ must be disjoint with $\til X$.
+% Notice that, while Milner did not pointed out explicitly, the involved
+% weakly guarded context $E$ must contain free variables up to $\til
+% X$~--- the same requirement as in Theorem~\ref{t:Mil89s1}, which
+% otherwise does not complete. Besides, we further required that, the
+% bound variables of $E$ must be disjoint with $\til X$.
 
-The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised
-below:
+The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
 \begin{alltt}
 \HOLthm{Multivariate.strong_unique_solution_thm}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
@@ -648,5 +653,5 @@ And the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
 
 Compared with their formal proofs in the \univariate case, although each
 step related to \multivariate substitutions is more difficult than
-the \univariate case, the entire proofs still follow the same outlines,
+the \univariate case, the entire proofs still follow the same outline,
 and many proof scripts can be directly copied from their \univariate version.

@@ -68,9 +68,9 @@ HOL4 is implemented in Standard ML, and
  the same programming language
 plays three different roles:
 \begin{enumerate}
-\item \hl{The} underlying implementation language for the core HOL engine;
-\item \hl{The} language in which proof tactics are implemented;
-\item \hl{The} interface language of the HOL proof scripts and interactive shell.
+\item The underlying implementation language for the core HOL engine;
+\item The language in which proof tactics are implemented;
+\item The interface language of the HOL proof scripts and interactive shell.
 \end{enumerate}
 Moreover, using the same language HOL4 users can write complex automatic
 verification tools by calling HOL's theorem proving
@@ -122,7 +122,7 @@ distinguished infinite set $I$.
 
 The terms of the HOL logic represent elements of the
 sets denoted by the types. There are four kinds of terms in the HOL
-logic. \hl{They} can be described (in simplified forms) by the BNF grammar in
+logic. They can be described (in simplified forms) by the BNF grammar in
 Fig.~\ref{fig:hol-terms}; see~\cite{hollogic} for a complete description.
 
 \settowidth{\ttX}{\tt X}
@@ -199,8 +199,9 @@ The last logical constant,
 $\TyDef$, can be used to define new HOL types as bijections of
 subsets of existing types~\cite{Melham:1989dk}.
 HOL \texttt{Datatype} package~\cite{Melham:1991, holdesc} automates
-this tedious process, and can be used for \hl{defining the 
-types needed for} CCS.
+this tedious process, and can be used for defining the 
+types needed for CCS.
+%
 Finally, the whole HOL \emph{standard} theory is based on the
 following four axioms:\footnote{HOL is strictly
   weaker than ZFC (the Zermelo-Frankel set theory with the
@@ -220,16 +221,6 @@ in HOL. (See~\cite{hollogic} for more details.)}
 
 Usually the above four axioms are the only axioms allowed
 in conventional formalisation projects in HOL: adding new axioms
-\hl{manually}, may break logical \hl{consistency}.
-% \hl{In general,} the theorem prover guarantees that,
-% without adding new axioms, if both the definitions and the statements
-% of theorems are correct, then the \hl{proofs of these theorems} is
-%  \hl{also} correct.
-% This last sentence doesn't have a good link with the previous context,
-% disabled. --Chun
-%
-%% This is also the case here: SOS rules of CCS are
-%% \emph{not} axioms but consequences of the inductive relation\hl{, the
-%% CCS transition $\rightarrow$}.
+manually, may break logical consistency.
 
 % next file: sos.htex

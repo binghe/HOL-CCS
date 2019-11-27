@@ -157,8 +157,9 @@ TAU_WEAK:  \HOLthm{WeakLaws.TAU_WEAK}
 
 \subsection{Expansion, Contraction and Rooted Contraction}
 
-To formally define bisimulation expansion and contraction (and their preorders), we have
-followed the same ways as in the case of strong and weak bisimilarities:
+We have \hl{formalised}
+ bisimulation expansion and contraction (and their preorders) along
+ the lines of strong and weak bisimilarity:
 \begin{alltt}
 \HOLthm[def]{Expansion.EXPANSION}\hfill{[EXPANSION]}
 
@@ -171,9 +172,9 @@ followed the same ways as in the case of strong and weak bisimilarities:
 \HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{It is formally verified} that contraction preorder
-\hl{($\mcontrBIS$) contains expansion
-preorder ($\expa$), and they are both}
+We have verified the properties that the contraction preorder
+($\mcontrBIS$) contains the expansion
+preorder ($\expa$), and that they are both
 contained in weak bisimilarity ($\wb$):
 \begin{proposition}{(Relationships between contraction preorder,
     expansion preorder and weak bisimilarity)}
@@ -188,17 +189,18 @@ contained in weak bisimilarity ($\wb$):
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-The proof of a property for contraction (and contraction preorder) is
-\hl{generally} harder than \hl{the case for} expansion. \hl{This} is mostly due to the fact
-  that, although contraction preorder ($\mcontrBIS$) is contained in
-  bisimilarity ($\wb$), in general it \hl{is not} true that \hl{a
-  contraction itself is also a bisimulation.} In another words,
-  the following proposition does not hold: (What holds, \hl{however}, is that $\R\ \cup \wb$ is a bisimulation)
+The proof of a property for contraction is
+generally harder than  that for expansion. This is mostly due to the fact
+  that, although the contraction preorder ($\mcontrBIS$) is contained in
+  bisimilarity ($\wb$), a contraction need not be a bisimulation.
+  In another words, the following proposition does not hold:
 \begin{alltt}
 \HOLtm[>>3]{!Con. CONTRACTION Con ==> WEAK_BISIM Con}
 \end{alltt}
-For instance, in the proof of \texttt{contracts_IMP_WEAK_EQUIV},
-we can prove it by constructing a bisimulation \HOLtm{Wbsm} containing two processes
+However it does hold that, if $\R$ is a contraction, then
+ $\R\;\cup \wb$ is a bisimulation.
+For instance, we can prove \texttt{contracts_IMP_WEAK_EQUIV}
+ by constructing a bisimulation \HOLtm{Wbsm} containing two processes
 $P$ and $Q$, given that they are in $Con$ (a contraction):
 \begin{alltt}
         \HOLtm{?Wbsm. Wbsm P Q /\ WEAK_BISIM Wbsm}
@@ -220,14 +222,14 @@ defined as follows:
 \subsection{The formalisation of ``bisimulation up to bisimilarity''}
 
 ``Bisimulation up to'' is a family of powerful proof techniques
-\hl{for reducing the sizes of relations needed for defining bisimulations}.
+for reducing the sizes of relations needed for defining bisimulations.
 By definition, two processes are bisimilar if there exists a
 bisimulation relation containing them. However, in practice
-this definition is hard \hl{to be} followed plainly. \hl{I}nstead, to reduce
-the \hl{sizes of the exhibited relations}, one prefers to define relations
+this definition is sometimes  hard to apply. Instead, to reduce
+the sizes of the exhibited relations, one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. \hl{These}
-\emph{``up-to'' techniques} \hl{are general devices allowing} a great variety of possibilities.
+privileged relation, so to relieve the proof work needed. These
+are usually called \emph{``up-to'' techniques}.
 
 Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
@@ -257,13 +259,13 @@ $\mathcal{S} \subseteq\;\sim$:
 \end{theorem}
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
-
+%
 For weak bisimilarity, the \emph{naive} weak bisimulation up to weak bisimilarity
-is unsound: if one simply replaces all \hl{occurrences of} $\sim$ in
+is unsound: if one simply replaces all occurrences of $\sim$ in
 Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
-\hl{``weak bisimulation up to'' relation will not be contained in weak
-  bisimilarity} ($\wb$)~\cite{sangiorgi1992problem}.
-There are a few ways to fix this problem, \hl{and} one is the following:
+``weak bisimulation up to'' relation need not be contained in weak
+  bisimilarity ($\wb$)~\cite{PoSa2019}.
+There are a few ways to fix this problem, and one is the following:
 %
 \begin{definition}%[Bisimulation up to $\approx$]
   $\S$ is a ``bisimulation up to $\approx$'' if
@@ -274,12 +276,12 @@ There are a few ways to fix this problem, \hl{and} one is the following:
 \item Whenever $Q \arr{\mu} Q'$ then, for some
   $P'$, $P \Arcap{\mu} P'$ and $P' \approx \S \sim Q'$.
 \end{enumerate}
-or formally (for illustrating purposes below),
+Formally:
 \begin{alltt}
-\HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO}
+\HOLthm[def,>>3]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-Note that the \hl{HOL term corresponding to} $\sim \R \approx$ is
+The HOL term corresponding to $\sim \R \wb$ is
 ``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
@@ -294,21 +296,21 @@ $\mathcal{S} \subseteq\;\approx$:
 \end{theorem}
 
 The above version of ``bisimulation up to $\wb$'' 
-is not powerful \hl{enough} to prove Milner's ``unique solution of equations''
+is not powerful enough for Milner's ``unique solution of equations''
 theorem for $\wb$ (see~\cite{sangiorgi1992problem} for more details).
-To complete the proof, the following version \hl{\emph{with weak arrows}} is
+To complete the proof, the following version \emph{with weak arrows} is
 actually used:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
-$\mathcal{S}$ is a \hl{``bisimulation up to $\approx$ with weak arrows''} if $P \;
+$\mathcal{S}$ is a ``bisimulation up to $\approx$ with weak arrows'' if $P \;
   \mathcal{S} \; Q$ implies, for all $\mu$,
 \begin{enumerate}
 \item Whenever $P \Arr{\mu} P'$ then, for some $Q'$, $Q \Arcap{\mu} Q'$ and $P' \wb \S \wb Q'$,
 \item Whenever $Q \Arr{\mu} Q'$ then, for some $P'$, $P \Arcap{\mu} P'$ and $P' \wb \S \wb Q'$.
 \end{enumerate}
-\hl{or formally (for showing the correspondence between the informal and formal definitions)}
+Formally:
 \begin{alltt}
-\HOLthm[def,>>4]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}
+\HOLthm[def,>>3]{BisimulationUpto.WEAK_BISIM_UPTO_ALT}
 \end{alltt}
 \end{definition}
 

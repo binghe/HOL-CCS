@@ -8,15 +8,17 @@
 
 In this section we give a proof of the second part of
 Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
-congruence contained in $\wb$. This theorem is of special \hl{interest} to
-us, because under our \hl{CCS syntax (with only binary summations)} it seems impossible to prove it
-without any \hl{antecedent such as ``the involved processes do not
-  use up all available labels''}. The general form of this theorem can be
-expressed informally as below~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
+congruence contained in $\wb$. 
+The formalisation of this theorem presents some 
+delicate aspects; for instance, 
+with our CCS syntax (\hl{which has} only binary sums)
+we have to add an hypothesis about
+ the involved processes not using all available labels.
+The general form of the theorem is thus~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{proposition}
 \label{prop:coarsest}
-  \hl{Rooted bisimilarity ($\rapprox$) is the coarsest congruence
-    contained in weak bisimilarity ($\wb$):}
+  Rooted bisimilarity ($\rapprox$) is the coarsest congruence
+    contained in weak bisimilarity ($\wb$):
   \begin{equation}
     \label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
@@ -24,20 +26,19 @@ r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 \end{proposition}
 From left to right (\ref{eq:coarsest}) trivially holds, due to the substitutivity of
-$\rapprox$ \hl{for} summation and \hl{the fact that} $\rapprox$ implies $\wb$:
+$\rapprox$ for summation and the fact that $\rapprox$ implies $\wb$:
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_LR}\hfill{[COARSEST_CONGR_LR]}
 \end{alltt}
 Thus we are only interested in (\ref{eq:coarsest}) from right to left.
 %
 The standard argument~\cite{Mil89} requires that $p$
-and $q$ do not use up \hl{all} available labels (i.e.~visible actions).
-Formalising this \hl{result, however,} requires a detailed treatment on free and bound names of CCS
-processes (with the restriction operator being a binder).
-\hl{In} this project we do not discuss free and bound names (also
-called ``sorts'') of CCS processes. Instead, we
-assume \hl{a weaker condition} that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use all available \hl{labels}. We \hl{might} call it
+and $q$ do not use all available labels (i.e.~visible actions).
+Formalising this result, however, requires a detailed treatment of free and bound names of CCS
+processes (with the restriction operator acting as a binder).
+In our formalisation, in contrast,
+we assume \hl{a} weaker condition that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use all available labels. We call this
  the \emph{free action} property:
 \begin{alltt}
 \HOLthm[def,>>3]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
@@ -55,24 +56,24 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \HOLthm[def,>>3]{Congruence.CC_def}\hfill{[CC_def]}
 \HOLthm[def,>>3]{CoarsestCongr.WEAK_CONGR}\hfill{[WEAK_CONGR]}
 \end{alltt}
-We do not need to put $R\ g\ h$ \hl{into} the antecedents of
+We do not need to put $R\ g\ h$ into the antecedents of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
 The next result shows that, for any binary relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
-fine as $R$: ($\subseteq_r$ stands for \emph{relational subset}.)
+fine as $R$ ($\subseteq_r$ stands for \emph{relational subset}):
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
-Furthermore, we prove that any (pre)congruence contained in $R$, \hl{who
-itself} needs not to be a (pre)congruence,
+Furthermore, we prove that any (pre)congruence contained in $R$,
+that itself needs not to be a (pre)congruence,
 is contained in the composition closure of $R$
-(hence the \hl{composition} closure is the coarsest one):
+(hence the composition closure is the coarsest one):
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
 \HOLthm[nosp]{Congruence.PCC_is_coarsest}\hfill{[PCC_is_coarsest]}
 \end{alltt}
 
-Given the central role of the  
+Given the central role of
  summation, we also consider the relation closure of bisimilarity
  w.r.t. summation, called \emph{equivalence compatible with summation}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
@@ -106,8 +107,8 @@ Given the central role of the
 % \begin{alltt}
 % \HOLthm[def]{CoarsestCongr.SUM_EQUIV}
 % \end{alltt}
-Rooted bisimilarity $\rapprox$ (a congruence contained in
-$\wb$), is now contained in \texttt{WEAK_CONGR},
+Rooted bisimilarity $\rapprox$ (as a congruence contained in
+$\wb$) is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove Proposition~\ref{prop:coarsest},
 the crux is to prove that \texttt{SUM_EQUIV} implies
@@ -134,7 +135,7 @@ rooted bisimilarity ($\rapprox$), making all three relations
 \label{fig:relationship}
 \end{figure}
 
-\hl{The} actual formalisation of (\ref{equa:pq}) says:
+The formalisation of (\ref{equa:pq}) says:
 \begin{theorem}[\texttt{COARSEST_CONGR_RL}]
   Under the free actions assumption, $\rapprox$ is coarsest congruence contained in $\wb$.
 \begin{alltt}
@@ -144,8 +145,7 @@ rooted bisimilarity ($\rapprox$), making all three relations
 
 With an almost identical proof, rooted contraction
 ($\rcontr$) is also the coarsest
-precongruence contained in the bisimilarity contraction ($\mcontrBIS$)
-(the other direction is trivial):
+precongruence contained in the bisimilarity contraction ($\mcontrBIS$):
 \begin{theorem}[\texttt{COARSEST_PRECONGR_RL}]
   Under the free actions assumption, $\mcontrBIS$ is the coarsest precongruence contained in $\contr$.
 \begin{alltt}
@@ -163,14 +163,14 @@ derivatives for $p$ and $q$, and only requires that there is an input
 or output action
 that never appears as a label. Furthermore, such an action need
 not to be the same for $p$ and for $q$,
-as an action $a$ and its complementary $\outC a$ are
-considered as \emph{different} actions.
+and an action $a$ and its complementary $\outC a$ are
+considered different actions.
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
 
 In this section, we give another more complex proof of the second part
-of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS:
+of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS.
 \begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
     \label{thm:coarsestfiniteState}
     For finite-state CCS, $\wb$ is the coarsest congruence contained in $\approx$:
@@ -181,11 +181,11 @@ of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS:
 
 The formal proof follows van
 Glabbeek~\cite{van2005characterisation}.
-The core lemma says, for
+The core lemma says that for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
- ($\rapprox$): (see~\cite{Tian:2017wrba} for more details of the proof)
+ ($\rapprox$) (see~\cite{Tian:2017wrba} for more details of the proof):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
@@ -200,17 +200,19 @@ an arbitrary large sequence of processes (firstly introduced by Jan
 Willem Klop \cite{van2005characterisation})
  that are all pairwise non-bisimilar.
 We have only partially formalised
-this proof (Theorem~\ref{thm:coarsestfiniteState} in next section), because ``the typed logic
+this proof (Theorem~\ref{thm:coarsestfiniteState} in next section),
+because
+the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
-ordinals''~\cite{norrish2013ordinals}.
+ordinals~\cite{norrish2013ordinals}.
 As a consequence, the final result is only for finite-state
-CCS~--- a  restricted class.\footnote{\hl{van Glabbeek's
-  original proof applies to all CCS processes, but it
+CCS.\footnote{van Glabbeek's
+  original proof applies to all CCS processes; however,  it
   requires the CCS syntax to support arbitrary large summations based
-  on ordinals, and it relies on the fact that, there always exists an
-  ordinal large than the cardinality of any given set. This is beyond
-  the capacity of HOL.}}
+  on ordinals, and relies on the existence  of an
+  ordinal larger than the cardinality of any given set. This is beyond
+  the possibilities of HOL.}
 
 The assumption in \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
@@ -225,7 +227,7 @@ then it will be
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
 This can be done following Klop's contruction \cite{van2005characterisation}.
- We call  the processes in this construction \hl{the ``Klop processes''}:
+ We call  the processes in this construction the ``Klop processes'':
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
 define a CCS process $k_\lambda$ as follows:
@@ -233,8 +235,8 @@ define a CCS process $k_\lambda$ as follows:
 \item $k_0 = 0$,
 \item $k_{\lambda+1} = k_\lambda + a.k_\lambda$ and
 \item for $\lambda$ a limit ordinal, $k_\lambda = \sum_{\mu < \lambda}
-  k_\mu$, meaning that $k_\lambda$ is constructed from all graphs
-  $k_\mu$ for $\mu < \lambda$ by identifying their root.
+  k_\mu$ (meaning that $k_\lambda$ is constructed from all graphs
+  $k_\mu$ for $\mu < \lambda$ by identifying their root).
 \end{itemize}
 \end{definition}
 When processes are finite-state, that is,
@@ -250,7 +252,7 @@ defined as a recursive function (on natural numbers) in HOL4:
 
 Following the inductive structure of the definition of Klop processes,
   and using the SOS rules
-  ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we proved
+  ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we have proved
 the following properties of Klop functions:
 \begin{proposition}{(Properties of Klop functions and processes)}
 \begin{enumerate}
@@ -288,7 +290,7 @@ We can therefore
 choose a number that is mapped onto a Klop process
 that is distinct (i.e., not bisimilar)  from 
 any  of the derivatives of two  given 
-two finite-state CCS processes $p$ and $q$
+ finite-state CCS processes $p$ and $q$
 (by definition, the number of such derivatives is finite).
 This is done by 
 appealing to a basic set-theory result.
@@ -344,7 +346,8 @@ To reason about finite-state CCS, we also need to define the concept
 of ``finite-state'':
 \begin{definition}{(Definitions related to finite-state CCS)}
 \begin{enumerate}
-\item Define \emph{reachable} as the RTC of a relation, which
+\item Define \emph{reachable} as the RTC (reflexive and transitive
+  closure) of a relation, which
   indicates the existence of a transition between two processes:
 \begin{alltt}
 \HOLthm[def]{Trace.Reach_def}\hfill[Reach_def]
@@ -360,9 +363,8 @@ of ``finite-state'':
 \end{alltt}
 \end{enumerate}
 \end{definition}
-
-Among many properties of above definitions, we mainly rely on the
-following (trivial) property for weak transitions:
+We rely on various 
+ properties of the above definitions, such as the following one:
 \begin{proposition}
 If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
 \begin{alltt}

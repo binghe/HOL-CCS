@@ -140,12 +140,6 @@ T.~F. Melham, {A Package For Inductive Relation Definitions In HOL}, in: 1991.,
   HOL System DESCRIPTION (Kananaskis-13 release)}} (Aug. 2019).
 \newline\urlprefix\url{http://sourceforge.net/projects/hol/files/hol/kananaskis-13/kananaskis-13-description.pdf}
 
-\bibitem{gorrieri2017ccs}
-R.~Gorrieri, {CCS (25, 12) is Turing-complete}, Fundamenta Informaticae
-  154~(1-4) (2017) 145--166.
-\newblock \href {https://doi.org/10.3233/FI-2017-1557}
-  {\path{doi:10.3233/FI-2017-1557}}.
-
 \bibitem{PoSa2019}
 D.~Pous, D.~Sangiorgi, Bisimulation and coinduction enhancements: A historical
   perspective, Formal Aspects of Computing (2019).

@@ -22,27 +22,26 @@ single-variable cases. The precise definition is given inductively:
 \begin{alltt}
 \HOLthm{Congruence.CONTEXT_rules}\hfill{[CONTEXT_rules]}
 \end{alltt}
-Notice in above inductive definitions, for any CCS term $p$,
-\HOLtm[m\;]{\t. p} is a valid context. In this case there is no
-hole in the context. On the other hand, if any CCS term with recursion
-could be a context, the recursion must be a subterm of this $p$.
+In above inductive definitions, for any CCS term $p$,
+\HOLtm[m\;]{\t. p} is a valid context with no hole.
 
-A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
+A context is \emph{weakly guarded} (\HOLtm{WG}) if each hole is
 underneath a prefix:
 \begin{alltt}
 \HOLthm{Congruence.WG_rules}\hfill{[WG_rules]}
 \end{alltt}
-(Notice the differences between a weak guarded context and a normal
-one: $\lambda t. t$ is not weakly guarded as the variable is directly
+(Notice the differences between a weakly guarded context and an
+ordinary
+context: $\lambda t. t$ is not weakly guarded as the variable is directly
 exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
 
-A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
+A context is \emph{guarded} (\HOLtm{SG}) if each hole is underneath a \emph{visible} prefix:
 \begin{alltt}
 \HOLthm{Congruence.SG_rules}\hfill{[SG_rules]}
 \end{alltt}
 
-A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
+A context is \emph{sequential} (\HOLtm{SEQ}) if each of its \emph{subcontexts} with
 a hole, apart from the hole itself, is in forms of prefixes or sums:
 (See Def.~\ref{def:guardness} and \citep[p.~101, 157]{Mil89} for
 the informal definitions.)
@@ -50,8 +49,8 @@ the informal definitions.)
 \HOLthm{Congruence.SEQ_rules}\hfill{[SEQ_rules]}
 \end{alltt}
 
-In the same manner, we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
+In the same manner, we can also define variants of contexts (\HOLtm{GCONTEXT}) and weakly guarded
+contexts (\HOLtm{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
 \begin{alltt}
 \HOLthm{Congruence.GCONTEXT_rules}\hfill{[GCONTEXT_rules]}
 \end{alltt}
@@ -59,16 +58,17 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
 \HOLthm{Congruence.WGS_rules}\hfill{[WGS_rules]}
 \end{alltt}
 
-Many lemmas about the above concepts (\HOLtm{CONTEXT}, \HOLtm{WG},
-\HOLtm{SEQ}, etc.) have to be proved for the
- relationships among these kinds of contexts and properties about their
+\hl{Several}
+lemmas about the above concepts (\HOLtm{CONTEXT}, \HOLtm{WG},
+\HOLtm{SEQ}, etc.) \hl{are needed for capturing} properties about
+ the relationships among these kinds of contexts and their
  compositions. These proofs are usually tedious and long,  due to multiple levels of
  inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
-\texttt{CONTEXT}. The only difference between congruence and
-precongruence is that the former  is an equivalence (reflexive,
-symmetric, transitive), while the latter can  just be  a preorder (reflexive, transitive):
+\HOLtm{CONTEXT}. The only difference between congruence and
+precongruence is that the former is an equivalence,
+while the latter can just be a preorder:
 \begin{alltt}
 \HOLthm[def,>>3]{Congruence.congruence}\hfill{[congruence]}
 
@@ -76,19 +76,19 @@ symmetric, transitive), while the latter can  just be  a preorder (reflexive, tr
 \end{alltt}
 
 Both strong bisimilarity ($\sim$) and
-rooted bisimilarity ($\approx^c$) are congruence:
+rooted bisimilarity ($\approx^c$) are congruence relations:
 \begin{alltt}
 \HOLthm{Congruence.STRONG_EQUIV_congruence}\hfill{[STRONG_EQUIV_congruence]}
 \HOLthm{Congruence.OBS_CONGR_congruence}\hfill{[OBS_CONGR_congruence]}
 \end{alltt}
 
 Although weak bisimilarity ($\approx$) is \emph{not} a congruence
-  with respect to~\texttt{CONTEXT}, it is indeed substitutive
-  with respect to~\texttt{GCONTEXT} 
+  with respect to~\HOLtm{CONTEXT}, it is indeed substitutive
+  with respect to~\HOLtm{GCONTEXT} 
 % (or if the CCS syntax were defined with
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
 as $\approx$ is indeed preserved by guarded sums.
-
+%
 Rooted contraction, on the other hand, is a precongruence:
 \begin{alltt}
 \HOLthm{Contraction.OBS_contracts_precongruence}\hfill{[OBS_contracts_precongruence]}

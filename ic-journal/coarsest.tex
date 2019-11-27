@@ -8,23 +8,17 @@
 
 In this section we give a proof of the second part of
 Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
-congruence contained in $\wb$.
+congruence contained in $\wb$. 
 The formalisation of this theorem presents some 
 delicate aspects; for instance, 
-with   our CCS syntax
-(with only binary sums)
-we have to add  an hypothesis about 
- \hl{the involved processes  not
-  using all available labels}.
-% This theorem is of special \hl{interest} to us, because under our
-% \hl{CCS syntax (with only binary summations)} it seems impossible to
-% prove it without any \hl{antecedent such as ``the involved processes
-%   do not use up all available labels''}.
+with our CCS syntax (\hl{which has} only binary sums)
+we have to add an hypothesis about
+ the involved processes not using all available labels.
 The general form of the theorem is thus~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{proposition}
 \label{prop:coarsest}
-  \hl{Rooted bisimilarity ($\rapprox$) is the coarsest congruence
-    contained in weak bisimilarity ($\wb$):}
+  Rooted bisimilarity ($\rapprox$) is the coarsest congruence
+    contained in weak bisimilarity ($\wb$):
   \begin{equation}
     \label{eq:coarsest}
 \forall p\ \ q.\ p\ \rapprox\ \! q\ \Longleftrightarrow\ ( \forall r.\ p\ +\
@@ -32,22 +26,19 @@ r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 \end{proposition}
 From left to right (\ref{eq:coarsest}) trivially holds, due to the substitutivity of
-$\rapprox$ \hl{for} summation and \hl{the fact that} $\rapprox$ implies $\wb$:
+$\rapprox$ for summation and the fact that $\rapprox$ implies $\wb$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{r}. \HOLBoundVar{p} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{r}\hfill{[COARSEST_CONGR_LR]}
 \end{alltt}
 Thus we are only interested in (\ref{eq:coarsest}) from right to left.
 %
 The standard argument~\cite{Mil89} requires that $p$
-and $q$ do not use \hl{all} available labels (i.e.~visible actions).
-Formalising this \hl{result, however,} requires a detailed treatment of free and bound names of CCS
+and $q$ do not use all available labels (i.e.~visible actions).
+Formalising this result, however, requires a detailed treatment of free and bound names of CCS
 processes (with the restriction operator acting as a binder).
-\hl{In} our formalisation, in contrast, 
-%  we do not discuss free and bound names (also
-% called ``sorts'') of CCS processes. Instead, 
-we 
-assume \hl{the weaker condition} that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use all available \hl{labels}. We  call this
+In our formalisation, in contrast,
+we assume \hl{a} weaker condition that all immediate \emph{weak} derivatives of
+ $p$ and $q$ do not use all available labels. We call this
  the \emph{free action} property:
 \begin{alltt}
    \HOLConst{free_action} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{p}\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
@@ -65,7 +56,7 @@ the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
    \HOLConst{CC} \HOLFreeVar{R} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{g} \HOLBoundVar{h}. \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{c}. \HOLConst{CONTEXT} \HOLBoundVar{c} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{g}\ensuremath{)} \ensuremath{(}\HOLBoundVar{c} \HOLBoundVar{h}\ensuremath{)}\ensuremath{)}\hfill{[CC_def]}
    \HOLConst{WEAK_CONGR} \HOLTokenDefEquality{} \HOLConst{CC} \HOLConst{WEAK_EQUIV}\hfill{[WEAK_CONGR]}
 \end{alltt}
-We do not need to put $R\ g\ h$ \hl{into} the antecedents of
+We do not need to put $R\ g\ h$ into the antecedents of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
 The next result shows that, for any binary relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
@@ -73,16 +64,16 @@ fine as $R$ ($\subseteq_r$ stands for \emph{relational subset}):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R}. \HOLConst{CC} \HOLBoundVar{R} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R}\hfill{[CC_is_finer]}
 \end{alltt}
-Furthermore, we prove that any (pre)congruence contained in $R$, \hl{that
-itself} needs not to be a (pre)congruence,
+Furthermore, we prove that any (pre)congruence contained in $R$,
+that itself needs not to be a (pre)congruence,
 is contained in the composition closure of $R$
-(hence the \hl{composition} closure is the coarsest one):
+(hence the composition closure is the coarsest one):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{congruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{precongruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[PCC_is_coarsest]}
 \end{alltt}
 
-Given the central role of  
+Given the central role of
  summation, we also consider the relation closure of bisimilarity
  w.r.t. summation, called \emph{equivalence compatible with summation}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
@@ -144,7 +135,7 @@ rooted bisimilarity ($\rapprox$), making all three relations
 \label{fig:relationship}
 \end{figure}
 
-\hl{The}  formalisation of (\ref{equa:pq}) says:
+The formalisation of (\ref{equa:pq}) says:
 \begin{theorem}[\texttt{COARSEST_CONGR_RL}]
   Under the free actions assumption, $\rapprox$ is coarsest congruence contained in $\wb$.
 \begin{alltt}
@@ -168,12 +159,12 @@ requires $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
   names}), and is therefore strictly stronger than the assumption in
 our result above. Indeed, in our result we only look at immediate weak
-derivatives for $p$ and $q$, and only require that there is an input
+derivatives for $p$ and $q$, and only requires that there is an input
 or output action
 that never appears as a label. Furthermore, such an action need
 not to be the same for $p$ and for $q$,
 and an action $a$ and its complementary $\outC a$ are
-considered {different} actions.
+considered different actions.
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
@@ -194,11 +185,7 @@ The core lemma says that for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
-<<<<<<< HEAD
- ($\rapprox$) (c.f.~\cite{Tian:2017wrba} for more details of the proof):
-=======
- ($\rapprox$): (see~\cite{Tian:2017wrba} for more details of the proof)
->>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
+ ($\rapprox$) (see~\cite{Tian:2017wrba} for more details of the proof):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \ensuremath{(}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{k}.
@@ -225,12 +212,12 @@ implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
 ordinals~\cite{norrish2013ordinals}.
 As a consequence, the final result is only for finite-state
-CCS.\footnote{\hl{van Glabbeek's
+CCS.\footnote{van Glabbeek's
   original proof applies to all CCS processes; however,  it
   requires the CCS syntax to support arbitrary large summations based
   on ordinals, and relies on the existence  of an
   ordinal larger than the cardinality of any given set. This is beyond
-  the possibilities of HOL.}}
+  the possibilities of HOL.}
 
 The assumption in \texttt{PROP3_COMMON} requires the
 existence of a special CCS process, which is not weakly bisimilar to
@@ -245,7 +232,7 @@ then it will be
 possible to choose one  that is distinct from all the (finitely many) states in the
 graphs of the two given processes.  
 This can be done following Klop's contruction \cite{van2005characterisation}.
- We call  the processes in this construction \hl{the ``Klop processes''}:
+ We call  the processes in this construction the ``Klop processes'':
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
 define a CCS process $k_\lambda$ as follows:
@@ -368,8 +355,7 @@ of ``finite-state'':
 \begin{definition}{(Definitions related to finite-state CCS)}
 \begin{enumerate}
 \item Define \emph{reachable} as the RTC (reflexive and transitive
-  closure)
- of a relation, which
+  closure) of a relation, which
   indicates the existence of a transition between two processes:
 \begin{alltt}
 \HOLConst{Reach} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill[Reach_def]
@@ -385,8 +371,7 @@ of ``finite-state'':
 \end{alltt}
 \end{enumerate}
 \end{definition}
-We rely
-on  various 
+We rely on various 
  properties of the above definitions, such as the following one:
 \begin{proposition}
 If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:

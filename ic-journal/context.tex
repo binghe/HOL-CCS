@@ -28,13 +28,9 @@ single-variable cases. The precise definition is given inductively:
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{CONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[CONTEXT_rules]}
 \end{alltt}
 In above inductive definitions, for any CCS term $p$,
-\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{p}} is a
-valid context, with  no
-hole. 
-% On the other hand, if any CCS term with recursion
-% could be a context, the recursion must be a subterm of this $p$.
+\HOLinline{\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{p}} is a valid context with no hole.
 
-A context is \emph{weakly guarded} (\texttt{WG}) if each hole is
+A context is \emph{weakly guarded} (\HOLinline{\HOLConst{WG}}) if each hole is
 underneath a prefix:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -46,10 +42,10 @@ underneath a prefix:
 (Notice the differences between a weakly guarded context and an
 ordinary
 context: $\lambda t. t$ is not weakly guarded as the variable is directly
-exposed, without any prefixed action. And $\lambda t. a.e[t]$ is weakly
+exposed without any prefixed action. And $\lambda t. a.e[t]$ is weakly
 guarded as long as $e[\cdot]$ is a context, not necessary weakly guarded.)
 
-A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{visible} prefix:
+A context is \emph{guarded} (\HOLinline{\HOLConst{SG}}) if each hole is underneath a \emph{visible} prefix:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l} \HOLBoundVar{e}. \HOLConst{CONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{label} \HOLBoundVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -59,7 +55,7 @@ A context is \emph{guarded} (\texttt{SG}) if each hole is underneath a \emph{vis
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{SG} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[SG_rules]}
 \end{alltt}
 
-A context is \emph{sequential} (\texttt{SEQ}) if each of its \emph{subcontexts} with
+A context is \emph{sequential} (\HOLinline{\HOLConst{SEQ}}) if each of its \emph{subcontexts} with
 a hole, apart from the hole itself, is in forms of prefixes or sums:
 (See Def.~\ref{def:guardness} and \citep[p.~101, 157]{Mil89} for
 the informal definitions.)
@@ -68,8 +64,8 @@ the informal definitions.)
    \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{e}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{e}\sb{\mathrm{2}}}. \HOLConst{SEQ} \ensuremath{\HOLBoundVar{e}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \ensuremath{\HOLBoundVar{e}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SEQ} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \ensuremath{\HOLBoundVar{e}\sb{\mathrm{1}}} \HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLBoundVar{e}\sb{\mathrm{2}}} \HOLBoundVar{t}\ensuremath{)}\hfill{[SEQ_rules]}
 \end{alltt}
 
-In the same manner, we can also define variants of contexts (\texttt{GCONTEXT}) and weakly guarded
-contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
+In the same manner, we can also define variants of contexts (\HOLinline{\HOLConst{GCONTEXT}}) and weakly guarded
+contexts (\HOLinline{\HOLConst{WGS}}) in which only guarded sums are allowed (i.e.~arbitrary sums are forbidden):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{GCONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{t}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p}. \HOLConst{GCONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{p}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{a} \HOLBoundVar{e}. \HOLConst{GCONTEXT} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{GCONTEXT} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLBoundVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -87,20 +83,17 @@ contexts (\texttt{WGS}) in which only guarded sums are allowed (i.e.~arbitrary s
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{rf} \HOLBoundVar{e}. \HOLConst{WGS} \HOLBoundVar{e} \HOLSymConst{\HOLTokenImp{}} \HOLConst{WGS} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLConst{relab} \ensuremath{(}\HOLBoundVar{e} \HOLBoundVar{t}\ensuremath{)} \HOLBoundVar{rf}\ensuremath{)}\hfill{[WGS_rules]}
 \end{alltt}
 
-
-In our work, several 
- lemmas about the above concepts (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
-\HOLinline{\HOLConst{SEQ}}, etc.)  were needed 
-to capture properties about
- the
- relationships among these kinds of contexts and their
- composition. These proofs are usually tedious and long,  due to multiple levels of
+\hl{Several}
+lemmas about the above concepts (\HOLinline{\HOLConst{CONTEXT}}, \HOLinline{\HOLConst{WG}},
+\HOLinline{\HOLConst{SEQ}}, etc.) \hl{are needed for capturing} properties about
+ the relationships among these kinds of contexts and their
+ compositions. These proofs are usually tedious and long,  due to multiple levels of
  inductions on the structure of the contexts.
 
 A (pre)congruence is a relation on CCS processes defined on top of
-\texttt{CONTEXT}. The only difference between congruence and
-precongruence is that the former  is an equivalence, while
- the latter can  just be  a preorder:
+\HOLinline{\HOLConst{CONTEXT}}. The only difference between congruence and
+precongruence is that the former is an equivalence,
+while the latter can just be a preorder:
 \begin{alltt}
    \HOLConst{congruence} \HOLFreeVar{R} \HOLTokenDefEquality{}
      \HOLConst{equivalence} \HOLFreeVar{R} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{x} \HOLBoundVar{y} \HOLBoundVar{ctx}. \HOLConst{CONTEXT} \HOLBoundVar{ctx} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \HOLBoundVar{x} \HOLBoundVar{y} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{R} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{x}\ensuremath{)} \ensuremath{(}\HOLBoundVar{ctx} \HOLBoundVar{y}\ensuremath{)}\hfill{[congruence]}
@@ -117,11 +110,12 @@ rooted bisimilarity ($\approx^c$) are congruence relations:
 \end{alltt}
 
 Although weak bisimilarity ($\approx$) is \emph{not} a congruence
-  with respect to~\texttt{CONTEXT}, it is indeed substitutive
-  with respect to~\texttt{GCONTEXT} 
+  with respect to~\HOLinline{\HOLConst{CONTEXT}}, it is indeed substitutive
+  with respect to~\HOLinline{\HOLConst{GCONTEXT}} 
 % (or if the CCS syntax were defined with
 %   only guarded sum operator \cite{sangiorgi2015equations}) 
 as $\approx$ is indeed preserved by guarded sums.
+%
 Rooted contraction, on the other hand, is a precongruence:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{precongruence} \HOLConst{OBS_contracts}\hfill{[OBS_contracts_precongruence]}
