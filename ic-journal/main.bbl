@@ -83,7 +83,7 @@ S.~Arun-Kumar, M.~Hennessy, An efficiency preorder for processes, Acta
 \bibitem{Melham:1993vl}
 M.~J.~C. Gordon, T.~F. Melham, Introduction to {HOL}: A Theorem Proving
   Environment for Higher Order Logic, Cambrige University Press, New York, NY,
-  USA, 1993.
+  1993.
 
 \bibitem{slind2008brief}
 K.~Slind, M.~Norrish,
@@ -127,7 +127,7 @@ A.~Church, A formulation of the simple theory of types, The journal of symbolic
 \bibitem{Melham:1989dk}
 T.~F. Melham, {Automating Recursive Type Definitions in Higher Order Logic},
   in: Current Trends in Hardware Verification and Automated Theorem Proving,
-  Springer New York, New York, NY, 1989, pp. 341--386.
+  Springer, New York, NY, 1989, pp. 341--386.
 
 \bibitem{Melham:1991}
 T.~F. Melham, {A Package For Inductive Relation Definitions In HOL}, in: 1991.,
@@ -147,13 +147,10 @@ D.~Pous, D.~Sangiorgi, Bisimulation and coinduction enhancements: A historical
   {\path{doi:10.1007/s00165-019-00497-w}}.
 
 \bibitem{sangiorgi1992problem}
-D.~Sangiorgi, R.~Milner,
-  \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}{The
-  problem of “weak bisimulation up to”}, in: International Conference on
-  Concurrency Theory, Springer, 1992, pp. 32--46.
+D.~Sangiorgi, R.~Milner, {The problem of ``Weak Bisimulation up to''}, in: LNCS
+  630 - CONCUR '92 - Concurrency Theory, Springer, 1992, pp. 32--46.
 \newblock \href {https://doi.org/10.1007/BFb0084781}
   {\path{doi:10.1007/BFb0084781}}.
-\newline\urlprefix\url{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.38.5964}
 
 \bibitem{Tian:2017wrba}
 C.~Tian, \href{http://amslaurea.unibo.it/14798/}{{A Formalization of Unique
@@ -196,8 +193,10 @@ J.~Parrow, J.~Bengtson, Formalising the pi-calculus using nominal logic,
   {\path{doi:10.2168/LMCS-5(2:16)2009}}.
 
 \bibitem{bengtson2010formalising}
-J.~Bengtson, Formalising process calculi, Ph.D. thesis, Acta Universitatis
-  Upsaliensis (2010).
+J.~Bengtson,
+  \href{http://uu.diva-portal.org/smash/record.jsf?pid=diva2%3A311032}{Formalising
+  process calculi}, Ph.D. thesis, Acta Universitatis Upsaliensis (2010).
+\newline\urlprefix\url{http://uu.diva-portal.org/smash/record.jsf?pid=diva2%3A311032}
 
 \bibitem{melham1994mechanized}
 T.~F. Melham, \href{http://core.ac.uk/download/pdf/22878407.pdf}{{A Mechanized
@@ -247,20 +246,19 @@ D.~Hirschkoff, A full formalisation of $\pi$-calculus theory in the calculus of
   {\path{doi:10.1007/BFb0028392}}.
 
 \bibitem{DurierHS17}
-A.~Durier, D.~Hirschkoff, D.~Sangiorgi,
-  \href{http://drops.dagstuhl.de/opus/volltexte/2017/7784}{{Divergence and
-  Unique Solution of Equations}}, in: R.~Meyer, U.~Nestmann (Eds.), 28th
-  International Conference on Concurrency Theory (CONCUR 2017), Vol.~85 of
-  Leibniz International Proceedings in Informatics (LIPIcs), Schloss
-  Dagstuhl--Leibniz-Zentrum fuer Informatik, Dagstuhl, Germany, 2017, pp.
-  11:1--11:16.
+A.~Durier, D.~Hirschkoff, D.~Sangiorgi, Divergence and unique solution of
+  equations, in: R.~Meyer, U.~Nestmann (Eds.), 28th International Conference on
+  Concurrency Theory (CONCUR 2017), Vol.~85 of Leibniz International
+  Proceedings in Informatics (LIPIcs), Schloss Dagstuhl--Leibniz-Zentrum fuer
+  Informatik, Dagstuhl, Germany, 2017, pp. 11:1--11:16.
 \newblock \href {https://doi.org/10.4230/LIPIcs.CONCUR.2017.11}
   {\path{doi:10.4230/LIPIcs.CONCUR.2017.11}}.
-\newline\urlprefix\url{http://drops.dagstuhl.de/opus/volltexte/2017/7784}
 
 \bibitem{DurierHS18}
 A.~Durier, D.~Hirschkoff, D.~Sangiorgi, Eager functions as processes, in: 33nd
   Annual {ACM/IEEE} Symposium on Logic in Computer Science, {LICS} 2018, {IEEE}
-  Computer Society, 2018.
+  Computer Society, 2018, pp. 364--373.
+\newblock \href {https://doi.org/10.1145/3209108.3209152}
+  {\path{doi:10.1145/3209108.3209152}}.
 
 \end{thebibliography}

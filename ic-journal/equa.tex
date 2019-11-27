@@ -9,7 +9,7 @@ For instance,  $X$ is free in $a.X + \recu Y (b.Y)$ while $Y$
 is bound; whereas 
 $X$ is both free and bound 
  in $a.X + \recu X (b.X)$.
-A \hl{term} without free variables is  a \emph{process}.
+A term without free variables is  a \emph{process}.
 % This setting does not cause any ambiguity, but sometimes leads to more
 % complex proofs.} (see Section~\ref{sec:multivariate} for more details.)
 
@@ -41,8 +41,8 @@ When discussing equations it is standard to talk about `context'. This is a
 the body of recursive definitions. 
 Milner's ``unique solution of equations'' theorems~\cite{Mil89} intuitively
 say that, if a context $C$
-%  \hl{(i.e., a CCS expression with possibly
-% free variables)}\footnote{\hl{Rigorously speaking, under our setting
+%  (i.e., a CCS expression with possibly
+% free variables)\footnote{Rigorously speaking, under our setting
 % (i.e.~reusing free agent variables as equation variables) not all
 % valid CCS expressions
 % are valid contexts: those where free variables occur inside
@@ -52,7 +52,7 @@ say that, if a context $C$
 % equation variable cannot occur inside the definition of any
 % constant. In fact, all versions of ``unique solution of
 % equations/contractions'' theorems do not hold if equation variables
-% are allowed to occur inside any recursion operator.}} 
+% are allowed to occur inside any recursion operator.}
 obeys certain conditions,
 then all processes $P$ that satisfy the equation $P \wb \ct P$ are
 bisimilar with each other.

@@ -173,24 +173,22 @@ logical connectives,  equality ($=$) and implication
 ($\Rightarrow$). The remaining logical connectives and first-order
 quantifiers, including the logical true (\HOLinline{\HOLConst{T}}) and false (\HOLinline{\HOLConst{F}}), are
 further defined as $\lambda$-functions: 
-% (one rarely needs to care
-% things at this level, however.)
 \begin{equation*}
 \begin{array}{l}
-\turn \T       =  ((\lquant{x_{\ty{bool}}}x) =
+\turn \T \HOLTokenDefEquality ((\lquant{x_{\ty{bool}}}x) =
                (\lquant{x_{\ty{bool}}}x))    \\
-\turn \forall  =  \lquant{P_{\alpha\fun\ty{bool}}} P =
+\turn \forall \HOLTokenDefEquality \lquant{P_{\alpha\fun\ty{bool}}} P =
                     (\lquant{x}\T ) \\
-\turn \exists  =  \lquant{P_{\alpha\fun\ty{bool}}} P({\hilbert}\, P) \\
-\turn \F  =  \uquant{b_{\ty{bool}}} b  \\
-\turn \neg    =  \lquant{b} b \imp \F \\
-\turn {\wedge}  =  \lquant{b_1\ b_2}\uquant{b} (b_1\imp (b_2 \imp b)) \imp b \\
-\turn {\vee}  =  \lquant{b_1\ b_2}\uquant{b} (b_1 \imp b)\imp ((b_2 \imp b) \imp b) \\
-\turn \OneOne  =  \lquant{f_{\alpha \fun\beta}}\uquant{x_1\ x_2}
+\turn \exists \HOLTokenDefEquality \lquant{P_{\alpha\fun\ty{bool}}} P({\hilbert}\, P) \\
+\turn \F \HOLTokenDefEquality \uquant{b_{\ty{bool}}} b  \\
+\turn \neg \HOLTokenDefEquality \lquant{b} b \imp \F \\
+\turn {\wedge}  \HOLTokenDefEquality  \lquant{b_1\ b_2}\uquant{b} (b_1\imp (b_2 \imp b)) \imp b \\
+\turn {\vee} \HOLTokenDefEquality \lquant{b_1\ b_2}\uquant{b} (b_1 \imp b)\imp ((b_2 \imp b) \imp b) \\
+\turn \OneOne \HOLTokenDefEquality \lquant{f_{\alpha \fun\beta}}\uquant{x_1\ x_2}
                     (f\ x_1 = f\ x_2)  \imp (x_1 = x_2) \\
-\turn \Onto  =  \lquant{f_{\alpha\fun\beta}}
+\turn \Onto \HOLTokenDefEquality \lquant{f_{\alpha\fun\beta}}
                   \uquant{y}\equant{x} y = f\ x \\
-\turn \TyDef  =  \lambda P_{\alpha\fun\ty{bool}}\
+\turn \TyDef \HOLTokenDefEquality \lambda P_{\alpha\fun\ty{bool}}\
                   rep_{\beta\fun\alpha}.\;
                   \OneOne\ rep \ \wedge{}\  (\uquant{x}P x = (\equant{y} x = rep\ y))
 \end{array}
@@ -220,7 +218,7 @@ in HOL. (See~\cite{hollogic} for more details.)}
 \end{equation*}
 
 Usually the above four axioms are the only axioms allowed
-in conventional formalisation projects in HOL: adding new axioms
-manually, may break logical consistency.
+in conventional formalisation projects in HOL4: adding new axioms
+manually may break logical consistency.
 
 % next file: sos.htex
