@@ -43,51 +43,7 @@ P \sim Q.
 \end{alltt}
 \end{theorem}
 
-<<<<<<< HEAD
-\subsubsection{Weak bisimilarity}
-
-Milner's book~\cite{Mil89} contains only two ``unique solutions of
-equations'' theorems, one for strong equivalence, the other for
-observational congruence.   There is however a
-version  of the result for weak bisimilarity that shares a large portion of proof
-steps with the proof for observational congruence.  
-As  weak bisimilarity 
- is not \hl{a} congruence, we have to be more restrictive on the syntax for
- the equation, using strong guardedness.
-% to make correct statement of this
-% theorem, we must slightly modify the concept of sequential expresses
-% with further restrictions: no direct sums (or only guarded sums).
-% The ``unique solution of equations'' theorem for weak equivalence
-% requires more restrictions on the expression, namely, .
-% Now we're ready to state and prove the following lemma:
-\begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
-If the variable $X$ is guarded and sequential in $G$, and
-$G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
-$H\{P/X\}$, for some expression $H$, and for any $Q$, we have
-$G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
-sequential, and if $\alpha = \tau$, then $H$ is also guarded.
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
-   \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
-       \HOLFreeVar{G} \HOLBoundVar{P} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{H}. \HOLConst{GSEQ} \HOLBoundVar{H} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{a} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{SG} \HOLBoundVar{H}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\ensuremath{=}} \HOLBoundVar{H} \HOLBoundVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Q}. \HOLFreeVar{G} \HOLBoundVar{Q} \HOLTokenTransBegin\HOLBoundVar{a}\HOLTokenTransEnd \HOLBoundVar{H} \HOLBoundVar{Q}
-\end{alltt}
-\end{lemma}
-
-We can then derive the target theorem:
-\begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}]
-Let $E$ be guarded and sequential expressions, and let $P \wb
-E\{P/X\}$,
-$Q \wb E\{Q/X\}$. Then $P \wb Q$.
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{GSEQ} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{Q}
-\end{alltt}
-\end{theorem}
-
-\subsubsection{Rooted bisimilarity}
-=======
 \subsubsection{The case of rooted bisimilarity}
->>>>>>> b533e451f5c9df8925dd203c6e39495b1be1ffdb
 
 For the ``unique solutions of
 equations'' theorem of rooted bisimilarity, we use a different
@@ -124,7 +80,7 @@ If the variable $X$ is guarded and sequential in $G$, and
 $G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
 $H\{P/X\}$, for some  $H$, and for any $Q$, we also have 
 $G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
-sequential, and if $\alpha = \tau$ then $H$ is also guarded.
+sequential, and if $\alpha = \tau$, then $H$ is also guarded.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{SG} \HOLFreeVar{G} \HOLSymConst{\HOLTokenConj{}} \HOLConst{SEQ} \HOLFreeVar{G} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P} \HOLBoundVar{a} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
@@ -146,11 +102,11 @@ $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 
 Milner~\cite{Mil89} \emph{only mentioned} two ``unique solution of
 equations'' theorems, one for strong equivalence, the other for
-rooted bisimilarity.   There is, however, \hl{another
-version for} weak bisimilarity that shares a large portion of proof
-steps with the case \hl{of} rooted bisimilarity.
-As weak bisimilarity is not \hl{a} congruence, we have to be more restrictive
-on the syntax \hl{of} the equation, using strong guardedness.
+rooted bisimilarity.   There is, however, another
+version for weak bisimilarity that shares a large portion of proof
+steps with the proof for \hl{rooted bisimilarity.}
+As weak bisimilarity is not a congruence, we have to be more restrictive
+on the syntax of the equation, using strong guardedness.
 
 \begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
 If the variable $X$ is guarded and sequential in $G$, and
@@ -186,7 +142,7 @@ For this, rather than
  introducing a refined form of weak transition relation
 enriched with its length, 
 we found it more elegant  to  work with traces
-(a further motivation  is to set the ground for extensions of this
+(a further motivation is to set the ground for extensions of this
 formalisation work to trace equivalence in place of bisimilarity).
 
 % but such a non-standard relation finds no
@@ -222,7 +178,7 @@ The trace relation for CCS can be then obtained
    \HOLConst{TRACE} \HOLTokenDefEquality{} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
 
-If the list of actions is empty,  there is no transition and hence,
+If the list of actions is empty, there is no transition and hence,
 if there is at most one visible action (i.e., a label) in the list of actions,
 then the trace is also a weak transition. Here
 we have to distinguish between two cases: no label and unique label (in
@@ -232,7 +188,7 @@ label'' in an action list is easy (here \texttt{MEM} tests if a given element is
    \HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLFreeVar{L}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
-The definition of ``unique label'' can be done in many \hl{ways. The}
+The definition of ``unique label'' can be done in many ways. The
 following definition (a suggestion from Robert Beers)
 avoids any counting or filtering in the list.
 It says that a label is unique in a list of actions if and only if there is no
@@ -285,15 +241,15 @@ the following lemma (\texttt{unfolding_lemma4}):
 \end{alltt}
 which roughly says that for any context $C$ and weakly-guarded context
 $E$, if $C [\, E^n[P]\,] \overset{xs}{\Longrightarrow} P'$ and the length
-of actions $xs \leqslant n$, then \hl{$P'$} has the form of $C'[P]$.
-Traces are used \hl{in} reasoning about the number of intermediate actions in weak
+of actions $xs \leqslant n$, then $P'$ has the form of $C'[P]$.
+Traces are used in reasoning about the number of intermediate actions in weak
 transitions. For instance, from Def.~\ref{d:BisCon}, it is easy
-to see that a weak transition either becomes shorter
+to see that, a weak transition either becomes shorter
 or remains the same when moving between $\mcontrBIS$-related processes.
 This property is essential in the proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of
 visible weak transitions:
-% passing into $\mcontrBIS$ (from left to right):
+%passing into $\mcontrBIS$ (from left to right):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{xs} \HOLBoundVar{l} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
