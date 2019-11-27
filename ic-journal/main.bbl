@@ -37,19 +37,15 @@ A.~W. Roscoe, Understanding Concurrent Systems, Springer, 2010.
   {\path{doi:10.1007/978-1-84882-258-0}}.
 
 \bibitem{sangiorgi2015equations}
-D.~Sangiorgi, \href{https://hal.inria.fr/hal-01089205}{Equations, contractions,
-  and unique solutions}, in: ACM SIGPLAN Notices, Vol.~50, ACM, 2015, pp.
-  421--432.
-\newblock \href {https://doi.org/10.1145/2676726.2676965}
-  {\path{doi:10.1145/2676726.2676965}}.
-\newline\urlprefix\url{https://hal.inria.fr/hal-01089205}
+D.~Sangiorgi, Equations, contractions, and unique solutions, SIGPLAN Not.
+  50~(1) (2015) 421--432.
+\newblock \href {https://doi.org/10.1145/2775051.2676965}
+  {\path{doi:10.1145/2775051.2676965}}.
 
 \bibitem{sangiorgi2017equations}
-D.~Sangiorgi, \href{https://hal.inria.fr/hal-01647063}{Equations, contractions,
-  and unique solutions}, ACM Transactions on Computational Logic (TOCL) 18
-  (2017) 4.
+D.~Sangiorgi, Equations, contractions, and unique solutions, ACM Trans. Comput.
+  Logic 18~(1) (2017) 4:1--4:30.
 \newblock \href {https://doi.org/10.1145/2971339} {\path{doi:10.1145/2971339}}.
-\newline\urlprefix\url{https://hal.inria.fr/hal-01647063}
 
 \bibitem{van2005characterisation}
 R.~J. van Glabbeek, A characterisation of weak bisimulation congruence, in:
