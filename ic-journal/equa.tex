@@ -15,13 +15,13 @@ A term without free variables is  a \emph{process}.
 
 In this paper (and the formalisation work), we use the agent
 variables also as \emph{equation variables}. This eliminates the need of
-another type for  equations, and we can reuse the existing
+\hl{an additional} type for \hl{CCS} equations, and we can reuse the existing
 variable substitution operation (cf.~the SOS rule for the Recursion in
-Fig.~\ref{f:LTSCCS}) for the substitution of equation variables.
-For example, the result of substituting variable $X$ with $\nil$ in $a.X +
-\recu X (b.X)$,  written $(a.X + \recu X (b.X)) \sub {\nil} X$, is
-$a.\nil + \recu X (b.X)$ (with the part $\recu X (b.X)$
-untouched). \Multivariate substitutions are written in the same syntax,
+Fig.~\ref{f:LTSCCS}) for \hl{substitutions} of equation variables.
+For example, the result of substituting \hl{the} variable $X$ with $\nil$ in $a.X +
+\recu X (b.X)$,  written \hl{as} $(a.X + \recu X (b.X)) \sub {\nil} X$, is
+$a.\nil + \recu X (b.X)$ with $\recu X (b.X)$
+untouched. \Multivariate substitutions are written in the same syntax,
 e.g. $E \sub {\til P} {\til X}$. Whenever $\til X$ is clear from the
 context, we may also write $E[\til P]$ instead of $E \sub {\til P} {\til
   X}$ (and $E[P]$ for $E \sub P X$ if there is a single equation
@@ -36,8 +36,8 @@ variable $X$).
  
 \subsection{Systems of equations}
 \label{ss:SysEq}
-When discussing equations it is standard to talk about `context'. This is a 
- a CCS expression  possibly containing  free variables that, however, may not occur within
+When discussing equations it is standard to talk about ``contexts''. This is
+a CCS expression possibly containing free variables that, however, may not occur within
 the body of recursive definitions. 
 Milner's ``unique solution of equations'' theorems~\cite{Mil89} intuitively
 say that, if a context $C$
@@ -61,7 +61,7 @@ bisimilar with each other.
   \label{def:equation}
 Assume that, for each $i$ of 
  a countable indexing set $I$, we have variables $X_i$, and expressions
-$E_i$ possibly containing such variables $\cup_i \{ X_i\}$. Then 
+$E_i$ possibly containing such variables $\bigcup_i \{ X_i\}$. Then 
 $\{ X_i = E_i\}_{i\in I}$ is 
   a \emph{system of equations}. (There is one equation $E_i$ for each variable $X_i$.)
 \end{definition}
@@ -71,7 +71,7 @@ different from each other, as it must be for the variables $\til X$.
 % If the system has infinitely many equations, the  tuples $\til P$
 % and $\til X$ are infinite too. 
 
-\begin{definition}[solutions and unique solutions]
+\begin{definition}[solutions and the unique solution]
   \label{def:solution}
 Suppose $\{ X_i = E_i\}_{i\in I}$ is a system of equations: 
 \begin{itemize}
@@ -84,22 +84,15 @@ if for each $i$ it holds that $P_i \wb E_i [\til P]$;
  \end{definition}
 Similarily, the \emph{(unique) solution of a system of equations for $\sim$}
 (or for $\rapprox$) can be obtained by replacing all occurrences of $\wb$
-in above definition with $\sim$ and $\rapprox$, respectively.
+in \hl{the} above definition with $\sim$ and $\rapprox$, respectively.
 
-For instance, the solution of the equation $X = a. X$ 
+For instance, the solution of the equation $X \wb a. X$ 
 is the process
 $R \DSdefi \recu A {\, (a. A)}$, and for any other solution $P$ we have $P \wb R$.
 In contrast, the equation 
- $X = a|  X$ has solutions that may be quite different, for instance,
+ $X \wb a|  X$ has solutions that may be quite different, for instance,
  $K$ and $K | b$, for $K \DSdefi \recu K {\, (a. K)}$. (Actually any process capable of
-continuously performing $a$--actions is a solution of $X = a|  X$.)
-
-%
-% The unique solution of the system (1), modulo $\wb$,  is the constant $K \Defi a
-% . K$:  for any other solution $P$ we have $P \wb K$.
-% The unique solution of (2), modulo $\wb$, are the constants $K_1 , K_2$
-% with $K_1 \Defi a . K_2$ and $K_2 \Defi b. K_1$; again, for any other
-% pair of solutions $P_1,P_2$ we have $K_1 \wb P_1$ and $K_2 \wb P_2$.
+continuously performing $a$--actions is a solution of $X \wb a|  X$.)
 %
 Examples of systems that do not have unique solutions are: $X = X$, $X
 = \tau . X$ and $X = a | X$.
@@ -158,23 +151,21 @@ that all sums are guarded:
 %   congruence.}:
 \begin{theorem}[unique solution of equations for $\wb$]
 \label{t:Mil89}
-Let $E_i$ be guarded and sequential with free
-variables in $\til X$, and let ${\til P} \wb {\til E}\{\til P /\til X\}$,
-  ${\til Q} \wb {\til E}\{\til Q /\til X\}$. Then ${\til P} \wb {\til Q}$.
+Let $E_i$ be guarded and sequential \hl{(with only guarded sums)}, and with free
+variables in $\til X$. Let ${\til P} \wb {\til E}\{\til P /\til X\}$,
+  ${\til Q} \wb {\til E}\{\til Q /\til X\}$, then ${\til P} \wb {\til Q}$.
 \end{theorem}
 
-The proof of the theorem above exploits an invariance
+The proof of the last two theorems above exploits an invariance
 property on immediate derivatives
 of guarded and sequential expressions, and then extracts a bisimulation
-(up to bisimilarity) out
-of the solutions of the system.
-To see the need of the sequentiality  condition, consider
- the equation (from \cite{Mil89}) $X = \res a (a. X | \outC a)$
+(up to bisimilarity) out of the solutions of the system.
+To see the need of the sequentiality condition, consider
+ the equation (from~\cite{Mil89}) $X \wb \res a (a. X | \outC a)$
 where $X$ is guarded but not sequential. Any process that does not use
-$a$ is a solution, e.g. $\nil$ and $b.\nil$.
+$a$\hl{--action} is a solution, e.g. $\nil$ and $b.\nil$.
 
-For more details of above three theorems, see Section~\ref{ss:part2}
-for the \univariate case and
-Section~\ref{sec:multivariate} for the \multivariate case.
+For more details \hl{on the formalisation of the} above three theorems, see Section~\ref{ss:part2}
+for the \univariate case and Section~\ref{sec:multivariate} for the \multivariate case.
 
 %% next file: contraction.tex
