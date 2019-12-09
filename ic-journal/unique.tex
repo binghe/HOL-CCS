@@ -2,9 +2,9 @@
 \label{ss:SysContr}
 
 A \emph{system of contractions} is defined as a system of equations,
-except that the contraction symbol $\mcontr$ is used in the place of
+except that the contraction symbol $\mcontrBIS$ is used in the place of
 $=$ in Def.~\ref{def:equation}. Thus a system of contractions is a set 
-$\{  X_i \mcontr E_i\}_{i\in I}$ where $I$ is an indexing set and each
+$\{  X_i \mcontrBIS E_i\}_{i\in I}$ where $I$ is an indexing set and each
 $E_i$  contains variables in $\til X$.
 
 Now we recall the ``unique solution of
@@ -14,32 +14,31 @@ which weakens the requirements of Milner's result
 
 \begin{lemma}
 \label{l:uptocon}
-Suppose $\til P$ and $\til Q$ are solutions for $\mcontrBIS$
- of a system of weakly-guarded contractions that uses 
-guarded sums.
+Suppose $\til P$ and $\til Q$ are solutions (for $\mcontrBIS$)
+ of a system of weakly guarded contractions that uses guarded sums.
 For any context $\qct$  that uses guarded sums,
-if $\ct{\til P}\Arr{\mu}  R$, then there is a context $\qctp$  that uses 
+if $\ct{\til P}\Arr{\mu}  R$, then there is a context $\qctp$ that uses 
 guarded sums
 such that $R \mcontrBIS \ctp{\til P}$ and $\ct{\til Q} \Arcap{\mu} R'
  \wb \ctp{\til Q}$ for some $R'$.
 \end{lemma}
 
 \begin{proof}{(sketch from~\cite{sangiorgi2017equations})}
-  Let $n$ be the length (the number of one-step transitions) of
+  Let $n$ be the length (i.e., the number of one-step transitions) of
 a transition $\ct{\til P}\Arr\mu R$, and
 let $\ctpp {\til P}$ and $\ctpp {\til Q}$  be the processes obtained
-from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the definitions
-of the contractions $n$ times. Thus in $\qctpp$ each hole is
-underneath at least $n$ prefixes, and cannot contribute to an action
-in the first $n$ transitions; moreover all the contexts use guarded sums.
+from  $\ct {\til P}$ and $\ct {\til Q}$ by unfolding the \hl{definition
+of $\mcontrBIS$ for} $n$ times. Thus in $\qctpp$ each hole is
+underneath at least $n$ prefixes, and \hl{therefore} cannot contribute to an action
+in the first $n$ transitions. \hl{Moreover}, all \hl{involved} contexts use guarded sums.
 
-We have $\ct{\til P} \mcontrBIS \ctpp{\til P}$, and 
-$\ct{\til Q} \mcontrBIS \ctpp{\til Q}$, 
+We have $\ct{\til P} \mcontrBIS \ctpp{\til P}$ and 
+$\ct{\til Q} \mcontrBIS \ctpp{\til Q}$
  from the precongruence property of $\mcontrBIS$ (we exploit here
  the syntactic constraints on sums). Moreover,
  since each hole of the  context $\qctpp$ is underneath at least $n$
  prefixes, applying the definition
- of $ \mcontrBIS$ on the transition 
+ of $\mcontrBIS$ on the transition 
  $\ct{\til P}\Arr{\mu}  R$, we infer the existence
  of $\qctp$ such that 
 $\ctpp{\til P}\Arcap{\mu} \ctp{\til P} \mexpaBIS R$
@@ -106,10 +105,10 @@ bisimilarity, which is  less restrictive than Milner's
 Theorem~\ref{t:Mil89} (but with the additional costs of checking $\mcontrBIS$
 in addition to $\wb$).
 However, comparing with Milner's Theorem~\ref{t:Mil89s1}, there remains
-a constraint: the involved CCS expression may only
+\hl{one limitation}: the involved CCS expression \hl{can} only
 use guarded sums. This is mainly due to the fact that $\wb$ is not a
- congruence and also $\mcontrBIS$ is not a  precongruence.
-Inspired by rooted bisimilarity, to  eliminate the restriction
+ congruence and also $\mcontrBIS$ is not a precongruence.
+Inspired by rooted bisimilarity, to eliminate the restriction
 on guarded sums we refine the idea of contractions by moving
 to \emph{rooted contractions}:
 
@@ -126,12 +125,12 @@ Two processes $P$ and $Q$ are in \emph{rooted contraction}, written as
 \end{definition}
 
 The above definition was found with the help of interactive theorem proving.
-The following two principles were adopted when searching
+The following two principles were adopted when \hl{manually} searching
 for a possible definition: (1) the definition should not be coinductive,
 along the lines of rooted bisimilarity $\rapprox$ (Def.~\ref{d:rootedBisimilarity});
 (2) the definition should be built on top of  the existing \emph{contraction}
 relation $\mcontrBIS$.
-Furthermore, we needed to show that the definition \hl{being found}
+Furthermore, we needed to \hl{prove} that the definition \hl{being found}
 indeed yields the coarsest precongruence
 \hl{contained} in $\mcontrBIS$. The proof is similar with
 the analogous result for $\rapprox$. See Section~\ref{s:coarsest} for
@@ -145,14 +144,14 @@ precongruence contained in $\mcontrBIS$.
 
 For this new relation, the analogous of Lemma~\ref{l:uptocon} and of
 Theorem~\ref{t:contraBisimulationU} can now be stated without
-constraints on the sum operator.
+constraints on \hl{summation}.
 The schema of the proofs is almost identical, because all 
 properties of $\rcontr$ needed in this proof is its precongruence, which is
-indeed true on unrestricted contexts including direct sums:
+indeed true for \hl{all weakly guarded contexts:} % removed "direct sums"
 \begin{lemma}
 \label{l:ruptocon}
-Suppose $\til P$ and $\til Q$ are solutions  for $\rcontr$ 
- of a system of weakly-guarded contractions.
+Let $\til P$ and $\til Q$ be solutions (for $\rcontr$)
+ of a system of weakly guarded contractions.
 For any context $\qct$, 
 if  $\ct{\til P}\Arr{\mu}  R$,
  then there is a context $\qctp$
@@ -171,9 +170,9 @@ $\sim$'' (Theorem~\ref{t:Mil89s1}):
   $E\{\til Q/\til X\} \arr{\alpha} E'\{\til Q/\til X\}$.
 \end{lemma}
 
-\begin{theorem}[Unique solution of rooted contractions]
+\begin{theorem}[unique solution of rooted contractions]
 \label{t:rcontraBisimulationU}
-Let $E_i$ be weakly guarded with free variables in $\til X$,
+Let $E_i$ be weakly guarded with free variables \hl{up to} $\til X$,
 and let $\til P \rcontr \til E\{\til P/\til X\}$,
     $\til Q \rcontr \til E\{\til Q/\til X\}$. Then $\til P \rapprox \til Q$.
 \end{theorem}

@@ -34,7 +34,7 @@
 \section{The formalisation}
 \label{s:for}
 
-We highlight here a formalisation of CCS in the HOL theorem prover
+We highlight here a \hl{comprehensive} formalisation of CCS in the HOL theorem prover
 (HOL4)~\cite{Melham:1993vl,slind2008brief}, with a focus towards the
 theory (and formal proofs) of the unique solution of
 equations/contractions theorems mentioned in Section~\ref{s:eq} and
@@ -46,23 +46,25 @@ in which about 5,000 lines were derived from the early work of Monica
 Nesi~\cite{Nesi:1992ve} on HOL88, with major modifications.
 
 Higher Order Logic (HOL)~\cite{hollogic} traces
-its roots back to LCF
-\cite{gordon1979edinburgh,milner1972logic} by Robin Milner and others
+its roots back to the
+\emph{Logic of Computable Functions
+  (LCF)}~\cite{gordon1979edinburgh,milner1972logic}
+by Robin Milner and others
 since 1972. It is a variant of
 Church’s Simple Theory of Types (STT)~\cite{church1940formulation},
 plus a higher order version of Hilbert's choice operator $\varepsilon$,
 Axiom of Infinity, and Rank-1 (prenex) polymorphism.
 HOL4 has implemented the original HOL, 
-while some other theorem provers in the HOL family (e.g. Isabelle/HOL) have
+while some other theorem provers in the HOL family (e.g.~Isabelle/HOL) have
 certain extensions.
 %  (they made the formal language more powerful,
 % but they also bring the possibilities that the entire logic becomes
 % inconsistent). 
-Indeed HOL has considerably simpler logical
-foundations than most other theorem provers. %, e.g. Coq. 
+Indeed, HOL has considerably simpler logical
+foundations than most other theorem provers.
 As a consequence, theories and proofs verified in HOL are easier to understand
- to people who are not familar with more advanced
-dependent type theories.
+ \hl{for} people who are not familar with more advanced
+dependent type theories, \hl{e.g.~those implemented by Coq.}
 
 HOL4 is implemented in Standard ML, and
  the same programming language

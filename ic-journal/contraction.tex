@@ -4,21 +4,22 @@
 Milner's ``unique solution of equations'' theorem for $\wb$
 (Theorem~\ref{t:Mil89})
 brings a new proof technique for proving (weak) bisimilarities. However, it has
- limitations: the equations must be guarded and sequential (moreover
-all sums where equation variables appear must be guarded sums).
+ limitations: the equations must be guarded and sequential. (\hl{Moreover,}
+all sums where equation variables appear must be guarded sums.)
 This limits the usefulness of the technique, since
-the occurrences of other operators above the variables, such as parallel
-composition and restriction, in general cannot be removed.
-The constraints of Theorem~\ref{t:Mil89}, however, can be 
+the occurrences of other operators \hl{using equation} variables, such as parallel
+composition and restriction,
+in general cannot be \hl{eliminated}. % without changing the meaning of equations
+The constraints \hl{in} Theorem~\ref{t:Mil89}, however, can be
 weakened if we move from equations to a special kind of inequations called
   \emph{contractions}.
 
 Intuitively, the bisimilarity contraction $\mcontrBIS$ is a preorder
-where $P \mcontrBIS Q$ holds if $P \wb Q$ and, in addition, 
-$Q$ \emph{has the possibility of being at least as efficient as $P$} (as far as
+\hl{that} $P \mcontrBIS Q$ holds if $P \wb Q$ and, in addition, 
+\emph{$Q$ has the possibility of being at least as efficient as $P$} (as far as
 $\tau$-actions are performed).
-Process $Q$, however, may be non-deterministic and may have other ways
-of doing the same work, and these could be slow (i.e., involving
+The process $Q$, however, may be nondeterministic and may have other ways
+\hl{to do} the same work, \hl{ways} which could be \hl{slower} (i.e., involving
 more $\tau$-actions than those performed by $P$).
 % Thus, in contrast with expansion,  we cannot really say that `$Q$ is more efficient than
 % $P$'.
@@ -26,53 +27,47 @@ more $\tau$-actions than those performed by $P$).
 \begin{definition}[contraction]
 \label{d:BisCon}
 A process relation ${\R}$ 
- is a \emph{(bisimulation) contraction} if, whenever
- $P\RR Q$, %for all $\mu$ 
+ is a \emph{(bisimulation) contraction} if, whenever $P\RR Q$,
 
 \begin{enumerate}
-\item   $P \arr\mu P'$ implies there is $Q'$ such that $Q \arcap \mu
+\item $P \arr\mu P'$ implies \hl{that} there is $Q'$ \hl{with} $Q \arcap \mu
   Q'$ and $P' \RR Q'$;
-\item $Q \arr\mu Q'$   implies there is $P'$ such that $P \Arcap \mu
- P'$ and $P' \wb Q'$\enspace.
+\item $Q \arr\mu Q'$ implies \hl{that} there is $P'$ \hl{with} $P \Arcap \mu
+ P'$ and $P' \wb Q'$.
 \end{enumerate}
 Two processes $P$ and $Q$ are in the \emph{bisimilarity
-contraction}, written as $P \mcontrBIS Q$ ($P$ \emph{contracts to} $Q$),
+contraction}, written as $P \mcontrBIS Q$,
 if $P\ \R\ Q$ for some contraction $\R$.
 Sometimes we write $\mexpaBIS$ for the inverse of $\mcontrBIS$.
 \end{definition}
-
-In the first clause $Q$ is required to match $P$'s challenge
-transition with at most one transition.
+In clause (1) \hl{of the above definition}, $Q$ is required to match the challenge
+transition \hl{of $P$} with at most one transition.
 This makes sure that $Q$ is capable of mimicking % verb: mimic
 $P$'s work at least as efficiently as $P$. 
-In contrast, the second clause of Definition~\ref{d:BisCon}, on the
-challenges from $Q$, entirely ignores efficiency: it is the same
-clause of  weak bisimulation~--- the final derivatives are indeed required
-to be related  by $\wb$, rather than by $\R$.
+In contrast, \hl{clause (2) entirely ignores efficiency on the challenges from $Q$:}
+the final derivatives are required to be related by $\wb$, rather than by $\R$.
 
-Bisimilarity contraction is coarser than 
-the \emph{expansion relation}
-$\expa$~\cite{arun1992efficiency,sangiorgi2015equations}:
+Bisimilarity contraction is coarser than bisimilarity expansion
+$\expa$~\cite{arun1992efficiency,sangiorgi2015equations}, \hl{one of the
+most useful auxiliary relations in up-to techniques}:
 \begin{definition}[expansion]
 \label{d:expa}
 A process relation ${\R}$
-  is an \emph{expansion} if, whenever
-we have $P\RR Q$, for all $\mu$
+  is an \emph{expansion} if, whenever $P\RR Q$,
  \begin{enumerate}
  \item   $P \arr\mu P'$ implies that there is $Q'$ with $Q \arcap \mu  Q'$
   and $P' \RR Q'$;
- \item $Q \arr\mu Q'$   implies that there is $P'$ with $P \Arr \mu P'$ and $P' \RR Q'$.
+ \item $Q \arr\mu Q'$ implies that there is $P'$ with $P \Arr \mu P'$ and $P' \RR Q'$.
  \end{enumerate}
 Two processes $P$ and $Q$ are in the \emph{bisimilarity
-  expansion}, written as $P \expa Q$ ($P$ \emph{expands} $Q$),
- if $P \RR Q$ for some expansion $\R$.
+  expansion}, written as $P \expa Q$, if $P \RR Q$ for some expansion $\R$.
  \end{definition}
-The expansion preorder is widely used in proof techniques for bisimilarity and
-intuitively refines bisimilarity by 
+\hl{Bisimilarity expansion} is widely used in proof techniques for bisimilarity.
+\hl{It} intuitively refines bisimilarity by 
 formalising the idea of ``efficiency'' between processes.
-Clause (1) is the same in the both preorders, while in clause (2) expansion uses 
-$P \Arr \mu P'$, rather than $P \Arcap \mu P'$; 
-moreover in clause (2) of Def.~\ref{d:BisCon} the final derivatives
+Clause (1) is the same in the both preorders, while in clause (2) expansion \hl{requires}
+$P \Arr \mu P'$, rather than $P \Arcap \mu P'$.
+\hl{Moreover,} in clause (2) of Def.~\ref{d:BisCon} the final derivatives
 are simply required to be bisimilar ($P' \wb Q'$).
 Intuitively, $P \expa Q$ holds if $P\wb Q$ and, in addition, \emph{$Q$
   is always at least as efficient as $P$}.
@@ -95,8 +90,12 @@ $\expa$, which explains the strictness of the inclusion
 %  $ a \not  \mcontrBIS \tau. a$
 \end{example} 
 
-In the same way as bisimilarity, both the expansion and the
+\hl{Bisimilarity expansion and bisimilarity contraction are both
+preorders. (Thus we can also call them the \emph{expansion or contraction
+preorder}, respectively.)}
+Similarily with (weak) bisimilarity, both the expansion and the
 contraction preorders are preserved by all CCS operators except the
-summation. The proofs are similar, see e.g.~\cite{sangiorgi2017equations}.
+summation. The proofs are similar \hl{with the case of bisimilarity},
+see, e.g.~\cite{sangiorgi2017equations} \hl{for details.}
 
 % next file: unique.tex
