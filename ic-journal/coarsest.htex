@@ -151,7 +151,7 @@ derivatives.}
 \label{ss:arbitrarily}
 
 \hl{Since the type} ``\HOLty{:('a, 'b) CCS}'' is \hl{parameterized with two
-type variables $\alpha$ and $\beta$, if the type of all label
+type variables, if the type of all label
 names $\beta$ has a relatively small cardinality (or just a singleton in the
 extreme case), it is quite possible that the involved processes in}
 Proposition~\ref{prop:coarsest} used up all available labels, and thus the free
@@ -161,7 +161,7 @@ limitations of HOL itself we have to assume that the involved
 processes are \emph{finite-state}, i.e. the set of all derivatives is
 finite.} The original proof, due to van
 Glabbeek~\cite{van2005characterisation}, does not require finite-state CCS.
-Below is the main theorem:
+Here is the main theorem:
 \begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
     \label{thm:coarsestfiniteState}
     For finite-state CCS, $\rapprox$ is the coarsest congruence contained in $\wb$:
@@ -171,11 +171,13 @@ Below is the main theorem:
 \end{theorem}
 
 The precise definition of \texttt{finite_state} used in above theorem
-will be given later. We start with a core lemma saying that, for
-any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
- process $k$ which is not bisimilar with any derivative of $p$ and
+will be given later. We start with a core lemma (\texttt{PROP3_COMMON}) saying that, for
+any two processes $p$ and $q$, if there exists a \emph{stable}
+(i.e.~\hl{all immediate derivatives} are $\tau$-free)
+ process $k$ which is not bisimilar with any \hl{weak} derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
- ($\rapprox$) (see~\cite{van2005characterisation,Tian:2017wrba} for its proof):
+ ($\rapprox$) (see~\cite{van2005characterisation,Tian:2017wrba} for
+ its proof, both informal and formal versions):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}
@@ -183,41 +185,40 @@ any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free
 \HOLthm[def,>>3]{WeakEQ.STABLE'}\hfill{[STABLE]}
 \end{alltt}
 
-To actually construct this process $k$,
- the proof relies on arbitrary infinite sums of 
-processes and uses transfinite induction to obtain
-an arbitrary large sequence of processes (firstly introduced by Jan
-Willem Klop \cite{van2005characterisation})
- that are all pairwise non-bisimilar.
+To prove Theorem~\ref{thm:coarsestfiniteState}, \hl{it only remains to construct this stable
+process $k$ for any two finite-state processes $p$ and $q$.}
+\hl{For arbitrary CCS processes, this construction} relies on
+arbitrary infinite sums of processes (not within our CCS syntax) and
+transfinite induction to obtain
+an arbitrary large sequence of processes that are all pairwise
+non-bisimilar,
+which was firstly introduced by Jan
+Willem Klop~(see \cite{van2005characterisation} for some historical notes).
 We have only partially formalised
-this proof (Theorem~\ref{thm:coarsestfiniteState} in next section),
-because
-the typed logic
+van Glabbeek's proof, mostly because our CCS syntax does not allow infinite
+summation (and it is not easy to extend it with this support).
+Another more important reason is that, the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
-ordinals~\cite{norrish2013ordinals}.
-As a consequence, the final result is only for finite-state
-CCS.\footnote{van Glabbeek's
-  original proof applies to all CCS processes; however,  it
-  requires the CCS syntax to support arbitrary large summations based
-  on ordinals, and relies on the existence  of an
-  ordinal larger than the cardinality of any given set. This is beyond
-  the possibilities of HOL.}
+ordinals~\cite{norrish2013ordinals} which is required in van
+Glabbeek's proof. As the consequence, the formalisation
+(Theorem~\ref{thm:coarsestfiniteState})
+can only apply to finite-state CCS.
 
-The assumption in \texttt{PROP3_COMMON} requires the
+The above core lemma (\texttt{PROP3_COMMON}) requires the
 existence of a special CCS process, which is not weakly bisimilar to
-any sub-process emanating from the two root processes by weak
+any \hl{subprocess emanated} from the two root processes by weak
 transitions.
-There could be infinitely many such sub-processes, even on finitely
+There could be infinitely many such subprocesses, even on finitely
 branching processes.
 We can, however, consider the equivalence classes of CCS processes
 modulo weak bisimilarity.
-If there are infinitely many of such classes, 
+If there are infinitely many such classes, 
 then it will be 
-possible to choose one  that is distinct from all the (finitely many) states in the
-graphs of the two given processes.  
-This can be done following Klop's contruction \cite{van2005characterisation}.
- We call  the processes in this construction the ``Klop processes'':
+possible to choose one that is distinct from all the (finitely many) states in the
+\hl{transition} graphs of the two given processes.
+This can be done by following Klop's contruction.
+ We call the processes in this construction the ``Klop processes'':
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
 define a CCS process $k_\lambda$ as follows:
@@ -240,9 +241,9 @@ defined as a recursive function (on natural numbers) in HOL4:
 \end{alltt}
 \end{definition}
 
-Following the inductive structure of the definition of Klop processes,
+Following the inductive structure of the above definition,
   and using the SOS rules
-  ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we have proved
+  ($\mathrm{Sum}_1$) and ($\mathrm{Sum}_2$), we can prove
 the following properties of Klop functions:
 \begin{proposition}{(Properties of Klop functions and processes)}
 \begin{enumerate}
@@ -273,24 +274,20 @@ the following properties of Klop functions:
 \end{alltt}
 \end{enumerate}
 \end{proposition}
-Having
- a recursive function  on all natural numbers,
-  we can map these into a set containing  all Klop processes. 
-We can therefore 
-choose a number that is mapped onto a Klop process
-that is distinct (i.e., not bisimilar)  from 
-any  of the derivatives of two  given 
+
+For any ``\HOLtm[m;]{label a}'', having a function ``\HOLtm[m;]{KLOP
+  a}'' (of the type ``\HOLty{:num -> ('a,'b) CCS}'')
+\hl{defined on all natural numbers, we can get a set of processes
+containing all Klop processes built by the same label.
+Since the number of all Klop processes in this set is (countably) infinite, and
+since they are all pairwise non-bisimiar,
+we can always
+choose a number that is mapped to a Klop process
+that is non-bisimilar with} any derivative of two given 
  finite-state CCS processes $p$ and $q$
 (by definition, the number of such derivatives is finite).
-This is done by 
-appealing to a basic set-theory result.
+This property is captured by appealing to the following set-theoreric lamma.
 
-% (processes 
-% all states coming from
-% two finite-state CCS processes $p$ and $q$ is finite. Choosing from an
-% infinite set for an element distinct with any subprocess leading from
-% $p$ and $q$, is always possible.  This result is purely mathematical,
-% completely falling into basic set theory:
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
 of elements in this type, 
