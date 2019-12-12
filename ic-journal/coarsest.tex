@@ -282,7 +282,7 @@ the following properties of Klop functions:
 \end{proposition}
 
 For any ``\HOLinline{\HOLConst{label}\;\HOLFreeVar{a}}'', having a function ``\HOLinline{\HOLConst{KLOP}\;\HOLFreeVar{a}}'' (of the type ``\HOLinline{\HOLTyOp{num} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'')
-\hl{defined on all natural numbers, we can get a set of processes
+\hl{defined on all natural numbers, we can get a countable set of processes
 containing all Klop processes built by the same label.
 Since the number of all Klop processes in this set is (countably) infinite, and
 since they are all pairwise non-bisimiar,
@@ -290,9 +290,11 @@ we can always
 choose a number that is mapped to a Klop process
 that is non-bisimilar with} any derivative of two given 
  finite-state CCS processes $p$ and $q$
-(by definition, the number of such derivatives is finite).
-This property is captured by appealing to the following set-theoreric lamma.
-
+(by definition, the number of such derivatives is finite), \emph{even}
+if $a$ is the only element of type $\beta$ (i.e. the only label name
+in $\mathscr{L}$).
+This property is captured by appealing to the following set-theoreric
+lamma (see~\cite{Tian:2017wrba} for its proof):
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
 of elements in this type, 
@@ -338,20 +340,19 @@ which is not equivalent to any element in $A$:
 
 To reason about finite-state CCS, we also need to define the concept
 of ``finite-state'':
-\begin{definition}{(Definitions related to finite-state CCS)}
+\begin{definition}[finite-state CCS]
 \begin{enumerate}
-\item Define \emph{reachable} as the RTC (reflexive and transitive
-  closure) of a relation, which
-  indicates the existence of a transition between two processes:
+\item A binary relation \texttt{Reach} is the RTC (reflexive and transitive
+  closure) of a relation indicating the existence of a transition between two processes:
 \begin{alltt}
 \HOLConst{Reach} \HOLTokenDefEquality{} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{u}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\HOLSymConst{\HOLTokenSupStar{}}\hfill[Reach_def]
 \end{alltt}
-\item The ``nodes'' of a process is the set of all processes reachable
-  from it:
+\item The set of all derivatives (\texttt{NODES}) of a process is the
+  set of all processes reachable from it:
 \begin{alltt}
 \HOLConst{NODES} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLTokenLeftbrace{}\HOLBoundVar{q} \HOLTokenBar{} \HOLConst{Reach} \HOLFreeVar{p} \HOLBoundVar{q}\HOLTokenRightbrace{}\hfill[NODES_def]
 \end{alltt}
-\item A process is finite-state if the set of nodes is finite:
+\item A process is \texttt{finite-state} if the set of all derivatives is finite:
 \begin{alltt}
 \HOLConst{finite_state} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLConst{FINITE} \ensuremath{(}\HOLConst{NODES} \HOLFreeVar{p}\ensuremath{)}\hfill[finite_state_def]
 \end{alltt}
@@ -360,21 +361,20 @@ of ``finite-state'':
 We rely on various 
  properties of the above definitions, such as the following one:
 \begin{proposition}
-If $p$ has a weak transition onto $q$, then $q$ must be in the node set of $p$:
+If $p$ has a weak transition to $q$, then $q$ must be \hl{one of the derivatives} of $p$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{q} \HOLSymConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLFreeVar{p}\hfill[WEAK_TRANS_IN_NODES]
 \end{alltt}
 \end{proposition}
 
-Using all the above results, now we can prove the following finite
+Using all the above results, now we can prove the following \hl{finite-state}
 version of ``Klop lemma'':
-\begin{lemma}{(Klop lemma,  finite version)}
+\begin{lemma}[Klop lemma for finite-state CCS]
 \label{lem:klop-lemma-finite}
 For any two finite-state CCS $p$ and $q$, there is another process
 $k$, which is not weakly bisimilar 
-with
- any weak derivative  of $p$
-and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
+with any weak derivative  of $p$
+and $q$ (i.e., any process reachable from $p$ or $q$ by means of transitions):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}.
        \HOLConst{finite_state} \HOLBoundVar{p} \HOLSymConst{\HOLTokenConj{}} \HOLConst{finite_state} \HOLBoundVar{q} \HOLSymConst{\HOLTokenImp{}}
@@ -383,8 +383,10 @@ and $q$ (i.e., any process reachable from $p $ or $q$ by means of transitions):
            \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\hfill{[KLOP_LEMMA_FINITE]}
 \end{alltt}
 \end{lemma}
-
-Combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
-we can prove the theorem \texttt{COARSEST_CONGR_FINITE}.
+\hl{Then, }combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
+\hl{we finally proved Theorem}~\ref{thm:coarsestfiniteState}
+(\texttt{COARSEST_CONGR_FINITE}). \hl{(In the future, we seek a method to
+completely eliminate the finite-state hypothesis for our CCS syntax
+with binary summation.)}
 
 % next file: part2.htex
