@@ -9,12 +9,8 @@
 In this section we give a proof of the second part of
 Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
 congruence contained in $\wb$. 
-The formalisation of this theorem presents some 
-delicate aspects; for instance, 
-with our CCS syntax (\hl{which has} only binary sums)
-we have to add an hypothesis about
- the involved processes not using all available labels.
-The general form of the theorem is thus~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
+The general form of this theorem is the \hl{following}
+one~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{proposition}
 \label{prop:coarsest}
   Rooted bisimilarity ($\rapprox$) is the coarsest congruence
@@ -26,31 +22,37 @@ r\ \approx\ q\ +\ r )\enspace.
 \end{equation}
 \end{proposition}
 From left to right (\ref{eq:coarsest}) trivially holds, due to the substitutivity of
-$\rapprox$ for summation and the fact that $\rapprox$ implies $\wb$:
+$\rapprox$ for summation and the fact that $\rapprox$ implies $\wb$: (Thus we are only interested in (\ref{eq:coarsest}) from right to left.)
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_LR}\hfill{[COARSEST_CONGR_LR]}
 \end{alltt}
-Thus we are only interested in (\ref{eq:coarsest}) from right to left.
+
+The formalisation of this theorem presents some 
+delicate aspects. For instance, 
+\hl{within} our CCS syntax \hl{which supports} only binary sums,
+one way to prove Proposition~\ref{prop:coarsest} is
+to add \hl{an additional} hypothesis \hl{that}
+ the involved processes \hl{do not use up} all available labels.
+ Indeed, this is the standard argument by Milner~\citep[p.~153]{Mil89}.
 %
-The standard argument~\cite{Mil89} requires that $p$
-and $q$ do not use all available labels (i.e.~visible actions).
-Formalising this result, however, requires a detailed treatment of free and bound names of CCS
-processes (with the restriction operator acting as a binder).
-In our formalisation, in contrast,
-we assume \hl{a} weaker condition that all immediate \emph{weak} derivatives of
- $p$ and $q$ do not use all available labels. We call this
- the \emph{free action} property:
+ Formalising this result, however, requires a detailed treatment of
+ free and bound names \hl{(of labels)} of CCS
+processes, with the restriction operator acting as a binder.
+In our actual formalisation, instead,
+we assume \hl{a} weaker hypothesis that all \emph{immediate weak} derivatives of
+$p$ and $q$ do not \hl{use up} all available labels.
+We \hl{may call it} the \emph{free action} property:
 \begin{alltt}
 \HOLthm[def,>>3]{CoarsestCongr.free_action_def}\hfill{[free_action_def]}
 \end{alltt}
 
-Below we show how Proposition~\ref{prop:coarsest} is connected with
-the statement in Theorem~\ref{t:rapproxCongruence}, and prove it under
+Now we show how (\ref{eq:coarsest}) is connected with
+the statement of Proposition~\ref{prop:coarsest}, and prove it under
 the free action assumptions.
 %
 The coarsest congruence
 contained in (weak) bisimilarity, namely \emph{bisimilarity
-  congruence}, is
+  congruence} (\texttt{WEAK_CONGR} in HOL), is
 the \emph{composition closure} (\texttt{CC}) of (weak) bisimilarity:
 \begin{alltt}
 \HOLthm[def,>>3]{Congruence.CC_def}\hfill{[CC_def]}
@@ -60,14 +62,14 @@ We do not need to put $R\ g\ h$ into the antecedents of
   \texttt{CC\_def}, as this is anyhow obtained from the trivial context $(\lambda x.\,x)$.
 The next result shows that, for any binary relation $R$ 
 on CCS processes, the composition closure of $R$ is always at least as
-fine as $R$ ($\subseteq_r$ stands for \emph{relational subset}):
+fine as $R$ (here $\subseteq_r$ stands for \emph{relational subset}):
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_finer}\hfill{[CC_is_finer]}
 \end{alltt}
 Furthermore, we prove that any (pre)congruence contained in $R$,
 that itself needs not to be a (pre)congruence,
 is contained in the composition closure of $R$
-(hence the composition closure is the coarsest one):
+(hence the composition closure is \hl{indeed} the coarsest one):
 \begin{alltt}
 \HOLthm[nosp]{Congruence.CC_is_coarsest}\hfill{[CC_is_coarsest]}
 \HOLthm[nosp]{Congruence.PCC_is_coarsest}\hfill{[PCC_is_coarsest]}
@@ -81,38 +83,13 @@ Given the central role of
 \HOLthm[def,>>3]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
 \end{alltt}
 
-% it doesn't satisfy substitutivity on direct sums (but if the CCS syntax
-% is non-standard, i.e.~has only prefixed sums, $\approx$ is indeed a
-% congruence). The purpose is to find a coarsest congruence contained in
-% weak bisimilarity. (``coarsest'' means, any other congruence finer than it must be contained in it)
-% There're two ways to build a congruence from weak bisimilarity, one
-% way is the standard definition for observational congruence (rooted
-% weak bisimilarity) $\rapprox$ in CCS textbooks, but even it's proven to be a
-% congruence we don't know if it's coarsest one.  The other way is to
-% build a (pre)congruence closure (Def ??) directly upon
-% the original weak bisimilarity relation, we call the resulting
-% relation ``Weak bisimilarity congruence'' ($[\approx]$):
-% \begin{alltt}
-% \HOLthm[def]{CoarsestCongr.WEAK_CONGR}
-% \end{alltt}
-% It can be shown that any such (pre)congruence closure is automatically coarsest.
-%
-% Now it remains to prove that, the congruence relation built by above
-% two quite different approaches actually coincide. To achieve this goal,
-% we first noticed that, all other operators beside sums used in
-% semantic context doesn't matter, because they're already substitutable
-% for weak bisimilarity. The only important operator is the sum
-% operator. To focus on this important operator, we can temporally
-% introduce another concept called \emph{sum equivalence}:
-% \begin{alltt}
-% \HOLthm[def]{CoarsestCongr.SUM_EQUIV}
-% \end{alltt}
 Rooted bisimilarity $\rapprox$ (as a congruence contained in
 $\wb$) is now contained in \texttt{WEAK_CONGR},
 which in turn is trivially contained in \texttt{SUM_EQUIV}, as shown
 in Fig.~\ref{fig:relationship}. Thus, to prove Proposition~\ref{prop:coarsest},
-the crux is to prove that \texttt{SUM_EQUIV} implies
-rooted bisimilarity ($\rapprox$), making all three relations
+the crux is to prove that \texttt{SUM_EQUIV} is contained in
+$\rapprox$,
+making all three relations
 ($\rapprox$, \texttt{WEAK_CONGR} and \texttt{SUM_EQUIV}) coincide:
 \begin{equation}
 \label{equa:pq}
@@ -135,9 +112,10 @@ rooted bisimilarity ($\rapprox$), making all three relations
 \label{fig:relationship}
 \end{figure}
 
-The formalisation of (\ref{equa:pq}) says:
+Here is the formalisation of (\ref{equa:pq}) under free action hypothesis:
 \begin{theorem}[\texttt{COARSEST_CONGR_RL}]
-  Under the free actions assumption, $\rapprox$ is coarsest congruence contained in $\wb$.
+  \label{thm:coarsestR}
+  Under the free action hypothesis, $\rapprox$ is coarsest congruence contained in $\wb$.
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_RL}
 \end{alltt}
@@ -147,45 +125,57 @@ With an almost identical proof, rooted contraction
 ($\rcontr$) is also the coarsest
 precongruence contained in the bisimilarity contraction ($\mcontrBIS$):
 \begin{theorem}[\texttt{COARSEST_PRECONGR_RL}]
-  Under the free actions assumption, $\mcontrBIS$ is the coarsest precongruence contained in $\contr$.
+  \label{thm:coarsestPre}
+  Under the free action hypothesis, $\mcontrBIS$ is the coarsest precongruence contained in $\contr$.
 \begin{alltt}
 \HOLthm[nosp]{Contraction.COARSEST_PRECONGR_RL}
 \end{alltt}
 \end{theorem}
 
-The formal proofs  of the above two results follow Milner's proof~\cite{Mil89}.
-The assumption in Milner's result 
-requires $\mathrm{fn}(p) \cup
-\mathrm{fn}(q) \neq \mathscr{L}$ (where $\mathrm{fn}$ stands for \emph{free
-  names}), and is therefore strictly stronger than the assumption in
-our result above. Indeed, in our result we only look at immediate weak
-derivatives for $p$ and $q$, and only requires that there is an input
-or output action
-that never appears as a label. Furthermore, such an action need
-not to be the same for $p$ and for $q$,
-and an action $a$ and its complementary $\outC a$ are
-considered different actions.
+The formal proofs of Theorem~\ref{thm:coarsestR} and
+\ref{thm:coarsestPre} precisely follow Milner~\citep[p.~153--154]{Mil89}.
+Although Milner requires a stronger hypothesis: $\mathrm{fn}(p) \cup
+\mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
+  names}), the actual proof essentially requires only the above
+free action property.
+\hl{Indeed, in the proof one only looks at the immediate weak
+derivatives of $p$ and $q$, and only requires that there is an input
+or output label that never occurs as a label of the involved weak transitions.
+Furthermore, an label $a$ and its complementary $\outC a$ are
+considered different: even the involved processes have used up all
+available names, including, say, $a$, the whole proof can still complete as
+long as $\outC a$ never occurs in the immediate weak
+derivatives.}
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
 
-In this section, we give another more complex proof of the second part
-of Theorem~\ref{t:rapproxCongruence}, but only for finite-state CCS.
+\hl{Since the type} ``\HOLty{:('a, 'b) CCS}'' is \hl{parameterized with two
+type variables $\alpha$ and $\beta$, if the type of all label
+names $\beta$ has a relatively small cardinality (or just a singleton in the
+extreme case), it is quite possible that the involved processes in}
+Proposition~\ref{prop:coarsest} used up all available labels, and thus the free
+action hypothesis does not hold. In this case, it is still possible to prove
+Proposition~\ref{prop:coarsest}, \hl{but due to some
+limitations of HOL itself we have to assume that the involved
+processes are \emph{finite-state}, i.e. the set of all derivatives is
+finite.} The original proof, due to van
+Glabbeek~\cite{van2005characterisation}, does not require finite-state CCS.
+Below is the main theorem:
 \begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
     \label{thm:coarsestfiniteState}
-    For finite-state CCS, $\wb$ is the coarsest congruence contained in $\approx$:
+    For finite-state CCS, $\rapprox$ is the coarsest congruence contained in $\wb$:
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.COARSEST_CONGR_FINITE}
 \end{alltt}
 \end{theorem}
 
-The formal proof follows van
-Glabbeek~\cite{van2005characterisation}.
-The core lemma says that for
+The precise definition of \texttt{finite_state} used in above theorem
+will be given later. We start with a core lemma saying that, for
 any two processes $p$ and $q$, if there exists a \emph{stable} (i.e.~$\tau$-free)
  process $k$ which is not bisimilar with any derivative of $p$ and
  $q$, then \texttt{SUM_EQUIV} indeed implies rooted bisimilarity
- ($\rapprox$) (see~\cite{Tian:2017wrba} for more details of the proof):
+ ($\rapprox$) (see~\cite{van2005characterisation,Tian:2017wrba} for its proof):
 \begin{alltt}
 \HOLthm[nosp]{CoarsestCongr.PROP3_COMMON}\hfill{[PROP3_COMMON]}
 \end{alltt}

@@ -218,28 +218,29 @@ $P$ and $Q$, given that they are in $Con$ (a contraction):
     0.  \HOLtm{Con P Q}
     1.  \HOLtm{CONTRACTION Con}
 \end{alltt}
-We cannot show that $Con$ itself is a bisimulation, but rather
-that the union of $Con$ and $\wb$ is a bisimulation.
+\hl{To complete the proof, one cannot choose $Con$ for $Wbsm$ and}
+show that $Con$ itself is a bisimulation, but rather
+that $Con\;\cup\!\wb$ is a bisimulation.
 The corresponding lemma for the expansion preorder is rather
-straightforward (just use $Con$).
+straightforward: \hl{just choose $Con$ for $Wbsm$.}
 
-The rooted contraction ($\rcontr$, \texttt{OBS_contracts}) is formally
-defined as follows:
+Finally, the rooted contraction ($\rcontr$) is formally
+defined as follows \hl{(with similar properties proven)}:
 \begin{alltt}
 \HOLthm[def,>>3]{Contraction.OBS_contracts}\hfill{[OBS_contracts]}
 \end{alltt}
 
-\subsection{The formalisation of ``bisimulation up to bisimilarity''}
+\subsection{The formalisation of ``bisimulation up to''}
 
 ``Bisimulation up to'' is a family of powerful proof techniques
 for reducing the sizes of relations needed for defining bisimulations.
-By definition, two processes are bisimilar if there exists a
+By definition, two processes are bisimilar iff there exists a
 bisimulation relation containing them. However, in practice
 this definition is sometimes  hard to apply. Instead, to reduce
 the sizes of the exhibited relations, one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the proof work needed. These
-are usually called \emph{``up-to'' techniques}.
+privileged relation, so to relieve the \hl{needed} proof work. These
+\hl{techniques} are usually called \emph{``up-to'' techniques}.
 
 Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
@@ -291,7 +292,7 @@ Formally:
 \HOLthm[def,>>3]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-The HOL term corresponding to $\sim \R \wb$ is
+\hl{Note that,} the HOL term corresponding to $\sim \R \wb$ is
 ``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
@@ -307,9 +308,9 @@ $\mathcal{S} \subseteq\;\approx$:
 
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful enough for Milner's ``unique solution of equations''
-theorem for $\wb$ (see~\cite{sangiorgi1992problem} for more details).
-To complete the proof, the following version \emph{with weak arrows} is
-actually used:
+theorem for $\wb$ (Theorem~\ref{t:Mil89}, see~\cite{sangiorgi1992problem} for more details).
+Instead, the following version \emph{with weak arrows} is
+actually used \hl{in the proof of Theorem}~\ref{t:Mil89}:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
 $\mathcal{S}$ is a ``bisimulation up to $\approx$ with weak arrows'' if $P \;
