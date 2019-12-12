@@ -339,8 +339,9 @@ which is not equivalent to any element in $A$:
 % \end{proof}
 
 To reason about finite-state CCS, we also need to define the concept
-of ``finite-state'':
+of ``finite-state CCS'' as a predicate on CCS processes:
 \begin{definition}[finite-state CCS]
+  \hl{Let $p$ be an arbitrary CCS process:}
 \begin{enumerate}
 \item A binary relation \texttt{Reach} is the RTC (reflexive and transitive
   closure) of a relation indicating the existence of a transition between two processes:
@@ -383,9 +384,11 @@ and $q$ (i.e., any process reachable from $p$ or $q$ by means of transitions):
            \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLBoundVar{u}. \HOLBoundVar{q} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\ensuremath{\HOLBoundVar{q}\sp{\prime}} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{k}\ensuremath{)}\hfill{[KLOP_LEMMA_FINITE]}
 \end{alltt}
 \end{lemma}
-\hl{Then, }combining the above lemma with \texttt{PROP3_COMMON} and \texttt{COARSEST_CONGR_RL},
-\hl{we finally proved Theorem}~\ref{thm:coarsestfiniteState}
-(\texttt{COARSEST_CONGR_FINITE}). \hl{(In the future, we seek a method to
+\hl{Then,} combining the above lemma with the core lemma
+(\texttt{PROP3_COMMON}) and Theorem~\ref{thm:coarsestR} (\texttt{COARSEST_CONGR_RL}),
+\hl{finally we proved Theorem}~\ref{thm:coarsestfiniteState}
+(\texttt{COARSEST_CONGR_FINITE}). The same proof idea also works for
+the contraction and the rooted contration. \hl{(In the future, we seek a method to
 completely eliminate the finite-state hypothesis for our CCS syntax
 with binary summation.)}
 
