@@ -279,6 +279,7 @@ Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
 There are a few ways to fix this problem, and one is the following:
 %
 \begin{definition}%[Bisimulation up to $\approx$]
+  \label{def:singleweak}
   $\S$ is a ``bisimulation up to $\approx$'' if
   $P\ \S\ Q$ implies, for all $\mu$,
 \begin{enumerate}

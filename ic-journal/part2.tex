@@ -6,13 +6,18 @@
 \subsection{Unique solution of equations}
 \label{ss:part2}
 
-\subsubsection{The case of strong bisimilarity}
+\hl{In this section we describe the formalisation of Milner's
+``unique solution of equations'' theorems, limited to} \univariate equations. (The
+\multivariate extension is described in Section~\ref{sec:multivariate}.)
 
-Based on results about ``bisimulation up to $\sim$'', we have first proved the following
- lemma. It states  that if $X$ is weakly guarded
+\subsubsection{The version for strong bisimilarity}
+
+\hl{Using ``bisimulation up to $\sim$'' technique}, we first proved the following
+key lemma, which states that, if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
 substituted for $X$:
-\begin{lemma}[\texttt{STRONG_UNIQUE_SOLUTION_LEMMA} (Lemma 3.13 of~\cite{Mil89}, \univariate version)]
+\begin{lemma}[\texttt{STRONG_UNIQUE_SOLUTION_LEMMA}, Lemma 3.13
+  of~\cite{Mil89}, \univariate version]
 \label{lem:313}
 If the variable $X$ is weakly guarded in $E$, and
 $E\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
@@ -24,14 +29,13 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 \end{alltt}
 \end{lemma}
 
-Then, by a structural induction on weakly-guarded context
-(\texttt{WG}), we have proved Milner's strong unique-solution theorem
-in the \univariate case (cf.~Section~\ref{sec:multivariate} for the
-\multivariate case). The formal proof basically follows the outline of its
-informal version. It is tedious due to large amounts of case analyses
-on each CCS operator.
-
-\begin{theorem}[\texttt{STRONG_UNIQUE_SOLUTION} (Proposition 3.14 of~\cite{Mil89})]
+Then, by structural induction on weakly guarded contexts
+(\texttt{WG}), we have proved Theorem~\ref{t:Mil89s1}
+in the \univariate case. The formal proof basically follows the outline of its
+informal version~\citep[p.~102--103]{Mil89}, which is tedious due to
+large amounts of case analyses on each CCS operator.
+\begin{theorem}[\texttt{STRONG_UNIQUE_SOLUTION}, Proposition 3.14
+  of~\cite{Mil89}, \univariate version]
 Suppose the expression $E$ contains at most the variable $X$, and let $X$ be weakly
 guarded in $E$.
 \begin{equation}
@@ -43,38 +47,22 @@ P \sim Q.
 \end{alltt}
 \end{theorem}
 
-\subsubsection{The case of rooted bisimilarity}
+\subsubsection{The version for rooted bisimilarity}
 
-For the ``unique solutions of
-equations'' theorem of rooted bisimilarity, we use a different
-technique, represented by the
-following lemma.   It is   assertion 
- \texttt{OBS_CONGR_BY_WEAK_BISIM} mentioned in
- Section~\ref{ss:bb}, and corresponds to
- Lemma~\ref{l:obsCongrByWeakBisim}; we only report the text for  \texttt{OBS_CONGR_BY_WEAK_BISIM}.
-
-\begin{lemma}[\texttt{OBS_CONGR_BY_WEAK_BISIM}]
-% To prove two processes $E$ and $E'$  observationally congruent, it is
-% sufficient enough to construct a bisimulation with additional observational
-% transition properties:
+For the proof of Theorem~\ref{t:Mil89s3}, we have used a different
+technique based on Lemma~\ref{l:obsCongrByWeakBisim}, whose formal
+version is the following one:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WEAK_BISIM} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}.
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
             \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
             \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-       \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \ensuremath{\HOLBoundVar{E}\sp{\prime}}
+       \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[OBS_CONGR_BY_WEAK_BISIM]}
 \end{alltt}
-\end{lemma}
-
-This lemma plays a key role in the
-corresponding `unique solutions' theorem, in connection with the
-following result. 
-In this part, we have not 
-used 
- ``bisimulation up-to'' techniques. Using
- the  above \texttt{OBS_CONGR_BY_WEAK_BISIM},
- we  directly construct the appropriate bisimulation relations.
+In this proof, we did not use any ``bisimulation up-to'' technique.
+With the above lemma, the next results can be proved by directly
+constructing the required bisimulation:
 \begin{lemma}[\texttt{OBS_UNIQUE_SOLUTION_LEMMA}]
 If the variable $X$ is guarded and sequential in $G$, and
 $G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
@@ -98,18 +86,22 @@ $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 \end{alltt}
 \end{theorem}
 
-\subsubsection{The case of weak bisimilarity}
+\subsubsection{The version for weak bisimilarity}
 
 Milner~\cite{Mil89} \emph{only mentioned} two ``unique solution of
 equations'' theorems, one for strong equivalence, the other for
 rooted bisimilarity.   There is, however, another
-version for weak bisimilarity that shares a large portion of proof
+version for weak bisimilarity (Theorem~\ref{t:Mil89}) that shares a large portion of proof
 steps with the proof for \hl{rooted bisimilarity.}
-As weak bisimilarity is not a congruence, we have to be more restrictive
-on the syntax of the equation, using strong guardedness.
+\hl{Since} weak bisimilarity is not a congruence, we have to be more restrictive
+on the syntax of the equation, \hl{with only guarded sums.}
+The related formal proofs are tedious but closely follow the informal
+proof~\citep[p.~158--159]{Mil89}, \hl{except for the uses of} ``bisimulation up
+to with weak arrows'' (Def.~\ref{def:doubleweak}) instead of the
+original version (Def.~\ref{def:singleweak}).
 
 \begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
-If the variable $X$ is guarded and sequential in $G$, and
+If the variable $X$ is guarded and sequential (with only guarded sums) in $G$, and
 $G\{P/X\}\overset{\alpha}{\rightarrow} P'$, then $P'$ takes the form
 $H\{P/X\}$, for some expression $H$, and for any $Q$, we have
 $G\{Q/X\}\overset{\alpha}{\rightarrow} H\{Q/X\}$. Moreover $H$ is
@@ -122,7 +114,6 @@ sequential, and if $\alpha = \tau$ then $H$ is also guarded.
 \end{alltt}
 \end{lemma}
 
-We can then derive the target theorem:
 \begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}]
 Let $E$ be guarded and sequential expressions, and let $P \wb
 E\{P/X\}$,
