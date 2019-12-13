@@ -17,38 +17,26 @@ method);
 (i.e., the `unique-solution' method)
 \end{enumerate}
 
-The formalisation has focused on the theory of
-unique solution of equations and contractions, both in the \univariate and
-in the \multivariate cases. It
- has allowed us to further develop the theory,
+The formalisation has focused on the theory of unique solution of
+equations and contractions, both in the \univariate and in the
+\multivariate cases. It has allowed us to further develop the theory,
 notably the basic properties of rooted contraction, and the unique
-solution theorem for it with respect to rooted bisimilarity. 
-The formalisation brings up and exploits similarities between results
-and proofs for different equivalences and preorders. Indeed we have
-considered several ``unique-solution'' results (for various equivalences
-and preorders); they share many parts of the proofs, but present a few
-delicate and subtle differences in a few points. In a paper-pencil
-proof, checking all details would be long and error-prone,
-especially in cases where the proofs are similar to each other or
-  when there are long case analyses to be carried out.
-% \hl{Some of the textbook proofs were even wrong and the correct version is
-% known but not available in the literature. This is the case of Milner's
-% proof of the unique-solution theorem for $wb$}
-% (Theorem~\ref{t:Mil89s3}). \hl{Now we have fully verified formal proofs for
-% people who can read them.}
-% For some other textbook proofs, even they are correct, sometimes they actually
-% do not need all information from the antecedents, which can be further
-% weakened. This kind of improvements can be easily found during the
-% formalisation work.
-%For our CCS formalisation, 
-We believe that the formalisation of  all definitions and
-theorems are easy to read and
-to understand, as they are close to their original statement in
-textbooks.
+solution theorem for it with respect to rooted bisimilarity.  The
+formalisation brings up and exploits similarities between results and
+proofs for different equivalences and preorders. Indeed we have
+considered several ``unique-solution'' results (for various
+equivalences and preorders); they share many parts of the proofs, but
+present a few delicate and subtle differences in a few points. In a
+paper-pencil proof, checking all details would be long and
+error-prone, especially in cases where the proofs are similar to each
+other or when there are long case analyses to be carried out.  We
+believe that the formalisation of all definitions and theorems are
+easy to read and to understand, as they are close to their original
+statement in textbooks.
 
-For future work, formalising other equivalences and preorders could also be considered,
-notably trace-based equivalences, as well as more refined process
-calculi such as value-passing CCS.
+For some future work, formalising other equivalences and preorders
+could also be considered, notably trace-based equivalences, as well as
+more refined process calculi such as value-passing CCS.
 %
 A different and possibly challenging research line is
  the formalisation of a different
@@ -73,7 +61,7 @@ divergence.
 
 \paragraph{Acknowledgements}
 
-We have  benefitted from suggestions and comments 
+We have benefitted from suggestions and comments 
 from  the anonymous reviewers and several people from the HOL
 community, including (in alphabetical order) Robert Beers, Jeremy Dawson,
 Ramana Kumar,
@@ -87,4 +75,5 @@ Program Analyses' (ASPRA, ID: \texttt{201784YSZ5\_004}), and by the
 European Research
 Council (ERC) Grant DLV-818616 DIAPASoN.
 %
-The paper was written in memory of Michael J.~C.~Gordon, the creator of the HOL theorem prover.
+The paper was written in memory of Michael J.~C.~Gordon (1948--2017),
+the creator of the HOL theorem prover.

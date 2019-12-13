@@ -450,7 +450,7 @@ guarded variants, but care is needed as we \hl{have} to exclude the cases where
 free variables occur \hl{within recusion}.  \hl{Here we choose} a more elegant
  solution, which defines \multivariate contexts (and variants) upon the
  existing \univariate definitions.
-\hl{The core idea is that, whenever we replace a variable by a hole and view
+\hl{The idea is that, whenever we replace a variable by a hole and view
 the other variables as constants, this is a single variable context
 that can be asserted by predicates like} \HOLinline{\HOLConst{CONTEXT}}.
 For example, to see the weak guardedness of $a.X + b.X + c.Y$, it is
@@ -491,18 +491,16 @@ and other (pre)congruence relations are preserved by them, for instance:
 If two tuples of processes $\til P$ and $\til Q$ are strongly
 bisimilar\footnote{A HOL term like \HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenStrongEQ}\\\;\HOLFreeVar{Qs}}
   means that two lists of CCS processes are componentwise
-  (strongly) bisimilar.}, then
-for any context $E$
-% with the possible occurrences of variables $\til X$
-% (same length as $\til P$ and $\til Q$),
-also $E\{\til P/\til X\}$ and
+  bisimilar ($P_i \sim Q_i$).}, then
+for any context $E$, $E\{\til P/\til X\}$ and
 $E\{\til Q/\til X\}$ are strongly bisimilar:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{context} \HOLFreeVar{Xs} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E} \HOLSymConst{\HOLTokenStrongEQ} \ensuremath{[}\HOLFreeVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLBoundVar{E}
 \end{alltt}
 \end{lemma}
-The similar properties also hold if $\sim$ is replaced with rooted
+%
+Similar properties also hold if $\sim$ is replaced with rooted
 bisimilarity ($\rapprox$) \hl{and} rooted contraction ($\rcontr$). It does
 not hold, however, for weak bisimilarity ($\wb$) and the contraction
 preorder ($\mcontrBIS$), \hl{as they are not (pre)congruence
@@ -534,9 +532,9 @@ Note that, in the above lemma we cannot
 conclude \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}}, because $Y$ as a bound
 variable of $\recu Y E$ may also be a free variable in $\til X$. We
 also cannot conclude \HOLinline{\HOLConst{context}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{E}}, because in $\recu Y E$
-it is possible that the bound variable $Y$ occurs with another \hl{nested}
-recursion, and then it is free in $E$ (as in $\recu Y
-(\recu Z (a.Y + b.Z) + c.Y)$).
+the bound variable $Y$ \hl{may occur \emph{freely} within another nested}
+recursion, and then it is free in $E$. \hl{For instance,} $\recu Y E = \recu Y
+(\recu Z (a.Y + b.Z) + c.Y)$, $Y$ is free in $E = \recu Z (a.Y + b.Z) + c.Y$.
 
 For weakly guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
@@ -606,15 +604,9 @@ P/\til X\}$ must hold:
   \end{cases}
 \end{equation*}
 Furthermore, each $P_i$ should be a pure process, i.e.~having no free
-variable.
-% This is usually implicitly assumed in the literature but is
-% actually a \emph{must} to complete some unique-solution proofs.
-Finally, 
-%like the case of CCS equations, we must assume that, 
-the set of bound variables %(i.e. process constants) 
-must be disjoint with
-$\til X$ (this disjointness requirement is optional but makes many proofs
-easier). Putting all together,
+variable. Finally, the set of bound variables is disjoint with
+$\til X$. (This disjointness requirement is optional but makes many proofs
+easier.) Putting all together,
 below is the formal definition of a solution of \multivariate CCS
 equations:\footnote{If $R$ is a binary relation of CCS processes,
   \HOLinline{\HOLConst{LIST_REL}\\\;\HOLFreeVar{R}} is the same binary relation but for lists of
@@ -625,12 +617,12 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
       \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
       \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}\hfill{[CCS_solution_def]}
 \end{alltt}
-Note that, in HOL, the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' have the same meaning
-(w.r.t.~\texttt{pred_set} theory). The latter form suggests that,
+Note that the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' in
+HOL have the same meaning. The latter form suggests that,
 ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' is actually a set containing all
-solutions (of ``\HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}''). Then the unique-solution
-theorems can be understood in this way: any two (syntactically different) elements
-in the set are bisimilar.
+solutions of ``\HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}''. Then the unique-solution
+theorems can be understood thus: any two (syntactically different) elements
+in the solution set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
 
@@ -668,8 +660,7 @@ The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
    \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenImp{}}
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Qs}\hfill{[unique_solution_of_rooted_contractions]}
 \end{alltt}
-
-Compared with their formal proofs in the \univariate case, although each
+\hl{In comparison} with the formal proofs in the \univariate cases, although each
 step related to \multivariate substitutions is more difficult than
 the \univariate case, the entire proofs still follow the same \hl{outlines}.
 and many proof \hl{steps} can even be copied from their \univariate \hl{companions}.
