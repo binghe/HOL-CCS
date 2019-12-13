@@ -432,10 +432,10 @@ Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
 of the type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}''. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
-(contexts/expressions), \HOLinline{\HOLConst{WG}} (weak guarded contexts),
+(\hl{multi-hole} contexts), \HOLinline{\HOLConst{WG}} (weak guarded contexts),
 \HOLinline{\HOLConst{SG}} (guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
-contexts), are defined inductively, i.e.~they are built from some ``holes''
-in a bottom-up way. For instance, \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{\mid}}\\\;\HOLFreeVar{P}\ensuremath{)}}
+contexts), are \hl{all} defined inductively, i.e.~they are built from some ``holes''
+in a bottom-up \hl{manner}. For instance, \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{\mid}}\\\;\HOLFreeVar{P}\ensuremath{)}}
 holds because \HOLinline{\HOLConst{WG}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}}
 holds as a base case of the inductive definition of \HOLinline{\HOLConst{WG}}:
 \begin{alltt}
@@ -445,11 +445,14 @@ For any agent variable $X$, we have by $\beta$-reduction:
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
 notation), and the expression is weakly guarded (Def.~\ref{def:guardness}).
 
-It is possible to inductively assert \multivariate contexts and their
-guarded variants, but care is needed as  we need to exclude the cases where
-free variables occur inside a recusion operator. A more elegant
- solution is to define \multivariate contexts (and variants) upon the
-existing \univariate definitions, which is the approach we have followed.
+\hl{In theory}, it is possible to inductively assert \multivariate contexts and their
+guarded variants, but care is needed as we \hl{have} to exclude the cases where
+free variables occur \hl{within recusion}.  \hl{Here we choose} a more elegant
+ solution, which defines \multivariate contexts (and variants) upon the
+ existing \univariate definitions.
+\hl{The core idea is that, whenever we replace a variable by a hole and view
+the other variables as constants, this is a single variable context
+that can be asserted by predicates like} \HOLinline{\HOLConst{CONTEXT}}.
 For example, to see the weak guardedness of $a.X + b.X + c.Y$, it is
 natural to focus on each (free) variable: if we substitute each
 occurrence of just one variable, say $X$, with a ``hole'' and see the
@@ -470,18 +473,20 @@ This idea leads to the following definitions:
 The above definitions take an extra list of variables \HOLinline{\HOLFreeVar{Xs}} and
 assert the CCS expression \HOLinline{\HOLFreeVar{E}} with respect to this list. This
 allows us to formalise the concepts of contexts and guardedness
-independently of \HOLinline{\HOLConst{FV}}. Then \HOLinline{\HOLConst{weakly_guarded}\\\;\ensuremath{(}\HOLConst{SET_TO_LIST}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\ensuremath{)}\\\;\HOLFreeVar{E}} can
-be used assert that $E$ is weakly guarded w.r.t.~all its free
+independently of the free variables of \HOLinline{\HOLFreeVar{E}}.
+Then a logical term ``\HOLinline{\HOLConst{weakly_guarded}\\\;\ensuremath{(}\HOLConst{SET_TO_LIST}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\ensuremath{)}\\\;\HOLFreeVar{E}}'' can
+be used \hl{to} assert the weak guardedness of $E$ w.r.t.~all its free
 variables.\footnote{Here \HOLinline{\HOLConst{SET_TO_LIST}} converts a finite set
   to a list of the same elements. It turns out that, we never need this, because
   in all unique-solution theorems a list of variables \HOLinline{\HOLFreeVar{Xs}} is fixed and
   then all equations are required to contain free variables in
   \HOLinline{\HOLFreeVar{Xs}}.}
-(Guardedness and sequentiality can also be defined similarily, using
-their \univariate companions \HOLinline{\HOLConst{SG}} and \HOLinline{\HOLConst{SEQ}}.)
+(The \multivariate guardedness and sequentiality can also be defined similarily, using
+their \univariate companions \HOLinline{\HOLConst{SG}} and \HOLinline{\HOLConst{SEQ}}, \hl{but so far
+they are not defined.})
 
-The most important property of contexts are that, strong bisimilarity
-and other (pre)congruence relations are preserved by contexts, e.g.
+The most important property of \multivariate contexts is that, strong bisimilarity
+and other (pre)congruence relations are preserved by them, for instance:
 \begin{lemma}[\texttt{STRONG_EQUIV_subst_context}]
 If two tuples of processes $\til P$ and $\til Q$ are strongly
 bisimilar\footnote{A HOL term like \HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenStrongEQ}\\\;\HOLFreeVar{Qs}}
@@ -498,45 +503,47 @@ $E\{\til Q/\til X\}$ are strongly bisimilar:
 \end{alltt}
 \end{lemma}
 The similar properties also hold if $\sim$ is replaced with rooted
-bisimilarity ($\rapprox$) or rooted contraction ($\rcontr$). (It does
-not hold for weak bisimilarity $\wb$ and the contraction preorder $\mcontrBIS$.)
+bisimilarity ($\rapprox$) \hl{and} rooted contraction ($\rcontr$). It does
+not hold, however, for weak bisimilarity ($\wb$) and the contraction
+preorder ($\mcontrBIS$), \hl{as they are not (pre)congruence
+w.r.t.}~\HOLinline{\HOLConst{context}}.
 
 Another important property of contexts is their composability: if we
-substitute some free variables in a context for some other contexts, the
-resulting term is still a context (w.r.t.~the same set of variables):
+substitute some free variables in a context \hl{to} some other contexts, the
+resulting term is still a \hl{valid} context (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLConst{context} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
    \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[context_combin]}
 \end{alltt}
 
-Not every expression from the CCS syntax is a context, as 
-context variable may not within a recusion. Trivially,
- if the set of free variables of an expression
-is disjoint from a list of variables, then the expression is a context:
+On the other hand, not every term within the CCS syntax is a context, as 
+\hl{context (or equation) variables are not allowed to occur within recursion. The converse
+holds however:} if the set of free variables of an CCS term
+is disjoint from a list of variables, then the term is indeed a context
+w.r.t. the same list of variables:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
 \end{alltt}
 On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$,
-the set of free variables of $E$ excluding $Y$ is
-disjoint from $\til X$, i.e.
+the set of free variables of $E$ excluding $Y$ is disjoint with $\til X$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{Y}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\hfill{[context_rec]}
 \end{alltt}
-In the above result we cannot
+Note that, in the above lemma we cannot
 conclude \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}}, because $Y$ as a bound
 variable of $\recu Y E$ may also be a free variable in $\til X$. We
 also cannot conclude \HOLinline{\HOLConst{context}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{E}}, because in $\recu Y E$
-it is possible that the bound variable $Y$ occurs inside another
-recursion operator, and then it is a free variable for $E$ (as in $\recu Y
+it is possible that the bound variable $Y$ occurs with another \hl{nested}
+recursion, and then it is free in $E$ (as in $\recu Y
 (\recu Z (a.Y + b.Z) + c.Y)$).
 
-For weakly-guarded contexts (which are also normal contexts), beside
+For weakly guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
 guardedness) as in the \univariate case (\HOLinline{\HOLConst{WG}}), we also need
 their composability w.r.t.~\multivariate contexts: if we
-substitute some free variables in a context $C$ for some weakly-guarded
-contexts the resulting term is weakly-guarded (w.r.t.~the same set of variables):
+substitute some free variables in a context $C$ to some weakly guarded
+contexts, the resulting \hl{context becomes} weakly guarded (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
@@ -546,7 +553,7 @@ contexts the resulting term is weakly-guarded (w.r.t.~the same set of variables)
 \subsection{\Multivariate equations and solutions}
 
 With the formal definitions of \multivariate substitution and
-\multivariate (weakly-guarded) contexts, now we are ready to formally
+\multivariate (weakly guarded) contexts, now we are ready to formally
 define \multivariate CCS equations/contractions and their (unique)
 solutions. Consider a system of equation $\{X_i = E_i\}_{i\in I}$
 (Def.~\ref{def:equation}), or its expanded form (here we suppose $I = [1,n]
