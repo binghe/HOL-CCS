@@ -256,16 +256,15 @@ It then requires a
 few more steps to handle rooted bisimilarity in the conclusion. 
 Overall \hl{speaking}, the two proofs are very similar, mostly because
 the only property \hl{one needed} from (rooted) contraction is the precongruence.
-Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}
-(\texttt{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}):
+Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}
+\HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
 \end{alltt}
 
 Having proved the precongruence property of rooted contraction ($\rcontr$), 
 now we can use weakly guarded expressions in the above theorem,
 which has no more constraints on summation, that is, having
-\texttt{WG} in place of \texttt{WGS} (cf.~Theorem~\ref{thm:Mil89f}, \texttt{WEAK_UNIQUE_SOLUTION}).
+\texttt{WG} in place of \texttt{WGS} (cf.~\texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS}).
 
 On the other hand, having removed the constraints on \hl{summation}, now
 this result is very similar to Milner's original `unique solution of

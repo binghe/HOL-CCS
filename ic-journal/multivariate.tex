@@ -1,74 +1,71 @@
 %%%% -*- Mode: LaTeX -*-
+%%
+%% This is the draft of the 3rd part of IC journal, co-authored by
+%% Prof. Davide Sangiorgi and Chun Tian.
 
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section,  we discuss the formalisation of the \multivariate
+In this section,  we describe the formalisation of the \multivariate
 cases of Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
-This formalisation  supports finitely many
+%
+This formalisation supports finitely many
   equations/contractions and equation variables.\footnote{The original theorems
-hold for even  infinitely-many equations and equation variables.}
-We chose these two theorems because of their relevance and 
-because they well illustrate the effort needed for the \multivariate case.
-% Both theorems depend on the same
-% concept of ``weakly guarded contexts'', and Lemma~\ref{lem:milner313}.
-The work is an extension of the \univariate case %~\cite{EPTCS276.10}
- in the sense that neither the CCS datatype nor
-the SOS rules need to be changed.
+hold for even infinitely many equations and equation variables.}
+We chose the two theorems because \hl{they both require the same
+weakly guarded contexts (with minimized efforts)}, and 
+because they well illustrate the \hl{efforts} needed for the \multivariate case.
+The work is a \hl{natural} extension of the \univariate case, as
+\hl{no new algebraic type (e.g. the type for CCS processes) has to be defined,}
+and neither the CCS syntax nor the SOS rules \hl{needs} to be changed.
 
 The central problem of the \multivariate formalisation is the
-representation of CCS equations (expressions, contexts).
-In the \univariate formalisation, $\lambda$-functions (of type
-$CCS\rightarrow CCS$) are used to represent \univariate CCS
+representation of \multivariate CCS equations (expressions and contexts).
+In the \univariate case, $\lambda$-functions
+are used for representing \univariate CCS
 equations, and variable substitutions are simply 
-calls to $\lambda$-functions on the target CCS terms.
-This idea cannot be extended to the \multivariate case, as
-we do not have a fixed number of variables to deal with.
+\hl{applications of} $\lambda$-functions to CCS terms \hl{as substitutions}.
+This idea (i.e. \multivariate $\lambda$-functions), however,
+cannot be extended to \hl{support} the \multivariate case of
+unique-solution theorems, as we do not have a fixed number of variables to deal with.
 
-In the  literature the variables  $X_i$ of
+In the literature (\citep[p.~102]{Gorrieri:2015jt}, e.g.), the variables $X_i$ of
 a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
-equation variables
-\emph{outside} of the CCS syntax; then an equation body  $E_i$  is an \emph{open} expression
-built with CCS operators plus the equation variables.
-For a formal point of view, this means we either need to define a
+\hl{separate} \emph{process variables} outside the CCS syntax.
+Then, an equation body  $E_i$  is an \emph{open} expression
+built with CCS operators plus these equation variables.
+For a formal point of view, this means \hl{that} we either need to define a
 whole new datatype (with extra equation variables) in which each CCS
-operator must be duplicated, or we have to  add equation variables as a
-new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
-the agent variables such as  \texttt{var X}).
- Then the substitution of equation
-variables in $E_i\{\til P/\til X\}$ would be the \emph{syntactic substitution} of
-each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.
+operator must be duplicated, or we have to add equation variables as a
+new primitive (e.g.~\texttt{Var X}) to the existing CCS type in addition
+to the agent variables such as \texttt{var X}.
+(Then the substitution of equation
+variables in $E_i\{\til P/\til X\}$ would become the \emph{syntactic substitution} of
+each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.)
 In either cases the \emph{disjointness} between equation variables and
 agent variables is syntactically
 guaranteed. Both solutions are rather combersome, and require a non-trivial modification
-of the formalisation of the \univariate case.
+of the existing \univariate formalisation.
 
-In this project, we have followed Milner~\cite{Mil89}, using the
-same alphabet for both agent variables and equation variables.
-This has allowed a large reuse of the \univariate formalisation.
-For instance, the variable
-substitution function used in SOS rules \texttt{REC} can be also
-used for substituting equation variables.
+In this project, we have followed Milner's original
+approach~\cite{milner1990operational}, using the
+\emph{same} alphabet for both agent variables and equation variables.
+This \hl{approach allows} a large reuse of the \univariate formalisation.
+For instance, the variable substitution \hl{occurred in SOS rule}
+\texttt{REC} can be reused for substituting equation variables.
 However, a lot of care is needed in the proofs of many
 fundamental lemmas, mostly due to the variable capture issues between
-equation variables and agent variables.
-
-% which is also the most elegant way: reusing \emph{free} agent variables
-% (i.e. undefined constants) as equation variables, then the variable
-% substitution function used in SOS rules [\texttt{REC}] can be also
-% used for substituting eqaution variables.
-% However, this approach brings us great difficulities in proving many
-% fundamental lemmas, mostly due to the variable capture issues between
-% equation variables and agent variables.
+equation variables \hl{(free)} and agent variables \hl{(bound)}.
 
 \subsection{Free and bound variables}
 
 As mentioned at the beginning of Section~\ref{s:eq},
- an agent variable may occur outside the recursion in which it is bound;
-i.e., a variable can appear both \emph{bound} and \emph{free} in a term.
-
+within our CCS syntax an agent variable may occur outside the recursion in which it is bound.
+\hl{Thus the same} variable can appear both \emph{bound} and \emph{free} in
+a CCS term.
+%
 We denote the set of bound variables of a
 given CCS term $E$ (the variables that are bound in a recursion
 subexpression of $E$) as $\bv{E}$ (or \HOLinline{\HOLConst{BV}\\\;\HOLFreeVar{E}} in HOL), and the set of  free
