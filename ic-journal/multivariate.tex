@@ -6,8 +6,10 @@
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-In this section,  we describe the formalisation of the \multivariate
-cases of Milner's ``unique solution of equations (for $\sim$)''
+\hl{Our goal in this last part of the CCS formalisation are two formally
+verified theorems, which dwarf all previous results in this project:}
+the general (\multivariate) cases of
+Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
 %
@@ -17,7 +19,7 @@ hold for even infinitely many equations and equation variables.}
 We chose the two theorems because \hl{they both require the same
 weakly guarded contexts (with minimized efforts)}, and 
 because they well illustrate the \hl{efforts} needed for the \multivariate case.
-The work is a \hl{natural} extension of the \univariate case, as
+The work is a \hl{natural} extension of the existing work, for
 \hl{no new algebraic type (e.g. the type for CCS processes) has to be defined,}
 and neither the CCS syntax nor the SOS rules \hl{needs} to be changed.
 
@@ -63,15 +65,14 @@ equation variables \hl{(free)} and agent variables \hl{(bound)}.
 
 As mentioned at the beginning of Section~\ref{s:eq},
 within our CCS syntax an agent variable may occur outside the recursion in which it is bound.
-\hl{Thus the same} variable can appear both \emph{bound} and \emph{free} in
-a CCS term.
+\hl{Thus the same} variable can appear both \emph{free} and \emph{bound} in a CCS term.
 %
 We denote the set of bound variables of a
 given CCS term $E$ (the variables that are bound in a recursion
 subexpression of $E$) as $\bv{E}$ (or \HOLinline{\HOLConst{BV}\\\;\HOLFreeVar{E}} in HOL), and the set of  free
 variables as $\fv{E}$ (or \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}} in HOL). Both \HOLinline{\HOLConst{BV}} and \HOLinline{\HOLConst{FV}} have the
-type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\alpha} \HOLTokenTransEnd \HOLTyOp{bool}}'', i.e. functions taking CCS terms and returning sets of
-variables (of type \HOLinline{\ensuremath{\alpha}}).
+type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\alpha} \HOLTokenTransEnd \HOLTyOp{bool}}'', i.e. functions taking CCS terms and returning
+\hl{(finite)} sets of variables (of the type \HOLinline{\ensuremath{\alpha}}).
 % Milner didn't give their definitions explicitly. However, one can
 % imagine that, for most CCS operators they just pass into
 % subterms without collecting anything (and $\nil$ gives $\emptyset$).
@@ -97,16 +98,17 @@ And a list of CCS processes can be asserted by \HOLinline{\HOLConst{ALL_PROC}} d
    \HOLConst{ALL_PROC} \HOLFreeVar{Es} \HOLTokenDefEquality{} \HOLConst{EVERY} \HOLConst{IS_PROC} \HOLFreeVar{Es}\hfill{[ALL_PROC_def]}
 \end{alltt}
 
-The set of free and bound
-variables of a term need not be disjoint, e.g.~in $X + \recu X E$.
+The set of free and \hl{the set of} bound
+variables of a term need not \hl{to} be disjoint, e.g.~in $X + \recu X E$.
 More importantly, when going
 from a CCS expression to its sub-expressions, the set of free
 variables may increase, while the set of bound variables either
 remains the same or decreases. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
 $\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings some
-difficulities when doing proofs about CCS transitions. As an evidence,
-we prove the following fundamental result about $\fv{\cdot}$\hl{\mbox{~\citep[p.~1209]{milner1990operational}}}:
-
+difficulities when doing \hl{transition inductions}. As an evidence,
+we prove the following fundamental property of
+$\fv{\cdot}$~\citep[p.~1209]{milner1990operational}:
+%
 \begin{proposition}
 \label{prop:transFV}
 The derivatives of a process are themselves processes, i.e.
@@ -118,19 +120,19 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \end{proposition}
 
 \begin{proof}
-We actually prove a stronger result, asserting that the set of free
-variables in a CCS process may decrease through its derivatives:
+We actually proved a stronger result, asserting that the set of free
+variables in a CCS process \hl{\emph{never increases}} through its derivatives:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[TRANS_FV]}
 \end{alltt}
 
-In textbooks such as~\cite{Mil89}, the proof of the above property is 
-commented as  ``an easy action induction''.
-\hl{The actual proof in HOL is not that trivial}:
+In~\cite{milner1990operational}, the proof of the above property is 
+commented by  ``an easy action induction''.
+\hl{However, the actual proof (in HOL) is not that trivial}:
  ``action induction'' (or \emph{transition induction}) becomes a form of higher-order application
-of the following \emph{induction principle}, generated together with the SOS
-rules (and that essentially says that \HOLinline{\HOLConst{TRANS}} is the smallest relation
-satisfying the SOS rules):
+of the following \emph{induction principle} (generated together with the SOS
+rules), which essentially says that \HOLinline{\HOLConst{TRANS}} is the smallest relation
+satisfying the SOS rules:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u}. \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -147,11 +149,11 @@ satisfying the SOS rules):
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{X} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{P} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}\hfill{[TRANS_IND]}
 \end{alltt}
-The above long theorem has the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}} (with $a_0, a_1, a_2$ renamed), where the
+The above long theorem has the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}} (with $a_0, a_1, a_2$ renamed), \hl{where} the
 outermost universal quantifier $P$ is a higher-order
-proposition (about $E$, $\mu$ and $E'$), and $X$ is another higher-order
-proposition about $P$.
-What we are trying to prove is actually in the form of
+proposition (\hl{taking} $E$, $\mu$ and $E'$), while $X$ is another higher-order
+proposition \hl{containing} $P$.
+\hl{Our proof goal} is actually in the form of
 \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLFreeVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}}, where
 \HOLinline{\HOLFreeVar{P}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLConst{FV}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLBoundVar{E}\ensuremath{)}}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof
@@ -226,10 +228,10 @@ a contradiction with assumption 4, and the proof finally completes.
 \end{proof}
 
 Proposition~\ref{prop:transFV} is essential in the proofs of the
-  multivariable versions of all unique-solution
-  theorems.
-In comparison with the above proof, the proof of the analogous
-result for bound variables is easier:
+  \multivariate versions of all unique-solution theorems.
+On the other hand, the analogous
+result for bound variables is indeed just an easy transition
+induction. (The easy proof is omitted.)
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
@@ -237,35 +239,35 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E}\hfill{[TRANS_BV]}
 \end{alltt}
 \end{proposition}
-\begin{proof}
-Following the proof of Proposition~\ref{prop:transFV}, we do action
-induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
-facts. The only subgoal left is:
-\begin{alltt}
-        \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
-   ------------------------------------
-    0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
-\end{alltt}
-Note the difference with the proof of Proposition~\ref{prop:transFV}: now
-we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
-use the assumption and the transitivity of $\subseteq$ and try to
-prove the following goal instead:
-\begin{alltt}
-        \HOLinline{\HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
-   ------------------------------------
-    0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
-\end{alltt}
-This is an easy goal, due to the following lemma which is
- proved by \hl{doing} induction on $E$:
-\begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLConst{BV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[BV_SUBSET]}
-\end{alltt}
-Taking $E ' = \recu X E$ in the above lemma, we have
-    \HOLinline{\HOLConst{BV}\\\;\ensuremath{(}\ensuremath{[}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\HOLConst{BV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}},
-    the right side equals to \HOLinline{\HOLConst{BV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\ensuremath{(}\HOLFreeVar{X}\\\;\HOLConst{INSERT}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}\ensuremath{)}} $=$
-    \HOLinline{\HOLFreeVar{X}\\\;\HOLConst{INSERT}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}}.
-This completes the proof.
-\end{proof}
+% \begin{proof}
+% Following the proof of Proposition~\ref{prop:transFV}, we do action
+% induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
+% facts. The only subgoal left is:
+% \begin{alltt}
+%         \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
+%    ------------------------------------
+%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+% \end{alltt}
+% Note the difference with the proof of Proposition~\ref{prop:transFV}: now
+% we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
+% use the assumption and the transitivity of $\subseteq$ and try to
+% prove the following goal instead:
+% \begin{alltt}
+%         \HOLinline{\HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
+%    ------------------------------------
+%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+% \end{alltt}
+% This is an easy goal, due to the following lemma which is
+%  proved by \hl{doing} induction on $E$:
+% \begin{alltt}
+% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLConst{BV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[BV_SUBSET]}
+% \end{alltt}
+% Taking $E ' = \recu X E$ in the above lemma, we have
+%     \HOLinline{\HOLConst{BV}\\\;\ensuremath{(}\ensuremath{[}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\HOLConst{BV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}},
+%     the right side equals to \HOLinline{\HOLConst{BV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\ensuremath{(}\HOLFreeVar{X}\\\;\HOLConst{INSERT}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}\ensuremath{)}} $=$
+%     \HOLinline{\HOLFreeVar{X}\\\;\HOLConst{INSERT}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}}.
+% This completes the proof.
+% \end{proof}
 
 \subsection{\Multivariate substitutions}
 

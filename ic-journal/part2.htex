@@ -219,7 +219,7 @@ same initial proof steps as Theorem~\ref{t:contraBisimulationU}.
 It then requires a
 few more steps to handle rooted bisimilarity in the conclusion. 
 Overall \hl{speaking}, the two proofs are very similar, mostly because
-the only property \hl{one needed} from (rooted) contraction is the precongruence.
+the only property needed from \hl{contraction and rooted contraction is their} precongruence.
 Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
