@@ -24,6 +24,7 @@ val _ = temp_loose_equality ();
 
 (* For paper generating purposes, some type abbreviations are disabled *)
 val _ = disable_tyabbrev_printing "transition";
+val _ = disable_tyabbrev_printing "trace";
 val _ = disable_tyabbrev_printing "context";
 val _ = disable_tyabbrev_printing "simulation";
 

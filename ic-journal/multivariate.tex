@@ -158,7 +158,7 @@ proposition \hl{containing} $P$.
 \HOLinline{\HOLFreeVar{P}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLConst{FV}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLBoundVar{E}\ensuremath{)}}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof
 is completed.
-Now, the goal can be reduced to several conjunct
+Now the goal can be reduced to several conjunct
 subgoals, each corresponding to one SOS rule. For instance, in
 the subgoal for \texttt{SUM1} we need to prove
 $\fv{E_1} \subseteq \fv{E} \Longrightarrow
@@ -271,43 +271,40 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 
 \subsection{\Multivariate substitutions}
 
-There are two ways to represent the \multivariate
-substitution $E\{\til P/\til X\}$, that replaces each \hl{free
-occurrence} of variables $X_i$ in $E$ with the corresponding
+There are two (obvious) ways to \hl{do} % not "represent" but actually "do"
+the \multivariate substitution $E\{\til P/\til X\}$, \hl{which} replaces each \hl{free
+occurrence} of the variables $X_i$ in $E$ with the corresponding
 $P_i$: (1) iterately applying the existing \univariate
 \HOLinline{\HOLConst{CCS_Subst}}; (2) defining a new \multivariate substitution
-function.
-% In any case, we (reasonably) assume that all $X_i$ are
-%distinct with each other. 
+function which substitutes all variables $\til X$ in parallel.
 Note that there is the
-possibility that $\til P$   syntactically  again contains variables from $\til X$, thus
+possibility that $\til P$ syntactically again contains variables from $\til X$, thus
 different orders of iterated substitutions may lead to different results.
-% In fact, there are all kinds of issues with
-% substitutions and applying them to term-like structures. 
-To obtain the
-maximal flexibility with a reduced effort, we defined
+To obtain the maximal flexibility with reduced efforts, we defined
 a \multivariate version of \HOLinline{\HOLConst{CCS_Subst}}
-called \HOLinline{\HOLConst{CCS_SUBST}} based HOL's \texttt{finite\_map} theory~\cite{holdesc}.
+called \HOLinline{\HOLConst{CCS_SUBST}}, based \hl{on} HOL
+\texttt{finite\_map} theory~\cite{holdesc}.
 
-A finite map of type \HOLinline{\ensuremath{\alpha} \HOLTokenMapto{} \ensuremath{\beta}} is like a function of type
-\HOLinline{\ensuremath{\alpha} \HOLTokenTransEnd \ensuremath{\beta}} having only finitely many elements in its
+A finite map (of the type \HOLinline{\ensuremath{\alpha} \HOLTokenMapto{} \ensuremath{\beta}}) is like a function (of the type
+\HOLinline{\ensuremath{\alpha} \HOLTokenTransEnd \ensuremath{\beta}}) having only finitely many elements in its
 domain. In HOL, an empty finite map is denoted as \HOLinline{\HOLConst{FEMPTY}}.
 If \HOLinline{\HOLFreeVar{fm}} is a finite map, its domain (as a set of keys) is denoted as
 \HOLinline{\HOLConst{FDOM} \HOLFreeVar{fm}}. Applying \HOLinline{\HOLFreeVar{fm}} on a certain key, say $k$, is denoted
 by \HOLinline{\HOLFreeVar{fm} \HOLConst{'} \HOLFreeVar{k}}.
 
 The function \HOLinline{\HOLConst{CCS_SUBST}} takes a finite
-map \HOLinline{\HOLFreeVar{fm}} of type \HOLinline{\ensuremath{\alpha} \HOLTokenMapto{} \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}} and a CCS expression,
+map \HOLinline{\HOLFreeVar{fm}} (of the type \HOLinline{\ensuremath{\alpha} \HOLTokenMapto{} \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}) and a CCS expression,
 and returns another CCS expression in which
-all occurrences of variables in \HOLinline{\HOLFreeVar{fm}} domain are substituted with
-the corresponding value in \HOLinline{\HOLFreeVar{fm}}. Such a finite map can be built from
-the list of variables \HOLinline{\HOLFreeVar{Xs}} and the corresponding targets
-\HOLinline{\HOLFreeVar{Ps}} by a helper function \HOLinline{\HOLConst{fromList}} (whose details are
-omitted here), while
-\HOLinline{\HOLConst{CCS_SUBST}\\\;\ensuremath{(}\HOLConst{fromList}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Ps}\ensuremath{)}\\\;\HOLFreeVar{E}} is
+all occurrences of variables in \hl{the finite domain of} \HOLinline{\HOLFreeVar{fm}} are substituted with
+the corresponding value in \HOLinline{\HOLFreeVar{fm}}. \hl{Initially,} such a finite map can be built from
+a list of variables \HOLinline{\HOLFreeVar{Xs}} and the corresponding substituted terms
+\HOLinline{\HOLFreeVar{Ps}} by a helper function \HOLinline{\HOLConst{fromList}} (\hl{defined by us, and} whose details are
+omitted here).
+\HOLinline{\HOLConst{CCS_SUBST}\\\;\ensuremath{(}\HOLConst{fromList}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Ps}\ensuremath{)}\\\;\HOLFreeVar{E}} is usually
 abbreviated as \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]}\\\;\HOLFreeVar{E}}.
-The substitution mechanism is order-independent. For most CCS operators it
-just recursively calls itself on subterms. The only
+The substitution mechanism is order-independent, \hl{as there is no
+ordering in finite maps.} For most CCS operators it
+just recursively calls itself on subterms, \hl{while the} only
 interesting cases are at agent variables and recursion:
 \begin{alltt}
    \HOLConst{CCS_SUBST} \HOLFreeVar{fm} \ensuremath{(}\HOLConst{var} \HOLFreeVar{X}\ensuremath{)} \HOLTokenDefEquality{} \HOLKeyword{if} \HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLFreeVar{fm} \HOLKeyword{then} \HOLFreeVar{fm} \HOLConst{'} \HOLFreeVar{X} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{X}\hfill{[CCS_SUBST_var]}
@@ -317,15 +314,15 @@ interesting cases are at agent variables and recursion:
      \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{X} \ensuremath{(}\HOLConst{CCS_SUBST} \HOLFreeVar{fm} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_SUBST_rec]}
 \end{alltt}
 Variable substitution only occurs on free
-variables. In the case of $\recu X E$: if $X$ (a bound variable) is in
+variables. When the term $E$ of ``\HOLinline{\HOLConst{CCS_SUBST}\\\;\HOLFreeVar{fm}\\\;\HOLFreeVar{E}}''
+is in the form of $\recu X E'$, if $X$ (a bound variable) is in
 the domain of \HOLinline{\HOLFreeVar{fm}}, \HOLinline{\HOLConst{CCS_SUBST}} must continue the
-substitution on $E$ using a reduced map~--- without $X$~--- so that all
-occurences of $X$ in $E$ are correctly bypassed.
+substitution on $E'$ using a reduced map~--- without $X$~--- so that all
+occurences of $X$ in $E'$ are correctly bypassed.
 Since \HOLinline{\HOLConst{CCS_SUBST}} only runs
 once on each subterm, the possible free variables in  \HOLinline{\HOLFreeVar{Ps}} are never
- substituted. 
-% Thus the process is indeed
-% order-independent. 
+ substituted.
+
 Below we present some key lemmas about
 \HOLinline{\HOLConst{CCS_SUBST}}, omitting the proofs:\footnote{Hereafter,
   some new logical constants from HOL's \texttt{pred_set}
@@ -420,22 +417,20 @@ excluding \HOLinline{\HOLFreeVar{Xs}}.
 \end{alltt}
 \end{lemma}
 
-In the above lemmas, the condition
+In \hl{some of} the above lemmas, the condition
 \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{BV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}} (the bound
 variables of $E$ and the free substitution variables are disjoint) is
-not necessary but makes some proofs easier. 
-As these lemmas are
-used in the rest work, such disjointness conditions 
-are propagated everywhere. 
-% (We believe that they can be
-% all eliminated in the future.)
+added to ease the related proofs. This disjointness requirement
+is not necessary \hl{and (in theory) can be all eliminated with more efforts.}
+\hl{As many of these lemmas are used in proving other theorems, eventually}
+the disjointness condition are propagated everywhere.
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
 As mentioned in
 Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
-of type $CCS\rightarrow CCS$. These predicates, such as
+of the type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}''. These predicates, such as
 \HOLinline{\HOLConst{CONTEXT}}
 (contexts/expressions), \HOLinline{\HOLConst{WG}} (weak guarded contexts),
 \HOLinline{\HOLConst{SG}} (guarded contexts) and \HOLinline{\HOLConst{SEQ}} (sequential
