@@ -35,6 +35,7 @@ informal version~\citep[p.~102--103]{Mil89}, which is tedious due to
 large amounts of case analyses on each CCS operator.
 \begin{theorem}[\texttt{STRONG_UNIQUE_SOLUTION}, \univariate version
   of Theorem~\ref{t:Mil89s1}]
+  \label{thm:Mil89s1f}
 Suppose the expression $E$ contains at most the variable $X$, and let $X$ be weakly
 guarded in $E$.
 \begin{equation}
@@ -70,7 +71,9 @@ sequential, and if $\alpha = \tau$, then $H$ is also guarded.
 \end{alltt}
 \end{lemma}
 
-\begin{theorem}[\texttt{OBS_UNIQUE_SOLUTION}, \univariate version of Theorem~\ref{t:Mil89s3}]
+\begin{theorem}[\texttt{OBS_UNIQUE_SOLUTION}, \univariate version of
+  Theorem~\ref{t:Mil89s3}]
+  \label{thm:Mil89s3f}
 Let $E$ be guarded and sequential expressions, and let $P \rapprox
 E\{P/X\}$,
 $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
@@ -104,7 +107,9 @@ sequential, and if $\alpha = \tau$ then $H$ is also guarded.
 \end{alltt}
 \end{lemma}
 
-\begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}, \univariate version of Theorem~\ref{t:Mil89}]
+\begin{theorem}[\texttt{WEAK_UNIQUE_SOLUTION}, \univariate version of
+  Theorem~\ref{t:Mil89}]
+  \label{thm:Mil89f}
 Let $E$ be guarded and sequential expressions, and let $P \wb
 E\{P/X\}$,
 $Q \wb E\{Q/X\}$. Then $P \wb Q$.
@@ -209,32 +214,31 @@ With all above lemmas, we can thus finally prove Theorem~\ref{t:contraBisimulati
 \subsection{Unique solution of rooted contractions}
 
 The formal proof of ``unique solution of rooted contractions theorem''
-(Theorem~\ref{t:rcontraBisimulationU}) has the
-same initial proof steps as Theorem~\ref{t:contraBisimulationU}; 
-it then requires a
-few more steps to handle  rooted bisimilarity in the conclusion. 
-Overall  the
-two proofs are very similar, mostly because the only property we need
-from (rooted) contraction is its precongruence. 
- Below is the formally verified version of
-Theorem~\ref{t:rcontraBisimulationU}
-(having proved
-the precongruence of rooted contraction, 
-we can use  weakly-guarded expressions,   without constraints on  sums;
-that is, \texttt{WG} in place of \texttt{WGS}):
+(Theorem~\ref{t:rcontraBisimulationU}, \univariate version) shares the
+same initial proof steps as Theorem~\ref{t:contraBisimulationU}.
+It then requires a
+few more steps to handle rooted bisimilarity in the conclusion. 
+Overall \hl{speaking}, the two proofs are very similar, mostly because
+the only property \hl{one needed} from (rooted) contraction is the precongruence.
+Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}
+(\texttt{UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}):
 \begin{alltt}
-\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
+\HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}
 \end{alltt}
 
-Having removed the  constraints on sums, the result is
- similar to Milner's original `unique solution of
-equations' theorem for \emph{strong} bisimilarity ($\sim$)~--- 
-the same weakly guarded context (\texttt{WG}) is required.
+Having proved the precongruence property of rooted contraction ($\rcontr$), 
+now we can use weakly guarded expressions in the above theorem,
+which has no more constraints on summation, that is, having
+\texttt{WG} in place of \texttt{WGS} (cf.~Theorem~\ref{thm:Mil89f}, \texttt{WEAK_UNIQUE_SOLUTION}).
+
+On the other hand, having removed the constraints on \hl{summation}, now
+this result is very similar to Milner's original `unique solution of
+equations' theorem for \emph{strong} bisimilarity ($\sim$) (Theorem~\ref{t:Mil89s1})~--- 
+the same weakly guarded context (\texttt{WG}) is required
+(cf.~Theorem~\ref{thm:Mil89s1f}, \texttt{STRONG_UNIQUE_SOLUTION}).
 In contrast, Milner's ``unique solution of
-equations'' theorem for rooted bisimilarity ($\rapprox$)
-has more rigid constraints, as the variables must be both guarded and sequential.
-%  Theorem~\ref{t:rcontraBisimulationU} can also be seen as a more
-% applicable version of Milner's ``unique solution of
-% equations'' theorem for rooted bisimilarity ($\rapprox$), which has more
-% restrictions on equations.
-% next file: related.tex
+equations'' theorem for rooted bisimilarity ($\rapprox$) (Theorem~\ref{t:Mil89s3}),
+has more rigid constraints, as the \emph{equations} must be both guarded and
+sequential (cf.~Theorem~\ref{thm:Mil89s3f}, \texttt{OBS_UNIQUE_SOLUTION}).
+
+% next file: multivariate.tex
