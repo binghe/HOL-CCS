@@ -520,7 +520,7 @@ resulting term is still a \hl{valid} context (w.r.t.~the same set of variables):
 On the other hand, not every term within the CCS syntax is a context, as 
 \hl{context (or equation) variables are not allowed to occur within recursion. The converse
 holds however:} if the set of free variables of an CCS term
-is disjoint from a list of variables, then the term is indeed a context
+is disjoint with a list of variables, then the term is indeed a context
 w.r.t. the same list of variables:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
@@ -572,37 +572,17 @@ Consider its two essential ingredients:
 \item $\til E = (E_1, E_2, \ldots, E_n)$: a list of CCS contexts 
   with possible occurrences of free variables in $\til X$.
 \end{itemize}
-Obviously the two lists must have the same length. 
-% The all
-% distinctness of $\til X$ is not really necessary but is very
-% reasonable. 
-Furthermore, we should assume that $\til E$ does not contain
- free variables not in $\til X$.
-% , as Milner's unique-solution
-% theorems also require the same condition.
-% \footnote{One may think that,
-%   if all other (i.e.~not in $\til X$) free variables in $\til E$ have
-%   the same functionalities as $\nil$ as they are not to be
-%   substituted, then all versions of unique-solution
-%   theorems should still hold. However this is not the case for at
-%   least Milner's Theorem~\ref{t:Mil89s1} as we shall explain.}
-The only optional condition we have added is that, for each
-$E_i$, the set of its bound variables must be \emph{disjoint} from $\til X$.
-% This restriction is actually aligned with literature based on
-% process constants as one should never use the same name for equation
-% variables and constants. However, we believe this restriction can be
-% removed in the future.~
-\footnote{Essentially, this condition is due
-  to  some early lemmas about \multivariate
-  substitutions where \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{BV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}}
- appears in the antecedents. Removing this would require 
-  more complex proofs.
-% (We have succeeded in
-%   fixing many such lemmas.) Once all these lemmas are
-% fixed, the final unique-solution theorems also do not need this
-% disjointness restriction.
-} 
-Putting all together, below is the fomal
+Obviously the two lists $\til X$ and $\til E$ must have the same
+length, and in practice the variables in $\til X$ should be all distinct.
+Furthermore, we assume that $\til E$ does not contain
+ free variables that are not in $\til X$, i.e. each $E_i$ contains
+ variables up to $\til X$.
+\hl{Finally, the only extraordinary hypothesis} is that, for each
+$E_i$, the set of its bound variables must be \emph{disjoint} with
+$\til X$. \hl{(In practice, however, one can always
+rename all recursion binders in the equations to satisfy this
+requirement without changing the semantics of equations.)}
+Putting all requirements together, below is the fomal
 definition of \multivariate CCS equation:
 \begin{alltt}
    \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
@@ -613,10 +593,10 @@ definition of \multivariate CCS equation:
 
 Now consider (formally) what is a solution $\til P$ of CCS equations. First of
 all, the definition should be parametrized on a binary CCS
-relation $\R$ such as $\sim$ and $\rcontr$, so that the single definition
-could be used for the solution of all kinds of CCS
-equations/contractions. Then, of course ${\til P} \ \R\  {\til E}\{\til
-P/\til X\}$ must hold, i.e.
+relation $\R$ such as $\sim$ and $\rcontr$, so that a single definition
+can be used to represent solutions of all kinds of CCS
+\hl{equations and inequations.} Then, of course ${\til P} \ \R\  {\til E}\{\til
+P/\til X\}$ must hold:
 \begin{equation*}
   \begin{cases}
     &P_1 \ \R\ E_1\{\til P/\til X\} \\
@@ -625,14 +605,14 @@ P/\til X\}$ must hold, i.e.
     &P_n \ \R\ E_n\{\til P/\til X\}
   \end{cases}
 \end{equation*}
-Furthermore, each $P_i$ should be a pure process, i.e. having no free
+Furthermore, each $P_i$ should be a pure process, i.e.~having no free
 variable.
 % This is usually implicitly assumed in the literature but is
 % actually a \emph{must} to complete some unique-solution proofs.
 Finally, 
 %like the case of CCS equations, we must assume that, 
 the set of bound variables %(i.e. process constants) 
-must be disjoint from
+must be disjoint with
 $\til X$ (this disjointness requirement is optional but makes many proofs
 easier). Putting all together,
 below is the formal definition of a solution of \multivariate CCS
@@ -645,17 +625,17 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
       \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
       \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}\hfill{[CCS_solution_def]}
 \end{alltt}
-Note that, in HOL, \HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenEquiv{}}\\\;\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}. The form in the right-hand side suggests that,
-\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}} is actually a set containing all
-solutions (of \HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}). Then the unique-solution
-theorems can be understood thus: any two (syntactically different) elements
+Note that, in HOL, the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' have the same meaning
+(w.r.t.~\texttt{pred_set} theory). The latter form suggests that,
+``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' is actually a set containing all
+solutions (of ``\HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}''). Then the unique-solution
+theorems can be understood in this way: any two (syntactically different) elements
 in the set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
 
-With the above machinery about \multivariate contexts and substitutions,
-the \multivariate case of Lemma~\ref{lem:milner313} is formalised
-below:
+With all above machineries of \multivariate contexts and substitutions,
+the \multivariate case of Lemma~\ref{lem:milner313} is formalised below:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Ps}.
@@ -681,7 +661,7 @@ The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
 
-And the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
+\hl{So is} the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
@@ -691,5 +671,5 @@ And the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
 
 Compared with their formal proofs in the \univariate case, although each
 step related to \multivariate substitutions is more difficult than
-the \univariate case, the entire proofs still follow the same outline,
-and many proof scripts can be directly copied from their \univariate version.
+the \univariate case, the entire proofs still follow the same \hl{outlines}.
+and many proof \hl{steps} can even be copied from their \univariate \hl{companions}.
