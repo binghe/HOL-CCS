@@ -83,7 +83,7 @@ authors should do some more careful proofreading.''
 \Mark
  We have done a  careful proofreading,   amending all 
 grammatical problems we found, and also trying to improve the
-presentation in a number of sentences. 
+presentation in several places. 
 
 \item \begin{quote}
     ``In fact, one of the corrections appears to have introduced a new
@@ -95,7 +95,8 @@ presentation in a number of sentences.
     simply use the same counterexample $\{(\tau. a , 0)\}$).''
   \end{quote}
   \Mark
-  This was a (embarassing) typo; we have corrected it. 
+  This was a (embarassing) typo; we have corrected it (it was in fact correct in the HOL
+  code -- otherwise the script would not have reported success!). 
 %  when we were trying to make the paper
 %   more compact. The two $\arr{\mu}$ in
 %   Definition 4.6 should be $\Arr{\mu}$ instead. Our formalization
@@ -199,7 +200,7 @@ and the set of names (the CCS syntax being parametric with respect to these sets
 \end{quote}
   \Mark 
 We have reformulated, trying to highlight its (possible)
-interests. The (easy) proof of the other proposition (5.2), has been removed.
+interests. The (simple) proof of the other proposition (5.2) has been removed.
 
 %   \item \begin{quote}
 % 1066 (should be 1056) "the proof cannot complete" ?
@@ -215,10 +216,11 @@ interests. The (easy) proof of the other proposition (5.2), has been removed.
   \item \begin{quote}
 page 30: some the text in these lemma's is essentially (informal) explanation, with the HOL code giving the formal statements. Perhaps move the text out of the lemma environment? This will also make it look better, as it's now a full page of lemma's. 
 \end{quote}
-  \Mark We consider the (informal) explanation as statements of the
-  lemma, and the formal code a more rigorous representation. This
-  convention has been used across the whole paper. It's only on this
-  page that we put too many (small) lemmas together.
+  \Mark We consider the (informal) explanation both  a statement 
+and  as a support (easier to read) for the formal code. 
+We have followed this schema throughout the paper, here it might appear 
+heavy because there is a sequence of (small) lemmas. 
+Still, here we prefer to be homogeneous wrt the rest of the paper. 
 
 %   \item \begin{quote}
 % 1149: "Recall *that* in"
@@ -228,7 +230,7 @@ page 30: some the text in these lemma's is essentially (informal) explanation, w
   \item \begin{quote}
 1160: So the idea is that, whenever we replace a variable by a hole and view the other variables as constants, this is a single variable context - right? Perhaps this (expressed in line 960) can be emphasised again around here (but not entirely sure). 
 \end{quote}
-  \Mark We have put this sentence into the paper. Thanks.
+  \Mark We have add the sentence (thanks).
 
 %   \item \begin{quote}
 % 1165: "used *to* assert"

@@ -18,7 +18,7 @@ variables also as \emph{equation variables}. This eliminates the need of
 \hl{an additional} type for \hl{CCS} equations, and we can reuse the existing
 variable substitution operation (cf.~the SOS rule for the Recursion in
 Fig.~\ref{f:LTSCCS}) for \hl{substitutions} of equation variables.
-For example, the result of substituting \hl{the} variable $X$ with $\nil$ in $a.X +
+For example, the result of substituting  variable $X$ with $\nil$ in $a.X +
 \recu X (b.X)$,  written \hl{as} $(a.X + \recu X (b.X)) \sub {\nil} X$, is
 $a.\nil + \recu X (b.X)$ with $\recu X (b.X)$
 untouched. \Multivariate substitutions are written in the same syntax,
@@ -151,7 +151,8 @@ that all sums are guarded:
 %   congruence.}:
 \begin{theorem}[unique solution of equations for $\wb$]
 \label{t:Mil89}
-Let $E_i$ be guarded and sequential \hl{(with only guarded sums)}, and with free
+Let $E_i$   \hl{(with only guarded sums)}  be guarded and sequential,
+and  with free
 variables in $\til X$. Let ${\til P} \wb {\til E}\{\til P /\til X\}$,
   ${\til Q} \wb {\til E}\{\til Q /\til X\}$, then ${\til P} \wb {\til Q}$.
 \end{theorem}
@@ -162,7 +163,7 @@ of guarded and sequential expressions, and then extracts a bisimulation
 (up to bisimilarity) out of the solutions of the system.
 To see the need of the sequentiality condition, consider
  the equation (from~\cite{Mil89}) $X \wb \res a (a. X | \outC a)$
-where $X$ is guarded but not sequential. Any process that does not use
+where $X$ is guarded but not sequential. Any process that does not perform
 $a$\hl{--action} is a solution, e.g. $\nil$ and $b.\nil$.
 
 For more details \hl{on the formalisation of the} above three theorems, see Section~\ref{ss:part2}

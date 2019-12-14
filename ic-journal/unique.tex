@@ -52,7 +52,7 @@ $\ct{\til Q}\Arcap{\mu} R' \wb \ctp{\til Q}$ for some $R'$.
 
 \begin{theorem}[unique solution of contractions~\cite{sangiorgi2017equations}]
 \label{t:contraBisimulationU} % was: Thm 3.10
-Let $E_i$ be weakly guarded (and with guarded sums only) with free
+Let $E_i$ (and with guarded sums only) be weakly guarded,   with free
 variables in $\til X$, and let $\til P \mcontrBIS \til E\{\til P/\til X\}$,
     $\til Q \mcontrBIS \til E\{\til Q/\til X\}$. Then $\til P \wb \til Q$.
 \end{theorem}
@@ -104,9 +104,9 @@ Theorem~\ref{t:contraBisimulationU} brings a new proof technique for
 bisimilarity, which is  less restrictive than Milner's
 Theorem~\ref{t:Mil89} (but with the additional costs of checking $\mcontrBIS$
 in addition to $\wb$).
-However, comparing with Milner's Theorem~\ref{t:Mil89s1}, there remains
-\hl{one limitation}: \hl{contractions can only have}
-guarded sums. This is mainly due to the fact that $\wb$ is not a
+However, compared with Milner's Theorem~\ref{t:Mil89s1}, there remains
+\hlD{the limitation on the need of 
+guarded sums}. This is mainly due to the fact that $\wb$ is not a
  congruence and also $\mcontrBIS$ is not a precongruence.
 Inspired by rooted bisimilarity, to eliminate the restriction
 on guarded sums we refine the idea of contractions by moving
@@ -172,7 +172,7 @@ $\sim$'' (Theorem~\ref{t:Mil89s1}):
 
 \begin{theorem}[unique solution of rooted contractions]
 \label{t:rcontraBisimulationU}
-Let $E_i$ be weakly guarded with free variables \hl{up to} $\til X$,
+Let $E_i$ be weakly guarded with free variables \hlD{in} $\til X$,
 and let $\til P \rcontr \til E\{\til P/\til X\}$,
     $\til Q \rcontr \til E\{\til Q/\til X\}$. Then $\til P \rapprox \til Q$.
 \end{theorem}

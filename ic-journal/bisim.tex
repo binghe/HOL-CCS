@@ -64,8 +64,9 @@ End
 \end{lstlisting}
 Like the case of \HOLinline{\HOLConst{TRANS}}, a successful invocation of the
 coinductive definitional principle returns three
-theorems (\emph{rules}, \emph{coind} and \emph{cases}), \hl{which
-fully capture weak bisimilarity:}
+theorems (\emph{rules}, \emph{coind} and \emph{cases}):
+% , \hl{which
+% fully capture weak bisimilarity:}
 \begin{itemize}
 \item \emph{rules} is a conjunction of implications that will be the
     same as the input term:
@@ -105,14 +106,15 @@ fully capture weak bisimilarity:}
 \end{itemize}
 
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
-bisimulation is contained in the resulting relation
-(i.e.~it is the largest), but it does not constrain the resulting relation
-\hl{within} the set of all fixed points \hl{given by the above
-  \emph{rules} theorem}
-(e.g.~even the universal relation~--- the set of all CCS
-pairs~--- would fit); The
+bisimulation is contained in the resulting relation.
+% (i.e.~it is the largest), but it does not constrain the resulting relation
+% \hl{within} the set of all fixed points \hl{given by the above
+%   \emph{rules} theorem}
+% (e.g.~even the universal relation~--- the set of all CCS
+% pairs~--- would fit); 
+The
 purpose of \texttt{WEAK_EQUIV_cases} is to
-further assert that the resulting relation is indeed a
+further assert that such resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
 together make sure that bisimilarity is the greatest
 fixed point \hl{(given by \texttt{WEAK_EQUIV_rules}):
@@ -131,7 +133,7 @@ The original definition of \texttt{WEAK_EQUIV} now becomes a theorem:
 \end{alltt}
 
 The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) 
-\hl{is not recursive and it strictly} follows Definition~\ref{d:rootedBisimilarity}:
+\hlD{is not recursive and } follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenDefEquality{}
      \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
@@ -160,7 +162,8 @@ we have proved Deng's Lemma and Hennessy's Lemma
   
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{p} \HOLBoundVar{q}. \HOLBoundVar{p} \HOLSymConst{\HOLTokenWeakEQ} \HOLBoundVar{q} \HOLSymConst{\HOLTokenEquiv{}} \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{q} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{p} \HOLSymConst{\HOLTokenObsCongr} \HOLBoundVar{q}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
-\hl{They are elegant results. They are not used, however, in any other theorem in this formalisation.}
+\hlD{These are useful results in the theory of CCS (though we will not need them in the
+  remainder of the paper).}
 
 \subsection{Algebraic Laws}
 \label{ss:alaws}

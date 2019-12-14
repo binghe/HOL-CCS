@@ -11,7 +11,7 @@ relabeling and then the  processes. We use the type ``\HOLinline{\ensuremath{\be
 for all labels (i.e. visible actions), where the type variable $\beta$ corresponds
 to $\mathscr{L}$ (the set of names for labels) \hl{mentioned} at the beginning
 of Section~\ref{ss:ccs}. (Thus the
-cardinality of ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' depend on \hl{its type variable:
+cardinality of ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}''  \hlD{depends on its type variable:
 \mbox{when $\beta$ is finite or countable, ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' is countable.}})
 All labels are divided into input and output ones.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' is defined by HOL's \texttt{Datatype} package in the
@@ -152,8 +152,8 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
             \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}}
             \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}    
 \end{alltt}  
-For instance, \hl{the following proposition
-can only be proven by using the above \emph{cases} theorem}:
+For instance, \hlD{the following proposition
+need the above \emph{cases} theorem}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}

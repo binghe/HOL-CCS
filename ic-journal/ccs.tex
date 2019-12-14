@@ -44,7 +44,7 @@ A CCS process $P$ may evolve to another one \hl{(i.e. having a \emph{transition}
 The transition semantics of CCS processes is given by means of
 a Labeled Transition System (LTS) expressed in Structural Operational
 Semantics (SOS) rules shown in Fig.~\ref{f:LTSCCS}.
-A CCS \hl{process is said to use} only \emph{guarded sums} if all occurrences of
+A CCS \hlD{process has or uses}  \emph{guarded sums} if all occurrences of
 \hl{summation} are in the form $a.P + b.Q$.
 The \emph{immediate derivatives} of a
 process $P$ are \hl{the} elements of $\{P' \st P \arr\mu P'
@@ -96,14 +96,14 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-\hl{Let} $\R$, $\S$ range over binary relations, sometimes using 
+\hlD{We let} $\R$, $\S$ range over binary relations, sometimes using 
  infix notation for them, \hl{e.g.} $P \,\R\, Q$ means $(P,Q) \in \R$.
 We use a tilde, as in  $\til P$, to denote (finite) tuples of elements. 
 % We use a tilde, as in  $\til P$, to denote tuples of processes with
 % countably many \hl{elements.}
 All \hl{relation} notations can be extended to tuples componentwise,
 e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each index $i$ of the tuples $\til P$ and $\til Q$.
-We use $\DSdefi$ to \hl{define} abbreviations. For instance, $P \DSdefi G $, where
+We use $\DSdefi$ for \hl{abbreviations}. For instance, $P \DSdefi G $, where
 $G$ is some expression, means that $P$ stands for the expression $G$.
 If $\leq$ is a preorder, then  $\geq$  is its inverse (and
 conversely).
