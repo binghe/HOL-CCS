@@ -134,7 +134,7 @@ of the following \emph{induction principle} (generated together with the SOS
 rules), which essentially says that \HOLtm{TRANS} is the smallest relation
 satisfying the SOS rules:
 \begin{alltt}
-\HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_IND]}
+\HOLthm[nosp]{CCS.TRANS_IND}\hfill{[TRANS_ind]}
 \end{alltt}
 The above long theorem has the form \HOLtm[m\;]{!P. X ==> !E u E'. TRANS E
   u E' ==> P E u E'} (with $a_0, a_1, a_2$ renamed), \hl{where} the

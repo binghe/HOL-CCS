@@ -57,23 +57,22 @@ End
 \end{lstlisting}
 Like the case of \HOLtm{TRANS}, a successful invocation of the
 coinductive definitional principle returns three
-theorems (\emph{rules}, \emph{coind} and \emph{cases}), \hl{which
-fully capture weak bisimilarity:}
+theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
+\texttt{WEAK_EQUIV_cases}), \hl{which fully capture the definition of $\wb$:}
 \begin{itemize}
-\item \emph{rules} is a conjunction of implications that will be the
-    same as the input term:
+\item \texttt{WEAK_EQUIV_rules} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
-\HOLthm[]{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
+\HOLthm[]{WeakEQ.WEAK_EQUIV_rules}
 \end{alltt}
-\item \emph{coind} is the coinduction principle for the relation:
+\item \texttt{WEAK_EQUIV_coind} is the coinduction principle for \HOLtm{WEAK_EQUIV} ($\wb$):
 \begin{alltt}
-\HOLthm[]{WeakEQ.WEAK_EQUIV_coind}\hfill{[WEAK_EQUIV_coind]}
+\HOLthm[]{WeakEQ.WEAK_EQUIV_coind}
 \end{alltt}
-\item \emph{cases} is the so-called `cases' or `inversion' theorem for
+\item \texttt{WEAK_EQUIV_cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}
-\HOLthm[]{WeakEQ.WEAK_EQUIV_cases}\hfill{[WEAK_EQUIV_cases]}
+\HOLthm[]{WeakEQ.WEAK_EQUIV_cases}
 \end{alltt}
 \end{itemize}
 
@@ -88,9 +87,8 @@ purpose of \texttt{WEAK_EQUIV_cases} is to
 further assert that the resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
 together make sure that bisimilarity is the greatest
-fixed point \hl{(given by \texttt{WEAK_EQUIV_rules}):
-the former contributes to ``greatest'' while the latter
-contributes to ``fixed point''.} % please, I like/need this sentence.
+fixed point.
+
 % %
 % Without the coinduction package, (weak) bisimilarity
 % would have to be defined by following literally
