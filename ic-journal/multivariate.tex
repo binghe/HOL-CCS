@@ -576,12 +576,12 @@ Consider its two essential ingredients:
 \item $\til E = (E_1, E_2, \ldots, E_n)$: a list of CCS contexts 
   with possible occurrences of free variables in $\til X$.
 \end{itemize}
-The two lists $\til X$ and $\til E$ must have the same
+The two lists $\til X$ and $\til E$ should have the same
 length, and  the variables in $\til X$ should  be distinct.
 Furthermore,  $\til E$ does not contain
  free variables that are not in $\til X$.
 \hlD{Finally, } for each
-$E_i$, the set of its bound variables must be \emph{disjoint} from
+$E_i$, the set of its bound variables should be \emph{disjoint} from
 $\til X$. 
 % \hl{(In practice, however, one can always
 % rename all recursion binders in the equations to satisfy this
@@ -600,7 +600,7 @@ all, the definition should be parametrized on a binary CCS
 relation $\R$ such as $\sim$ and $\rcontr$, so that a single definition
 can be used to represent solutions of all kinds of CCS
 \hlD{equations.} Then,  ${\til P} \ \R\  {\til E}\{\til
-P/\til X\}$ must hold:
+P/\til X\}$  should hold:
 \begin{equation*}
   \begin{cases}
     &P_1 \ \R\ E_1\{\til P/\til X\} \\
