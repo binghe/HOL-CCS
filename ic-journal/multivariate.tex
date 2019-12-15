@@ -7,7 +7,7 @@
 \label{sec:multivariate}
 
 \hl{In this section we attack the case of 
-  multiple equations (the ``\multivariate''  case), for two major theorems earlier discussed:}
+  multiple equations (the `\multivariate'  case), for two major theorems earlier discussed:}
 Milner's ``unique solution of equations (for $\sim$)''
 (Theorem~\ref{t:Mil89s1}) and  the  ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
@@ -16,7 +16,7 @@ The formalisation supports finitely many
   equations/contractions and equation variables.\footnote{The original theorems
 hold for even infinitely many equations and equation variables.}
 We chose these two theorems because \hlD{of their relevance}, and 
-because they well illustrate the \hlD{effort} needed in the \multivariate case.
+because they well illustrate the \hlD{work} needed in the \multivariate case.
 % The work is a \hl{natural} extension of the existing work, for
 % \hl{no new algebraic type (e.g. the type for CCS processes) has to be defined,}
 % and neither the CCS syntax nor the SOS rules \hl{needs} to be changed.
@@ -300,9 +300,9 @@ a list of variables \HOLinline{\HOLFreeVar{Xs}} and the corresponding substitute
 omitted here).
 \HOLinline{\HOLConst{CCS_SUBST}\\\;\ensuremath{(}\HOLConst{fromList}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Ps}\ensuremath{)}\\\;\HOLFreeVar{E}} is usually
 abbreviated as \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]}\\\;\HOLFreeVar{E}}.
-The substitution mechanism is order-independent, \hlD{as based
- maps.} For most CCS operators it
-just recursively calls itself on subterms.  \hlD{The} most
+Using maps, the substitution mechanism is order-independent. For most CCS operators,
+\HOLinline{\HOLConst{CCS_SUBST}}
+ recursively calls itself on subterms.  \hlD{The} most
 interesting cases are at agent variables and recursion:
 \begin{alltt}
    \HOLConst{CCS_SUBST} \HOLFreeVar{fm} \ensuremath{(}\HOLConst{var} \HOLFreeVar{X}\ensuremath{)} \HOLTokenDefEquality{} \HOLKeyword{if} \HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLFreeVar{fm} \HOLKeyword{then} \HOLFreeVar{fm} \HOLConst{'} \HOLFreeVar{X} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{X}\hfill{[CCS_SUBST_var]}
@@ -451,14 +451,14 @@ for
    solution,} in which the definitions of 
  \multivariate contexts  is based on the
  existing \univariate definitions.
-\hlD{For this, intuitively,  we replace a single variable with a hole and (viewing
-the other variables as constants) so to obtain a  single-variable context
+\hlD{For this, intuitively,  we replace a single variable with a hole  (viewing
+the other variables as constants), so to obtain a  single-variable context
 on which predicates like} \HOLinline{\HOLConst{CONTEXT}} can be used.
 For example, to see the weak guardedness of $a.X + b.X + c.Y$, 
-we focus on each (free) variable: if we substitute each
+we focus on each (free) variable, we substitute each
 occurrence of a variable, say $X$, with a ``hole'' and see the
-resulting term as a $\lambda$-function, then all such $\lambda$-functions
-must satisfy \HOLinline{\HOLConst{WG}}, i.e.~the following results hold:
+resulting term as a $\lambda$-function; then all such $\lambda$-functions
+should satisfy \HOLinline{\HOLConst{WG}}, i.e.~the following results hold:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)}
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{X} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\ensuremath{)}
@@ -540,9 +540,11 @@ recursion. \hl{For instance,} variable $Y$ is free
 in $\recu Y E $ , for 
  $E = \recu Z (a.Y + b.Z) + c.Y$.
 
-For weakly guarded contexts (which are also normal contexts), beside
-their regular properties (i.e. weak
-guardedness) as in the \univariate case (\HOLinline{\HOLConst{WG}}), we also need
+For weakly guarded contexts, % (which are also normal contexts), 
+besides
+their usual properties  as in the \univariate case (i.e., weak
+guardedness,
+\HOLinline{\HOLConst{WG}}), we also need
 their composability w.r.t.~\multivariate contexts: if we
 substitute some free variables in a context $C$ with some weakly guarded
 contexts, the resulting \hlD{context is} weakly guarded (w.r.t.~the same set of variables):
@@ -597,7 +599,7 @@ Now consider (formally) what is a solution $\til P$ of CCS equations. First of
 all, the definition should be parametrized on a binary CCS
 relation $\R$ such as $\sim$ and $\rcontr$, so that a single definition
 can be used to represent solutions of all kinds of CCS
-\hl{equations and inequations.} Then, of course ${\til P} \ \R\  {\til E}\{\til
+\hlD{equations.} Then,  ${\til P} \ \R\  {\til E}\{\til
 P/\til X\}$ must hold:
 \begin{equation*}
   \begin{cases}
@@ -614,8 +616,10 @@ easier.) Putting all together,
 below is the formal definition of a solution of \multivariate CCS
 equations:\footnote{If $R$ is a binary relation of CCS processes,
   \HOLinline{\HOLConst{LIST_REL}\\\;\HOLFreeVar{R}} is the same binary relation but for lists of
-  CCS processes. Furthermore, \HOLinline{\HOLConst{LIST_REL}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{A}\\\;\HOLFreeVar{B}} implicitly
-  implies that the two lists $A$ and $B$ have the same length.}
+  CCS processes with the same length.
+ % Furthermore,  \HOLinline{\HOLConst{LIST_REL}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{A}\\\;\HOLFreeVar{B}}
+  implicitly   implies that the two lists $A$ and $B$ have the same length.
+}
 \begin{alltt}
    \HOLTokenTurnstile{} \HOLConst{CCS_solution} \HOLFreeVar{R} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenEquiv{}}
       \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
