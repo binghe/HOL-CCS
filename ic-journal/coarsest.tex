@@ -9,7 +9,7 @@
 In this section we give a proof of the second part of
 Theorem~\ref{t:rapproxCongruence}, i.e. $\rapprox$ is the coarsest
 congruence contained in $\wb$. 
-The general form of this theorem is the \hl{following}
+The general form of this theorem is the following
 one~\cite{van2005characterisation,Gorrieri:2015jt,Mil89}:
 \begin{proposition}
 \label{prop:coarsest}
@@ -29,19 +29,19 @@ $\rapprox$ for summation and the fact that $\rapprox$ implies $\wb$: (Thus we ar
 
 The formalisation of this theorem presents some 
 delicate aspects. For instance, 
-\hl{within} our CCS syntax \hl{which supports} only binary sums,
+within our CCS syntax which supports only binary sums,
 one way to prove Proposition~\ref{prop:coarsest} is
-to add \hlD{an} hypothesis \hl{that}
- the involved processes \hlD{do not use} all available labels.
+to add an hypothesis that
+ the involved processes do not use all available labels.
  Indeed, this is the standard argument by Milner~\citep[p.~153]{Mil89}.
 %
  Formalising this result, however, requires a detailed treatment of
- free and bound names \hl{(of labels)} of CCS
+ free and bound names (of labels) of CCS
 processes, with the restriction operator acting as a binder.
 In our actual formalisation, instead,
-we assume \hlD{the} weaker hypothesis that all \emph{immediate weak} derivatives of
-$p$ and $q$ do not \hlD{use} all available labels.
-We \hlD{call this} the \emph{free action} property:
+we assume the weaker hypothesis that all \emph{immediate weak} derivatives of
+$p$ and $q$ do not use all available labels.
+We call this the \emph{free action} property:
 \begin{alltt}
    \HOLConst{free_action} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{a}. \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{p}\sp{\prime}}. \HOLSymConst{\HOLTokenNeg{}}\ensuremath{(}\HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{a}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}}\ensuremath{)}\hfill{[free_action_def]}
 \end{alltt}
@@ -69,7 +69,7 @@ fine as $R$ (here $\subseteq_r$ stands for \emph{relational subset}):
 Furthermore, we prove that any (pre)congruence contained in $R$,
 that itself needs not to be a (pre)congruence,
 is contained in the composition closure of $R$
-(hence the composition closure is \hl{indeed} the coarsest one):
+(hence the composition closure is indeed the coarsest one):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{congruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[CC_is_coarsest]}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{R} \ensuremath{\HOLBoundVar{R}\sp{\prime}}. \HOLConst{precongruence} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLBoundVar{R} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{R}\sp{\prime}} \HOLSymConst{\HOLTokenRSubset{}} \HOLConst{CC} \HOLBoundVar{R}\hfill{[PCC_is_coarsest]}
@@ -138,29 +138,23 @@ Although Milner requires a stronger hypothesis: $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
   names}), the actual proof essentially requires only the above
 free action property.
-\hl{Indeed, in the proof one only looks at the immediate weak
+Indeed, in the proof one only looks at the immediate weak
 derivatives of $p$ and $q$, and only requires that there is an input
 or output label that never occurs as a label of the involved transitions.
-% Furthermore, an label $a$ and its complementary $\outC a$ are
-% considered different: even the involved processes have used up all
-% available names, including, say, $a$, the whole proof can still complete as
-% long as $\outC a$ never occurs in the immediate weak
-% derivatives.
-}
 
 \subsection{Arbitrarily many non-bisimilar processes}
 \label{ss:arbitrarily}
 
-\hlD{As the type} ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' is \hl{parameterized on two
+As the type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' is parameterized with two
 type variables, if the type of all label
 names $\beta$ has a  small cardinality (a singleton in the
-extreme case), it is  possible that the processes of}
+extreme case), it is possible that the processes of
 Proposition~\ref{prop:coarsest} use all available labels, and thus the free
 action hypothesis does not hold. In this case, it is still possible to prove
-Proposition~\ref{prop:coarsest};  \hlD{however,  due to some
+Proposition~\ref{prop:coarsest}; however, due to some
 limitations of HOL itself we have to assume that the
 processes are \emph{finite-state}, i.e. the set of all their derivatives is
-finite.} The original proof, due to van
+finite. The original proof, due to van
 Glabbeek~\cite{van2005characterisation}, does not require finite-state CCS.
 Here is the main theorem:
 \begin{theorem}[\texttt{COARSEST_CONGR_FINITE}]
@@ -174,8 +168,8 @@ Here is the main theorem:
 The precise definition of \texttt{finite_state} used in above theorem
 will be given later. We start with a core lemma (\texttt{PROP3_COMMON}) saying that, for
 any two processes $p$ and $q$, if there exists a \emph{stable}
-(i.e.~\hl{without  $\tau$ transitions})
- process which is not bisimilar with any \hl{weak} derivative of $p$ and
+(i.e.~without $\tau$ transitions)
+ process which is not bisimilar with any weak derivative of $p$ and
  $q$, then \HOLinline{\HOLConst{SUM_EQUIV}} indeed implies rooted bisimilarity
  ($\rapprox$)~\cite{van2005characterisation,Tian:2017wrba}:
 \begin{alltt}
@@ -190,9 +184,9 @@ any two processes $p$ and $q$, if there exists a \emph{stable}
    \HOLConst{STABLE} \HOLFreeVar{p} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \ensuremath{\HOLBoundVar{p}\sp{\prime}}. \HOLFreeVar{p} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{p}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{u} \HOLSymConst{\HOLTokenNotEqual{}} \HOLSymConst{\ensuremath{\tau}}\hfill{[STABLE]}
 \end{alltt}
 
-To prove Theorem~\ref{thm:coarsestfiniteState}, \hl{it only remains to construct such stable
-process $k$ for any two finite-state processes $p$ and $q$.}
-\hl{For arbitrary CCS processes, this construction} relies on
+To prove Theorem~\ref{thm:coarsestfiniteState}, it only remains to construct such stable
+process $k$ for any two finite-state processes $p$ and $q$.
+For arbitrary CCS processes, this construction relies on
 arbitrary infinite sums of processes (not within our CCS syntax) and
 transfinite induction to obtain
 an arbitrary large sequence of processes that are all pairwise
@@ -212,7 +206,7 @@ can only apply to finite-state CCS.
 
 The above core lemma (\texttt{PROP3_COMMON}) requires the
 existence of a special CCS process, which is not weakly bisimilar to
-any \hlD{weak derivative} of the two root processes.
+any weak derivative of the two root processes.
 There could be infinitely many such subprocesses, even on finitely
 branching processes.
 We can, however, consider the equivalence classes of CCS processes
@@ -220,7 +214,7 @@ modulo weak bisimilarity.
 If there are infinitely many such classes, 
 then it will be 
 possible to choose one that is distinct from all the (finitely many) states in the
-\hl{transition} graphs of the two given processes.
+transition graphs of the two given processes.
 This can be done by following Klop's contruction.
  We call the processes in this construction the ``Klop processes'':
 \begin{definition}[Klop processes]
@@ -280,19 +274,17 @@ the following properties of Klop functions:
 \end{enumerate}
 \end{proposition}
 
-For any ``\HOLinline{\HOLConst{label}\;\HOLFreeVar{a}}'', having a function ``\HOLinline{\HOLConst{KLOP}\;\HOLFreeVar{a}}'' (of  type ``\HOLinline{\HOLTyOp{num} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'')
-\hlD{defined on the natural numbers, we obtain a countable set of processes
+For any ``\HOLinline{\HOLConst{label}\;\HOLFreeVar{a}}'', having a function ``\HOLinline{\HOLConst{KLOP}\;\HOLFreeVar{a}}'' (of the type ``\HOLinline{\HOLTyOp{num} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'')
+defined on the natural numbers, we obtain a countable set of processes
 with all Klop processes built from the same label.
 Since the number of all Klop processes in this set is (countably) infinite, and
 since they are all pairwise non-bisimiar,
 we can always
 choose a number that is mapped to a Klop process
-that is non-bisimilar with} any derivative of two given 
+that is non-bisimilar with any derivative of two given 
  (finite-state) processes $p$ and $q$,
-%(by definition, the number of such derivatives is finite), 
-({even}
-when $a$ is the only element of type $\beta$, i.e. the only label name
-in $\mathscr{L}$).
+even when $a$ is the only element of type $\beta$, i.e. the only label name
+in $\mathscr{L}$.
 This property is captured by appealing to the following set-theoreric
 lamma (see~\cite{Tian:2017wrba} for its proof):
 \begin{lemma}
@@ -341,7 +333,7 @@ which is not equivalent to any element in $A$:
 To reason about finite-state CCS, we also need to define the concept
 of ``finite-state CCS'' as a predicate on CCS processes:
 \begin{definition}[finite-state CCS]
-%  \hl{Let $p$ be an arbitrary CCS process:}
+  \mbox{}
 \begin{enumerate}
 \item A binary relation \texttt{Reach} is the RTC (reflexive and transitive
   closure) of a relation indicating the existence of a transition between two processes:
@@ -362,13 +354,13 @@ of ``finite-state CCS'' as a predicate on CCS processes:
 We rely on various 
  properties of the above definitions, such as the following one:
 \begin{proposition}
-If $p$ has a weak transition to $q$, then $q$ is among \hlD{the derivatives} of $p$:
+If $p$ has a weak transition to $q$, then $q$ is among the derivatives of $p$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{p} \HOLTokenWeakTransBegin\HOLFreeVar{u}\HOLTokenWeakTransEnd \HOLFreeVar{q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{q} \HOLSymConst{\HOLTokenIn{}} \HOLConst{NODES} \HOLFreeVar{p}\hfill[WEAK_TRANS_IN_NODES]
 \end{alltt}
 \end{proposition}
 
-Using all the above results, now we can prove the following \hl{finite-state}
+Using all the above results, now we can prove the following finite-state
 version of ``Klop lemma'':
 \begin{lemma}[Klop lemma for finite-state CCS]
 \label{lem:klop-lemma-finite}
@@ -386,11 +378,8 @@ and $q$ (i.e., any process reachable from $p$ or $q$ by means of transitions):
 \end{lemma}
 Combining the above lemma with the core lemma
 (\texttt{PROP3_COMMON}) and Theorem~\ref{thm:coarsestR} (\texttt{COARSEST_CONGR_RL}),
-\hlD{yields the proof of Theorem}~\ref{thm:coarsestfiniteState}
+yields the proof of Theorem~\ref{thm:coarsestfiniteState}
 (\texttt{COARSEST_CONGR_FINITE}). The same proof idea can also be used with
  contraction and rooted contration.
-%  \hl{(In the future, we seek a method to
-% completely eliminate the finite-state hypothesis for our CCS syntax
-% with binary summation.)}
 
 % next file: part2.htex

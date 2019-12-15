@@ -9,18 +9,18 @@
 A highlight of this CCS formalisation is the simplified definitions of
 bisimilarities using the new coinduction package of
 HOL4. Without this package, bisimilaries can still be defined in HOL, but
-proving their properties would be more \hl{tedious and}
+proving their properties would be more tedious and
 complicated~\citep[p.~91]{Mil89}.
-Below we \hl{briefly describe} how weak bisimulation and weak
-bisimilarity are defined \hl{in HOL.}
+Below we briefly describe how weak bisimulation and weak
+bisimilarity are defined in HOL.
 Strong bisimulation and strong bisimilarity, as well as other
 concepts such as expansion and contraction, can be defined
 in the same manner.
 
-To define (weak) bisimilarity, \hl{first we need to define}
+To define (weak) bisimilarity, first we need to define
 weak transitions of CCS processes.
 A (possibly empty) sequence of $\tau$-transitions between
-two processes is defined as a new \hl{binary} relation \HOLtm{EPS}
+two processes is defined as a new binary relation \HOLtm{EPS}
 ($\overset{\epsilon}{\Longrightarrow}$), which is the
 reflexive and transitive closure (RTC, denoted by a superscript $^*$)
 of ordinary $\tau$-transitions of CCS processes:
@@ -33,15 +33,15 @@ two $\epsilon$-transitions:
 \HOLthm[def,>>3]{WeakEQ.WEAK_TRANS}\hfill{[WEAK_TRANS]}
 \end{alltt}
 %
-The definition of weak bisimulation is \hl{then} based on weak and $\epsilon$--transitions:
+The definition of weak bisimulation is then based on weak and $\epsilon$--transitions:
 \begin{alltt}
 \HOLthm[def,>>3]{WeakEQ.WEAK_BISIM}\hfill{[WEAK_BISIM]}
 \end{alltt}
 
-We can prove, \hl{for example}, that the identity relation \hl{\mbox{(\HOLtm[m;!]{(\x y. x = y)})
-is indeed}} a bisimulation, and that
-bisimulation is preserved by inversion, composition, and union \hl{operations}.
-\hl{Weak bisimilarity can be then defined in HOL4 by the following code:}
+We can prove, for example, that the identity relation (\HOLtm[m;!]{(\x y. x = y)})
+is indeed a bisimulation, and that
+bisimulation is preserved by inversion, composition, and union operations.
+Weak bisimilarity can be then defined in HOL4 by the following code:
 \begin{lstlisting}
 CoInductive WEAK_EQUIV :
     !(E :('a, 'b) CCS) (E' :('a, 'b) CCS).
@@ -57,11 +57,10 @@ End
 \end{lstlisting}
 Like the case of \HOLtm{TRANS}, a successful invocation of the
 coinductive definitional principle returns three
-theorems (\emph{rules}, \emph{coind} and \emph{cases}), \hl{which
-fully capture weak bisimilarity:}
+theorems (\emph{rules}, \emph{coind} and \emph{cases}):
 \begin{itemize}
-\item \emph{rules} is a conjunction of implications that will be the
-    same as the input term:
+\item 
+\emph{rules} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
 \HOLthm[]{WeakEQ.WEAK_EQUIV_rules}\hfill{[WEAK_EQUIV_rules]}
 \end{alltt}
@@ -78,25 +77,11 @@ fully capture weak bisimilarity:}
 \end{itemize}
 
 The coinduction principle \texttt{WEAK_EQUIV_coind} says that any
-bisimulation is contained in the resulting relation
-(i.e.~it is the largest), but it does not constrain the resulting relation
-\hl{within} the set of all fixed points \hl{given by the above
-  \emph{rules} theorem}
-(e.g.~even the universal relation~--- the set of all CCS
-pairs~--- would fit); The
-purpose of \texttt{WEAK_EQUIV_cases} is to
-further assert that the resulting relation is indeed a
+bisimulation is contained in the resulting relation.
+The purpose of \texttt{WEAK_EQUIV_cases} is to
+further assert that such resulting relation is indeed a
 fixed point. Thus \texttt{WEAK_EQUIV_coind} and \texttt{WEAK_EQUIV_cases}
-together make sure that bisimilarity is the greatest
-fixed point \hl{(given by \texttt{WEAK_EQUIV_rules}):
-the former contributes to ``greatest'' while the latter
-contributes to ``fixed point''.} % please, I like/need this sentence.
-% %
-% Without the coinduction package, (weak) bisimilarity
-% would have to be defined by following literally
-% Def.~\ref{d:wb}; then other properties of bisimilarity, such
-% as the fixed-point property in \texttt{WEAK_EQUIV_cases}, would have to be
-% derived manually (see, e.g.~\citep[p.~91]{Mil89}).
+together make sure that bisimilarity is the greatest fixed point.
 
 The original definition of \texttt{WEAK_EQUIV} now becomes a theorem:
 \begin{alltt}
@@ -104,12 +89,12 @@ The original definition of \texttt{WEAK_EQUIV} now becomes a theorem:
 \end{alltt}
 
 The formal definition of rooted bisimilarity ($\rapprox$, \texttt{OBS_CONGR}) 
-\hl{is not recursive and it strictly} follows Definition~\ref{d:rootedBisimilarity}:
+is not recursive and follows Definition~\ref{d:rootedBisimilarity}:
 \begin{alltt}
 \HOLthm[def,>>3]{ObsCongr.OBS_CONGR}\hfill{[OBS_CONGR]}
 \end{alltt}
 Below is the formal version of Lemma~\ref{l:obsCongrByWeakBisim}
-(\texttt{OBS_CONGR_BY_WEAK_BISIM}), which is needed \hl{later,} in the proof
+(\texttt{OBS_CONGR_BY_WEAK_BISIM}), which is needed later, in the proof
 of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}
@@ -123,14 +108,15 @@ we have proved Deng's Lemma and Hennessy's Lemma
   
 \HOLthm[nosp]{CoarsestCongr.HENNESSY_LEMMA}\hfill{[HENNESSY_LEMMA]}
 \end{alltt}
-\hl{They are elegant results. They are not used, however, in any other theorem in this formalisation.}
+These are useful results in the theory of CCS (though we will not need them in the
+  remainder of the paper).
 
 \subsection{Algebraic Laws}
 \label{ss:alaws}
 
 Having formalised the definitions of strong bisimulation and strong bisimilarity,
 we can derive \emph{algebraic laws} for the 
- bisimilarities. We only report a few \hl{algebraic laws on summation}:
+ bisimilarities. We only report a few algebraic laws on summation:
 \begin{alltt}
 STRONG_SUM_IDEMP:          \HOLthm{StrongLaws.STRONG_SUM_IDEMP}  
 STRONG_SUM_COMM:           \HOLthm{StrongLaws.STRONG_SUM_COMM}
@@ -163,15 +149,9 @@ TAU_STRAT: \HOLthm{CoarsestCongr.TAU_STRAT}
 TAU_WEAK:  \HOLthm{WeakLaws.TAU_WEAK}
 \end{alltt}
 
-\hl{Again, all these algebraic laws are not used in proving other theorems
-in this formalisation.}
-
 \subsection{Expansion, Contraction and Rooted Contraction}
 
-\hl{To formalise the theorems on the unique solutions of expansions,
-contractions (and of rooted contractions)}, we have formally defined
- (bisimulation) expansion and contraction (and their preorders) along
- the lines of strong and weak bisimilarity:
+We formalise and contraction along the lines of strong and weak bisimilarity:
 \begin{alltt}
 \HOLthm[def,>>3]{Expansion.EXPANSION}\hfill{[EXPANSION]}
 
@@ -182,9 +162,8 @@ contractions (and of rooted contractions)}, we have formally defined
 \HOLthm{Contraction.contracts_thm}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{It is verified that} the contraction preorder
-($\mcontrBIS$) indeed contains the expansion
-preorder ($\expa$), and that they are both contained in weak bisimilarity ($\wb$):
+The contraction preorder ($\mcontrBIS$) contains the expansion
+preorder ($\expa$), and they are both contained in weak bisimilarity ($\wb$):
 \begin{proposition}{(Relationships between contraction preorder,
     expansion preorder and weak bisimilarity)}
 \begin{enumerate}
@@ -199,7 +178,7 @@ preorder ($\expa$), and that they are both contained in weak bisimilarity ($\wb$
 \end{enumerate}
 \end{proposition}
 
-\hl{It is observed that,} the proofs of properties for contraction are
+The proofs of properties for contraction are
 generally harder than those for expansion. This is mostly due to the fact
   that, although the contraction preorder ($\mcontrBIS$) is contained in
   bisimilarity ($\wb$), a contraction need not be a bisimulation.
@@ -218,14 +197,13 @@ $P$ and $Q$, given that they are in $Con$ (a contraction):
     0.  \HOLtm{Con P Q}
     1.  \HOLtm{CONTRACTION Con}
 \end{alltt}
-\hl{To complete the proof, one cannot choose $Con$ for $Wbsm$ and}
+To complete the proof, one cannot choose $Con$ for $Wbsm$ and
 show that $Con$ itself is a bisimulation, but rather
 that $Con\;\cup\!\wb$ is a bisimulation.
-The corresponding lemma for the expansion preorder is rather
-straightforward: \hl{just choose $Con$ for $Wbsm$.}
+In contrast, in the corresponding lemma for expansion 
+one can just take $Con$.
 
-Finally, the rooted contraction ($\rcontr$) is formally
-defined as follows \hl{(with similar properties proven)}:
+Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \begin{alltt}
 \HOLthm[def,>>3]{Contraction.OBS_contracts}\hfill{[OBS_contracts]}
 \end{alltt}
@@ -239,8 +217,8 @@ bisimulation relation containing them. However, in practice
 this definition is sometimes  hard to apply. Instead, to reduce
 the sizes of the exhibited relations, one prefers to define relations
 which are bisimulations only when closed up under some specific and
-privileged relation, so to relieve the \hl{needed} proof work. These
-\hl{techniques} are usually called \emph{``up-to'' techniques}.
+privileged relation, so to relieve the needed proof work. These
+techniques are usually called \emph{``up-to'' techniques}.
 
 Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
@@ -293,7 +271,7 @@ Formally:
 \HOLthm[def,>>3]{BisimulationUpto.WEAK_BISIM_UPTO}
 \end{alltt}
 \end{definition}
-\hl{Note that,} the HOL term corresponding to $\sim \R \wb$ is
+Note that the HOL term corresponding to $\sim \R \wb$ is
 ``\HOLtm{WEAK_EQUIV O R O STRONG_EQUIV}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLtm{STRONG_EQUIV} or $\sim$) in the relational composition is
@@ -311,7 +289,7 @@ The above version of ``bisimulation up to $\wb$''
 is not powerful enough for Milner's ``unique solution of equations''
 theorem for $\wb$ (Theorem~\ref{t:Mil89}, see~\cite{sangiorgi1992problem} for more details).
 Instead, the following version \emph{with weak arrows} is
-actually used \hl{in the proof of Theorem}~\ref{t:Mil89}:
+actually used in the proof of Theorem~\ref{t:Mil89}:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
 $\mathcal{S}$ is a ``bisimulation up to $\approx$ with weak arrows'' if $P \;

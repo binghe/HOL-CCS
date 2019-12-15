@@ -4,13 +4,12 @@
 \section{Calculus of Communicating Systems (CCS)}
 \label{ss:ccs}
 
-%Here we recall the core theory of CCS.
 We assume a possibly infinite set of \emph{names} $\mathscr{L} = \{a, b,
 \ldots\}$ yielding \emph{input} and \emph{output labels} (or
 \emph{actions}), a special \emph{invisible}
 action $\tau \notin \mathscr{L}$, and another possibly infinite
-set of \emph{agent variables} \hl{$\mathscr{X} = \{X, Y, \ldots\}$}.
-The class of  CCS \hl{terms} is then inductively
+set of \emph{agent variables} $\mathscr{X} = \{X, Y, \ldots\}$.
+The class of CCS terms is then inductively
 defined from $\nil$ (the terminated process) and agent variables by the operators
 of \emph{prefixing} (.), \emph{parallel composition} ($|$),
 \emph{summation}
@@ -39,15 +38,15 @@ satisfy $\mathit{rf}(\tau) =
     \overline{\mathit{rf}(l)}$ (with $\bar{\bar l} = l$ for all $l \in
     \mathscr{L}$).
 We sometimes omit a trailing $\nil$, e.g., writing $a|b$ for $a.\nil |b .\nil$.
-A CCS process $P$ may evolve to another one \hl{(i.e. having a \emph{transition})}, say $P'$, under
+A CCS process $P$ may evolve to another one (i.e. having a \emph{transition}), say $P'$, under
   an action $\mu$, written by $P \arr{\mu} P'$.
 The transition semantics of CCS processes is given by means of
 a Labeled Transition System (LTS) expressed in Structural Operational
 Semantics (SOS) rules shown in Fig.~\ref{f:LTSCCS}.
-A CCS \hlD{process has or uses}  \emph{guarded sums} if all occurrences of
-\hl{summation} are in the form $a.P + b.Q$.
+A CCS process has or uses \emph{guarded sums} if all occurrences of
+summation are in the form $a.P + b.Q$.
 The \emph{immediate derivatives} of a
-process $P$ are \hl{the} elements of $\{P' \st P \arr\mu P'
+process $P$ are the elements of $\{P' \st P \arr\mu P'
 \mbox{ for some $\mu$}\}$.
 We use $\ell$ to range over visible actions (i.e.~inputs or outputs, excluding $\tau$)
 and $\mu$ to range over all actions.
@@ -96,16 +95,13 @@ $n$ $\mu$-transitions. Finally, $P \arr\mu$ holds if there is $P'$
 with $P \arr\mu P'$, and similarly for other forms of transitions.
 
 \paragraph{Further notations}
-\hlD{We let} $\R$, $\S$ range over binary relations, sometimes using 
- infix notation for them, \hl{e.g.} $P \,\R\, Q$ means $(P,Q) \in \R$.
+We let $\R$, $\S$ range over binary relations, sometimes using 
+ infix notation for them, e.g. $P \,\R\, Q$ means $(P,Q) \in \R$.
 We use a tilde, as in  $\til P$, to denote (finite) tuples of elements. 
-% We use a tilde, as in  $\til P$, to denote tuples of processes with
-% countably many \hl{elements.}
-All \hl{relation} notations can be extended to tuples componentwise,
+All relation notations can be extended to tuples componentwise,
 e.g., $\til P \,\R\, \til Q$ means $P_i \,\R\, Q_i$ for each index $i$ of the tuples $\til P$ and $\til Q$.
-We use $\DSdefi$ for \hl{abbreviations}. For instance, $P \DSdefi G $, where
+We use $\DSdefi$ for abbreviations. For instance, $P \DSdefi G $, where
 $G$ is some expression, means that $P$ stands for the expression $G$.
-If $\leq$ is a preorder, then  $\geq$  is its inverse (and
-conversely).
+If $\leq$ is a preorder, then  $\geq$  is its inverse (and conversely).
 
 % next file: expansion.tex (bisimilarity and rooted bisimilarity, actually)

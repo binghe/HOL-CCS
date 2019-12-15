@@ -9,10 +9,10 @@
 The CCS formalisation starts with type definitions for action,
 relabeling and then the  processes. We use the type ``\HOLty{:'b Label}''
 for all labels (i.e. visible actions), where the type variable $\beta$ corresponds
-to $\mathscr{L}$ (the set of names for labels) \hl{mentioned} at the beginning
+to $\mathscr{L}$ (the set of names for labels) mentioned at the beginning
 of Section~\ref{ss:ccs}. (Thus the
-cardinality of ``\HOLty{:'b Label}'' depend on \hl{its type variable:
-\mbox{when $\beta$ is finite or countable, ``\HOLty{:'b Label}'' is countable.}})
+cardinality of ``\HOLty{:'b Label}'' depends on its type variable:
+when $\beta$ is finite or countable, ``\HOLty{:'b Label}'' is countable.)
 All labels are divided into input and output ones.
 The type ``\HOLty{:'b Label}'' is defined by HOL's \texttt{Datatype} package in the
 following syntax:
@@ -26,12 +26,12 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 \HOLtm[-Out]{coname "b"} denote the input \emph{label} $a$ and output
 \emph{label} $\overline{b}$, respectively.
 The type ``\HOLty{:'b Action}'' is the
-union of \hl{all visible actions (input and output labels) and the invisible action} $\tau$
+union of all visible actions (input and output labels) and the invisible action $\tau$
 (\texttt{tau}). For instace, the input \emph{action} $a$ and output
 \emph{action} $\overline{b}$ of the type ``\HOLty{:string Action}''
 are denoted by \HOLtm[-In]{label (name
-  "a")} and \HOLtm[-Out]{label (coname "b")}, respectively. \hl{On the
-other hand,} \HOLtm[-In]{label (name 1)} and \HOLtm[-Out]{label (coname
+  "a")} and \HOLtm[-Out]{label (coname "b")}, respectively. On the
+other hand, \HOLtm[-In]{label (name 1)} and \HOLtm[-Out]{label (coname
   2)} could be actions of the type ``\HOLty{:num Action}'', where
 \HOLty{:num} is the type of natural numbers in HOL.
 
@@ -59,14 +59,14 @@ Datatype: CCS = nil
               | rec 'a CCS
 End
 \end{lstlisting}
-The above \hl{definition allows us to write} terms like \texttt{nil} and
+The above definition allows us to write terms like \texttt{nil} and
 \texttt{sum P Q} in HOL4. Their correspondences with conventional CCS notations
 in the literature are given in Table~\ref{tab:ccsoperator}, where
-most CCS operators have also more readable \hl{abbreviated} forms,
+most CCS operators have also more readable abbreviated forms,
 either for end users or for \TeX{} outputs. (All
   formal theorems and definitions in this paper
   are generated from HOL4. Also, by default, all theorems are fully
-  specialised with outermost universal quantifiers \hl{removed.})
+  specialised with outermost universal quantifiers removed.)
 
 \begin{table}[h]
 \begin{center}
@@ -111,8 +111,10 @@ consequences of an \emph{inductive relation} definition of
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
-  \item \emph{rules} is a conjunction of implications that will be the
-    same as the input term. In fact, the following formal versions of SOS rules are
+  \item \emph{rules} is a conjunction of implications (each
+    corresponding to a SOS rule) that will be the
+    same as the input term.
+    In fact, the following formal versions of SOS rules are
     extracted from the \emph{rules} theorem:
 \begin{alltt}
 \HOLthm{CCS.PREFIX}\hfill\texttt{[PREFIX]}
@@ -141,20 +143,19 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_cases}    
 \end{alltt}  
-For instance, \hl{the following proposition
-can only be proven by using the above \emph{cases} theorem}:
+For instance, the following proposition \hl{needs} the above \emph{cases} theorem:
 \begin{alltt}
 \HOLthm{CCS.TRANS_SUM_EQ}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
 \end{itemize}
 
-\hl{In particular,} the SOS rule \texttt{REC} (Recursion)
+In particular, the SOS rule \texttt{REC} (Recursion)
  says that, if we substitute all occurrences of the variable $A$ in $P$ to
 $(\recu A P)$ and the resulting process has a transition to $P'$
 with an action $u$, then $(\recu A P)$ has the same
 transition. Here ``\HOLtm[m,]{(CCS_Subst E (rec X E) X)}'' is an abbreviation
 for ``\HOLtm[m,,-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
-recursive function substituting all \hl{occurrences} of a free variable with a CCS term.
+recursive function substituting all occurrences of a free variable with a CCS term.
 For most CCS operators \HOLtm{CCS_Subst} just recursively goes into a deeper
 level without changing anything, e.g.
 \begin{alltt}
@@ -170,18 +171,18 @@ variables. For instance, the variable $Y$ in ``\HOLtm[m!;]{rec Y E}'' is
 bound and therefore the substitution ignores it.
 
 A useful facility exploiting the interplay
-between HOL4 and Standard ML (\hl{which} follows an idea of Nesi~\cite{Nesi:1992ve})
+between HOL4 and Standard ML (which follows an idea of Nesi~\cite{Nesi:1992ve})
  is a recursive ML function that takes a CCS process and returns a theorem indicating all
   direct transitions of the process. (If the input process is
  infinitely branching, the function will not terminate, however.)
 For instance, we know that the process $(a.\nil | \bar{a}.\nil)$ has three
-\hl{immediate derivatives given by the following transitions}:
+immediate derivatives given by the following transitions:
 $(a.\nil | \bar{a}.\nil) \overset{a}{\longrightarrow}
 (\nil | \bar{a}.\nil)$, $(a.\nil | \bar{a}.\nil)
 \overset{\bar{a}}{\longrightarrow} (a.\nil | \nil)$ and $(a.\nil | \bar{a}.\nil)
 \overset{\tau}{\longrightarrow} (\nil | \nil)$.
 To completely describe all possible transitions of the process, the
-following two facts must be proved: (1) there are indeed the three
+following two facts have to be proved: (1) there are indeed the three
   transitions mentioned above; (2) there is no other
   transition. For large CCS processes it is surprisingly tedious to manually derive
 all the possible transitions and prove the non-existence of other transitions.

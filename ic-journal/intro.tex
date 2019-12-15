@@ -10,11 +10,11 @@ based on algebraic reasoning~\cite{BaeBOOK,theoryAndPractice,RosUnder10}.
 Milner's unique-solution theorem for weak bisimilarity, however,
 has severe syntactic limitations:
 the equations must be both \emph{guarded} and \emph{sequential}. That is,
-the variables of the equations can only occur underneath visible prefixes and \hl{summation}.
-One way to overcome \hl{these} limitations is to replace the equations
+the variables of the equations can only occur underneath visible prefixes and summation.
+One way to overcome these limitations is to replace the equations
 with special inequations called
-\emph{contractions}~\cite{sangiorgi2015equations,sangiorgi2017equations}. \hl{The
-contraction relation} is a
+\emph{contractions}~\cite{sangiorgi2015equations,sangiorgi2017equations}. The
+contraction relation is a
 preorder that, roughly, places some efficiency constraints on processes.
 The unique solution of contractions is defined as with equations:
 any two solutions must be componentwise bisimilar.
@@ -24,9 +24,9 @@ the contraction preorder rather than bisimilarity.
 With contractions, most syntactic limitations of the unique-solution theorem are
 eliminated. One constraint that still remains
 in~\cite{sangiorgi2017equations}
-(where the issue is bypassed \hl{by} using a more
+(where the issue is bypassed by using a more
 restrictive CCS syntax)
-is the occurrences of \hlD{arbitrary} sums (e.g.~$P + Q$) due to
+is the occurrences of arbitrary sums (e.g.~$P + Q$) due to
 the non-substitutivity of the contraction preorder in this case.
 
 This paper presents a comprehensive formalisation of Milner's Calculus of Communicating
@@ -35,18 +35,18 @@ with a focus towards the theory of unique solutions of equations and contraction
 Many results in Milner's CCS book~\cite{Mil89} are covered, since
 the unique-solution theorems rely on a large number of fundamental results.
 Indeed the formalisation encompasses all basic properties of strong,
-\hl{weak and rooted}
-bisimilarities (e.g.~the fixed-point and substitutivity properties), \hl{and} their algebraic laws.
+weak and rooted
+bisimilarities (e.g.~the fixed-point and substitutivity properties), and their algebraic laws.
 Further extensions include several versions of ``bisimulation up to''
-techniques, \hl{and properties of the expansion and contraction preorders}.
+techniques, and properties of the expansion and contraction preorders.
 Concerning rooted bisimilarity, the formalisation
 includes Hennessy's Lemma, Deng's Lemma,
  and two theorems saying that rooted bisimilarity is the coarsest (largest)
  congruence contained in weak bisimilarity ($\wb$): one is classical
  with the hypothesis that no process uses up all labels;
 the other one is 
-without such hypothesis, essentially \hl{formalising} van Glabbeek's proof~\cite{van2005characterisation}.
-\hl{With} this respect, the work is also an extensive experiment using the HOL theorem prover with its
+without such hypothesis, essentially formalising van Glabbeek's proof~\cite{van2005characterisation}.
+With this respect, the work is also an extensive experiment using the HOL theorem prover with its
 recent developments, including its coinduction package.
 
 This formalisation has offered us the possibility of
@@ -57,11 +57,11 @@ substitutivity problems of weak bisimilarity and other behavioural relations wit
 to the sum operator.
 In this paper, the contraction-based proof technique is further
 refined by moving from the contraction preorder to
-\emph{rooted contraction}, \hl{which is shown to be} the coarsest
+\emph{rooted contraction}, which is shown to be the coarsest
 precongruence contained in the contraction preorder.
 The resulting unique-solution theorem is now valid for
 \emph{rooted bisimilarity} (hence also for bisimilarity itself), and places no 
-constraints on \hl{summation}.
+constraints on summation.
 
 Another benefit of the formalisation is 
 that we can take advantage of results about different 
@@ -72,50 +72,50 @@ contraction are, respectively, the coarsest congruence contained in
 weak bisimilarity and the coarsest precongruence contained in the
 contraction preorder; the proofs about unique solution(s) of equations
 for weak bisimilarity that use the contraction preorder as an
-auxiliary relation, and other \hl{unique-solution theorems} (e.g. the one
+auxiliary relation, and other unique-solution theorems (e.g. the one
 for rooted bisimilarity 
  in which the auxiliary relation is rooted contraction); the
 proofs about various forms of enhancements of the bisimulation proof
 method (the ``up-to'' techniques).
 %
-In these cases, when moving between proofs there are only a few places \hl{in}
-the HOL proof scripts \hlD{that have} to be modified.
+In these cases, when moving between proofs there are only a few places in
+the HOL proof scripts that have to be modified.
 Then the successful termination of a proof gives us the
- guarantee that the proof is \hl{correct}, eliminating the risks 
+ guarantee that the proof is correct, eliminating the risks 
 of overlooking or missing details as in \emph{paper-and-pencil} proofs.
 
-\hl{Concerning the formalisation of unique-solution theorems,}
+Concerning the formalisation of unique-solution theorems,
 we first consider the case of a single equation (or contraction), the
 \emph{\univariate case}.
-\hl{Then we turn to} the \emph{\multivariate case} where more equations
-  (or contractions) with multiple equation variables \hl{are involved}.
-  The \univariate versions \hl{of the} unique-solution theorems
-  \hl{can directly use}
-$\lambda$-functions to \hl{represent} CCS equations,
-while the \multivariate versions \hl{require}
-more careful and delicate \hl{treatments} of CCS
+Then we turn to the \emph{\multivariate case} where more equations
+  (or contractions) with multiple equation variables are involved.
+  The \univariate versions of the unique-solution theorems
+  can directly use
+$\lambda$-functions to represent CCS equations,
+while the \multivariate versions require
+more careful and delicate treatments of CCS
 expressions, with multiple variables and substitutions acting on them.
 % should be in the same paragraph, still talking about multivariable equations.
 In contrast to literature such as~\cite{Gorrieri:2015jt},
 we have followed Milner's original approach~\cite{milner1990operational} and adopted the same
 type for both CCS equations and processes: those undefined constants
 in CCS terms are treated as  (free) equation variables, and a CCS
-process is a CCS \hl{expression} without equation variables.  % don't use "term"
+process is a CCS expression without equation variables.  % don't use "term"
 This allows us a smoother move from the \univariate case to the \multivariate
 one. (See Section~\ref{sec:multivariate} for more details.)
 
 \paragraph{Structure of the paper}
 
-In Section~\ref{ss:ccs} \hl{we recall the core theory} of CCS,
+In Section~\ref{ss:ccs} we recall the core theory of CCS,
 including its syntax, operational semantics, bisimilarity and rooted
 bisimilarity.
-\hl{Then,} Section~\ref{s:eq} discusses equations and contractions, and in particular,
+Then, Section~\ref{s:eq} discusses equations and contractions, and in particular,
 Section~\ref{ss:new} presents rooted contraction and the related
 unique-solution result for rooted bisimilarity.
 In Section~\ref{s:for} we highlight the CCS formalisation in HOL4, with
 the unique-solution theorems in the \univariate case.
 Section~\ref{sec:multivariate} describes the extension to the \multivariate case.
-Finally, in Section~\ref{s:rel} and \ref{s:concl} \hl{we discuss} the related work,
+Finally, in Section~\ref{s:rel} and \ref{s:concl} we discuss the related work,
 conclusions, and a few directions for future work.
 
 %%% next file: ccs.tex

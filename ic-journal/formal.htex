@@ -34,7 +34,7 @@
 \section{The formalisation}
 \label{s:for}
 
-We highlight here a \hl{comprehensive} formalisation of CCS in the HOL theorem prover
+We highlight here a comprehensive formalisation of CCS in the HOL theorem prover
 (HOL4)~\cite{Melham:1993vl,slind2008brief}, with a focus towards the
 theory (and formal proofs) of the unique solution of
 equations/contractions theorems mentioned in Section~\ref{s:eq} and
@@ -63,8 +63,8 @@ certain extensions.
 Indeed, HOL has considerably simpler logical
 foundations than most other theorem provers.
 As a consequence, theories and proofs verified in HOL are easier to understand
- \hl{for} people who are not familar with more advanced dependent type
- theories, \hl{e.g. the Calculus of Constructions implemented in Coq.}
+ for people who are not familar with more advanced dependent type
+ theories, e.g. the Calculus of Constructions implemented in Coq.
 
 HOL4 is implemented in Standard ML, and
  the same programming language
@@ -122,12 +122,12 @@ distinguished infinite set $\mathbf{I}$.
    \label{fig:hol-types}
 \end{figure}
 
-\hl{HOL terms} represent elements of the
-sets denoted by \hl{their} types. There are four kinds of \hl{HOL terms,
-which} can be described (in simplified forms) by the BNF grammar in
+HOL terms represent elements of the
+sets denoted by their types. There are four kinds of HOL terms,
+which can be described (in simplified forms) by the BNF grammar in
 Fig.~\ref{fig:hol-terms}. (See~\cite{hollogic} for a complete
-description of HOL, \hl{including the primitive derivative rules to be
-mentioned below.})
+description of HOL, including the primitive derivative rules to be
+mentioned below.)
 
 \settowidth{\ttX}{\tt X}
 \newcommand{\var}{\setlength{\unitlength}{\ttX}\begin{picture}(1,6)
@@ -173,7 +173,7 @@ derivative rules:
 \end{enumerate}
 All proofs are eventually reduced to applications of the above rules,
 which also give the semantics of two foundamental
-logical connectives,  equality ($=$) and implication
+logical connectives, equality ($=$) and implication
 ($\Rightarrow$). The remaining logical connectives and first-order
 quantifiers, including the logical true (\HOLtm{T}) and false (\HOLtm{F}), are
 further defined as $\lambda$-functions: 

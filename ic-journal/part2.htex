@@ -6,13 +6,13 @@
 \subsection{Unique solution of equations}
 \label{ss:part2}
 
-\hl{In this section we describe the formalisation of Milner's
-``unique solution of equations'' theorems, limited to} \univariate equations. (The
+In this section we describe the formalisation of Milner's
+``unique solution of equations'' theorems, limited to \univariate equations. (The
 \multivariate extension is described in Section~\ref{sec:multivariate}.)
 
 \subsubsection{The version for strong bisimilarity}
 
-\hl{Using ``bisimulation up to $\sim$'' technique}, we first proved the following
+Using ``bisimulation up to $\sim$'' technique, we obtain the following
 key lemma, which states that, if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
 substituted for $X$:
@@ -29,7 +29,7 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 \end{lemma}
 
 Then, by structural induction on weakly guarded contexts
-(\texttt{WG}), we have proved Theorem~\ref{t:Mil89s1}
+(\texttt{WG}), we prove Theorem~\ref{t:Mil89s1}
 in the \univariate case. The formal proof basically follows the outline of its
 informal version~\citep[p.~102--103]{Mil89}, which is tedious due to
 large amounts of case analyses on each CCS operator.
@@ -51,13 +51,13 @@ P \sim Q.
 
 For the proof of Theorem~\ref{t:Mil89s3}, we did not use any
 ``bisimulation up-to'' technique.
-\hl{Instead,} we have used a different
+Instead, we have used a different
 technique based on Lemma~\ref{l:obsCongrByWeakBisim}, whose formal
 version is the following one (\texttt{OBS_CONGR_BY_WEAK_BISIM}):
 \begin{alltt}
 \HOLthm{ObsCongr.OBS_CONGR_BY_WEAK_BISIM}
 \end{alltt}
-\hl{By using Lemma}~\ref{l:obsCongrByWeakBisim}, \hl{the next two results} can be proved by 
+Using Lemma~\ref{l:obsCongrByWeakBisim}, the next two results are proved by 
 directly constructing the required bisimulation:
 (see~\cite{Tian:2017wrba} for more details)
 \begin{lemma}[\texttt{OBS_UNIQUE_SOLUTION_LEMMA}]
@@ -88,13 +88,12 @@ Milner~\cite{Mil89} \emph{only mentioned} two ``unique solution of
 equations'' theorems, one for strong equivalence, the other for
 rooted bisimilarity.   There is, however, another
 version for weak bisimilarity (Theorem~\ref{t:Mil89}) that shares a large portion of proof
-steps with the proof for \hl{rooted bisimilarity.}
+steps with the proof for rooted bisimilarity.
 As weak bisimilarity is not a congruence, we have to be more restrictive
-on the syntax of the equation, \hl{with only guarded sums.}
+on the syntax of the equation, using only guarded sums.
 The related formal proofs are tedious but closely follow the informal
-proof~\citep[p.~158--159]{Mil89}, \hl{except for the uses of} ``bisimulation up
-to with weak arrows'' (Def.~\ref{def:doubleweak}) instead of the
-original version (Def.~\ref{def:singleweak}).
+proof~\citep[p.~158--159]{Mil89}, with the exception of the use of ``bisimulation up
+to with weak arrows'' (Def.~\ref{def:doubleweak}, instead of Def.~\ref{def:singleweak}).
 
 \begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
 If the variable $X$ is guarded and sequential (with only guarded sums) in $G$, and
@@ -121,11 +120,11 @@ $Q \wb E\{Q/X\}$. Then $P \wb Q$.
 \subsection{Unique solution of contractions}
 
 A delicate point in the formalisation of the results about unique solution of
-contractions \hl{is} the proof of Lemma~\ref{l:ruptocon} and lemmas alike.
-\hl{In particular, we have do} induction on the length of weak transitions.
+contractions is the proof of Lemma~\ref{l:ruptocon} and lemmas alike.
+In particular, we use induction on the length of weak transitions.
 For this, rather than introducing a refined form of weak transition relation
 enriched with its length, we found it more elegant to work with
-\emph{traces}, \hl{i.e. weak transitions with all intermediate actions.}
+\emph{traces}, sequences of transitions.
 (A further motivation is to set the ground for future extensions of this
 formalisation work to \emph{trace equivalence} in place of bisimilarity.)
 
@@ -133,47 +132,46 @@ A trace is formally represented by the initial and final processes, plus
 a list of actions so performed.
 For this, we first define the concept of \emph{label-accumulated reflexive transitive closure}
  (\HOLtm{LRTC}).
-\hl{Then,} given any labeled transition relation \HOLtm{R} (of the type
+Then, given any labeled transition relation \HOLtm{R} (of type
 ``\HOLty{:'a -> 'b -> 'a -> bool}''), \HOLtm{LRTC R} is
-a relation representing \hl{traces} (of the type
+a relation representing traces over \HOLtm{R} (of type
 ``\HOLty{:'a -> 'b list -> 'a -> bool}''):
 \begin{alltt}
 \HOLthm[def,>>3,width=70]{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
 The trace relation for CCS, \HOLtm{TRACE} (of the
 type ``\HOLty{:('a, 'b) CCS -> 'b Action list -> ('a,'b) CCS -> bool}''),
-can be then obtained
- by \hl{combining} \texttt{LRTC} and the \texttt{TRANS}
- ($\overset{\mu}{\rightarrow}$) relation inductively defined by SOS rules:
+is then obtained
+ by combining \texttt{LRTC} and the \texttt{TRANS}
+ ($\overset{\mu}{\rightarrow}$) relation defining the SOS rules:
 \begin{alltt}
 \HOLthm[def,>>3]{Trace.TRACE_def}\hfill{[TRACE_def]}
 \end{alltt}
 
-\hl{Let the trace be $P\overset{acts}{\longrightarrow}Q$.}
-If the list of actions $acts$ is empty, then there is no transition
-actually: the initial and final processes are the same, i.e. $P = Q$.
-\hl{On the other hand, if there is at most one visible action (i.e. a
-label) $\mu$ in $acts$ (all other actions are $\tau$, if they exist),}
-then the trace is actually a weak transition: $P \Arr{\mu} Q$.
-Here we have to distinguish between two cases: no label and unique label (in
-the list of actions). The definition of ``no
-label'' in an action list is easy (here \texttt{MEM} tests if \hl{an} element is a member of a list):
+In a trace  $P\overset{acts}{\longrightarrow}Q$,
+ the list of actions $acts$ may be  empty, in which case there is no transition, and 
+ the initial and final processes are the same, i.e. $P = Q$.
+If there is at most one visible action $\mu$  in $acts$, and all other actions are $\tau$'s,
+then the trace represents a weak transition $P \Arr{\mu} Q$.
+For this, we have to distinguish two cases in
+the list of actions: no label and unique label. The definition of ``no
+label'' for a list of  actions is as follows, where \texttt{MEM} tests if an element is a member of a list:
 \begin{alltt}
 \HOLthm[def,>>3]{Trace.NO_LABEL_def}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
 The definition of ``unique label'' can be done in many ways. The
 following definition (due to a suggestion from Robert Beers)
-avoids any \hl{kind} of counting or filtering in the list.
-It says that a label is unique in a list of actions if and only if there is no
-label in the rest of list (here $\HOLTokenDoublePlus$ \hl{denotes the concatenation
-of lists}):
+avoids any  counting or filtering in the list.
+It says that a label is unique in a list of actions if there is no
+label in the rest of list (here $\HOLTokenDoublePlus$ is the concatenation
+of lists):
 \begin{alltt}
 \HOLthm[def,>>3,width=70]{Trace.UNIQUE_LABEL_def}\hfill{[UNIQUE_LABEL_def]}
 \end{alltt}
 
-\hl{Finally, the connection} between traces and weak transitions is stated
-and proved in the following theorem, \hl{which} says that a weak transition $P \Arr{u} P'$ is also a
+Finally, the relationship between traces and weak transitions is stated
+and proved in the following theorem. It says that a weak transition $P \Arr{u} P'$ is also a
 trace $P\overset{acts}{\longrightarrow}P'$ with a
  non-empty action list $acts$, in which either there is no label (for $u = \tau$), or 
 $u$ is the unique label (for $u \neq \tau$):
@@ -218,8 +216,8 @@ The formal proof of ``unique solution of rooted contractions theorem''
 same initial proof steps as Theorem~\ref{t:contraBisimulationU}.
 It then requires a
 few more steps to handle rooted bisimilarity in the conclusion. 
-Overall \hl{speaking}, the two proofs are very similar, mostly because
-the only property needed from \hl{contraction and rooted contraction is their} precongruence.
+The two proofs are similar, mostly because
+the main property needed from contraction and rooted contraction is precongruence.
 Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLthm{UniqueSolutions.UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS}\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
@@ -227,17 +225,18 @@ Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 
 Having proved the precongruence property of rooted contraction ($\rcontr$), 
 now we can use weakly guarded expressions in the above theorem,
-which has no more constraints on summation, that is, having
-\texttt{WG} in place of \texttt{WGS} (cf.~\texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS}).
+which has no more constraints on summation (as shown by the appearance of
+\HOLtm{WG} rather than \HOLtm{WGS}).
+% (cf.~\texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS}).
 
-On the other hand, having removed the constraints on \hl{summation}, now
-this result is very similar to Milner's original `unique solution of
-equations' theorem for \emph{strong} bisimilarity ($\sim$) (Theorem~\ref{t:Mil89s1})~--- 
-the same weakly guarded context (\texttt{WG}) is required
-(cf.~Theorem~\ref{thm:Mil89s1f}, \texttt{STRONG_UNIQUE_SOLUTION}).
+Having removed the constraints on summation,
+this result is close to Milner's original `unique solution of
+equations' theorem for \emph{strong} bisimilarity  (Theorem~\ref{t:Mil89s1})~--- 
+the same weakly guarded context (\HOLtm{WG}) is required.
+%(cf.~Theorem~\ref{thm:Mil89s1f}, \texttt{STRONG_UNIQUE_SOLUTION}).
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$) (Theorem~\ref{t:Mil89s3}),
 has more rigid constraints, as the \emph{equations} must be both guarded and
-sequential (cf.~Theorem~\ref{thm:Mil89s3f}, \texttt{OBS_UNIQUE_SOLUTION}).
+sequential. % (cf.~Theorem~\ref{thm:Mil89s3f}, \texttt{OBS_UNIQUE_SOLUTION}).
 
 % next file: multivariate.tex

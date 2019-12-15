@@ -21,9 +21,9 @@ can be obtained by replacing the weak transition $Q\Arcap\mu Q'$ in
 clause (1) 
  with the transition $Q \arr \mu Q'$ (and similarly for the other clause).
 Weak bisimilarity is not preserved by the sum operator (except for
-guarded sums), i.e.~$P_1 \wb Q_1$ and $P_2 \wb Q_2$  \hl{do} not imply
+guarded sums), i.e.~$P_1 \wb Q_1$ and $P_2 \wb Q_2$ do not imply
  $P_1 + P_2 \wb Q_1 + Q_2$.
-For this \hl{reason}, Milner introduced the concept of
+For this reason, Milner introduced the concept of
 \emph{observational congruence}, also called \emph{rooted
   bisimilarity}~\cite{Gorrieri:2015jt,Sangiorgi:2011ut}:
 \begin{definition}%[rooted bisimilarity]
@@ -40,8 +40,6 @@ Two processes $P$ and $Q$ are \emph{rooted bisimilar}, written as $P
 \end{definition}
 % This new sentence maintains a link with Definition 2.1
 Relation $\rapprox$ is indeed preserved by the sum operator.
-% \hl{It can be proved that $P_1 \rapprox Q_1 \wedge P_2 \rapprox Q_2 \Longrightarrow
-% P_1 + P_2 \rapprox Q_1 + Q_2$.}
 The above definition also brings up a proof technique for proving rooted
 bisimilarity from a given bisimulation. The next
 lemma plays an
@@ -61,7 +59,7 @@ Then $P$ and $Q$ are rooted bisimilar, i.e.~$P \approx^c Q$.
 
 One basic property of rooted bisimiarity is congruence,
 indeed it is  the coarsest congruence contained in bisimilarity
-(see Section~\ref{s:coarsest} and \hl{\mbox{Section~\ref{ss:context}}} for more details):
+(see Section~\ref{s:coarsest} and Section~\ref{ss:context} for more details):
 \begin{theorem}
 \label{t:rapproxCongruence}
 $\rapprox$ is a congruence in CCS, and it is the
