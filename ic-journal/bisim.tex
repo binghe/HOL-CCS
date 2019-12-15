@@ -68,8 +68,13 @@ theorems (\emph{rules}, \emph{coind} and \emph{cases}):
 % , \hl{which
 % fully capture weak bisimilarity:}
 \begin{itemize}
-\item \emph{rules} is a conjunction of implications that will be the
-    same as the input term:
+\item 
+% \emph{rules} is a conjunction of implications that will be the
+%     same as the input term:
+\emph{rules} is the same as the input term, which now becomes a theorem:
+% \emph{rules} is a conjunction of implications (each
+%     corresponding to a SOS rule) that will be the
+%     same as the input term.
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
         \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -203,14 +208,15 @@ TAU_STRAT: \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOL
 TAU_WEAK:  \HOLTokenTurnstile{} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \HOLFreeVar{E}
 \end{alltt}
 
-\hl{Again, all these algebraic laws are not used in proving other theorems
-in this formalisation.}
+% \hl{Again, all these algebraic laws are not used in proving other theorems
+% in this formalisation.}
 
 \subsection{Expansion, Contraction and Rooted Contraction}
 
-\hl{To formalise the theorems on the unique solutions of expansions,
-contractions (and of rooted contractions)}, we have formally defined
- (bisimulation) expansion and contraction (and their preorders) along
+% \hl{To formalise the theorems on the unique solutions of expansions,
+% contractions (and of rooted contractions)}, 
+We  formalise
+ and contraction along
  the lines of strong and weak bisimilarity:
 \begin{alltt}
    \HOLConst{EXPANSION} \HOLFreeVar{Exp} \HOLTokenDefEquality{}
@@ -236,9 +242,9 @@ contractions (and of rooted contractions)}, we have formally defined
 \HOLTokenTurnstile{} \HOLFreeVar{P} \HOLSymConst{\HOLTokenContracts{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenEquiv{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{Con}. \HOLBoundVar{Con} \HOLFreeVar{P} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenConj{}} \HOLConst{CONTRACTION} \HOLBoundVar{Con}\hfill{[contracts_thm]}
 \end{alltt}
 
-\hl{It is verified that} the contraction preorder
-($\mcontrBIS$) indeed contains the expansion
-preorder ($\expa$), and that they are both contained in weak bisimilarity ($\wb$):
+The contraction preorder
+($\mcontrBIS$)  contains the expansion
+preorder ($\expa$), and they are both contained in weak bisimilarity ($\wb$):
 \begin{proposition}{(Relationships between contraction preorder,
     expansion preorder and weak bisimilarity)}
 \begin{enumerate}
@@ -253,7 +259,7 @@ preorder ($\expa$), and that they are both contained in weak bisimilarity ($\wb$
 \end{enumerate}
 \end{proposition}
 
-\hl{It is observed that,} the proofs of properties for contraction are
+The proofs of properties for contraction are
 generally harder than those for expansion. This is mostly due to the fact
   that, although the contraction preorder ($\mcontrBIS$) is contained in
   bisimilarity ($\wb$), a contraction need not be a bisimulation.
@@ -275,11 +281,11 @@ $P$ and $Q$, given that they are in $Con$ (a contraction):
 \hl{To complete the proof, one cannot choose $Con$ for $Wbsm$ and}
 show that $Con$ itself is a bisimulation, but rather
 that $Con\;\cup\!\wb$ is a bisimulation.
-The corresponding lemma for the expansion preorder is rather
-straightforward: \hl{just choose $Con$ for $Wbsm$.}
+In contrast, in the corresponding lemma for  expansion 
+one can just  take $Con$.
 
-Finally, the rooted contraction ($\rcontr$) is formally
-defined as follows \hl{(with similar properties proven)}:
+Finally, the rooted contraction ($\rcontr$) is formalised 
+ as follows:
 \begin{alltt}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenDefEquality{}
      \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u}.
@@ -369,7 +375,7 @@ Formally:
              \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{STRONG_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{Wbsm} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{WEAK_EQUIV}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}
 \end{alltt}
 \end{definition}
-\hl{Note that,} the HOL term corresponding to $\sim \R \wb$ is
+\hl{Note that} the HOL term corresponding to $\sim \R \wb$ is
 ``\HOLinline{\HOLConst{WEAK_EQUIV} \HOLSymConst{\HOLTokenRCompose{}} \HOLFreeVar{R} \HOLSymConst{\HOLTokenRCompose{}} \HOLConst{STRONG_EQUIV}}'' where the order of
 $\sim$ and $\approx$ seems reverted. This is because, in HOL
 notation, the rightmost relation (\HOLinline{\HOLConst{STRONG_EQUIV}} or $\sim$) in the relational composition is

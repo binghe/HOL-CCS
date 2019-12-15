@@ -12,7 +12,7 @@
 
 \subsubsection{The version for strong bisimilarity}
 
-\hl{Using ``bisimulation up to $\sim$'' technique}, we first proved the following
+\hl{Using ``bisimulation up to $\sim$'' technique}, we obtain the following
 key lemma, which states that, if $X$ is weakly guarded
 in $E$, then the ``first move'' of $E$ is independent of the agent
 substituted for $X$:
@@ -30,7 +30,7 @@ $E\{Q/X\}\overset{\alpha}{\rightarrow} E'\{Q/X\}$:
 \end{lemma}
 
 Then, by structural induction on weakly guarded contexts
-(\texttt{WG}), we have proved Theorem~\ref{t:Mil89s1}
+(\texttt{WG}), we prove Theorem~\ref{t:Mil89s1}
 in the \univariate case. The formal proof basically follows the outline of its
 informal version~\citep[p.~102--103]{Mil89}, which is tedious due to
 large amounts of case analyses on each CCS operator.
@@ -63,7 +63,7 @@ version is the following one (\texttt{OBS_CONGR_BY_WEAK_BISIM}):
             \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{E} \HOLTokenWeakTransBegin\HOLBoundVar{u}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Wbsm} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLBoundVar{E} \HOLSymConst{\HOLTokenObsCongr} \ensuremath{\HOLBoundVar{E}\sp{\prime}}
 \end{alltt}
-\hl{By using Lemma}~\ref{l:obsCongrByWeakBisim}, \hl{the next two results} can be proved by 
+\hlD{Using Lemma}~\ref{l:obsCongrByWeakBisim}, \hl{the next two results} are proved by 
 directly constructing the required bisimulation:
 (see~\cite{Tian:2017wrba} for more details)
 \begin{lemma}[\texttt{OBS_UNIQUE_SOLUTION_LEMMA}]
@@ -99,11 +99,10 @@ rooted bisimilarity.   There is, however, another
 version for weak bisimilarity (Theorem~\ref{t:Mil89}) that shares a large portion of proof
 steps with the proof for \hl{rooted bisimilarity.}
 As weak bisimilarity is not a congruence, we have to be more restrictive
-on the syntax of the equation, \hl{with only guarded sums.}
+on the syntax of the equation, \hlD{using only guarded sums.}
 The related formal proofs are tedious but closely follow the informal
-proof~\citep[p.~158--159]{Mil89}, \hl{except for the uses of} ``bisimulation up
-to with weak arrows'' (Def.~\ref{def:doubleweak}) instead of the
-original version (Def.~\ref{def:singleweak}).
+proof~\citep[p.~158--159]{Mil89}, \hlD{with the exception of the use  of} ``bisimulation up
+to with weak arrows'' (Def.~\ref{def:doubleweak}, instead of Def.~\ref{def:singleweak}).
 
 \begin{lemma}[\texttt{WEAK_UNIQUE_SOLUTION_LEMMA}]
 If the variable $X$ is guarded and sequential (with only guarded sums) in $G$, and
@@ -134,10 +133,10 @@ $Q \wb E\{Q/X\}$. Then $P \wb Q$.
 
 A delicate point in the formalisation of the results about unique solution of
 contractions \hl{is} the proof of Lemma~\ref{l:ruptocon} and lemmas alike.
-\hl{In particular, we have do} induction on the length of weak transitions.
+\hlD{In particular, we use} induction on the length of weak transitions.
 For this, rather than introducing a refined form of weak transition relation
 enriched with its length, we found it more elegant to work with
-\emph{traces}, \hl{i.e. weak transitions with all intermediate actions.}
+\emph{traces}, \hlD {sequences of transitions.}
 (A further motivation is to set the ground for future extensions of this
 formalisation work to \emph{trace equivalence} in place of bisimilarity.)
 
@@ -145,9 +144,9 @@ A trace is formally represented by the initial and final processes, plus
 a list of actions so performed.
 For this, we first define the concept of \emph{label-accumulated reflexive transitive closure}
  (\HOLinline{\HOLConst{LRTC}}).
-\hl{Then,} given any labeled transition relation \HOLinline{\HOLFreeVar{R}} (of the type
+\hl{Then,} given any labeled transition relation \HOLinline{\HOLFreeVar{R}} (of  type
 ``\HOLinline{\ensuremath{\alpha} \HOLTokenTransEnd \ensuremath{\beta} \HOLTokenTransEnd \ensuremath{\alpha} \HOLTokenTransEnd \HOLTyOp{bool}}''), \HOLinline{\HOLConst{LRTC} \HOLFreeVar{R}} is
-a relation representing \hl{traces} (of the type
+a relation representing \hl{traces over} \HOLinline{\HOLFreeVar{R}}  (of type
 ``\HOLinline{\ensuremath{\alpha} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{list} \HOLTokenTransEnd \ensuremath{\alpha} \HOLTokenTransEnd \HOLTyOp{bool}}''):
 \begin{alltt}
    \HOLConst{LRTC} \HOLFreeVar{R} \HOLFreeVar{a} \HOLFreeVar{l} \HOLFreeVar{b} \HOLTokenDefEquality{}
@@ -158,39 +157,38 @@ a relation representing \hl{traces} (of the type
 \end{alltt}
 The trace relation for CCS, \HOLinline{\HOLConst{TRACE}} (of the
 type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\beta} \HOLTyOp{Action} \HOLTyOp{list} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \HOLTyOp{bool}}''),
-can be then obtained
+is then obtained
  by \hl{combining} \texttt{LRTC} and the \texttt{TRANS}
- ($\overset{\mu}{\rightarrow}$) relation inductively defined by SOS rules:
+ ($\overset{\mu}{\rightarrow}$) relation defining the SOS rules:
 \begin{alltt}
    \HOLConst{TRACE} \HOLTokenDefEquality{} \HOLConst{LRTC} \HOLConst{TRANS}\hfill{[TRACE_def]}
 \end{alltt}
 
-\hl{Let the trace be $P\overset{acts}{\longrightarrow}Q$.}
-If the list of actions $acts$ is empty, then there is no transition
-actually: the initial and final processes are the same, i.e. $P = Q$.
-\hl{On the other hand, if there is at most one visible action (i.e. a
-label) $\mu$ in $acts$ (all other actions are $\tau$, if they exist),}
-then the trace is actually a weak transition: $P \Arr{\mu} Q$.
-Here we have to distinguish between two cases: no label and unique label (in
-the list of actions). The definition of ``no
-label'' in an action list is easy (here \texttt{MEM} tests if \hl{an} element is a member of a list):
+\hlD{In a  trace  $P\overset{acts}{\longrightarrow}Q$,}
+ the list of actions $acts$ may be  empty, in which case there is no transition, and 
+ the initial and final processes are the same, i.e. $P = Q$.
+\hlD{If there is at most one visible action $\mu$  in $acts$, and all other actions are $\tau$'s,}
+then the trace represents  a weak transition $P \Arr{\mu} Q$.
+For this,  we have to distinguish two cases in
+the list of actions: no label and unique label. The definition of ``no
+label'' for a list of  actions is as follows, where \texttt{MEM} tests if \hl{an} element is a member of a list:
 \begin{alltt}
    \HOLConst{NO_LABEL} \HOLFreeVar{L} \HOLTokenDefEquality{} \HOLSymConst{\HOLTokenNeg{}}\HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{l}. \HOLConst{MEM} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \HOLFreeVar{L}\hfill{[NO_LABEL_def]}
 \end{alltt}
 
 The definition of ``unique label'' can be done in many ways. The
 following definition (due to a suggestion from Robert Beers)
-avoids any \hl{kind} of counting or filtering in the list.
-It says that a label is unique in a list of actions if and only if there is no
-label in the rest of list (here $\HOLTokenDoublePlus$ \hl{denotes the concatenation
+avoids any  counting or filtering in the list.
+It says that a label is unique in a list of actions if there is no
+label in the rest of list (here $\HOLTokenDoublePlus$ \hlD{is the concatenation
 of lists}):
 \begin{alltt}
    \HOLConst{UNIQUE_LABEL} \HOLFreeVar{u} \HOLFreeVar{L} \HOLTokenDefEquality{}
      \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{L}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{L}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{L}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenDoublePlus} \ensuremath{[}\HOLFreeVar{u}\ensuremath{]} \HOLSymConst{\HOLTokenDoublePlus} \ensuremath{\HOLBoundVar{L}\sb{\mathrm{2}}} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \ensuremath{\HOLBoundVar{L}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{NO_LABEL} \ensuremath{\HOLBoundVar{L}\sb{\mathrm{2}}}\hfill{[UNIQUE_LABEL_def]}
 \end{alltt}
 
-\hl{Finally, the connection} between traces and weak transitions is stated
-and proved in the following theorem, \hl{which} says that a weak transition $P \Arr{u} P'$ is also a
+\hlD{Finally, the  relationship} between traces and weak transitions is stated
+and proved in the following theorem.  \hl{It} says that a weak transition $P \Arr{u} P'$ is also a
 trace $P\overset{acts}{\longrightarrow}P'$ with a
  non-empty action list $acts$, in which either there is no label (for $u = \tau$), or 
 $u$ is the unique label (for $u \neq \tau$):
@@ -254,8 +252,8 @@ The formal proof of ``unique solution of rooted contractions theorem''
 same initial proof steps as Theorem~\ref{t:contraBisimulationU}.
 It then requires a
 few more steps to handle rooted bisimilarity in the conclusion. 
-Overall \hl{speaking}, the two proofs are very similar, mostly because
-the only property needed from \hl{contraction and rooted contraction is their} precongruence.
+The two proofs are similar, mostly because
+the main property needed from \hlD{contraction and rooted contraction is} precongruence.
 Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{P} \HOLSymConst{\HOLTokenConj{}} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenObsContracts} \HOLFreeVar{E} \HOLFreeVar{Q} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{P} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Q}\hfill{[UNIQUE_SOLUTION_OF_ROOTED_CONTRACTIONS]}
@@ -263,17 +261,18 @@ Below is the formal version of Theorem~\ref{t:rcontraBisimulationU}:
 
 Having proved the precongruence property of rooted contraction ($\rcontr$), 
 now we can use weakly guarded expressions in the above theorem,
-which has no more constraints on summation, that is, having
-\texttt{WG} in place of \texttt{WGS} (cf.~\texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS}).
+which has no more constraints on summation (as shown by the appearance of
+\texttt{WG} rather than \texttt{WGS}).
+% (cf.~\texttt{UNIQUE_SOLUTION_OF_CONTRACTIONS}).
 
-On the other hand, having removed the constraints on \hl{summation}, now
-this result is very similar to Milner's original `unique solution of
-equations' theorem for \emph{strong} bisimilarity ($\sim$) (Theorem~\ref{t:Mil89s1})~--- 
-the same weakly guarded context (\texttt{WG}) is required
-(cf.~Theorem~\ref{thm:Mil89s1f}, \texttt{STRONG_UNIQUE_SOLUTION}).
+Having removed the constraints on \hl{summation}, 
+this result is close to Milner's original `unique solution of
+equations' theorem for \emph{strong} bisimilarity  (Theorem~\ref{t:Mil89s1})~--- 
+the same weakly guarded context (\texttt{WG}) is required.
+%(cf.~Theorem~\ref{thm:Mil89s1f}, \texttt{STRONG_UNIQUE_SOLUTION}).
 In contrast, Milner's ``unique solution of
 equations'' theorem for rooted bisimilarity ($\rapprox$) (Theorem~\ref{t:Mil89s3}),
 has more rigid constraints, as the \emph{equations} must be both guarded and
-sequential (cf.~Theorem~\ref{thm:Mil89s3f}, \texttt{OBS_UNIQUE_SOLUTION}).
+sequential. % (cf.~Theorem~\ref{thm:Mil89s3f}, \texttt{OBS_UNIQUE_SOLUTION}).
 
 % next file: multivariate.tex

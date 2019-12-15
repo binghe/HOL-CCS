@@ -108,8 +108,13 @@ consequences of an \emph{inductive relation} definition of
 A successful invocation of the definitional principle returns three
 important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{itemize}
-  \item \emph{rules} is a conjunction of implications that will be the
-    same as the input term. In fact, the following formal versions of SOS rules are
+  \item
+\emph{rules} is a conjunction of implications (each
+    corresponding to a SOS rule) that will be the
+    same as the input term.
+% \emph{rules} is a conjunction of implications that will be the
+%    same as the input term. 
+In fact, the following formal versions of SOS rules are
     extracted from the \emph{rules} theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}

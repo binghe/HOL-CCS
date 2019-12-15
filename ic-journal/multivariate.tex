@@ -6,60 +6,57 @@
 \section{The \multivariate formalisation}
 \label{sec:multivariate}
 
-\hl{Our goal in this last part of the CCS formalisation are two formally
-verified theorems, which dwarf all previous results in this project:}
-the general (\multivariate) cases of
+\hl{In this section we attack the case of 
+  multiple equations (the ``\multivariate''  case), for two major theorems earlier discussed:}
 Milner's ``unique solution of equations (for $\sim$)''
-(Theorem~\ref{t:Mil89s1}) and our ``unique solution of rooted
+(Theorem~\ref{t:Mil89s1}) and  the  ``unique solution of rooted
 contractions'' (Theorem~\ref{t:rcontraBisimulationU}).
 %
-This formalisation supports finitely many
+The formalisation supports finitely many
   equations/contractions and equation variables.\footnote{The original theorems
 hold for even infinitely many equations and equation variables.}
-We chose the two theorems because \hl{they both require the same
-weakly guarded contexts (with minimized efforts)}, and 
-because they well illustrate the \hl{efforts} needed for the \multivariate case.
-The work is a \hl{natural} extension of the existing work, for
-\hl{no new algebraic type (e.g. the type for CCS processes) has to be defined,}
-and neither the CCS syntax nor the SOS rules \hl{needs} to be changed.
+We chose these two theorems because \hlD{of their relevance}, and 
+because they well illustrate the \hlD{effort} needed in the \multivariate case.
+% The work is a \hl{natural} extension of the existing work, for
+% \hl{no new algebraic type (e.g. the type for CCS processes) has to be defined,}
+% and neither the CCS syntax nor the SOS rules \hl{needs} to be changed.
 
 The central problem of the \multivariate formalisation is the
 representation of \multivariate CCS equations (expressions and contexts).
 In the \univariate case, $\lambda$-functions
 are used for representing \univariate CCS
 equations, and variable substitutions are simply 
-\hl{applications of} $\lambda$-functions to CCS terms \hl{as substitutions}.
-This idea (i.e. \multivariate $\lambda$-functions), however,
-cannot be extended to \hl{support} the \multivariate case of
-unique-solution theorems, as we do not have a fixed number of variables to deal with.
+\hl{applications of} $\lambda$-functions to CCS terms.
+This idea, however,
+cannot be extended to  the \multivariate case, as we do not have a fixed number of variables to deal with.
 
 In the literature (\citep[p.~102]{Gorrieri:2015jt}, e.g.), the variables $X_i$ of
 a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
-\hl{separate} \emph{process variables} outside the CCS syntax.
+ \emph{process variables} outside the CCS syntax.
 Then, an equation body  $E_i$  is an \emph{open} expression
 built with CCS operators plus these equation variables.
-For a formal point of view, this means \hl{that} we either need to define a
-whole new datatype (with extra equation variables) in which each CCS
-operator must be duplicated, or we have to add equation variables as a
-new primitive (e.g.~\texttt{Var X}) to the existing CCS type in addition
-to the agent variables such as \texttt{var X}.
-(Then the substitution of equation
-variables in $E_i\{\til P/\til X\}$ would become the \emph{syntactic substitution} of
-each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.)
+In a  formalisation, this means either  defining a
+whole new datatype (with extra equation variables), in which each CCS
+operator must be duplicated, or adding equation variables as a
+new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
+ agent variables such as \texttt{var X}).
+% (Then the substitution of equation
+% variables in $E_i\{\til P/\til X\}$ would become the \emph{syntactic substitution} of
+% each occurrence of $X_i$ in $E_i$ with the corresponding $P_i$.)
 In either cases the \emph{disjointness} between equation variables and
 agent variables is syntactically
 guaranteed. Both solutions are rather combersome, and require a non-trivial modification
 of the existing \univariate formalisation.
 
-In this project, we have followed Milner's original
+In our work, we have followed Milner's original
 approach~\cite{milner1990operational}, using the
 \emph{same} alphabet for both agent variables and equation variables.
 This \hl{approach allows} a large reuse of the \univariate formalisation.
-For instance, the variable substitution \hl{occurred in SOS rule}
+For instance, the variable substitution \hlD{in the  SOS rule}
 \texttt{REC} can be reused for substituting equation variables.
-However, a lot of care is needed in the proofs of many
-fundamental lemmas, mostly due to the variable capture issues between
-equation variables \hl{(free)} and agent variables \hl{(bound)}.
+However,  care is needed in the proofs of many
+fundamental lemmas, mostly due to  variable capture issues between
+free equation variables and bound agent variables.
 
 \subsection{Free and bound variables}
 
@@ -98,14 +95,14 @@ And a list of CCS processes can be asserted by \HOLinline{\HOLConst{ALL_PROC}} d
    \HOLConst{ALL_PROC} \HOLFreeVar{Es} \HOLTokenDefEquality{} \HOLConst{EVERY} \HOLConst{IS_PROC} \HOLFreeVar{Es}\hfill{[ALL_PROC_def]}
 \end{alltt}
 
-The set of free and \hl{the set of} bound
-variables of a term need not \hl{to} be disjoint, e.g.~in $X + \recu X E$.
+The set of free and bound
+variables of a term need not be disjoint, e.g.~in $X + \recu X E$.
 More importantly, when going
 from a CCS expression to its sub-expressions, the set of free
 variables may increase, while the set of bound variables either
 remains the same or decreases. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
 $\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings some
-difficulities when doing \hl{transition inductions}. As an evidence,
+difficulities in \hl{transition inductions}. As an evidence,
 we prove the following fundamental property of
 $\fv{\cdot}$~\citep[p.~1209]{milner1990operational}:
 %
@@ -120,16 +117,17 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \end{proposition}
 
 \begin{proof}
-We actually proved a stronger result, asserting that the set of free
-variables in a CCS process \hl{\emph{never increases}} through its derivatives:
+We  prove a stronger result, asserting that the set of free
+variables in a CCS process \hlD{does not increase} in its derivatives:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[TRANS_FV]}
 \end{alltt}
 
 In~\cite{milner1990operational}, the proof of the above property is 
-commented by  ``an easy action induction''.
-\hl{However, the actual proof (in HOL) is not that trivial}:
- ``action induction'' (or \emph{transition induction}) becomes a form of higher-order application
+commented as  ``an easy action induction''.
+\hlD{As a matter of fact, in the  HOL proof}
+ ``action induction'' %(or \emph{transition induction}) 
+becomes a form of higher-order application
 of the following \emph{induction principle} (generated together with the SOS
 rules), which essentially says that \HOLinline{\HOLConst{TRANS}} is the smallest relation
 satisfying the SOS rules:
@@ -149,11 +147,11 @@ satisfying the SOS rules:
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{X} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{P} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}\hfill{[TRANS_IND]}
 \end{alltt}
-The above long theorem has the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}} (with $a_0, a_1, a_2$ renamed), \hl{where} the
+The above long theorem is of the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}} (with $a_0, a_1, a_2$ renamed), \hl{where} the
 outermost universal quantifier $P$ is a higher-order
-proposition (\hl{taking} $E$, $\mu$ and $E'$), while $X$ is another higher-order
-proposition \hl{containing} $P$.
-\hl{Our proof goal} is actually in the form of
+proposition (\hl{taking} $E$, $\mu$ and $E'$), and $X$ is another higher-order
+proposition.
+\hl{The proof goal} is actually in the form of
 \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLFreeVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}}, where
 \HOLinline{\HOLFreeVar{P}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLConst{FV}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLBoundVar{E}\ensuremath{)}}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof
@@ -271,7 +269,7 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 
 \subsection{\Multivariate substitutions}
 
-There are two (obvious) ways to \hl{do} % not "represent" but actually "do"
+There are two natural ways to \hlD{implement} % not "represent" but actually "do"
 the \multivariate substitution $E\{\til P/\til X\}$, \hl{which} replaces each \hl{free
 occurrence} of the variables $X_i$ in $E$ with the corresponding
 $P_i$: (1) iterately applying the existing \univariate
@@ -298,13 +296,13 @@ and returns another CCS expression in which
 all occurrences of variables in \hl{the finite domain of} \HOLinline{\HOLFreeVar{fm}} are substituted with
 the corresponding value in \HOLinline{\HOLFreeVar{fm}}. \hl{Initially,} such a finite map can be built from
 a list of variables \HOLinline{\HOLFreeVar{Xs}} and the corresponding substituted terms
-\HOLinline{\HOLFreeVar{Ps}} by a helper function \HOLinline{\HOLConst{fromList}} (\hl{defined by us, and} whose details are
+\HOLinline{\HOLFreeVar{Ps}} by a helper function \HOLinline{\HOLConst{fromList}} (whose details are
 omitted here).
 \HOLinline{\HOLConst{CCS_SUBST}\\\;\ensuremath{(}\HOLConst{fromList}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Ps}\ensuremath{)}\\\;\HOLFreeVar{E}} is usually
 abbreviated as \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]}\\\;\HOLFreeVar{E}}.
-The substitution mechanism is order-independent, \hl{as there is no
-ordering in finite maps.} For most CCS operators it
-just recursively calls itself on subterms, \hl{while the} only
+The substitution mechanism is order-independent, \hlD{as based
+ maps.} For most CCS operators it
+just recursively calls itself on subterms.  \hlD{The} most
 interesting cases are at agent variables and recursion:
 \begin{alltt}
    \HOLConst{CCS_SUBST} \HOLFreeVar{fm} \ensuremath{(}\HOLConst{var} \HOLFreeVar{X}\ensuremath{)} \HOLTokenDefEquality{} \HOLKeyword{if} \HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FDOM} \HOLFreeVar{fm} \HOLKeyword{then} \HOLFreeVar{fm} \HOLConst{'} \HOLFreeVar{X} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{X}\hfill{[CCS_SUBST_var]}
@@ -330,7 +328,7 @@ and \texttt{list} theories are used (see~\cite{holdesc} for more
 details.): \HOLinline{\HOLConst{DISJOINT}} denotes set disjointness;
 ``\HOLinline{\HOLConst{set}\\\;\HOLFreeVar{Xs}}'' is the set converted from the list \HOLinline{\HOLFreeVar{Xs}};
 \HOLinline{\HOLConst{ALL_DISTINCT}} says that
-the elements of a list are all distinct; \HOLinline{\HOLConst{MAP}} is
+the elements of a list are  distinct; \HOLinline{\HOLConst{MAP}} is
 the mapping function from one list to another; \HOLinline{\HOLConst{EVERY}} means
 each element of a list satisfies a predicate; \HOLinline{\HOLConst{ZIP}} creates a
 new list from two lists of the same length, and each element of the new list is a pair of
@@ -420,10 +418,11 @@ excluding \HOLinline{\HOLFreeVar{Xs}}.
 In \hl{some of} the above lemmas, the condition
 \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{BV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}} (the bound
 variables of $E$ and the free substitution variables are disjoint) is
-added to ease the related proofs. This disjointness requirement
-is not necessary \hl{and (in theory) can be all eliminated with more efforts.}
-\hl{As many of these lemmas are used in proving other theorems, eventually}
-the disjointness condition are propagated everywhere.
+added to ease the proofs. The 
+condition
+is not necessary and could be  eliminated, at the price of some extra effort.
+% \hl{As many of these lemmas are used in proving other theorems, eventually}
+% the disjointness condition are propagated everywhere.
 
 \subsection{\Multivariate (weakly guarded) contexts}
 
@@ -445,17 +444,19 @@ For any agent variable $X$, we have by $\beta$-reduction:
 \HOLinline{\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}.\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{var}\\\;\HOLFreeVar{X}\ensuremath{)}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLFreeVar{l}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{+}}\\\;\HOLFreeVar{P}} (or ``$l.X + P$'' in textbook
 notation), and the expression is weakly guarded (Def.~\ref{def:guardness}).
 
-\hl{In theory}, it is possible to inductively assert \multivariate contexts and their
-guarded variants, but care is needed as we \hl{have} to exclude the cases where
-free variables occur \hl{within recusion}.  \hl{Here we choose} a more elegant
- solution, which defines \multivariate contexts (and variants) upon the
+It could be possible to inductively define \multivariate contexts and their
+guarded variants, but care is needed
+for 
+ variables that occur \hl{within a  recusion}.  \hl{We have preferred a different
+   solution,} in which the definitions of 
+ \multivariate contexts  is based on the
  existing \univariate definitions.
-\hl{The idea is that, whenever we replace a variable by a hole and view
-the other variables as constants, this is a single variable context
-that can be asserted by predicates like} \HOLinline{\HOLConst{CONTEXT}}.
-For example, to see the weak guardedness of $a.X + b.X + c.Y$, it is
-natural to focus on each (free) variable: if we substitute each
-occurrence of just one variable, say $X$, with a ``hole'' and see the
+\hlD{For this, intuitively,  we replace a single variable with a hole and (viewing
+the other variables as constants) so to obtain a  single-variable context
+on which predicates like} \HOLinline{\HOLConst{CONTEXT}} can be used.
+For example, to see the weak guardedness of $a.X + b.X + c.Y$, 
+we focus on each (free) variable: if we substitute each
+occurrence of a variable, say $X$, with a ``hole'' and see the
 resulting term as a $\lambda$-function, then all such $\lambda$-functions
 must satisfy \HOLinline{\HOLConst{WG}}, i.e.~the following results hold:
 \begin{alltt}
@@ -482,8 +483,7 @@ variables.\footnote{Here \HOLinline{\HOLConst{SET_TO_LIST}} converts a finite se
   then all equations are required to contain free variables in
   \HOLinline{\HOLFreeVar{Xs}}.}
 (The \multivariate guardedness and sequentiality can also be defined similarily, using
-their \univariate companions \HOLinline{\HOLConst{SG}} and \HOLinline{\HOLConst{SEQ}}, \hl{but so far
-they are not defined.})
+their \univariate companions \HOLinline{\HOLConst{SG}} and \HOLinline{\HOLConst{SEQ}}.)
 
 The most important property of \multivariate contexts is that, strong bisimilarity
 and other (pre)congruence relations are preserved by them, for instance:
@@ -502,12 +502,11 @@ $E\{\til Q/\til X\}$ are strongly bisimilar:
 %
 Similar properties also hold if $\sim$ is replaced with rooted
 bisimilarity ($\rapprox$) \hl{and} rooted contraction ($\rcontr$). It does
-not hold, however, for weak bisimilarity ($\wb$) and the contraction
-preorder ($\mcontrBIS$), \hl{as they are not (pre)congruence
-w.r.t.}~\HOLinline{\HOLConst{context}}.
+not hold for weak bisimilarity ($\wb$) and the contraction
+preorder ($\mcontrBIS$), \hl{as they are not (pre)congruence relations}.
 
 Another important property of contexts is their composability: if we
-substitute some free variables in a context \hl{to} some other contexts, the
+substitute some free variables in a context \hl{with} some other contexts, the
 resulting term is still a \hl{valid} context (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLConst{context} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
@@ -517,9 +516,9 @@ resulting term is still a \hl{valid} context (w.r.t.~the same set of variables):
 
 On the other hand, not every term within the CCS syntax is a context, as 
 \hl{context (or equation) variables are not allowed to occur within recursion. The converse
-holds however:} if the set of free variables of an CCS term
-is disjoint with a list of variables, then the term is indeed a context
-w.r.t. the same list of variables:
+holds however:} if the set of free variables of a CCS term
+is disjoint from a list of variables, then the term is indeed a context
+w.r.t. such list of variables:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
 \end{alltt}
@@ -529,19 +528,24 @@ the set of free variables of $E$ excluding $Y$ is disjoint with $\til X$:
 \HOLTokenTurnstile{} \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{Y}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\hfill{[context_rec]}
 \end{alltt}
 Note that, in the above lemma we cannot
-conclude \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}}, because $Y$ as a bound
-variable of $\recu Y E$ may also be a free variable in $\til X$. We
+conclude
+\HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}},
+because $Y$ may appear in both sets.
+%, as a bound
+%variable of $\recu Y E$, may also be a free variable in $\til X$.
+ We
 also cannot conclude \HOLinline{\HOLConst{context}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{E}}, because in $\recu Y E$
-the bound variable $Y$ \hl{may occur \emph{freely} within another nested}
-recursion, and then it is free in $E$. \hl{For instance,} $\recu Y E = \recu Y
-(\recu Z (a.Y + b.Z) + c.Y)$, $Y$ is free in $E = \recu Z (a.Y + b.Z) + c.Y$.
+the bound variable $Y$ \hlD{may occur {freely} within another nested}
+recursion. \hl{For instance,} variable $Y$ is free   
+in $\recu Y E $ , for 
+ $E = \recu Z (a.Y + b.Z) + c.Y$.
 
 For weakly guarded contexts (which are also normal contexts), beside
 their regular properties (i.e. weak
 guardedness) as in the \univariate case (\HOLinline{\HOLConst{WG}}), we also need
 their composability w.r.t.~\multivariate contexts: if we
-substitute some free variables in a context $C$ to some weakly guarded
-contexts, the resulting \hl{context becomes} weakly guarded (w.r.t.~the same set of variables):
+substitute some free variables in a context $C$ with some weakly guarded
+contexts, the resulting \hlD{context is} weakly guarded (w.r.t.~the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
@@ -570,17 +574,17 @@ Consider its two essential ingredients:
 \item $\til E = (E_1, E_2, \ldots, E_n)$: a list of CCS contexts 
   with possible occurrences of free variables in $\til X$.
 \end{itemize}
-Obviously the two lists $\til X$ and $\til E$ must have the same
-length, and in practice the variables in $\til X$ should be all distinct.
-Furthermore, we assume that $\til E$ does not contain
- free variables that are not in $\til X$, i.e. each $E_i$ contains
- variables up to $\til X$.
-\hl{Finally, the only extraordinary hypothesis} is that, for each
-$E_i$, the set of its bound variables must be \emph{disjoint} with
-$\til X$. \hl{(In practice, however, one can always
-rename all recursion binders in the equations to satisfy this
-requirement without changing the semantics of equations.)}
-Putting all requirements together, below is the fomal
+The two lists $\til X$ and $\til E$ must have the same
+length, and  the variables in $\til X$ should  be distinct.
+Furthermore,  $\til E$ does not contain
+ free variables that are not in $\til X$.
+\hlD{Finally, } for each
+$E_i$, the set of its bound variables must be \emph{disjoint} from
+$\til X$. 
+% \hl{(In practice, however, one can always
+% rename all recursion binders in the equations to satisfy this
+% requirement without changing the semantics of equations.)}
+These requirements yield the fomal
 definition of \multivariate CCS equation:
 \begin{alltt}
    \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
@@ -653,14 +657,15 @@ The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenStrongEQ} \HOLFreeVar{Qs}\hfill{[strong_unique_solution_thm]}
 \end{alltt}
 
-\hl{So is} the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
+\hlD{Now} the \multivariate version of Theorem~\ref{t:rcontraBisimulationU}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLFreeVar{Qs} \HOLSymConst{\HOLTokenIn{}} \HOLConst{CCS_solution} \HOLConst{OBS_contracts} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenImp{}}
    \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{Qs}\hfill{[unique_solution_of_rooted_contractions]}
 \end{alltt}
-\hl{In comparison} with the formal proofs in the \univariate cases, although each
+In summary, while  each
 step related to \multivariate substitutions is more difficult than
-the \univariate case, the entire proofs still follow the same \hl{outlines}.
-and many proof \hl{steps} can even be copied from their \univariate \hl{companions}.
+that for the \univariate case, the structure of the 
+ the overall proofs is the same;  
+various proof \hl{steps} can even be copied from the \univariate \hl{case}.
