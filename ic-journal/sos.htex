@@ -143,7 +143,7 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{alltt}
 \HOLthm[nosp]{CCS.TRANS_cases}    
 \end{alltt}  
-For instance, the following proposition \hl{needs} the above \emph{cases} theorem:
+For instance, the following proposition needs the above \emph{cases} theorem:
 \begin{alltt}
 \HOLthm{CCS.TRANS_SUM_EQ}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
@@ -157,7 +157,7 @@ transition. Here ``\HOLtm[m,]{(CCS_Subst E (rec X E) X)}'' is an abbreviation
 for ``\HOLtm[m,,-SUB]{(CCS_Subst E (rec X E) X)}'', where \HOLtm{CCS_Subst} is a
 recursive function substituting all occurrences of a free variable with a CCS term.
 For most CCS operators \HOLtm{CCS_Subst} just recursively goes into a deeper
-level without changing anything, e.g.
+level without changing anything, e.g.:
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_sum}\hfill{[CCS_Subst_sum]}
 \end{alltt}
@@ -166,7 +166,7 @@ The only two insteresting cases are those for agent variables and recursion:
 \HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
 \HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
 \end{alltt}
-Notice that, variable substitutions only affect free
+Notice that variable substitutions only affect free
 variables. For instance, the variable $Y$ in ``\HOLtm[m!;]{rec Y E}'' is
 bound and therefore the substitution ignores it.
 

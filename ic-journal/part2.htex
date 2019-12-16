@@ -84,7 +84,7 @@ $Q \rapprox E\{Q/X\}$. Then $P \rapprox Q$.
 
 \subsubsection{The version for weak bisimilarity}
 
-Milner~\cite{Mil89} \emph{only mentioned} two ``unique solution of
+Milner~\cite{Mil89} only mentioned two ``unique solution of
 equations'' theorems, one for strong equivalence, the other for
 rooted bisimilarity.   There is, however, another
 version for weak bisimilarity (Theorem~\ref{t:Mil89}) that shares a large portion of proof
@@ -124,7 +124,7 @@ contractions is the proof of Lemma~\ref{l:ruptocon} and lemmas alike.
 In particular, we use induction on the length of weak transitions.
 For this, rather than introducing a refined form of weak transition relation
 enriched with its length, we found it more elegant to work with
-\emph{traces}, sequences of transitions.
+\emph{traces}, i.e., sequences of transitions.
 (A further motivation is to set the ground for future extensions of this
 formalisation work to \emph{trace equivalence} in place of bisimilarity.)
 
@@ -194,7 +194,7 @@ $E$, if $C [\, E^n[P]\,] \overset{xs}{\longrightarrow} P'$ and the length
 of actions $xs \leqslant n$, then $P'$ has the form $C'[P]$.
 Traces are used in reasoning about the number of intermediate actions in weak
 transitions. For instance, from Def.~\ref{d:BisCon}, it is easy
-to see that, a weak transition either becomes shorter
+to see that a weak transition either becomes shorter
 or remains the same when moving between $\mcontrBIS$-related processes.
 This property is essential in the proof of
 Lemma~\ref{l:uptocon}. We show only one such lemma, for the case of

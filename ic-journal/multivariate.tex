@@ -32,11 +32,10 @@ a system of equations $\{X_i = E_i\}_{i\in I}$ are usually considered as
 \emph{process variables} outside the CCS syntax.
 Then, an equation body  $E_i$  is an \emph{open} expression
 built with CCS operators plus these equation variables.
-In a  formalisation, this means either  defining a
-whole new datatype (with extra equation variables), in which each CCS
+In a  formalisation, this means either defining a
+whole new datatype (with the new equation variables), in which each CCS
 operator must be duplicated, or adding equation variables as a
-new primitive (e.g.~\texttt{Var X}) to the existing CCS type (besides
- agent variables such as \texttt{var X}).
+new primitive to the existing CCS type.
 In either cases the \emph{disjointness} between equation variables and
 agent variables is syntactically
 guaranteed. Both solutions are rather combersome, and require a non-trivial modification
@@ -64,9 +63,6 @@ subexpression of $E$) as $\bv{E}$ (or \HOLinline{\HOLConst{BV}\\\;\HOLFreeVar{E}
 variables as $\fv{E}$ (or \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}} in HOL). Both \HOLinline{\HOLConst{BV}} and \HOLinline{\HOLConst{FV}} have the
 type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS} \HOLTokenTransEnd \ensuremath{\alpha} \HOLTokenTransEnd \HOLTyOp{bool}}'', i.e. functions taking CCS terms and returning
 (finite) sets of variables (of the type \HOLinline{\ensuremath{\alpha}}).
-% Milner didn't give their definitions explicitly. However, one can
-% imagine that, for most CCS operators they just pass into
-% subterms without collecting anything (and $\nil$ gives $\emptyset$).
 For their definition the interesting cases are those of
 recursion and agent variables, shown below  (here \texttt{DELETE}
 and \texttt{INSERT} are set-theoretic operators of HOL's
@@ -96,6 +92,7 @@ from a CCS expression to its sub-expressions, the set of free
 variables may increase, while the set of bound variables either
 remains the same or decreases. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
 $\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings some
+%% "transition induction" (1/2)
 difficulities in transition inductions. As an evidence,
 we prove the following fundamental property of
 $\fv{\cdot}$~\citep[p.~1209]{milner1990operational}:
@@ -119,7 +116,8 @@ variables in a CCS process does not increase in its derivatives:
 
 In~\cite{milner1990operational}, the proof of the above property is
 commented as ``an easy action induction''.
-As a matter of fact, in the HOL proof ``action induction''
+As a matter of fact, in the HOL proof ``action induction'' (also
+known as \emph{transition induction})
 becomes a form of higher-order application
 of the following \emph{induction principle} (generated together with the SOS
 rules), which essentially says that \HOLinline{\HOLConst{TRANS}} is the smallest relation
@@ -162,8 +160,9 @@ those below the line are assumptions):
    ------------------------------------
     0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
-Note that \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLConst{DELETE}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLConst{FV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}}, so
-this is indeed the consequence of action induction on the Recursion.
+Note that \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLConst{DELETE}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLConst{FV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}}, thus
+the current proof goal is indeed the consequence of action induction on the
+recursion operator.
 Here the problem is that we know nothing about
 \HOLinline{\HOLConst{FV}\\\;\ensuremath{(}\ensuremath{[}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\HOLFreeVar{E}\ensuremath{)}}. To further proceed, we need to prove
 some other (easier) lemmas. First, the next lemma can be  proven
@@ -221,8 +220,9 @@ a contradiction with assumption 4, and the proof finally completes.
 Proposition~\ref{prop:transFV} is essential in the proofs of the
   \multivariate versions of all unique-solution theorems.
 On the other hand, the analogous
-result for bound variables is indeed just an easy transition
-induction. (The easy proof is omitted.)
+result for bound variables is indeed just a simple
+%% transition induction
+transition induction. (The easy proof is omitted.)
 \begin{proposition}
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
@@ -271,8 +271,7 @@ function which substitutes all variables $\til X$ in parallel.
 Note that there is the
 possibility that $\til P$ syntactically again contains variables from $\til X$, thus
 different orders of iterated substitutions may lead to different results.
-To obtain the maximal flexibility with reduced efforts, we defined
-a \multivariate version of \HOLinline{\HOLConst{CCS_Subst}}
+We thus prefer to define a \multivariate version of \HOLinline{\HOLConst{CCS_Subst}}
 called \HOLinline{\HOLConst{CCS_SUBST}}, based on HOL
 \texttt{finite\_map} theory~\cite{holdesc}.
 
@@ -293,7 +292,7 @@ a list of variables \HOLinline{\HOLFreeVar{Xs}} and the corresponding substitute
 omitted here).
 \HOLinline{\HOLConst{CCS_SUBST}\\\;\ensuremath{(}\HOLConst{fromList}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Ps}\ensuremath{)}\\\;\HOLFreeVar{E}} is usually
 abbreviated as \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]}\\\;\HOLFreeVar{E}}.
-Using \hl{finite} maps, the substitution mechanism is order-independent. For most CCS operators,
+Using finite maps, the substitution mechanism is order-independent. For most CCS operators,
 \HOLinline{\HOLConst{CCS_SUBST}}
  recursively calls itself on subterms. The most
 interesting cases are at agent variables and recursion:
@@ -443,9 +442,8 @@ For this, intuitively, we replace a single variable with a hole (viewing
 the other variables as constants), so to obtain a  single-variable context
 on which predicates like \HOLinline{\HOLConst{CONTEXT}} can be used.
 For example, to see the weak guardedness of $a.X + b.X + c.Y$,
-we focus on each (free) variable, we substitute each
-occurrence of a variable, say $X$, with a ``hole'' and see the
-resulting term as a $\lambda$-function; then all such $\lambda$-functions
+we substitute each occurrence of a variable with a ``hole'' and consider the
+resulting term as a multi-hole context (i.e., a $\lambda$-function); then all such multi-hole contexts
 should satisfy \HOLinline{\HOLConst{WG}}, i.e.~the following results hold:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{WG} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{t}. \HOLFreeVar{a}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{b}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{t} \HOLSymConst{\ensuremath{+}} \HOLFreeVar{c}\HOLSymConst{\ensuremath{\ldotp}}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)}
@@ -466,14 +464,14 @@ independently of the free variables of \HOLinline{\HOLFreeVar{E}}.
 Then a logical term ``\HOLinline{\HOLConst{weakly_guarded}\\\;\ensuremath{(}\HOLConst{SET_TO_LIST}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\ensuremath{)}\\\;\HOLFreeVar{E}}'' can
 be used to assert the weak guardedness of $E$ w.r.t.~all its free
 variables.\footnote{Here \HOLinline{\HOLConst{SET_TO_LIST}} converts a finite set
-  to a list of the same elements. It turns out that, we never need this, because
+  to a list of the same elements. It turns out that we never need this, because
   in all unique-solution theorems a list of variables \HOLinline{\HOLFreeVar{Xs}} is fixed and
   then all equations are required to contain free variables in
   \HOLinline{\HOLFreeVar{Xs}}.}
 (The \multivariate guardedness and sequentiality can also be defined similarily, using
 their \univariate companions \HOLinline{\HOLConst{SG}} and \HOLinline{\HOLConst{SEQ}}.)
 
-The most important property of \multivariate contexts is that, strong bisimilarity
+The most important property of \multivariate contexts is that strong bisimilarity
 and other (pre)congruence relations are preserved by them, for instance:
 \begin{lemma}[\texttt{STRONG_EQUIV_subst_context}]
 If two tuples of processes $\til P$ and $\til Q$ are strongly
@@ -502,7 +500,7 @@ resulting term is still a valid context (w.r.t.~the same set of variables):
    \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Es}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{C}\ensuremath{)}\hfill{[context_combin]}
 \end{alltt}
 
-On the other hand, not every term within the CCS syntax is a context, as
+Not every term within the CCS syntax is a context, as
 context (or equation) variables are not allowed to occur within recursion. The converse
 holds however: if the set of free variables of a CCS term
 is disjoint from a list of variables, then the term is indeed a context
@@ -515,7 +513,7 @@ the set of free variables of $E$ excluding $Y$ is disjoint with $\til X$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{Y}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\hfill{[context_rec]}
 \end{alltt}
-Note that, in the above lemma we cannot
+In the above lemma we cannot
 conclude \HOLinline{\HOLConst{DISJOINT}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\ensuremath{(}\HOLConst{set}\\\;\HOLFreeVar{Xs}\ensuremath{)}},
 because $Y$ may appear in both sets.
 We also cannot conclude \HOLinline{\HOLConst{context}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{E}}, because in $\recu Y E$
@@ -599,7 +597,7 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
       \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}\hfill{[CCS_solution_def]}
 \end{alltt}
 Note that the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' in
-HOL have the same meaning. The latter form suggests that,
+HOL have the same meaning. The latter form suggests that
 ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' is actually a set containing all
 solutions of ``\HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}''. Then the unique-solution
 theorems can be understood thus: any two (syntactically different) elements
@@ -620,11 +618,6 @@ the \multivariate case of Lemma~\ref{lem:milner313} is formalised below:
                \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
                \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Qs}. \HOLConst{LENGTH} \HOLBoundVar{Qs} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime}}
 \end{alltt}
-% Notice that, while Milner did not pointed out explicitly, the involved
-% weakly guarded context $E$ must contain free variables up to $\til
-% X$~--- the same requirement as in Theorem~\ref{t:Mil89s1}, which
-% otherwise does not complete. Besides, we further required that, the
-% bound variables of $E$ must be disjoint with $\til X$.
 
 The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
 \begin{alltt}

@@ -191,7 +191,7 @@ Willem Klop~(see \cite{van2005characterisation} for some historical notes).
 We have only partially formalised
 van Glabbeek's proof, mostly because our CCS syntax does not allow infinite
 summation (and it is not easy to extend it with this support).
-Another more important reason is that, the typed logic
+Another more important reason is that the typed logic
 implemented in various HOL systems (including Isabelle/HOL) is not
 strong enough to define a type for all possible
 ordinals~\cite{norrish2013ordinals} which is required in van

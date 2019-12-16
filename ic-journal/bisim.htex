@@ -224,7 +224,7 @@ Recall that we often write $P \;\R\; Q$ to denote
 $(P, Q) \in \R$ for any binary relation $\R$. 
 Moreover, 
  $\sim \mathcal{S} \sim$ is the composition of three binary
-relations: $\sim$, $\S$ and $\sim$. Hence $P \sim \S \sim Q$ means that,
+relations: $\sim$, $\S$ and $\sim$. Hence $P \sim \S \sim Q$ means that
 there exist $P'$ and $Q'$ such that $P \sim P'$, $P' \;\S\; Q'$ and $Q' \sim Q$.
 \begin{definition}%[Bisimulation up to $\sim$]
   \label{def:bisimUptoSim}

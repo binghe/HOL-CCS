@@ -154,7 +154,7 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
             \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}}
             \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}    
 \end{alltt}  
-For instance, the following proposition \hl{needs} the above \emph{cases} theorem:
+For instance, the following proposition needs the above \emph{cases} theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
@@ -168,7 +168,7 @@ transition. Here ``\HOLinline{\ensuremath{[}\HOLConst{rec}\;\;\HOLFreeVar{X}\;\;
 for ``\HOLinline{\HOLConst{CCS_Subst}\;\;\HOLFreeVar{E}\;\;\ensuremath{(}\HOLConst{rec}\;\;\HOLFreeVar{X}\;\;\HOLFreeVar{E}\ensuremath{)}\;\;\HOLFreeVar{X}}'', where \HOLinline{\HOLConst{CCS_Subst}} is a
 recursive function substituting all occurrences of a free variable with a CCS term.
 For most CCS operators \HOLinline{\HOLConst{CCS_Subst}} just recursively goes into a deeper
-level without changing anything, e.g.
+level without changing anything, e.g.:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\hfill{[CCS_Subst_sum]}
 \end{alltt}
@@ -177,7 +177,7 @@ The only two insteresting cases are those for agent variables and recursion:
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
 \end{alltt}
-Notice that, variable substitutions only affect free
+Notice that variable substitutions only affect free
 variables. For instance, the variable $Y$ in ``\HOLinline{\HOLConst{rec}\!\;\HOLFreeVar{Y}\!\;\HOLFreeVar{E}}'' is
 bound and therefore the substitution ignores it.
 
