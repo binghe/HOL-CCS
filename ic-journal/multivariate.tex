@@ -563,10 +563,9 @@ $E_i$, the set of its bound variables should be \emph{disjoint} from $\til X$.
 These requirements yield the fomal
 definition of \multivariate CCS equation:
 \begin{alltt}
-   \HOLTokenTurnstile{} \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
-      \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
-      \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{FV} \HOLBoundVar{e} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
-      \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Es}\hfill{[CCS_equation_def]}
+   \HOLConst{CCS_equation} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLTokenDefEquality{}
+     \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}}
+     \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{FV} \HOLBoundVar{e} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Es}\hfill{[CCS_equation_def]}
 \end{alltt}
 
 Now consider (formally) what is a solution $\til P$ of CCS equations. First of
@@ -592,9 +591,9 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
   CCS processes with the same length.
   implicitly implies that the two lists $A$ and $B$ have the same length.}
 \begin{alltt}
-   \HOLTokenTurnstile{} \HOLConst{CCS_solution} \HOLFreeVar{R} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenEquiv{}}
-      \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
-      \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}\hfill{[CCS_solution_def]}
+   \HOLConst{CCS_solution} \HOLFreeVar{R} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLFreeVar{Ps} \HOLTokenDefEquality{}
+     \HOLConst{ALL_PROC} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{e}. \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{e}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\ensuremath{)} \HOLFreeVar{Ps} \HOLSymConst{\HOLTokenConj{}}
+     \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}\hfill{[CCS_solution_def]}
 \end{alltt}
 Note that the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' in
 HOL have the same meaning. The latter form suggests that
@@ -606,7 +605,8 @@ in the solution set are bisimilar.
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
 
 With all above machineries of \multivariate contexts and substitutions,
-the \multivariate case of Lemma~\ref{lem:milner313} is formalised below:
+the \multivariate case of Lemma~\ref{lem:milner313} is formalised
+below (\texttt{strong_unique_solution_lemma}):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Ps}.
