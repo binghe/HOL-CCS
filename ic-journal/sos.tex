@@ -106,12 +106,11 @@ consequences of an \emph{inductive relation} definition of
 \HOLinline{\HOLConst{TRANS}} by the \texttt{HOL_reln} function of HOL4
 (see~\citep[p.~219]{holdesc} for more details).
 A successful invocation of the definitional principle returns three
-important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
+important theorems (\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_cases}):
 \begin{itemize}
-  \item \emph{rules} is a conjunction of implications (each
+  \item \texttt{TRANS_rules} is a conjunction of implications (each
     corresponding to a SOS rule) that will be the
-    same as the input term.
-    In fact, the following formal versions of SOS rules are
+    same as the input term. In fact, the following formal versions of SOS rules are
     extracted from the \emph{rules} theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
@@ -132,9 +131,10 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
 \begin{equation*}
 \infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}
 \end{equation*}
-\item \emph{ind} is the induction principle for the relation
-  (see Section~\ref{sec:multivariate} for the exact form and its application).
-\item \emph{cases} is the so-called `cases' or `inversion' theorem for
+\item \texttt{TRANS_ind} is the induction principle for the relation
+  (see Section~\ref{sec:multivariate} for its exact statement and an
+  application in the proof of Proposition~\ref{prop:transFV}).
+\item \texttt{TRANS_cases} is the so-called `cases' or `inversion' theorem for
   the relation, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}
@@ -154,7 +154,7 @@ important theorems (\emph{rules}, \emph{ind} and \emph{cases}):
             \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\ensuremath{=}} \HOLConst{relab} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{rf} \HOLSymConst{\HOLTokenConj{}}
             \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLSymConst{\HOLTokenDisj{}} \HOLSymConst{\HOLTokenExists{}}\HOLBoundVar{E} \HOLBoundVar{X}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\ensuremath{=}} \HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E} \HOLSymConst{\HOLTokenConj{}} \ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}    
 \end{alltt}  
-For instance, the following proposition needs the above \emph{cases} theorem:
+For instance, the following proposition requires \texttt{TRANS_cases}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenEquiv{}} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}} \HOLSymConst{\HOLTokenDisj{}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sp{\prime\prime}}\hfill{[TRANS_SUM_EQ]}
 \end{alltt}
