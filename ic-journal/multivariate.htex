@@ -179,7 +179,7 @@ Knowing \HOLtm{FV E' SUBSET FV E} we cannot prove \HOLtm{FV
   NOTIN (FV E')}, then \HOLtm{FV E' DELETE X = FV E'}, and then
 \HOLtm{FV E' SUBSET FV E ==> FV E' DELETE X SUBSET FV E
   DELETE X}, no matter if \HOLtm{X IN FV E} or not, and the proof
-would be complete. Thus it remains to show that
+would complete. Thus it remains to show that
 \begin{alltt}
         \HOLtm{X NOTIN FV E'}
    ------------------------------------

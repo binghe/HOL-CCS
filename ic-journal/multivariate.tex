@@ -187,7 +187,7 @@ lemma, and obtain \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}
 \end{alltt}
 Knowing \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}} we cannot prove \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}. However, if we knew \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}, then \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\ensuremath{=}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}, and then
 \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}, no matter if \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E}} or not, and the proof
-would be complete. Thus it remains to show that
+would complete. Thus it remains to show that
 \begin{alltt}
         \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}
    ------------------------------------
