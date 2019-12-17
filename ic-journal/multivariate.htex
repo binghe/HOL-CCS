@@ -574,10 +574,10 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
 \end{alltt}
 Note that the two logical terms ``\HOLtm[m\;]{CCS_solution R
   Xs Es Ps}'' and ``\HOLtm[m\;]{Ps IN  (CCS_solution R Xs Es)}'' in
-HOL have the same meaning. The latter form suggests that
+HOL have the same meaning (they are equivalent). The latter form suggests that
 ``\HOLtm[m\;]{CCS_solution R Xs Es}'' is actually a set containing all
 solutions of ``\HOLtm[m\;]{CCS_equation Xs Es}''. Then the unique-solution
-theorems can be understood thus: any two (syntactically different) elements
+theorems can be understood thus: any two elements
 in the solution set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}

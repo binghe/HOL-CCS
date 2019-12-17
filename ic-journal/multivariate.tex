@@ -596,10 +596,10 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
      \HOLConst{LIST_REL} \HOLFreeVar{R} \HOLFreeVar{Ps} \ensuremath{(}\HOLConst{MAP} \ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{Es}\ensuremath{)}
 \end{alltt}
 Note that the two logical terms ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}\\\;\HOLFreeVar{Ps}}'' and ``\HOLinline{\HOLFreeVar{Ps}\\\;\HOLSymConst{\HOLTokenIn{}}\\\;\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' in
-HOL have the same meaning. The latter form suggests that
+HOL have the same meaning (they are equivalent). The latter form suggests that
 ``\HOLinline{\HOLConst{CCS_solution}\\\;\HOLFreeVar{R}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}'' is actually a set containing all
 solutions of ``\HOLinline{\HOLConst{CCS_equation}\\\;\HOLFreeVar{Xs}\\\;\HOLFreeVar{Es}}''. Then the unique-solution
-theorems can be understood thus: any two (syntactically different) elements
+theorems can be understood thus: any two elements
 in the solution set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
