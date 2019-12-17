@@ -77,7 +77,7 @@ is contained in the composition closure of $R$
 
 Given the central role of
  summation, we also consider the relation closure of bisimilarity
- w.r.t. summation, called \emph{equivalence compatible with summation}
+ \hl{with respect to} summation, called \emph{equivalence compatible with summation}
 (\texttt{SUM_EQUIV}): %%, denoted by $\approx^+$: (not used this symbol)
 \begin{alltt}
 \HOLthm[def,>>3]{CoarsestCongr.SUM_EQUIV}\hfill{[SUM_EQUIV]}
@@ -269,7 +269,7 @@ the following properties of Klop functions:
 \end{proposition}
 
 For any ``\HOLtm[m;]{label a}'', having a function ``\HOLtm[m;]{KLOP
-  a}'' (of the type ``\HOLty{:num -> ('a,'b) CCS}'')
+  a}'' (\hl{of type} ``\HOLty{:num -> ('a,'b) CCS}'')
 defined on the natural numbers, we obtain a countable set of processes
 with all Klop processes built from the same label.
 Since the number of all Klop processes in this set is (countably) infinite, and

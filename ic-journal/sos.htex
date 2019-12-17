@@ -28,11 +28,11 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 The type ``\HOLty{:'b Action}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
 (\texttt{tau}). For instace, the input \emph{action} $a$ and output
-\emph{action} $\overline{b}$ of the type ``\HOLty{:string Action}''
+\emph{action} $\overline{b}$ \hl{of type} ``\HOLty{:string Action}''
 are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively. On the
 other hand, \HOLtm[-In]{label (name 1)} and \HOLtm[-Out]{label (coname
-  2)} could be actions of the type ``\HOLty{:num Action}'', where
+  2)} could be actions \hl{of type} ``\HOLty{:num Action}'', where
 \HOLty{:num} is the type of natural numbers in HOL.
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for all CCS terms,
@@ -40,7 +40,7 @@ has two type variables $\alpha$ and $\beta$ corresponding
 to the set of agent variables $\mathscr{X}$
 and the set of names $\mathscr{L}$,
 respectively. (Indeed the CCS syntax in Section~\ref{ss:ccs} is parametric
-w.r.t. the choice of these two sets.)
+\hl{with respect to} the choice of these two sets.)
 %
 The type ``\HOLty{:('a, 'b) CCS}'' is defined inductively by the
 \texttt{Datatype} package
@@ -108,13 +108,13 @@ in Fig.~\ref{f:LTSCCS}. However, they are not axioms but
 consequences of an \emph{inductive relation} definition of
 \HOLtm{TRANS} by the \texttt{HOL_reln} function of HOL4
 (see~\citep[p.~219]{holdesc} for more details).
-A successful invocation of the definitional principle returns three
-important theorems (\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_cases}):
+\hl{The} successful invocation of the definitional principle returns three
+important theorems \hl{(\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_cases})}:
 \begin{itemize}
-  \item \texttt{TRANS_rules} is a conjunction of implications (each
+  \item \hl{\texttt{TRANS_rules}} is a conjunction of implications (each
     corresponding to a SOS rule) that will be the
     same as the input term. In fact, the following formal versions of SOS rules are
-    extracted from the \emph{rules} theorem:
+    extracted from \hl{\texttt{TRANS_rules}}:
 \begin{alltt}
 \HOLthm{CCS.PREFIX}\hfill\texttt{[PREFIX]}
 \HOLthm{CCS.SUM1}\hfill\texttt{[SUM1]}
@@ -134,10 +134,10 @@ important theorems (\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_c
 \begin{equation*}
 \HOLthm[rule,rulename=REC]{CCS.REC}
 \end{equation*}
-\item \texttt{TRANS_ind} is the induction principle for the relation
+\item \hl{\texttt{TRANS_ind}} is the induction principle for the relation
   (see Section~\ref{sec:multivariate} for its exact statement and an
   application in the proof of Proposition~\ref{prop:transFV}).
-\item \texttt{TRANS_cases} is the so-called `cases' or `inversion' theorem for
+\item \hl{\texttt{TRANS_cases}} is the so-called `cases' or `inversion' theorem for
   the relation, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}

@@ -62,12 +62,12 @@ CoInductive WEAK_EQUIV :
       ==> WEAK_EQUIV E E'
 End
 \end{lstlisting}
-Like the case of \HOLinline{\HOLConst{TRANS}}, a successful invocation of the
+Like the case of \HOLinline{\HOLConst{TRANS}}, \hl{the} successful invocation of the
 coinductive definitional principle returns three
-theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
-\texttt{WEAK_EQUIV_cases}):
+theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
+\texttt{WEAK_EQUIV_cases})}:
 \begin{itemize}
-\item \texttt{WEAK_EQUIV_rules} is the same as the input term, which now becomes a theorem:
+\item \hl{\texttt{WEAK_EQUIV_rules}} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
         \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -76,7 +76,7 @@ theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLFreeVar{E}\sp{\prime}}
 \end{alltt}
-\item \texttt{WEAK_EQUIV_coind} is the coinduction principle for \HOLinline{\HOLConst{WEAK_EQUIV}} ($\wb$):
+\item \hl{\texttt{WEAK_EQUIV_coind}} is the coinduction principle for \HOLinline{\HOLConst{WEAK_EQUIV}} ($\wb$):
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}.
         \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
@@ -90,7 +90,7 @@ theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
         \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}. \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}
 \end{alltt}
-\item \texttt{WEAK_EQUIV_cases} is the so-called `cases' or `inversion' theorem for
+\item \hl{\texttt{WEAK_EQUIV_cases}} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}

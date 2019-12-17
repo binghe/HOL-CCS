@@ -55,20 +55,20 @@ CoInductive WEAK_EQUIV :
       ==> WEAK_EQUIV E E'
 End
 \end{lstlisting}
-Like the case of \HOLtm{TRANS}, a successful invocation of the
+Like the case of \HOLtm{TRANS}, \hl{the} successful invocation of the
 coinductive definitional principle returns three
-theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
-\texttt{WEAK_EQUIV_cases}):
+theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
+\texttt{WEAK_EQUIV_cases})}:
 \begin{itemize}
-\item \texttt{WEAK_EQUIV_rules} is the same as the input term, which now becomes a theorem:
+\item \hl{\texttt{WEAK_EQUIV_rules}} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
 \HOLthm[]{WeakEQ.WEAK_EQUIV_rules}
 \end{alltt}
-\item \texttt{WEAK_EQUIV_coind} is the coinduction principle for \HOLtm{WEAK_EQUIV} ($\wb$):
+\item \hl{\texttt{WEAK_EQUIV_coind}} is the coinduction principle for \HOLtm{WEAK_EQUIV} ($\wb$):
 \begin{alltt}
 \HOLthm[]{WeakEQ.WEAK_EQUIV_coind}
 \end{alltt}
-\item \texttt{WEAK_EQUIV_cases} is the so-called `cases' or `inversion' theorem for
+\item \hl{\texttt{WEAK_EQUIV_cases}} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}

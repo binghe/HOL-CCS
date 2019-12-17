@@ -62,7 +62,7 @@ given CCS term $E$ (the variables that are bound in a recursion
 subexpression of $E$) as $\bv{E}$ (or \HOLtm[m\;]{BV E} in HOL), and the set of  free
 variables as $\fv{E}$ (or \HOLtm[m\;]{FV E} in HOL). Both \HOLtm{BV} and \HOLtm{FV} have the
 type ``\HOLty[of]{FV}'', i.e. functions taking CCS terms and returning
-(finite) sets of variables (of the type \HOLty{:'a}).
+(finite) sets of variables (\hl{of type} \HOLty{:'a}).
 For their definition the interesting cases are those of
 recursion and agent variables, shown below  (here \texttt{DELETE}
 and \texttt{INSERT} are set-theoretic operators of HOL's
@@ -268,15 +268,15 @@ We thus prefer to define a \multivariate version of \HOLtm[-SUB]{CCS_Subst}
 called \HOLtm[-SUB]{CCS_SUBST}, based on HOL
 \texttt{finite\_map} theory~\cite{holdesc}.
 
-A finite map (of the type \HOLty{:'a |-> 'b}) is like a function (of the type
-\HOLty{:'a -> 'b}) having only finitely many elements in its
+A finite map (\hl{of type} \HOLty{:'a |-> 'b}) is like a function
+(\hl{of type} \HOLty{:'a -> 'b}) having only finitely many elements in its
 domain. In HOL, an empty finite map is denoted as \HOLtm{FEMPTY}.
 If \HOLtm{fm} is a finite map, its domain (as a set of keys) is denoted as
 \HOLtm{FDOM fm}. Applying \HOLtm{fm} on a certain key, say $k$, is denoted
 by \HOLtm{FAPPLY fm k}.
 
 The function \HOLtm[-SUB]{CCS_SUBST} takes a finite
-map \HOLtm{fm} (of the type \HOLty{:'a |-> ('a, 'b) CCS}) and a CCS expression,
+map \HOLtm{fm} (\hl{of type} \HOLty{:'a |-> ('a, 'b) CCS}) and a CCS expression,
 and returns another CCS expression in which
 all occurrences of variables in the finite domain of \HOLtm{fm} are substituted with
 the corresponding value in \HOLtm{fm}. Initially, such a finite map can be built from
@@ -343,7 +343,7 @@ converted into a single substitution where the targets are substituted first:
 \end{lemma}
 
 The next three lemmas show the relative correctness of \texttt{CCS\_SUBST}
-w.r.t.~\texttt{CCS\_Subst}:
+\hl{with respect to}~\texttt{CCS\_Subst}:
 \begin{lemma}[\texttt{CCS_SUBST_sing}]
   If there is only one single variable $X$ in the map (with the target
   expression $E'$), then \HOLtm[-SUB]{CCS_SUBST} behaves exactly the
@@ -401,7 +401,7 @@ is not necessary and could be eliminated, at the price of some extra effort.
 As mentioned in
 Section~\ref{ss:context}, \univariate contexts and their
 guarded companions are defined as predicates over $\lambda$-expressions
-of the type ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}''. These predicates, such as
+\hl{of type} ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}''. These predicates, such as
 \HOLtm{CONTEXT}
 (multi-hole contexts), \HOLtm{WG} (weak guarded contexts),
 \HOLtm{SG} (guarded contexts) and \HOLtm{SEQ} (sequential
@@ -448,7 +448,7 @@ allows us to formalise the concepts of contexts and guardedness
 independently of the free variables of \HOLtm{E}.
 Then a logical term ``\HOLtm[m\;]{weakly_guarded
   (SET_TO_LIST (FV E)) E}'' can
-be used to assert the weak guardedness of $E$ w.r.t.~all its free
+be used to assert the weak guardedness of $E$ \hl{with respect to} all its free
 variables.\footnote{Here \HOLtm{SET_TO_LIST} converts a finite set
   to a list of the same elements. It turns out that we never need this, because
   in all unique-solution theorems a list of variables \HOLtm{Xs} is fixed and
@@ -487,7 +487,7 @@ Not every term within the CCS syntax is a context, as
 context (or equation) variables are not allowed to occur within recursion. The converse
 holds however: if the set of free variables of a CCS term
 is disjoint from a list of variables, then the term is indeed a context
-w.r.t. such list of variables:
+\hl{with respect to} such list of variables:
 \begin{alltt}
 \HOLthm{Multivariate.disjoint_imp_context}\hfill{[disjoint_imp_context]}
 \end{alltt}
@@ -507,7 +507,7 @@ in $\recu Y E$ , for $E = \recu Z (a.Y + b.Z) + c.Y$.
 For weakly guarded contexts, % (which are also normal contexts),
 besides their usual properties as in the \univariate case (i.e., weak
 guardedness, \HOLtm{WG}), we also need
-their composability w.r.t.~\multivariate contexts: if we
+their composability \hl{with respect to}~\multivariate contexts: if we
 substitute some free variables in a context $C$ with some weakly guarded
 contexts, the resulting context is weakly guarded (w.r.t.~the same set of variables):
 \begin{alltt}
@@ -574,10 +574,10 @@ equations:\footnote{If $R$ is a binary relation of CCS processes,
 \end{alltt}
 Note that the two logical terms ``\HOLtm[m\;]{CCS_solution R
   Xs Es Ps}'' and ``\HOLtm[m\;]{Ps IN  (CCS_solution R Xs Es)}'' in
-HOL have the same meaning (they are equivalent). The latter form suggests that
+HOL have the same meaning \hl{(they are equivalent)}. The latter form suggests that
 ``\HOLtm[m\;]{CCS_solution R Xs Es}'' is actually a set containing all
 solutions of ``\HOLtm[m\;]{CCS_equation Xs Es}''. Then the unique-solution
-theorems can be understood thus: any two elements
+theorems can be understood thus: any two elements\hl{\ \ }%
 in the solution set are bisimilar.
 
 \subsection{Unique solution of equations/contractions (the \multivariate version)}
