@@ -124,11 +124,16 @@ A.~Church, A formulation of the simple theory of types, The journal of symbolic
 T.~F. Melham, {Automating Recursive Type Definitions in Higher Order Logic},
   in: Current Trends in Hardware Verification and Automated Theorem Proving,
   Springer, New York, NY, 1989, pp. 341--386.
+\newblock \href {https://doi.org/10.1007/978-1-4612-3658-0_9}
+  {\path{doi:10.1007/978-1-4612-3658-0_9}}.
 
 \bibitem{Melham:1991}
 T.~F. Melham, {A Package For Inductive Relation Definitions In HOL}, in: 1991.,
   International Workshop on the HOL Theorem Proving System and Its
-  Applications, IEEE, 1991, pp. 350--357.
+  Applications, IEEE Computer Society Press, Davis, CA, USA, 1991, pp.
+  350--357.
+\newblock \href {https://doi.org/10.1109/HOL.1991.596299}
+  {\path{doi:10.1109/HOL.1991.596299}}.
 
 \bibitem{holdesc}
 {HOL4 contributors},
