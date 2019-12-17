@@ -493,7 +493,7 @@ preorder ($\mcontrBIS$), as they are not (pre)congruence relations.
 
 Another important property of contexts is their composability: if we
 substitute some free variables in a context with some other contexts, the
-resulting term is still a valid context (w.r.t.~the same set of variables):
+resulting term is still a valid context (\hl{with respect to} the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{EVERY} \ensuremath{(}\HOLConst{context} \HOLFreeVar{Xs}\ensuremath{)} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
@@ -508,7 +508,7 @@ is disjoint from a list of variables, then the term is indeed a context
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{E}\hfill{[disjoint_imp_context]}
 \end{alltt}
-On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$,
+On the other hand, for any context (\hl{with respect to} $\til X$) of the form $\recu Y E$,
 the set of free variables of $E$ excluding $Y$ is disjoint with $\til X$:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{Y}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)}\hfill{[context_rec]}
@@ -526,7 +526,7 @@ besides their usual properties as in the \univariate case (i.e., weak
 guardedness, \HOLinline{\HOLConst{WG}}), we also need
 their composability \hl{with respect to}~\multivariate contexts: if we
 substitute some free variables in a context $C$ with some weakly guarded
-contexts, the resulting context is weakly guarded (w.r.t.~the same set of variables):
+contexts, the resulting context is weakly guarded (\hl{with respect to} the same set of variables):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{context} \HOLFreeVar{Xs} \HOLFreeVar{C} \HOLSymConst{\HOLTokenConj{}} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{Es} \HOLSymConst{\HOLTokenConj{}}
    \HOLConst{LENGTH} \HOLFreeVar{Es} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}

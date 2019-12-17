@@ -478,7 +478,7 @@ preorder ($\mcontrBIS$), as they are not (pre)congruence relations.
 
 Another important property of contexts is their composability: if we
 substitute some free variables in a context with some other contexts, the
-resulting term is still a valid context (w.r.t.~the same set of variables):
+resulting term is still a valid context (\hl{with respect to} the same set of variables):
 \begin{alltt}
 \HOLthm{Multivariate.context_combin}\hfill{[context_combin]}
 \end{alltt}
@@ -491,7 +491,7 @@ is disjoint from a list of variables, then the term is indeed a context
 \begin{alltt}
 \HOLthm{Multivariate.disjoint_imp_context}\hfill{[disjoint_imp_context]}
 \end{alltt}
-On the other hand, for any context (w.r.t.~$\til X$) of the form $\recu Y E$,
+On the other hand, for any context (\hl{with respect to} $\til X$) of the form $\recu Y E$,
 the set of free variables of $E$ excluding $Y$ is disjoint with $\til X$:
 \begin{alltt}
 \HOLthm{Multivariate.context_rec}\hfill{[context_rec]}
@@ -509,7 +509,7 @@ besides their usual properties as in the \univariate case (i.e., weak
 guardedness, \HOLtm{WG}), we also need
 their composability \hl{with respect to}~\multivariate contexts: if we
 substitute some free variables in a context $C$ with some weakly guarded
-contexts, the resulting context is weakly guarded (w.r.t.~the same set of variables):
+contexts, the resulting context is weakly guarded (\hl{with respect to} the same set of variables):
 \begin{alltt}
 \HOLthm{Multivariate.weakly_guarded_combin}\hfill{[weakly_guarded_combin]}
 \end{alltt}
