@@ -55,20 +55,20 @@ CoInductive WEAK_EQUIV :
       ==> WEAK_EQUIV E E'
 End
 \end{lstlisting}
-Like the case of \HOLtm{TRANS}, \hl{the} successful invocation of the
+Like the case of \HOLtm{TRANS}, the successful invocation of the
 coinductive definitional principle returns three
-theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
-\texttt{WEAK_EQUIV_cases})}:
+theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
+\texttt{WEAK_EQUIV_cases}):
 \begin{itemize}
-\item \hl{\texttt{WEAK_EQUIV_rules}} is the same as the input term, which now becomes a theorem:
+\item \texttt{WEAK_EQUIV_rules} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
 \HOLthm[]{WeakEQ.WEAK_EQUIV_rules}
 \end{alltt}
-\item \hl{\texttt{WEAK_EQUIV_coind}} is the coinduction principle for \HOLtm{WEAK_EQUIV} ($\wb$):
+\item \texttt{WEAK_EQUIV_coind} is the coinduction principle for \HOLtm{WEAK_EQUIV} ($\wb$):
 \begin{alltt}
 \HOLthm[]{WeakEQ.WEAK_EQUIV_coind}
 \end{alltt}
-\item \hl{\texttt{WEAK_EQUIV_cases}} is the so-called `cases' or `inversion' theorem for
+\item \texttt{WEAK_EQUIV_cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}
@@ -140,7 +140,7 @@ inference rules and the definition of bisimulation).
  These algebraic laws also hold for weak bisimilarity and rooted
   bisimilarity, as these are coarser than strong bisimilarity. 
 For weak bisimilarity and rooted bisimilarity, the following algebraic
-laws called $\tau$-laws hold:
+laws, called $\tau$-laws, hold:
 \begin{alltt}
 TAU1:      \HOLthm{ObsCongrLaws.TAU1}
 TAU2:      \HOLthm{ObsCongrLaws.TAU2}
@@ -202,7 +202,7 @@ show that $Con$ itself is a bisimulation, but rather
 that $Con\;\cup\!\wb$ is a bisimulation.
 In contrast, in the corresponding lemma for expansion 
 one can just take $Con$.
-
+%
 Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \begin{alltt}
 \HOLthm[def,>>3]{Contraction.OBS_contracts}\hfill{[OBS_contracts]}
@@ -211,7 +211,7 @@ Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \subsection{The formalisation of ``bisimulation up to''}
 
 ``Bisimulation up to'' is a family of powerful proof techniques
-for reducing the sizes of relations needed for defining bisimulations.
+for reducing the sizes of relations needed for defining bisimulations~\cite{PousS19}.
 By definition, two processes are bisimilar iff there exists a
 bisimulation relation containing them. However, in practice
 this definition is sometimes  hard to apply. Instead, to reduce
@@ -249,7 +249,7 @@ $\mathcal{S} \subseteq\;\sim$:
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
 %
-For weak bisimilarity, the \emph{naive} weak bisimulation up to weak bisimilarity
+For weak bisimilarity, the naive weak bisimulation up to weak bisimilarity
 is unsound: if one simply replaces all occurrences of $\sim$ in
 Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
 ``weak bisimulation up to'' relation need not be contained in weak
@@ -288,8 +288,8 @@ $\mathcal{S} \subseteq\;\approx$:
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful enough for Milner's ``unique solution of equations''
 theorem for $\wb$ (Theorem~\ref{t:Mil89}, see~\cite{sangiorgi1992problem} for more details).
-Instead, the following version \emph{with weak arrows} is
-actually used in the proof of Theorem~\ref{t:Mil89}:
+The following version, with weak arrows, is
+ used in the proof of Theorem~\ref{t:Mil89}:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
 $\mathcal{S}$ is a ``bisimulation up to $\approx$ with weak arrows'' if $P \;

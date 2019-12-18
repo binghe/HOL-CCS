@@ -23,8 +23,8 @@ End
 Intuitively, ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Label}}'' turns names in $\mathscr{L}$ into \emph{input and output labels}.
 For instance, if the type $\beta$ is instantiated to \texttt{string}
 (the type of all ASCII strings), then the HOL terms \HOLinline{\HOLConst{name} \HOLStringLit{a}} and
-\HOLinline{\HOLConst{coname} \HOLStringLit{b}} denote the input {label} $a$ and output
-{label} $\overline{b}$, respectively.
+\HOLinline{\HOLConst{coname} \HOLStringLit{b}} denote the input label $a$ and output
+label $\overline{b}$, respectively.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
 (\texttt{tau}). For instace, the input \emph{action} $a$ and output
@@ -105,13 +105,13 @@ in Fig.~\ref{f:LTSCCS}. However, they are not axioms but
 consequences of an \emph{inductive relation} definition of
 \HOLinline{\HOLConst{TRANS}} by the \texttt{HOL_reln} function of HOL4
 (see~\citep[p.~219]{holdesc} for more details).
-\hl{The} successful invocation of the definitional principle returns three
-important theorems \hl{(\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_cases})}:
+The successful invocation of the definitional principle returns three
+important theorems (\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRANS_cases}):
 \begin{itemize}
-  \item \hl{\texttt{TRANS_rules}} is a conjunction of implications (each
+  \item \texttt{TRANS_rules} is a conjunction of implications (each
     corresponding to a SOS rule) that will be the
     same as the input term. In fact, the following formal versions of SOS rules are
-    extracted from \hl{\texttt{TRANS_rules}}:
+    extracted from \texttt{TRANS_rules}:
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \HOLFreeVar{E}\hfill\texttt{[PREFIX]}
 \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}\hfill\texttt{[SUM1]}
@@ -131,10 +131,10 @@ important theorems \hl{(\texttt{TRANS_rules}, \texttt{TRANS_ind} and \texttt{TRA
 \begin{equation*}
 \infer[\HOLRuleName{REC}]{\HOLinline{\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}{\HOLinline{\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLFreeVar{u}\HOLTokenTransEnd \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}}}}
 \end{equation*}
-\item \hl{\texttt{TRANS_ind}} is the induction principle for the relation
+\item \texttt{TRANS_ind} is the induction principle for the relation
   (see Section~\ref{sec:multivariate} for its exact statement and an
   application in the proof of Proposition~\ref{prop:transFV}).
-\item \hl{\texttt{TRANS_cases}} is the so-called `cases' or `inversion' theorem for
+\item \texttt{TRANS_cases} is the so-called `cases' or `inversion' theorem for
   the relation, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}

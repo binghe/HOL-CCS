@@ -62,12 +62,12 @@ CoInductive WEAK_EQUIV :
       ==> WEAK_EQUIV E E'
 End
 \end{lstlisting}
-Like the case of \HOLinline{\HOLConst{TRANS}}, \hl{the} successful invocation of the
+Like the case of \HOLinline{\HOLConst{TRANS}}, the successful invocation of the
 coinductive definitional principle returns three
-theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
-\texttt{WEAK_EQUIV_cases})}:
+theorems (\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
+\texttt{WEAK_EQUIV_cases}):
 \begin{itemize}
-\item \hl{\texttt{WEAK_EQUIV_rules}} is the same as the input term, which now becomes a theorem:
+\item \texttt{WEAK_EQUIV_rules} is the same as the input term, which now becomes a theorem:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{l}.
         \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLTokenTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenWeakTransBegin\HOLConst{label} \HOLBoundVar{l}\HOLTokenWeakTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
@@ -76,7 +76,7 @@ theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
    \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLFreeVar{E} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLFreeVar{E}\sp{\prime}}
 \end{alltt}
-\item \hl{\texttt{WEAK_EQUIV_coind}} is the coinduction principle for \HOLinline{\HOLConst{WEAK_EQUIV}} ($\wb$):
+\item \texttt{WEAK_EQUIV_coind} is the coinduction principle for \HOLinline{\HOLConst{WEAK_EQUIV}} ($\wb$):
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}.
         \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}}
@@ -90,7 +90,7 @@ theorems \hl{(\texttt{WEAK_EQUIV_rules}, \texttt{WEAK_EQUIV_coind} and
         \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLTokenTransBegin\HOLSymConst{\ensuremath{\tau}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenEPS} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}. \ensuremath{\HOLFreeVar{WEAK\HOLTokenUnderscore{}EQUIV}\sp{\prime}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLSymConst{\HOLTokenWeakEQ} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}
 \end{alltt}
-\item \hl{\texttt{WEAK_EQUIV_cases}} is the so-called `cases' or `inversion' theorem for
+\item \texttt{WEAK_EQUIV_cases} is the so-called `cases' or `inversion' theorem for
   the relations, and is used to decompose an element in the relation into the possible ways of
   obtaining it by the rules:
 \begin{alltt}
@@ -253,6 +253,7 @@ show that $Con$ itself is a bisimulation, but rather
 that $Con\;\cup\!\wb$ is a bisimulation.
 In contrast, in the corresponding lemma for expansion 
 one can just take $Con$.
+%
 Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \begin{alltt}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenDefEquality{}
@@ -264,7 +265,7 @@ Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \subsection{The formalisation of ``bisimulation up to''}
 
 ``Bisimulation up to'' is a family of powerful proof techniques
-for reducing the sizes of relations needed for defining bisimulations \cite{PousS19}.
+for reducing the sizes of relations needed for defining bisimulations~\cite{PousS19}.
 By definition, two processes are bisimilar iff there exists a
 bisimulation relation containing them. However, in practice
 this definition is sometimes  hard to apply. Instead, to reduce
@@ -302,7 +303,7 @@ $\mathcal{S} \subseteq\;\sim$:
 Hence, to prove $P \sim Q$, one only needs to find a bisimulation
 up to $\sim$ that contains $(P, Q)$.
 %
-For weak bisimilarity, the {naive} weak bisimulation up to weak bisimilarity
+For weak bisimilarity, the naive weak bisimulation up to weak bisimilarity
 is unsound: if one simply replaces all occurrences of $\sim$ in
 Def.~\ref{def:bisimUptoSim} with $\wb$, the resulting
 ``weak bisimulation up to'' relation need not be contained in weak
@@ -360,7 +361,7 @@ $\mathcal{S} \subseteq\;\approx$:
 The above version of ``bisimulation up to $\wb$'' 
 is not powerful enough for Milner's ``unique solution of equations''
 theorem for $\wb$ (Theorem~\ref{t:Mil89}, see~\cite{sangiorgi1992problem} for more details).
-The following version, {with weak arrows}, is
+The following version, with weak arrows, is
  used in the proof of Theorem~\ref{t:Mil89}:
 \begin{definition}%[Bisimulation up to $\approx$ with weak arrows]
   \label{def:doubleweak}
