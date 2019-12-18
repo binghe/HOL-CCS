@@ -28,9 +28,9 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
 (\texttt{tau}). For instace, the input \emph{action} $a$ and output
-\emph{action} $\overline{b}$ \hl{of type} ``\HOLinline{\HOLTyOp{string} \HOLTyOp{Action}}''
+\emph{action} $\overline{b}$ of type ``\HOLinline{\HOLTyOp{string} \HOLTyOp{Action}}''
 are denoted by \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLStringLit{a}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLStringLit{b}\ensuremath{)}}, respectively. On the
-other hand, \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLNumLit{1}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLNumLit{2}\ensuremath{)}} could be actions \hl{of type} ``\HOLinline{\HOLTyOp{num} \HOLTyOp{Action}}'', where
+other hand, \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLNumLit{1}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLNumLit{2}\ensuremath{)}} could be actions of type ``\HOLinline{\HOLTyOp{num} \HOLTyOp{Action}}'', where
 \HOLinline{\HOLTyOp{num}} is the type of natural numbers in HOL.
 
 The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'', accounting for all CCS terms,
@@ -38,7 +38,7 @@ has two type variables $\alpha$ and $\beta$ corresponding
 to the set of agent variables $\mathscr{X}$
 and the set of names $\mathscr{L}$,
 respectively. (Indeed the CCS syntax in Section~\ref{ss:ccs} is parametric
-\hl{with respect to} the choice of these two sets.)
+with respect to the choice of these two sets.)
 %
 The type ``\HOLinline{\ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'' is defined inductively by the
 \texttt{Datatype} package

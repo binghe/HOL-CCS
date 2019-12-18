@@ -28,11 +28,11 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 The type ``\HOLty{:'b Action}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
 (\texttt{tau}). For instace, the input \emph{action} $a$ and output
-\emph{action} $\overline{b}$ \hl{of type} ``\HOLty{:string Action}''
+\emph{action} $\overline{b}$ of type ``\HOLty{:string Action}''
 are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively. On the
 other hand, \HOLtm[-In]{label (name 1)} and \HOLtm[-Out]{label (coname
-  2)} could be actions \hl{of type} ``\HOLty{:num Action}'', where
+  2)} could be actions of type ``\HOLty{:num Action}'', where
 \HOLty{:num} is the type of natural numbers in HOL.
 
 The type ``\HOLty{:('a, 'b) CCS}'', accounting for all CCS terms,
@@ -40,7 +40,7 @@ has two type variables $\alpha$ and $\beta$ corresponding
 to the set of agent variables $\mathscr{X}$
 and the set of names $\mathscr{L}$,
 respectively. (Indeed the CCS syntax in Section~\ref{ss:ccs} is parametric
-\hl{with respect to} the choice of these two sets.)
+with respect to the choice of these two sets.)
 %
 The type ``\HOLty{:('a, 'b) CCS}'' is defined inductively by the
 \texttt{Datatype} package

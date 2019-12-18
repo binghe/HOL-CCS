@@ -81,10 +81,10 @@ rooted bisimilarity ($\approx^c$) are congruence relations:
 \end{alltt}
 
 Although weak bisimilarity ($\approx$) is \emph{not} a congruence
-\hl{with respect to}~\HOLtm{CONTEXT}, it is substitutive
-\hl{with respect to}~\HOLtm{GCONTEXT}
+with respect to~\HOLtm{CONTEXT}, it is substitutive
+with respect to~\HOLtm{GCONTEXT}
 as $\approx$ is preserved by guarded sums. Similarily,
-contraction ($\mcontrBIS$) is substitutive \hl{with respect to} \HOLtm{GCONTEXT}.
+contraction ($\mcontrBIS$) is substitutive with respect to \HOLtm{GCONTEXT}.
 %
 Rooted contraction ($\rcontr$, or \HOLtm{OBS_contracts} in HOL), on
 the other hand, is indeed a precongruence:
