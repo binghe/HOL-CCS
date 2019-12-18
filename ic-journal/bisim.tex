@@ -177,7 +177,7 @@ inference rules and the definition of bisimulation).
  These algebraic laws also hold for weak bisimilarity and rooted
   bisimilarity, as these are coarser than strong bisimilarity. 
 For weak bisimilarity and rooted bisimilarity, the following algebraic
-laws called $\tau$-laws hold:
+laws, called $\tau$-laws, hold:
 \begin{alltt}
 TAU1:      \HOLTokenTurnstile{} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLFreeVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
 TAU2:      \HOLTokenTurnstile{} \HOLFreeVar{E} \HOLSymConst{\ensuremath{+}} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E} \HOLSymConst{\HOLTokenObsCongr} \HOLSymConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLFreeVar{E}
@@ -253,7 +253,6 @@ show that $Con$ itself is a bisimulation, but rather
 that $Con\;\cup\!\wb$ is a bisimulation.
 In contrast, in the corresponding lemma for expansion 
 one can just take $Con$.
-
 Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \begin{alltt}
    \HOLFreeVar{E} \HOLSymConst{\HOLTokenObsContracts} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLTokenDefEquality{}
@@ -265,7 +264,7 @@ Finally, the rooted contraction ($\rcontr$) is formalised as follows:
 \subsection{The formalisation of ``bisimulation up to''}
 
 ``Bisimulation up to'' is a family of powerful proof techniques
-for reducing the sizes of relations needed for defining bisimulations.
+for reducing the sizes of relations needed for defining bisimulations \cite{PousS19}.
 By definition, two processes are bisimilar iff there exists a
 bisimulation relation containing them. However, in practice
 this definition is sometimes  hard to apply. Instead, to reduce
