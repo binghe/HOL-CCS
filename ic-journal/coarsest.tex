@@ -274,13 +274,11 @@ the following properties of Klop functions:
 \end{enumerate}
 \end{proposition}
 
-For any ``\HOLinline{\HOLConst{label}\;\HOLFreeVar{a}}'', having a function ``\HOLinline{\HOLConst{KLOP}\;\HOLFreeVar{a}}'' (of type ``\HOLinline{\HOLTyOp{num} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'')
-defined on the natural numbers, we obtain a countable set of processes
-with all Klop processes built from the same label.
-Since the number of all Klop processes in this set is (countably) infinite, and
-since they are all pairwise non-bisimiar,
-we can always
-choose a number that is mapped to a Klop process
+For any \HOLinline{\HOLConst{label}\;\HOLFreeVar{a}}, having the function ``\HOLinline{\HOLConst{KLOP}\;\HOLFreeVar{a}}'' (of type ``\HOLinline{\HOLTyOp{num} \HOLTokenTransEnd \ensuremath{(}\ensuremath{\alpha}, \ensuremath{\beta}\ensuremath{)} \HOLTyOp{CCS}}'')
+defined on the natural numbers, we obtain a countable set of Klop processes built from the same label.
+As the number of all Klop processes in this set is (countably) infinite, and
+as they are all pairwise non-bisimiar,
+we can always choose a number, corresponding to a Klop process,
 that is non-bisimilar with any derivative of two given 
  (finite-state) processes $p$ and $q$,
 even when $a$ is the only element of type $\beta$, i.e. the only label name

@@ -268,14 +268,12 @@ the following properties of Klop functions:
 \end{enumerate}
 \end{proposition}
 
-For any ``\HOLtm[m;]{label a}'', having a function ``\HOLtm[m;]{KLOP
+For any \HOLtm[m;]{label a}, having the function ``\HOLtm[m;]{KLOP
   a}'' (of type ``\HOLty{:num -> ('a,'b) CCS}'')
-defined on the natural numbers, we obtain a countable set of processes
-with all Klop processes built from the same label.
-Since the number of all Klop processes in this set is (countably) infinite, and
-since they are all pairwise non-bisimiar,
-we can always
-choose a number that is mapped to a Klop process
+defined on the natural numbers, we obtain a countable set of Klop processes built from the same label.
+As the number of all Klop processes in this set is (countably) infinite, and
+they are all pairwise non-bisimiar,
+we can always choose a number, corresponding to a Klop process,
 that is non-bisimilar with any derivative of two given 
  (finite-state) processes $p$ and $q$,
 even when $a$ is the only element of type $\beta$, i.e. the only label name
