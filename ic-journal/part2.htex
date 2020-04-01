@@ -140,7 +140,7 @@ a relation representing traces over \HOLtm{R} (of type
 \HOLthm[def,>>3,width=70]{Trace.LRTC_DEF}\hfill{[LRTC_DEF]}
 \end{alltt}
 The trace relation for CCS, \HOLtm{TRACE} (of the
-type ``\HOLty{:('a, 'b) CCS -> 'b Action list -> ('a,'b) CCS -> bool}''),
+type ``\HOLty[-trace]{:('a, 'b) CCS -> 'b Action list -> ('a,'b) CCS -> bool}''),
 is then obtained
  by combining \texttt{LRTC} and the \texttt{TRANS}
  ($\overset{\mu}{\rightarrow}$) relation defining the SOS rules:

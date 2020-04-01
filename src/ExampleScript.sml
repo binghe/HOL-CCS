@@ -24,7 +24,6 @@ val _ = temp_loose_equality ();
 
 (* For paper generating purposes, some type abbreviations are disabled *)
 val _ = disable_tyabbrev_printing "transition";
-val _ = disable_tyabbrev_printing "trace";
 val _ = disable_tyabbrev_printing "context";
 val _ = disable_tyabbrev_printing "simulation";
 
@@ -210,7 +209,7 @@ Theorem WG_example1 :
     WG (\t. prefix a t + prefix b t + prefix c (var Y))
 Proof
     HO_MATCH_MP_TAC WG4
- >> Reverse CONJ_TAC >- REWRITE_TAC [WG2]
+ >> reverse CONJ_TAC >- REWRITE_TAC [WG2]
  >> HO_MATCH_MP_TAC WG4
  >> REWRITE_TAC [WG1]
 QED
@@ -219,7 +218,7 @@ Theorem WG_example2 :
     WG (\t. prefix a (var X) + prefix b (var X) + prefix c t)
 Proof
     HO_MATCH_MP_TAC WG4
- >> Reverse CONJ_TAC >- REWRITE_TAC [WG1]
+ >> reverse CONJ_TAC >- REWRITE_TAC [WG1]
  >> REWRITE_TAC [WG2]
 QED
 
