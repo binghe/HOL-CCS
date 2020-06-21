@@ -1,5 +1,5 @@
-\newcommand{\HOLWeakLawsDate}{12 Dicembre 2019}
-\newcommand{\HOLWeakLawsTime}{11:58}
+\newcommand{\HOLWeakLawsDate}{21 June 2020}
+\newcommand{\HOLWeakLawsTime}{18:11}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsTAUXXWEAK}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}. \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLConst{\ensuremath{\tau}}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{E}
 \end{SaveVerbatim}
@@ -14,13 +14,10 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{f} \HOLBoundVar{n} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}.
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{i}. \HOLBoundVar{i} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{n} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{j}. \HOLBoundVar{j} \HOLSymConst{\HOLTokenLeq{}} \HOLBoundVar{m} \HOLSymConst{\HOLTokenImp{}} \HOLConst{Is_Prefix} \ensuremath{(}\ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{SIGMA} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
-         \ensuremath{(}\HOLConst{SIGMA}
-            \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLConst{SIGMA} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}\ensuremath{)}
-            \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}}
-          \HOLConst{SIGMA}
-            \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} \ensuremath{(}\ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{SIGMA} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)}\ensuremath{)}
-            \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}} \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
+       \HOLConst{WEAK_EQUIV} \ensuremath{(}\HOLConst{\HOLTokenSum{}} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenSum{}} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
+         \ensuremath{(}\HOLConst{\HOLTokenSum{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{i}. \HOLConst{PREF_ACT} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{PREF_PROC} \ensuremath{(}\HOLBoundVar{f} \HOLBoundVar{i}\ensuremath{)} \HOLSymConst{\ensuremath{\mid}} \HOLConst{\HOLTokenSum{}} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}\ensuremath{)} \HOLBoundVar{n} \HOLSymConst{\ensuremath{+}}
+          \HOLConst{\HOLTokenSum{}} \ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{j}. \HOLConst{PREF_ACT} \ensuremath{(}\ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\HOLSymConst{\ensuremath{\ldotp}}\ensuremath{(}\HOLConst{\HOLTokenSum{}} \HOLBoundVar{f} \HOLBoundVar{n} \HOLSymConst{\ensuremath{\mid}} \HOLConst{PREF_PROC} \ensuremath{(}\ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{j}\ensuremath{)}\ensuremath{)}\ensuremath{)} \HOLBoundVar{m} \HOLSymConst{\ensuremath{+}}
+          \HOLConst{ALL_SYNC} \HOLBoundVar{f} \HOLBoundVar{n} \ensuremath{\HOLBoundVar{f}\sp{\prime}} \HOLBoundVar{m}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLWeakLawsTheoremsWEAKXXEXPANSIONXXLAW}{\UseVerbatim{HOLWeakLawsTheoremsWEAKXXEXPANSIONXXLAW}}
 \begin{SaveVerbatim}{HOLWeakLawsTheoremsWEAKXXPARXXASSOC}

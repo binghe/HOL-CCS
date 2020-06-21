@@ -1,5 +1,5 @@
-\newcommand{\HOLMultivariateDate}{12 Dicembre 2019}
-\newcommand{\HOLMultivariateTime}{11:59}
+\newcommand{\HOLMultivariateDate}{21 June 2020}
+\newcommand{\HOLMultivariateTime}{18:11}
 \begin{SaveVerbatim}{HOLMultivariateDefinitionsCCSXXequationXXdef}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Xs} \HOLBoundVar{Es}.
        \HOLConst{CCS_equation} \HOLBoundVar{Xs} \HOLBoundVar{Es} \HOLSymConst{\HOLTokenEquiv{}}
@@ -61,7 +61,7 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Xs} \HOLBoundVar{Ps} \HOLBoundVar{E}.
        \HOLConst{ALL_DISTINCT} \HOLBoundVar{Xs} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
        \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{BV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
+       \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLConst{\HOLTokenUnion{}} \HOLConst{\HOLTokenBigUnion{}} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{BV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLMultivariateTheoremsBVXXSUBSETXXBIGUNION}{\UseVerbatim{HOLMultivariateTheoremsBVXXSUBSETXXBIGUNION}}
 \begin{SaveVerbatim}{HOLMultivariateTheoremsCCSXXsolutionXXlength}
@@ -356,15 +356,14 @@
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Xs} \HOLBoundVar{Ps} \HOLBoundVar{E}.
        \HOLConst{ALL_DISTINCT} \HOLBoundVar{Xs} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
        \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
+       \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{\HOLTokenUnion{}} \HOLConst{\HOLTokenBigUnion{}} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLMultivariateTheoremsFVXXSUBSETXXBIGUNION}{\UseVerbatim{HOLMultivariateTheoremsFVXXSUBSETXXBIGUNION}}
 \begin{SaveVerbatim}{HOLMultivariateTheoremsFVXXSUBSETXXBIGUNIONXXPRO}
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Xs} \HOLBoundVar{Ps} \HOLBoundVar{E}.
        \HOLConst{ALL_DISTINCT} \HOLBoundVar{Xs} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
        \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLBoundVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-       \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}}
-       \HOLConst{FV} \HOLBoundVar{E} \HOLConst{DIFF} \HOLConst{set} \HOLBoundVar{Xs} \HOLConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
+       \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLBoundVar{Xs}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLConst{DIFF} \HOLConst{set} \HOLBoundVar{Xs} \HOLConst{\HOLTokenUnion{}} \HOLConst{\HOLTokenBigUnion{}} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLBoundVar{Ps}\ensuremath{)}\ensuremath{)}
 \end{SaveVerbatim}
 \newcommand{\HOLMultivariateTheoremsFVXXSUBSETXXBIGUNIONXXPRO}{\UseVerbatim{HOLMultivariateTheoremsFVXXSUBSETXXBIGUNIONXXPRO}}
 \begin{SaveVerbatim}{HOLMultivariateTheoremsLISTXXRELXXequivalence}

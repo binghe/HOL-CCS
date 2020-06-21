@@ -393,7 +393,7 @@ The bound variables of \HOLinline{\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HO
 are contained in the union of the bound variables in $E$ and \HOLinline{\HOLFreeVar{Ps}}.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-   \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{BV} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}
+   \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{\HOLTokenBigUnion{}} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{BV} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}
 \end{alltt}
 \end{lemma}
 
@@ -403,7 +403,7 @@ are contained in the union of the free variables in $E$ and \HOLinline{\HOLFreeV
 excluding \HOLinline{\HOLFreeVar{Xs}}.
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{ALL_DISTINCT} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{LENGTH} \HOLFreeVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-   \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DIFF} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BIGUNION} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}
+   \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLFreeVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DIFF} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{\HOLTokenBigUnion{}} \ensuremath{(}\HOLConst{IMAGE} \HOLConst{FV} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Ps}\ensuremath{)}\ensuremath{)}
 \end{alltt}
 \end{lemma}
 
