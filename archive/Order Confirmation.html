@@ -1,0 +1,446 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<style>
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		html {
+			-webkit-tap-highlight-color: transparent;
+			position: relative;
+			min-height: 100%;
+		}
+
+		body {
+			font-family: "NexusSans", Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.42857;
+			color: #333333;
+			min-width: 1170px;
+			background-color: #F5F5F5;
+			margin: 0 0 110px 0;
+			-webkit-font-smoothing: antialiased;
+			padding-bottom: 110px;
+		}
+
+		.container {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 1170px;
+			max-width: none !important;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			min-width: 1170px;
+			height: 110px;
+			border-top: solid 2px #E9711C;
+			padding-top: 15px;
+			background: #FFF;
+			font-size: 16px;
+			margin-top: 15px;
+		}
+
+		.container-fluid {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.els-bar {
+			margin-bottom: 26px;
+			padding-top: 26px;
+			padding-bottom: 9px;
+			height: 80px;
+			background-color: #fff;
+		}
+
+		.els-heading {
+			margin-top: -28px;
+			background-color: #007398;
+			padding: 16px;
+			margin-bottom: 32px;
+		}
+
+		.card {
+			background: #fff;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			padding-bottom: 16px;
+		}
+
+		.row {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		.row:after {
+			clear: both;
+		}
+
+		.row:before, .row:after {
+			content: " ";
+			display: table;
+		}
+
+		h1 {
+			margin: 0;
+			color: #FFF;
+			font-size: 30px;
+			font-weight: 500;
+			line-height: 1.1;
+		}
+
+		h3 {
+			font-family: inherit;
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 1.1;
+			color: #9C5415;
+			margin-bottom: 14px;
+		}
+
+		p {
+			margin: 0 0 14px;
+		}
+
+		dl {
+			margin-top: 0;
+			margin-bottom: 28px;
+		}
+
+		.card dl {
+			margin-bottom: 0;
+		}
+
+		hr {
+			margin-top: 16px;
+			margin-bottom: 16px;
+			border: 0;
+			border-top: 1px solid #eeeeee;
+			height: 0;
+			overflow: hidden;
+			box-sizing: content-box;
+		}
+
+		dt {
+			float: left !important;
+			width: auto !important;
+			clear: left !important;
+			text-align: right !important;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		dd:not(.price-alignment) {
+			margin-left: 300px !important;
+			margin-bottom: 0 !important;
+		}
+
+		dt, dd {
+			line-height: 1.42857;
+		}
+
+		ul {
+			margin-top: 0;
+			margin-bottom: 14px;
+			padding-left: 32px;
+		}
+
+		ul .els-list-bullet {
+			list-style: none;
+			margin-left: 1rem;
+			position: relative;
+			margin-top: 14px;
+			padding-left: 6px;
+		}
+
+		ul .els-list-bullet::before {
+			color: #E9711C;
+			font-weight: 700;
+			position: absolute;
+			content: '•';
+			left: -2rem;
+			top: -.125rem;
+		}
+
+		.col-xs-2 {
+			width: 16.66667%;
+		}
+
+		.col-xs-4 {
+			width: 33.33333%;
+		}
+		.col-xs-6 {
+			width: 50%;
+		}
+		.col-xs-8 {
+			width: 66.66667%;
+		}
+
+		.col-xs-10 {
+			width: 83.33333%;
+		}
+
+		.col-xs-12 {
+			width: 100%;
+		}
+
+		.col-xs-2, .col-xs-4, .col-xs-6, .col-xs-8, .col-xs-10, .col-xs-12 {
+			float: left;
+			position: relative;
+			min-height: 1px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.col-xs-offset-1 {
+			margin-left: 8.33333%;
+		}
+
+		.text-muted {
+			color: #777777;
+		}
+
+		.section {
+			padding-bottom: 16px;
+			padding-top: 16px;
+		}
+
+		.price-alignment {
+			text-align: right;
+		}
+
+		.amtvalue {
+			color: #E9711C;
+			font-weight: bold;
+		}
+
+		.footer img.relx-logo {
+			width: 118px;
+			float: right !important;
+			vertical-align: middle;
+			border: 0;
+		}
+
+		.footer .row > div:last-child {
+			bottom: 15px;
+			position: absolute;
+			right: 0;
+		}
+
+		.footer .row {
+			position: relative;
+		}
+
+		.els-display-text {
+			color: #007398;
+			-webkit-hyphens: manual;
+			-moz-hyphens: manual;
+			hyphens: manual;
+			padding-top: 16px;
+			font-size: 20px;
+		}
+
+		.no-top-padding {
+			padding-top: 0;
+		}
+
+		.small {
+			font-size: 85%;
+		}
+
+		.pull-right {
+			float: right !important;
+		}
+
+		.no-right-padding {
+			padding-right: 0;
+		}
+
+		.no-left-padding {
+			padding-left: 0;
+		}
+
+		.wraptext {
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row els-bar">
+		<div class="col-xs-12">
+			<a id="logoLink" href="https://www.elsevier.com"><img class="els-logo" src="https://authors.elsevier.com/authorform/assets/static/img/elsevier.svg" alt="Elsevier Logo"/></a>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row els-heading">
+		<div class="col-xs-12">
+			<h1>
+				Rights and Access
+			</h1>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+
+			<div class="card col-xs-12">
+				<div class="row">
+					<div class="col-xs-12 els-display-text">
+						Unique Solutions of Contractions, CCS, and their HOL Formalisation
+					</div>
+				</div>
+
+				<dl>
+					<dt>Corresponding author</dt>
+					<dd class="text-muted">
+						Mr. Chun Tian
+					</dd>
+
+					<dt>E-mail address</dt>
+					<dd class="text-muted">
+						chun.tian@unitn.it
+					</dd>
+
+					<dt>Journal</dt>
+					<dd class="text-muted">
+						Information and Computation
+					</dd>
+
+						<dt>Article number</dt>
+						<dd class="text-muted">
+							104606
+						</dd>
+
+					<dt>Our reference</dt>
+					<dd class="text-muted">
+						YINCO_104606
+					</dd>
+
+					<dt>PII</dt>
+					<dd class="text-muted">
+						S0890-5401(20)30094-8
+					</dd>
+				</dl>
+			</div>
+
+
+
+			<div class="card col-xs-12">
+				<h3>
+					Order Confirmation
+				</h3>
+
+				<div>
+					<p>
+						Thank you for taking the time to complete the Rights and Access form.
+					</p>
+					<dl>
+						<dt>
+							<strong>Order number</strong>
+						</dt>
+						<dd class="text-muted">
+							OACSRYINCO1046060
+						</dd>
+						<dt>
+							<strong>Order date</strong>
+						</dt>
+						<dd class="text-muted">
+							23 July 2020
+						</dd>
+					</dl>
+				</div>
+
+				<hr/>
+
+				<div class="row col-xs-12">
+
+					<div>
+						<dl>
+
+
+
+							<dt>
+								<strong>Publishing Option</strong>
+							</dt>
+							<dd class="text-muted">
+								Subscription
+							</dd>
+
+							<br/>
+
+
+
+								<dt>
+									<strong>Publishing Agreement</strong>
+								</dt>
+								<dd class="text-muted">
+									<ul>
+
+										<li class="els-list-bullet">
+											I am one author signing on behalf of all co-authors of the manuscript
+										</li>
+
+									</ul>
+								</dd>
+								<br/>
+
+
+										<dt></dt>
+										<dd class="text-muted">
+											<p>I may post the accepted manuscript in my institutional repository and make this public after an embargo period. To ensure the sustainability of peer-reviewed research in journal publications, I may not share the final article publicly, for example on ResearchGate or Academia.edu. <br>Further details on <a href="https://www.elsevier.com/about/our-business/policies/sharing" target="_blank">Elsevier Sharing Policy here</a>.</p><p>Based on information provided the embargo period/end date is 24 months.</p>
+										</dd>
+										<br/>
+						</dl>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-10">
+					<p>
+						Copyright ©
+						&nbsp;2020&nbsp;
+						Elsevier B.V. All rights reserved.
+					</p>
+				</div>
+
+				<div class="col-xs-2">
+					<a href="http://www.relx.com" rel="nofollow">
+						<img class="relx-logo" src="https://authors.elsevier.com/authorform/assets/static/img/relx_group.svg" alt="RELX Group Logo"/></a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+</body>
+</html>

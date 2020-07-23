@@ -1,0 +1,578 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<style>
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		html {
+			-webkit-tap-highlight-color: transparent;
+			position: relative;
+			min-height: 100%;
+		}
+
+		body {
+			font-family: "NexusSans", Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.42857;
+			color: #333333;
+			min-width: 1170px;
+			background-color: #F5F5F5;
+			margin: 0 0 110px 0;
+			-webkit-font-smoothing: antialiased;
+			padding-bottom: 110px;
+		}
+
+		.container {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 1170px;
+			max-width: none !important;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			min-width: 1170px;
+			height: 110px;
+			border-top: solid 2px #E9711C;
+			padding-top: 15px;
+			background: #FFF;
+			font-size: 16px;
+			margin-top: 15px;
+		}
+
+		.container-fluid {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.els-bar {
+			margin-bottom: 26px;
+			padding-top: 26px;
+			padding-bottom: 9px;
+			height: 80px;
+			background-color: #fff;
+		}
+
+		.els-heading {
+			margin-top: -28px;
+			background-color: #007398;
+			padding: 16px;
+			margin-bottom: 32px;
+		}
+
+		.card {
+			background: #fff;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			padding-bottom: 16px;
+		}
+
+		.row {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		.row:after {
+			clear: both;
+		}
+
+		.row:before, .row:after {
+			content: " ";
+			display: table;
+		}
+
+		h1 {
+			margin: 0;
+			color: #FFF;
+			font-size: 30px;
+			font-weight: 500;
+			line-height: 1.1;
+		}
+
+		h3 {
+			font-family: inherit;
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 1.1;
+			color: #9C5415;
+			margin-bottom: 14px;
+		}
+
+		p {
+			margin: 0 0 14px;
+		}
+
+		dl {
+			margin-top: 0;
+			margin-bottom: 28px;
+		}
+
+		.card dl {
+			margin-bottom: 0;
+		}
+
+		hr {
+			margin-top: 16px;
+			margin-bottom: 16px;
+			border: 0;
+			border-top: 1px solid #eeeeee;
+			height: 0;
+			overflow: hidden;
+			box-sizing: content-box;
+		}
+
+		dt {
+			float: left !important;
+			width: auto !important;
+			clear: left !important;
+			text-align: right !important;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		dd {
+			margin-left: 300px !important;
+			margin-bottom: 0 !important;
+		}
+
+		dt, dd {
+			line-height: 1.42857;
+		}
+
+		ul {
+			margin-top: 0;
+			margin-bottom: 14px;
+			padding-left: 32px;
+		}
+
+		ul .els-list-bullet {
+			list-style: none;
+			margin-left: 1rem;
+			position: relative;
+			margin-top: 14px;
+			padding-left: 6px;
+		}
+
+		ul .els-list-bullet::before {
+			color: #E9711C;
+			font-weight: 700;
+			position: absolute;
+			content: '•';
+			left: -2rem;
+			top: -.125rem;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		.col-xs-10 {
+			width: 83.33333%;
+		}
+
+		.col-xs-12 {
+			width: 100%;
+		}
+
+		.col-xs-10, .col-xs-12 {
+			float: left;
+			position: relative;
+			min-height: 1px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.col-xs-offset-1 {
+			margin-left: 8.33333%;
+		}
+
+		.text-muted {
+			color: #777777;
+		}
+
+		.footer img.relx-logo {
+			width: 118px;
+			float: right !important;
+			vertical-align: middle;
+			border: 0;
+		}
+
+		.footer .row > div:last-child {
+			bottom: 15px;
+			position: absolute;
+			right: 0;
+		}
+
+		.footer .row {
+			position: relative;
+		}
+
+		.els-display-text {
+			color: #007398;
+			-webkit-hyphens: manual;
+			-moz-hyphens: manual;
+			hyphens: manual;
+			padding-top: 16px;
+			font-size: 20px;
+		}
+
+		.pull-right {
+			float: right !important;
+		}
+
+		.pull-left {
+			float: left !important;
+		}
+
+		.els-checkbox {
+			padding-left: 0;
+		}
+
+		.els-small-body:not(h4) {
+			font-size: 16px;
+		}
+
+		a {
+			text-decoration: none;
+			border-bottom: transparent 2px solid;
+			transition: border-bottom 0.3s ease, color 0.3s ease;
+		}
+
+		a:not(.navbar-brand):hover {
+			border-bottom: #E9711C 2px solid;
+			color: #E9711C;
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row els-bar">
+		<div class="col-xs-12">
+			<a id="logoLink" class="navbar-brand" href="https://www.elsevier.com"><img class="els-logo" src="https://authors.elsevier.com/authorform/assets/static/img/elsevier.svg" alt="Elsevier Logo"/></a>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row els-heading">
+		<div class="col-xs-12">
+			<h1>
+			Publishing Agreement
+			</h1>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+
+			<div class="text-center">
+			Elsevier Inc.
+			</div>
+
+			<div class="card col-xs-12">
+				<div class="row">
+					<div class="col-xs-12 els-display-text">
+					Unique Solutions of Contractions, CCS, and their HOL Formalisation
+					</div>
+				</div>
+
+				<dl>
+					<dt>Corresponding author</dt>
+					<dd class="text-muted">
+					Mr. Chun Tian
+					</dd>
+
+					<dt>E-mail address</dt>
+					<dd class="text-muted">
+					chun.tian@unitn.it
+					</dd>
+
+					<dt>Journal</dt>
+					<dd class="text-muted">
+					Information and Computation
+					</dd>
+
+					<dt>Article number</dt>
+					<dd class="text-muted">
+					104606
+					</dd>
+
+					<dt>Our reference</dt>
+					<dd class="text-muted">
+					YINCO_104606
+					</dd>
+
+					<dt>PII</dt>
+					<dd class="text-muted">
+					S0890-5401(20)30094-8
+					</dd>
+				</dl>
+			</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Your Status
+					</h3>
+					<ul>
+						<li class="els-list-bullet">
+							I am one author signing on behalf of all co-authors of the manuscript
+						</li>
+
+					</ul>
+				</div>
+
+
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Assignment of Copyright
+					</h3>
+					<div>
+						I hereby assign to 
+						Elsevier Inc. the copyright in the manuscript identified above (where Crown Copyright is asserted, authors agree to grant an exclusive publishing and distribution license) and any tables, illustrations or other material submitted for publication as part of the manuscript (the "Article"). This assignment of rights means that I have granted to
+							Elsevier Inc., the exclusive right to publish and reproduce the Article, or any part of the Article, in print, electronic and all other media (whether now known or later developed), in any form, in all languages, throughout the world, for the full term of copyright, and the right to license others to do the same, effective when the Article is accepted for publication. This includes the right to enforce the rights granted hereunder against third parties.
+					</div>
+				</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Supplemental Materials
+					</h3>
+					<div>
+						"Supplemental Materials" shall mean materials published as a supplemental part of the Article, including but not limited to graphical, illustrative, video and audio material.
+					</div>
+					<br/>
+					<div>
+						With respect to any Supplemental Materials that I submit, 
+						Elsevier Inc.
+						 shall have a perpetual worldwide, non-exclusive right and license to publish, extract, reformat, adapt, build upon, index, redistribute, link to and otherwise use all or any part of the Supplemental Materials in all forms and media (whether now known or later developed), and to permit others to do so.
+					</div>
+				</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Research Data
+					</h3>
+					<div>
+						"Research Data" shall mean the result of observations or experimentation that validate research findings and that are published separate to the Article, which can include but are not limited to raw data, processed data, software, algorithms, protocols, and methods.
+					</div>
+					<br/>
+					<div>
+						With respect to any Research Data that I wish to make accessible on a site or through a service of 
+						Elsevier Inc., 
+						Elsevier Inc. shall have a perpetual worldwide, non-exclusive right and license to publish, extract, reformat, adapt, build upon, index, redistribute, link to and otherwise use all or any part of the Research Data in all forms and media (whether now known or later developed) and to permit others to do so. Where I have selected a specific end user license under which the Research Data is to be made available on a site or through a service, the publisher shall apply that end user license to the Research Data on that site or service.
+					</div>
+				</div>
+
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Reversion of rights
+					</h3>
+					<div>
+						Articles may sometimes be accepted for publication but later rejected in the publication process, even in some cases after public posting in "Articles in Press" form, in which case all rights will revert to the author (see 
+						<a target = "_blank" class="els-external-link" href="https://www.elsevier.com/about/our-business/policies/article-withdrawal">https://www.elsevier.com/about/our-business/policies/article-withdrawal</a>).
+						
+					</div>
+				</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Revisions and Addenda
+					</h3>
+					<div>
+						I understand that no revisions, additional terms or addenda to this Journal Publishing Agreement can be accepted without 
+						Elsevier Inc.'s express written consent.
+
+						 I understand that this Journal Publishing Agreement supersedes any previous agreements I have entered into with 
+
+							Elsevier Inc. in relation to the Article from the date hereof.
+					</div>
+				</div>
+
+
+					<div class="card col-xs-12 els-small-body">
+						<h3>
+							Author Rights for Scholarly Purposes
+						</h3>
+						<div>
+							I understand that I retain or am hereby granted (without the need to obtain further permission) the Author Rights (see description below), and that no rights in patents, trademarks or other intellectual property rights are transferred to
+							Elsevier Inc..
+						</div>
+						<div>
+							The Author Rights include
+							the right to use the 
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#prePrint" target="_blank">
+								Preprint
+							</a>
+							, 
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#acceptedAuthorsManuscript" target="_blank">
+								Accepted Manuscript
+							</a>
+							and the
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#publishedJournalArticle" target="_blank">
+								Published Journal Article
+							</a>
+							 for 
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#personalUse" target="_blank">
+								Personal Use
+							</a>
+							and
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#internalInstitutionalUse" target="_blank">
+								Internal Institutional Use
+							</a>. They also include the right to use these different versions of the Article for 
+							<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en#scholarlySharing" target="_blank">
+								Scholarly Sharing
+							</a>
+							 purposes, which include sharing:
+							<ul>
+								<li class="els-list-bullet">
+									the Preprint on any website or repository at any time;
+								</li>
+								<li class="els-list-bullet">
+									the Accepted Manuscript on certain websites and usually after an embargo period;
+								</li>
+								<li class="els-list-bullet">
+									the Published Journal Article only privately on certain websites, unless otherwise agreed by 
+									Elsevier Inc..
+								</li>
+							</ul>
+						</div>
+						<div>
+							In the case of the Accepted Manuscript and the Published Journal Article the Author Rights exclude Commercial Use (unless expressly agreed in writing by
+							Elsevier Inc.), other than use by the author in a subsequent compilation of the author's works or to extend the Article to book length form or re-use by the author of portions or excerpts in other works (with full acknowledgment of the original publication of the Article).
+						</div>
+					</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Author Representations / Ethics and Disclosure / Sanctions
+					</h3>
+					<div>
+						I affirm the Author Representations noted below, and confirm that I have reviewed and complied with the relevant Instructions to Authors, Ethics in Publishing policy, Declarations of Interest disclosure and information for authors from countries affected by sanctions (Iran, Cuba, Sudan, Burma, Syria, or Crimea). Please note that some journals may require that all co-authors sign and submit Declarations of Interest disclosure forms. I am also aware of the publisher's policies with respect to retractions and withdrawal (<a target = "_blank" class="els-external-link" href="https://www.elsevier.com/about/our-business/policies/article-withdrawal">https://www.elsevier.com/about/our-business/policies/article-withdrawal</a>).
+					</div>
+					<br/>
+					<div>
+						For further information see the publishing ethics page at <a target = "_blank" class="els-external-link" href="https://www.elsevier.com/about/our-business/policies/publishing-ethics">https://www.elsevier.com/about/our-business/policies/publishing-ethics</a> and the journal home page. For further information on sanctions, see <a target = "_blank" class="els-external-link" href="https://www.elsevier.com/about/our-business/policies/trade-sanctions">https://www.elsevier.com/about/our-business/policies/trade-sanctions</a>
+					</div>
+					<br/>
+					<div>
+						<strong>Author representations</strong>
+						<ul>
+								<li class="els-list-bullet">
+									The Article I have submitted to the journal for review is original, has been written by the stated authors and has not been previously published.
+								</li>
+								<li class="els-list-bullet">
+									The Article was not submitted for review to another journal while under review by this journal and will not be submitted to any other journal.
+								</li>
+								<li class="els-list-bullet">
+									The Article and the Supplemental Materials do not infringe any copyright, violate any other intellectual property, privacy or other rights of any person or entity, or contain any libellous or other unlawful matter.
+								</li>
+								<li class="els-list-bullet">
+									I have obtained written permission from copyright owners for any excerpts from copyrighted works that are included and have credited the sources in the Article or the Supplemental Materials.
+								</li>
+								<li class="els-list-bullet">
+									Except as expressly set out in this Journal Publishing Agreement, the Article is not subject to any prior rights or licenses and, if my or any of my co-authors' institution has a policy that might restrict my ability to grant the rights required by this Journal Publishing Agreement (taking into account the Author Rights permitted hereunder, including Internal Institutional Use), a written waiver of that policy has been obtained.
+								</li>
+								<li class="els-list-bullet">
+									If I and/or any of my co-authors reside in Iran, Cuba, Sudan, Burma, Syria, or Crimea, the Article has been prepared in a personal, academic or research capacity and not as an official representative or otherwise on behalf of the relevant government or institution.
+								</li>
+								<li class="els-list-bullet">
+									If I am using any personal details or images of patients, research subjects or other individuals, I have obtained all consents required by applicable law and complied with the publisher's policies relating to the use of such images or personal information. See <a target = "_blank" class="els-external-link" href="https://www.elsevier.com/about/our-business/policies/patient-consent">https://www.elsevier.com/about/our-business/policies/patient-consent</a> for further information.
+								</li>
+								<li class="els-list-bullet">
+									Any software contained in the Supplemental Materials is free from viruses, contaminants or worms.
+								</li>
+								<li class="els-list-bullet">
+									If the Article or any of the Supplemental Materials were prepared jointly with other authors, I have informed the co-author(s) of the terms of this Journal Publishing Agreement and that I am signing on their behalf as their agent, and I am authorized to do so.
+								</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="card col-xs-12 els-small-body">
+					<h3>
+						Governing Law and Jurisdiction
+					</h3>
+					<div>
+						This Agreement will be governed by and construed in accordance with the laws of the country or state of 
+						Elsevier Inc. ("the Governing State"), without regard to conflict of law principles, and the parties irrevocably consent to the exclusive jurisdiction of the courts of the Governing State.
+					</div>
+					<br/>
+					<div>
+							For information on the publisher's copyright and access policies, please see <a target = "_blank" class="els-external-link" href="http://www.elsevier.com/copyright/">http://www.elsevier.com/copyright</a>.
+							<div>
+								<a href="https://authors.elsevier.com/authorform/staticpage/definitions.do?lang=en" target="_blank">
+									For more information about the definitions relating to this agreement click here.
+								</a>
+							</div>
+					</div>
+				</div>
+
+			<div class="card col-xs-12 els-small-body">
+				<h3></h3>
+				<div class="els-checkbox col-xs-12">
+					<input id="agreementAccepted" type="checkbox" checked="true" disabled="true">
+					<label for="agreementAccepted">
+						<strong>I have read and agree to the terms of the Journal Publishing Agreement.</strong>
+					</label>
+				</div>
+			</div>
+
+			<div class="row els-small-body">
+				<div class="col-xs-12">
+					<div class="pull-left">
+						23 July 2020
+					</div>
+
+					<div class="pull-right">
+						T-copyright-v22/2017
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-10">
+					<p>
+					Copyright ©
+						&nbsp;2020&nbsp;
+					Elsevier B.V. All rights reserved.
+					</p>
+				</div>
+
+				<div class="col-xs-2">
+					<a href="http://www.relx.com" rel="nofollow">
+						<img class="relx-logo" src="https://authors.elsevier.com/authorform/assets/static/img/relx_group.svg" alt="RELX Group Logo"/></a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</body>
+</html>
