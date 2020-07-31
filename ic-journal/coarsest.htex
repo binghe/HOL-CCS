@@ -132,7 +132,7 @@ precongruence contained in the bisimilarity contraction ($\mcontrBIS$):
 \end{alltt}
 \end{theorem}
 
-The formal proofs of Theorem~\ref{thm:coarsestR} and
+The formal proofs of Theorems~\ref{thm:coarsestR} and % editorial
 \ref{thm:coarsestPre} precisely follow Milner~\citep[p.~153--154]{Mil89}.
 Although Milner requires a stronger hypothesis: $\mathrm{fn}(p) \cup
 \mathrm{fn}(q) \neq \mathscr{L}$ (here $\mathrm{fn}$ stands for \emph{free
@@ -210,7 +210,7 @@ If there are infinitely many such classes,
 then it will be 
 possible to choose one that is distinct from all the (finitely many) states in the
 transition graphs of the two given processes.
-This can be done by following Klop's contruction.
+This can be done by following Klop's construction. % editorial
  We call the processes in this construction the ``Klop processes'':
 \begin{definition}[Klop processes]
 For each ordinal $\lambda$, and an arbitrary chosen action $a \neq \tau$,
@@ -272,14 +272,14 @@ For any \HOLtm[m;]{label a}, having the function ``\HOLtm[m;]{KLOP
   a}'' (of type ``\HOLty{:num -> ('a,'b) CCS}'')
 defined on the natural numbers, we obtain a countable set of Klop processes built from the same label.
 As the number of all Klop processes in this set is (countably) infinite, and
-they are all pairwise non-bisimiar,
+they are all pairwise non-bisimilar, % editorial changes
 we can always choose a number, corresponding to a Klop process,
 that is non-bisimilar with any derivative of two given 
  (finite-state) processes $p$ and $q$,
 even when $a$ is the only element of type $\beta$, i.e. the only label name
 in $\mathscr{L}$.
-This property is captured by appealing to the following set-theoreric
-lamma (see~\cite{Tian:2017wrba} for its proof):
+This property is captured by appealing to the following set-theoretic % editorial changes
+lemma (see~\cite{Tian:2017wrba} for its proof): % editorial changes
 \begin{lemma}
 Given an equivalence relation $R$ defined on a type, and two sets $A, B$
 of elements in this type, 
@@ -367,6 +367,6 @@ Combining the above lemma with the core lemma
 (\texttt{PROP3_COMMON}) and Theorem~\ref{thm:coarsestR} (\texttt{COARSEST_CONGR_RL}),
 yields the proof of Theorem~\ref{thm:coarsestfiniteState}
 (\texttt{COARSEST_CONGR_FINITE}). The same proof idea can also be used with
- contraction and rooted contration.
+ contraction and rooted contraction. % editorial changes
 
 % next file: part2.htex

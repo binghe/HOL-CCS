@@ -93,7 +93,7 @@ variables may increase, while the set of bound variables either
 remains the same or decreases. For instance, $\fv{\recu X (\mu.X)} = \emptyset$, while
 $\fv{\mu.X} = \{X\}$. This property of $\fv{\cdot}$ brings some
 %% "transition induction" (1/2)
-difficulities in transition inductions. As an evidence,
+difficulties in transition inductions. As an evidence, % editorial changes
 we prove the following fundamental property of
 $\fv{\cdot}$~\citep[p.~1209]{milner1990operational}:
 %
@@ -299,7 +299,7 @@ variables. When the term $E$ of ``\HOLtm[m\;]{CCS_SUBST fm E}''
 is in the form of $\recu X E'$, if $X$ (a bound variable) is in
 the domain of \HOLtm{fm}, \HOLtm{CCS_SUBST} must continue the
 substitution on $E'$ using a reduced map~--- without $X$~--- so that all
-occurences of $X$ in $E'$ are correctly bypassed.
+occurrences of $X$ in $E'$ are correctly bypassed. % editorial changes
 Since \HOLtm{CCS_SUBST} only runs
 once on each subterm, the possible free variables in  \HOLtm{Ps} are never
  substituted.
@@ -318,7 +318,8 @@ new list from two lists of the same length, and each element of the new list is 
 elements from the given lists.}
 
 \begin{lemma}[\texttt{CCS_SUBST_elim}]
-If the free variables of $E$ is disjoint with \HOLtm{Xs}, a
+If the free variables of $E$ are % I&C editor issue 8
+disjoint with \HOLtm{Xs}, a
 substitution of \HOLtm{Xs} in $E$ does not change $E$:
 \begin{alltt}
 \HOLthm{Multivariate.CCS_SUBST_elim}
@@ -418,9 +419,10 @@ notation), and the expression is weakly guarded (Def.~\ref{def:guardness}).
 
 It could be possible to inductively define \multivariate contexts and their
 guarded variants, but care is needed for
-variables that occur within a recusion. We have preferred a different
-solution, in which the definitions of \multivariate contexts  is based on the
-existing \univariate definitions.
+variables that occur within a recursion. % I&C editor issue 9
+We prefer % I&C editor issue 10
+a different solution, in which the definitions of \multivariate contexts are % I&C editor issue 10
+based on the existing \univariate definitions.
 For this, intuitively, we replace a single variable with a hole (viewing
 the other variables as constants), so to obtain a  single-variable context
 on which predicates like \HOLtm{CONTEXT} can be used.
@@ -454,7 +456,7 @@ variables.\footnote{Here \HOLtm{SET_TO_LIST} converts a finite set
   in all unique-solution theorems a list of variables \HOLtm{Xs} is fixed and
   then all equations are required to contain free variables in
   \HOLtm{Xs}.}
-(The \multivariate guardedness and sequentiality can also be defined similarily, using
+(The \multivariate guardedness and sequentiality can also be defined similarly, using % editorial
 their \univariate companions \HOLtm{SG} and \HOLtm{SEQ}.)
 
 The most important property of \multivariate contexts is that strong bisimilarity
@@ -541,7 +543,7 @@ length, and  the variables in $\til X$ should  be distinct.
 Furthermore, $\til E$ does not contain free variables that are not in $\til X$.
 Finally, for each
 $E_i$, the set of its bound variables should be \emph{disjoint} from $\til X$.
-These requirements yield the fomal
+These requirements yield the formal % editorial
 definition of \multivariate CCS equation:
 \begin{alltt}
 \HOLthm[def,>>3]{Multivariate.CCS_equation_def}

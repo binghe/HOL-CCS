@@ -30,7 +30,7 @@ present a few delicate and subtle differences in a few points. In a
 paper-and-pencil proof, checking all details would be long and
 error-prone, especially in cases where the proofs are similar to each
 other or when there are long case analyses to be carried out.  We
-believe that the formalisation of all definitions and theorems are
+believe that our formalisation of all definitions and theorems is % I&C editor issue 11
 easy to read and to understand, as they are close to their original
 statement in textbooks.
 

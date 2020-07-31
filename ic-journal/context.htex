@@ -7,7 +7,7 @@
 \label{ss:context}
 
 CCS contexts are needed in defining (pre)congruence.
-To prevent doing variable substititions, one can take
+To prevent doing variable substitutions, one can take % editorial
  \univariate $\lambda$-expressions (of type
 ``\HOLty{:('a, 'b) CCS -> ('a, 'b) CCS}'') as \emph{multi-hole CCS contexts}.
 %

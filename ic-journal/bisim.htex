@@ -8,7 +8,8 @@
 
 A highlight of this CCS formalisation is the simplified definitions of
 bisimilarities using the new coinduction package of
-HOL4. Without this package, bisimilaries can still be defined in HOL, but
+HOL4. Without this package, bisimilarities % I&C editor issue 6
+can still be defined in HOL, but
 proving their properties would be more tedious and
 complicated~\citep[p.~91]{Mil89}.
 Below we briefly describe how weak bisimulation and weak
@@ -133,7 +134,7 @@ STRONG_LEFT_SUM_MID_IDEMP: \HOLthm{StrongLaws.STRONG_LEFT_SUM_MID_IDEMP}
 % laws). 
 The first five of them are proven by constructing appropriate bisimulations,
 and their formal proofs are written in
-a goal-directed manner~\citep[Chapter 4]{holdesc}. In constrast, the
+a goal-directed manner~\citep[Chapter 4]{holdesc}. In contrast, the % editorial
 last three algebraic laws are derived in a forward manner by applications of
 previous proven laws (without directly using the SOS
 inference rules and the definition of bisimulation).

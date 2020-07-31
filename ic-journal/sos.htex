@@ -27,7 +27,7 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 label $\overline{b}$, respectively.
 The type ``\HOLty{:'b Action}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
-(\texttt{tau}). For instace, the input \emph{action} $a$ and output
+(\texttt{tau}). For instance, the input \emph{action} $a$ and output % editorial
 \emph{action} $\overline{b}$ of type ``\HOLty{:string Action}''
 are denoted by \HOLtm[-In]{label (name
   "a")} and \HOLtm[-Out]{label (coname "b")}, respectively. On the
@@ -161,7 +161,7 @@ level without changing anything, e.g.:
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_sum}\hfill{[CCS_Subst_sum]}
 \end{alltt}
-The only two insteresting cases are those for agent variables and recursion:
+The only two interesting cases are those for agent variables and recursion: % editorial
 \begin{alltt}
 \HOLthm{CCS.CCS_Subst_var}\hfill{[CCS_Subst_var]}
 \HOLthm{CCS.CCS_Subst_rec}\hfill{[CCS_Subst_rec]}
