@@ -27,7 +27,7 @@ For instance, if the type $\beta$ is instantiated to \texttt{string}
 label $\overline{b}$, respectively.
 The type ``\HOLinline{\ensuremath{\beta} \HOLTyOp{Action}}'' is the
 union of all visible actions (input and output labels) and the invisible action $\tau$
-(\texttt{tau}). For instace, the input \emph{action} $a$ and output
+(\texttt{tau}). For instance, the input \emph{action} $a$ and output % editorial
 \emph{action} $\overline{b}$ of type ``\HOLinline{\HOLTyOp{string} \HOLTyOp{Action}}''
 are denoted by \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLStringLit{a}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLStringLit{b}\ensuremath{)}}, respectively. On the
 other hand, \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{name} \HOLNumLit{1}\ensuremath{)}} and \HOLinline{\HOLConst{label} \ensuremath{(}\HOLConst{coname} \HOLNumLit{2}\ensuremath{)}} could be actions of type ``\HOLinline{\HOLTyOp{num} \HOLTyOp{Action}}'', where
@@ -172,7 +172,7 @@ level without changing anything, e.g.:
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{+}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{\HOLFreeVar{E}\sb{\mathrm{2}}}\hfill{[CCS_Subst_sum]}
 \end{alltt}
-The only two insteresting cases are those for agent variables and recursion:
+The only two interesting cases are those for agent variables and recursion: % editorial
 \begin{alltt}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{var} \HOLFreeVar{Y}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLKeyword{else} \HOLConst{var} \HOLFreeVar{Y}\hfill{[CCS_Subst_var]}
 \HOLTokenTurnstile{} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \ensuremath{(}\HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\ensuremath{=}} \HOLKeyword{if} \HOLFreeVar{Y} \HOLSymConst{\ensuremath{=}} \HOLFreeVar{X} \HOLKeyword{then} \HOLConst{rec} \HOLFreeVar{Y} \HOLFreeVar{E} \HOLKeyword{else} \HOLConst{rec} \HOLFreeVar{Y} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}\hfill{[CCS_Subst_rec]}
