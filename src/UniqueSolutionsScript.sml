@@ -4,9 +4,10 @@
 (*                                                                            *)
 (* THESIS        : A Formalization of Unique Solutions of Equations in        *)
 (*                 Process Algebra                                            *)
+(*                                                                            *)
 (* AUTHOR        : (c) 2017 Chun Tian, University of Bologna, Italy           *)
-(*                 (c) 2018 Chun Tian, Fondazione Bruno Kessler (FBK)         *)
-(* DATE          : 2017-2018                                                  *)
+(*                 (c) 2018 Chun Tian, Fondazione Bruno Kessler (FBK), Italy  *)
+(* DATE          : 2017 - 2018                                                *)
 (* ========================================================================== *)
 
 open HolKernel Parse boolLib bossLib;
@@ -2127,7 +2128,7 @@ QED
 
 (******************************************************************************)
 (*                                                                            *)
-(*      7. Unique solutions of rooted contractions (EXPRESS/SOS 2018)         *)
+(*      7. Unique solutions of rooted contractions (EXPRESS/SOS 2018; [3])    *)
 (*                                                                            *)
 (******************************************************************************)
 
@@ -2165,6 +2166,8 @@ QED
  *
  * [1] Milner, R.: Communication and concurrency. (1989).
  * [2] Sangiorgi, D.: Equations, contractions, and unique solutions. ACM SIGPLAN Notices. (2015).
+ * [3] Tian, C., Sangiorgi, D.: Unique solutions of contractions, CCS, and their HOL formalisation.
+ *     Inf. Comput. 275, 104606 (2020).
  *)
 
 val _ = export_theory ();

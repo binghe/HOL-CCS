@@ -103,7 +103,7 @@ The derivatives of a process are themselves processes, i.e.
 if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 \emptyset$. Formally:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{IS_PROC} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_PROC} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[TRANS_PROC]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{IS_PROC} \HOLBoundVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{IS_PROC} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\hfill{[TRANS_PROC]}
 \end{alltt}
 \end{proposition}
 
@@ -111,7 +111,7 @@ if $E \arr{\mu} E'$ and $\fv{E} = \emptyset$, then $\fv{E'} =
 We prove a stronger result, asserting that the set of free
 variables in a CCS process does not increase in its derivatives:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[TRANS_FV]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[TRANS_FV]}
 \end{alltt}
 
 In~\cite{milner1990operational}, the proof of the above property is
@@ -123,28 +123,27 @@ of the following \emph{induction principle} (generated together with the SOS
 rules), which essentially says that \HOLinline{\HOLConst{TRANS}} is the smallest relation
 satisfying the SOS rules:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u}. \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{l} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}.
-            \HOLBoundVar{P} \HOLBoundVar{E} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \ensuremath{(}\HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
-            \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \HOLSymConst{\ensuremath{\tau}} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{l} \HOLBoundVar{L}.
-            \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLBoundVar{L}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
-            \HOLBoundVar{P} \ensuremath{(}\ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{rf}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}\ensuremath{)} \ensuremath{(}\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}\ensuremath{)} \ensuremath{(}\HOLConst{relab} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLBoundVar{rf}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}. \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u}. \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{u}\HOLSymConst{\ensuremath{\ldotp}}\HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{+}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\ensuremath{+}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\ensuremath{\mid}} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{l} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}.
+          \HOLBoundVar{P} \HOLBoundVar{E} \ensuremath{(}\HOLConst{label} \HOLBoundVar{l}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{P} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \ensuremath{(}\HOLConst{label} \ensuremath{(}\HOLConst{COMPL} \HOLBoundVar{l}\ensuremath{)}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}}
+          \HOLBoundVar{P} \ensuremath{(}\HOLBoundVar{E} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)} \HOLSymConst{\ensuremath{\tau}} \ensuremath{(}\ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\ensuremath{\mid}} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{2}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLBoundVar{l} \HOLBoundVar{L}.
+          \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenConj{}} \ensuremath{(}\HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLSymConst{\ensuremath{\tau}} \HOLSymConst{\HOLTokenDisj{}} \HOLBoundVar{u} \HOLSymConst{\ensuremath{=}} \HOLConst{label} \HOLBoundVar{l} \HOLSymConst{\HOLTokenConj{}} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLBoundVar{L} \HOLSymConst{\HOLTokenConj{}} \HOLConst{COMPL} \HOLBoundVar{l} \HOLSymConst{\HOLTokenNotIn{}} \HOLBoundVar{L}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
+          \HOLBoundVar{P} \ensuremath{(}\ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{(}\ensuremath{(\nu}\HOLBoundVar{L}\ensuremath{)} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+       \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLBoundVar{rf}. \HOLBoundVar{P} \HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLConst{relab} \HOLBoundVar{E} \HOLBoundVar{rf}\ensuremath{)} \ensuremath{(}\HOLConst{relabel} \HOLBoundVar{rf} \HOLBoundVar{u}\ensuremath{)} \ensuremath{(}\HOLConst{relab} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLBoundVar{rf}\ensuremath{)}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
        \ensuremath{(}\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \HOLBoundVar{X} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}. \HOLBoundVar{P} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{(}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{)} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sb{\mathrm{1}}}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
        \HOLSymConst{\HOLTokenForall{}}\ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}. \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \HOLTokenTransBegin\ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}} \HOLSymConst{\HOLTokenImp{}} \HOLBoundVar{P} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{0}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{1}}} \ensuremath{\HOLBoundVar{a}\sb{\mathrm{2}}}\hfill{[TRANS_ind]}
 \end{alltt}
-The above long theorem is of the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}} (with $a_0, a_1, a_2$ renamed), where the
+The above long theorem is of the form \HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{P}.\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLBoundVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}} (with $a_0, a_1, a_2$ renamed), where the
 outermost universal quantifier $P$ is a higher-order
 proposition (taking $E$, $\mu$ and $E'$), and $X$ is another higher-order
 proposition.
 The proof goal is actually in the form of
-\HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLFreeVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}}, where
-\HOLinline{\HOLFreeVar{P}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}.\\\;\HOLConst{FV}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime}}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLBoundVar{E}\ensuremath{)}}. Thus, if we can prove
+\HOLinline{\HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}.\\\;\HOLBoundVar{E}\\\;\HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\\\;\HOLSymConst{\HOLTokenImp{}}\\\;\HOLFreeVar{P}\\\;\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}}, where
+\HOLinline{\HOLFreeVar{P}\\\;\HOLSymConst{\ensuremath{=}}\\\;\ensuremath{(}\HOLTokenLambda{}\HOLBoundVar{E}\\\;\HOLBoundVar{u}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}.\\\;\HOLConst{FV}\\\;\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLBoundVar{E}\ensuremath{)}}. Thus, if we can prove
 $X$ under this specific $P$, by Modus Ponens (MP) the original proof
 is completed.
 Now the goal can be reduced to several conjunct
@@ -156,9 +155,9 @@ $\fv{E_1} \subseteq \fv{E} \Longrightarrow
 the following goal left (the term above the dash line is the goal,
 those below the line are assumptions):
 \begin{alltt}
-        \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}
+        \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}
    ------------------------------------
-    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
 Note that \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLConst{DELETE}\\\;\HOLFreeVar{X}\\\;\HOLSymConst{\ensuremath{=}}\\\;\HOLConst{FV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}}, thus
 the current proof goal is indeed the consequence of action induction on the
@@ -168,7 +167,7 @@ Here the problem is that we know nothing about
 some other (easier) lemmas. First, the next lemma can be  proven
 by  induction on $E$ and a few basic set-theoretic facts:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[FV_SUBSET]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\hfill{[FV_SUBSET]}
 \end{alltt}
 Now, if we take $E' = \recu X E$ in the above lemma, we get
 \HOLinline{\HOLConst{FV}\\\;\ensuremath{(}\ensuremath{[}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\HOLConst{FV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}} $=$ \HOLinline{\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\ensuremath{(}\HOLConst{FV}\\\;\HOLFreeVar{E}\\\;\HOLConst{DELETE}\\\;\HOLFreeVar{X}\ensuremath{)}} $=$
@@ -177,41 +176,41 @@ Now, if we take $E' = \recu X E$ in the above lemma, we get
 \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E}. \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \HOLBoundVar{E}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLBoundVar{E}\hfill{[FV_SUBSET_REC]}
 \end{alltt}
 Thus we can enrich the assumptions of the current proof goal with above
-lemma, and obtain \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}} by the transitivity of $\subseteq$:
+lemma, and obtain \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}} by the transitivity of $\subseteq$:
 \begin{alltt}
-        \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}
+        \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}
    ------------------------------------
-    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
     1.  \HOLinline{\HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
-    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
+    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
 \end{alltt}
-Knowing \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}} we cannot prove \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}. However, if we knew \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}, then \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\ensuremath{=}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}, and then
-\HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}, no matter if \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E}} or not, and the proof
+Knowing \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}} we cannot prove \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}. However, if we knew \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}}}, then \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\ensuremath{=}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}}}, and then
+\HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenImp{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLConst{DELETE} \HOLFreeVar{X} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E} \HOLConst{DELETE} \HOLFreeVar{X}}, no matter if \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \HOLFreeVar{E}} or not, and the proof
 would complete. Thus it remains to show that
 \begin{alltt}
-        \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}
+        \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}}}
    ------------------------------------
-    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
     1.  \HOLinline{\HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
-    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
+    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
 \end{alltt}
 Now we try the proof by contradiction (\emph{reductio ad absurdum}): if
 the goal does not hold, i.e.
-\HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}, then by assumption 0 we have \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}:
+\HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}}}, then by assumption 0 we have \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}:
 \begin{alltt}
         F
    ------------------------------------
-    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+    0.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
     1.  \HOLinline{\HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
-    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
-    3.  \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime}}}
+    2.  \HOLinline{\HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{FV} \HOLFreeVar{E}}
+    3.  \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}}}
     4.  \HOLinline{\HOLFreeVar{X} \HOLSymConst{\HOLTokenIn{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 \end{alltt}
 But this is impossible, because all free occurrences of $X$ in $E$ now become
 bound in the form of $\recu X E$. In fact, the following lemma can be
 proven by induction on $E$:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)}\hfill{[NOTIN_FV_lemma]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{X} \HOLSymConst{\HOLTokenNotIn{}} \HOLConst{FV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLBoundVar{X} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)}\hfill{[NOTIN_FV_lemma]}
 \end{alltt}
 Adding the above lemma (taking $E' = E$) into the assumption list immediately causes
 a contradiction with assumption 4, and the proof finally completes.
@@ -227,7 +226,7 @@ transition induction. (The easy proof is omitted.)
 \label{prop:transBV}
 if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 \begin{alltt}
-\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E}\hfill{[TRANS_BV]}
+\HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{E} \HOLBoundVar{u} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLBoundVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenImp{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E}\hfill{[TRANS_BV]}
 \end{alltt}
 \end{proposition}
 % \begin{proof}
@@ -235,9 +234,9 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 % induction on $E \arr{\mu} E'$ and simplify all subgoals by set-theoretic
 % facts. The only subgoal left is:
 % \begin{alltt}
-%         \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
+%         \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
 %    ------------------------------------
-%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 % \end{alltt}
 % Note the difference with the proof of Proposition~\ref{prop:transFV}: now
 % we have \texttt{INSERT} in place of \texttt{DELETE}. Then, we directly
@@ -246,12 +245,12 @@ if $E \arr{\mu} E'$ then $\bv{E'} \subseteq \bv{E}$, or formally:
 % \begin{alltt}
 %         \HOLinline{\HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLFreeVar{X} \HOLConst{INSERT} \HOLConst{BV} \HOLFreeVar{E}}
 %    ------------------------------------
-%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
+%     0.  \HOLinline{\HOLConst{BV} \ensuremath{\HOLFreeVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \ensuremath{(}\ensuremath{[}\HOLConst{rec} \HOLFreeVar{X} \HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}\ensuremath{)}}
 % \end{alltt}
 % This is an easy goal, due to the following lemma which is
 %  proved by doing induction on $E$:
 % \begin{alltt}
-% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime}}. \HOLConst{BV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\hfill{[BV_SUBSET]}
+% \HOLTokenTurnstile{} \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{X} \HOLBoundVar{E} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}. \HOLConst{BV} \ensuremath{(}\ensuremath{[}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{/}\HOLBoundVar{X}\ensuremath{]} \HOLBoundVar{E}\ensuremath{)} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{BV} \HOLBoundVar{E} \HOLSymConst{\HOLTokenUnion{}} \HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\hfill{[BV_SUBSET]}
 % \end{alltt}
 % Taking $E ' = \recu X E$ in the above lemma, we have
 %     \HOLinline{\HOLConst{BV}\\\;\ensuremath{(}\ensuremath{[}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]}\\\;\HOLFreeVar{E}\ensuremath{)}\\\;\HOLSymConst{\HOLTokenSubset{}}\\\;\HOLConst{BV}\\\;\HOLFreeVar{E}\\\;\HOLSymConst{\HOLTokenUnion{}}\\\;\HOLConst{BV}\\\;\ensuremath{(}\HOLConst{rec}\\\;\HOLFreeVar{X}\\\;\HOLFreeVar{E}\ensuremath{)}},
@@ -361,7 +360,7 @@ with respect to~\texttt{CCS\_Subst}:
   expression $E'$), then \HOLinline{\HOLConst{CCS_SUBST}} behaves exactly the
   same as (the \univariate) \HOLinline{\HOLConst{CCS_Subst}}:
 \begin{alltt}
-\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{]}\ensuremath{/}\ensuremath{[}\HOLFreeVar{X}\ensuremath{]}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}
+\HOLTokenTurnstile{} \ensuremath{[}\ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime{}}}\ensuremath{]}\ensuremath{/}\ensuremath{[}\HOLFreeVar{X}\ensuremath{]}\ensuremath{]} \HOLFreeVar{E} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\ensuremath{\HOLFreeVar{E}\sp{\prime{}}}\ensuremath{/}\HOLFreeVar{X}\ensuremath{]} \HOLFreeVar{E}
 \end{alltt}
 \end{lemma}
 
@@ -612,13 +611,13 @@ below (\texttt{strong_unique_solution_lemma}):
 \begin{alltt}
 \HOLTokenTurnstile{} \HOLConst{weakly_guarded} \HOLFreeVar{Xs} \HOLFreeVar{E} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \HOLFreeVar{E} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \HOLFreeVar{E}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenImp{}}
    \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Ps}.
-       \HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
-       \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \ensuremath{\HOLBoundVar{P}\sp{\prime}}.
-           \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\HOLTokenImp{}}
-           \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sp{\prime}}.
-               \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime}}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
-               \ensuremath{\HOLBoundVar{P}\sp{\prime}} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime}} \HOLSymConst{\HOLTokenConj{}}
-               \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Qs}. \HOLConst{LENGTH} \HOLBoundVar{Qs} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime}}
+     \HOLConst{LENGTH} \HOLBoundVar{Ps} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}}
+     \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{u} \ensuremath{\HOLBoundVar{P}\sp{\prime{}}}.
+       \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{\HOLBoundVar{P}\sp{\prime{}}} \HOLSymConst{\HOLTokenImp{}}
+       \HOLSymConst{\HOLTokenExists{}}\ensuremath{\HOLBoundVar{E}\sp{\prime{}}}.
+         \HOLConst{context} \HOLFreeVar{Xs} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenConj{}} \HOLConst{FV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenSubset{}} \HOLConst{set} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenConj{}} \HOLConst{DISJOINT} \ensuremath{(}\HOLConst{BV} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}\ensuremath{)} \ensuremath{(}\HOLConst{set} \HOLFreeVar{Xs}\ensuremath{)} \HOLSymConst{\HOLTokenConj{}}
+         \ensuremath{\HOLBoundVar{P}\sp{\prime{}}} \HOLSymConst{\ensuremath{=}} \ensuremath{[}\HOLBoundVar{Ps}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}} \HOLSymConst{\HOLTokenConj{}}
+         \HOLSymConst{\HOLTokenForall{}}\HOLBoundVar{Qs}. \HOLConst{LENGTH} \HOLBoundVar{Qs} \HOLSymConst{\ensuremath{=}} \HOLConst{LENGTH} \HOLFreeVar{Xs} \HOLSymConst{\HOLTokenImp{}} \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \HOLFreeVar{E} \HOLTokenTransBegin\HOLBoundVar{u}\HOLTokenTransEnd \ensuremath{[}\HOLBoundVar{Qs}\ensuremath{/}\HOLFreeVar{Xs}\ensuremath{]} \ensuremath{\HOLBoundVar{E}\sp{\prime{}}}
 \end{alltt}
 
 The \multivariate version of Theorem~\ref{t:Mil89s1} is formalised thus:
